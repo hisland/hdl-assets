@@ -1,10 +1,12 @@
 /**********************************************************************************************
- * 计算浏览器滚动条的宽度
- * 2011-2-11 17:39:11
+ * 浏览器滚动条的宽度
+ * 保存在window.SCROLL_BAR_WIDTH全局变量上
+ * 
+ * Time: @TIMESTAMP@
  */
 $(function(){
-	var div = $('<div></div>');
-	div.width(50).css({'visibility':'hidden', 'position':'absolute', 'overflow':'scroll'}).appendTo('body');
+	var div = $('<div style="visibility:hidden;position:absolute;overflow:scroll;width:50px;"></div>');
+	div.appendTo('body');
 	window.SCROLL_BAR_WIDTH = 50 - div[0].clientWidth;
 	div.remove();
 });
