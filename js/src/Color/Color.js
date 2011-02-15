@@ -6,7 +6,6 @@
  * 版本: v1
  * 
  * 前置脚本:patch.javascript.js;
- *			 jquery-1.4.2.min.js;
  * 
  * 1个参数时:
  *		'#ffaa00'
@@ -24,24 +23,26 @@
  *		obj.b/
  */
 
-(function($){
+(function(){
 	//颜色名称对照表
-	var name_to_hex = {'red':'#ff0000'
-					,'green':'#008000'
-					,'blue':'#0000ff'
-					,'yellow':'#ffff00'
-					,'purple':'#800080'
-					,'gray':'#808080'
-					,'silver':'#c0c0c0'
-					,'pink':'#ffc0cb'
-					,'black':'#000000'
-					,'white':'#ffffff'
-					,'lime':'#00ff00'
-					,'aqua':'#00ffff'
-					,'fuchsia':'#ff00ff'
-					,'teal':'#008080'
-					,'maroon':'#800000'
-					,'olive':'#808000'};
+	var name_to_hex = {
+						 'red':'#ff0000'
+						,'green':'#008000'
+						,'blue':'#0000ff'
+						,'yellow':'#ffff00'
+						,'purple':'#800080'
+						,'gray':'#808080'
+						,'silver':'#c0c0c0'
+						,'pink':'#ffc0cb'
+						,'black':'#000000'
+						,'white':'#ffffff'
+						,'lime':'#00ff00'
+						,'aqua':'#00ffff'
+						,'fuchsia':'#ff00ff'
+						,'teal':'#008080'
+						,'maroon':'#800000'
+						,'olive':'#808000'
+					};
 	//内部解析hex值用的函数
 	function parseRgb(hex){
 		this.r = parseInt(hex.substr(1,2),16);
@@ -50,12 +51,11 @@
 	}
 	//颜色类,包含rgb值
 	function Color(){
-		var args = arguments;
-		var arr;
+		var args = arguments, arr, aa, i;
 
 		//一个参数的时候
 		if(args.length == 1){
-			var arr = args[0].match(/(^#[\da-f]{6}$)|(^#[\da-f]{3}$)|(^rgb\((?:(?:\d{1,2}|[01]\d{2}|2[0-4]\d|25[0-5]),\s*){2}(?:\d{1,2}|[01]\d{2}|2[0-4]\d|25[0-5])\)$)/i);
+			arr = args[0].match(/(^#[\da-f]{6}$)|(^#[\da-f]{3}$)|(^rgb\((?:(?:\d{1,2}|[01]\d{2}|2[0-4]\d|25[0-5]),\s*){2}(?:\d{1,2}|[01]\d{2}|2[0-4]\d|25[0-5])\)$)/i);
 			//是#aaafff形式
 			if(arr && arr[1]){
 				parseRgb.call(this, arr[1]);
@@ -67,7 +67,7 @@
 
 			//是rgb(255,255,255)形式
 			}else if(arr && arr[3]){
-				var aa =arr[3].match(/\d{1,3}/g);
+				aa =arr[3].match(/\d{1,3}/g);
 				args.length = 3;
 				args[0] = parseInt(aa[0],10);
 				args[1] = parseInt(aa[1],10);
@@ -83,7 +83,7 @@
 
 		//RGB3数字表示
 		if(args.length == 3){
-			for(var i=0;i<args.length;i++){
+			for(i=0;i<args.length;i++){
 				if(!(args[i]<=255 && args[i]>=0)){
 					alert('颜色参数: '+args[0]+','+args[1]+','+args[2]+' 不正确,请检查!');
 					return;
@@ -97,10 +97,11 @@
 
 	//转换成HEX字符串#ff00cc
 	Color.prototype.toHex = function(){
+		var sr, sg, sb;
 		try{
-			var sr = this.r.toString(16);
-			var sg = this.g.toString(16);
-			var sb = this.b.toString(16);
+			sr = this.r.toString(16);
+			sg = this.g.toString(16);
+			sb = this.b.toString(16);
 			if(sr.length==1){sr="0"+sr};
 			if(sg.length==1){sg="0"+sg};
 			if(sb.length==1){sb="0"+sb};
@@ -119,12 +120,12 @@
 		}
 	}
 
-	//注册到jq命名空间上
-	$.Color = function(arg1, arg2, arg3){
+	//导出为全局函数
+	window.Color = function(arg1, arg2, arg3){
 		if(arguments.length == 1){
 			return new Color(arg1);
 		}else if(arguments.length == 3){
 			return new Color(arg1, arg2, arg3);
 		}
 	}
-})(jQuery);
+})();
