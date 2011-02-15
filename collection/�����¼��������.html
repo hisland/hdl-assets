@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="robots" content="all" />
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		body{font-family:"宋体",arial;font-size:75%;}
+		a img{border:none;}
+		table{border-collapse:collapse;border-spacing:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		a:hover{text-decoration:underline;}
+		
+		hr{margin:10px 0;height:1px;border:none;border-top:1px solid #ccc;background:none;}
+
+		body{padding:50px;}
+		p{padding:5px;}
+	</style>
+	<script type="text/javascript" src="../lib.javascript/jquery-1.4.2.js"></script>
+	<script type="text/javascript">
+		$(function(){
+//			$('#aa').keypress(function(e){
+//				$('body').append('<p>#aa keypress: '+ $(this).find(':text')[0].value + '</p>');
+//			}).keydown(function(e){
+//				$('body').append('<p>#aa keydown: '+ $(this).find(':text')[0].value + '</p>');
+//			}).keyup(function(e){
+//				$('body').append('<p>#aa keyup: '+ $(this).find(':text')[0].value + '</p>');
+//			});
+
+			$('#aa :text').keypress(function(e){
+				$('body').append('<p>keypress: ' + e.keyCode + this.value + '</p>');
+				return false;
+			}).keydown(function(e){
+				$('body').append('<p>keydown: ' + e.keyCode + this.value + '</p>');
+			}).keyup(function(e){
+				$('body').append('<p>keyup: ' + e.keyCode + this.value + '</p>');
+			});
+//			$('body').keypress(function(e){
+//				$('body').append('<p>#aa keypress: '+ $(this).find(':text')[0].value + '</p>');
+//			});
+		});
+	</script>
+</head>
+
+<body>
+	<div id="aa">
+		<input type="text" name="" value="" />
+	</div>
+
+	<p>
+		触发顺序 keydown,keypress,keyup
+	</p>
+	<p>
+		按下时,,触发 keydown,keypress <br />
+		放开时,,触发 keyup
+	</p>
+	<p>
+		按下时,,触发 value值为原始值<br />
+		放开时,,触发 value值为新值
+	</p>
+	<p>
+		按下时,,触发 keydown--IE--e--keyCode<br />
+		按下时,,触发 keypress--IE--e--keyCode<br />
+		按下时,,触发 keydown--FF--e--keyCode<br />
+		按下时,,触发 keypress--FF--e--charCode<br /><br />
+		放开时,,触发 keyup--IE--e--keyCode<br />
+		放开时,,触发 keyup--FF--e--keyCode<br />
+	</p>
+</body>
+</html>

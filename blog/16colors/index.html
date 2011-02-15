@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="keywords" content="配色方案 ,Web标准 ,hisland ,Javascript" />
+	<title> hisland's 16 color schemes</title>
+	<style type="text/css">
+	/*<![CDATA[*/
+		*{margin:0;padding:0}
+		body{font-size:80%}
+		a{color:green;text-decoration:none;margin:0 5px;}
+		a:hover{color:red;text-decoration:underline}
+		#copyright{width:630px;margin:10px auto 0;line-height:120%;font-size:120%;position:relative;}
+		#copytips{position:absolute;top:0;right:50px;width:250px;height:35px;line-height:35px;border:1px solid #ADCD3C;background:#F2FDDB;text-align:center;font-size:120%;color:red;display:none;}
+		#wrap{width:630px;margin:0 auto;overflow:hidden;}
+		#info{width:630px;margin:5px auto 0;}
+		.box{float:left;width:300px;line-height:20px;height:45px;padding-top:5px;margin:5px 10px 0 0;text-align:center}
+		.color1{border:1px solid #96C2F1;background-color:#EFF7FF}
+		.color2{border:1px solid #9BDF70;background-color:#F0FBEB}
+		.color3{border:1px solid #BBE1F1;background-color:#EEFAFF}
+		.color4{border:1px solid #CCEFF5;background-color:#FAFCFD}
+		.color5{border:1px solid #FFCC00;background-color:#FFFFF7}
+		.color6{border:1px solid #92B0DD;background-color:#FFFFFF}
+		.color7{border:1px solid #A9C9E2;background-color:#E8F5FE}
+		.color8{border:1px solid #E3E197;background-color:#FFFFDD}
+		.color9{border:1px solid #ADCD3C;background-color:#F2FDDB}
+		.color10{border:1px solid #F8B3D0;background-color:#FFF5FA}
+		.color11{border:1px solid #D3D3D3;background-color:#F7F7F7}
+		.color12{border:1px solid #BFD1EB;background-color:#F3FAFF}
+		.color13{border:1px solid #FFDD99;background-color:#FFF9ED}
+		.color14{border:1px solid #CACAFF;background-color:#F7F7FF}
+		.color15{border:1px solid #A5B6C8;background-color:#EEF3F7}
+		.color16{border:1px solid #CEE3E9;background-color:#F1F7F9}
+	/*]]>*/
+	</style>
+	<script type="text/javascript">
+	//<![CDATA[
+		function copyValue(value){
+			if(window.clipboardData){
+				window.clipboardData.setData('Text',value);
+			}else{
+				if(!document.getElementById('flashcopier')){
+					var flashcopier = document.createElement('div');
+					flashcopier.id = 'flashcopier';
+					document.body.appendChild(flashcopier);
+				}
+				document.getElementById('flashcopier').innerHTML = '<embed src="_clipboard.swf" FlashVars="clipboard='+escape(value)+'" width="0" height="0" type="application/x-shockwave-flash"></embed>';
+			}
+		}
+		function changetips(color){
+			var tip = document.getElementById("copytips");
+			var tip_info = tip.getElementsByTagName("span")[0];
+			if(tip.style.display == '') tip.style.display = 'block';
+			tip.style.background = color;
+			tip_info.innerHTML = color;
+		}
+		colors = [['#96C2F1','#EFF7FF']
+				 ,['#9BDF70','#F0FBEB']
+				 ,['#BBE1F1','#EEFAFF']
+				 ,['#CCEFF5','#FAFCFD']
+				 ,['#FFCC00','#FFFFF7']
+				 ,['#92B0DD','#FFFFFF']
+				 ,['#A9C9E2','#E8F5FE']
+				 ,['#E3E197','#FFFFDD']
+				 ,['#ADCD3C','#F2FDDB']
+				 ,['#F8B3D0','#FFF5FA']
+				 ,['#D3D3D3','#F7F7F7']
+				 ,['#BFD1EB','#F3FAFF']
+				 ,['#FFDD99','#FFF9ED']
+				 ,['#CACAFF','#F7F7FF']
+				 ,['#A5B6C8','#EEF3F7']
+				 ,['#CEE3E9','#F1F7F9']];
+	window.onload = function(){
+		var links = document.getElementById("wrap").getElementsByTagName("a");
+		for(var i=0;i<links.length;i++){
+			links[i].onclick = (function(n){
+				return function(){
+							if(n%2){copyValue(colors[(n-1)/2][1]);changetips(colors[(n-1)/2][1])}
+							else{copyValue(colors[n/2][0]);changetips(colors[n/2][0])}
+							this.blur();
+							return false;
+						};
+			})(i);
+		}
+	}
+	//]]>
+	</script>
+</head>
+<body>
+<div id="copyright">此页面由<a href="http://www.hisland.cn">hisland.cn</a>从网络收集并制作<br />如有问题或建议请邮件至<a href="mailto:hisland@qq.com">hisland@qq.com</a>
+<div id="copytips">复制成功,值为<span>#96C2F1</span></div>
+</div>
+<div id="wrap">
+<div class="box color1"><a href="#">点击复制边框颜色:</a>#96C2F1<br /><a href="#">点击复制背景颜色:</a>#EFF7FF</div>
+<div class="box color2"><a href="#">点击复制边框颜色:</a>#9BDF70<br /><a href="#">点击复制背景颜色:</a>#F0FBEB</div>
+<div class="box color3"><a href="#">点击复制边框颜色:</a>#BBE1F1<br /><a href="#">点击复制背景颜色:</a>#EEFAFF</div>
+<div class="box color4"><a href="#">点击复制边框颜色:</a>#CCEFF5<br /><a href="#">点击复制背景颜色:</a>#FAFCFD</div>
+<div class="box color5"><a href="#">点击复制边框颜色:</a>#FFCC00<br /><a href="#">点击复制背景颜色:</a>#FFFFF7</div>
+<div class="box color6"><a href="#">点击复制边框颜色:</a>#92B0DD<br /><a href="#">点击复制背景颜色:</a>#FFFFFF</div>
+<div class="box color7"><a href="#">点击复制边框颜色:</a>#A9C9E2<br /><a href="#">点击复制背景颜色:</a>#E8F5FE</div>
+<div class="box color8"><a href="#">点击复制边框颜色:</a>#E3E197<br /><a href="#">点击复制背景颜色:</a>#FFFFDD</div>
+<div class="box color9"><a href="#">点击复制边框颜色:</a>#ADCD3C<br /><a href="#">点击复制背景颜色:</a>#F2FDDB</div>
+<div class="box color10"><a href="#">点击复制边框颜色:</a>#F8B3D0<br /><a href="#">点击复制背景颜色:</a>#FFF5FA</div>
+<div class="box color11"><a href="#">点击复制边框颜色:</a>#D3D3D3<br /><a href="#">点击复制背景颜色:</a>#F7F7F7</div>
+<div class="box color12"><a href="#">点击复制边框颜色:</a>#BFD1EB<br /><a href="#">点击复制背景颜色:</a>#F3FAFF</div>
+<div class="box color13"><a href="#">点击复制边框颜色:</a>#FFDD99<br /><a href="#">点击复制背景颜色:</a>#FFF9ED</div>
+<div class="box color14"><a href="#">点击复制边框颜色:</a>#CACAFF<br /><a href="#">点击复制背景颜色:</a>#F7F7FF</div>
+<div class="box color15"><a href="#">点击复制边框颜色:</a>#A5B6C8<br /><a href="#">点击复制背景颜色:</a>#EEF3F7</div>
+<div class="box color16"><a href="#">点击复制边框颜色:</a>#CEE3E9<br /><a href="#">点击复制背景颜色:</a>#F1F7F9</div>
+</div>
+<div id="info">本页面固定链接:<a href="http://www.hisland.cn/16colors">16种配色方案</a><br />配色方案来自:<a href="http://scriptlover.com/">scriptlover.com</a><br />如果无法直接复制,您可以选择然后自行复制</div>
+</body>
+</html>

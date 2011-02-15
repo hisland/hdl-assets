@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="hdlDropSelect.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('select').hdlDropSelect();
+		});
+	</script>
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		body{font-family:"宋体",serif;font-size:75%;}
+		a img{border:none;}
+		table{border-collapse:collapse;border-spacing:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		a:hover{text-decoration:underline;}
+
+		body{padding:50px;}
+		#aa{width:50px; margin:50px;}
+	</style>
+	<link rel="stylesheet" type="text/css" href="hdlDropSelect.css" />
+	<style type="text/css">
+		.ie67_select_drop{position:absolute;border:1px solid #000;background:#fff;font-family:Arial;}
+		.ie67_select_drop a{display:block;padding:1px 2px 0;text-decoration:none;color:#000;white-space:nowrap;}
+		.ie67_select_drop a:hover{text-decoration:none;}
+		.ie67_select_drop a.selected{background:#316ac5;color:#fff;}
+	</style>
+</head>
+
+<body>
+	<select id="aa">
+		<option value="aa">aaa</option>
+		<option value="aa">bbbbbbbbbbbbbbbbbbbbbbbb</option>
+		<option value="">ddddddddd</option>
+	</select>
+
+	
+	<select id="bb">
+		<option value="aa">aaa</option>
+		<option value="aa">bbbbbbbbbbbbbbbbbbbbbbbb</option>
+		<option value="aa">ddddddddd</option>
+		<option value="aa">bbbbbbbbbbbbbbbbbbbbbbbb</option>
+		<option value="eww">ddddddddd</option>
+	</select>
+
+	
+	<select id="cc">
+		<option value="aa">aaa</option>
+		<option value="aa">bbbbbbbbbbbbbbbbbbbbbbbb</option>
+		<option value="cc">ddddddddd</option>
+		<option value="dd">ddddddddd</option>
+		<option value="ee">ddddddddd</option>
+	</select>
+
+	<a class="ie6-select-box" href="#">
+		<span>test text</span>
+	</a>
+
+</body>
+</html>

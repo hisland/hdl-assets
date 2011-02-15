@@ -1,0 +1,16 @@
+html{height:100%;width:100%;overflow:hidden;}
+body{height:100%;width:100%;overflow:auto;}
+
+#main{width:901px;}/*IE6下会出现边框有时无法被遮盖的情况,加1像素可解决*/
+#articles{margin:0 212px 20px 108px;}/*由于使用HTML的边框,IE会计算在内,所以要调整margin达到效果*/
+#article_list li a{width:100%;}
+#control li.article_now{position:relative;}
+
+.comment ol li dl{display:inline;}/*li下的dl会换行,加此解决*/
+
+#fixed_wrap{position:absolute;top:0;left:50%;width:900px;margin-left:-450px;}
+#top{position:relative;top:0;left:0;margin:0;}
+#banner{display:inline;}
+#nav{display:inline;}
+
+#copyright{padding-left:110px;}

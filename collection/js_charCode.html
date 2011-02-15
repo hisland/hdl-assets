@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="robots" content="all" />
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		body{font-family:"宋体",arial;font-size:75%;}
+		a img{border:none;}
+		table{border-collapse:collapse;border-spacing:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		a:hover{text-decoration:underline;}
+		
+		hr{margin:10px 0;height:1px;border:none;border-top:1px solid #ccc;background:none;}
+
+		body{padding:20px;}
+		table{width:135;margin-right:10px;float:left;}
+		th,td{border:1px solid #eee;padding:1px;}
+		th{width:45px;color:#666;}
+		td{width:90px;color:#666;}
+		#keydown_test{padding-bottom:5px;}
+			#keydown_input{width:80px;}
+	</style>
+	<script type="text/javascript">
+		function makeTag(name, value){
+			return '<'+name+'>'+value+'</'+name+'>';
+		}
+		window.onload = function(){
+			var div = document.createElement('div');
+			var str1 = '';
+
+			//0-32
+			var str = '<table>';
+			for(var i=0;i<=32;i++){
+				str += makeTag('tr', makeTag('th', i)+makeTag('td', String.fromCharCode(i)));
+			}
+			str += '</table>';
+			str1 += str;
+
+			//33-64
+			var str = '<table>';
+			for(var i=33;i<=64;i++){
+				str += makeTag('tr', makeTag('th', i)+makeTag('td', String.fromCharCode(i)));
+			}
+			str += '</table>';
+			str1 += str;
+
+			//65-96
+			var str = '<table>';
+			for(var i=65;i<=96;i++){
+				str += makeTag('tr', makeTag('th', i)+makeTag('td', String.fromCharCode(i)));
+			}
+			str += '</table>';
+			str1 += str;
+
+			//97-160
+			var str = '<table>';
+			for(var i=97;i<=160;i++){
+				str += makeTag('tr', makeTag('th', i)+makeTag('td', String.fromCharCode(i)));
+			}
+			str += '</table>';
+			str1 += str;
+
+			//161-210
+			var str = '<table>';
+			for(var i=161;i<=210;i++){
+				str += makeTag('tr', makeTag('th', i)+makeTag('td', String.fromCharCode(i)));
+			}
+			str += '</table>';
+			str1 += str;
+
+			//211-256
+			var str = '<table>';
+			for(var i=211;i<=256;i++){
+				str += makeTag('tr', makeTag('th', i)+makeTag('td', String.fromCharCode(i)));
+			}
+			str += '</table>';
+			str1 += str;
+
+
+			div.innerHTML = str1;
+			document.body.appendChild(div);
+		}
+	</script>
+</head>
+
+<body>
+	<img src="asciifull.gif" alt="" />
+</body>
+</html>

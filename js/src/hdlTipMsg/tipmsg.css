@@ -1,0 +1,14 @@
+.tipmsg_wrap{z-index:3000;position:absolute;width:327px;}
+	.tipmsg_title_wrap{position:relative;width:327px;height:25px;line-height:25px;background:url('img/tipmsg_sprite.gif') no-repeat -350px 0;}
+		.tipmsg_title{display:inline-block;color:#373737;font-weight:700;width:90%;white-space:nowrap;padding-left:10px;}
+		.tipmsg_close{position:absolute;top:6px;right:6px;width:13px;height:12px;background:url('img/tipmsg_sprite.gif') no-repeat -590px -110px;overflow:hidden;}
+	.tipmsg_content_wrap{position:relative;padding:30px 20px 20px 60px;line-height:1.5em;color:#2f2f2f;background:url('img/tipmsg_sprite.gif') repeat-y;zoom:1;}
+		.tipmsg_content_wrap div.tipmsg_content{max-height:300px;width:247px;overflow:auto;cursor:default;}
+		span.tipmsg_ico{position:absolute;overflow:hidden;left:20px;top:50%;margin-top:-8px;}
+		span.tipmsg_ico1{width:25px;height:27px;background:url('img/tipmsg_sprite.gif') no-repeat -350px -110px;}
+		span.tipmsg_ico2{width:25px;height:27px;background:url('img/tipmsg_sprite.gif') no-repeat -390px -110px;}
+		span.tipmsg_ico3{width:26px;height:27px;background:url('img/tipmsg_sprite.gif') no-repeat -430px -110px;}
+		span.tipmsg_ico4{width:26px;height:26px;background:url('img/tipmsg_sprite.gif') no-repeat -470px -110px;}
+	.tipmsg_btn_wrap{position:relative;text-align:center;height:30px;background:url('img/tipmsg_sprite.gif') no-repeat -350px -50px;}
+		.tipmsg_btn_wrap input{border:none;overflow:hidden;background:url('img/tipmsg_sprite.gif') no-repeat -510px -110px;width:72px;height:22px;color:#2a2a2a;cursor:pointer;}
+		.tipmsg_btn_wrap input.btn2{margin-right:10px;}

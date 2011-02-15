@@ -1,0 +1,1 @@
+(setenv "HOME" (concat (getenv "emacs_dir") "/hisland"))

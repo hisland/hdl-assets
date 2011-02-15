@@ -1,0 +1,122 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=gb2312" />
+		<title>农场测试</title>
+		<style type="text/css">
+			*{margin:0;padding:0;}
+			body{padding:5px;font-size:12px;color:#333;}
+			table{width:100%;font-size:12px;margin:-1px 0 0 -1px;}
+			td,th{text-align:center;padding:2px;*padding:0;}
+			table,tr,td,th{border-collapse:collapse;border:1px solid #ccc;}
+
+			.col1{width:20%;}
+			.col2{width:30%;}
+			.col3{width:10%;}
+			.col4{width:30%;}
+			.col5{width:10%;}
+
+			fieldset{border:1px solid #ddd;}
+			legend{margin-left:20px;border:1px solid #ddd;padding:3px;}
+			fieldset div{padding:5px;}
+
+			#users{margin:10px 0;padding-right:17px;height:300px;border:1px solid #ccc;overflow:hidden;}
+
+			#user{}
+			#master td{padding:2px;}
+			.caption{}
+			#friends{height:266px;*height:260px;overflow-y:scroll;margin:-1px -17px 0 0;}
+
+
+			#log{padding:5px;height:150px;overflow-y:auto;border:1px solid #ccc;border-bottom:none;}
+			#log p{margin:3px 0;color:#999;}
+			#log .action{color:green;}
+			#log .scrounge .action{color:red;}
+			#log .action{margin:0 15px 0 0;}
+			#log span{margin:10px;color:#666;}
+
+			#total{height:25px;line-height:25px;border:1px solid #ccc;padding:0 5px;}
+			#total span{margin:10px;}
+		</style>
+		<script type="text/javascript" src="md5.js"></script>
+		<script type="text/javascript">
+		window.resizeTo(600,640);
+		if(document.cookie.indexOf("hasOpen=true")==-1){
+			window.moveTo(-1000,-1000);
+			window.showModalDialog("http://show.qq.com/inc/login_box.html",window,'dialogWidth=410px;dialogHeight=362px;scroll=no');
+			var Days = 30;
+			var exp = new Date();exp.setTime(exp.getTime() + Days*24*60*60*1000);
+			document.cookie="hasOpen=true";
+			window.moveTo((parseInt(screen.width)-600)/2,(parseInt(screen.height)-640)/2);
+		}
+		</script>
+
+		<script type="text/javascript" src="tools.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+	</head>
+	<body>
+		
+		<!-- 用户选项设置 -->
+		<fieldset id="ctrlPanel">
+			<legend>用户选项</legend>
+			<div>
+				<input type="button" id="start" value="开始" />
+			</div>
+		</fieldset>
+
+		<!-- 农场用户数据 -->
+		<div id="users">
+			<div id="user">
+				<table>
+					<tbody>
+						<tr id="master">
+							<td>用户昵称</td>
+							<td>3级(500/1000)</td>
+							<td>35000</td>
+							<td>今天 12:50</td>
+							<td>自己</td>
+						</tr>
+						<tr class="caption">
+							<th class="col1">昵称</th>
+							<th class="col2">等级</th>
+							<th class="col3">金钱</th>
+							<th class="col4">最早成熟</th>
+							<th class="col5"><input type="checkbox" id="checkAll" /></th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div id="friends">
+				<table>
+					<tbody>
+					<tr>
+						<td class="col1">朋友昵称</td>
+						<td class="col2">3级(500/1000)</td>
+						<td class="col3">35000</td>
+						<td class="col4">今天 12:50</td>
+						<td class="col5"><input type="checkbox" /></td>
+					</tr><tr>
+						<td>朋友昵称</td>
+						<td>3级(500/1000)</td>
+						<td>35000</td>
+						<td>今天 12:50</td>
+						<td><input type="checkbox" /></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- 日志记录 -->
+		<div id="log">
+			<!-- <p class="cure"><span class="action">除状态</span>给<span class="user">默默</span>锄草,获得经验+2、金钱+1</p>
+			<p class="cure"><span class="action">除状态</span>给<span class="user">默默</span>杀虫,获得经验+2、金钱+1</p>
+			<p class="cure"><span class="action">除状态</span>给<span class="user">默默</span>浇水,获得经验+2、金钱+1</p>
+			<p class="cure"><span class="action">除状态</span>给<span class="user">自己</span>锄草,获得经验+2、金钱+1</p>
+			<p class="scrounge"><span class="action">摘果实</span>摘<span class="user">默默</span>西瓜*2,价值365</p> -->
+		</div>
+		<div id="total">
+			总计:<span id="totalExp">经验+50</span><span id="totalMoney">金钱+50</span><span id="totalValue">果实总价值500</span>
+		</div>
+	</body>
+</html>

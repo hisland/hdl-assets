@@ -1,0 +1,381 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=gb2312" />
+	<title>农场助手2.0</title>
+	<link rel="stylesheet" href="style/ui.css" type="text/css" />
+	<script type="text/javascript">
+	window.resizeTo(600,680);
+	if(document.cookie.indexOf("hasOpen=true")==-1){
+		window.moveTo(-1000,-1000);
+		window.showModalDialog("http://show.qq.com/inc/login_box.html",window,'dialogWidth=410px;dialogHeight=362px;scroll=no');
+		var Days = 30;
+		var exp = new Date();exp.setTime(exp.getTime() + Days*24*60*60*1000);
+		document.cookie="hasOpen=true";
+		window.moveTo((parseInt(screen.width)-600)/2,(parseInt(screen.height)-680)/2);
+	}
+	</script>
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/tools.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/ui.js"></script>
+</head>
+<body>
+	<!-- 农场版本标签 -->
+	<ul id="ver_tabs" class="tabs">
+		<li id="tab_qzone" class="active">QQ空间</li>
+		<li id="tab_xiaoyou">QQ校友</li>
+	</ul>
+
+	<!-- QQ空间农场 -->
+	<div id="qzone" class="wrap active">
+
+		<!-- 农场用户数据 -->
+		<div class="user">
+			<div class="panel">
+				<div><img id="qzone_userImg" src="#" alt="用户名" /><span id="qzone_user">用户名1</span></div>
+				<p>等级:<span id="qzone_level">5级(3522/35521)</span>
+				<br />金钱:<span id="qzone_money">3111</span>
+				<br />最早成熟:<span id="qzone_earliest">235:22:25</span>
+				<br />狗狗:<span id="qzone_dog">没有</span></p>
+			</div>
+			<div class="control">
+				<input type="button" class="startStop" value="开始"  id="qzone_start"/>
+				<label for="qzone_withDog"><input type="checkbox" class="withDog"  id="qzone_withDog"/>有狗也偷</label>
+				<p class="status">当前:<span id="qzone_nextCtrl">等待下次操作</span> <span id="qzone_time">23:23:25</span></p>
+			</div>
+		</div>
+
+		<!-- 农场功能标签 -->
+		<ul class="tabs" id="qzone_tabs">
+			<li class="active">好友列表</li>
+			<li>作物数据</li>
+			<li>种植推荐</li>
+			<li>装饰推荐</li>
+			<li>仓库</li>
+			<li>配置</li>
+		</ul>
+
+		<!-- 农场好友数据 -->
+		<div class="tables active" id="qzone_friends">
+			<div>
+				<table>
+					<tbody>
+						<tr>
+							<th class="col1">昵称</th>
+							<th class="col2">等级</th>
+							<th class="col3">金钱</th>
+							<th class="col4">最早成熟</th>
+							<th class="col5">狗狗</th>
+							<th class="col6"><input type="checkbox" /></th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tableMain">
+				<table>
+					<thead>
+						<tr>
+							<th class="col1">&nbsp;</th>
+							<th class="col2">&nbsp;</th>
+							<th class="col3">&nbsp;</th>
+							<th class="col4">&nbsp;</th>
+							<th class="col5">&nbsp;</th>
+							<th class="col6">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>朋友昵称</td>
+							<td>3级(500/1000)</td>
+							<td>35000</td>
+							<td>今天 12:50</td>
+							<td>饥饿</td>
+							<td><input type="checkbox" /></td>
+						</tr>
+						<tr>
+							<td>朋友昵称</td>
+							<td>3级(500/1000)</td>
+							<td>35000</td>
+							<td>今天 12:50</td>
+							<td>监视</td>
+							<td><input type="checkbox" /></td>
+						</tr>
+						<tr>
+							<td>朋友昵称</td>
+							<td>3级(500/1000)</td>
+							<td>35000</td>
+							<td>今天 12:50</td>
+							<td>无</td>
+							<td><input type="checkbox" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- 农场作物数据 -->
+		<div class="tables" id="qzone_crops">
+			<div>
+				<table>
+					<tbody>
+						<tr>
+							<th class="col7">名称</th>
+							<th class="col8">购买单价</th>
+							<th class="col9">类型</th>
+							<th class="col10">成熟时间</th>
+							<th class="col11">再熟时间</th>
+							<th class="col12">预计产量(价值)</th>
+							<th class="col13">单季经验</th>
+							<th class="col14">卖出单价</th>
+							<th class="col15">等级</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tableMain">
+				<table>
+					<thead>
+						<tr>
+							<th class="col7">&nbsp;</th>
+							<th class="col8">&nbsp;</th>
+							<th class="col9">&nbsp;</th>
+							<th class="col10">&nbsp;</th>
+							<th class="col11">&nbsp;</th>
+							<th class="col12">&nbsp;</th>
+							<th class="col13">&nbsp;</th>
+							<th class="col14">&nbsp;</th>
+							<th class="col15">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>香蕉</td>
+							<td>900金币</td>
+							<td>2季</td>
+							<td>31小时</td>
+							<td>14小时</td>
+							<td>29个(1856金币)</td>
+							<td>25/季</td>
+							<td>32</td>
+							<td>12</td>
+						</tr>
+						<tr>
+							<td>哈密瓜</td>
+							<td>900金币</td>
+							<td>2季</td>
+							<td>31小时</td>
+							<td>14小时</td>
+							<td>29个(1856金币)</td>
+							<td>25/季</td>
+							<td>32</td>
+							<td>12</td>
+						</tr>
+						<tr>
+							<td>香蕉</td>
+							<td>900金币</td>
+							<td>2季</td>
+							<td>31小时</td>
+							<td>14小时</td>
+							<td>29个(1856金币)</td>
+							<td>25/季</td>
+							<td>32</td>
+							<td>12</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- 日志记录 -->
+		<div class="log" id="qzone_log">
+			<p><span class="action">状态</span>给<span>默默</span>[7号]农田<span>锄草</span>获得经验+2、金钱+1</p>
+			<p><span class="action">状态</span>给<span>默默</span>[7号]农田<span>杀虫</span>获得经验+2、金钱+1</p>
+			<p><span class="action">状态</span>给<span>默默</span>[7号]农田<span>浇水</span>获得经验+2、金钱+1</p>
+			<p><span class="action">状态</span>给<span>自己</span>[7号]农田<span>锄草</span>获得经验+2、金钱+1</p>
+			<p class="scrounge"><span class="action">果实</span>摘<span>默默</span>[7号]农田<span>西瓜×2</span>价值365</p>
+			<p class="scrounge"><span class="action">果实</span>收获&nbsp;[7号]农田<span>西瓜×2</span>价值365</p>
+		</div>
+		<div class="total">
+			总计:<strong>除状态:<span id="qzone_totalCure">50</span>次</strong><strong>经验:<span id="qzone_totalExp">50</span></strong><strong>金钱:<span id="qzone_totalMoney">50</span></strong><strong>果实总价值:<span id="qzone_totalValue">500</span></strong>
+		</div>
+	</div>
+
+	<!-- QQ校友农场 -->
+	<div id="xiaoyou" class="wrap">
+
+		<!-- 农场用户数据 -->
+		<div class="user">
+			<div class="panel">
+				<div><img id="xiaoyou_userImg" src="#" alt="用户名2" /><span id="xiaoyou_user">用户名2</span></div>
+				<p>等级:<span id="xiaoyou_level">5级(3522/35521)</span>
+				<br />金钱:<span id="xiaoyou_money">3111</span>
+				<br />最早成熟:<span id="xiaoyou_earliest">235:22:25</span>
+				<br />狗狗:<span id="xiaoyou_dog">没有</span></p>
+			</div>
+			<div class="control">
+				<input type="button" class="startStop" value="开始"  id="xiaoyou_start"/>
+				<label for="xiaoyou_withDog"><input type="checkbox" class="withDog"  id="xiaoyou_withDog"/>有狗也偷</label>
+				<p class="status">当前:<span id="xiaoyou_nextCtrl">等待下次操作</span> <span id="xiaoyou_time">23:23:25</span></p>
+			</div>
+		</div>
+
+		<!-- 农场功能标签 -->
+		<ul class="tabs" id="xiaoyou_tabs">
+			<li class="active">好友列表</li>
+			<li>作物数据</li>
+			<li>种植推荐</li>
+			<li>装饰推荐</li>
+			<li>仓库</li>
+			<li>配置</li>
+		</ul>
+
+		<!-- 农场好友数据 -->
+		<div class="tables active" id="xiaoyou_friends">
+			<div>
+				<table>
+					<tbody>
+						<tr>
+							<th class="col1">昵称</th>
+							<th class="col2">等级</th>
+							<th class="col3">金钱</th>
+							<th class="col4">最早成熟</th>
+							<th class="col5">狗狗</th>
+							<th class="col6"><input type="checkbox" /></th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tableMain">
+				<table>
+					<thead>
+						<tr>
+							<th class="col1">&nbsp;</th>
+							<th class="col2">&nbsp;</th>
+							<th class="col3">&nbsp;</th>
+							<th class="col4">&nbsp;</th>
+							<th class="col5">&nbsp;</th>
+							<th class="col6">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>朋友昵称</td>
+							<td>3级(500/1000)</td>
+							<td>35000</td>
+							<td>今天 12:50</td>
+							<td>饥饿</td>
+							<td><input type="checkbox" /></td>
+						</tr>
+						<tr>
+							<td>朋友昵称</td>
+							<td>3级(500/1000)</td>
+							<td>35000</td>
+							<td>今天 12:50</td>
+							<td>监视</td>
+							<td><input type="checkbox" /></td>
+						</tr>
+						<tr>
+							<td>朋友昵称</td>
+							<td>3级(500/1000)</td>
+							<td>35000</td>
+							<td>今天 12:50</td>
+							<td>无</td>
+							<td><input type="checkbox" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- 农场作物数据 -->
+		<div class="tables" id="xiaoyou_crops">
+			<div>
+				<table>
+					<tbody>
+						<tr>
+							<th class="col7">名称</th>
+							<th class="col8">购买单价</th>
+							<th class="col9">类型</th>
+							<th class="col10">成熟时间</th>
+							<th class="col11">再熟时间</th>
+							<th class="col12">预计产量(价值)</th>
+							<th class="col13">单季经验</th>
+							<th class="col14">卖出单价</th>
+							<th class="col15">等级</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tableMain">
+				<table>
+					<thead>
+						<tr>
+							<th class="col7">&nbsp;</th>
+							<th class="col8">&nbsp;</th>
+							<th class="col9">&nbsp;</th>
+							<th class="col10">&nbsp;</th>
+							<th class="col11">&nbsp;</th>
+							<th class="col12">&nbsp;</th>
+							<th class="col13">&nbsp;</th>
+							<th class="col14">&nbsp;</th>
+							<th class="col15">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>香蕉</td>
+							<td>900金币</td>
+							<td>2季</td>
+							<td>31小时</td>
+							<td>14小时</td>
+							<td>29个(1856金币)</td>
+							<td>25/季</td>
+							<td>32</td>
+							<td>12</td>
+						</tr>
+						<tr>
+							<td>哈密瓜</td>
+							<td>900金币</td>
+							<td>2季</td>
+							<td>31小时</td>
+							<td>14小时</td>
+							<td>29个(1856金币)</td>
+							<td>25/季</td>
+							<td>32</td>
+							<td>12</td>
+						</tr>
+						<tr>
+							<td>香蕉</td>
+							<td>900金币</td>
+							<td>2季</td>
+							<td>31小时</td>
+							<td>14小时</td>
+							<td>29个(1856金币)</td>
+							<td>25/季</td>
+							<td>32</td>
+							<td>12</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- 日志记录 -->
+		<div class="log" id="xiaoyou_log">
+			<p><span class="action">状态</span>给<span>默默</span>[7号]农田<span>锄草</span>获得经验+2、金钱+1</p>
+			<p><span class="action">状态</span>给<span>默默</span>[7号]农田<span>杀虫</span>获得经验+2、金钱+1</p>
+			<p><span class="action">状态</span>给<span>默默</span>[7号]农田<span>浇水</span>获得经验+2、金钱+1</p>
+			<p><span class="action">状态</span>给<span>自己</span>[7号]农田<span>锄草</span>获得经验+2、金钱+1</p>
+			<p class="scrounge"><span class="action">果实</span>摘<span>默默</span>[7号]农田<span>西瓜×2</span>价值365</p>
+			<p class="scrounge"><span class="action">果实</span>收获&nbsp;[7号]农田<span>西瓜×2</span>价值365</p>
+		</div>
+		<div class="total">
+			总计:<strong>除状态:<span id="xiaoyou_totalCure">50</span>次</strong><strong>经验:<span id="xiaoyou_totalExp">50</span></strong><strong>金钱:<span id="xiaoyou_totalMoney">50</span></strong><strong>果实总价值:<span id="xiaoyou_totalValue">500</span></strong>
+		</div>
+	</div>
+</body>
+</html>

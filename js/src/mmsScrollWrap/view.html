@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="robots" content="all" />
+	<link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
+	<link rel="stylesheet" type="text/css" href="mmsScrollWrap.css" />
+	<style type="text/css">
+		body{padding:20px;}
+	</style>
+	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="mmsScrollWrap.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#mms-1').scrollInit(5, 300);
+			$('#start-1').click(function(e){
+				$('#mms-1').scrollStart();
+			});
+			$('#stop-1').click(function(e){
+				$('#mms-1').scrollStop();
+			});
+
+			$('#mms-2').scrollInit();//速度加快
+			$('#start-2').click(function(e){
+				$('#mms-2').scrollStart();
+			});
+			$('#stop-2').click(function(e){
+				$('#mms-2').scrollStop();
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="mms-1" class="mms-scroll-wrap">
+		文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+		<img src="http://www.baidu.com/img/baidu_logo.gif" alt="" />
+		文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+		<img src="http://www.baidu.com/img/baidu_logo.gif" alt="" />
+		文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+		<img src="http://www.baidu.com/img/baidu_logo.gif" alt="" />
+	</div>
+	<input id="start-1" type="button" name="" value="开始" />
+	<input id="stop-1" type="button" name="" value="停止" />
+
+	<hr style="margin:5px 0;" />
+
+	<div id="mms-2" class="mms-scroll-wrap">
+		文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+		<img src="http://www.baidu.com/img/baidu_logo.gif" alt="" />
+		文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+		<img src="http://www.baidu.com/img/baidu_logo.gif" alt="" />
+		文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+		<img src="http://www.baidu.com/img/baidu_logo.gif" alt="" />
+	</div>
+
+	<input id="start-2" type="button" name="" value="开始" />
+	<input id="stop-2" type="button" name="" value="停止" />
+</body>
+</html>

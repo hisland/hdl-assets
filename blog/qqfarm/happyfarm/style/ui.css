@@ -1,0 +1,116 @@
+/* 清理操作 */
+	*{margin:0;padding:0;}
+	body{padding:5px;font-size:12px;color:#666;}
+	table{width:100%;font-size:12px;margin:-1px 0 0 -1px;}
+	td,th{text-align:center;padding:2px;}
+	ul{list-style:none;}
+	table,tr,td,th{border-collapse:collapse;border:1px solid #ddd;}
+
+	/* IE的特殊照顾 */
+	table input{*margin:-3px 0;}
+
+/* 好友列表使用的表格单元宽度 */
+	.col1{width:20%;}
+	.col2{width:25%;}
+	.col3{width:12%;}
+	.col4{width:25%;}
+	.col5{width:8%;}
+	.col6{width:5%;}
+
+/* 作物数据使用的表格单元宽度 */
+	.col7{width:8%}
+	.col8{width:12%}
+	.col9{width:6%}
+	.col10{width:12%}
+	.col11{width:12%}
+	.col12{width:20%}
+	.col13{width:12%}
+	.col14{width:12%}
+	.col15{width:6%}
+
+/* 种植推荐使用的表格单元宽度 */
+	.col16{width:5%}
+	.col17{width:5%}
+
+/* 标签 */
+	.tabs{width:100%;}
+	.tabs li{float:left;cursor:pointer;padding:3px 8px;height:14px;border:1px solid #ddd;border-bottom:none;margin-right:5px;}
+	.tabs .active{position:relative;z-index:10;background:#fff;font-weight:700;height:15px;margin-bottom:-1px;}
+
+/* 表格 */
+	.tables{clear:both;margin-top:-1px;padding-right:17px;height:250px;border:1px solid #ddd;overflow:hidden;display:none;}
+	.tableMain{height:234px;*height:228px;overflow-y:scroll;margin:-1px -17px 0 0;}
+	.tableMain table{margin-top:-19px;}
+	.tableMain table thead{height:18px;}
+
+
+/* 整个农场内容包含块 */
+	.wrap{clear:both;margin-top:-1px;min-width:540px;zoom:1;display:none;}
+	.wrap .tabs{clear:both;}
+
+/* 农场用户 */
+	.user{border:1px solid #ddd;overflow:hidden;margin-bottom:10px;width:100%;}
+
+	.panel{float:left;padding:5px 15px 5px 5px;border-right:1px solid #ddd;height:100px;}
+	.panel div{float:left;text-align:center;margin-right:5px;font-weight:700;}
+	.panel div img{display:block;width:78px;height:78px;padding:1px;margin-bottom:5px;border:1px solid #ddd;}
+	.panel p{float:left;line-height:1.8em;font-weight:700;}
+	.panel p span{font-weight:400;}
+
+	.control{float:left;position:relative;padding:5px;height:100px;width:250px;}
+	.startStop{background:none;border:1px solid #ddd;padding:2px;margin-right:20px;cursor:pointer;}
+	.status{position:absolute;left:5px;bottom:5px;}
+
+
+/* 日志详情 */
+	.log{margin-top:10px;padding:5px;height:180px;overflow-y:auto;border:1px solid #ddd;border-bottom:none;}
+	.log p{margin:3px 0;color:#999;}
+	.log .action{color:green;}
+	.log .scrounge .action{color:red;}
+	.log .action{margin:0 15px 0 0;}
+	.log span{margin:10px;color:#666;}
+
+	.total{height:25px;line-height:25px;border:1px solid #ddd;padding:0 5px;}
+	.total strong{margin:10px;}
+
+/* QQ空间农场打开样式 */
+	#tab_qzone.online,
+	#qzone.online .user,
+	#qzone.online .panel,
+	#qzone.online .panel div img,
+	#qzone.online .startStop,
+	#qzone.online .tabs li,
+	#qzone.online .tables,
+	#qzone.online table,
+	#qzone.online .log,
+	#qzone.online .total{border-color:#96C2F1;color:#37589f;background:#eff7ff}
+	#qzone.online td,
+	#qzone.online th{border-color:#96C2F1;color:#37589f;}
+
+
+	#qzone.online .log p{color:#8ca2cf;}
+	#qzone.online .log .action{color:green;}
+	#qzone.online .log .scrounge .action{color:red;}
+	#qzone.online .log span{color:#37589f;}
+
+/* QQ校友农场打开样式 */
+	#tab_xiaoyou.online,
+	#xiaoyou.online .user,
+	#xiaoyou.online .panel,
+	#xiaoyou.online .panel div img,
+	#xiaoyou.online .startStop,
+	#xiaoyou.online .tabs li,
+	#xiaoyou.online .tables,
+	#xiaoyou.online table,
+	#xiaoyou.online .log,
+	#xiaoyou.online .total{border-color:#abda79;color:#328916;background:#f4fbed}
+	#xiaoyou.online td,
+	#xiaoyou.online th{border-color:#abda79;}
+
+	#xiaoyou.online .log p{color:#96c387;}
+	#xiaoyou.online .log .action{color:green;}
+	#xiaoyou.online .log .scrounge .action{color:red;}
+	#xiaoyou.online .log span{color:#328916;}
+
+/* tab内容激活的页是打开的 */
+	.active{display:block;}

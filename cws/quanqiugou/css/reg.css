@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+/* 注册页面 */
+.reg{padding:25px 0 100px;background:#fff;}
+	.reg-l{float:left;width:600px;padding-left:50px;}
+	.reg-lt{font-size:16px;text-align:center;color:#5a9342;margin-bottom:10px;}
+	.reg-lc1{}
+		.reg-l-p3{padding:10px 0 10px 70px;width:530px;border:1px solid #fff;margin:5px 0;overflow:hidden;}
+			.reg-l-it{float:left;width:60px;text-align:right;margin-left:-70px;}
+			.reg-l-ii{float:left;width:204px;height:18px;padding:3px 1px 1px;background:url('img/bg/reg-ipt.gif') no-repeat 0 0;}
+				.reg-l-ii input{border:none;background:none;width:200px;}
+			.reg-l-im{float:left;width:300px;margin-left:10px;color:#666666;}
+			.reg-l-ii-s{float:left;width:80px;}
+				.reg-l-ii-s input{}
+		.reg-error{border-color:#fbc3ce;background:#feeeef;}
+			.reg-error .reg-l-im{padding-left:10px;font-weight:700;color:red;background:url('img/arrow/2.gif') no-repeat 0 4px;}
+	.reg-lc2{margin-top:20px;}
+		.reg-l-p1{padding:10px 10px 20px 50px;}
+			.reg-l-submit{border:none;background:url('img/button/8.gif') no-repeat 0 0;width:106px;text-align:center;height:30px;line-height:30px;color:#fff;font-size:14px;cursor:pointer;}
+			.reg-l-login-a{margin-left:5px;}
+				.reg-l-login-a a{color:#00529b;margin-left:3px;}
+		.reg-l-p2{padding:15px;background:#f6f6f6;border:1px solid #f0f0f0;color:#666666;}
+			.reg-l-p2 a{color:#00529b;margin:0 3px;}
+	.reg-r{float:right;width:300px;}
+		.reg-rt{width:300px;height:55px;overflow:hidden;text-indent:-99em;background:url('img/bg/6-1.gif') no-repeat 0 0;}
+		.reg-rc{float:right;width:250px;padding:0 20px 10px;border:1px solid #ececec;border-top:none;background:#f6f6f6;}
+			.reg-r-img{display:block;margin:10px 0;text-align:center;}
+			.reg-r-img img{width:250px;}
+			.reg-r-a{color:#999999;}

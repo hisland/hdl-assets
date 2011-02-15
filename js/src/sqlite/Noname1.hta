@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="robots" content="all" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		body{font-family:"宋体",serif;font-size:75%;}
+		a img{border:none;}
+		table{border-collapse:collapse;border-spacing:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		a:hover{text-decoration:underline;}
+		
+		body{padding:50px;}
+	</style>
+	<script type="text/javascript">
+		function createCMD(){
+			var cmd = new ActiveXObject('WScript.Shell');
+			if(cmd) return cmd;
+			else alert('不能建立CMD');
+		}
+		window.onload = function(){
+			var cmd = createCMD();
+			document.getElementById('a1').innerHTML = cmd.CurrentDirectory;
+			var loc = unescape(location.href.match(/file:\/\/\/(.*)\/[^\/]*/)[1]);
+			document.getElementById('a1').innerHTML += '----------'+ loc;
+			cmd.CurrentDirectory = loc;
+			var b = cmd.exec('sqlite3.exe -html World.db3 "select * from city"');
+			function callback(){
+				if(b.status == 0){
+					document.getElementById('bb').innerHTML = '<table>' + b.StdOut.ReadAll() + '</table>';
+					document.getElementById('cc').innerHTML = b.StdErr.ReadAll();
+					clearInterval(kk);
+				}
+			}
+
+			var kk = setInterval(callback, 20);
+		}
+	</script>
+</head>
+<body>
+	<div>a1: <span id="a1"></span></div>
+	<div>aa: <span id="aa"></span></div>
+	<div>bb: <span id="bb"></span></div>
+	<div>cc: <span id="cc"></span></div>
+</body>
+</html>

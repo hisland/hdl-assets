@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 助手操作日志 -->
+<root>
+	<main>
+		<userName></userName>
+	</main>
+	<log>
+		<line actType="scrounge">
+			<userName></userName>
+			<cropName></cropName>
+			<cropNum></cropNum>
+			<time></time>
+		</line>
+		<line actType="state">
+			<userName></userName>
+			<actName></actName>
+			<money></money>
+			<exp></exp>
+			<time></time>
+		</line>
+	</log>
+</root>

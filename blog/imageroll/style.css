@@ -1,0 +1,17 @@
+*{margin:0;padding:0;}
+
+
+
+#imgroll{/*包含块,包含了整个流动图片区域*/
+	width:410px;height:250px;position:relative;
+	margin:100px 0 0 100px;/*可删除*/
+	}
+#imgroll_desc{position:absolute;left:5px;top:5px;color:#fff;}
+#imgroll a{outline:none;}
+#imgroll_img{float:left;padding:3px;border:1px solid #ddd;}
+#imgroll_img img{width:350px;height:240px;border:none;}
+#imgroll_ctrl{float:left;margin-left:5px;padding-top:3px;}
+#imgroll_ctrl img{display:block;cursor:pointer;}
+#imgroll_list{height:220px;overflow:hidden;}
+#imgroll_list img{width:41px;height:41px;border:1px solid gray;margin:1px 0;}
+#imgroll_list img.imgroll_now{border-color:red;}

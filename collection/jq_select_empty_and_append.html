@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="robots" content="all" />
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		body{font-family:"宋体",arial;font-size:75%;}
+		a img{border:none;}
+		table{border-collapse:collapse;border-spacing:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		a:hover{text-decoration:underline;}
+		
+		hr{margin:10px 0;height:1px;border:none;border-top:1px solid #ccc;background:none;}
+
+		body{padding:50px;}
+		input{font-family:"宋体";font-size:12px;}
+		input.text{height:14px;background:none;border:1px solid #7f9db9;padding:1px;}
+	</style>
+	<script type="text/javascript" src="../lib.javascript/jquery-1.4.2.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var str = '<option value="">aa111</option><option value="">bb111</option><option value="">cc111</option><option value="">dd111</option><option value="">ee111</option><option value="">ff111</option><option value="">gg111</option><option value="">hh111</option><option value="">ii111</option><option value="">jj111</option><option value="">cc111</option><option value="">dd111</option><option value="">ee111</option><option value="">ff111</option><option value="">gg111</option><option value="">hh111</option><option value="">ii111</option><option value="">jj111</option><option value="">cc111</option><option value="">dd111</option><option value="">ee111</option><option value="">ff111</option><option value="">gg111</option><option value="">hh111</option><option value="">ii111</option><option value="">jj111</option><option value="">cc111</option><option value="">dd111</option><option value="">ee111</option><option value="">ff111</option><option value="">gg111</option><option value="">hh111</option><option value="">ii111</option><option value="">jj111</option><option value="">cc111</option><option value="">dd111</option><option value="">ee111</option><option value="">ff111</option><option value="">gg111</option><option value="">hh111</option><option value="">ii111</option><option value="">jj111</option><option value="">cc111</option><option value="">dd111</option><option value="">ee111</option><option value="">ff111</option><option value="">gg111</option><option value="">hh111</option><option value="">ii111</option><option value="">jj111</option>';
+
+			$('#ss').click(function(e){
+				$('select').empty().html(str);
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<select name="">
+		<option value="">aa</option>
+		<option value="">bb</option>
+		<option value="">cc</option>
+		<option value="">dd</option>
+		<option value="">ee</option>
+		<option value="">ff</option>
+		<option value="">gg</option>
+		<option value="">hh</option>
+		<option value="">ii</option>
+		<option value="">jj</option>
+		<option value="">cc</option>
+		<option value="">dd</option>
+		<option value="">ee</option>
+		<option value="">ff</option>
+		<option value="">gg</option>
+		<option value="">hh</option>
+		<option value="">ii</option>
+		<option value="">jj</option>
+		<option value="">cc</option>
+		<option value="">dd</option>
+		<option value="">ee</option>
+		<option value="">ff</option>
+		<option value="">gg</option>
+		<option value="">hh</option>
+		<option value="">ii</option>
+		<option value="">jj</option>
+		<option value="">cc</option>
+		<option value="">dd</option>
+		<option value="">ee</option>
+		<option value="">ff</option>
+		<option value="">gg</option>
+		<option value="">hh</option>
+		<option value="">ii</option>
+		<option value="">jj</option>
+		<option value="">cc</option>
+		<option value="">dd</option>
+		<option value="">ee</option>
+		<option value="">ff</option>
+		<option value="">gg</option>
+		<option value="">hh</option>
+		<option value="">ii</option>
+		<option value="">jj</option>
+		<option value="">cc</option>
+		<option value="">dd</option>
+		<option value="">ee</option>
+		<option value="">ff</option>
+		<option value="">gg</option>
+		<option value="">hh</option>
+		<option value="">ii</option>
+		<option value="">jj</option>
+	</select><br />
+	<input id="ss" type="button" name="" value="do" /><br /><br />
+
+	<p>
+		问题说明: 当内容特别长时,会出现select里面不停地变,直到生成完毕为止,
+	</p><br />
+	<p>
+		解决方法: 保留至少1个option,,,其余的append上去
+	</p>
+</body>
+</html>

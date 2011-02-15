@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		body{font-family:"宋体",serif;font-size:75%;padding:10px;}
+		a img{border:none;}
+		table{border-collapse:collapse;border-spacing:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		a:hover{text-decoration:underline;}
+		
+		#aa{width:100%;height:500px;background:green;}
+		#bb{margin-left:50px;width:200px;height:300px;border:1px solid #ccc;}
+	</style>
+	<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var k = 0;
+			document.getElementById('aa').onmousemove = function(){
+				document.getElementById('cc').innerHTML = (k++);
+			}
+		}
+	</script>
+</head>
+<body>
+	<p>mousemove 在 iframe内部,窗口外 不起作用</p>
+	<div id="aa">
+		<p id="cc">0</p>
+		<iframe id="bb" src="" frameborder="no" scrolling="no" allowtransparency="yes"></iframe> 
+	</div>
+</body>
+</html>

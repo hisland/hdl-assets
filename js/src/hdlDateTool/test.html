@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="robots" content="all" />
+	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="jquery.mousewheel.js"></script>
+	<script type="text/javascript" src="jquery.hdlDateTool.js"></script>
+	<script type="text/javascript" src="jquery.hdlTools.js"></script>
+	<script type="text/javascript" src="jquery.hdlDrag.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#date1').hdlDateTool();
+			$('#date2').hdlDateTool({fixed:'-hour-minute-second-'});
+			$('#date3').hdlDateTool({fixed:'-year-hour-minute-second-'});
+			$('#date4').hdlDateTool({fixed:'-year-month-date-'});
+			$('#date5').hdlDateTool({fixed:'-year2011-'});
+			$('#date6').hdlDateTool({fixed:'-year2011-month5-date3-'});
+			$('#date7').hdlDateTool({fixed:'-hour0-minute15-second5-'});
+
+			$('#date8').hdlDateTool({fixed:'-hour-minute-second-', range:{year:[1990, 2050]}});
+		});
+	</script>
+	<style type="text/css">
+	pre{font-family:'宋体'}
+		.test label{display:inline-block;text-align:right;padding:10px;}
+	</style>
+</head>
+
+<body>
+
+<div class="test">
+	
+<pre>
+	
+
+						<label>显示所有 $('#date1').hdlDateTool();<input id="date1" type="text" name="" /></label>
+					<label>只显示日期 $('#date2').hdlDateTool({fixed:'-hour-minute-second-'});<input id="date2" type="text" name="" /></label>
+				<label>只显示月-日 $('#date3').hdlDateTool({fixed:'-year-hour-minute-second-'});<input id="date3" type="text" value="02-14" name="" /></label>
+			<label>只显示时间 $('#date4').hdlDateTool({fixed:'-year-month-date-'});<input id="date4" type="text" value="12:55:32" name="" /></label>
+		<label>固定住年 $('#date5').hdlDateTool({fixed:'-year2011-'});<input id="date5" type="text" name="" /></label>
+	<label>固定住年月日 $('#date6').hdlDateTool({fixed:'-year2011-month5-date3-'});<input id="date6" type="text" name="" /></label>
+<label>固定住时分秒 $('#date7').hdlDateTool({fixed:'-hour0-minute15-second5-'});<input id="date7" type="text" name="" /></label>
+
+</pre>
+
+<pre>
+	对应的单词:
+	年 : year
+	月 : month
+	日 : date
+	时 : hour
+	分 : minute
+	秒 : second
+</pre>
+
+<pre>
+	默认的年范围是当前时间的上下10年,也就是说2010对应的年范围是[2000,2020],
+	可用下面的方法设置
+
+	<label>设置年范围 $('#date8').hdlDateTool({fixed:'-hour-minute-second-', range:{year:[1990, 2050]}});<input id="date8" type="text" name="" /></label>
+</pre>
+</div>
+</body>
+</html>

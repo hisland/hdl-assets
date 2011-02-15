@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		body{font-family:"宋体",serif;font-size:75%;}
+		a img{border:none;}
+		table{border-collapse:collapse;border-spacing:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		a:hover{text-decoration:underline;}
+		body{padding:50px;}
+	</style>
+	<link rel="stylesheet" type="text/css" href="ie67Select.css" />
+	<script type="text/javascript" src="../patch.javascript.js"></script>
+	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="../jquery.adjustElement.js"></script>
+	<script type="text/javascript" src="ie67Select.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('select').each(function(){
+				$(this).parent().find('span').html(this.options[this.selectedIndex].innerHTML);
+			})
+		});
+	</script>
+</head>
+
+<body>
+	<a class="ie67-select" href="javascript:void(0)">
+		<span class="ie67-select-text">全部</span>
+		<select name="form.smId">
+			<option value="">全部</option>
+			<option value="822">abc-点对点短信-20101205181910</option>
+			<option value="823">abc-梦网SP短信-20101205181910</option>
+			<option value="824">abc-行业SP短信-20101205181910</option>
+			<option value="828">bat-行业SP短信-20101206141511</option>
+			<option value="825">lx-点对点短信</option>
+			<option value="826">lx-梦网SP短信</option>
+		</select>
+	</a>
+	<a class="ie67-select" href="javascript:void(0)">
+		<span class="ie67-select-text">全部</span>
+		<select name="form.smId">
+			<option value="">全部</option>
+			<option value="822">abc-点对点短信-20101205181910</option>
+			<option value="823">abc-梦网SP短信-20101205181910</option>
+			<option value="824">abc-行业SP短信-20101205181910</option>
+			<option value="828">bat-行业SP短信-20101206141511</option>
+			<option value="825">lx-点对点短信</option>
+			<option value="826">lx-梦网SP短信</option>
+		</select>
+	</a>
+	<a class="ie67-select ie67-select-disabled" href="javascript:void(0)">
+		<span class="ie67-select-text">全部</span>
+		<select name="form.smId">
+			<option value="">全部</option>
+			<option value="822">abc-点对点短信-20101205181910</option>
+			<option value="823">abc-梦网SP短信-20101205181910</option>
+			<option value="824">abc-行业SP短信-20101205181910</option>
+			<option value="828">bat-行业SP短信-20101206141511</option>
+			<option value="825">lx-点对点短信</option>
+			<option value="826">lx-梦网SP短信</option>
+		</select>
+	</a>
+
+	<select name="form.smId">
+		<option value="">全部</option>
+		<option value="822">abc-点对点短信-20101205181910</option>
+		<option value="823">abc-梦网SP短信-20101205181910</option>
+		<option value="824">abc-行业SP短信-20101205181910</option>
+		<option value="828">bat-行业SP短信-20101206141511</option>
+		<option value="825">lx-点对点短信</option>
+		<option value="826">lx-梦网SP短信</option>
+	</select>
+</body>
+</html>

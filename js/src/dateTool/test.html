@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+	<script type="text/javascript" src="../patch.javascript.js"></script>
+	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="../jquery.mousewheel.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
+	<script type="text/javascript" src="dateTool.js"></script>
+	<link rel="stylesheet" type="text/css" href="dateTool.css" />
+	<style type="text/css">
+		body{margin:50px;}
+	</style>
+</head>
+
+<body>
+	<!-- 示例input
+	<input type="date | time | datetime" name="any-value" value="data-value"
+		data-fixed="year2010, month05, date03"
+		data-enable="true | false"
+		data-enable-clear="true | false"
+		data-time-offset="number"
+		data-min-time="now | another-input-selector | data-value"
+		data-max-time="now | another-input-selector | data-value"
+		data-date-format="定义日期格式,暂不支持"
+		/> -->
+
+	<input id="aa" type="datetime" name="any-value" value="data-value"
+		data-fixed="year2010, month05, date03"
+		data-enable="true | false"
+		data-enable-clear="true | false"
+		data-time-offset="number"
+		data-min-time="now | another-input-selector | data-value"
+		data-max-time="now | another-input-selector | data-value"
+		data-date-format="定义日期格式,暂不支持"
+		data-fn-filter-year="ns-to-a-function-name"
+		data-fn-filter-month="ns-to-a-function-name"
+		data-fn-filter-date="ns-to-a-function-name"
+		data-fn-filter-hour="ns-to-a-function-name"
+		data-fn-filter-minute="ns-to-a-function-name"
+		data-fn-filter-second="ns-to-a-function-name"
+		/>
+
+	<input id="bb" type="datetime" name="any-value" value="any-value"
+		data-enable="true | false"
+		data-enable-clear="true | false"
+		data-time-offset="number"
+		data-min-time="now | another-input-selector | data-value"
+		data-max-time="now"
+		data-date-format="定义日期格式,暂不支持"
+		data-fn-filter-year="ns-to-a-function-name"
+		data-fn-filter-month="ns-to-a-function-name"
+		data-fn-filter-date="ns-to-a-function-name"
+		data-fn-filter-hour="ns-to-a-function-name"
+		data-fn-filter-minute="ns-to-a-function-name"
+		data-fn-filter-second="ns-to-a-function-name"
+		/>
+</body>
+</html>

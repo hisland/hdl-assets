@@ -1,0 +1,103 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=gb2312" />
+	<title>农场助手2.0</title>
+	<style type="text/css">
+		
+	</style>
+	<script type="text/javascript" src="js/tools.js"></script>
+	<script type="text/javascript">
+		var reqRs = [
+			[
+				{name:'进入农场',
+				url:'http://happyfarm.qzone.qq.com/api.php?mod=user&act=run',
+				post:'farmKey=c9a292bdb9fbfb059dc2bffd4c5d2ec2&farmTime=1248772937',
+				result:{}
+				},
+				{name:'',
+				url:'',
+				post:'',
+				result:{}
+				}
+			],
+			[
+				{name:'查看自己农场 - 无成熟',
+				url:'http://happyfarm.qzone.qq.com/api.php?mod=user&act=run&flag=1',
+				post:'farmTime=1252633257&ownerId=0&farmKey=6221f1c3a0a819db5bec3a16678722f2',
+				result:{}
+				},
+				{name:'查看自己农场 - 有成熟',
+				url:'http://happyfarm.qzone.qq.com/api.php?mod=user&act=run&flag=1',
+				post:'farmTime=1252633257&ownerId=0&farmKey=6221f1c3a0a819db5bec3a16678722f2',
+				result:{}
+				}
+			],
+			[
+				{name:'查看好友农场 - 无可偷',
+				url:'http://nc.qzone.qq.com/cgi-bin/cgi_farm_index?mod=user&act=run&ownerId=29173874',
+				post:'',
+				result:{}
+				},
+				{name:'查看好友农场 - 有可偷',
+				url:'http://nc.qzone.qq.com/cgi-bin/cgi_farm_index?mod=user&act=run&ownerId=29173874',
+				post:'',
+				result:{}
+				},
+				{name:'查看好友农场 - 有狗监视',
+				url:'http://nc.qzone.qq.com/cgi-bin/cgi_farm_index?mod=user&act=run&ownerId=29173874',
+				post:'',
+				result:{}
+				}
+			],
+			[
+				{name:'好友列表',
+				url:'http://happyfarm.qzone.qq.com/api.php?mod=friend',
+				post:'user=true&refresh=true&farmTime=1252633458&farmKey=113d33f14fb04b96a29132e24284d230',
+				result:{}
+				}
+			]];
+	</script>
+</head>
+<body>
+<div class="item">
+	<p>操作名称:<span class="">登录</span></p>
+	<p>请求&nbsp;&nbsp;URL:<span>http://happyfarm.qzone.qq.com/api.php?<span>mod</span>=user&act=run</span></p>
+	<p>POST数据:<span class="">farmKey=c9a292bdb9fbfb059dc2bffd4c5d2ec2&farmTime=1248772937</span></p>
+	<p>返&nbsp;回&nbsp;值:</p>
+	<div class="pure">
+		{"farmlandStatus":[
+		 {"a":23,"b":4,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":1,"k":0,"l":0,"m":0,"n":[],"o":0,"p":[],"q":1252284631,"r":1252468277}
+		,{"a":23,"b":4,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":1,"k":0,"l":0,"m":0,"n":[],"o":0,"p":[],"q":1252287889,"r":1252468279}
+		,{"a":23,"b":4,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":1,"k":0,"l":0,"m":0,"n":[],"o":0,"p":[],"q":1252287890,"r":1252468280}
+		,{"a":23,"b":4,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":1,"k":0,"l":0,"m":0,"n":[],"o":0,"p":[],"q":1252287891,"r":1252468281}
+		,{"a":23,"b":4,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":1,"k":0,"l":0,"m":0,"n":[],"o":0,"p":[],"q":1252284633,"r":1252450397}
+		,{"a":23,"b":4,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":1,"k":0,"l":0,"m":0,"n":[],"o":0,"p":[],"q":1252284634,"r":1252392634}
+		,{"a":23,"b":4,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":1,"k":0,"l":0,"m":0,"n":[],"o":0,"p":[],"q":1252287892,"r":1252395892}
+		,{"a":23,"b":4,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":1,"k":0,"l":0,"m":0,"n":[],"o":0,"p":[],"q":1252287893,"r":1252395893}
+		,{"a":23,"b":4,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":1,"k":0,"l":0,"m":0,"n":[],"o":0,"p":[],"q":1252287894,"r":1252395894}
+		,{"a":23,"b":4,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":1,"k":0,"l":0,"m":0,"n":[],"o":0,"p":[],"q":1252287895,"r":1252395895}
+		,{"a":23,"b":1,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":0,"k":0,"l":0,"m":0,"n":[],"o":1,"p":[],"q":1252359569,"r":1252368569}
+		,{"a":23,"b":1,"c":0,"d":0,"e":1,"f":0,"g":0,"h":1,"i":100,"j":0,"k":0,"l":0,"m":0,"n":[],"o":1,"p":[],"q":1252359570,"r":1252368570}]
+
+		,"items":{"1":{"itemId":11}}
+		,"exp":28591
+		,"weather":{"weatherId":3,"weatherDesc":"\u96e8\u5929"}
+		,"serverTime":{"time":1252469606}
+		,<span class="proName">"user"</span>:{<span class="proName">"uId"</span>:<span class="proValue">273004395</span>
+				,<span class="proName">"userName"</span>:<span class="proValue">"\u30b8\u5197\u9ed9..\u014d\u014d"</span>
+				,<span class="proName">"money"</span>:<span class="proValue">37447</span>
+				,<span class="proName">"headPic"</span>:<span class="proValue">null</span>
+				,<span class="proName">"exp"</span>:<span class="proValue">28591</span>
+				,<span class="proName">"yellowlevel"</span>:<span class="proValue">0</span>
+				,<span class="proName">"yellowstatus"</span>:<span class="proValue">0</span>
+				,<span class="proName">"canbad"</span>:<span class="proValue">50</span>
+				,<span class="proName">"pf"</span>:<span class="proValue">false</span>}
+		,"cacheControl":{"seed":7,"tool":1,"diy":2}
+		,"a":true
+		,"b":0
+		,"c":false
+		,"task":{"taskId":0,"taskFlag":0}}
+	</div>
+</div>
+</body>
+</html>
