@@ -5,6 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 	<script type="text/javascript" src="../patch.javascript.js"></script>
+	<script type="text/javascript" src="../canBind.js"></script>
 	<script type="text/javascript" src="../jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="../jquery.mousewheel.js"></script>
 	<script type="text/javascript" src="../jquery.adjustElement.js"></script>
@@ -33,7 +34,7 @@
 	<input id="date1_1" type="text" name="" value="" />
 	<script type="text/javascript">
 		$(function(){
-			$('#date1_1').hdlDateTool();
+			$('#date1_1').hdlDateTool({min_time:'2010-10-12 17:42:52'});
 		});
 	</script>
 

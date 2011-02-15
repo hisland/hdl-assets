@@ -10,45 +10,46 @@
  *			../jquery-1.4.2.min.js
  */
 (function($){
-	var  target = $(''), list
+	var  target = $(''), input, select
+		,list
 		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent)
 		,delay_timer = 0
-		, i = 0;
+		,prev_val;
 
-	function iptKeyUp(e){
-		clearTimeout(delay_timer);
-		var val = this.value;
-		delay_timer = setTimeout(function(){
-			document.getElementById('aaa').innerHTML += '<br />' + (i++);
-			makeList(val);
-		}, 500);
+	function targetKeyUp(e){
+		var val = $(this).find('input').val();
+		if(prev_val != val && (e.keyCode >= 48 && e.keyCode <= 90) || e.keyCode == 32 || e.keyCode == 8 || e.keyCode == 46 || (e.keyCode >= 96 && e.keyCode <= 111) || (e.keyCode >= 186 && e.keyCode <= 192) || (e.keyCode >= 219 && e.keyCode <= 222)){
+			clearTimeout(delay_timer);
+			delay_timer = setTimeout(function(){
+				makeList(val);
+				prev_val = val;
+			}, 50);
+		}
 	}
-	function iptKeyDown(e){
+	function targetKeyDown(e){
 		var a;
 		if(e.keyCode === 13){//回车
-			a = list.find('a.auto-comp-selected');
+			a = list.find('.auto-comp-selected');
 			target.find('select')[0].value = a.attr('data-value');
 			target.find('input').val(a.text());
 			closeList();
-		}
-	}
-	function iptBlur(e){
-		var a = list.find('a.auto-comp-selected');
-		if(this.value !== ''){
-			target.find('select')[0].value = a.attr('data-value');
-			target.find('input').val(a.text());
+			e.stopPropagation();
 		}
 	}
 
-	function showList(){
+	function fixWidth(){
 		var t_w = target.outerWidth();
-		list.css('visibility', 'hidden').show();
 		list.height(30);
 		list.width(t_w - 2);
 		if(list[0].scrollWidth < t_w){
 			list.css('overflow-x', 'hidden');
 		}else{
 			list.css('overflow-x', 'scroll');
+		}
+
+		//ie6在这里读取一下list[0].scrollHeight, 有时候读不到,下面那个就能读取到了
+		if(ie6){
+			list[0].scrollHeight > 200 ? 0: 0;
 		}
 
 		if(list[0].scrollHeight > 200){
@@ -58,83 +59,175 @@
 			list.css('height', '');
 			list.css('overflow-y', 'hidden');
 		}
+	}
+	function showList(){
+		var t_w = target.outerWidth();
+		list.adjustElement(target).show();
+		if(ie6){
+			fixWidth();
+		}else{
+			list.width(t_w - 2);
+		}
 		list[0].scrollTop = 0;
-		list.adjustElement(target).css('visibility', '').show();
-		list.find('a').width(list[0].scrollWidth - 2);
 		target.addClass('auto-comp-opened');
-		target.find('input').blur(iptBlur).keyup(iptKeyUp).keydown(iptKeyDown);
 		$(document).click(closeList);
 	}
 
+	function openList(e){
+		var  t = e.target
+			,elm = $(t).closest('.auto-comp')
+			,tag_name = t.tagName.toUpperCase();
+
+		if(elm.length){
+			if(elm[0] !== target[0] || !elm.hasClass('auto-comp-opened')){
+				target.removeClass('auto-comp-opened');
+				target = elm;
+				input = target.find('input');
+				select = target.find('select');
+				showList();
+			}
+
+			if(tag_name === 'A'){
+				makeList();
+			}else{
+				makeList(input.val());
+			}
+
+			if(!target[0].bind_select){
+				target.keyup(targetKeyUp).keydown(targetKeyDown);
+				target[0].bind_select = true;
+			}
+		}
+	}
 	function closeList(e){
 		if(e && $(e.target).closest('.auto-comp-wrap, .auto-comp').length){
 			e.preventDefault();
 		}else{
+			if(e){
+				if(input.val() === '全部'){
+					select[0].selectedIndex = 1;
+				}else if(select[0].selectedIndex !== 0 ){
+					input.val(select[0].options[select[0].selectedIndex].innerHTML.unentityHTML());
+				}
+			}
 			list.hide();
 			target.removeClass('auto-comp-opened');
-			target.find('input').unbind('blur', iptBlur).unbind('keyup', iptKeyUp).unbind('keydown', iptKeyDown);
 			$(document).unbind('click', closeList);
 		}
 	}
 
-	function listClick(e){
-		var elm;
-		if(e.target.tagName.toUpperCase() === 'A'){
-			elm = $(e.target);
-			if(!elm.is('.auto-comp-selected')){
-				target.find('select')[0].value = elm.attr('data-value');
-				target.find('input').val(elm.text());
+	function makeList(str){
+		var  opts = select[0].options
+			,str1 = []
+			,i ,ret ,len, val, text, match;
+
+		if(!select[0].opts){
+			ret = [];
+			for (i = 0, len = opts.length; i < len; i++) {
+				ret[i] = [opts[i].innerHTML, opts[i].value];
 			}
+			select[0].opts = ret;
+		}
+		opts = select[0].opts;
+
+		if(str === undefined){//显示全部
+			if(!select[0].str1){
+				for (i = 2, len = opts.length; i < len; i++) {
+					text = opts[i][0];
+					val = opts[i][1];
+					str1.push('<a class="auto-comp-item" href="#" data-value="'+ val +'" title="' + text + '">' + text + '</a>');
+				}
+				str1.unshift('<a style="padding-left:40px;" class="auto-comp-item" href="#" data-value="">全部</a>');
+				str1.unshift('<span>共' + (str1.length-1) + '条</span>');
+				select[0].str1 = str1;
+			}else{
+				str1 = select[0].str1;
+			}
+		}else if(str === ''){//不进行操作
+			str1.push('<span>请输入进行匹配</span>');
+		}else{//显示匹配的
+			str = str.entityHTML();
+			for (i = 2, len = opts.length; i < len; i++) {
+				text = opts[i][0];
+				if(text.indexOf(str) != -1){
+					if(!match){
+						match = opts[i];
+					}
+					val = opts[i][1];
+					str1.push('<a class="auto-comp-item" href="#" data-value="'+ val +'" title="' + text + '">' + text.replace(str, '<strong>'+str+'</strong>') + '</a>');
+				}
+			}
+			str1.unshift('<span>匹配' + str1.length + '条</span>');
+		}
+
+		if(match){
+			select[0].value = match[1];
+		}else{
+			select[0].selectedIndex = 0;
+		}
+		list.html(str1.join(''));
+		if(ie6){
+			fixWidth();
+		}
+	}
+
+	function moveUp(){
+		
+	}
+	function moveDown(){
+		
+	}
+
+	function documentMouseDown(e){
+		var  t = e.target
+			,elm = $(t).closest('.auto-comp')
+			,tag_name;
+
+		if(elm.length){
+			tag_name = t.tagName.toUpperCase();
+
+			if(elm.hasClass('auto-comp-disabled')){
+				if(tag_name === 'A' || tag_name === 'INPUT'){
+					$(t).blur();
+					e.preventDefault();
+				}
+			}else{
+				if(elm[0] !== target[0] || !elm.hasClass('auto-comp-opened')){
+					target.removeClass('auto-comp-opened');
+					target = elm;
+					input = target.find('input');
+					select = target.find('select');
+					showList();
+				}
+
+				if(tag_name === 'A'){
+					makeList();
+				}else{
+					makeList(input.val());
+				}
+
+				if(!target[0].bind_select){
+					target.keyup(targetKeyUp).keydown(targetKeyDown);
+					target[0].bind_select = true;
+				}
+			}
+		}
+	}
+
+	function listClick(e){
+		var elm = $(e.target).closest('a');
+		if(elm.length){
+			target.find('select')[0].value = elm.attr('data-value');
+			target.find('input').val(elm.text());
 			e.preventDefault();
 			closeList();
 		}
 	}
 
-	function makeList(str){
-		var  select = target.find('select')
-			,str1 = [], str2 = [], a1;
-
-		select.find('option').map(function(i, v){
-				var val = v.innerHTML;
-				if(i != 0){
-					if(val.indexOf(str) != -1){
-						val = val.replace(str, '<strong>'+str+'</strong>');
-						str1.push('<a class="auto-comp-item" href="#" data-value="'+ v.value +'">' + val + '</a>');
-					}else{
-						str2.push('<a class="auto-comp-item" href="#" data-value="'+ v.value +'">' + val + '</a>');
-					}
-				}else{
-					str1.push('<a style="padding-left:40px;" class="auto-comp-item" href="#" data-value="'+ v.value +'">' + val + '</a>');
-				}
-			});
-		if(ie6){
-			list.find('div').html(str1.join('') + str2.join(''));
-		}else{
-			list.html(str1.join('') + str2.join(''));
-		}
-
-		if(select[0].selectedIndex <= 0){
-			list.find('a:eq(0)').addClass('auto-comp-selected');
-		}else{
-			list.find('a:eq(1)').addClass('auto-comp-selected');
-		}
-	}
-
 	$(function(){
 		list = $('<div class="auto-comp-wrap"></div>').appendTo('body');
-		if(ie6){
-			list.html('<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;filter:alpha(opacity=0);" frameborder="no" scrolling="no"></iframe><div style="position:relative;z-index:10;zoom:1;"></div>');
-		}
 		list.click(listClick);
 	});
 
-	$(document).mousedown(function(e){
-		if((elm = $(e.target).closest('span.auto-comp')).length){
-			target.removeClass('auto-comp-opened');
-			target = elm;
-			makeList(target.find('input').val());
-			target.find('input').focus();
-			showList();
-		}
-	});
+	$(document).mousedown(documentMouseDown);
 })(jQuery);

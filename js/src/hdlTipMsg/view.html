@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
+	<link rel="stylesheet" type="text/css" href="hdlTipMsg.css" />
+
+	<script type="text/javascript" src="../jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="../jquery.hdlDrag.js"></script>
+	<script type="text/javascript" src="hdlTipMsg.js"></script>
+	<style type="text/css">
+		html,body{width:100%;height:100%;}
+
+		#view{}
+		#tipmsg1{top:10px;left:10px;}
+		#tipmsg2{top:150px;left:10px;}
+		#tipmsg3{top:350px;left:10px;}
+		#tipmsg4{top:480px;left:10px;}
+
+		div.aa{float:left;margin:30px;}
+	</style>
+	<script type="text/javascript">
+		$(function(){
+			$.alert('测试内容:<br /><br />使用方法:$.alert("测试内容")').animate({top:5,left:100});
+			$.alert('测试内容 + 标题:<br /><br />使用方法:$.alert("测试内容", "标题")', '标题').animate({top:5,left:470});
+
+			$.notice('测试内容:<br /><br />使用方法:$.notice("测试内容")').animate({top:170,left:100});
+			$.notice('测试内容 + 标题:<br /><br />使用方法:$.notice("测试内容", "标题")', '标题').animate({top:170,left:470});
+
+			$.errorTip('测试内容:<br /><br />使用方法:$.error("测试内容")').animate({top:335,left:100});
+			$.errorTip('测试内容 + 标题:<br /><br />使用方法:$.error("测试内容", "标题")', '标题').animate({top:335,left:470});
+
+			$.confirm('测试内容:<br /><br />使用方法:$.confirm("测试内容")').animate({top:500,left:10});
+			$.confirm('测试内容 + 标题:<br /><br />使用方法:$.confirm("测试内容", "标题")', '标题').animate({top:500,left:340});
+			$.confirm('测试内容 + 标题 + 确定的回调函数:<br /><br />使用方法:$.confirm("测试内容", "标题", function(){alert("a")})', '标题', function(){alert('a')}).animate({top:500,left:670});
+		});
+	</script>
+</head>
+
+<body>
+<div id="view">
+	<div class="tipmsg_wrap" id="tipmsg1">
+		<!--[if lte IE 6]><iframe frameborder="no" scrolling="no" style="position:absolute;width:327px;height:expression(parentNode.clientHeight);filter:alpha(opacity=0);"></iframe><![endif]-->
+		<div class="tipmsg_title_wrap">
+			<span class="tipmsg_title">这是标题</span>
+			<a href="#" class="tipmsg_close">&nbsp;</a>
+		</div>
+		<div class="tipmsg_content_wrap"><span class="tipmsg_ico tipmsg_ico1"></span><div class="tipmsg_content">这是一些提示文字</div></div>
+		<div class="tipmsg_btn_wrap">
+			<input type="button" value="确定" />
+		</div>
+	</div>
+	<div class="tipmsg_wrap" id="tipmsg2">
+		<div class="tipmsg_title_wrap">
+			<span class="tipmsg_title">这是标题</span>
+			<a href="#" class="tipmsg_close">&nbsp;</a>
+		</div>
+		<div class="tipmsg_content_wrap"><span class="tipmsg_ico tipmsg_ico2"></span><div class="tipmsg_content">这是一些提示文字这是一些提示文字这是一些提示文字这是一些提示文字这是一些提示文字这是一些提示文字这是一些提示文字这是一些提示文字这是一些提示文字</div></div>
+		<div class="tipmsg_btn_wrap">
+			<input type="button" value="确定" />
+		</div>
+	</div>
+	<div class="tipmsg_wrap" id="tipmsg3">
+		<div class="tipmsg_title_wrap">
+			<span class="tipmsg_title">这是标题</span>
+			<a href="#" class="tipmsg_close">&nbsp;</a>
+		</div>
+		<div class="tipmsg_content_wrap"><span class="tipmsg_ico tipmsg_ico3"></span><div class="tipmsg_content">这是一些提示文字</div></div>
+		<div class="tipmsg_btn_wrap">
+			<input type="button" value="确定" />
+		</div>
+	</div>
+	<div class="tipmsg_wrap" id="tipmsg4">
+		<div class="tipmsg_title_wrap">
+			<span class="tipmsg_title">这是标题</span>
+			<a href="#" class="tipmsg_close">&nbsp;</a>
+		</div>
+		<div class="tipmsg_content_wrap"><span class="tipmsg_ico tipmsg_ico4"></span><div class="tipmsg_content">这是一些提示文字</div></div>
+		<div class="tipmsg_btn_wrap">
+			<input type="button" value="确定" />
+		</div>
+	</div>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+<div class="aa">
+<select name="">
+	<option value="aa">aa</option>
+</select>
+<p>
+	bbbb
+</p>
+</div>
+</body>
+</html>
