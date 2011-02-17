@@ -1,0 +1,12 @@
+<project name="mod.autoComplete" default="build" basedir=".">
+	<description>Component Build File</description>
+	<property file="build.properties"/>
+	
+	<tstamp>
+		<format property="build.time" pattern="yyyy-MM-dd HH:mm:ss" />
+	</tstamp>
+
+	<target name="build">
+		<echo message="${build.time}" />
+	</target>
+</project>

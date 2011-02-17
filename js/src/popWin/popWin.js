@@ -1,11 +1,13 @@
 /**********************************************************************************************
- * 弹出窗口
+ * 名称: 弹出窗口
  * 作者: hisland
  * 邮件: hisland@qq.com
- * 时间: 2010-11-11 17:38:50
+ * 时间: 2011-2-17 16:28:10
  */
-(function($){
-	var  html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title"></span><a class="win1-close" href="#"></a></div><div class="win1-content"></div><div class="win1-btns"><input class="win1-btn-ok" type="button" value="确定" /><input class="win1-btn-cancle" type="button" value="取消" /></div></div>'
+
+KISSY.add('popWin', function(S, undef) {
+	var  $ = jQuery
+		,html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title"></span><a class="win1-close" href="#"></a></div><div class="win1-content"></div><div class="win1-btns"><input class="win1-btn-ok" type="button" value="确定" /><input class="win1-btn-cancle" type="button" value="取消" /></div></div>'
 		,popWin = {};
 	
 	popWin.divs = $('');
@@ -62,4 +64,6 @@
 	}
 
 	$.popWin = popWin;
-})(jQuery);
+}, {
+	requires: ['popManager']
+});

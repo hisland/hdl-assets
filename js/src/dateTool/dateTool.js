@@ -1,5 +1,20 @@
-(function($){
-	var  EMPTY_$ = $('')
+/**********************************************************************************************
+ * 名称: 日期控件
+ * 作者: hisland
+ * 邮件: hisland@qq.com
+ * 时间: @TIMESTAMP@
+ * 版本: @VERSION@
+ * 
+ * 注册一个全局监听点击函数,根据input的type为date time datetime来显示日期控件
+ * 并可根据节点上的配置进行定制
+ *
+ * 使用方法参见demo.html
+ *
+ */
+
+KISSY.add('dateTool', function(S, undef) {
+	var  $ = jQuery
+		,EMPTY_$ = $('')
 		,div_wrap
 		,btn_clear, btn_now, btn_complete
 		,ipt_year, ipt_month, ipt_date, ipt_hour, ipt_minute, ipt_second
@@ -376,7 +391,7 @@
 
 	function toolOpen(){
 		//TODO:对齐
-		div_wrap.show();
+		div_wrap.adjustElement(target_fill).show();
 	}
 	function toolClose(){
 		dropClose();
@@ -467,4 +482,6 @@
 
 	//在文档上监听是否打开日期控件以及何时关闭日期控件
 	$(document).click(documentClick);
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2', 'adjustElement']
+});

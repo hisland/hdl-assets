@@ -1,0 +1,5 @@
+ant-build文件:
+	增加导出最小包(即此模块+依赖模块)方便copy
+
+js文件:
+	拖动的时候,ie使用setCapture实现

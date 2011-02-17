@@ -3,19 +3,19 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-
-	<script type="text/javascript" src="../patch.javascript.js"></script>
-	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
-	<script type="text/javascript" src="../jquery.mousewheel.js"></script>
-	<link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
-	<script type="text/javascript" src="dateTool.js"></script>
-	<link rel="stylesheet" type="text/css" href="dateTool.css" />
-	<style type="text/css">
-		body{margin:50px;}
-	</style>
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher', function(){
+				S.useCSS('reset');
+				S.use('dateTool+css, jquery-1.4.2');
+			});
+		});
+	</script>
 </head>
 
-<body>
+<body style="margin:50px;">
 	<!-- 示例input
 	<input type="date | time | datetime" name="any-value" value="data-value"
 		data-fixed="year2010, month05, date03"
