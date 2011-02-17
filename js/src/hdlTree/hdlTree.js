@@ -1,26 +1,14 @@
 /**********************************************************************************************
- * 树控件
+ * 名称: 树控件
  * 作者: hisland
  * 邮件: hisland@qq.com
- * 时间: 2010-9-8 14:24:27
+ * 时间: 2011-2-17 17:10:21
  * 版本: v1
  *
- * 前置脚本:
- *			../patch.javascript.js;
- *			../jquery-1.4.2.min.js
  */
-(function($){
-/**********************************************************************************************
-*已经有了此函数则不用重复注册了
-*/
-	if($.fn.hdlTree){
-		return false;
-	}
-
-/**********************************************************************************************
-*代码正文
-*/
-	var  global_tree = window.hdl_tree = []
+KISSY.add('hdlTree', function(S, undef) {
+	var  $ = jQuery
+		,global_tree = window.hdl_tree = []
 		,ie6Hover;
 	
 /*
@@ -464,9 +452,7 @@ leaf:{
 			
 		}
 	}
-/**********************************************************************************************
-*注册到jq原型上
-*/
+
 	function hdlTree(data, setting){
 		var tree = new Tree();
 		tree.dom = this;
@@ -481,4 +467,6 @@ leaf:{
 	$.fn.hdlTreeSetting = function(){
 		return global_tree[this.attr('data-hdl-tree')];
 	};
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2']
+});

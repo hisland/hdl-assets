@@ -12,13 +12,9 @@
  *			mask.clean();
  *			var a = mask.init();a.loading();a.remove();
  */
-(function($){
-	//已经有了此函数则不用重复注册了
-	if($.mask){
-		return false;
-	}
-
-	var  mask = {}
+KISSY.add('mask', function(S, undef) {
+	var  $ = jQuery
+		,mask = {}
 		,html_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#fff;opacity:0.8;filter:alpha(opacity=80);"></div>';
 
 	mask.divs = $('');
@@ -46,9 +42,7 @@
 		}
 	}
 
-/**********************************************************************************************
-* 注册到jQuery上
-*/
-
 	$.mask = mask;
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2']
+});

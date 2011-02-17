@@ -1066,7 +1066,7 @@ build time: Jan 14 13:56
                 },  js = S.isFunction(componentJsName) ?
                     componentJsName(modName) : componentJsName;
                 mod = S.mix(mod || {}, {
-                    path:(hasCss ? modName + '/' : '') + js,
+                    path:modName + '/' + js,
                     charset: 'utf-8'
                 });
                 //添加模块定义

@@ -3,25 +3,19 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<style type="text/css">
-		*{padding:0;margin:0;}
-		body{font-family:"宋体",serif;font-size:75%;}
-		a img{border:none;}
-		table{border-collapse:collapse;border-spacing:0;}
-		ol,ul{list-style:none;}
-		a{text-decoration:none;}
-		a:hover{text-decoration:underline;}
-		body{padding:50px;}
-		#aaa{padding-left:150px;}
-	</style>
-	<link rel="stylesheet" type="text/css" href="autoComplete.css" />
-	<script type="text/javascript" src="../patch.javascript.js"></script>
-	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
-	<script type="text/javascript" src="../jquery.adjustElement.js"></script>
-	<script type="text/javascript" src="autoComplete.js"></script>
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher', function(){
+				S.useCSS('reset');
+				S.use('autoComplete+css');
+			});
+		});
+	</script>
 </head>
 
-<body>
+<body style="padding:50px;">
 	<span class="auto-comp">
 		<input type="text" value="全部" class="auto-comp-text" />
 		<a class="auto-comp-arr" href="#"></a>

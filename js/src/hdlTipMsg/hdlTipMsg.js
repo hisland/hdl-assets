@@ -5,35 +5,17 @@
  * 时间: 2010-9-25 14:52:5
  * 版本: v3
  *
- * 前置脚本:
- *			../jquery-1.4.2.min.js
- *			../jquery.hdlDrag.js
- * css:
- *			reset.css
- *			tipmsg.css
- * 图片:
- *			img文件夹下所有图片
- *			
+ * TODO:
+ *		confirm点击是或否应该有 returnValue
+ *		需要一个机制来控制不能关闭此层 - 2010-8-19 14:5:35
+ *		defaultFocus - 2010-10-12 10:33:29
  */
 
-//confirm点击是或否应该有 returnValue
-//需要一个机制来控制不能关闭此层 - 2010-8-19 14:5:35
-//defaultFocus - 2010-10-12 10:33:29
-
-(function($){
-/**********************************************************************************************
-*已经有了此函数则不用重复注册了
-*/
-	if($.hdlAlert){
-		return false;
-	}
-	
-/**********************************************************************************************
-*代码正文
-*/
-	var html_string	= '<div class="tipmsg_wrap"><!--[if lte IE 6]><iframe frameborder="no" scrolling="no" style="position:absolute;width:327px;filter:alpha(opacity=0);"></iframe><![endif]--><div class="tipmsg_title_wrap"><span class="tipmsg_title"></span><a href="#" class="tipmsg_close">&nbsp;</a></div><div class="tipmsg_content_wrap"><span class="tipmsg_ico"></span><div class="tipmsg_content"></div></div><div class="tipmsg_btn_wrap"><input type="button" value="确定" /></div></div>',//生成提示框用的原始html字符串
-		guid			= 0,//提示层计算器
-		pre_setting	= {
+KISSY.add('hdlTipMsg', function(S, undef) {
+	var  $ = jQuery
+		,html_string = '<div class="tipmsg_wrap"><!--[if lte IE 6]><iframe frameborder="no" scrolling="no" style="position:absolute;width:327px;filter:alpha(opacity=0);"></iframe><![endif]--><div class="tipmsg_title_wrap"><span class="tipmsg_title"></span><a href="#" class="tipmsg_close">&nbsp;</a></div><div class="tipmsg_content_wrap"><span class="tipmsg_ico"></span><div class="tipmsg_content"></div></div><div class="tipmsg_btn_wrap"><input type="button" value="确定" /></div></div>'//生成提示框用的原始html字符串
+		,guid = 0//提示层计算器
+		,pre_setting = {
 						 message:'提示信息'	//字符串 提示内容,必填
 						,type:'alert'		//字符串 提示类型,内部指定
 						,title:'提示'		//字符串 提示标题
@@ -119,15 +101,6 @@
 				type[i]();
 			}
 		}
-	}
-	init.prototype.close = function (){
-		
-	}
-	init.prototype.close = function (){
-		
-	}
-	init.prototype.close = function (){
-		
 	}
 	init.prototype.close = function (){
 		
@@ -280,13 +253,12 @@
 		return init(setting);
 	}
 
-/**********************************************************************************************
-*注册到jq命名空间上
-*/
 	$.extend({
 		hdlAlert   : alert,
 		hdlError   : error,
 		hdlNotice  : notice,
 		hdlConfirm : confirm
 	});
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2', 'hdlDrag']
+});

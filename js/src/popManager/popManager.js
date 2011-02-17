@@ -1,9 +1,9 @@
 /**********************************************************************************************
- * 弹出层管理工具 - 统一控制层级,遮罩
+ * 名称: 弹出层管理工具 - 统一控制层级,遮罩
  * 作者: hisland
  * 邮件: hisland@qq.com
- * 时间: 2010-12-3 11:47:28
- * 版本: v1
+ * 时间: @TIMESTAMP@
+ * 版本: @VERSION@
  *
  * API:
  *	p = popManager.init() 初始化一个弹出层包含块
@@ -11,8 +11,10 @@
  *	p.front() 将此层放到最前面
  *	p.remove() 删除此层
  */
-(function($){
-	var  base_z_index = 3000
+
+KISSY.add('popManager', function(S, undef) {
+	var  $ = jQuery
+		,base_z_index = 3000
 		,html_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;"></div>'
 		,m = {}
 		
@@ -50,4 +52,6 @@
 	}
 
 	window.popManager = m;
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2']
+});

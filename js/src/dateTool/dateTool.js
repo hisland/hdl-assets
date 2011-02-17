@@ -1,5 +1,20 @@
-(function($){
-	var  EMPTY_$ = $('')
+/**********************************************************************************************
+ * 名称: 日期控件
+ * 作者: hisland
+ * 邮件: hisland@qq.com
+ * 时间: @TIMESTAMP@
+ * 版本: @VERSION@
+ * 
+ * 注册一个全局监听点击函数,根据input的type为date time datetime来显示日期控件
+ * 并可根据节点上的配置进行定制
+ *
+ * 使用方法参见demo.html
+ *
+ */
+
+KISSY.add('dateTool', function(S, undef) {
+	var  $ = jQuery
+		,EMPTY_$ = $('')
 		,div_wrap
 		,btn_clear, btn_now, btn_complete
 		,ipt_year, ipt_month, ipt_date, ipt_hour, ipt_minute, ipt_second
@@ -376,7 +391,7 @@
 
 	function toolOpen(){
 		//TODO:对齐
-		div_wrap.show();
+		div_wrap.adjustElement(target_fill).show();
 	}
 	function toolClose(){
 		dropClose();
@@ -414,7 +429,7 @@
 	}
 
 	//设置各个节点的引用
-	div_wrap = $('<div class="hdt-wrap" style="display:none;"><div class="hdt-ctrl"><div class="hdt-tips">鼠标滚轮选择</div><div class="hdt-btns"><a href="#" class="hdt-clear">清除</a><a href="#" class="hdt-now">现在</a><a href="#" class="hdt-complete">完成</a></div></div><div class="hdt-ipt-list"><input type="text" class="hdt-year" />年<input type="text" class="hdt-month" />月<input type="text" class="hdt-date" />日<input type="text" class="hdt-hour" />:<input type="text" class="hdt-minute" />:<input type="text" class="hdt-second" /></div><div class="hdt-week-list"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="hdt-date-list"></div><div class="hdt-drop-list-wrap" style="display:none;"><div class="hdt-drop-list"></div><p class="hdt-drop-list-ctrl"><a href="#">上页</a><a href="#">下页</a><a href="#">关闭</a></p></div></div>');
+	div_wrap = $('<div class="hdt-wrap" style="display:none;"><div class="hdt-ctrl"><div class="hdt-tips"></div><div class="hdt-btns"><a href="#" class="hdt-clear">清除</a><a href="#" class="hdt-now">现在</a><a href="#" class="hdt-complete">完成</a></div></div><div class="hdt-ipt-list"><input type="text" class="hdt-year" />年<input type="text" class="hdt-month" />月<input type="text" class="hdt-date" />日<input type="text" class="hdt-hour" />:<input type="text" class="hdt-minute" />:<input type="text" class="hdt-second" /></div><div class="hdt-week-list"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="hdt-date-list"></div><div class="hdt-drop-list-wrap" style="display:none;"><div class="hdt-drop-list"></div><p class="hdt-drop-list-ctrl"><a href="#">上页</a><a href="#">下页</a><a href="#">关闭</a></p></div></div>');
 
 	btn_clear = div_wrap.find('a.hdt-clear');
 	btn_now = btn_clear.next();
@@ -467,4 +482,6 @@
 
 	//在文档上监听是否打开日期控件以及何时关闭日期控件
 	$(document).click(documentClick);
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2', 'adjustElement']
+});
