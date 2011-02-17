@@ -5,16 +5,51 @@
  * 时间: 2010-11-29 10:30:33
  * 版本: v1
  *
- * 前置脚本:
- *			../patch.javascript.js;
- *			../jquery-1.4.2.min.js
  */
-(function($){
-	var  target = $(''), input, select
+
+KISSY.add('autoComplete', function(S, undef) {
+	var  $ = jQuery
+		,target = $(''), input, select
 		,list
 		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent)
 		,delay_timer = 0
 		,prev_val;
+
+	//按c标签的输出进行转换, ["']这两个使用实体编号,其它3个使用实体名称
+	String.entityHTMLReg = /[&<>"']/g;
+	String.prototype.entityHTML = function(){
+		return this.replace(String.entityHTMLReg, function(v){
+			if(v === '&'){
+				return '&amp;';
+			}else if(v === '<'){
+				return '&lt;';
+			}else if(v === '>'){
+				return '&gt;';
+			}else if(v === '"'){
+				return '&#34;';
+			}else if(v === "'"){
+				return '&#39;';
+			}
+			return v;
+		});
+	}
+	String.unentityHTMLReg = /&lt;|&gt;|&amp;|&#34;|&#39;/g;
+	String.prototype.unentityHTML = function(){
+		return this.replace(String.unentityHTMLReg, function(v){
+			if(v === '&amp;'){
+				return '&';
+			}else if(v === '&lt;'){
+				return '<';
+			}else if(v === '&gt;'){
+				return '>';
+			}else if(v === '&#34;'){
+				return '"';
+			}else if(v === '&#39;'){
+				return "'";
+			}
+			return v;
+		});
+	}
 
 	function targetKeyUp(e){
 		var val = $(this).find('input').val();
@@ -230,4 +265,6 @@
 	});
 
 	$(document).mousedown(documentMouseDown);
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2', 'adjustElement']
+});

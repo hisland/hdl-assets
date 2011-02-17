@@ -1,4 +1,10 @@
-function viewJSON(obj,tabs){
+/**********************************************************************************************
+ *
+ * 查看一个对象的json表示
+ * 
+ */
+
+Object.prototype.viewJSON = function(obj,tabs){
 	var isArr = Object.prototype.toString.apply(obj) === '[object Array]';
 	var str = isArr ? '[' : '{';
 	var arr = [];
