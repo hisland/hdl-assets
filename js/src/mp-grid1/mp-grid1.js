@@ -4,10 +4,6 @@
  * 邮件: hisland@qq.com
  * 时间: @TIMESTAMP@
  * 版本: @VERSION@
- * 
- * 注册一个全局监听点击函数,根据input的type为date time datetime来显示日期控件
- * 并可根据节点上的配置进行定制
- *
  *
  */
 
@@ -17,10 +13,13 @@
 		var me = $(this), elm = $(e.target), span, select_box;
 
 		select_box = me.find('.mp-g1-box-lb,.mp-g1-box-rb');
-		if(elm.is('td, li')){
+		//选择行处理
+		if(elm.is('td, li') && !elm.closest('li, tr').is('.mp-g1-selected')){
 			select_box.find('.mp-g1-selected').removeClass('mp-g1-selected');
 			select_box.find('li:eq('+elm.closest('li, tr').index()+')').addClass('mp-g1-selected');
 			select_box.find('tr:eq('+elm.closest('li, tr').index()+')').addClass('mp-g1-selected');
+		
+		//上下移动处理
 		}else if(elm.is('span')){
 			span = elm.attr('class');
 			if(span === 'mp-g1-top'){
@@ -44,6 +43,8 @@
 					v.parent().append(v);
 				});
 			}
+
+		//切换状态处理
 		}else if(elm.is('strong')){
 			if(elm.attr('class') === 'mp-g1-0'){
 				elm.attr('class', 'mp-g1-1');
@@ -52,6 +53,7 @@
 			}
 		}
 	}
+
 	//滚动条滚动事件
 	function tableScroll(e){
 		var  t = $(this).prev().find('table')
@@ -61,6 +63,7 @@
 		t.css('left', -sl);
 		l.css('top', -st);
 	}
+
 	$.extend({
 		mpGrid1: function(elm, data){
 			elm = $(elm);
@@ -76,7 +79,7 @@
 			var b = String.buffer(), header_len = 0;
 
 			b.push('<div class="mp-g1-left">');
-			b.push('<div class="mp-g1-box-lt"><span class="mp-g1-top"></span><span class="mp-g1-up"></span><span class="mp-g1-text">优先级</span><span class="mp-g1-down"></span><span class="mp-g1-bottom"></span></div>');
+			b.push('<div class="mp-g1-box-lt"><span class="mp-g1-top"></span><span class="mp-g1-up"></span><span class="mp-g1-text">priority</span><span class="mp-g1-down"></span><span class="mp-g1-bottom"></span></div>');
 			b.push('<div class="mp-g1-box-lb"><ul></ul></div></div>');
 
 			b.push('<div class="mp-g1-right">');
@@ -116,6 +119,7 @@
 				.addClass('mp-g1-wrap')
 				.html(b.join(''));
 
+			//区别对待ie6,避免其解析过慢导致有些宽计算不正确
 			if($.browser.version == 6.0){
 				setTimeout(function(){
 					elm.mpGrid1Init();
@@ -163,7 +167,7 @@
 			}
 		}
 
-		//获得数据
+		//取得数据
 		,mpGrid1GetData: function(){
 			var  elm = $(this)
 				,tbody = elm.find('.mp-g1-box-rb tr')
