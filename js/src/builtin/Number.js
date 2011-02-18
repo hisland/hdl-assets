@@ -1,1 +1,3 @@
-
+Number.prototype.times = function(){
+	
+}

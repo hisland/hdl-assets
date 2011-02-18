@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			var data = {
+							 header: {
+								 '0': '业务零'
+								,'1': '业务一'
+								,'2': '业务二'
+								,'3': '业务三'
+								,'4': '业务四'
+								,'5': '业务五'
+								,'6': '业务六'
+								,'7': '业务七'
+							}
+							,data: [
+								 ['2', '01010110']
+								,['3', '10101001']
+								,['0', '11111101']
+								,['1', '00000010']
+								,['4', '11011000']
+								,['5', '11111111']
+								,['7', '00000110']
+								,['6', '11011011']
+							]
+						};
+
+			S.css_base_path = '../../css/src';
+			S.add({'String': {
+				 path: 'builtin/String.js'
+				,charset: 'utf-8'
+			}});
+			S.use('kissy-patcher, String', function(){
+				S.useCSS('reset');
+				S.use('jquery-1.4.2', function(){
+					S.use('mp-grid1+css', initGrid);
+				});
+			});
+
+			function initGrid(){
+				$.mpGrid1('#wrap', data);
+				$.mpGrid1('#wrap2', data);
+			}
+		});
+	</script>
+	<style type="text/css">
+		#wrap{width:600px;height:200px;}
+		#wrap2{width:300px;height:200px;}
+	</style>
+</head>
+
+<body style="margin:50px;">
+	<div id="wrap"></div>
+	<br />
+	<div id="wrap2"></div>
+</body>
+</html>
