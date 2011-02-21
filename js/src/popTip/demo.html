@@ -3,20 +3,41 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
-	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.add({'String': {
+				 path: 'builtin/String.js'
+				,charset: 'utf-8'
+			}});
+			S.use('kissy-patcher, String', function(){
+				S.useCSS('reset');
+				S.use('jquery-1.4.2, popTip+css', init);
+			});
 
-	<link rel="stylesheet" type="text/css" href="popTip.css" />
-	<script type="text/javascript" src="popTip.js"></script>
+			function init(){
+				$('#aa').click(function(e){
+					var tip = this.tip;
+					if(!tip){
+						tip = $.popTip();
+						this.tip = tip;
+					}
 
-	<style type="text/css">
-		body{padding:50px;}
+					tip.div.show();
+				});
 
-		.hm-tip1-wrap{width:200px;height:100px;top:100px;left:100px;}
-		.hm-tip2-wrap{width:200px;height:100px;top:250px;left:100px;}
-	</style>
+				$(document).click(function(e){
+					var t = e.target, dt = $(t);
+					if(!dt.is('#aa')){
+						$('#aa')[0].tip.div.hide();
+					}
+				});
+			}
+		});
+	</script>
 </head>
-<body>
-	
+<body style="padding:50px;">
+	<input id="aa" type="text" name="" value="" />
 </body>
 </html>

@@ -1,12 +1,13 @@
 /**********************************************************************************************
- * 拖动代码
+ * 名称: 拖动
  * 作者: hisland
  * 邮件: hisland@qq.com
- * 时间: 2010-9-6 21:10:0
+ * 时间: 2011-2-21 15:31:24
  */
 
-(function($) {
-	var target;
+KISSY.add('hdlDrag', function(S, undef) {
+	var  $ = jQuery
+		,target;
 	function test(){
 		
 	}
@@ -28,4 +29,6 @@
 	function mouseUp(){
 		
 	}
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2']
+});

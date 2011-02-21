@@ -3,3 +3,8 @@ ant-build文件:
 
 js文件:
 	拖动的时候,ie使用setCapture实现
+
+css文件:
+	实现标准浏览器和ie系列分开加载,
+	标准浏览器:modname-std.css
+	ie浏览器:modname.css
