@@ -23,7 +23,7 @@ KISSY.add('dateTool', function(S, undef) {
 		,drop_prev, drop_next, drop_close
 		,drop_arr, drop_arr_class
 		,target_ipt, target_fill = EMPTY_$
-		,_is_opened = false;
+		,_is_opened = false, _date_disabled = false;
 
 	var  ie = /*@cc_on!@*/!1
 		,date_arr
@@ -136,11 +136,11 @@ KISSY.add('dateTool', function(S, undef) {
 	DateArr.prototype.setDate = function(date){
 		if(date && date instanceof Date){
 			this.item('year', date.getFullYear());
-			this.item('month', length1Prefix0(date.getMonth()+1));
-			this.item('date', length1Prefix0(date.getDate()));
-			this.item('hour', length1Prefix0(date.getHours()));
-			this.item('minute', length1Prefix0(date.getMinutes()));
-			this.item('second', length1Prefix0(date.getSeconds()));
+			this.item('month', date.getMonth()+1);
+			this.item('date', date.getDate());
+			this.item('hour', date.getHours());
+			this.item('minute', date.getMinutes());
+			this.item('second', date.getSeconds());
 		}
 		return this;
 	}
@@ -169,16 +169,16 @@ KISSY.add('dateTool', function(S, undef) {
 		for(i = 1; i < firstDay; i++) {
 			str.push('<span></span>');
 		}
-		if(typeof itemFilter === 'function'){
+		if(_date_disabled || typeof itemFilter === 'function'){
 			for(i = 1; i <= days; i++) {
-				if(itemFilter(i)){
+				if(_date_disabled || !itemFilter(i)){
+					str.push('<strong>' + i + '</strong>');
+				}else{
 					if(i !== nowDay){
 						str.push('<a href="#">' + i + '</a>');
 					}else{
 						str.push('<a href="#" class="hdt-date-now">' + i + '</a>');
 					}
-				}else{
-					str.push('<strong>' + i + '</strong>');
 				}
 			}
 		}else{
@@ -272,19 +272,27 @@ KISSY.add('dateTool', function(S, undef) {
 	}
 	DateArr.fixed_reg = /(year|month|date|hour|minute|second)(\d*)/;
 	DateArr.prototype.refreshFixed = function(fixed){
-		var arr, i, item, ipt_list = ipt_year.parent();
+		var arr, i, item, ipt_list = ipt_year.parent(), has_date = 0;
 		arr = fixed.replace(/\s/g, '').split(',');
 		ipt_list.find(':disabled').attr('disabled', false).removeClass('disabled');
 		for (i = 0; i < arr.length; i++) {
 			if(item = arr[i].match(DateArr.fixed_reg)){
 				item[2] = item[2] || 'any';
 				ipt_list.find('input.hdt-' + item[1]).attr('disabled',true).addClass('disabled');
+				if(item[1] === 'date'){
+					has_date = 1;
+				}
 				if(item[2] === 'any'){
 					this[item[1]] = item[2];
 				}else{
 					this.item(item[1], item[2]);
 				}
 			}
+		}
+		if(has_date){
+			_date_disabled = true;
+		}else{
+			_date_disabled = false;
 		}
 		return this;
 	}
@@ -332,10 +340,10 @@ KISSY.add('dateTool', function(S, undef) {
 		div_drop_list.parent().hide();
 	}
 	function dropPrev(){
-		
+		date_arr.real('year', div_drop_list.find('a:first').html()-1).refreshDropList('year');
 	}
 	function dropNext(){
-		
+		date_arr.real('year', (div_drop_list.find('a:last').html()-0)+1).refreshDropList('year');
 	}
 	function dropSelect(dt){
 		var type = target_ipt[0].className.substring(4);
@@ -374,9 +382,9 @@ KISSY.add('dateTool', function(S, undef) {
 			}else if(t === drop_close[0]){
 				dropClose();
 			}else if(t === drop_prev[0]){
-				
+				dropPrev();
 			}else if(t === drop_next[0]){
-				
+				dropNext();
 			}
 			e.preventDefault();
 		}else if(!dt.closest('.hdt-drop-list-wrap').length){
@@ -390,7 +398,6 @@ KISSY.add('dateTool', function(S, undef) {
 	}
 
 	function toolOpen(){
-		//TODO:对齐
 		div_wrap.adjustElement(target_fill).show();
 	}
 	function toolClose(){
@@ -417,7 +424,7 @@ KISSY.add('dateTool', function(S, undef) {
 				target_fill = dt;
 				date_arr = t.date_arr;
 				date_arr.setDate(parseValueToDate(t.value) || now());
-				date_arr.refreshIpts().refreshDataList();
+				date_arr.refreshFixed(dt.attr('data-fixed') || '').refreshIpts().refreshDataList();
 				date_arr.fillTarget();
 				toolOpen();
 				_is_opened = true;
@@ -462,18 +469,6 @@ KISSY.add('dateTool', function(S, undef) {
 	}
 	div_drop_list.parent().append(drop_arr);
 
-	//输入范围鼠标滑过显示上下箭头
-	ipt_year.parent()
-	.mouseover(function(e){
-		if(e.target.nodeName.toUpperCase() === 'INPUT'){
-			
-		}
-	})
-	.mouseout(function(e){
-		
-	});
-
-
 	//文档加载完成后放入body
 	$(function(){
 		div_wrap.appendTo('body');
@@ -482,6 +477,7 @@ KISSY.add('dateTool', function(S, undef) {
 
 	//在文档上监听是否打开日期控件以及何时关闭日期控件
 	$(document).click(documentClick);
+
 }, {
 	requires: ['jquery-1.4.2', 'adjustElement']
 });
