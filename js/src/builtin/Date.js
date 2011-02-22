@@ -72,3 +72,50 @@ Date.prototype.isValid = function(){
 	return true;
 };
 
+/**********************************************************************************************
+ * 
+ * var d = new Date()
+ * d.add(123) d.add('1234') d.add(-123) 增加或减少毫秒数,参数为可转化成数字的变量
+ * d.add('year) d.add('month')  指定部分加1,参数为[year|month|date|hour|minute|second]
+ * d.add('year', 123) d.add('month', '1234')  增加或减少指定部分[year|month|date|hour|minute|second],参数为可转化成数字的变量
+ * 其余的忽略
+ * 
+ */
+Date.prototype.add = function(type, value){
+	var reg = /^(?:year|month|date|hour|minute|second)$/;
+
+	if(type === undefined){
+	}else if(value === undefined){
+		if(!isNaN(type)){
+			type -= 0;
+			this.setTime(this.getTime() + type);
+		}else if(reg.test(type)){
+			value = 1;
+			this.__add(type, value);
+		}
+	}else{
+		if(!isNaN(value) && reg.test(type)){
+			value -= 0;
+			this.__add(type, value);
+		}
+	}
+	return this;
+};
+Date.prototype.__add = function(type, value){
+	if(type === 'year'){
+		this.setFullYear(this.getFullYear() + value);
+	}else if(type === 'month'){
+		this.setMonth(this.getMonth() + value);
+	}else if(type === 'date'){
+		this.setDate(this.getDate() + value);
+	}else if(type === 'hour'){
+		this.setHours(this.getHours() + value);
+	}else if(type === 'minute'){
+		this.setMinutes(this.getMinutes() + value);
+	}else if(type === 'second'){
+		this.setSeconds(this.getSeconds() + value);
+	}else if(type === 'millisecond'){
+		this.setMillisecond(this.getMillisecond() + value);
+	}
+	return this;
+};

@@ -1,6 +1,6 @@
 <project name="mod.autoComplete" default="build" basedir=".">
 
-	<property name="title.view" value="内置函数功能增强"/>
+	<property name="title.view" value="日期控件样式页面"/>
 	<property name="mod.version" value="1"/>
 	<tstamp>
 		<format property="build.time" pattern="yyyy-MM-dd HH:mm:ss" />
@@ -8,5 +8,9 @@
 
 	<target name="build">
 		<echo message="${build.time}" />
+	</target>
+
+	<target name="self">
+		<replaceregexp match="@name .* @nameANT" replace="@name ${title.view} @nameANT" byline="true" file="view.html" />
 	</target>
 </project>

@@ -1,27 +1,16 @@
 /**********************************************************************************************
- * 右下角提示层
+ * 名称: 右下角提示层
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: 2010-10-20 12:46:36
  * 版本: v1
  *
- * 前置脚本:
- *			../patch.javascript.js;
- *			../jquery-1.4.2.min.js
  */
-(function($){
-/**********************************************************************************************
-*已经有了此函数则不用重复注册了
-*/
-	if($.hdlMessager){
-		return false;
-	}
 
-/**********************************************************************************************
-*代码正文
-*/
+KISSY.add('hdlMessager', function(S, undef) {
+	var  $ = jQuery
+		,global_msgr = window['hdl_msgr'] = [];
 
-	var global_msgr = window['hdl_msgr'] = [];
 	function close(e){
 		$(this).closest('.hdl-msgr-wrap').slideUp('fast', function(){
 			global_msgr[$(this).attr('data-hdl-msgr')].hide();
@@ -130,4 +119,6 @@
 	}
 
 	$.hdlMessager = hdlMessager;
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2']
+});
