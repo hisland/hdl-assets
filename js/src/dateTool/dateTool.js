@@ -23,7 +23,7 @@ KISSY.add('dateTool', function(S, undef) {
 		,drop_prev, drop_next, drop_close
 		,drop_arr, drop_arr_class
 		,target_ipt, target_fill = EMPTY_$
-		,_is_opened = false, _date_disabled = false;
+		,_is_opened = false;
 
 	var  ie = /*@cc_on!@*/!1
 		,date_arr
@@ -43,7 +43,7 @@ KISSY.add('dateTool', function(S, undef) {
 	}
 	function now(time_offset) {
 		time_offset = time_offset - 0 || 0;
-		return new Date(new Date().valueOf() + time_offset);
+		return new Date(+new Date() + time_offset);
 	}
 
 	function parseValueToDate(value, time_offset){
@@ -80,17 +80,18 @@ KISSY.add('dateTool', function(S, undef) {
 
 	//DateArr类
 	function DateArr(date){
-		if(date && date instanceof Date){
+		if(date instanceof Date){
 			this.setDate(date);
 		}
 	}
 	DateArr.days_list = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	//读取修改显示与真实值,'any'时只读取修改真实值
 	DateArr.prototype.item = function(type, value){
 		if(arguments.length == 2){
 			value = length1Prefix0(value);
 			if(this[type] == 'any'){
 				this.real(type, value);
+			}else if(this[type] == 'e'){
+				this.real(type, this.getMonthDays());
 			}else{
 				this[type] = value;
 				this.real(type, value);
@@ -101,6 +102,7 @@ KISSY.add('dateTool', function(S, undef) {
 		}
 	}
 	DateArr.prototype.real = function(type, value){
+		var m;
 		if(arguments.length == 2){
 			value -= 0;
 			this['real_'+type] = value;
@@ -108,9 +110,10 @@ KISSY.add('dateTool', function(S, undef) {
 				this.repairMonth2();
 			}
 			//修正日期大于真实值的情况
-			if(type === 'month' || (type === 'year' && this.real('month') == 2)){
-				if(this.real('date') > DateArr.days_list[this.real('month')]){
-					this.item('date', DateArr.days_list[this.real('month')]);
+			m = this.real('month');
+			if(type === 'month' || (type === 'year' && m === 2)){
+				if(this.real('date') > DateArr.days_list[m]){
+					this.item('date', DateArr.days_list[m]);
 				}
 			}
 			return this;
@@ -123,10 +126,7 @@ KISSY.add('dateTool', function(S, undef) {
 	}
 	DateArr.prototype.getMonthFirstDay = function(){
 		var first_day = new Date(this.real('year')+'/'+this.real('month')+'/1').getDay();
-		if(first_day == 0){
-			first_day = 7;
-		}
-		return first_day;
+		return first_day || 7;
 	}
 	DateArr.prototype.repairMonth2 = function(){
 		var year = this.real('year');
@@ -134,7 +134,7 @@ KISSY.add('dateTool', function(S, undef) {
 		return this;
 	}
 	DateArr.prototype.setDate = function(date){
-		if(date && date instanceof Date){
+		if(date instanceof Date){
 			this.item('year', date.getFullYear());
 			this.item('month', date.getMonth()+1);
 			this.item('date', date.getDate());
@@ -165,7 +165,8 @@ KISSY.add('dateTool', function(S, undef) {
 		var  str = [], i
 			,days = this.getMonthDays()
 			,firstDay = this.getMonthFirstDay()
-			,nowDay = this.real('date');
+			,nowDay = this.real('date')
+			,_date_disabled = this.fixed.hasOwnProperty('date') ? 1 : 0;
 		for(i = 1; i < firstDay; i++) {
 			str.push('<span></span>');
 		}
@@ -255,7 +256,11 @@ KISSY.add('dateTool', function(S, undef) {
 		}else if(type === 'month'){
 			ipt_month.val(this.item(type));
 		}else if(type === 'date'){
-			ipt_date.val(this.item(type));
+			if(this.item(type) == 'e'){
+				ipt_date.val(this.getMonthDays());
+			}else{
+				ipt_date.val(this.item(type));
+			}
 		}else if(type === 'hour'){
 			ipt_hour.val(this.item(type));
 		}else if(type === 'minute'){
@@ -270,30 +275,23 @@ KISSY.add('dateTool', function(S, undef) {
 		}
 		return this;
 	}
-	DateArr.fixed_reg = /(year|month|date|hour|minute|second)(\d*)/;
+	DateArr.reg_fixed = /(year|month|date|hour|minute|second)([\de]*)/g;
 	DateArr.prototype.refreshFixed = function(fixed){
-		var arr, i, item, ipt_list = ipt_year.parent(), has_date = 0;
-		arr = fixed.replace(/\s/g, '').split(',');
+		var i, v, o = {}, ipt_list = ipt_year.parent();
+		fixed.replace(DateArr.reg_fixed, function(a, b, c){
+			if(b && !o[b]){
+				o[b] = c;
+			}
+		});
 		ipt_list.find(':disabled').attr('disabled', false).removeClass('disabled');
-		for (i = 0; i < arr.length; i++) {
-			if(item = arr[i].match(DateArr.fixed_reg)){
-				item[2] = item[2] || 'any';
-				ipt_list.find('input.hdt-' + item[1]).attr('disabled',true).addClass('disabled');
-				if(item[1] === 'date'){
-					has_date = 1;
-				}
-				if(item[2] === 'any'){
-					this[item[1]] = item[2];
-				}else{
-					this.item(item[1], item[2]);
-				}
+		for(i in o){
+			if(o.hasOwnProperty(i)){
+				v = o[i] || 'any';
+				ipt_list.find('input.hdt-' + i).attr('disabled',true).addClass('disabled');
+				this[i] = v;
 			}
 		}
-		if(has_date){
-			_date_disabled = true;
-		}else{
-			_date_disabled = false;
-		}
+		this.fixed = o;
 		return this;
 	}
 	DateArr.prototype.fillTarget = function(){
@@ -301,7 +299,8 @@ KISSY.add('dateTool', function(S, undef) {
 		arr = 'year,month,date'.split(',');
 		for(i=0;i<3;i++){
 			temp = this.item(arr[i]);
-			temp == 'any' ? null : arr2.push(temp);
+			//日期末尾可能是e表示当月的最大值
+			temp == 'any' ? 0 : (temp == 'e' ? arr2.push(this.getMonthDays()) : arr2.push(temp));
 		}
 		str = arr2.join('-');
 		arr2.length = 0;
@@ -309,26 +308,13 @@ KISSY.add('dateTool', function(S, undef) {
 		arr = 'hour,minute,second'.split(',');
 		for(i=0;i<3;i++){
 			temp = this.item(arr[i]);
-			temp == 'any' ? null : arr2.push(temp);
+			temp == 'any' ? 0 : arr2.push(temp);
 		}
 		str += ' '+arr2.join(':');
 
 		target_fill.val(str.trim());
 		return this;
 	}
-
-	function btnClearClick(){
-		target_fill.val('');
-	}
-	function btnNowClick(){
-		date_arr.setDate(now());
-		date_arr.refreshIpts();
-		date_arr.fillTarget();
-	}
-	function btnCompleteClick(){
-		toolClose();
-	}
-
 
 	function dropOpen(){
 		var type = target_ipt[0].className.substring(4);
@@ -347,18 +333,40 @@ KISSY.add('dateTool', function(S, undef) {
 	}
 	function dropSelect(dt){
 		var type = target_ipt[0].className.substring(4);
-		date_arr.item(type, dt.html()).refreshIpts(type).fillTarget();
+		date_arr.item(type, dt.html()).refreshIpts(type);
 		dt.addClass('hdt-drop-list-now').siblings('a.hdt-drop-list-now').removeClass('hdt-drop-list-now');
 		if(type === 'year' || type === 'month' || type === 'date'){
 			date_arr.refreshIpts('date').refreshDataList();
 		}
+		date_arr.fillTarget();
 		dropClose();
 	}
-
 	function dateSelect(dt){
 		date_arr.item('date', dt.html()).refreshIpts('date').fillTarget();
 		dt.addClass('hdt-date-now').siblings('a.hdt-date-now').removeClass('hdt-date-now');
 	}
+
+	function toolOpen(){
+		div_wrap.adjustElement(target_fill).show();
+	}
+	function toolClose(){
+		dropClose();
+		target_fill = EMPTY_$;
+		div_wrap.hide();
+	}
+
+	function btnClearClick(){
+		target_fill.val('');
+	}
+	function btnNowClick(){
+		date_arr.setDate(now());
+		date_arr.refreshIpts();
+		date_arr.fillTarget();
+	}
+	function btnCompleteClick(){
+		toolClose();
+	}
+
 
 	function divWrapClick(e){
 		var	 t = e.target
@@ -397,15 +405,6 @@ KISSY.add('dateTool', function(S, undef) {
 		}
 	}
 
-	function toolOpen(){
-		div_wrap.adjustElement(target_fill).show();
-	}
-	function toolClose(){
-		dropClose();
-		target_fill = EMPTY_$;
-		div_wrap.hide();
-	}
-
 	function isDateInput(elm){
 		var attr = elm.getAttribute('type');
 		if(elm.tagName.toUpperCase() === 'INPUT' && (attr === 'datetime' || attr === 'date' || attr === 'time')){
@@ -423,9 +422,10 @@ KISSY.add('dateTool', function(S, undef) {
 				}
 				target_fill = dt;
 				date_arr = t.date_arr;
-				date_arr.setDate(parseValueToDate(t.value) || now());
-				date_arr.refreshFixed(dt.attr('data-fixed') || '').refreshIpts().refreshDataList();
-				date_arr.fillTarget();
+				date_arr.refreshFixed(dt.attr('data-fixed') || '')
+						.setDate(parseValueToDate(t.value) || now())
+						.refreshIpts().refreshDataList()
+						.fillTarget();
 				toolOpen();
 				_is_opened = true;
 			}
