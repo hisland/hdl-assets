@@ -310,9 +310,10 @@ KISSY.add('dateTool', function(S, undef) {
 			temp = this.item(arr[i]);
 			temp == 'any' ? 0 : arr2.push(temp);
 		}
-		str += ' '+arr2.join(':');
+		arr = arr2.join(':');
+		arr ? str += ' '+arr : 0;
 
-		target_fill.val(str.trim());
+		target_fill.val(str);
 		return this;
 	}
 
