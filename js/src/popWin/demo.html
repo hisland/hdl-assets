@@ -3,16 +3,16 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
-	<link rel="stylesheet" type="text/css" href="popWin.css" />
-
-	<script type="text/javascript" src="../patch.javascript.js"></script>
-	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
-	<script type="text/javascript" src="../popManager.js"></script>
-	<script type="text/javascript" src="../jquery.mask.js"></script>
-	<script type="text/javascript" src="../canBind.js"></script>
-	<script type="text/javascript" src="../hdlDrag/v1/jquery.hdlDrag.js"></script>
-	<script type="text/javascript" src="popWin.js"></script>
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher', function(){
+				S.useCSS('reset');
+				S.use('popWin+css');
+			});
+		});
+	</script>
 </head>
 
 <body>

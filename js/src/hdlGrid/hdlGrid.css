@@ -2,8 +2,9 @@
 
 .hdl-grid-wrap{width:100%;height:100%;position:relative;}
 
-	.hdl-grid-wrap table{width:100%;}
-	.hdl-grid-wrap .td-checkbox{text-align:center;}
+	.hdl-grid-wrap table{width:100%;table-layout:fixed;}
+	.hdl-grid-wrap .td-center{text-align:center;}
+	.hdl-grid-wrap .td-right{text-align:right;}
 
 	.hdl-grid-head{border:1px solid #d7e6f5;border-bottom:none;background:#c7e0fd;}
 	.hdl-grid-head th{border-right:1px solid #f1f7fe;border-bottom:1px solid #f1f7fe;padding:3px;font-weight:400;}

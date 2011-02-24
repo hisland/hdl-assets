@@ -254,10 +254,10 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 	}
 
 	$.extend({
-		hdlAlert   : alert,
-		hdlError   : error,
-		hdlNotice  : notice,
-		hdlConfirm : confirm
+		alert   : alert,
+		errorTip   : error,
+		notice  : notice,
+		confirm : confirm
 	});
 }, {
 	requires: ['jquery-1.4.2', 'hdlDrag']

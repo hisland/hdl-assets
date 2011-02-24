@@ -3,14 +3,16 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-
-	<link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
-	<link rel="stylesheet" type="text/css" href="hdlTree.css" />
-
-	<script type="text/javascript" src="../patch.javascript.js"></script>
-	<script type="text/javascript" src="../jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="hdlTree.js"></script>
-
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher', function(){
+				S.useCSS('reset');
+				S.use('hdlTree+css');
+			});
+		});
+	</script>
 	<style type="text/css">
 		body{padding:50px;}
 		.aa{margin-top:10px;border:1px solid green;}

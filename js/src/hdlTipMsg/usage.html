@@ -3,12 +3,16 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
-	<link rel="stylesheet" type="text/css" href="hdlTipMsg.css" />
-
-	<script type="text/javascript" src="../jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="../jquery.hdlDrag.js"></script>
-	<script type="text/javascript" src="hdlTipMsg.js"></script>
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher', function(){
+				S.useCSS('reset');
+				S.use('hdlTipMsg+css');
+			});
+		});
+	</script>
 	<style type="text/css">
 		hr{height:2px;border:none;border-top:1px solid #dfeaf8;border-bottom:1px solid #a9c5e6;margin:20px 0;}
 
@@ -17,11 +21,6 @@
 		h2{font-size:16px;color:#666;}
 		.code{color:green;}
 	</style>
-	<script type="text/javascript">
-		$(function(){
-			
-		});
-	</script>
 </head>
 
 <body>

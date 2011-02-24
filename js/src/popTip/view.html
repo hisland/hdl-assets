@@ -3,18 +3,22 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="../../styles/reset.css" />
-
-	<link rel="stylesheet" type="text/css" href="popTip.css" />
-
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher', function(){
+				S.useCSS('reset');
+				S.use('popWin+css');
+			});
+		});
+	</script>
 	<style type="text/css">
-		body{padding:50px;}
-
 		.hm-tip1-wrap{display:block;width:200px;height:100px;top:100px;left:100px;}
 		.hm-tip2-wrap{display:block;width:200px;height:100px;top:250px;left:100px;}
 	</style>
 </head>
-<body>
+<body style="padding:50px;">
 	<div class="hm-tip1-wrap">
 		<div class="hm-tip1-h">
 			<div class="hm-tip1-h2">
