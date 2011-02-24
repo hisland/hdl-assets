@@ -76,7 +76,7 @@
 				return false;
 			}
 
-			var b = String.buffer(), header_len = 0;
+			var b = [], header_len = 0;
 
 			b.push('<div class="mp-g1-left">');
 			b.push('<div class="mp-g1-box-lt"><span class="mp-g1-top"></span><span class="mp-g1-up"></span><span class="mp-g1-text">priority</span><span class="mp-g1-down"></span><span class="mp-g1-bottom"></span></div>');
@@ -138,7 +138,7 @@
 
 				//生成左侧文字
 				ul = elm.find('.mp-g1-box-lb ul');
-				b = String.buffer();
+				b = [];
 				header = elm.data('grid-data').header;
 				elm.find('.mp-g1-box-rb').find('tr').each(function(i, v){
 					b.push('<li>', header[$(v).attr('data-idx')], '</li>');

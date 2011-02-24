@@ -10,11 +10,10 @@
 		#aa{height:300px;width:500px;}
 	</style>
 	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
-	<script type="text/javascript" src="../String.buffer.js"></script>
 	<script type="text/javascript" src="data2.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			var b = String.buffer(), c;
+			var b = [], c;
 			b.push('<div class="pop-select"><div class="pop-select-in"><table class="pop-select-t"><tbody>');
 			for(var i=0;i<PCList.length;i++){
 				b.push('<tr><td class="pop-select-td2">', PCList[i].name, '</td><td class="pop-select-td3">');

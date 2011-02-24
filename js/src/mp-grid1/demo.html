@@ -30,11 +30,7 @@
 						};
 
 			S.css_base_path = '../../css/src';
-			S.add({'String': {
-				 path: 'builtin/String.js'
-				,charset: 'utf-8'
-			}});
-			S.use('kissy-patcher, String', function(){
+			S.use('kissy-patcher', function(){
 				S.useCSS('reset');
 				S.use('jquery-1.4.2', function(){
 					S.use('mp-grid1+css', initGrid);
