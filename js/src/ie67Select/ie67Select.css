@@ -5,12 +5,7 @@
 .ie67-select-disabled{border-color:#ccc;}
 .ie67-select-disabled:hover{border-color:#ccc;cursor:default;}
 	.ie67-select-text{float:left;width:100%;white-space:nowrap;height:15px;overflow:hidden;text-overflow:ellipsis;}
-	.ie67-select select{display:none;float:left;
-/*zoom:expression((function(elm){
-	setTimeout(function(){
-		$(elm).parent().find('span').html(elm.options[elm.selectedIndex].innerHTML);
-	}, 10);
-})(this))*/}
+	.ie67-select select{display:none;float:left;}
 
 .ie67-select-wrap{display:none;position:absolute;border:1px solid #7f9db9;background:#fff;max-height:200px;overflow:auto;}
 	.ie67-select-item{display:block;white-space:nowrap;color:#000;padding:3px 5px;outline:none;}

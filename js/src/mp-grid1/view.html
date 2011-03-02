@@ -3,9 +3,18 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=gb2312" />
-
-	<link rel="stylesheet" type="text/css" href="../../../css/src/reset/reset.css" />
-	<link rel="stylesheet" type="text/css" href="mp-grid1.css" />
+	<script type="text/javascript" charset="utf-8" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher', function(){
+				S.useCSS('reset');
+				S.use('jquery-1.4.2', function(){
+					S.use('mp-grid1+css');
+				});
+			});
+		});
+	</script>
 </head>
 
 <body style="margin:50px;">

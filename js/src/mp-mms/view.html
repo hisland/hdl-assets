@@ -3,27 +3,41 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=gb2312" />
-
-	<link rel="stylesheet" type="text/css" href="../../../css/src/reset/reset.css" />
-	<link rel="stylesheet" type="text/css" href="mp-mms.css" />
+	<script type="text/javascript" charset="utf-8" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher', function(){
+				S.useCSS('reset');
+				S.use('jquery-1.4.2', function(){
+					S.use('mp-mms+css', function(){
+						$('.mp-mms-wrap').MMSEditEvent();
+					});
+				});
+			});
+		});
+	</script>
 </head>
 
 <body style="margin:50px;">
-
-	<div class="mp-mms-wrap">
+<form id="aaa" action="#">
+	<div class="mp-mms-wrap" style="width:240px">
 		<div class="mp-mms-l">
 			<div class="mp-mms-o">
-				<a class="mp-mms-o1" href="javascript:void(0)" title="top"></a>
-				<a class="mp-mms-o2" href="javascript:void(0)" title="up"></a>
+				<a class="mp-mms-o1 mp-mms-od" href="javascript:void(0)" title="top"></a>
+				<a class="mp-mms-o2 mp-mms-od" href="javascript:void(0)" title="up"></a>
 				<a class="mp-mms-o3" href="javascript:void(0)" title="down"></a>
 				<a class="mp-mms-o4" href="javascript:void(0)" title="bottom"></a>
 			</div>
-			<a class="mp-mms-su" href="javascript:void(0)"></a>
+			<a class="mp-mms-su mp-mms-sud" href="javascript:void(0)"></a>
 			<div class="mp-mms-f">
 				<a class="mp-mms-f1" href="javascript:void(0)"><span>1</span></a>
-				<a class="mp-mms-f2 mp-mms-f-s" href="javascript:void(0)"><span>1</span></a>
-				<a class="mp-mms-f3" href="javascript:void(0)"><span>1</span></a>
-				<a class="mp-mms-f4" href="javascript:void(0)"><span>1</span></a>
+				<a class="mp-mms-f2 mp-mms-f-s" href="javascript:void(0)"><span>2</span></a>
+				<a class="mp-mms-f3" href="javascript:void(0)"><span>3</span></a>
+				<a class="mp-mms-f4" href="javascript:void(0)"><span>4</span></a>
+				<a class="mp-mms-f4" href="javascript:void(0)"><span>5</span></a>
+				<a class="mp-mms-f4" href="javascript:void(0)"><span>6</span></a>
+				<a class="mp-mms-f4" href="javascript:void(0)"><span>7</span></a>
 			</div>
 			<a class="mp-mms-sd" href="javascript:void(0)"></a>
 			<div class="mp-mms-t">
@@ -38,12 +52,63 @@
 				<a class="mp-mms-a4" href="javascript:void(0)">+Video</a>
 			</div>
 			<div class="mp-mms-v">
-				<div class="mp-mms-v">
-					some words
+				<div class="mp-mms-vb">
+					<a class="mp-mms-vd" href="javascript:void(0)">delete</a>
+					<div class="mp-mms-vb1 mp-mms-vb1ok">
+						<p>提示信息</p>
+						<span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="" /></span>
+						<div class="mp-mms-vb1w">
+							<img src="pic1.gif" alt="" />
+						</div>
+					</div>
+				</div>
+				<div class="mp-mms-vb">
+					<a class="mp-mms-vd" href="javascript:void(0)">delete</a>
+					<div class="mp-mms-vb2">
+						<p class="red">错误信息</p>
+						<span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="" /></span>
+					</div>
+				</div>
+				<div class="mp-mms-vb">
+					<a class="mp-mms-vd" href="javascript:void(0)">delete</a>
+					<div class="mp-mms-vb3">
+						<textarea class="mp-mms-vbta">这里公可以输入什么什么什么的什么</textarea>
+					</div>
+				</div>
+				<div class="mp-mms-vb">
+					<a class="mp-mms-vd" href="javascript:void(0)">delete</a>
+					<div class="mp-mms-vb4">
+						<p>提示信息</p>
+						<span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="" /></span>
+					</div>
+				</div>
+				<div class="mp-mms-vb">
+					<a class="mp-mms-vd" href="javascript:void(0)">delete</a>
+					<div class="mp-mms-vb4">
+						<p>提示信息</p>
+						<p class="red">错误信息</p>
+						<span class="mp-mms-btn"></span>
+					</div>
+				</div>
+				<div class="mp-mms-vb">
+					<a class="mp-mms-vd" href="javascript:void(0)">delete</a>
+					<div class="mp-mms-vb4">
+						<p>提示信息</p>
+						<p class="red">错误信息</p>
+						<span class="mp-mms-btn"></span>
+					</div>
+				</div>
+				<div class="mp-mms-vb">
+					<a class="mp-mms-vd" href="javascript:void(0)">delete</a>
+					<div class="mp-mms-vb4">
+						<p>提示信息</p>
+						<p class="red">错误信息</p>
+						<span class="mp-mms-btn"></span>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
+</form>
 </body>
 </html>

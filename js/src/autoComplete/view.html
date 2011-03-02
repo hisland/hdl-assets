@@ -6,6 +6,36 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
+			var god = S.namespace('god', true);
+			god.ss= {
+					"perPageNum": 15,
+					"currPage": 1,
+					"beginNum": 1,
+					"endNum": 15,
+					"totals": 63,
+					"currRecordNum": 15,
+					"allPage": 5,
+					"rows": [
+						"''||\" \"",
+						"''||''4",
+						"sd",
+						"77sd1",
+						"87sd6543214",
+						"asdsdsd3",
+						"asdsdsds3",
+						"asdsdsds3",
+						"asdsdsde3",
+						"dfd&sdfssddf1",
+						"ewsdr",
+						"ffsdsd",
+						"fgpdepde'0tdssqe'pfd_7843920",
+						"fgpdepde'0tdssqe'pf_88884",
+						"fgpdepde'0tgaojing",
+						"iujyhgfdsxb",
+						"sdfa56fasdsf+as65df65a6d5f6dsa5f6dsa5f6ds5f6dsa4f6ds4f5d6s4f6d5s4f6ds54f6ads45f6sd54f6ds54f5d6f4d65sf4d65s4fd65sf4d6sf43",
+						"trew"
+					]
+				};
 			S.css_base_path = '../../css/src';
 			S.use('kissy-patcher', function(){
 				S.useCSS('reset');
@@ -16,93 +46,40 @@
 </head>
 
 <body style="padding:50px;">
-	<span class="auto-comp">
-		<input type="text" value="this is text" class="auto-comp-text" />
+	<!-- data-ns == data namespace 与url同时存在则优先使用 -->
+	<span class="auto-comp" data-data-ns="god.ss">
+		<input type="text" value="this is text" class="auto-comp-txt" />
 		<a class="auto-comp-arr" href="javascript:void(0)"></a>
-		<select name="name">
-			<option value="aa1">中文</option>
-			<option value="bb2">你好</option>
-			<option value="cc3">好真的中3</option>
-			<option value="dd4">的要是</option>
-			<option value="aa5">aa中国1</option>
-			<option value="bb6">bb11111</option>
-			<option value="cc7">好真的中2</option>
-			<option value="dd8">sddd</option>
-			<option value="aa9">afsda</option>
-			<option value="bb0">bsdfb</option>
-			<option value="cc10">csdfc</option>
-			<option value="aa11">aa</option>
-			<option value="bb12">bb</option>
-			<option value="cc13">cc</option>
-			<option value="dd14">dd</option>
-			<option value="aa15">aa11111</option>
-			<option value="bb16">bb11111</option>
-			<option value="cc17">csdc</option>
-			<option value="dd18">sddd</option>
-			<option value="aa19">afsda</option>
-			<option value="bb20">bsdfb</option>
-			<option value="cc21">csdfc</option>
-			<option value="aa22">aa</option>
-			<option value="bb23">bb</option>
-			<option value="cc24">cc</option>
-			<option value="dd25">dd</option>
-			<option value="aa26">aa11111</option>
-			<option value="bb27">bb11111</option>
-			<option value="cc28">csdc</option>
-			<option value="dd29">sddd</option>
-			<option value="aa30">afsda</option>
-			<option value="bb31">bsdfb</option>
-			<option value="cc32">csdfc</option>
-			<option value="dd33">ddsdf</option>
-		</select>
 	</span>
-	<span class="auto-comp auto-comp-disabled">
-		<input type="text" value="this is text" class="auto-comp-text" />
+	<!-- data-url == ajax data url -->
+	<span class="auto-comp" data-data-url="data.js">
+		<input type="text" value="this is text" class="auto-comp-txt" />
 		<a class="auto-comp-arr" href="javascript:void(0)"></a>
-		<select name="name">
-			<option value="aa1">中文</option>
-			<option value="bb2">你好</option>
-			<option value="cc3">好真的中3</option>
-			<option value="dd4">的要是</option>
-			<option value="aa5">aa中国1</option>
-			<option value="bb6">bb11111</option>
-			<option value="cc7">好真的中2</option>
-			<option value="dd8">sddd</option>
-			<option value="aa9">afsda</option>
-			<option value="bb0">bsdfb</option>
-			<option value="cc10">csdfc</option>
-			<option value="aa11">aa</option>
-			<option value="bb12">bb</option>
-			<option value="cc13">cc</option>
-			<option value="dd14">dd</option>
-			<option value="aa15">aa11111</option>
-			<option value="bb16">bb11111</option>
-			<option value="cc17">csdc</option>
-			<option value="dd18">sddd</option>
-			<option value="aa19">afsda</option>
-			<option value="bb20">bsdfb</option>
-			<option value="cc21">csdfc</option>
-			<option value="aa22">aa</option>
-			<option value="bb23">bb</option>
-			<option value="cc24">cc</option>
-			<option value="dd25">dd</option>
-			<option value="aa26">aa11111</option>
-			<option value="bb27">bb11111</option>
-			<option value="cc28">csdc</option>
-			<option value="dd29">sddd</option>
-			<option value="aa30">afsda</option>
-			<option value="bb31">bsdfb</option>
-			<option value="cc32">csdfc</option>
-			<option value="dd33">ddsdf</option>
-		</select>
 	</span>
 
-	<div class="auto-comp-wrap">
-		<a class="auto-comp-item" href="#" data-value="1">1</a>
-		<a class="auto-comp-item" href="#" data-value="2">2</a>
-		<a class="auto-comp-item" href="#" data-value="3">3</a>
-		<a class="auto-comp-item" href="#" data-value="4">4</a>
-		<a class="auto-comp-item" href="#" data-value="5">5</a>
+	<!-- 禁用时加上 auto-comp-disabled -->
+	<span class="auto-comp auto-comp-disabled">
+		<input type="text" value="this is text" class="auto-comp-txt" />
+		<a class="auto-comp-arr" href="javascript:void(0)"></a>
+	</span>
+
+
+
+	<!-- 下拉层样式与结构 -->
+	<div class="auto-comp-p">
+		<div class="auto-comp-loading">加载中...</div>
+		<div class="auto-comp-pis">
+			<a class="auto-comp-i" href="#" data-value="1">1</a>
+			<a class="auto-comp-i" href="#" data-value="2">2</a>
+			<a class="auto-comp-i" href="#" data-value="3">3</a>
+			<a class="auto-comp-i" href="#" data-value="4">4</a>
+			<a class="auto-comp-i" href="#" data-value="5">5</a>
+		</div>
+		<div class="auto-comp-pm">
+			<a class="auto-comp-pp" href="#">上一页</a>
+			<a class="auto-comp-pn" href="#">下一页</a>
+			<span class="auto-comp-ew">[<span class="auto-comp-ec">1</span>]<span class="auto-comp-ef">1</span>-<span class="auto-comp-el">15</span>/<span class="auto-comp-et">450</span>条</span>
+		</div>
 	</div>
 
 </body>

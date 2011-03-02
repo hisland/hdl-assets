@@ -3,31 +3,21 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<style type="text/css">
-		*{padding:0;margin:0;}
-		body{font-family:"宋体",serif;font-size:75%;}
-		a img{border:none;}
-		table{border-collapse:collapse;border-spacing:0;}
-		ol,ul{list-style:none;}
-		a{text-decoration:none;}
-		a:hover{text-decoration:underline;}
-		body{padding:50px;}
-	</style>
-	<link rel="stylesheet" type="text/css" href="ie67Select.css" />
-	<script type="text/javascript" src="../patch.javascript.js"></script>
-	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
-	<script type="text/javascript" src="../jquery.adjustElement.js"></script>
-	<script type="text/javascript" src="ie67Select.js"></script>
+	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
-		$(function(){
-			$('select').each(function(){
-				$(this).parent().find('span').html(this.options[this.selectedIndex].innerHTML);
-			})
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher, jquery-1.4.2', function(){
+				S.useCSS('reset');
+				S.use('ie67Select+css, adjustElement', function(){
+					
+				});
+			});
 		});
 	</script>
 </head>
 
-<body>
+<body style="padding:50px">
 	<a class="ie67-select" href="javascript:void(0)">
 		<span class="ie67-select-text">全部</span>
 		<select name="form.smId">

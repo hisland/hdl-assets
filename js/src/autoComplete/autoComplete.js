@@ -1,270 +1,276 @@
 /**********************************************************************************************
- * select模拟控件
+ * 名称: 自动完成控件
  * 作者: hisland
  * 邮件: hisland@qq.com
- * 时间: 2010-11-29 10:30:33
- * 版本: v1
- *
+ * 时间: 2011-3-1 14:11:31
+ * 版本: v2
+ * 
  */
 
 KISSY.add('autoComplete', function(S, undef) {
 	var  $ = jQuery
-		,target = $(''), input, select
-		,list
+		,EMPTY_$ = $('')
+		,target = EMPTY_$, pager
+		,div_pop, div_loading, div_list, a_prev, a_next, entry0, entry1, entry2, entry3
 		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent)
-		,delay_timer = 0
-		,prev_val;
+		,delay = 300, delay_handler = 0
+		,sever_num_per_page = 450, num_per_page = 10;
 
-	//按c标签的输出进行转换, ["']这两个使用实体编号,其它3个使用实体名称
-	String.entityHTMLReg = /[&<>"']/g;
-	String.prototype.entityHTML = function(){
-		return this.replace(String.entityHTMLReg, function(v){
-			if(v === '&'){
-				return '&amp;';
-			}else if(v === '<'){
-				return '&lt;';
-			}else if(v === '>'){
-				return '&gt;';
-			}else if(v === '"'){
-				return '&#34;';
-			}else if(v === "'"){
-				return '&#39;';
-			}
-			return v;
-		});
+	//内部使用的分页对象
+	function Pager(){
+		this.reset();
+		this.ajax_url = '';
 	}
-	String.unentityHTMLReg = /&lt;|&gt;|&amp;|&#34;|&#39;/g;
-	String.prototype.unentityHTML = function(){
-		return this.replace(String.unentityHTMLReg, function(v){
-			if(v === '&amp;'){
-				return '&';
-			}else if(v === '&lt;'){
-				return '<';
-			}else if(v === '&gt;'){
-				return '>';
-			}else if(v === '&#34;'){
-				return '"';
-			}else if(v === '&#39;'){
-				return "'";
-			}
-			return v;
-		});
-	}
-
-	function targetKeyUp(e){
-		var val = $(this).find('input').val();
-		if(prev_val != val && (e.keyCode >= 48 && e.keyCode <= 90) || e.keyCode == 32 || e.keyCode == 8 || e.keyCode == 46 || (e.keyCode >= 96 && e.keyCode <= 111) || (e.keyCode >= 186 && e.keyCode <= 192) || (e.keyCode >= 219 && e.keyCode <= 222)){
-			clearTimeout(delay_timer);
-			delay_timer = setTimeout(function(){
-				makeList(val);
-				prev_val = val;
-			}, 50);
+	$.extend(Pager.prototype, {
+		 prev: function(){
+			this.makeList(--this.now_page);
 		}
-	}
-	function targetKeyDown(e){
-		var a;
-		if(e.keyCode === 13){//回车
-			a = list.find('.auto-comp-selected');
-			target.find('select')[0].value = a.attr('data-value');
-			target.find('input').val(a.text());
-			closeList();
-			e.stopPropagation();
+		,next: function(){
+			this.makeList(++this.now_page);
 		}
-	}
-
-	function fixWidth(){
-		var t_w = target.outerWidth();
-		list.height(30);
-		list.width(t_w - 2);
-		if(list[0].scrollWidth < t_w){
-			list.css('overflow-x', 'hidden');
-		}else{
-			list.css('overflow-x', 'scroll');
+		,reset: function(){
+			this.last_read = 0;
+			this.now_page = 0;
+			this.sever_now_page = 0;
+			this.data = [];
+			this.pages = [];
+			this.text = '';
+			this.totals = 0;
+			this.sever_totals = 0;
+			return this;
 		}
+		,changeText: function(val){
+			var p;
+			//进行本地匹配
+			if(!this.ajax_url || (this.data.length && val.length && val.indexOf(this.text) == 0 && this.totals < sever_num_per_page)){
+				this.last_read = 0;
+				this.now_page = 0;
+				this.pages = [];
+				this.text = val;
+				this.makeList();
 
-		//ie6在这里读取一下list[0].scrollHeight, 有时候读不到,下面那个就能读取到了
-		if(ie6){
-			list[0].scrollHeight > 200 ? 0: 0;
-		}
-
-		if(list[0].scrollHeight > 200){
-			list.height(200);
-			list.css('overflow-y', 'scroll');
-		}else{
-			list.css('height', '');
-			list.css('overflow-y', 'hidden');
-		}
-	}
-	function showList(){
-		var t_w = target.outerWidth();
-		list.adjustElement(target).show();
-		if(ie6){
-			fixWidth();
-		}else{
-			list.width(t_w - 2);
-		}
-		list[0].scrollTop = 0;
-		target.addClass('auto-comp-opened');
-		$(document).click(closeList);
-	}
-
-	function openList(e){
-		var  t = e.target
-			,elm = $(t).closest('.auto-comp')
-			,tag_name = t.tagName.toUpperCase();
-
-		if(elm.length){
-			if(elm[0] !== target[0] || !elm.hasClass('auto-comp-opened')){
-				target.removeClass('auto-comp-opened');
-				target = elm;
-				input = target.find('input');
-				select = target.find('select');
-				showList();
-			}
-
-			if(tag_name === 'A'){
-				makeList();
+			//进行异步匹配
 			}else{
-				makeList(input.val());
-			}
-
-			if(!target[0].bind_select){
-				target.keyup(targetKeyUp).keydown(targetKeyDown);
-				target[0].bind_select = true;
+				this.reset();
+				this.text = val;
+				p = this;
+				this.readData(function(){
+					p.makeList();
+				});
 			}
 		}
-	}
-	function closeList(e){
-		if(e && $(e.target).closest('.auto-comp-wrap, .auto-comp').length){
-			e.preventDefault();
-		}else{
-			if(e){
-				if(input.val() === '全部'){
-					select[0].selectedIndex = 1;
-				}else if(select[0].selectedIndex !== 0 ){
-					input.val(select[0].options[select[0].selectedIndex].innerHTML.unentityHTML());
-				}
-			}
-			list.hide();
-			target.removeClass('auto-comp-opened');
-			$(document).unbind('click', closeList);
-		}
-	}
+		,makeList: function(page){
+			var  n = this.last_read
+				,m = 0
+				,b = [], v, txt = this.text;
 
-	function makeList(str){
-		var  opts = select[0].options
-			,str1 = []
-			,i ,ret ,len, val, text, match;
-
-		if(!select[0].opts){
-			ret = [];
-			for (i = 0, len = opts.length; i < len; i++) {
-				ret[i] = [opts[i].innerHTML, opts[i].value];
-			}
-			select[0].opts = ret;
-		}
-		opts = select[0].opts;
-
-		if(str === undefined){//显示全部
-			if(!select[0].str1){
-				for (i = 2, len = opts.length; i < len; i++) {
-					text = opts[i][0];
-					val = opts[i][1];
-					str1.push('<a class="auto-comp-item" href="#" data-value="'+ val +'" title="' + text + '">' + text + '</a>');
-				}
-				str1.unshift('<a style="padding-left:40px;" class="auto-comp-item" href="#" data-value="">全部</a>');
-				str1.unshift('<span>共' + (str1.length-1) + '条</span>');
-				select[0].str1 = str1;
+			page = page || 0;
+			if(this.pages.length > page){
+				div_list.html(this.pages[page]);
 			}else{
-				str1 = select[0].str1;
-			}
-		}else if(str === ''){//不进行操作
-			str1.push('<span>请输入进行匹配</span>');
-		}else{//显示匹配的
-			str = str.entityHTML();
-			for (i = 2, len = opts.length; i < len; i++) {
-				text = opts[i][0];
-				if(text.indexOf(str) != -1){
-					if(!match){
-						match = opts[i];
+				entry1.html(n+1);
+				for( ; (v = this.data[n]) && m < num_per_page; n++){
+					if(v.indexOf(txt) != -1){
+						m++;
+						b.push('<a class="auto-comp-i" href="#">', v.replace(txt, '<strong>'+txt+'</strong>'), '</a>');
 					}
-					val = opts[i][1];
-					str1.push('<a class="auto-comp-item" href="#" data-value="'+ val +'" title="' + text + '">' + text.replace(str, '<strong>'+str+'</strong>') + '</a>');
 				}
+				this.last_read = n;
+				entry0.html(m);
+				entry2.html(n);
+				entry3.html(this.totals);
+				this.pages.push(b.join(''));
+				div_list.html(b.join(''));
 			}
-			str1.unshift('<span>匹配' + str1.length + '条</span>');
-		}
 
-		if(match){
-			select[0].value = match[1];
-		}else{
-			select[0].selectedIndex = 0;
-		}
-		list.html(str1.join(''));
-		if(ie6){
-			fixWidth();
-		}
-	}
-
-	function moveUp(){
-		
-	}
-	function moveDown(){
-		
-	}
-
-	function documentMouseDown(e){
-		var  t = e.target
-			,elm = $(t).closest('.auto-comp')
-			,tag_name;
-
-		if(elm.length){
-			tag_name = t.tagName.toUpperCase();
-
-			if(elm.hasClass('auto-comp-disabled')){
-				if(tag_name === 'A' || tag_name === 'INPUT'){
-					$(t).blur();
-					e.preventDefault();
-				}
+			if(this.now_page+1 < this.pages.length || n < this.totals){
+				a_next.css('visibility', 'visible');
 			}else{
-				if(elm[0] !== target[0] || !elm.hasClass('auto-comp-opened')){
-					target.removeClass('auto-comp-opened');
-					target = elm;
-					input = target.find('input');
-					select = target.find('select');
-					showList();
-				}
-
-				if(tag_name === 'A'){
-					makeList();
-				}else{
-					makeList(input.val());
-				}
-
-				if(!target[0].bind_select){
-					target.keyup(targetKeyUp).keydown(targetKeyDown);
-					target[0].bind_select = true;
-				}
+				a_next.css('visibility', '');
+			}
+			if(this.now_page > 0){
+				a_prev.css('visibility', 'visible');
+			}else{
+				a_prev.css('visibility', '');
 			}
 		}
-	}
-
-	function listClick(e){
-		var elm = $(e.target).closest('a');
-		if(elm.length){
-			target.find('select')[0].value = elm.attr('data-value');
-			target.find('input').val(elm.text());
-			e.preventDefault();
-			closeList();
+		,readData: function(fn){
+			var p = this;
+			div_loading.show();
+			//参数形式: ?keyContent=www&currPage=2
+			$.get(p.ajax_url + '?keyContent=' + this.text + '&currPage=' + (++this.sever_now_page), function(rs){
+				try{
+					var data = eval('(' + rs + ')');
+					p.data = p.data.concat(data.rows);
+					p.totals = p.data.length;
+					(typeof fn === 'function') ? fn() : 0;
+				}catch(e){
+					alert('autoComplete: 获取数据出错!\n数据前1000字符是:\n\n' + rs.substr(0, 1000));
+				}
+				div_loading.hide();
+			});
 		}
-	}
-
-	$(function(){
-		list = $('<div class="auto-comp-wrap"></div>').appendTo('body');
-		list.click(listClick);
 	});
 
-	$(document).mousedown(documentMouseDown);
+	//如果window上的命名空间存在则返回,否则返回undefined
+	function getNS(str){
+		var arr = (''+str).split('.'), i=1, o;
+		for(o = window[arr[0]] ; o && i<arr.length;i++){
+			o = o[arr[i]];
+		}
+		return o;
+	}
+	//(获得|生成)span上保存的pager对象
+	function getPager(elm){
+		if(!elm.pager){
+			pager = new Pager();
+			elm.pager = pager;
+
+			elm = $(elm);
+			data = getNS(elm.attr('data-data-ns'));
+			url = elm.attr('data-data-url');
+			if(data){
+				pager.data = data.rows;
+				pager.totals = data.rows.length;
+			}else if(url){
+				pager.ajax_url = url;
+			}else{
+				alert('autoComplete: 此元素无正确数据或者数据url');
+			}
+		}else{
+			pager = elm.pager;
+		}
+		return pager;
+	}
+	function popShow(){
+		div_pop.adjustElement(target.parent()).show();
+	}
+	function popHide(){
+		div_pop.hide();
+		target = EMPTY_$;
+	}
+
+	function iptKeyUp(e){
+		var a = div_list.find('.hover'), tmp = e.keyCode, val;
+		//向上
+		if(e.keyCode === 38){
+			if(!div_pop.is(':visible')){
+				div_pop.show();
+				pager.makeList();
+			}else if(a.length){
+				tmp = a.prev();
+				tmp.length ? tmp.addClass('hover').focus().end().removeClass('hover') : 0;
+			}else{
+				a = div_list.find('a:first');
+				a.addClass('hover');
+			}
+
+		//向下
+		}else if(e.keyCode === 40){
+			if(!div_pop.is(':visible')){
+				div_pop.show();
+				pager.makeList();
+			}else if(a.length){
+				tmp = a.next();
+				tmp.length ? tmp.addClass('hover').focus().end().removeClass('hover') : 0;
+			}else{
+				a = div_list.find('a:first');
+				a.addClass('hover');
+			}
+
+		//回车
+		}else if(e.keyCode === 13 && div_pop.is(':visible')){
+			a.length ? a.click() : popHide();
+			e.stopPropagation();
+
+		//下面这些情况,重新进行匹配
+		}else if((tmp >= 48 && tmp <= 90) ||//[0-9;a-z]
+					tmp == 32 ||//空格
+					tmp == 8 ||//backspace
+					tmp == 46 ||//delete
+					(tmp >= 96 && tmp <= 111) ||//小键盘
+					(tmp >= 186 && tmp <= 192) ||//一些符号
+					(tmp >= 219 && tmp <= 222)){//一些括号
+
+			val = this.value;
+			clearTimeout(delay_handler);
+			delay_handler = setTimeout(function(){
+				pager.changeText(val);
+			}, delay);
+		}
+		this.focus();
+	}
+	function elmClick(e){
+		var  me = $(this)
+			,t = e.target
+			,dt = $(t);
+
+		if(me.is('.auto-comp-disabled')){
+			popHide();
+			dt.blur();
+		}else if(dt.is('a')){
+			target = dt.prev();
+			pager = getPager(me);
+			div_list.empty();
+			popShow();
+			pager.changeText('');
+			target.focus();
+		}else if(dt.is('input')){
+			target = dt;
+			pager = getPager(me);
+			div_list.empty();
+			popShow();
+			pager.changeText(dt.val());
+		}
+	}
+
+	//下拉层内部事件代理
+	function divPopClick(e){
+		var  t = e.target
+			,dt = $(t);
+		if(dt.is('a')){
+			//上一页
+			if(dt.is('.auto-comp-pp')){
+				pager.prev();
+			//下一页
+			}else if(dt.is('.auto-comp-pn')){
+				pager.next();
+			//选中某个
+			}else if(dt.closest('.auto-comp-pis').length){
+				target.val(dt.text());
+				popHide();
+			}
+			dt.blur();
+			e.preventDefault();
+		}
+	}
+	//全局监听并自动绑带事件,顺带做隐藏下拉层操作
+	function documentClick(e){
+		var  t = e.target
+			,elm = $(t).closest('.auto-comp');
+
+		if(elm.length && !elm.data('auto-comp-bind')){
+			elm.data('auto-comp-bind', true);
+			elm.click(elmClick).find('input').keyup(iptKeyUp);
+		}
+		if(!$(t).closest('.auto-comp-p, .auto-comp').length){
+			popHide();
+		}
+	}
+
+	div_pop = $('<div class="auto-comp-p"><div class="auto-comp-loading">加载中...</div><div class="auto-comp-pis"></div><div class="auto-comp-pm"><a class="auto-comp-pp" href="#">上页</a><a class="auto-comp-pn" href="#">下页</a><span class="auto-comp-ew">[<span class="auto-comp-ec">0</span>]<span class="auto-comp-ef">0</span>-<span class="auto-comp-el">0</span>/<span class="auto-comp-et">0</span>条</span></div></div>');
+	div_loading = div_pop.find('div.auto-comp-loading');
+	div_list = div_loading.next();
+	a_prev = div_pop.find('a.auto-comp-pp');
+	a_next = a_prev.next();
+	entry0 = div_pop.find('span.auto-comp-ec');
+	entry1 = div_pop.find('span.auto-comp-ef');
+	entry2 = div_pop.find('span.auto-comp-el');
+	entry3 = div_pop.find('span.auto-comp-et');
+	div_pop.click(divPopClick);
+	div_pop.appendTo('body');
+
+	$(document).mousedown(documentClick);
 }, {
 	requires: ['jquery-1.4.2', 'adjustElement']
 });
