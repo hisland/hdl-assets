@@ -3,115 +3,102 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<meta name="generator" content="editplus" />
-	<meta name="author" content="" />
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	<meta name="robots" content="all" />
-	<style type="text/css">
-		*{padding:0;margin:0;}
-		body{font-family:"宋体",serif;font-size:75%;}
-		a img{border:none;}
-		table{border-collapse:collapse;border-spacing:0;}
-		ol,ul{list-style:none;}
-		a{text-decoration:none;}
-		a:hover{text-decoration:underline;}
-		
-		body{padding:50px;}
-	</style>
+	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
+		function randomNum(from, to){
+			if(!from || isNaN(from-0)){
+				alert('randomNum: 至少得有一个可转换成数字的参数');
+				throw 'randomNum: 至少得有一个可转换成数字的参数';
+			}
+			if(!to){
+				to = from;
+				from = 0;
+			}
+			if(isNaN(to-0)){
+				alert('randomNum: to参数必须可转换成数字');
+				throw 'randomNum: to参数必须可转换成数字';
+			}
 
-function randomNum(from, to){
-	if(!from || isNaN(from-0)){
-		alert('randomNum: 至少得有一个可转换成数字的参数');
-		throw 'randomNum: 至少得有一个可转换成数字的参数';
-	}
-	if(!to){
-		to = from;
-		from = 0;
-	}
-	if(isNaN(to-0)){
-		alert('randomNum: to参数必须可转换成数字');
-		throw 'randomNum: to参数必须可转换成数字';
-	}
+			var temp = 0;
+			if(from > to){
+				temp = from;
+				from = to;
+				to = temp;
+			}
 
-	var temp = 0;
-	if(from > to){
-		temp = from;
-		from = to;
-		to = temp;
-	}
-
-	temp = to - from;
-	temp = Math.round(Math.random() * (temp+100) % temp);
-	return from + temp;
-}
-function partition(a,st,en){
-	var s = st;
-	var e = en + 1;
-	var temp = a[s];
-	while(1){
-		while(a[++s] < temp);
-		while(a[--e] > temp);
-		if(s > e){
-			break;
+			temp = to - from;
+			temp = Math.round(Math.random() * (temp+100) % temp);
+			return from + temp;
 		}
-		var tem = a[s];
-		a[s] = a[e];
-		a[e] = tem;
-	}
-	a[st] = a[e];
-	a[e] = temp;
-	return e;
-}
-
-function doSort(a,s,e){
-	if(s<e){
-		var pos = partition(a, s, e);
-		doSort(a, s, pos-1);
-		doSort(a, pos+1, e);
-	}
-}
-Array.prototype.quickSort = function(){
-	doSort(this,0,this.length-1);
-}
-
-var kk = [100, 500, 1000, 5000, 10000, 20000];
-var k;
-function test(){
-	var a = [];
-	for(var i=0;i<k;i++){
-		a.push(randomNum(1, k));
-	}
-
-	var t1 = new Date();
-	a.quickSort();
-	var t2 = new Date();
-
-	a = [];
-	for(var i=0;i<k;i++){
-		a.push(randomNum(1, k));
-	}
-	var t3 = new Date();
-	a.sort();
-	var t4 = new Date();
-
-	var str = '<div>'+k+'条数据（整数）排序结果：快速排序用时：'+(t2-t1)+' 原生sort排序用时：'+(t4-t3)+'</div>';
-	document.getElementById('aa').innerHTML += str;
-}
-
-window.onload = function(){
-	for(var i=0;i<kk.length;i++){
-		k = kk[i];
-		for(var j=0;j<5;j++){
-			test();
+		function partition(a,st,en){
+			var s = st;
+			var e = en + 1;
+			var temp = a[s];
+			while(1){
+				while(a[++s] < temp);
+				while(a[--e] > temp);
+				if(s > e){
+					break;
+				}
+				var tem = a[s];
+				a[s] = a[e];
+				a[e] = tem;
+			}
+			a[st] = a[e];
+			a[e] = temp;
+			return e;
 		}
-	}
-}
+
+		function doSort(a,s,e){
+			if(s<e){
+				var pos = partition(a, s, e);
+				doSort(a, s, pos-1);
+				doSort(a, pos+1, e);
+			}
+		}
+		Array.prototype.quickSort = function(){
+			doSort(this,0,this.length-1);
+		}
+
+		var kk = [100, 500, 1000, 5000, 10000, 20000];
+		var k;
+		function test(){
+			var a = [];
+			for(var i=0;i<k;i++){
+				a.push(randomNum(1, k));
+			}
+
+			var t1 = new Date();
+			a.quickSort();
+			var t2 = new Date();
+
+			a = [];
+			for(var i=0;i<k;i++){
+				a.push(randomNum(1, k));
+			}
+			var t3 = new Date();
+			a.sort();
+			var t4 = new Date();
+
+			var str = '<div>'+k+'条数据（整数）排序结果：快速排序用时：'+(t2-t1)+' 原生sort排序用时：'+(t4-t3)+'</div>';
+			document.getElementById('aa').innerHTML += str;
+		}
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher, jquery-1.4.2', function(){
+				S.useCSS('reset', function(){
+					for(var i=0;i<kk.length;i++){
+						k = kk[i];
+						for(var j=0;j<5;j++){
+							test();
+						}
+					}
+				});
+			});
+		});
 	</script>
 </head>
-
-<body>
+<body style="margin:50px;">
 	<div id="aa">
 		
 	</div>

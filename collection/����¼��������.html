@@ -3,54 +3,45 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<meta name="generator" content="editplus" />
-	<meta name="author" content="" />
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	<meta name="robots" content="all" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher, jquery-1.4.2', function(){
+				S.useCSS('reset', function(){
+			$('#aa').click(function(e){
+				$('body').append('<p>#aa click: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
+//					}).mousedown(function(e){
+//						$('body').append('<p>#aa mousedown: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
+//					}).mouseup(function(e){
+//						$('body').append('<p>#aa mouseup: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
+					});
+
+					$('#aa :checkbox').click(function(e){
+						$('body').append('<p>click: ' + e.eventPhase + '  ' + this.checked + '</p>');
+//					}).mousedown(function(e){
+//						$('body').append('<p>mousedown: ' + e.eventPhase + '  ' + this.checked + '</p>');
+//					}).mouseup(function(e){
+//						$('body').append('<p>mouseup: ' + e.eventPhase + '  ' + this.checked + '</p>');
+					});
+					$('body').click(function(e){
+						$('body').append('<p>#aa click: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
+					}).dblclick(function(e){
+						$('body').append('<p>#aa dblclick: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
+					});
+				});
+			});
+		});
+	</script>
 	<style type="text/css">
-		*{padding:0;margin:0;}
-		body{font-family:"宋体",arial;font-size:75%;}
-		a img{border:none;}
-		table{border-collapse:collapse;border-spacing:0;}
-		ol,ul{list-style:none;}
-		a{text-decoration:none;}
-		a:hover{text-decoration:underline;}
-		
 		hr{margin:10px 0;height:1px;border:none;border-top:1px solid #ccc;background:none;}
 
 		body{padding:50px;}
 		input{font-family:"宋体";font-size:12px;}
 		input.text{height:14px;background:none;border:1px solid #7f9db9;padding:1px;}
 	</style>
-	<script type="text/javascript" src="../lib.javascript/jquery-1.4.2.js"></script>
-	<script type="text/javascript">
-		$(function(){
-			$('#aa').click(function(e){
-				$('body').append('<p>#aa click: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
-//			}).mousedown(function(e){
-//				$('body').append('<p>#aa mousedown: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
-//			}).mouseup(function(e){
-//				$('body').append('<p>#aa mouseup: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
-			});
-
-			$('#aa :checkbox').click(function(e){
-				$('body').append('<p>click: ' + e.eventPhase + '  ' + this.checked + '</p>');
-//			}).mousedown(function(e){
-//				$('body').append('<p>mousedown: ' + e.eventPhase + '  ' + this.checked + '</p>');
-//			}).mouseup(function(e){
-//				$('body').append('<p>mouseup: ' + e.eventPhase + '  ' + this.checked + '</p>');
-			});
-			$('body').click(function(e){
-				$('body').append('<p>#aa click: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
-			}).dblclick(function(e){
-				$('body').append('<p>#aa dblclick: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
-			});
-		});
-	</script>
 </head>
-
-<body>
+<body style="margin:50px;">
 	<div id="aa">
 		<input type="checkbox" name="" value="" />
 	</div>

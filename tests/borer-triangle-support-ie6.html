@@ -3,32 +3,25 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<meta name="author" content="" />
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	<meta name="robots" content="all" />
-	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher, jquery-1.4.2', function(){
+				S.useCSS('reset', function(){
+					
+				});
+			});
+		});
+	</script>
 	<style type="text/css">
-		*{padding:0;margin:0;}
-		body{font-family:"宋体",serif;font-size:75%;padding:50px;background:#ccc;}
-		a img{border:none;}
-		table{border-collapse:collapse;border-spacing:0;}
-		ol,ul{list-style:none;}
-		a{text-decoration:none;}
-		a:hover{text-decoration:underline;}
-		
 		.arr-up{display:block;width:0;height:0;border:50px dashed transparent;border-top:50px solid green;font-size:0;}
 		.arr-right{display:block;width:0;height:0;border:50px dashed transparent;border-right:50px solid green;font-size:0;line-height:1em;}
 		.arr-bottom{display:block;width:0;height:0;border:50px dashed transparent;border-bottom:50px solid green;font-size:0;}
 		.arr-left{display:block;width:0;height:0;border:50px dashed transparent;border-left:50px solid green;font-size:0;line-height:1em;}
 	</style>
-	<script type="text/javascript">
-		//document.getElementById('')
-		//document.getElementsByTagName('')
-		//document.getElementsByClassName('')
-	</script>
 </head>
-<body>
+<body style="margin:50px;">
 	<div class="arr-up"></div>
 	<div class="arr-right"></div>
 	<div class="arr-bottom"></div>

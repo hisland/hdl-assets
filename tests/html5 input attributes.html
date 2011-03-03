@@ -3,25 +3,19 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<style type="text/css">
-		*{padding:0;margin:0;}
-		body{font-family:"宋体",serif;font-size:75%;}
-		a img{border:none;}
-		table{border-collapse:collapse;border-spacing:0;}
-		ol,ul{list-style:none;}
-		a{text-decoration:none;}
-		a:hover{text-decoration:underline;}
-		
-		html{width:100%;height:100%;}
-		body{padding:50px;}
-	</style>
-	<script type="text/javascript" src="../jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
-		$(function(){
-			
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher, jquery-1.4.2', function(){
+				S.useCSS('reset', function(){
+					
+				});
+			});
 		});
 	</script>
 </head>
+<body style="margin:50px;">
 
 <body>
 	<input type="number" min="5" maxlength="5" name="" value="" />

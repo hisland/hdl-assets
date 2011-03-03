@@ -3,8 +3,17 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="../lib.styles/reset.css" />
-	<script type="text/javascript" src="../lib.javascript/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher, jquery-1.4.2', function(){
+				S.useCSS('reset', function(){
+					
+				});
+			});
+		});
+	</script>
 	<style type="text/css">
 		body{padding:50px;}
 		#aa{float:left;width:500px;height:50px;background:#ccc;margin:10px 10px 10px 10px;}
@@ -14,7 +23,7 @@
 		#ee{background:red;width:50px;margin-left:80px;margin-top:-85px;}
 	</style>
 </head>
-<body>
+<body style="margin:50px;">
 	<div id="aa">
 	</div>
 	<div id="bb">

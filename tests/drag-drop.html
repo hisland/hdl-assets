@@ -3,34 +3,31 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="../lib.styles/reset.css" />
-	<script type="text/javascript" src="../lib.javascript/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher, jquery-1.4.2', function(){
+				S.useCSS('reset', function(){
+					$('#aa').bind('dragstart', function(ev){var dt = ev.originalEvent.dataTransfer;
+					dt.setData("Text", "Dropped in zone!");
+						return true;
+					})
+
+					// Decide whether the thing dragged in is welcome.
+					$('#bb').bind('dragover', function(ev) {
+						return false;
+					})
+				});
+			});
+		});
+	</script>
 	<style type="text/css">
-		body{padding-top:110px;}
 		#aa{width:100px;height:100px;background:blue;}
 		#bb{width:200px;height:200px;background:red;}
 	</style>
-	<script type="text/javascript">
-		$(function(){
-			$('#aa')
-.bind('dragstart', function(ev){var dt = ev.originalEvent.dataTransfer;
-               
-dt.setData("Text", "Dropped in zone!");
-				return true;
-			})
-		
-
-
-        // Decide whether the thing dragged in is welcome.
-        $('#bb').bind('dragover', function(ev) {
-            return false;
-        })
-
-
-		});
-	</script>
 </head>
-<body>
+<body style="margin:50px;">
 	<div id="aa" draggable="true">
 		sssssssssssssssssssssdd
 	</div>

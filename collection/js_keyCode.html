@@ -3,14 +3,32 @@
 <head>
 	<title>js_keyCode</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher, jquery-1.4.2', function(){
+				S.useCSS('reset', function(){
+					document.getElementById('keydown_input').onkeydown = function(e){
+						e = e || window.event;
+						document.getElementById('keydown_show').innerHTML = e.keyCode;
+						document.getElementById('keydown_show2').innerHTML = e.charCode;
+					}
+					document.getElementById('keydown_input').onkeypress = function(e){
+						e = e || window.event;
+						document.getElementById('keypress_show').innerHTML = e.keyCode;
+						document.getElementById('keypress_show2').innerHTML = e.charCode;
+					}
+					document.getElementById('keydown_input').onkeyup = function(e){
+						e = e || window.event;
+						document.getElementById('keyup_show').innerHTML = e.keyCode;
+						document.getElementById('keyup_show2').innerHTML = e.charCode;
+					}
+				});
+			});
+		});
+	</script>
 	<style type="text/css">
-		*{padding:0;margin:0;}
-		body{font-family:"宋体",arial;font-size:75%;}
-		a img{border:none;}
-		table{border-collapse:collapse;border-spacing:0;}
-		ol,ul{list-style:none;}
-		a{text-decoration:none;}
-		a:hover{text-decoration:underline;}
 		
 		hr{margin:10px 0;height:1px;border:none;border-top:1px solid #ccc;background:none;}
 
@@ -23,28 +41,8 @@
 		#keydown_test{padding-bottom:5px;}
 			#keydown_input{width:80px;}
 	</style>
-	<script type="text/javascript">
-		window.onload = function(){
-			document.getElementById('keydown_input').onkeydown = function(e){
-				e = e || window.event;
-				document.getElementById('keydown_show').innerHTML = e.keyCode;
-				document.getElementById('keydown_show2').innerHTML = e.charCode;
-			}
-			document.getElementById('keydown_input').onkeypress = function(e){
-				e = e || window.event;
-				document.getElementById('keypress_show').innerHTML = e.keyCode;
-				document.getElementById('keypress_show2').innerHTML = e.charCode;
-			}
-			document.getElementById('keydown_input').onkeyup = function(e){
-				e = e || window.event;
-				document.getElementById('keyup_show').innerHTML = e.keyCode;
-				document.getElementById('keyup_show2').innerHTML = e.charCode;
-			}
-		}
-	</script>
 </head>
-
-<body>
+<body style="margin:50px;">
 	<p><span>keydown keyCode:<span id="keydown_show"></span></span></p>
 	<p><span>keydown charCode:<span id="keydown_show2"></span></span></p>
 	<p style="background:#ccc"><span>keypress keyCode:<span id="keypress_show"></span></span></p>

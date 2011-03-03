@@ -3,48 +3,38 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<meta name="author" content="" />
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
-	<meta name="robots" content="all" />
-	<link rel="stylesheet" type="text/css" href="css/reset.css" />
-	<style type="text/css">
-		*{padding:0;margin:0;}
-		body{font-family:"宋体",serif;font-size:75%;padding:50px;}
-		a img{border:none;}
-		table{border-collapse:collapse;border-spacing:0;}
-		ol,ul{list-style:none;}
-		a{text-decoration:none;}
-		a:hover{text-decoration:underline;}
-		
-		
-	</style>
-	<script type="text/javascript" src="../lib.javascript/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
-		window.onload = function(){
-		var b = document.getElementById('bb');
-		var c = document.getElementById('cc');
-		var a = document.getElementById('aa');
-			alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
-					+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher, jquery-1.4.2', function(){
+				S.useCSS('reset', function(){
+					var b = document.getElementById('bb');
+					var c = document.getElementById('cc');
+					var a = document.getElementById('aa');
 
-			b.value = 33;
-			c.value = 33;
-			alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
-					+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
+					alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
+							+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
 
-			b.setAttribute('value', 55);
-			c.setAttribute('value', 55);
-			alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
-					+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
+					b.value = 33;
+					c.value = 33;
+					alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
+							+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
 
-			a.reset();
-			alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
-					+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
-		}
+					b.setAttribute('value', 55);
+					c.setAttribute('value', 55);
+					alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
+							+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
+
+					a.reset();
+					alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
+							+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
+				});
+			});
+		});
 	</script>
 </head>
-<body>
+<body style="margin:50px;">
 <pre>
 对属性的修改:
 	使用"."语法, ie修改所有的, ff,chrome修改dom节点
