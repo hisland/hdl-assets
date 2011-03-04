@@ -3,9 +3,16 @@
 <head>
 	<title>@name 日期控件样式页面 @nameANT</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=gb2312" />
-
-	<link rel="stylesheet" type="text/css" href="../../../css/src/reset/reset.css" />
-	<link rel="stylesheet" type="text/css" href="dateTool.css" />
+	<script type="text/javascript" charset="utf-8" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.css_base_path = '../../css/src';
+			S.use('kissy-patcher', function(){
+				S.useCSS('reset');
+				S.use('dateTool+css, jquery-1.4.2');
+			});
+		});
+	</script>
 </head>
 
 <body style="padding:50px">

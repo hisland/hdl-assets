@@ -9,13 +9,35 @@
 			S.css_base_path = '../../css/src';
 			S.use('kissy-patcher, jquery-1.4.2', function(){
 				S.useCSS('reset', function(){
-					
+					$('#tt').focus(function(){
+						alert('input#tt focused!');
+					});
+					$('#god').focus(function(){
+						alert('div#god focused!');
+					});
+					$('#ss').focus(function(){
+						alert('form#ss focused!');
+					});
+					$('body').focus(function(){
+						alert('body focused!');
+					});
 				});
 			});
 		});
 	</script>
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+			.box p{background:#eee;margin-bottom:5px;}
+	</style>
 </head>
 <body style="margin:50px;">
-	
+	<div id="god">
+		<form id="ss">
+			<input id="tt" type="text" name="" value="" />
+		</form>
+	</div>
+	<div class="box">
+		<p>ff,ie的focus事件都不支持冒泡</p>
+	</div>
 </body>
 </html>

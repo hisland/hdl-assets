@@ -3,7 +3,7 @@
 	"currPage": 1,
 	"beginNum": 1,
 	"endNum": 15,
-	"totals": 63,
+	"totals": 25,
 	"currRecordNum": 15,
 	"allPage": 5,
 	"rows": [

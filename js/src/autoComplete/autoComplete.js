@@ -19,6 +19,7 @@ KISSY.add('autoComplete', function(S, undef) {
 	//内部使用的分页对象
 	function Pager(){
 		this.reset();
+		this.text = '';
 		this.ajax_url = '';
 	}
 	$.extend(Pager.prototype, {
@@ -34,15 +35,16 @@ KISSY.add('autoComplete', function(S, undef) {
 			this.sever_now_page = 0;
 			this.data = [];
 			this.pages = [];
-			this.text = '';
 			this.totals = 0;
-			this.sever_totals = 0;
+			this.server_totals = 0;
 			return this;
 		}
 		,changeText: function(val){
-			var p;
+			//文本相同时不做处理
+			if(val == this.text && val.length){
+				return ;
 			//进行本地匹配
-			if(!this.ajax_url || (this.data.length && val.length && val.indexOf(this.text) == 0 && this.totals < sever_num_per_page)){
+			}else if(!this.ajax_url || (this.data.length && val.length && val.indexOf(this.text) == 0 && this.server_totals < sever_num_per_page)){
 				this.last_read = 0;
 				this.now_page = 0;
 				this.pages = [];
@@ -53,8 +55,7 @@ KISSY.add('autoComplete', function(S, undef) {
 			}else{
 				this.reset();
 				this.text = val;
-				p = this;
-				this.readData(function(){
+				this.readData(function(p){
 					p.makeList();
 				});
 			}
@@ -65,25 +66,48 @@ KISSY.add('autoComplete', function(S, undef) {
 				,b = [], v, txt = this.text;
 
 			page = page || 0;
+
+			//已有分页数据填充
 			if(this.pages.length > page){
-				div_list.html(this.pages[page]);
+				page = this.pages[page];
+				entry0.html(page[0]);
+				entry1.html(page[1]);
+				entry2.html(page[2]);
+				div_list.html(page[3]);
+
+			//获得分页数据填充
 			}else{
-				entry1.html(n+1);
-				for( ; (v = this.data[n]) && m < num_per_page; n++){
+				//匹配数据并记录条数
+				for( v = this.data[n] ; v !== undefined && m < num_per_page; ){
 					if(v.indexOf(txt) != -1){
 						m++;
 						b.push('<a class="auto-comp-i" href="#">', v.replace(txt, '<strong>'+txt+'</strong>'), '</a>');
 					}
+					v = this.data[++n];
 				}
-				this.last_read = n;
+
+				//是异步获取数据并且条数不够并且服务器还有数据时,读取数据后再进行,并且这里直接返回
+				if(this.ajax_url && m < num_per_page && this.totals < this.server_totals){
+					this.readData(function(p){
+						p.makeList(page);
+					});
+					return ;
+				}
+
+				//填充并保存分页数据
 				entry0.html(m);
+				entry1.html(this.last_read+1);
 				entry2.html(n);
-				entry3.html(this.totals);
-				this.pages.push(b.join(''));
+				entry3.html(this.server_totals);
+				this.pages.push([m, this.last_read+1, n, b.join('')]);
 				div_list.html(b.join(''));
+
+				//记录读取点
+				this.last_read = n;
 			}
 
-			if(this.now_page+1 < this.pages.length || n < this.totals){
+			//修正翻页显示状态
+			if(this.now_page+1 < this.pages.length || n < this.totals || this.totals < this.server_totals){
 				a_next.css('visibility', 'visible');
 			}else{
 				a_next.css('visibility', '');
@@ -97,17 +121,19 @@ KISSY.add('autoComplete', function(S, undef) {
 		,readData: function(fn){
 			var p = this;
 			div_loading.show();
+			div_list.empty();
 			//参数形式: ?keyContent=www&currPage=2
-			$.get(p.ajax_url + '?keyContent=' + this.text + '&currPage=' + (++this.sever_now_page), function(rs){
+			$.post(p.ajax_url, 'keyContent=' + p.text + '&currPage=' + (++p.sever_now_page), function(rs){
+				div_loading.hide();
 				try{
 					var data = eval('(' + rs + ')');
 					p.data = p.data.concat(data.rows);
 					p.totals = p.data.length;
-					(typeof fn === 'function') ? fn() : 0;
+					p.server_totals = data.totals;
+					(typeof fn === 'function') ? fn(p) : 0;
 				}catch(e){
 					alert('autoComplete: 获取数据出错!\n数据前1000字符是:\n\n' + rs.substr(0, 1000));
 				}
-				div_loading.hide();
 			});
 		}
 	});
@@ -132,6 +158,7 @@ KISSY.add('autoComplete', function(S, undef) {
 			if(data){
 				pager.data = data.rows;
 				pager.totals = data.rows.length;
+				pager.server_totals = data.totals;
 			}else if(url){
 				pager.ajax_url = url;
 			}else{
@@ -150,6 +177,11 @@ KISSY.add('autoComplete', function(S, undef) {
 		target = EMPTY_$;
 	}
 
+	function iptKeyDown(e){
+		if(e.keyCode === 13 && div_pop.is(':visible')){
+			return false;
+		}
+	}
 	function iptKeyUp(e){
 		var a = div_list.find('.hover'), tmp = e.keyCode, val;
 		//向上
@@ -209,16 +241,21 @@ KISSY.add('autoComplete', function(S, undef) {
 			popHide();
 			dt.blur();
 		}else if(dt.is('a')){
-			target = dt.prev();
-			pager = getPager(me);
-			div_list.empty();
+			dt = dt.prev();
+			pager = getPager(this);
+			if(target[0] != dt[0]){
+				pager.text = '';
+			}
+			target = dt;
 			popShow();
 			pager.changeText('');
 			target.focus();
 		}else if(dt.is('input')){
+			pager = getPager(this);
+			if(target[0] != dt[0]){
+				pager.text = '';
+			}
 			target = dt;
-			pager = getPager(me);
-			div_list.empty();
 			popShow();
 			pager.changeText(dt.val());
 		}
@@ -244,20 +281,25 @@ KISSY.add('autoComplete', function(S, undef) {
 			e.preventDefault();
 		}
 	}
+	//注册自动完成,可内部call调用也可放到$.fn上
+	function autoComplete(){
+		this.data('auto-comp-bind', true);
+		this.click(elmClick).find('input').keyup(iptKeyUp).keydown(iptKeyDown);
+	}
 	//全局监听并自动绑带事件,顺带做隐藏下拉层操作
 	function documentClick(e){
 		var  t = e.target
 			,elm = $(t).closest('.auto-comp');
 
 		if(elm.length && !elm.data('auto-comp-bind')){
-			elm.data('auto-comp-bind', true);
-			elm.click(elmClick).find('input').keyup(iptKeyUp);
+			autoComplete.call(elm);
 		}
 		if(!$(t).closest('.auto-comp-p, .auto-comp').length){
 			popHide();
 		}
 	}
 
+	//生成下拉层并设置内部变量的引用
 	div_pop = $('<div class="auto-comp-p"><div class="auto-comp-loading">加载中...</div><div class="auto-comp-pis"></div><div class="auto-comp-pm"><a class="auto-comp-pp" href="#">上页</a><a class="auto-comp-pn" href="#">下页</a><span class="auto-comp-ew">[<span class="auto-comp-ec">0</span>]<span class="auto-comp-ef">0</span>-<span class="auto-comp-el">0</span>/<span class="auto-comp-et">0</span>条</span></div></div>');
 	div_loading = div_pop.find('div.auto-comp-loading');
 	div_list = div_loading.next();
@@ -271,6 +313,9 @@ KISSY.add('autoComplete', function(S, undef) {
 	div_pop.appendTo('body');
 
 	$(document).mousedown(documentClick);
+	$.fn.extend({
+		autoComplete: autoComplete
+	});
 }, {
 	requires: ['jquery-1.4.2', 'adjustElement']
 });
