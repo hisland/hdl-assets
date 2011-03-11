@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+			.box p{background:#eee;margin-bottom:5px;}
+	</style>
+</head>
+<body style="margin:50px;">
+	<div class="box">
+		<p>ie6: </p>
+		<p>base标签为自关闭标签(&lt;base href="some-url" /&gt;)时: head.appendChild(script), script.parentNode==base标签,所以head.removeChild(script)会报错</p>
+		<p>使用script.parentNode.removeChild(script)可以</p>
+		<p>使用head.insertBefore(script, head.firstChild)插入再head.removeChild(script)可以</p>
+		<p>base标签为开关标签(&lt;base href="some-url" &gt;&lt;/base&gt;)时: head.appendChild(script), script.parentNode==head标签,head.removeChild(script)正常</p>
+		<p>实测ie7, ff3.6无问题!</p>
+	</div>
+
+	<div class="box">
+		<p>base标签之前的相对路径是相对站点,之后是相对base设置的href:</p>
+		<p>ie6,7标签的相对路径取出来还是[相对路径],当有读取base之后路径将不正确</p>
+		<p>ie8,ff标签的相对路径取出来是[绝对路径]</p>
+	</div>
+</body>
+</html>

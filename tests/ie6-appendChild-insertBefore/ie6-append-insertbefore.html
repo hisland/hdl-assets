@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="core.js"></script>
+	<base href="http://www.google.com.ck/" />
+	<script type="text/javascript">
+		$(function(){
+			var s = document.createElement('script');
+			s.type="text/javascript";
+			s.src="/git-root/hdl-assets/js/src/dateTool/dateTool.js";
+			var head = document.getElementsByTagName('head')[0];
+			head.insertBefore(s, head.firstChild);
+			alert(s.parentNode.tagName);
+			alert(head.tagName);
+			alert(s.parentNode == head);
+			alert(s.parentNode.tagName == head.tagName);
+			document.getElementsByTagName('head')[0].removeChild(s);
+		});
+	</script>
+</head>
+<body style="margin:50px;">
+	<p>当ie6有base标签时:</p>
+	<p>使用document.getElementsByTagName('head')[0].appendChild不管是css还是js都会报错</p>
+	<input type="date" name="" value="" />
+
+	<p>ie6,7的相对路径取出来还是[相对路径]</p>
+	<p>ie8,ff的相对路径取出来是[绝对路径]</p>
+	<p>使用document.getElementsByTagName('head')[0].appendChild不管是css还是js都会报错</p>
+
+	<p>base标签之前的相对路径是相对站点,之后是相对base设置的href,从上到下执行的关系,读取base之后全部是相对base</p>
+
+	<p>jQuery bug (#2709), 当base节点存在,不管是href,target属性.使用appendChild script,remove script的时候都会报错,方法globalEval内部</p>
+</body>
+</html>
