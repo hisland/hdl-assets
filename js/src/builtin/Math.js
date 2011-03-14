@@ -1,26 +1,35 @@
 /**********************************************************************************************
+ * 
  * 增强Math对象方法
+ * 
+ * 作者: hisland
+ * 邮件: hisland@qq.com
+ * 时间: @TIMESTAMP@
+ * 版本: @VERSION@
+ * 
  */
-//增强Math.random
-//产生一个from 到 to的随机整数
+
 (function(){
-	var old = Math.random;
+
+	//增强Math.random
+	//产生一个from 到 to的随机整数
+	var oldRandom = Math.random;
 	Math.random= function(from, to){
 		var temp = 0, len = arguments.length;
 		from -= 0;
 		to -= 0;
 		if(len === 0){
-			return old();
+			return oldRandom();
 		}else if(len === 1){
 			if(isNaN(from)){
-				return old();
+				return oldRandom();
 			}else{
 				to = from;
 				from = 0;
 			}
 		}else{
 			if(isNaN(from) && isNaN(to)){
-				return old();
+				return oldRandom();
 			}else if(isNaN(from)){
 				from = 0;
 			}else if(isNaN(to)){
@@ -34,7 +43,7 @@
 			to = temp;
 		}
 		temp = to - from;
-		temp = Math.round(old() * (temp+100) % temp);
+		temp = Math.round(oldRandom() * (temp+100) % temp);
 		return from + temp;
 	};
 })();

@@ -13,7 +13,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 /**********************************************************************************************
  * 代码正文
  *
- * 事件:
+ * 触发事件:
  * 		focus	显示验证信息
  * 		keydown	控制输入
  * 		keyup	更正内容
@@ -29,6 +29,8 @@ KISSY.add('hdlValidator', function(S, undef) {
  * 		valiFunc	函数验证
  * 		valiReg		正则验证
  * 		valiNormal	一般验证
+ * 自定义事件:
+ * 		textChange	函数
  * 
  */
 	function hdlValidator(selector){

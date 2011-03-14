@@ -13,16 +13,16 @@
 		,ie = /*@cc_on!@*/0
 		,ie6 = ie && /msie 6.0/i.test(navigator.userAgent);
 
-	var  msg_pic = ''
-		,msg_pic_err = ''
+	var  msg_pic = '图片大小不超过80K'
+		,msg_pic_err = '图片大小不超过80K'
 		,msg_ring = '铃声大小不超过80K，格式为mp3、wav或mid'
 		,msg_ring_err = '铃声大小不超过80K，格式为mp3、wav或mid'
-		,msg_txt = ''
-		,msg_txt_err = ''
-		,msg_video = ''
-		,msg_video_err = '';
+		,msg_txt = '文字长度不超过2000字'
+		,msg_txt_err = '文字长度不超过2000字'
+		,msg_video = '视频大小不超过80K'
+		,msg_video_err = '视频大小不超过80K';
 
-	function swapTxt(s1, s2){
+	function swapText(s1, s2){
 		var tmp = s1.html();
 		s1.html(s2.html());
 		s2.html(tmp);
@@ -34,7 +34,7 @@
 		var  me = $(this)
 			,dt = $(e.target)
 			,o = me.data('mms-setting')
-			,idx, len, span, span2, fs, fwrap, vwrap;
+			,idx, len, span, span2, fs, fwrap, vwrap, flen;
 
 		if(dt.is('a, span')){
 			//调整帧顺序
@@ -58,7 +58,7 @@
 					span2 = o.last_selected.parent().find('span:last');
 					o.last_selected.parent().append(o.last_selected);
 				}
-				swapTxt(span, span2);
+				swapText(span, span2);
 				me.MMSEditOrderState(idx, len);
 
 			//选中某帧
@@ -83,18 +83,19 @@
 			}else if(dt.closest('.mp-mms-a').length){
 				fwrap = me.find('div.mp-mms-f');
 				vwrap = me.find('div.mp-mms-v');
+				flen = fwrap.find('a').length+1;
 				if(dt.is('.mp-mms-a1')){
-					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb1"><p>提示信息</p><span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="" /></span></div></div>');
-					span2 = $('<a class="mp-mms-f1" href="javascript:void(0)"><span>1</span></a>');
+					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb1"><div class="mp-mms-vbf" style="display:block;"><p>'+msg_pic+'</p><span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="mms['+(flen-1)+']" /></span></div><div class="mp-mms-vbf"><div class="mp-mms-vb1w"><img src="" alt="" /></div></div></div></div>');
+					span2 = $('<a class="mp-mms-f1" href="javascript:void(0)"><span>'+flen+'</span></a>');
 				}else if(dt.is('.mp-mms-a2')){
-					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb2"><p>提示信息</p><span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="" /></span></div></div>');
-					span2 = $('<a class="mp-mms-f2" href="javascript:void(0)"><span>1</span></a>');
+					span = $('<div class="mp-mms-vb"></div>');
+					span2 = $('<a class="mp-mms-f2" href="javascript:void(0)"><span>'+flen+'</span></a>');
 				}else if(dt.is('.mp-mms-a3')){
-					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb3"><textarea class="mp-mms-vbta">这里公可以输入什么什么什么的什么</textarea></div></div>');
-					span2 = $('<a class="mp-mms-f3" href="javascript:void(0)"><span>1</span></a>');
+					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb3"><textarea class="mp-mms-vbta" name="mms['+(flen-1)+']"></textarea></div></div>');
+					span2 = $('<a class="mp-mms-f3" href="javascript:void(0)"><span>'+flen+'</span></a>');
 				}else if(dt.is('.mp-mms-a4')){
-					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb4"><p>提示信息</p><span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="" /></span></div></div>');
-					span2 = $('<a class="mp-mms-f4" href="javascript:void(0)"><span>1</span></a>');
+					span = $('<div class="mp-mms-vb"></div>');
+					span2 = $('<a class="mp-mms-f4" href="javascript:void(0)"><span>'+flen+'</span></a>');
 				}
 				span.find('input').change(fileChange);
 				vwrap.append(span);

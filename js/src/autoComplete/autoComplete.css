@@ -15,12 +15,12 @@
 
 .auto-comp-p{display:none;position:absolute;border:1px solid #7f9db9;background:#fff;z-index:8000;overflow:auto;}
 	.auto-comp-loading{display:none;position:absolute;top:0;right:0;padding:0 2px;background:#eff4f8;}
-	.auto-comp-pis{width:200px;height:180px;overflow:auto;}
+	.auto-comp-pis{width:200px;height:180px;overflow:auto;_position:relative;}
 		.auto-comp-i{display:block;white-space:nowrap;color:#000;padding:0 2px;outline:none;}
 		.auto-comp-i strong{color:#ff6600;font-weight:400;}
 		.auto-comp-i:hover{text-decoration:none;background:#eff4f8;}
 		.auto-comp-pis .hover{background:#d9e4ed;}
-	.auto-comp-pm{margin:0 3px;padding:2px;border-top:1px solid #dbe4ec;}
+	.auto-comp-pm{margin:0 3px;padding:2px;border-top:1px solid #dbe4ec;_position:relative;}
 		.auto-comp-pp{margin-right:5px;visibility:hidden;}
 		.auto-comp-pn{margin-right:5px;visibility:hidden;}
 		.auto-comp-ec{color:#ff6600;}
