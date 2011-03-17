@@ -7,10 +7,11 @@
 
 KISSY.add('popWin', function(S, undef) {
 	var  $ = jQuery
+		,EMPTY_$ = $('')
 		,html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title"></span><a class="win1-close" href="#"></a></div><div class="win1-content"></div><div class="win1-btns"><input class="win1-btn-ok" type="button" value="确定" /><input class="win1-btn-cancle" type="button" value="取消" /></div></div>'
 		,popWin = {};
 	
-	popWin.divs = $('');
+	popWin.divs = EMPTY_$;
 	popWin.init = function(){
 		return new init();
 	}
@@ -65,5 +66,5 @@ KISSY.add('popWin', function(S, undef) {
 
 	$.popWin = popWin;
 }, {
-	requires: ['popManager']
+	requires: ['popManager', 'hdlDrag']
 });

@@ -6,17 +6,13 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher', function(){
-				S.useCSS('reset');
-				S.use('hdlTree+css', function(){
-//					var t1 = new Date();
-					$('#a').hdlTree(data3);
-					$('#b').hdlTree(data1);
-					$('#c').hdlTree(data2);
-//					var t2 = new Date();
-//					alert(t2-t1);
-				});
+			S.use('reset-css, hdlTree+css', function(){
+//				var t1 = new Date();
+				$('#a').hdlTree(data3);
+				$('#b').hdlTree(data1);
+				$('#c').hdlTree(data2);
+//				var t2 = new Date();
+//				alert(t2-t1);
 			});
 		});
 	</script>

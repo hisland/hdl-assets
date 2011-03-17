@@ -6,26 +6,22 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
 			S.add('Date', {
 				 path: 'builtin/Date.js'
 				,charset: 'utf-8'
-			})
-			S.use('kissy-patcher, Date', function(){
-				S.useCSS('reset');
-				S.use('weekTool, jquery-1.4.2', function(){
-					var w = $.weekTool();
-					$('#d1-1').html(w.start().dateTimeString());
-					$('#d1-2').html(w.end().dateTimeString());
-					$('#d1-3').html(w.week(2).start().dateTimeString());
-					$('#d1-4').html(w.week(3).end().dateTimeString());
+			});
+			S.use('reset-css, Date, weekTool, jquery-1.4.2', function(){
+				var w = $.weekTool();
+				$('#d1-1').html(w.start().dateTimeString());
+				$('#d1-2').html(w.end().dateTimeString());
+				$('#d1-3').html(w.week(2).start().dateTimeString());
+				$('#d1-4').html(w.week(3).end().dateTimeString());
 
-					w.year(2012).week(1);
-					$('#d2-1').html(w.start().dateTimeString());
-					$('#d2-2').html(w.end().dateTimeString());
-					$('#d2-3').html(w.week(2).start().dateTimeString());
-					$('#d2-4').html(w.week(3).end().dateTimeString());
-				});
+				w.year(2012).week(1);
+				$('#d2-1').html(w.start().dateTimeString());
+				$('#d2-2').html(w.end().dateTimeString());
+				$('#d2-3').html(w.week(2).start().dateTimeString());
+				$('#d2-4').html(w.week(3).end().dateTimeString());
 			});
 		});
 	</script>

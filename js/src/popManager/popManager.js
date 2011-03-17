@@ -6,16 +6,19 @@
  * 版本: @VERSION@
  *
  * API:
- *	p = popManager.init() 初始化一个弹出层包含块
  *	popManager.clean() 清除所有的弹出层包含块
+ *	p = popManager.init() 初始化一个弹出层包含块
  *	p.front() 将此层放到最前面
+ *	p.mask() 使用遮罩--css3使用半透明背景,否则使用半透明层
  *	p.remove() 删除此层
  */
 
 KISSY.add('popManager', function(S, undef) {
 	var  $ = jQuery
+		,EMPTY_$ = $('')
 		,base_z_index = 3000
 		,html_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;"></div>'
+		,mask_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#fff;opacity:0.8;filter:alpha(opacity=80);"></div>'
 		,m = {}
 		
 		,_uid = 0
@@ -23,7 +26,7 @@ KISSY.add('popManager', function(S, undef) {
 			return (++_uid + base_z_index);
 		};
 	
-	m.divs = $('');
+	m.divs = EMPTY_$;
 	m.init = function(){
 		var o = new init();
 		o.front();
@@ -31,7 +34,7 @@ KISSY.add('popManager', function(S, undef) {
 	}
 	m.clean = function(){
 		m.divs.remove();
-		m.divs = $('');
+		m.divs = EMPTY_$;
 		_uid = 0;
 	}
 

@@ -6,11 +6,7 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher', function(){
-				S.useCSS('reset');
-				S.use('jquery-1.4.2, popTip+css', init);
-			});
+			S.use('reset-css, jquery-1.4.2, popTip+css', init);
 
 			function init(){
 				$('#aa').click(function(e){

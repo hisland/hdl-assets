@@ -1054,31 +1054,43 @@ build time: Jan 14 13:56
             var self = this,
                 mods = self.Env.mods,
                 //是否自带了css
-                hasCss = modName.indexOf("+css") != -1;
+                hasCss = modName.indexOf("+css") != -1,
+				onlyCss = modName.indexOf("-css") != -1;
             //得到真实组件名
             modName = hasCss ? modName.replace(/\+css/g, "") : modName;
+            modName = onlyCss ? modName.replace(/\-css/g, "") : modName;
             var mod = mods[modName];
             //没有模块定义，内部模块不许定义
-            if (!mod || (!mod.path && !mod.hasOwnProperty('fns'))) {
-                //默认js名字
-                var componentJsName = self.Config['componentJsName'] || function(m) {
-                    return m + '.js?t=' + S.now();
-                },  js = S.isFunction(componentJsName) ?
-                    componentJsName(modName) : componentJsName;
-                mod = S.mix(mod || {}, {
-                    path:modName + '/' + js,
-                    charset: 'utf-8'
-                });
-                //添加模块定义
-                mods[modName] = mod;
+            if (!mod) {
+				if(onlyCss){
+					var componentCssName = self.Config['componentCssName'] || function(m) {
+						return m + '.css?t=' + S.now();
+					},  css = S.isFunction(componentCssName) ?
+						componentCssName(modName) : componentCssName;
+					mod = {
+						path:modName + '/' + css,
+						charset: 'utf-8'
+					};
+				}else{
+					//默认js名字
+					var componentJsName = self.Config['componentJsName'] || function(m) {
+						return m + '.js?t=' + S.now();
+					},  js = S.isFunction(componentJsName) ?
+						componentJsName(modName) : componentJsName;
+					mod = {
+						path:modName + '/' + js,
+						charset: 'utf-8'
+					};
+				}
+				//添加模块定义
+				mods[modName] = mod;
             }
 
             if (hasCss) {
                 var componentCssName = self.Config['componentCssName'] || function(m) {
                     return m + '.css?t=' + S.now();
                 },  css = S.isFunction(componentCssName) ?
-                    componentCssName(modName) :
-                    componentCssName;
+                    componentCssName(modName) : componentCssName;
                 mod.csspath = modName + '/' + css;
             }
             mod.name = modName;
@@ -1205,7 +1217,7 @@ build time: Jan 14 13:56
                 i = (modNames = S.makeArray(modNames)).length - 1;
 
             for (; i >= 0; i--) {
-                var name = modNames[i].replace(/\+css/, "");
+                var name = modNames[i].replace(/[\+-]css/, "");
                 mod = mods[name] || {};
                 if (mod.status !== ATTACHED) return false;
             }
@@ -1339,7 +1351,6 @@ build time: Jan 14 13:56
 
             if (isCSS) {
                 S.isFunction(success) && success.call(node);
-                head.appendChild(node);
             } else {
                 scriptOnload(node, function() {
                     if (timer) {
@@ -1350,11 +1361,10 @@ build time: Jan 14 13:56
                     S.isFunction(success) && success.call(node);
 
                     // remove script
-                    if (head && node.parentNode) {
-                        head.removeChild(node);
+                    if (node.parentNode) {
+                        node.parentNode.removeChild(node);
                     }
                 });
-                head.insertBefore(node, head.firstChild);
             }
 
             if (S.isFunction(error)) {
@@ -1364,6 +1374,7 @@ build time: Jan 14 13:56
                 }, (timeout || this.Config.timeout) * 1000);
             }
 
+            head.appendChild(node);
             return node;
         }
     };
@@ -1417,7 +1428,16 @@ build time: Jan 14 13:56
                 }
             }
         }
+        /**
+         * 一定要正则化，防止出现 ../ 等相对路径
+         */
+        if (!startsWith(base, "/") && !startsWith(base, "http://") && !startsWith(base, "https://") && !startsWith(base, "file:///")) {
+            base = window.location.href.replace(/[^/]*$/, '') + base;
+        }
         return base;
+    }
+    function startsWith(str, prefix) {
+        return str.lastIndexOf(prefix, 0) == 0;
     }
 
     /**

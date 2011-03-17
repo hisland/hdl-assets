@@ -7,12 +7,8 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher', function(){
-				S.useCSS('reset');
-				S.use('hdlMessager+css', function(){
-					$.hdlMessager('你好', '<ul><li>添加 ** 成功!</li><li>添加 ** 失败!</li><li>添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!</li><li>添加 ** 成功!</li><li>添加 ** 失败!</li><li>添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!</li><li>添加 ** 成功!</li><li>添加 ** 失败!</li><li>添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!</li></ul>').show();
-				});
+			S.use('reset-css, hdlMessager+css', function(){
+				$.hdlMessager('你好', '<ul><li>添加 ** 成功!</li><li>添加 ** 失败!</li><li>添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!</li><li>添加 ** 成功!</li><li>添加 ** 失败!</li><li>添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!</li><li>添加 ** 成功!</li><li>添加 ** 失败!</li><li>添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!添加 ** 成功 成功 成功 成功 成功!</li></ul>').show();
 			});
 		});
 	</script>

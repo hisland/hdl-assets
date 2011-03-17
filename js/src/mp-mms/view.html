@@ -6,13 +6,9 @@
 	<script type="text/javascript" charset="utf-8" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher', function(){
-				S.useCSS('reset');
-				S.use('jquery-1.4.2', function(){
-					S.use('mp-mms+css', function(){
-						$('.mp-mms-wrap').MMSEditEvent();
-					});
+			S.use('reset-css, jquery-1.4.2', function(){
+				S.use('mp-mms+css', function(){
+					$('.mp-mms-wrap').MMSEditEvent();
 				});
 			});
 		});

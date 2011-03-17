@@ -6,23 +6,19 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher', function(){
-				S.useCSS('reset');
-				S.use('hdlTipMsg+css', function(){
-					$.alert('测试内容:<br /><br />使用方法:$.alert("测试内容")').animate({top:5,left:100});
-					$.alert('测试内容 + 标题:<br /><br />使用方法:$.alert("测试内容", "标题")', '标题').animate({top:5,left:470});
+			S.use('reset-css, hdlTipMsg+css', function(){
+				$.alert('测试内容:<br /><br />使用方法:$.alert("测试内容")').animate({top:5,left:100});
+				$.alert('测试内容 + 标题:<br /><br />使用方法:$.alert("测试内容", "标题")', '标题').animate({top:5,left:470});
 
-					$.notice('测试内容:<br /><br />使用方法:$.notice("测试内容")').animate({top:170,left:100});
-					$.notice('测试内容 + 标题:<br /><br />使用方法:$.notice("测试内容", "标题")', '标题').animate({top:170,left:470});
+				$.notice('测试内容:<br /><br />使用方法:$.notice("测试内容")').animate({top:170,left:100});
+				$.notice('测试内容 + 标题:<br /><br />使用方法:$.notice("测试内容", "标题")', '标题').animate({top:170,left:470});
 
-					$.errorTip('测试内容:<br /><br />使用方法:$.error("测试内容")').animate({top:335,left:100});
-					$.errorTip('测试内容 + 标题:<br /><br />使用方法:$.error("测试内容", "标题")', '标题').animate({top:335,left:470});
+				$.errorTip('测试内容:<br /><br />使用方法:$.error("测试内容")').animate({top:335,left:100});
+				$.errorTip('测试内容 + 标题:<br /><br />使用方法:$.error("测试内容", "标题")', '标题').animate({top:335,left:470});
 
-					$.confirm('测试内容:<br /><br />使用方法:$.confirm("测试内容")').animate({top:500,left:10});
-					$.confirm('测试内容 + 标题:<br /><br />使用方法:$.confirm("测试内容", "标题")', '标题').animate({top:500,left:340});
-					$.confirm('测试内容 + 标题 + 确定的回调函数:<br /><br />使用方法:$.confirm("测试内容", "标题", function(){alert("a")})', '标题', function(){alert('a')}).animate({top:500,left:670});
-				});
+				$.confirm('测试内容:<br /><br />使用方法:$.confirm("测试内容")').animate({top:500,left:10});
+				$.confirm('测试内容 + 标题:<br /><br />使用方法:$.confirm("测试内容", "标题")', '标题').animate({top:500,left:340});
+				$.confirm('测试内容 + 标题 + 确定的回调函数:<br /><br />使用方法:$.confirm("测试内容", "标题", function(){alert("a")})', '标题', function(){alert('a')}).animate({top:500,left:670});
 			});
 		});
 	</script>
