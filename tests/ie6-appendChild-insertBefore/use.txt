@@ -1,0 +1,8 @@
+结论页面:
+result.html
+
+测试页面:
+base-self-closed--use-appendChild.html
+base-self-closed--use-insertBefore.html
+base-with-closetag--use-appendChild.html
+base-with-closetag--use-insertBefore.html

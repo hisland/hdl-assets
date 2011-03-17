@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="seed-min.js"></script>
+	<style type="text/css">
+		#result{border:1px solid #ccc;padding:5px;}
+	</style>
+	<base href="http://www.google.com.ck/" ></base>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			var s = document.createElement('script');
+			s.type="text/javascript";
+			s.src="Date.js";
+			var head = document.getElementsByTagName('head')[0];
+			head.insertBefore(s, head.firstChild);
+			var str = 's.parentNode.tagName: ' + s.parentNode.tagName
+				+'<br />head.tagName: ' + head.tagName
+				+'<br />s.parentNode == head: ' + (s.parentNode == head)
+				+'<br />s.parentNode.tagName == head.tagName: ' + (s.parentNode.tagName == head.tagName)
+			document.getElementById('result').innerHTML = str;
+			document.getElementsByTagName('head')[0].removeChild(s);
+		});
+		
+	</script>
+</head>
+<body style="margin:50px;">
+	<p>base使用关闭标签, 使用insertBefore:</p>
+	<p>正常</p>
+	<p>由于base标签关系,jquery将不被加载</p>
+	<p id="result"></p>
+</body>
+</html>
