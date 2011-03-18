@@ -286,6 +286,16 @@ KISSY.add('autoComplete', function(S, undef) {
 		this.data('auto-comp-bind', true);
 		this.click(elmClick).find('input').keyup(iptKeyUp).keydown(iptKeyDown);
 	}
+	//切换可用状态
+	function autoCompleteDisable(state){
+		if(state == true){
+			this.addClass('auto-comp-disabled')
+				.find('input').attr('disabled', true);
+		}else{
+			this.removeClass('auto-comp-disabled')
+				.find('input').attr('disabled', false);
+		}
+	}
 	//全局监听并自动绑带事件,顺带做隐藏下拉层操作
 	function documentClick(e){
 		var  t = e.target
@@ -314,7 +324,8 @@ KISSY.add('autoComplete', function(S, undef) {
 
 	$(document).mousedown(documentClick);
 	$.fn.extend({
-		autoComplete: autoComplete
+		 autoComplete: autoComplete
+		,autoCompleteDisable: autoCompleteDisable
 	});
 }, {
 	requires: ['jquery-1.4.2', 'adjustElement']

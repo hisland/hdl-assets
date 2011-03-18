@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, fastSelect+css');
+		});
+	</script>
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+			.box p{background:#eee;margin-bottom:5px;}
+	</style>
+</head>
+
+<body style="padding:50px;">
+	<div class="box">
+		<p>使用方法为在input上加入: </p>
+		<p>data-fast-select="start, end, step"</p>
+		<p>start, end, step为数字如: 1, 2, 3, 0.1, 0.005, 0.2200, 8.69</p>
+	</div>
+
+	<div class="box">
+		<p>范围是[0-99], 步长为1: </p>
+		<input name="a-name" value="" data-fast-select="0, 99, 1" />
+	</div>
+
+	<div class="box">
+		<p>范围是[0.0200,0.2000], 步长为0.0001: </p>
+		<input name="a-name" value="" data-fast-select="0.0200, 0.2000, 0.0001" />
+	</div>
+
+</body>
+</html>

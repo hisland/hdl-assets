@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+.fast-select-p{display:none;position:absolute;border:1px solid #7f9db9;background:#fff;z-index:8000;overflow:auto;}
+	.fast-select-loading{display:none;position:absolute;top:0;right:0;padding:0 2px;background:#eff4f8;}
+	.fast-select-is{width:150px;height:100px;overflow:auto;_position:relative;}
+		.fast-select-i{display:inline-block;white-space:nowrap;color:#000;padding:0 8px;text-align:center;min-width:15px;outline:none;}
+		.fast-select-i:hover{text-decoration:none;background:#eff4f8;}
+		.fast-select-is .hover{background:#d9e4ed;}
+	.fast-select-pm{margin:0 3px;padding:2px;border-top:1px solid #dbe4ec;_position:relative;}
+		.fast-select-pp{margin-right:5px;visibility:hidden;}
+		.fast-select-pn{margin-right:5px;visibility:hidden;}

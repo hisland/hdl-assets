@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2, loopFuncs', function(){
+				var i = 0;
+				loopFuncs.add(function(){
+					$('#aa').append('<span>'+i+'</span>');
+					i++;
+				});
+
+				$('#start').click(function(e){
+					$(this).attr('disabled', true).next().attr('disabled', false);
+					loopFuncs.start();
+				});
+				$('#stop').click(function(e){
+					$(this).attr('disabled', true).prev().attr('disabled', false);
+					loopFuncs.stop();
+				});
+				$('#start').click();
+			});
+		});
+	</script>
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+			.box p{background:#eee;margin-bottom:5px;line-height:1em;}
+		
+		#start{padding:2px 5px;margin-right:10px;}
+		#stop{padding:2px 5px;}
+		#aa{width:350px;}
+			#aa span{display:inline-block;width:25px;margin:0 5px 5px 0;text-align:center;background:#ccc;}
+	</style>
+
+</head>
+<body style="padding:50px;">
+	<div class="box">
+		<p>查看源代码可知此测试有一个fn不停地对i+1并添加到下面: </p>
+		<p>
+			<input id="start" type="button" name="" value="开始" />
+			<input id="stop" type="button" name="" value="停止" />
+		</p>
+		<div id="aa"></div>
+	</div>
+	
+</body>
+</html>

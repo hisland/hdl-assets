@@ -33,6 +33,8 @@ KISSY.add('hdlValidator', function(S, undef) {
  * 		textChange	函数
  * 
  */
+
+	//注册事件,可用于手工注册
 	function hdlValidator(selector){
 		var ipts = $(selector).find('input, select, textarea');
 		ipts.each(function(idx, elm){
@@ -52,10 +54,19 @@ KISSY.add('hdlValidator', function(S, undef) {
 			if($(this).attr('max') != undefined){
 				
 			}
-		})
+		});
 	}
 
-	$.fn.hdlValidator = hdlValidator;
+	//文档上监听并注册事件,如已注册则忽略
+	function documentClick(e){
+		
+	}
+	$(document).click(documentClick);
+
+	//放到jq原型链上
+	$.fn.extend({
+		hdlValidator: hdlValidator
+	});
 }, {
 	requires: ['jquery-1.4.2', 'hdlReg', 'hdlTest']
 });

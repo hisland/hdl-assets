@@ -17,7 +17,7 @@ tree:{
 	,use_icon: true				//是否使用icon图标
 	,edit_able: true			//是否可以修改状态
 	,lazy: false				//是否懒加载
-	,theme: 'theme-line'		//使用的图标主题'theme-pnm', 'theme-line', 'theme-blue', 'theme-gray' 可在样式里按照相应格式增加更多的
+	,theme: 'line'		//使用的图标主题'pnm', line', 'blue', 'gray' 自动加上'theme-'前缀,可在样式里按照相应格式增加更多的
 	,ajax: {					//异步加载配置
 			 async: false
 			,url: ''
@@ -73,6 +73,10 @@ leaf:{
 	small:	icon
 	em:		arrow
 	b:		blank
+
+TODO:
+	+此层 -此层
+	+所有 -所有
 */
 
 	function Tree(){
@@ -87,7 +91,7 @@ leaf:{
 				,use_icon: true				//是否使用icon图标
 				,edit_able: true			//是否可以修改状态
 				,lazy: false					//是否懒加载
-				,theme: 'theme-line'				//使用的图标主题'theme-pnm', 'theme-line', 'theme-blue', 'theme-gray' 可在样式里按照相应格式增加更多的
+				,theme: 'line'		//使用的图标主题'pnm', line', 'blue', 'gray' 自动加上'theme-'前缀,可在样式里按照相应格式增加更多的
 				,ajax: {					//异步加载配置
 						 async: false
 						,url: ''
@@ -154,7 +158,7 @@ leaf:{
 		}
 		,buildTree: function(){
 			var html = [];
-			html.push('<div class="hdl-tree' + (this.theme ? ' '+this.theme : '') + '" id="'+ this.__path +'">');
+			html.push('<div class="hdl-tree', (this.theme ? ' theme-'+this.theme : ''), '" id="', this.__path, '">');
 			html.push(this.buildHTML(this));
 			html.push('</div>');
 			this.dom.html(html.join(''));
@@ -184,7 +188,7 @@ leaf:{
 		,makeLi: function(html, data){
 			var parent = data.__parent;
 			html.push('<li>');
-			html.push('<div id="' + data.__path + '">');
+			html.push('<div id="', data.__path, '">');
 			this.makeIndent(html, data.__indent);
 
 			//arrow 状态
@@ -218,7 +222,7 @@ leaf:{
 				html.push(this.str_unchecked);
 			}
 
-			html.push('<span class="text">' + data.text + '</span>');
+			html.push('<span class="text">', data.text, '</span>');
 			html.push('</div>');
 
 			//是否立即添加子节点
@@ -462,11 +466,14 @@ leaf:{
 		tree.init(data, setting);
 		return this;
 	}
-
-	$.fn.hdlTree = hdlTree;
-	$.fn.hdlTreeSetting = function(){
+	function hdlTreeSetting(){
 		return global_tree[this.attr('data-hdl-tree')];
-	};
+	}
+
+	$.fn.extend({
+		 hdlTree: hdlTree
+		,hdlTreeSetting: hdlTreeSetting
+	});
 }, {
 	requires: ['jquery-1.4.2']
 });

@@ -22,22 +22,19 @@
  *	o.stop() 停止自动运行
  *	o.interval(num) 设置间隔, 单位毫秒(ms)
  */
-(function(){
-	if(window.getLoopFuncs){
-		return false;
-	}
 
+KISSY.add('loopFuncs', function(S, undef) {
 	function getLoopFuncs(fn_first){
 		var  _timer
 			,_stopped = true
 			,funcs = []
-			,interval = 50;
+			,interval = 500;
 
 		if(typeof fn_first === 'function'){
 			funcs.push(fn_first);
 		}
 		function init(callback){
-			for(var i=0; i < funcs.length; i++){
+			for(var i=0; i < funcs.length && !_stopped; i++){
 				funcs[i]();
 			}
 			if(typeof callback === 'function'){
@@ -84,7 +81,7 @@
 		init.start = function(){
 			if(_stopped){
 				_stopped = false;
-				act();
+				init(act);
 			}
 		}
 		init.stop = function(){
@@ -105,4 +102,4 @@
 
 	//默认初始化一个
 	window.loopFuncs = getLoopFuncs();
-})();
+});

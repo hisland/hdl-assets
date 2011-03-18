@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, fastSelect+css', function(){
+				var b = [];
+				var k = 0.0001;
+				b.push('k = 0.0001<br />');
+				for(var i=0;i<10;i++){
+					k += 0.0001;
+					b.push(i, '&gt; k+0.0001=', k, '<br />');
+				}
+				$('#test1').html(b.join(''));
+
+				$('#check').click(function(e){
+					var o = {};
+					var b = [];
+					var as = $('.fast-select-is a');
+					as.each(function(i, v){
+						v = v.innerHTML;
+						if(o[v]){
+							b.push(v, ' exist!');
+						}
+						o[v] = true;
+					});
+					if(b.length){
+						$('#test2').html('共生成节点' + as.length + '个:<br />' + b.join(''));
+					}else{
+						$('#test2').html('共生成节点' + as.length + '个:<br />无重复项!');
+					}
+				});
+			});
+		});
+	</script>
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+			.box p{background:#eee;margin-bottom:5px;}
+	</style>
+</head>
+
+<body style="padding:50px;">
+
+	<div class="box">
+		<p>测试下面的范围是否正确: </p>
+		<p>由于js的小数计算会有误差,下面的计算直接用加法计算几次后会出来不正常结果如:</p>
+		<p id="test1"></p>
+	</div>
+
+	<div class="box">
+		<p>范围是[0.0200,0.2000], 步长为0.0001: </p>
+		<input name="a-name" value="" data-fast-select="0.0200, 0.2000, 0.0001" />
+	</div>
+
+	<div class="box">
+		<p>点击上面的选择控件后执行下面的check: </p>
+		<p>如果有会显示 xx exists! 否则表示使用toFixed截取没有重复值,工作正常</p>
+		<p><input id="check" type="button" name="" value="查看有没有重复的值" /></p>
+		<p id="test2"></p>
+	</div>
+
+</body>
+</html>

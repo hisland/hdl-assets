@@ -7,7 +7,9 @@
 
 KISSY.add('hdlDrag', function(S, undef) {
 	var  $ = jQuery
-		,target;
+		,target
+		,trigger_filter;
+
 	function test(){
 		
 	}
@@ -29,6 +31,22 @@ KISSY.add('hdlDrag', function(S, undef) {
 	function mouseUp(){
 		
 	}
+
+
+	function hdlDrag(){
+		
+	}
+
+	//文档上监听并注册事件,如已注册则忽略
+	function documentClick(e){
+		
+	}
+	$(document).click(documentClick);
+
+	//放到jq原型链上
+	$.fn.extend({
+		hdlDrag: hdlDrag
+	});
 }, {
 	requires: ['jquery-1.4.2']
 });
