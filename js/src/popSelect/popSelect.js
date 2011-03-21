@@ -29,17 +29,33 @@ KISSY.add('popSelect', function(S, undef) {
 			,str = [];
 
 		if(dt.is('a')){
-			str.push(dt.parent().prev().html());
-			$(ipt_target.attr('data-province')).val(dt.parent().prev().attr('data-id'));
-			str.push(dt.html());
-			$(ipt_target.attr('data-city')).val(dt.attr('data-id'));
-			ipt_target.val(str.join('-'));
+			//选择某个市
+			if(dt.parent().is('.pop-select-td3')){
+				str.push(dt.parent().prev().html());
+				$(ipt_target.attr('data-province')).val(dt.parent().prev().attr('data-id'));
+				str.push(dt.html());
+				$(ipt_target.attr('data-city')).val(dt.attr('data-id'));
+				ipt_target.val(str.join('-'));
+
+			//跳到相应位置
+			}else if(dt.parent().is('.pop-select-legend')){
+				div_pop.find('td.pop-select-td1').each(function(i, v, len){
+					if(v.innerHTML === t.innerHTML){
+						v = $(v);
+						t = v.parents('.pop-select-in');
+						len = t[0].scrollTop + v.position().top - 10;
+
+						t.animate({'scrollTop': len}, 'fast');
+						return false;
+					}
+				});
+			}
 			e.preventDefault();
 		}
 	}
 	//弹出层双击关闭
 	function divPopDblClick(e){
-		if($(e.target).is('a')){
+		if($(e.target).parent().is('.pop-select-td3')){
 			popHide();
 		}
 	}
@@ -56,12 +72,14 @@ KISSY.add('popSelect', function(S, undef) {
 				}
 			});
 			//根据需要建立弹出层并初始化引用与事件
-			var b = [], c, last_p;
-			b.push('<div class="pop-select"><div class="pop-select-in"><table class="pop-select-t"><tbody>');
-			$.each(PCList, function(i, v){
+			var b = [], c, last_p, legend_arr = [];
+			b.push('<div class="pop-select"><div class="pop-select-legend"></div><div class="pop-select-in"><table class="pop-select-t"><tbody>');
+			$.each(PCList, function(i, v, k){
 				if(last_p != v.prefix){
 					last_p = v.prefix;
-					b.push('<tr><td class="pop-select-td1" colspan="2">', v.prefix.toUpperCase(), '</td></tr>');
+					k = v.prefix.toUpperCase();
+					legend_arr.push('<a href="#">', k, '</a>');
+					b.push('<tr><td class="pop-select-td1" colspan="2">', k, '</td></tr>');
 				}
 				b.push('<tr><td class="pop-select-td2" data-id="', v.id, '">', v.name, '</td><td class="pop-select-td3">');
 				i = v.cities;
@@ -72,6 +90,7 @@ KISSY.add('popSelect', function(S, undef) {
 			});
 			b.push('<body></tbody></table></div></div>');
 			div_pop = $(b.join(''));
+			div_pop.find('div.pop-select-legend').html(legend_arr.join(''));
 			div_pop.click(divPopClick).dblclick(divPopDblClick);
 			div_pop.appendTo('body');
 		}

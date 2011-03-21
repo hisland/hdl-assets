@@ -6,21 +6,30 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, adjustElement');
+			S.use('reset-css, adjustElement', function(){
+				var bb = $('.bb');
+				$('#aa, #bb, #cc').click(function(e){
+					bb.adjustElement(this).show();
+				});
+				$(document).click(function(e){
+					if(!$(e.target).is('input, .bb')){
+						bb.hide();
+					}
+				});
+			});
 		});
 	</script>
 	<style type="text/css">
-		.bb{width:200px;height:200px;background:green;position:absolute;display:none;}
-		#cc{position:absolute;bottom:10px;}
-		#dd{position:absolute;bottom:10px;right:10px;}
+		.bb{width:200px;height:50px;background:green;position:absolute;display:none;}
+		#bb{position:absolute;bottom:10px;}
+		#cc{position:absolute;bottom:10px;right:10px;}
 	</style>
 </head>
 
 <body style="margin:50px;">
 	<input id="aa" type="text" name="" value="" />
+	<input id="bb" type="text" name="" value="" />
 	<input id="cc" type="text" name="" value="" />
-	<input id="dd" type="text" name="" value="" />
-	<p>s</p>	<p>s</p>	<p>s</p>	<p>s</p>
-	<div class="bb"></div>
+	<div class="bb">点哪个input我对齐哪个!</div>
 </body>
 </html>

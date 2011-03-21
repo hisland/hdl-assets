@@ -20,7 +20,7 @@ KISSY.add('adjustElement', function(S, undef) {
 		var elm = this.eq(0);
 		target = $(target);
 
-		if(!target.length || $.isFunction(target)){
+		if(!target || !target.length){
 			alert('adjustElement: 必须有个 target');
 			return elm;
 		}
@@ -50,15 +50,15 @@ KISSY.add('adjustElement', function(S, undef) {
 		}
 
 		//有回调的回调
-		if($.isFunction(target)){
-			callback(elm);
-		}
+		$.isFunction(target) && callback(elm);
 
 		return elm;
 	}
 
 	//注册到jq原型上
-	$.fn.adjustElement = adjustElement;
+	$.fn.extend({
+		adjustElement: adjustElement
+	});
 }, {
 	requires: ['jquery-1.4.2']
 });
