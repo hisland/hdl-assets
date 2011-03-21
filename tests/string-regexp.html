@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				$('#test').click(function(e){
+					var txt = $('#test-text').val();
+					var reg = eval('(' + $('#test-reg').val() + ')');
+
+					if(console && console.log){
+						console.log(txt.match(reg));
+						console.log(reg.exec(txt));
+						console.log(reg.test(txt));
+					}
+					$('#string-match').html(txt.match(reg).join());
+					$('#regexp-exec').html(reg.exec(txt).join());
+					$('#regexp-test').html(reg.test(txt)+'');
+				});
+			});
+		});
+	</script>
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+			.box p{background:#eee;margin-bottom:5px;}
+		
+		input[type=text]{width:300px;}
+		input[type=button]{padding:5px 10px;}
+		dd{padding-left:20px;}
+	</style>
+</head>
+
+<body style="padding:50px;">
+	<div class="box">
+		String:
+		<br /><input id="test-text" type="text" value="" />
+		<br />RegExp:
+		<br /><input id="test-reg" type="text" value="" />
+		<br /><br /><input id="test" type="button" value="测试" />
+		<br />如有firebug请打开查看控制台
+	</div>
+
+	<div class="box">
+		<ul>
+			<li>String.match:<span id="string-match"></span></li>
+			<li>RegExp.exec:<span id="regexp-exec"></span></li>
+			<li>RegExp.test:<span id="regexp-test"></span></li>
+		</ul>
+	</div>
+
+</body>
+</html>

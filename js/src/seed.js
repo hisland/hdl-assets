@@ -204,6 +204,18 @@ build time: Jan 14 13:56
             return o;
         },
 
+
+        /**
+         * get a namespace, return undefined if doesn't exist.
+         */
+        getNS: function(str){
+            var arr = (EMPTY + str).split('.'), i=1, o;
+            for(o = window[arr[0]] ; o && i<arr.length;i++){
+                o = o[arr[i]];
+            }
+            return o;
+        },
+
         /**
          * create app based on KISSY.
          * @param name {String} the app name

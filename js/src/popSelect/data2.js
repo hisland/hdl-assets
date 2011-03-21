@@ -1,6 +1,7 @@
 PCList = [{
 		"id":1,
 		"name":"北京",
+		"prefix":"b",
 		"cities":[{
 				"id":100,
 				"name":"全部"
@@ -63,6 +64,7 @@ PCList = [{
 	},{
 		"id":2,
 		"name":"天津",
+		"prefix":"t",
 		"cities":[{
 				"id":200,
 				"name":"全部"
@@ -71,6 +73,7 @@ PCList = [{
 	},{
 		"id":3,
 		"name":"上海",
+		"prefix":"s",
 		"cities":[{
 				"id":300,
 				"name":"全部"
@@ -79,6 +82,7 @@ PCList = [{
 	},{
 		"id":4,
 		"name":"重庆",
+		"prefix":"c",
 		"cities":[{
 				"id":400,
 				"name":"全部"
@@ -87,6 +91,7 @@ PCList = [{
 	},{
 		"id":5,
 		"name":"河北",
+		"prefix":"h",
 		"cities":[{
 				"id":500,
 				"name":"全部"
@@ -128,6 +133,7 @@ PCList = [{
 	},{
 		"id":6,
 		"name":"山西",
+		"prefix":"s",
 		"cities":[{
 				"id":600,
 				"name":"全部"
@@ -169,6 +175,7 @@ PCList = [{
 	},{
 		"id":7,
 		"name":"台湾",
+		"prefix":"t",
 		"cities":[{
 				"id":700,
 				"name":"全部"
@@ -246,6 +253,7 @@ PCList = [{
 	},{
 		"id":8,
 		"name":"辽宁",
+		"prefix":"l",
 		"cities":[{
 				"id":800,
 				"name":"全部"
@@ -296,6 +304,7 @@ PCList = [{
 	},{
 		"id":9,
 		"name":"吉林",
+		"prefix":"j",
 		"cities":[{
 				"id":900,
 				"name":"全部"
@@ -331,6 +340,7 @@ PCList = [{
 	},{
 		"id":10,
 		"name":"黑龙江",
+		"prefix":"h",
 		"cities":[{
 				"id":1000,
 				"name":"全部"
@@ -378,6 +388,7 @@ PCList = [{
 	},{
 		"id":11,
 		"name":"江苏",
+		"prefix":"j",
 		"cities":[{
 				"id":1100,
 				"name":"全部"
@@ -425,6 +436,7 @@ PCList = [{
 	},{
 		"id":12,
 		"name":"浙江",
+		"prefix":"z",
 		"cities":[{
 				"id":1200,
 				"name":"全部"
@@ -466,6 +478,7 @@ PCList = [{
 	},{
 		"id":13,
 		"name":"安徽",
+		"prefix":"a",
 		"cities":[{
 				"id":1300,
 				"name":"全部"
@@ -525,6 +538,7 @@ PCList = [{
 	},{
 		"id":14,
 		"name":"福建",
+		"prefix":"f",
 		"cities":[{
 				"id":1400,
 				"name":"全部"
@@ -560,6 +574,7 @@ PCList = [{
 	},{
 		"id":15,
 		"name":"江西",
+		"prefix":"j",
 		"cities":[{
 				"id":1500,
 				"name":"全部"
@@ -601,6 +616,7 @@ PCList = [{
 	},{
 		"id":16,
 		"name":"山东",
+		"prefix":"s",
 		"cities":[{
 				"id":1600,
 				"name":"全部"
@@ -660,6 +676,7 @@ PCList = [{
 	},{
 		"id":17,
 		"name":"河南",
+		"prefix":"h",
 		"cities":[{
 				"id":1700,
 				"name":"全部"
@@ -722,6 +739,7 @@ PCList = [{
 	},{
 		"id":18,
 		"name":"湖北",
+		"prefix":"h",
 		"cities":[{
 				"id":1800,
 				"name":"全部"
@@ -781,6 +799,7 @@ PCList = [{
 	},{
 		"id":19,
 		"name":"湖南",
+		"prefix":"h",
 		"cities":[{
 				"id":1900,
 				"name":"全部"
@@ -831,6 +850,7 @@ PCList = [{
 	},{
 		"id":20,
 		"name":"广东",
+		"prefix":"g",
 		"cities":[{
 				"id":2000,
 				"name":"全部"
@@ -902,6 +922,7 @@ PCList = [{
 	},{
 		"id":21,
 		"name":"甘肃",
+		"prefix":"g",
 		"cities":[{
 				"id":2100,
 				"name":"全部"
@@ -952,6 +973,7 @@ PCList = [{
 	},{
 		"id":22,
 		"name":"四川",
+		"prefix":"s",
 		"cities":[{
 				"id":2200,
 				"name":"全部"
@@ -1023,6 +1045,7 @@ PCList = [{
 	},{
 		"id":23,
 		"name":"贵州",
+		"prefix":"g",
 		"cities":[{
 				"id":2300,
 				"name":"全部"
@@ -1058,6 +1081,7 @@ PCList = [{
 	},{
 		"id":24,
 		"name":"海南",
+		"prefix":"h",
 		"cities":[{
 				"id":2400,
 				"name":"全部"
@@ -1120,6 +1144,7 @@ PCList = [{
 	},{
 		"id":25,
 		"name":"云南",
+		"prefix":"y",
 		"cities":[{
 				"id":2500,
 				"name":"全部"
@@ -1176,6 +1201,7 @@ PCList = [{
 	},{
 		"id":26,
 		"name":"青海",
+		"prefix":"q",
 		"cities":[{
 				"id":2600,
 				"name":"全部"
@@ -1208,6 +1234,7 @@ PCList = [{
 	},{
 		"id":27,
 		"name":"陕西",
+		"prefix":"s",
 		"cities":[{
 				"id":2700,
 				"name":"全部"
@@ -1246,6 +1273,7 @@ PCList = [{
 	},{
 		"id":28,
 		"name":"广西",
+		"prefix":"g",
 		"cities":[{
 				"id":2800,
 				"name":"全部"
@@ -1296,6 +1324,7 @@ PCList = [{
 	},{
 		"id":29,
 		"name":"西藏",
+		"prefix":"x",
 		"cities":[{
 				"id":2900,
 				"name":"全部"
@@ -1325,6 +1354,7 @@ PCList = [{
 	},{
 		"id":30,
 		"name":"宁夏",
+		"prefix":"l",
 		"cities":[{
 				"id":3000,
 				"name":"全部"
@@ -1348,6 +1378,7 @@ PCList = [{
 	},{
 		"id":31,
 		"name":"新疆",
+		"prefix":"x",
 		"cities":[{
 				"id":3100,
 				"name":"全部"
@@ -1422,6 +1453,7 @@ PCList = [{
 	},{
 		"id":32,
 		"name":"内蒙古",
+		"prefix":"n",
 		"cities":[{
 				"id":3200,
 				"name":"全部"
@@ -1466,6 +1498,7 @@ PCList = [{
 	},{
 		"id":33,
 		"name":"澳门",
+		"prefix":"a",
 		"cities":[{
 				"id":3300,
 				"name":"全部"
@@ -1474,6 +1507,7 @@ PCList = [{
 	},{
 		"id":34,
 		"name":"香港",
+		"prefix":"x",
 		"cities":[{
 				"id":3400,
 				"name":"全部"

@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-.pop-select{border:1px solid #5692cb;background:#fff;height:100%;overflow:auto;}
+.pop-select{border:1px solid #5692cb;position:absolute;background:#fff;height:300px;width:500px;overflow:auto;}
 	.pop-select-in{zoom:1;padding:4px 4px 9px;}
 	.pop-select-t{width:100%;line-height:1.8em;}
 		.pop-select-td1{border-bottom:1px solid #5692cb;font-weight:700;padding:10px 10px 0;color:#ff0000;}
