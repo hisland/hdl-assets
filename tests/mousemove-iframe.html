@@ -6,14 +6,11 @@
 	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher, jquery-1.4.2', function(){
-				S.useCSS('reset', function(){
-					var k = 0;
-					document.getElementById('aa').onmousemove = function(){
-						document.getElementById('cc').innerHTML = (k++);
-					}
-				});
+			S.use('reset-css, jquery-1.4.2', function(){
+				var k = 0;
+				document.getElementById('aa').onmousemove = function(){
+					document.getElementById('cc').innerHTML = (k++);
+				}
 			});
 		});
 	</script>

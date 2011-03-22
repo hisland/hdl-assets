@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> iframe height属性与 style-height 优先级测试 </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				
+			});
+		});
+	</script>
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+			.box p{background:#eee;margin-bottom:5px;}
+		#aa{height:50px;}
+	</style>
+</head>
+
+<body style="padding:10px 50px;">
+	<div class="box">
+		<p>iframe height="100":</p>
+		<iframe src="#" height="100" scrolling="no" allowtransparency="yes"></iframe> 
+	</div>
+	<div class="box">
+		<p>iframe style="height:50px;":</p>
+		<iframe src="#" style="height:50px;" scrolling="no" allowtransparency="yes"></iframe> 
+	</div>
+	<div class="box">
+		<p>iframe style="height:50px;" height="100":</p>
+		<iframe src="#" style="height:50px;" height="100" scrolling="no" allowtransparency="yes"></iframe> 
+	</div>
+	<div class="box">
+		<p>页内样式#aa{height:50px;} height="100":</p>
+		<iframe id="aa" src="#" height="100" scrolling="no" allowtransparency="yes"></iframe> 
+	</div>
+	<div class="box">
+		<p>实测style:height优先级高于height属性.</p>
+		<p>IE7+, FF3.6+</p>
+	</div>
+
+</body>
+</html>

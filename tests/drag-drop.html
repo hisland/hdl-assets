@@ -6,19 +6,16 @@
 	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher, jquery-1.4.2', function(){
-				S.useCSS('reset', function(){
-					$('#aa').bind('dragstart', function(ev){var dt = ev.originalEvent.dataTransfer;
-					dt.setData("Text", "Dropped in zone!");
-						return true;
-					})
+			S.use('reset-css, jquery-1.4.2', function(){
+				$('#aa').bind('dragstart', function(ev){var dt = ev.originalEvent.dataTransfer;
+				dt.setData("Text", "Dropped in zone!");
+					return true;
+				})
 
-					// Decide whether the thing dragged in is welcome.
-					$('#bb').bind('dragover', function(ev) {
-						return false;
-					})
-				});
+				// Decide whether the thing dragged in is welcome.
+				$('#bb').bind('dragover', function(ev) {
+					return false;
+				})
 			});
 		});
 	</script>

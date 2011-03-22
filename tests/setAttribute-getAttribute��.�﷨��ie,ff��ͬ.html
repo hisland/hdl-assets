@@ -6,30 +6,27 @@
 	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher, jquery-1.4.2', function(){
-				S.useCSS('reset', function(){
-					var b = document.getElementById('bb');
-					var c = document.getElementById('cc');
-					var a = document.getElementById('aa');
+			S.use('reset-css, jquery-1.4.2', function(){
+				var b = document.getElementById('bb');
+				var c = document.getElementById('cc');
+				var a = document.getElementById('aa');
 
-					alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
-							+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
+				alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
+						+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
 
-					b.value = 33;
-					c.value = 33;
-					alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
-							+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
+				b.value = 33;
+				c.value = 33;
+				alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
+						+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
 
-					b.setAttribute('value', 55);
-					c.setAttribute('value', 55);
-					alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
-							+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
+				b.setAttribute('value', 55);
+				c.setAttribute('value', 55);
+				alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
+						+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
 
-					a.reset();
-					alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
-							+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
-				});
+				a.reset();
+				alert('bb:' + b.value + '--' + b.getAttribute('value') + ' | jqbb: ' + $(b).val()
+						+ ' | cc: ' + c.value + '--' + c.getAttribute('value') + ' | jqcc: ' + $(c).val());
 			});
 		});
 	</script>

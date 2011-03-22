@@ -6,21 +6,18 @@
 	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher, jquery-1.4.2', function(){
-				S.useCSS('reset', function(){
-					$('#tt').focus(function(){
-						alert('input#tt focused!');
-					});
-					$('#god').focus(function(){
-						alert('div#god focused!');
-					});
-					$('#ss').focus(function(){
-						alert('form#ss focused!');
-					});
-					$('body').focus(function(){
-						alert('body focused!');
-					});
+			S.use('reset-css, jquery-1.4.2', function(){
+				$('#tt').focus(function(){
+					alert('input#tt focused!');
+				});
+				$('#god').focus(function(){
+					alert('div#god focused!');
+				});
+				$('#ss').focus(function(){
+					alert('form#ss focused!');
+				});
+				$('body').focus(function(){
+					alert('body focused!');
 				});
 			});
 		});
