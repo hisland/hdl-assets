@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+.hdl-vali-wrap{border:1px solid #5692cb;position:absolute;background:#fff;padding:0 5px;width:250px;}
+	.hdl-vali-wrap p{padding:1px 0 1px 20px;}
+	.hdl-vali-ok{background:url('hdlValidator-img/ok.gif') no-repeat 0 4px;}
+	.hdl-vali-err{background:url('hdlValidator-img/err.gif') no-repeat 0 3px;color:red;}
+	.hdl-vali-loading{background:url('hdlValidator-img/loading.gif') no-repeat 0 2px;color:red;}
+

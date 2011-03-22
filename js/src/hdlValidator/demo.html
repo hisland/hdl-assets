@@ -6,29 +6,67 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, hdlValidator');
+			S.use('reset-css, hdlValidator+css');
 		});
 	</script>
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+			.box p{background:#eee;margin-bottom:5px;}
+	</style>
 </head>
+<body style="padding:20px 50px;">
+	<div class="box">
+		<p>2011-3-21 11:36:16:
+		<br />统一验证写法为 data-valid-type="pattern, pattern, pattern"
+		<br />减少记忆难度
+		<br />减少代码复杂度
+		</p>
+		<p>pattern请查看源代码注释</p>
+	</div>
 
-<body>
-	<input name="a-name" value="defautl-value"
-			type="text|hidden|password|button|submit|reset|date|time|datetime|number|week|..."
-			data-msg-blank="没有填入数据时的文本"
-			data-msg-error="错误的时候显示的文本"
-			data-ajax-url="异步验证的地址"
-			data-ajax-data="a=b&b=c | ns-to-a-custom-func"
-			data-vali-func="内部定义的验证函数 | ns-to-a-custom-func"
-			data-vali-reg="内部定义的正则验证规则 | 正则字面量"
-			data-vali-type="简短的验证规则,暂不支持,类似Validform插件的实现"
-			max="number"
-			min="number"
-			required="required"
-			maxlength="number"
-			minlength="number"/>
-	
-	<textarea name="a-name"
-			maxlength="number"
-			minlength="number"></textarea>
+	<div class="box">
+		<p>正则验证IPV4:
+		<br /><input type="text" name="" value="" data-valid-type="regipv4" />
+		</p>
+		<p>正则验证整数:
+		<br /><input type="text" name="" value="" data-valid-type="reginteger" />
+		</p>
+	</div>
+
+	<div class="box">
+		<p>长度验证-任意字符:
+		<br /><input type="text" name="" value="" data-valid-type="l3-6" />
+		</p>
+		<p>长度验证-大小写字母:
+		<br /><input type="text" name="" value="" data-valid-type="la2-16" />
+		</p>
+		<p>长度验证-数字:
+		<br /><input type="text" name="" value="" data-valid-type="ln1-8" />
+		</p>
+		<p>数字范围验证:
+		<br /><input type="text" name="" value="" data-valid-type="n20-99" />
+		</p>
+	</div>
+
+	<div class="box">
+		<p>对比验证-左侧值小于右侧值:
+		<br /><input type="text" name="" value="" id="comp1" data-valid-type="comp<#comp2" />-<input type="text" name="" value="" id="comp2" data-valid-type="comp>#comp1" />
+		</p>
+	</div>
+
+	<div class="box">
+		<p>异步验证:
+		<br /><input type="text" name="" value="" data-valid-type="ajax" data-ajax-url="" />
+		</p>
+		<p>异步验证带数据:
+		<br /><input type="text" name="" value="" data-valid-type="ajax" data-ajax-url="" data-ajax-data="" />
+		</p>
+	</div>
+
+	<div class="box">
+		<p>textarea验证:
+		<br /><textarea name="a-name" data-valid-type="l0-200"></textarea>
+		</p>
+	</div>
 </body>
 </html>

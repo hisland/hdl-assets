@@ -1,0 +1,16 @@
+reg:
+	ipv4
+	integer
+	integer_positive
+	integer_negative
+	decimal
+	decimal_positive
+	decimal_negative
+	number
+	number_positive
+	number_negative
+	email
+	color_hex
+	color_rgb
+
+test:
