@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, menu+css', function(){
+				$.getMenu('#menu', 'jsonTree.js', function(){
+					console.log('menu ok!');
+				});
+			});
+		});
+	</script>
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+			.box p{background:#eee;margin-bottom:5px;}
+		#menu{width:150px;}
+	</style>
+</head>
+<body style="padding:20px 50px;">
+	<div class="box">
+		<p>生成菜单</p>
+		<div id="menu"></div>
+	</div>
+</body>
+</html>

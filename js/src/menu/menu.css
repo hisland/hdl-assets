@@ -1,10 +1,12 @@
 @charset "utf-8";
 
+.menu{padding-top:24px;border:1px solid #A1C6E1;}
+
 .menu-head{height:22px;margin-top:-24px;background:url('menu-img/menu-head.gif') repeat-x 0 0;border-top:1px solid #f2f7fd;border-bottom:1px solid #a9caea;}
 	.menu-head-in{display:block;padding:0 5px 0 25px;font-weight:700;line-height:22px;background:url('menu-img/ico1.gif') no-repeat 5px center;}
 
 .menu-wrap{height:100%;overflow-y:auto;overflow-x:hidden;}
-	.menu{}
+	.menu-ul{}
 
 	.menu-lv1{background:#ECF3FA url('menu-img/arr1-1.gif') no-repeat 96% 50%;border-bottom:1px solid #fff;border-top:1px solid #D7E6F5;height:25px;}
 	.menu-lv1-opened{background-image:url('menu-img/arr1-2.gif');background-color:#a6cefc;}

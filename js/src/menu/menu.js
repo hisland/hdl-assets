@@ -7,10 +7,17 @@
  *
  */
 
-KISSY.add('hdlValidator', function(S, undef) {
-	var $ = jQuery;
-	var ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent);
+KISSY.add('menu', function(S, undef) {
+	var  $ = jQuery
+		,EMPTY_$ = $('')
+		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent)
+		,menu_ul
+		,menu_wrap
+		,view_wrap
+		,timer_handle
+		,in_menu = false;
 
+	//菜单内部点击代理
 	function menuClick(e){
 		var elm = $(e.target), href, str;
 		//点击链接
@@ -60,28 +67,24 @@ KISSY.add('hdlValidator', function(S, undef) {
 			}
 		}
 	}
-	
-	var timer_handle, in_menu = false;
-	$('#menu-wrap').parent().parent().hover(function(e){
+
+	//鼠标滑入滑出的宽度处理
+	function outerIn(e){
 		in_menu = true;
 		timer_handle = setTimeout(function(){
 			fixMenuWidth();
 		}, 300);
 		if(ie6){
-			$('#menu-wrap').width('auto');
+			menu_wrap.width('auto');
 		}
-	}, function(e){
+	}
+	function outerOut(e){
 		in_menu = false;
 		clearTimeout(timer_handle);
 		$(this).width(150);
 		if(ie6){
-			$('#menu-wrap').width(148);
+			menu_wrap.width(148);
 		}
-	});
-
-	//ie6下修正menu展开的宽度
-	if(ie6){
-		$('#menu-wrap').width(148);
 	}
 
 	//更新菜单宽度函数
@@ -89,9 +92,9 @@ KISSY.add('hdlValidator', function(S, undef) {
 		if(!in_menu){
 			return false;
 		}
-		var  wrap = $('#menu').parent()[0]
+		var  wrap = menu_wrap[0]
 			,h = wrap.scrollHeight>wrap.clientHeight ? 19 : 2
-			,wrap2 = $('#menu-wrap').parent().parent();
+			,wrap2 = view_wrap.parent();
 		wrap2.width(150);
 		if(wrap.scrollWidth > wrap.clientWidth){
 			wrap2.width(wrap.scrollWidth + h + 5);
@@ -100,36 +103,74 @@ KISSY.add('hdlValidator', function(S, undef) {
 		}
 	}
 
-	//载入上次页面或者欢迎页面
-	var hash = location.hash, a = $('');
-	if(hash){
-		a = $('#menu-wrap a[href='+hash+']');
-		a.length ? 0 : a = $('#menu-wrap a[href='+location.href+']');//ie动态载入的代码会自动补全url
+	//生成菜单html
+	function makeMenu(tree){
+		var b = [];
+		b.push('<div class="menu"><div class="menu-head"><span class="menu-head-in">导航菜单</span></div>');
+		b.push('<div class="menu-wrap"><ul class="menu-ul">');
+		$.each(tree[0].children, function(i, v){
+			i += 2;
+			b.push('<li>');
+			b.push('<div class="menu-lv1"><span class="menu-ico', i, '">', v.text, '</span></div><ul class="menu-lv1-wrap">');
+			makeSubMenu(b, v.children);
+			b.push('</ul>');
+			b.push('</li>');
+		});
+		b.push('</ul></div></div>');
+		return b.join('');
 	}
-	if(a.length > 1){
-		alert('有2个菜单相同,请用firebug查看控制台输出');
-		a = a.eq(0);
+	//用于递归生成2级以下目录
+	function makeSubMenu(b, tree){
+		$.each(tree, function(i, v){
+			b.push('<li>');
+			if(v.children){
+				b.push('<div class="menu-lv2"><span>', v.text, '</span></div><ul class="menu-lv2-wrap">');
+				makeSubMenu(b, v.children);
+				b.push('</ul>');
+			}else{
+				b.push('<div class="menu-lv2"><a class="" href="', v.url, '">', v.text, '</a></div>');
+			}
+			b.push('</li>');
+		});
 	}
 
-	if(a.length){
-		a.parents('ul', '#menu').show()
-			.filter('.menu-lv1-wrap').prev().addClass('menu-lv1-opened')
-			.end().end().filter('.menu-lv2-wrap').prev().addClass('menu-lv2-opened');
-		a.click();
-	}else{
-		beforeLoad();
-		$('#mod-wrap').load('welcome.html', afterLoad);
+	//获取菜单数据
+	function getMenu(selector, url, callback){
+		$.get(url, function(rs){
+			try{
+				var tree = eval("(" + rs + ")");
+				view_wrap = $(makeMenu(tree));
+				menu_ul = view_wrap.find('>div>ul');
+				menu_wrap = menu_ul.parent();
+
+				menu_ul.click(menuClick);
+				$(selector).append(view_wrap).hover(outerIn, outerOut);
+
+				//ie6下修正menu展开的宽度
+				if(ie6){
+					menu_wrap.width(148);
+				}
+
+				//做完动作后回调
+				$.isFunction(callback) && callback();
+			}catch(e){
+				alert('获取菜单出错:\n信息前300字符:\n' + rs.substr(300));
+			}
+		});
 	}
 
 	//初始化函数
-	function initMenu(selector, url, callback){
+	function initMenu(){
 		
 		//做完动作后回调
 		$.isFunction(callback) && callback();
 	}
 
+	$.fn.extend({
+		 initMenu: initMenu
+	});
 	$.extend({
-		initMenu: initMenu
+		getMenu: getMenu
 	});
 }, {
 	requires: ['jquery-1.4.2']
