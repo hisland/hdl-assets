@@ -50,17 +50,17 @@ KISSY.add('hdlReg', function(S, undef) {
 	/* 加入正则 */
 	hdlReg.add('ipv4'
 				,/^(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)$/
-				,'IPv4,点分十进制共四位,每个数字不能超过255');
+				,'IPv4,点分十进制,共四位,每个数字不能超过255,如:192.168.0.1');
 
-	hdlReg.add('integer', /-?\d+/, '整数');
-	hdlReg.add('integer_positive', /\d+/, '正整数');
-	hdlReg.add('integer_negative', /-\d+/, '负整数');
-	hdlReg.add('decimal', /-?\d+\.\d+/, '小数');
-	hdlReg.add('decimal_positive', /\d+\.\d+/, '正小数');
-	hdlReg.add('decimal_negative', /-\d+\.\d+/, '负小数');
-	hdlReg.add('number', /-?\d+(?:\.\d+)?/, '数字');
-	hdlReg.add('number_positive', /\d+(?:\.\d+)?/, '正数字');
-	hdlReg.add('number_negative', /-\d+(?:\.\d+)?/, '负数字');
+	hdlReg.add('integer', /^-?\d+$/, '整数(含正负)');
+	hdlReg.add('integer_positive', /^\d+$/, '正整数');
+	hdlReg.add('integer_negative', /^-\d+$/, '负整数');
+	hdlReg.add('decimal', /^-?\d+\.\d+$/, '小数(含正负)');
+	hdlReg.add('decimal_positive', /^\d+\.\d+$/, '正小数');
+	hdlReg.add('decimal_negative', /^-\d+\.\d+$/, '负小数');
+	hdlReg.add('number', /^-?\d+(?:\.\d+)?$/, '数字(含正负)');
+	hdlReg.add('number_positive', /^\d+(?:\.\d+)?$/, '正数字');
+	hdlReg.add('number_negative', /^-\d+(?:\.\d+)?$/, '负数字');
 
 	hdlReg.add('email', /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/, 'E-mail 地址');
 
