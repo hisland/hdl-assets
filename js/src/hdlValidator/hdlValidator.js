@@ -6,9 +6,9 @@
  * 版本: v1
  *
  * 注册可分3种形式:
- *		全局监听 - 局限性大,需要有事件来触发才能完成注册[默认]
+ *		全局监听 - 局限性大,需要有事件[默认是点击]来触发才能完成注册[默认]
  *		手工注册 - 最通用,手工写初始化代码,每个页面都会有初始化代码
- *		ajaxLoad后手工注册 - 需要整站框架支持,在一个公共地方使用手工注册
+ *		ajaxLoad后自动注册 - 需要整站框架支持,在一个公共地方使用手工注册
  *
  */
 
@@ -51,16 +51,13 @@ KISSY.add('hdlValidator', function(S, undef) {
 		rName					正则: 已定义的正则,在hdlReg模块中定义或者任意位置直接使用hdlReg.add(...)定义
 		tName					函数: 已定义的函数,在hdlTest模块中定义或者任意位置直接使用hdlTest.add(...)定义
 		ln-m					长度: 任意字符长度n-m
+		lun-m					UTF8长度: 任意字符长度n-m
 		lan-m					长度: 字母(含大小写)长度n-m
 		lnn-m					长度: 数字长度n-m
 		nn-m					数字: 值从n-m
 		// //i //g				简单正则,复杂请使用regName
 		ajax					异步验证,此则需要设置 data-ajax-url, data-ajax-data(可选)属性
 
-		大于等于小于对比
-		comp=selector			对比==selector值
-		comp>selector			对比>selector值
-		comp<selector			对比<selector值
 		考虑 eq,gt,lt来实现
 		eqselector				对比==selector值
 		gtselector				对比>selector值
@@ -81,7 +78,9 @@ KISSY.add('hdlValidator', function(S, undef) {
 		,valid: function(){
 			var b = [];
 			$.each(this.items, function(i, v){
-				if(v.type == 'reg'){
+				if(v.type == 'ajax'){
+					alert('ajax方式暂未实现!');
+				}else if(v.type == 'reg'){
 					i = hdlReg.item(v.name);
 					if(i.test(ipt_now.val())){
 						b.push('<p class="hdl-vali-ok">', i.desc, '</p>');
@@ -89,13 +88,20 @@ KISSY.add('hdlValidator', function(S, undef) {
 						b.push('<p class="hdl-vali-err">', i.desc, '</p>');
 					}
 				}else if(v.type == 'test'){
-					
+					alert('test方式暂未实现!');
 				}else if(v.type == 'len'){
 					i = ipt_now.val().length;
 					if(i >= v.from && i <= v.to){
 						b.push('<p class="hdl-vali-ok">字符串长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
 					}else{
 						b.push('<p class="hdl-vali-err">字符串长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
+					}
+				}else if(v.type == 'lenutf8'){
+					i = ipt_now.val().length;
+					if(i >= v.from && i <= v.to){
+						b.push('<p class="hdl-vali-ok">字符串utf8长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
+					}else{
+						b.push('<p class="hdl-vali-err">字符串utf8长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
 					}
 				}else if(v.type == 'lena'){
 					i = ipt_now.val().length;
@@ -129,6 +135,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 	var  p_reg = /^(r)(.*)$/
 		,p_test = /^(t)(.*)$/
 		,p_len = /^(l)(\d+)(?:-(\d+))?$/
+		,p_lenutf8 = /^(lu)(\d+)(?:-(\d+))?$/
 		,p_lena = /^(la)(\d+)(?:-(\d+))?$/
 		,p_lenn = /^(ln)(\d+)(?:-(\d+))?$/
 		,p_num = /^(n)(\d+)(?:-(\d+))?$/
@@ -160,6 +167,12 @@ KISSY.add('hdlValidator', function(S, undef) {
 			}else if(i = v.match(p_len)){
 				vali.add({
 					 type: 'len'
+					,from: i[2]
+					,to: i[3]
+				});
+			}else if(i = v.match(p_lenutf8)){
+				vali.add({
+					 type: 'lenutf8'
 					,from: i[2]
 					,to: i[3]
 				});
@@ -255,10 +268,10 @@ KISSY.add('hdlValidator', function(S, undef) {
 	function iptChange(e){
 		
 	}
-	function paste(e){
-		
-	}
 	function beforePaste(e){
+		e.preventDefault();
+	}
+	function paste(e){
 		
 	}
 

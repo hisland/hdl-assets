@@ -6,15 +6,29 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, hdlValidator+css');
+			S.use('reset-css, common-css, hdlValidator+css');
 		});
 	</script>
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+			.box p{background:#eee;margin-bottom:5px;}
+	</style>
 </head>
 <body style="padding:50px;">
 	<div class="hdl-vali-wrap">
 		<p class="hdl-vali-ok">长度为1-10</p>
 		<p class="hdl-vali-err">数字为9-20之间</p>
 		<p class="hdl-vali-loading">不能和服务器已有数据重复</p>
+	</div>
+
+	<div class="box" style="margin-top:120px;">
+		<p>输入框验证状态:</p>
+		<p>
+			错误: <input type="text" name="" value="" class="text hdl-vali-ipt-err" />
+		</p>
+		<p>
+			正确: <input type="text" name="" value="" class="text hdl-vali-ipt-ok" />
+		</p>
 	</div>
 </body>
 </html>

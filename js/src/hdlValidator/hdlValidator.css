@@ -6,3 +6,4 @@
 	.hdl-vali-err{background:url('hdlValidator-img/err.gif') no-repeat 0 3px;color:red;}
 	.hdl-vali-loading{background:url('hdlValidator-img/loading.gif') no-repeat 0 2px;color:red;}
 
+.hdl-vali-ipt-err{border-color:red;}
