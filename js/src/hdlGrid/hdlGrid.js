@@ -52,21 +52,13 @@ KISSY.add('hdlDrag', function(S, undef) {
 
 					//列模式
 					,colModel: [
-						//1列
-						 {display: 'display-name'	//显示名称
-						,name: ''		//对应的键名
-						,width: ''		//列宽度,数字或 百分比('50%')
-						,sortable: ''	//可否排序
-						,align: ''		//对齐方式
-						,hide_able: ''		//可否隐藏
-						}
-						//2列
-						,{display: 'display-name'	//显示名称
-						,name: ''		//对应的键名
-						,width: ''		//列宽度,数字或 百分比('50%')
-						,sortable: ''	//可否排序
-						,align: ''		//对齐方式
-						,hide_able: ''		//可否隐藏
+						 {
+							 display: 'display-name'	//显示名称
+							,name: ''					//对应的键名
+							,width: ''					//列宽度,数字或 百分比('50%')
+							,enable_sort: ''			//可否排序
+							,align: ''					//对齐方式
+							,enable_hide: ''			//可否隐藏
 						}
 					]
 				};
@@ -90,12 +82,10 @@ KISSY.add('hdlDrag', function(S, undef) {
 									}
 								]
 						}
-						//2行
-						,{
-							
-						}
 					];
-	$.fn.hdlGrid = hdlGrid;
+	$.fn.extend({
+		hdlGrid: hdlGrid
+	});
 }, {
 	requires: ['jquery-1.4.2']
 });
