@@ -20,7 +20,9 @@
 		,msg_txt = '文字长度不超过2000字'
 		,msg_txt_err = '文字长度不超过2000字'
 		,msg_video = '视频大小不超过80K'
-		,msg_video_err = '视频大小不超过80K';
+		,msg_video_err = '视频大小不超过80K'
+		,action_upload = '/strategycfg/uploadFileDemo.do'
+		,file_name = 'image';
 
 	function swapText(s1, s2){
 		var tmp = s1.html();
@@ -85,16 +87,16 @@
 				vwrap = me.find('div.mp-mms-v');
 				flen = fwrap.find('a').length+1;
 				if(dt.is('.mp-mms-a1')){
-					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb1"><div class="mp-mms-vbf" style="display:block;"><p>'+msg_pic+'</p><span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="mms['+(flen-1)+']" /></span></div><div class="mp-mms-vbf"><div class="mp-mms-vb1w"><img src="" alt="" /></div></div></div></div>');
+					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb1"><form target="mp-mms-iframe" action="'+action_upload+'" method="post" enctype="multipart/form-data" class="mp-mms-vbf" style="display:block;"><p>' + msg_pic + '</p><span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="'+file_name+'" /></span></form><div class="mp-mms-vbf"><div class="mp-mms-vb1w"><img src="#" alt="" /></div></div></div></div>');
 					span2 = $('<a class="mp-mms-f1" href="javascript:void(0)"><span>'+flen+'</span></a>');
 				}else if(dt.is('.mp-mms-a2')){
-					span = $('<div class="mp-mms-vb"></div>');
+					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb1"><form target="mp-mms-iframe" action="'+action_upload+'" method="post" enctype="multipart/form-data" class="mp-mms-vbf" style="display:block;"><p>' + msg_ring + '</p><span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="'+file_name+'" /></span></form><div class="mp-mms-vbf"><div class="mp-mms-vb2w"></div></div></div></div>');
 					span2 = $('<a class="mp-mms-f2" href="javascript:void(0)"><span>'+flen+'</span></a>');
 				}else if(dt.is('.mp-mms-a3')){
-					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb3"><textarea class="mp-mms-vbta" name="mms['+(flen-1)+']"></textarea></div></div>');
+					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb3"><textarea class="mp-mms-vbta"></textarea></div></div>');
 					span2 = $('<a class="mp-mms-f3" href="javascript:void(0)"><span>'+flen+'</span></a>');
 				}else if(dt.is('.mp-mms-a4')){
-					span = $('<div class="mp-mms-vb"></div>');
+					span = $('<div class="mp-mms-vb"><a class="mp-mms-vd" href="javascript:void(0)">delete</a><div class="mp-mms-vb1"><form target="mp-mms-iframe" action="'+action_upload+'" method="post" enctype="multipart/form-data" class="mp-mms-vbf" style="display:block;"><p>' + msg_video + '</p><span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="'+file_name+'" /></span></form><div class="mp-mms-vbf"><div class="mp-mms-vb3w"></div></div></div></div>');
 					span2 = $('<a class="mp-mms-f4" href="javascript:void(0)"><span>'+flen+'</span></a>');
 				}
 				span.find('input').change(fileChange);
@@ -102,6 +104,9 @@
 				fwrap.append(span2);
 				fs = me.find('span.mp-mms-tt');
 				fs.html(fs.html()-0+1);
+				//跳到相应帧并转到底部
+				span2.click();
+				fwrap[0].scrollTop = 9999;
 				me.MMSEditScroll();
 
 			//删除
@@ -111,6 +116,9 @@
 				fs.filter(':gt('+idx+')').each(function(i, v){
 					$(this).find('span').html(idx+i+1);
 				});
+				//转到下一帧(无下一帧就转到上一帧)并把此帧删除
+				fs.eq(idx).next().length ? 
+					fs.eq(idx).next().click() : fs.eq(idx).prev().click();
 				dt.parent().remove();
 				fs.eq(idx).remove();
 				me.MMSEditScroll();
@@ -125,7 +133,7 @@
 	$.fn.extend({
 		 MMSEditInit: function(){
 			var  me = this.eq(0)
-				,html = '<div class="mp-mms-l"><div class="mp-mms-o"><a class="mp-mms-o1 mp-mms-od" href="javascript:void(0)" title="top"></a><a class="mp-mms-o2 mp-mms-od" href="javascript:void(0)" title="up"></a><a class="mp-mms-o3 mp-mms-od" href="javascript:void(0)" title="down"></a><a class="mp-mms-o4 mp-mms-od" href="javascript:void(0)" title="bottom"></a></div><a class="mp-mms-su mp-mms-sud" href="javascript:void(0)"></a><div class="mp-mms-f"></div><a class="mp-mms-sd mp-mms-sdd" href="javascript:void(0)"></a><div class="mp-mms-t"><span class="mp-mms-tn">0</span>/<span class="mp-mms-tt">0</span></div></div><div class="mp-mms-r"><div class="mp-mms-a"><a class="mp-mms-a1" href="javascript:void(0)">+Pictures</a><a class="mp-mms-a2" href="javascript:void(0)">+Ringtones</a><a class="mp-mms-a3" href="javascript:void(0)">+Text</a><a class="mp-mms-a4" href="javascript:void(0)">+Video</a></div><div class="mp-mms-v"></div></div>';
+				,html = '<div class="mp-mms-l"><div class="mp-mms-o"><a class="mp-mms-o1 mp-mms-od" href="javascript:void(0)" title="top"></a><a class="mp-mms-o2 mp-mms-od" href="javascript:void(0)" title="up"></a><a class="mp-mms-o3 mp-mms-od" href="javascript:void(0)" title="down"></a><a class="mp-mms-o4 mp-mms-od" href="javascript:void(0)" title="bottom"></a></div><a class="mp-mms-su mp-mms-sud" href="javascript:void(0)"></a><div class="mp-mms-f"></div><a class="mp-mms-sd mp-mms-sdd" href="javascript:void(0)"></a><div class="mp-mms-t"><span class="mp-mms-tn">0</span>/<span class="mp-mms-tt">0</span></div></div><div class="mp-mms-r"><div class="mp-mms-a"><a class="mp-mms-a1" href="javascript:void(0)">+Pictures</a><a class="mp-mms-a2" href="javascript:void(0)">+Ringtones</a><a class="mp-mms-a3" href="javascript:void(0)">+Text</a><a class="mp-mms-a4" href="javascript:void(0)">+Video</a></div><div class="mp-mms-v"></div><iframe name="mp-mms-iframe" id="mp-mms-iframe" width="0" height="0" frameborder="no" scrolling="no" allowtransparency="yes"></iframe> </div>';
 
 			me.addClass('mp-mms-wrap').html(html);
 			me.MMSEditEvent();

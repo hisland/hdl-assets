@@ -16,7 +16,6 @@
 </head>
 
 <body style="margin:50px;">
-<form id="aaa" action="#">
 	<div class="mp-mms-wrap" style="width:240px">
 		<div class="mp-mms-l">
 			<div class="mp-mms-o">
@@ -49,14 +48,38 @@
 				<div class="mp-mms-vb">
 					<a class="mp-mms-vd" href="javascript:void(0)">delete</a>
 					<div class="mp-mms-vb1">
-						<div class="mp-mms-vbf" style="display:block;">
+						<form target="mp-mms-iframe" action="#" method="post" enctype="multipart/form-data" class="mp-mms-vbf" style="display:block;">
 							<p>提示信息</p>
 							<span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="" /></span>
-						</div>
+						</form>
 						<div class="mp-mms-vbf">
 							<div class="mp-mms-vb1w">
 								<img src="pic1.gif" alt="" />
 							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mp-mms-vb">
+					<a class="mp-mms-vd" href="javascript:void(0)">delete</a>
+					<div class="mp-mms-vb1">
+						<form target="mp-mms-iframe" action="#" method="post" enctype="multipart/form-data" class="mp-mms-vbf" style="display:block;">
+							<p>提示信息</p>
+							<span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="" /></span>
+						</form>
+						<div class="mp-mms-vbf">
+							<div class="mp-mms-vb2w"></div>
+						</div>
+					</div>
+				</div>
+				<div class="mp-mms-vb">
+					<a class="mp-mms-vd" href="javascript:void(0)">delete</a>
+					<div class="mp-mms-vb1">
+						<form target="mp-mms-iframe" action="#" method="post" enctype="multipart/form-data" class="mp-mms-vbf" style="display:block;">
+							<p>提示信息</p>
+							<span class="mp-mms-btn"><input class="mp-mms-btnfile" type="file" name="" /></span>
+						</form>
+						<div class="mp-mms-vbf">
+							<div class="mp-mms-vb3w"></div>
 						</div>
 					</div>
 				</div>
@@ -67,8 +90,8 @@
 					</div>
 				</div>
 			</div>
+			<iframe name="mp-mms-iframe" id="mp-mms-iframe" width="0" height="0" frameborder="no" scrolling="no" allowtransparency="yes"></iframe> 
 		</div>
 	</div>
-</form>
 </body>
 </html>
