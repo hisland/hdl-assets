@@ -10,8 +10,9 @@
 		});
 	</script>
 	<style type="text/css">
-		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
+		.box{border:1px solid #ccc;padding:5px;margin:10px 0;overflow:hidden;}
 			.box p{background:#eee;margin-bottom:5px;}
+			.box p.col{background:#eee;padding:3px;margin:0 5px 5px 0;float:left;width:280px;}
 	</style>
 </head>
 <body style="padding:20px 50px;">
@@ -25,46 +26,49 @@
 	</div>
 
 	<div class="box">
-		<p>正则验证IPV4:
-		<br /><input type="text" name="" value="" data-valid-type="ripv4" />
+		<p class="col">正则验证IPV4:
+		<br /><input class="text" type="text" name="" value="" data-valid-type="ripv4" />
 		</p>
-		<p>正则验证整数:
-		<br /><input type="text" name="" value="" data-valid-type="rinteger" />
-		</p>
-	</div>
-
-	<div class="box">
-		<p>长度验证-任意字符[3-6]:
-		<br /><input type="text" name="" value="" data-valid-type="l3-6" />
-		</p>
-		<p>长度验证-大小写字母[2-16]:
-		<br /><input type="text" name="" value="" data-valid-type="la2-16" />
-		</p>
-		<p>长度验证-数字[1-8]:
-		<br /><input type="text" name="" value="" data-valid-type="ln1-8" />
-		</p>
-		<p>数字范围验证[20-99]:
-		<br /><input type="text" name="" value="" data-valid-type="n20-99" />
+		<p class="col">正则验证整数:
+		<br /><input class="text" type="text" name="" value="" data-valid-type="rinteger" />
 		</p>
 	</div>
 
 	<div class="box">
-		<p>对比验证-左侧值小于右侧值:
-		<br /><input type="text" name="" value="" id="comp1" data-valid-type="comp<#comp2" />-<input type="text" name="" value="" id="comp2" data-valid-type="comp>#comp1" />
+		<p class="col">长度验证-任意字符[3-6]:
+		<br /><input class="text" type="text" name="" value="" data-valid-type="l3-6" />
+		</p>
+		<p class="col">长度验证-大小写字母[2-16]:
+		<br /><input class="text" type="text" name="" value="" data-valid-type="la2-16" />
+		</p>
+		<p class="col">长度验证-数字[1-8]:
+		<br /><input class="text" type="text" name="" value="" data-valid-type="ln1-8" />
+		</p>
+		<p class="col">数字验证-值范围[20-99]:
+		<br /><input class="text" type="text" name="" value="" data-valid-type="n20-99" />
 		</p>
 	</div>
 
 	<div class="box">
-		<p>异步验证:
-		<br /><input type="text" name="" value="" data-valid-type="ajax" data-ajax-url="" />
-		</p>
-		<p>异步验证带数据:
-		<br /><input type="text" name="" value="" data-valid-type="ajax" data-ajax-url="" data-ajax-data="" />
+		<p class="col">对比验证-左侧值小于右侧值:
+		<br /><input class="text" type="text" name="" value="" id="comp1" data-valid-type="comp<#comp2" />-<input class="text" type="text" name="" value="" id="comp2" data-valid-type="comp>#comp1" />
 		</p>
 	</div>
 
 	<div class="box">
-		<p>textarea验证:
+		<p class="col">异步验证(将自身name=value组成数据提交), 输入'hello'验证成功:
+		<br /><input class="text" type="text" name="name" value="" data-valid-type="ajax" data-ajax-url="check.php" data-ajax-type="post" />
+		</p>
+		<p class="col">异步验证(自身+额外数据), 输入'good'验证成功:
+		<br /><input class="text" type="text" name="name" value="" data-valid-type="ajax" data-ajax-url="check2.php" data-ajax-data="test=god&ssss=bb" />
+		</p>
+		<p class="col">异步验证(自身+额外数据[根据函数执行结果), 输入'aha'验证成功:
+		<br /><input class="text" type="text" name="name" value="" data-valid-type="ajax" data-ajax-url="check3.php" data-ajax-data="fn:ns-to-a-fn" />
+		</p>
+	</div>
+
+	<div class="box">
+		<p class="col">textarea验证:
 		<br /><textarea name="a-name" data-valid-type="l0-200"></textarea>
 		</p>
 	</div>

@@ -44,7 +44,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 	2011-3-21 12:40:50考虑
 	usage:
 		data-valid-type="pattern, pattern, pattern"
-		pattern间使用', '分隔, 若在pattern内要使用','号(正则,selector里面可能有),请加\进行转义,如:/,,/, eq#id1,id2 ==> /\,\,/, eq#id1\,id2
+		pattern间使用', '分隔, 若在pattern内要使用','号(正则,selector里面可能有),请加\进行转义(\自身不需要转义),如:/,,/, eq#id1,id2 ==> /\,\,/, eq#id1\,id2
 		see demo.html
 
 	pattern:
@@ -58,24 +58,137 @@ KISSY.add('hdlValidator', function(S, undef) {
 		// //i //g				简单正则,复杂请使用regName
 		ajax					异步验证,此则需要设置 data-ajax-url, data-ajax-data(可选)属性
 
-		考虑 eq,gt,lt来实现
 		eqselector				对比==selector值
 		gtselector				对比>selector值
 		ltselector				对比<selector值
 
+	init -> fn(pattern) -> fn(value) -> refresh:
+		首先初始化一个验证方式,接受pattern来判断是否属于此方式
+		如果符合生成一个接受value来进行验证的函数,执行此函数刷新显示数据并验证通过返回true, 否则false
+		通过valid方法来批量验证
+
+	js调用,规则全部在属性上定义:
+		var v = Validator(elem); 生成验证内容
+		v.valid() 更新验证信息
+
  */
-	
-	//内部类,方便数据存储与处理
-	function Validator(){
-		this.items = [];
+
+	//得到字符串utf8长度
+	function lengthUTF8(str) {
+		var i = 0, code, len = 0;
+		for (; i < str.length; i++) {
+			code = str.charCodeAt(i);
+			if (code < 0x007f) {
+				len += 1;
+			} else if (code >= 0x0080 && code <= 0x07ff) {
+				len += 2;
+			} else if (code >= 0x0800 && code <= 0xffff) {
+				len += 3;
+			}
+		}
+		return len;
 	}
-	$.extend(Validator.prototype, {
-		 add: function(item){
-			this.items.push(item);
+	//将由逗号分隔的pattern进行分割,并判断'\'转义
+	function splitPattern(str){
+		var  idx = 0, last_idx = 0
+			,arr = [], p;
+
+		//循环每个','号
+		while(idx != -1){
+			idx = str.indexOf(',', idx);
+			if(idx != -1){
+				//有转义符号'\'向前移动1位并继续下一次
+				if(str[idx-1] == '\\'){
+					idx += 1;
+					continue;
+				//否则截取pattern
+				}else{
+					p = str.substring(last_idx, idx);
+					idx += 1;
+					last_idx = idx;
+				}
+			//最后一个pattern(可能也是仅有的一个)
+			}else{
+				p = str.substring(last_idx);
+			}
+			//过滤掉前后空格并将转义的'\,'换成正常的','
+			arr.push(p.replace(/^\s*|\s*$/g, '').replace('\\,', ','));
+		}
+		return arr;
+	}
+
+	//内部类,方便数据存储与处理
+	function Validator(elem){
+		//更改为构造方式
+		if(!(this instanceof Validator)){
+			return new Validator(elem);
+		}
+
+		//继续处理
+		elem = $(elem);
+		div_pop.empty();
+		var  arr = splitPattern(elem.attr('data-valid-type'))
+			,items = [];
+		$.each(Validator.__vali_type, function(name, fn){
+			$.each(arr, function(i, v){
+				i = fn(v);
+				if(i){
+					items.push(i);
+				}
+			});
+		});
+		this.elem = elem;
+		this.items = items;
+		return this;
+	}
+	$.extend(Validator, {
+		 __vali_type: {}
+		,addValiType: function(name, initFn){
+			this.__vali_type[name] = initFn();
 			return this;
 		}
-		//逐个验证同时更新提示层内部html
-		,valid: function(){
+	});
+	$.extend(Validator.prototype, {
+		valid: function(){
+			var  i = 0
+				,len = this.items.length
+				,v = this.elem.val()
+				,rs = true;
+			for(; i < len; i++){
+				if(!this.items[i](v)){
+					rs = false;
+				}
+			}
+			return rs;
+		}
+	});
+
+	//增加正则验证方式
+	Validator.addValiType('reg', function(){
+		var p_reg = /^(r)(.*)$/;
+		return function(pattern){
+				var match = pattern.match(p_reg), p;
+				if(match){
+					reg = hdlReg.item(match[2]);
+					p = $('<p class="hdl-vali-ok">' + reg.desc + '</p>');
+					div_pop.append(p);//将节点加入到提示层中
+					return function(value){
+						if(reg.test(value)){
+							p.attr('class', 'hdl-vali-ok');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err');
+							return false;
+						}
+					}
+				}else{
+					div_pop.append('<p class="hdl-vali-caution">未知验证方式: '+pattern+'</p>');
+				}
+			};
+	});
+
+	$.extend(Validator.prototype, {
+		valid1: function(){
 			var b = [];
 			$.each(this.items, function(i, v){
 				if(v.type == 'ajax'){
@@ -97,7 +210,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 						b.push('<p class="hdl-vali-err">字符串长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
 					}
 				}else if(v.type == 'lenutf8'){
-					i = ipt_now.val().length;
+					i = lengthUTF8(ipt_now.val());
 					if(i >= v.from && i <= v.to){
 						b.push('<p class="hdl-vali-ok">字符串utf8长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
 					}else{
@@ -153,11 +266,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 				vali.add({
 					 type: 'ajax'
 					,url: i[2]
-				});
-			}else if(i = v.match(p_reg)){
-				vali.add({
-					 type: 'reg'
-					,name: i[2]
 				});
 			}else if(i = v.match(p_test)){
 				vali.add({
@@ -218,40 +326,16 @@ KISSY.add('hdlValidator', function(S, undef) {
 		});
 		return vali;
 	}
-	//将由逗号分隔的pattern进行分割,并判断'\'转义
-	function splitPattern(str){
-		var  idx = 0, last_idx = 0
-			,arr = [], p;
-
-		//循环每个','号
-		while(idx != -1){
-			idx = str.indexOf(',', idx);
-			if(idx != -1){
-				//有转义符号'\'向前移动1位并继续下一次
-				if(str[idx-1] == '\\'){
-					idx += 1;
-					continue;
-				//否则截取pattern
-				}else{
-					p = str.substring(last_idx, idx);
-					idx += 1;
-					last_idx = idx;
-				}
-			//最后一个pattern(可能也是仅有的一个)
-			}else{
-				p = str.substring(last_idx);
-			}
-			//过滤掉前后空格并将转义的'\,'换成正常的','
-			arr.push(p.replace(/^\s*|\s*$/g, '').replace('\\,', ','));
-		}
-		return arr;
-	}
 
 	//输入框的一系列事件
 	function iptFocus(e){
 		ipt_now = $(this);
 		popShow();
-		validator = parsePattern($(this).attr('data-valid-type')).valid();
+		validator = Validator(this);
+		validator.valid();
+	}
+	function iptBlur(e){
+		
 	}
 	function iptClick(e){
 		
