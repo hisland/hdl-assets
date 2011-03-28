@@ -64,7 +64,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	init -> fn(pattern) -> fn(value) -> refresh:
 		首先初始化一个验证方式,接受pattern来判断是否属于此方式
-		如果符合生成一个接受value来进行验证的函数,执行此函数刷新显示数据并验证通过返回true, 否则false
+		如果符合则生成一个接受value来进行验证的函数,执行此函数刷新显示数据并验证通过返回true, 否则false
 		通过valid方法来批量验证
 
 	js调用,规则全部在属性上定义:
@@ -73,21 +73,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 
  */
 
-	//得到字符串utf8长度
-	function lengthUTF8(str) {
-		var i = 0, code, len = 0;
-		for (; i < str.length; i++) {
-			code = str.charCodeAt(i);
-			if (code < 0x007f) {
-				len += 1;
-			} else if (code >= 0x0080 && code <= 0x07ff) {
-				len += 2;
-			} else if (code >= 0x0800 && code <= 0xffff) {
-				len += 3;
-			}
-		}
-		return len;
-	}
 	//将由逗号分隔的pattern进行分割,并判断'\'转义
 	function splitPattern(str){
 		var  idx = 0, last_idx = 0
@@ -129,21 +114,30 @@ KISSY.add('hdlValidator', function(S, undef) {
 		div_pop.empty();
 		var  arr = splitPattern(elem.attr('data-valid-type'))
 			,items = [];
-		$.each(Validator.__vali_type, function(name, fn){
-			$.each(arr, function(i, v){
-				i = fn(v);
+		
+		$.each(arr, function(i, p){
+			//如果没有找到需要提示
+			var found = false;
+			$.each(Validator.__vali_type, function(name, fn){
+				i = fn(p);
 				if(i){
 					items.push(i);
+					found = true;
+					return false;//跳出循环
 				}
 			});
+			if(!found){
+				div_pop.append('<p class="hdl-vali-caution">未知验证方式: ' + p + '</p>');
+			}
 		});
+
 		this.elem = elem;
 		this.items = items;
 		return this;
 	}
 	$.extend(Validator, {
 		 __vali_type: {}
-		,addValiType: function(name, initFn){
+		,addValiType: function(name, initFn){//注意第一个参数不能为length, 与jquery的each方法实现有关
 			this.__vali_type[name] = initFn();
 			return this;
 		}
@@ -163,15 +157,15 @@ KISSY.add('hdlValidator', function(S, undef) {
 		}
 	});
 
-	//增加正则验证方式
-	Validator.addValiType('reg', function(){
+	//增加正则验证方式 - rName - 依赖hdlReg模块
+	Validator.addValiType('pre-defined-reg', function(){
 		var p_reg = /^(r)(.*)$/;
 		return function(pattern){
-				var match = pattern.match(p_reg), p;
+				var p, reg, match = pattern.match(p_reg);
 				if(match){
 					reg = hdlReg.item(match[2]);
 					p = $('<p class="hdl-vali-ok">' + reg.desc + '</p>');
-					div_pop.append(p);//将节点加入到提示层中
+					div_pop.append(p);
 					return function(value){
 						if(reg.test(value)){
 							p.attr('class', 'hdl-vali-ok');
@@ -181,151 +175,280 @@ KISSY.add('hdlValidator', function(S, undef) {
 							return false;
 						}
 					}
-				}else{
-					div_pop.append('<p class="hdl-vali-caution">未知验证方式: '+pattern+'</p>');
 				}
 			};
 	});
 
-	$.extend(Validator.prototype, {
-		valid1: function(){
-			var b = [];
-			$.each(this.items, function(i, v){
-				if(v.type == 'ajax'){
-					alert('ajax方式暂未实现!');
-				}else if(v.type == 'reg'){
-					i = hdlReg.item(v.name);
-					if(i.test(ipt_now.val())){
-						b.push('<p class="hdl-vali-ok">', i.desc, '</p>');
-					}else{
-						b.push('<p class="hdl-vali-err">', i.desc, '</p>');
-					}
-				}else if(v.type == 'test'){
-					alert('test方式暂未实现!');
-				}else if(v.type == 'len'){
-					i = ipt_now.val().length;
-					if(i >= v.from && i <= v.to){
-						b.push('<p class="hdl-vali-ok">字符串长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
-					}else{
-						b.push('<p class="hdl-vali-err">字符串长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
-					}
-				}else if(v.type == 'lenutf8'){
-					i = lengthUTF8(ipt_now.val());
-					if(i >= v.from && i <= v.to){
-						b.push('<p class="hdl-vali-ok">字符串utf8长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
-					}else{
-						b.push('<p class="hdl-vali-err">字符串utf8长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
-					}
-				}else if(v.type == 'lena'){
-					i = ipt_now.val().length;
-					if(/^[a-z]+$/i.test(ipt_now.val()) && i >= v.from && i <= v.to){
-						b.push('<p class="hdl-vali-ok">a-z大小写,长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
-					}else{
-						b.push('<p class="hdl-vali-err">a-z大小写,长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
-					}
-				}else if(v.type == 'lenn'){
-					i = ipt_now.val().length;
-					if(/^\d+$/i.test(ipt_now.val()) && i >= v.from && i <= v.to){
-						b.push('<p class="hdl-vali-ok">数字,长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
-					}else{
-						b.push('<p class="hdl-vali-err">数字,长度在', v.from, '-', v.to, '之间,现在长度[', i, ']</p>');
-					}
-				}else if(v.type == 'num'){
-					i = ipt_now.val()-0;
-					if(!isNaN(i) && i >= v.from && i <= v.to){
-						b.push('<p class="hdl-vali-ok">数字,大小在', v.from, '-', v.to, '之间</p>');
-					}else{
-						b.push('<p class="hdl-vali-err">数字,大小在', v.from, '-', v.to, '之间</p>');
+	//增加自定义函数验证方式 - tName - 依赖hdlTest模块
+	Validator.addValiType('self-defined-function', function(){
+		var p_reg = /^(t)(.*)$/;
+		return function(pattern){
+				var p, reg, match = pattern.match(p_reg);
+				if(match){
+					reg = hdlTest.item(match[2]);
+					p = $('<p class="hdl-vali-ok">' + reg.desc + '</p>');
+					div_pop.append(p);
+					return function(value){
+						if(reg.test(value)){
+							p.attr('class', 'hdl-vali-ok');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err');
+							return false;
+						}
 					}
 				}
-			});
-			div_pop.html(b.join(''));
-			return this;
-		}
+			};
 	});
 
-	//解析时使用的正则,只生成一份放置在这里.
-	var  p_reg = /^(r)(.*)$/
-		,p_test = /^(t)(.*)$/
-		,p_len = /^(l)(\d+)(?:-(\d+))?$/
-		,p_lenutf8 = /^(lu)(\d+)(?:-(\d+))?$/
-		,p_lena = /^(la)(\d+)(?:-(\d+))?$/
-		,p_lenn = /^(ln)(\d+)(?:-(\d+))?$/
-		,p_num = /^(n)(\d+)(?:-(\d+))?$/
-		,p_reg2 = /^\/.*\/[ig]?$/
-		,p_eq = /^(eq)(.*)$/
-		,p_gt = /^(gt)(.*)$/
-		,p_lt = /^(lt)(.*)$/;
-	//解析pattern
-	function parsePattern(str){
-		var vali = new Validator();
-		str = splitPattern(str);
-		//各种不同的验证push入不同需求的item,根据type识别
-		$.each(str, function(i, v){
-			if(v === 'ajax'){
-				vali.add({
-					 type: 'ajax'
-					,url: i[2]
-				});
-			}else if(i = v.match(p_test)){
-				vali.add({
-					 type: 'test'
-					,name: i[2]
-				});
-			}else if(i = v.match(p_len)){
-				vali.add({
-					 type: 'len'
-					,from: i[2]
-					,to: i[3]
-				});
-			}else if(i = v.match(p_lenutf8)){
-				vali.add({
-					 type: 'lenutf8'
-					,from: i[2]
-					,to: i[3]
-				});
-			}else if(i = v.match(p_lena)){
-				vali.add({
-					 type: 'lena'
-					,from: i[2]
-					,to: i[3]
-				});
-			}else if(i = v.match(p_lenn)){
-				vali.add({
-					 type: 'lenn'
-					,from: i[2]
-					,to: i[3]
-				});
-			}else if(i = v.match(p_num)){
-				vali.add({
-					 type: 'num'
-					,from: i[2]
-					,to: i[3]
-				});
-			}else if(i = v.match(p_reg2)){
-				vali.add({
-					 type: 'reg2'
-					,pattern: i[0]
-				});
-			}else if(i = v.match(p_eq)){
-				vali.add({
-					 type: 'eq'
-					,other: i[2]
-				});
-			}else if(i = v.match(p_gt)){
-				vali.add({
-					 type: 'gt'
-					,other: i[2]
-				});
-			}else if(i = v.match(p_lt)){
-				vali.add({
-					 type: 'lt'
-					,other: i[2]
-				});
+	//增加异步验证方式 - ajax - 需要指定url - TODO
+	Validator.addValiType('ajax', function(){
+		return function(name){
+				var p;
+				if(name === 'ajax'){
+					p = $('<p class="hdl-vali-loading">异步验证</p>');
+					div_pop.append(p);
+					return function(value){
+						if(value == '3'){
+							p.attr('class', 'hdl-vali-ok');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err');
+							return false;
+						}
+					}
+				}
+			};
+	});
+
+	//增加任意字符长度验证方式 - ln-m
+	Validator.addValiType('length-all', function(){//注意第一个参数不能为length, 与jquery的each方法实现有关
+		var p_reg = /^(l)(\d+)(?:-(\d+))?$/;
+		return function(pattern){
+				var p, from, to, match = pattern.match(p_reg);
+				if(match){
+					from = match[2];
+					to = match[3];
+					p = $('<p class="hdl-vali-ok">字符串长度在' + from + '-' + to + '之间,现在长度[0]</p>');
+					div_pop.append(p);
+					return function(value, length){
+						length = value.length;
+						if(length >= from && length <= to){
+							p.attr('class', 'hdl-vali-ok').html('字符串长度在' + from + '-' + to + '之间,现在长度[' + length +']');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err').html('字符串长度在' + from + '-' + to + '之间,现在长度[' + length +']');
+							return false;
+						}
+					}
+				}
+			};
+	});
+
+	//增加任意字符UTF8长度验证方式 - lun-m
+	Validator.addValiType('length-utf8', function(){
+		var p_reg = /^(lu)(\d+)(?:-(\d+))?$/;
+
+		//得到字符串utf8长度
+		function lengthUTF8(str) {
+			var i = 0, code, len = 0;
+			for (; i < str.length; i++) {
+				code = str.charCodeAt(i);
+				if (code < 0x007f) {
+					len += 1;
+				} else if (code >= 0x0080 && code <= 0x07ff) {
+					len += 2;
+				} else if (code >= 0x0800 && code <= 0xffff) {
+					len += 3;
+				}
 			}
-		});
-		return vali;
-	}
+			return len;
+		}
+		return function(pattern){
+				var p, from, to, match = pattern.match(p_reg);
+				if(match){
+					from = match[2];
+					to = match[3];
+					p = $('<p class="hdl-vali-ok">字符串UTF8长度在' + from + '-' + to + '之间,现在长度[0]</p>');
+					div_pop.append(p);
+					return function(value, length){
+						length = lengthUTF8(value);
+						if(length >= from && length <= to){
+							p.attr('class', 'hdl-vali-ok').html('字符串UTF8长度在' + from + '-' + to + '之间,现在长度[' + length +']');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err').html('字符串UTF8长度在' + from + '-' + to + '之间,现在长度[' + length +']');
+							return false;
+						}
+					}
+				}
+			};
+	});
+
+	//增加字母(含大小写)长度验证方式 - lan-m
+	Validator.addValiType('length-[a-z]-ignore-case', function(){
+		var p_reg = /^(la)(\d+)(?:-(\d+))?$/;
+		var p_az = /^[a-z]+$/i;
+		return function(pattern){
+				var p, from, to, match = pattern.match(p_reg);
+				if(match){
+					from = match[2];
+					to = match[3];
+					p = $('<p class="hdl-vali-ok">a-z大小写,长度在' + from + '-' + to + '之间,现在长度[0]</p>');
+					div_pop.append(p);
+					return function(value, length){
+						length = value.length;
+						if(p_az.test(value) && length >= from && length <= to){
+							p.attr('class', 'hdl-vali-ok').html('a-z大小写,长度在' + from + '-' + to + '之间,现在长度[' + length +']');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err').html('a-z大小写,长度在' + from + '-' + to + '之间,现在长度[' + length +']');
+							return false;
+						}
+					}
+				}
+			};
+	});
+
+	//增加数字长度验证方式 - lnn-m
+	Validator.addValiType('length-number', function(){
+		var p_reg = /^(ln)(\d+)(?:-(\d+))?$/;
+		var p_num = /^\d+$/i;
+		return function(pattern){
+				var p, from, to, match = pattern.match(p_reg);
+				if(match){
+					from = match[2];
+					to = match[3];
+					p = $('<p class="hdl-vali-ok">数字,长度在' + from + '-' + to + '之间,现在长度[0]</p>');
+					div_pop.append(p);
+					return function(value, length){
+						length = value.length;
+						if(p_num.test(value) && length >= from && length <= to){
+							p.attr('class', 'hdl-vali-ok').html('数字,长度在' + from + '-' + to + '之间,现在长度[' + length +']');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err').html('数字,长度在' + from + '-' + to + '之间,现在长度[' + length +']');
+							return false;
+						}
+					}
+				}
+			};
+	});
+
+	//增加数字值大小验证方式 - nn-m
+	Validator.addValiType('number-value', function(){
+		var p_reg = /^(n)(\d+)(?:-(\d+))?$/;
+		return function(pattern){
+				var p, from, to, match = pattern.match(p_reg);
+				if(match){
+					from = match[2];
+					to = match[3];
+					p = $('<p class="hdl-vali-ok">数字,长度在' + from + '-' + to + '之间,现在长度[0]</p>');
+					div_pop.append(p);
+					return function(value, length){
+						value -= 0;
+						if(!isNaN(value) && value >= from && value <= to){
+							p.attr('class', 'hdl-vali-ok').html('数字,大小在' + from + '-' + to + '之间');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err').html('数字,大小在' + from + '-' + to + '之间');
+							return false;
+						}
+					}
+				}
+			};
+	});
+
+	//增加自定义正则验证方式 - // //i //g - 为正则字面量的写法,最好简单点,复杂的在hdlReg中增加并使用正则验证方式
+	Validator.addValiType('self-defined-reg', function(){
+		var p_reg = /^\/.*\/[ig]?$/;
+		return function(pattern){
+				var p, reg, match = pattern.match(p_reg);
+				if(match){
+					reg = new RegExp(match[0]);
+					p = $('<p class="hdl-vali-ok">自定义正则验证</p>');
+					div_pop.append(p);
+					return function(value, length){
+						if(reg.test(value)){
+							p.attr('class', 'hdl-vali-ok').html('自定义正则验证');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err').html('自定义正则验证');
+							return false;
+						}
+					}
+				}
+			};
+	});
+
+	//增加对比验证-等于 - eqselector - eq某个selector的值
+	Validator.addValiType('eq-selector', function(){
+		var p_reg = /^(eq)(.*)$/;
+		return function(pattern){
+				var p, other, match = pattern.match(p_reg);
+				if(match){
+					other = $(match[2]);
+					p = $('<p class="hdl-vali-ok">等于验证: 应等于' + other.val() + '</p>');
+					div_pop.append(p);
+					return function(value){
+						value -= 0;
+						if(value == other.val()){
+							p.attr('class', 'hdl-vali-ok');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err');
+							return false;
+						}
+					}
+				}
+			};
+	});
+
+	//增加对比验证-大于 - gtselector - gt某个selector的值
+	Validator.addValiType('gt-selector', function(){
+		var p_reg = /^(gt)(.*)$/;
+		return function(pattern){
+				var p, other, match = pattern.match(p_reg);
+				if(match){
+					other = $(match[2]);
+					p = $('<p class="hdl-vali-ok">应该大于' + other.val() + '</p>');
+					div_pop.append(p);
+					return function(value){
+						value -= 0;
+						if(value > other.val()){
+							p.attr('class', 'hdl-vali-ok');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err');
+							return false;
+						}
+					}
+				}
+			};
+	});
+
+	//增加对比验证-小于 - ltselector - lt某个selector的值
+	Validator.addValiType('lt-selector', function(){
+		var p_reg = /^(lt)(.*)$/;
+		return function(pattern){
+				var p, other, match = pattern.match(p_reg);
+				if(match){
+					other = $(match[2]);
+					p = $('<p class="hdl-vali-ok">应该小于' + other.val() + '</p>');
+					div_pop.append(p);
+					return function(value){
+						value -= 0;
+						if(value < other.val()){
+							p.attr('class', 'hdl-vali-ok');
+							return true;
+						}else{
+							p.attr('class', 'hdl-vali-err');
+							return false;
+						}
+					}
+				}
+			};
+	});
 
 	//输入框的一系列事件
 	function iptFocus(e){
