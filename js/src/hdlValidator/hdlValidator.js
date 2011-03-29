@@ -113,13 +113,18 @@ KISSY.add('hdlValidator', function(S, undef) {
 		elem = $(elem);
 		div_pop.empty();
 		var  arr = splitPattern(elem.attr('data-valid-type'))
-			,items = [];
+			,items = []
+			,instance = this;
+
+		//这两个引用放到实例上
+		this.elem = elem;
+		this.items = items;
 		
 		$.each(arr, function(i, p){
 			//如果没有找到需要提示
 			var found = false;
 			$.each(Validator.__vali_type, function(name, fn){
-				i = fn(p);
+				i = fn.call(instance, p);//判断函数的this指向Validator实例
 				if(i){
 					items.push(i);
 					found = true;
@@ -130,9 +135,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 				div_pop.append('<p class="hdl-vali-caution">未知验证方式: ' + p + '</p>');
 			}
 		});
-
-		this.elem = elem;
-		this.items = items;
 		return this;
 	}
 	$.extend(Validator, {
@@ -143,17 +145,34 @@ KISSY.add('hdlValidator', function(S, undef) {
 		}
 	});
 	$.extend(Validator.prototype, {
-		valid: function(){
+		valid: function(fn){//验证后可执行回调,使用回调可支持同步与异步处理
 			var  i = 0
 				,len = this.items.length
 				,v = this.elem.val()
-				,rs = true;
+				,ok = true
+				,rs, async;
+
 			for(; i < len; i++){
-				if(!this.items[i](v)){
-					rs = false;
+				rs = this.items[i].call(this, v, fn);//回调函数的this指向Validator实例
+				if(!rs || rs == 'loading'){
+					ok = false;
+				}
+				if(rs == 'loading'){
+					async = true;
 				}
 			}
-			return rs;
+
+			//更新输入框的红色边框
+			if(!async){
+				if(ok){
+					this.elem.removeClass('hdl-vali-ipt-err');
+					S.isFunction(fn) ? fn() : 0;//所有验证成功的回调
+				}else{
+					this.elem.addClass('hdl-vali-ipt-err');
+				}
+				return ok;
+			}
+			//异步验证成功并检测全部成功后也回调
 		}
 	});
 
@@ -204,17 +223,57 @@ KISSY.add('hdlValidator', function(S, undef) {
 	//增加异步验证方式 - ajax - 需要指定url - TODO
 	Validator.addValiType('ajax', function(){
 		return function(name){
-				var p;
+				var p, url, data, msg, req, last_val, timer = 0, post_delay = 500;
 				if(name === 'ajax'){
-					p = $('<p class="hdl-vali-loading">异步验证</p>');
+					msg = this.elem.attr('data-valid-msg') || '不能与服务器数据相同';
+					p = $('<p class="hdl-vali-loading">' + msg + '</p>');
 					div_pop.append(p);
-					return function(value){
-						if(value == '3'){
-							p.attr('class', 'hdl-vali-ok');
-							return true;
-						}else{
-							p.attr('class', 'hdl-vali-err');
+					url = this.elem.attr('data-ajax-url');
+					data = this.elem.attr('data-ajax-data');
+					if(data && data.indexOf('fn:') == 0){
+						data = S.getNS(data.replace('fn:', ''));
+					}
+					return function(value, callback){
+						var ipt = this.elem;
+
+						//值没改变时不与服务器通信,并设置输入框状态
+						if(value == last_val){
+							if(p.is('.hdl-vali-ok') && !p.siblings('.hdl-vali-err').length){
+								return true;
+							}
 							return false;
+						}
+						last_val = value;
+
+						if(!url){
+							p.attr('class', 'hdl-vali-err').html('此异步验证url不正确!');
+							return false;
+						}else{
+							data = S.isFunction(data) ? data() : data;
+							data = (data ? data + '&' : '') + this.elem.attr('name') + '=' + this.elem.val();
+							p.attr('class', 'hdl-vali-loading');
+							ipt.addClass('hdl-vali-ipt-err');
+							clearTimeout(timer);
+							if(req){
+								try{
+									req.abort();
+									req = null;
+								}catch(e){}//ie调用abort方法会出错,这里阻止出错提示,可考虑改jquery ajax 方法实现中 oldAbort.call 的调用
+							}
+							timer = setTimeout(function(){
+								req = $.post(url, data, function(data){
+									if(data == 'true'){
+										p.attr('class', 'hdl-vali-ok');
+										if(!p.siblings('.hdl-vali-err').length){
+											ipt.removeClass('hdl-vali-ipt-err');
+											S.isFunction(callback) ? callback() : 0;
+										}
+									}else{
+										p.attr('class', 'hdl-vali-err');
+									}
+								});
+							}, post_delay);
+							return 'loading';
 						}
 					}
 				}
@@ -361,19 +420,19 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	//增加自定义正则验证方式 - // //i //g - 为正则字面量的写法,最好简单点,复杂的在hdlReg中增加并使用正则验证方式
 	Validator.addValiType('self-defined-reg', function(){
-		var p_reg = /^\/.*\/[ig]?$/;
+		var p_reg = /^\/(.*)\/(g|i|gi|ig)?$/;
 		return function(pattern){
 				var p, reg, match = pattern.match(p_reg);
 				if(match){
-					reg = new RegExp(match[0]);
-					p = $('<p class="hdl-vali-ok">自定义正则验证</p>');
+					reg = new RegExp(match[1], match[2]);
+					p = $('<p class="hdl-vali-ok">' + (this.elem.attr('data-valid-msg') || '自定义正则验证') + '</p>');
 					div_pop.append(p);
-					return function(value, length){
+					return function(value){
 						if(reg.test(value)){
-							p.attr('class', 'hdl-vali-ok').html('自定义正则验证');
+							p.attr('class', 'hdl-vali-ok');
 							return true;
 						}else{
-							p.attr('class', 'hdl-vali-err').html('自定义正则验证');
+							p.attr('class', 'hdl-vali-err');
 							return false;
 						}
 					}
@@ -452,34 +511,17 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	//输入框的一系列事件
 	function iptFocus(e){
-		ipt_now = $(this);
-		popShow();
-		validator = Validator(this);
-		validator.valid();
-	}
-	function iptBlur(e){
-		
-	}
-	function iptClick(e){
-		
-	}
-	function iptKeyDown(e){
-		
-	}
-	function iptPress(e){
-		
+		if(ipt_now[0] != this){
+			ipt_now = $(this);
+			popShow();
+			validator = Validator(this);
+			validator.valid();
+		}else{
+			popShow();
+		}
 	}
 	function iptKeyUp(e){
 		validator.valid();
-	}
-	function iptChange(e){
-		
-	}
-	function beforePaste(e){
-		e.preventDefault();
-	}
-	function paste(e){
-		
 	}
 
 	//公共显示隐藏函数
@@ -500,9 +542,16 @@ KISSY.add('hdlValidator', function(S, undef) {
 		this.each(function(i, v){
 			if(!v.__bind_hdl_valid){
 				v.__bind_hdl_valid = true;
-				$(v).focus(iptFocus).keyup(iptKeyUp);
+
+				//注册的时候更新状态信息
+				Validator(v).valid();
+
+				//ctrl+v ie在keyup中判断,ff在paste中判断
+				//右键菜单粘贴 都在paste中判断
+				$(v).focus(iptFocus).keyup(iptKeyUp).bind('paste',iptKeyUp);//paste 与 keyup处理一样,使用同一个函数
 			}
 		});
+		return this;
 	}
 
 	//文档上监听并注册事件
@@ -510,12 +559,12 @@ KISSY.add('hdlValidator', function(S, undef) {
 		var  t = e.target
 			,dt = $(t);
 		//如已注册则忽略
-		if(dt.is('input[data-valid-type]') && !t.__bind_hdl_valid){
+		if(!t.__bind_hdl_valid && dt.is('input[data-valid-type], textarea[data-valid-type]')){
 			dt.hdlValidator();
 			dt.focus();
 		}
 		//顺带做隐藏操作
-		if(!dt.closest('.hdl-vali-wrap, input[data-valid-type]').length){
+		if(!dt.closest('.hdl-vali-wrap, input[data-valid-type], textarea[data-valid-type]').length){
 			popHide();
 		}
 	}
