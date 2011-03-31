@@ -10,18 +10,8 @@
 				 path: 'builtin/Date.js'
 				,charset: 'utf-8'
 			});
-			S.use('reset-css, Date, weekTool, jquery-1.4.2', function(){
-				var w = $.weekTool();
-				$('#d1-1').html(w.start().dateTimeString());
-				$('#d1-2').html(w.end().dateTimeString());
-				$('#d1-3').html(w.week(2).start().dateTimeString());
-				$('#d1-4').html(w.week(3).end().dateTimeString());
-
-				w.year(2012).week(1);
-				$('#d2-1').html(w.start().dateTimeString());
-				$('#d2-2').html(w.end().dateTimeString());
-				$('#d2-3').html(w.week(2).start().dateTimeString());
-				$('#d2-4').html(w.week(3).end().dateTimeString());
+			S.use('reset-css, Date, weekTool+css', function(){
+				
 			});
 		});
 	</script>
@@ -33,21 +23,10 @@
 
 <body style="margin:50px;">
 	<div class="box">
-		<p>使用方法请看demo.html </p>
-	</div>
-	<div class="box">
-		<p>每年如果1月1号是周一,则第一周开始为1月1号,否则向前推到周1: </p>
-		<p>今年第一周开始时间为: <span id="d1-1"></span></p>
-		<p>今年第一周结束时间为: <span id="d1-2"></span></p>
-		<p>今年第二周开始时间为: <span id="d1-3"></span></p>
-		<p>今年第三周结束时间为: <span id="d1-4"></span></p>
-	</div>
-	<div class="box">
-		<p>2012年: </p>
-		<p>第一周开始时间为: <span id="d2-1"></span></p>
-		<p>第一周结束时间为: <span id="d2-2"></span></p>
-		<p>第二周开始时间为: <span id="d2-3"></span></p>
-		<p>第三周结束时间为: <span id="d2-4"></span></p>
+		<p>
+			选择周范围: 
+			<input type="week" id="week-start" data-week-end="#week-end" name="" value="" />-<input type="week" id="week-end" data-week-start="#week-start" name="" value="" />
+		</p>
 	</div>
 </body>
 </html>
