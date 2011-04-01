@@ -101,7 +101,7 @@ KISSY.add('weekTool', function(S, undef) {
 	function popShow(){
 		//需要时再加载此层
 		if(!div_pop.length){
-			div_pop = $('<div class="week-tool-wrap"><div class="week-tool-yearw"><a href="#" class="week-tool-yearwp">&lt;</a><a href="#" class="week-tool-year">2011</a><a href="#" class="week-tool-yearwn">&gt;</a></div><div class="week-tool-yearp"><div class="week-tool-yearl"></div><div class="week-tool-yearlp"><a href="#" class="week-tool-yearlpp">上一页</a><a href="#" class="week-tool-yearlpn">下一页</a></div></div><div class="week-tool-head"><span class="week-tool-col1">周</span><span class="week-tool-col2">开始时间</span><span class="week-tool-col3">结束时间</span></div><ul class="week-tool-list"></ul></div>');
+			div_pop = $('<div class="week-tool-wrap"><div class="week-tool-yearw"><a href="#" class="week-tool-yearwp">&lt;</a><a href="#" class="week-tool-year">2011</a><a href="#" class="week-tool-yearwn">&gt;</a><a href="#" class="week-tool-yearthis">今年</a></div><div class="week-tool-yearp"><div class="week-tool-yearl"></div><div class="week-tool-yearlp"><a href="#" class="week-tool-yearlpp">上一页</a><a href="#" class="week-tool-yearlpn">下一页</a></div></div><div class="week-tool-head"><span class="week-tool-col1">周</span><span class="week-tool-col2">开始时间</span><span class="week-tool-col3">结束时间</span></div><ul class="week-tool-list"></ul></div>');
 			div_pop.click(popClick).dblclick(popDblClick);
 			a_year = div_pop.find('a.week-tool-year');
 			div_year_list = div_pop.find('div.week-tool-yearl');
@@ -178,12 +178,19 @@ KISSY.add('weekTool', function(S, undef) {
 				val = dt.text()-0;
 				a_year.html(val);
 				makeList(val);
+				div_year_list.parent().hide();
 			}else if(dt.is('.week-tool-yearlpp')){//年列表上一页
 				val = div_year_list.find('a:first').text()-0;
 				makeYearList(val-24, val);
 			}else if(dt.is('.week-tool-yearlpn')){//年列表下一页
 				val = div_year_list.find('a:last').text()-0;
 				makeYearList(val+1, val+25);
+			}else if(dt.is('.week-tool-yearthis')){//今年
+				val = new Date().getFullYear();
+				if(a_year.text() != val){
+					a_year.html(val);
+					makeList(val);
+				}
 			}
 			dt.blur();
 			e.preventDefault();
@@ -200,9 +207,10 @@ KISSY.add('weekTool', function(S, undef) {
 		}
 	}
 
+	//检测目录是否为周选择控件
 	function isWeekInput(elm){
 		var attr = elm.getAttribute('type');
-		if(elm.tagName.toUpperCase() === 'INPUT' && attr === 'week'){
+		if(elm.tagName.toUpperCase() === 'INPUT' && (attr === 'week-start' || attr === 'week-end')){
 			return true;
 		}else{
 			return false;

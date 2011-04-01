@@ -5,7 +5,7 @@
 	.week-tool-yearw{height:18px;text-align:center;}
 		.week-tool-yearwp{margin-right:8px;}
 		.week-tool-year{margin-right:5px;}
-		.week-tool-yearwn{}
+		.week-tool-yearwn{margin-right:10px;}
 	.week-tool-yearp{display:none;position:absolute;top:18px;left:95px;width:120px;height:130px;border:1px solid #7f9db9;background:#fff;}
 		.week-tool-yearl{text-align:center;padding:2px;height:108px;}
 			.week-tool-yearli{}
