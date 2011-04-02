@@ -34,7 +34,7 @@
 
 .label{display:inline-block;vertical-align:middle;min-width:50px;_width:50px;margin-right:5px;}
 
-.textarea{padding:1px;border:1px solid #7f9db9;}
+textarea{padding:1px;border:1px solid #7f9db9;}
 
 
 .ov-hidden{height:100%;overflow:hidden;}

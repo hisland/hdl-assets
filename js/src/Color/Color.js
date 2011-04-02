@@ -100,26 +100,18 @@
 	//转换成HEX字符串#ff00cc
 	Color.prototype.toHex = function(){
 		var sr, sg, sb;
-		try{
-			sr = this.r.toString(16);
-			sg = this.g.toString(16);
-			sb = this.b.toString(16);
-			if(sr.length==1){sr="0"+sr};
-			if(sg.length==1){sg="0"+sg};
-			if(sb.length==1){sb="0"+sb};
-			return "#"+sr+sg+sb;
-		}catch(e){
-			alert('Color.toHex()失败: 颜色值不正确,请检查!');
-		}
+		sr = this.r.toString(16);
+		sg = this.g.toString(16);
+		sb = this.b.toString(16);
+		if(sr.length==1){sr="0"+sr};
+		if(sg.length==1){sg="0"+sg};
+		if(sb.length==1){sb="0"+sb};
+		return "#"+sr+sg+sb;
 	}
 
 	//转换成RGB字符串rgb(254,33,58)
 	Color.prototype.toRgb = function(){
-		try{
-			return 'rgb('+this.r+','+this.g+','+this.b+')';
-		}catch(e){
-			alert('Color.toRgb()失败: 颜色值不正确,请检查!');
-		}
+		return 'rgb('+this.r+','+this.g+','+this.b+')';
 	}
 
 	//导出为全局函数
