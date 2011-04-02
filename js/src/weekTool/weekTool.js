@@ -1,41 +1,34 @@
 /**********************************************************************************************
- * 名称: 周控件
+ * 名称: 周选择控件
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: @TIMESTAMP@
  * 版本: @VERSION@
  * 
- * 根据某年某周得到这周的开始和结束时间
+ * 选择的开始时间和另一周的结束时间
  *
- * API:
- *		var w = $.weekTool()		获得一个周对象,默认为今年第1周
- *		var w2 = $.weekTool(2012)	获得一个周对象,初始化年为2012年,周还是默认第1周
- *		w.year(2013).week(3)		设置年,周
- *		w.year()					获得设置的年
- *		w.week()					获得设置的周
- *		w.start()					获得开始时间-为时间对象
- *		w.end()						获得结束时间-为时间对象
+ * 使用方法参见demo.html
  *
  */
 
 KISSY.add('weekTool', function(S, undef) {
 	var  $ = jQuery
 		,EMPTY_$ = $('')
-		,ipt_now = EMPTY_$
 		,ipt_start = EMPTY_$
 		,ipt_end = EMPTY_$
 		,div_pop = EMPTY_$
-		,a_year = EMPTY_$
-		,div_year_list = EMPTY_$
-		,div_list = EMPTY_$;
+		,div_week_list = EMPTY_$
+		,div_from_list = EMPTY_$
+		,div_to_list = EMPTY_$
+		,div_year_list = EMPTY_$;
 
-	function init(y){
+	//周对象, 可方便传入年,周获得此周的开始结束时间
+	function Week(y){
 		this.year(y);
 		this.__week = 1;
 		return this;
 	}
-
-	$.extend(init.prototype, {
+	$.extend(Week.prototype, {
 		 year: function(y){
 			if(y !== undefined){
 				this.__year = y-0;
@@ -68,8 +61,9 @@ KISSY.add('weekTool', function(S, undef) {
 		}
 	});
 
+	//function makeList(className, content){}
 	function makeList(year){
-		var  w = new init(year)
+		var  w = new Week(year)
 			,b = []
 			,i = 1, t;
 
@@ -101,11 +95,14 @@ KISSY.add('weekTool', function(S, undef) {
 	function popShow(){
 		//需要时再加载此层
 		if(!div_pop.length){
-			div_pop = $('<div class="week-tool-wrap"><div class="week-tool-yearw"><a href="#" class="week-tool-yearwp">&lt;</a><a href="#" class="week-tool-year">2011</a><a href="#" class="week-tool-yearwn">&gt;</a><a href="#" class="week-tool-yearthis">今年</a></div><div class="week-tool-yearp"><div class="week-tool-yearl"></div><div class="week-tool-yearlp"><a href="#" class="week-tool-yearlpp">上一页</a><a href="#" class="week-tool-yearlpn">下一页</a></div></div><div class="week-tool-head"><span class="week-tool-col1">周</span><span class="week-tool-col2">开始时间</span><span class="week-tool-col3">结束时间</span></div><ul class="week-tool-list"></ul></div>');
+			div_pop = $('<div class="weektool-wrap"><div class="weektool-div1"><span class="weektool-col1-0"></span><span class="weektool-col1-0">周</span><div class="weektool-col1w"></div></div><div class="weektool-div2"><span class="weektool-col2-0"><a href="#" class="weektool-yearp">&lt;</a><a href="#" class="weektool-year">2011</a><a href="#" class="weektool-yearn">&gt;</a><a href="#" class="weektool-yeart">今年</a></span><span class="weektool-col2-0">开始时间</span><div class="weektool-col2w"></div></div><div class="weektool-div3"><span class="weektool-col3-0"><a href="#" class="weektool-yearp">&lt;</a><a href="#" class="weektool-year">2011</a><a href="#" class="weektool-yearn">&gt;</a><a href="#" class="weektool-yeart">今年</a></span><span class="weektool-col3-0">结束时间</span><div class="weektool-col3w"></div></div><div class="weektool-div4"><div class="weektool-div4-1"><a href="#" class="weektool-4-i"></a></div><div class="weektool-div4-2"><a href="#" class="weektool-4-p">上一页</a><a href="#" class="weektool-4-n">下一页</a></div></div></div>');
 			div_pop.click(popClick).dblclick(popDblClick);
-			a_year = div_pop.find('a.week-tool-year');
-			div_year_list = div_pop.find('div.week-tool-yearl');
-			div_list = div_pop.find('ul.week-tool-list');
+
+			div_week_list = div_pop.find('div.weektool-col1w');
+			div_from_list = div_pop.find('div.weektool-col2w');
+			div_to_list = div_pop.find('div.weektool-col3w');
+			div_year_list = div_pop.find('div.weektool-div4-1');
+
 			div_pop.appendTo('body');
 		}
 		div_pop.show().adjustElement(ipt_now);
