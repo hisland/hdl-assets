@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				$(document).mouseup(function(){
+					$('<p>鼠标up</p>').appendTo('body');
+				}).bind('dragend', function(){
+					$('<p>dragend</p>').appendTo('body');
+				});
+			});
+		});
+	</script>
+	<style type="text/css">
+		p{width:200px;border:1px solid #ccc;}
+	</style>
+</head>
+<body style="margin:50px;">
+	<p>当有选择内容时,点击拖动产生的是Drag事件,不会产生mouseup事件</p>
+	<p> 无可救药苛夺苛夺苛夺 花样百出枯要 要械苛在地村工 士大夫 鞢 夺苛夺工夺苛夺 工士大夫</p>
+</body>
+</html>
