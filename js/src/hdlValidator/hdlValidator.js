@@ -166,10 +166,10 @@ KISSY.add('hdlValidator', function(S, undef) {
 			if(!async){
 				if(ok){
 					this.elem.removeClass('hdl-vali-ipt-err');
-					S.isFunction(fn) ? fn() : 0;//所有验证成功的回调
 				}else{
 					this.elem.addClass('hdl-vali-ipt-err');
 				}
+				S.isFunction(fn) ? fn(ok) : 0;//所有验证成功的回调
 				return ok;
 			}
 			//异步验证成功并检测全部成功后也回调
@@ -236,6 +236,11 @@ KISSY.add('hdlValidator', function(S, undef) {
 					return function(value, callback){
 						var ipt = this.elem;
 
+						//值为空不与服务器通信,并设置输入框状态
+						if(!value){
+							p.attr('class', 'hdl-vali-err');
+							return false;
+						}
 						//值没改变时不与服务器通信,并设置输入框状态
 						if(value == last_val){
 							if(p.is('.hdl-vali-ok') && !p.siblings('.hdl-vali-err').length){
@@ -260,16 +265,19 @@ KISSY.add('hdlValidator', function(S, undef) {
 									req = null;
 								}catch(e){}//ie调用abort方法会出错,这里阻止出错提示,可考虑改jquery ajax 方法实现中 oldAbort.call 的调用
 							}
+							S.isFunction(callback) ? callback(false) : 0;
 							timer = setTimeout(function(){
 								req = $.post(url, data, function(data){
 									if(data == 'true'){
 										p.attr('class', 'hdl-vali-ok');
 										if(!p.siblings('.hdl-vali-err').length){
 											ipt.removeClass('hdl-vali-ipt-err');
-											S.isFunction(callback) ? callback() : 0;
+											S.isFunction(callback) ? callback(true) : 0;
 										}
+										S.isFunction(callback) ? callback(false) : 0;
 									}else{
 										p.attr('class', 'hdl-vali-err');
+										S.isFunction(callback) ? callback(false) : 0;
 									}
 								});
 							}, post_delay);
@@ -538,13 +546,13 @@ KISSY.add('hdlValidator', function(S, undef) {
 	}
 
 	//注册事件,可用于手工注册
-	function hdlValidator(){
+	function hdlValidator(callback){
 		this.each(function(i, v){
 			if(!v.__bind_hdl_valid){
 				v.__bind_hdl_valid = true;
 
 				//注册的时候更新状态信息
-				Validator(v).valid();
+				Validator(v).valid(callback);
 
 				//ctrl+v ie在keyup中判断,ff在paste中判断
 				//右键菜单粘贴 都在paste中判断

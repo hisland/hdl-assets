@@ -10,25 +10,53 @@
 				window.getName2 = function(){
 					return 'name2=god3';
 				}
-				$('input, textarea').hdlValidator();
+				$('form').find('input[data-valid-type], textarea').hdlValidator(function(rs){
+					
+				});
 			});
 		});
 	</script>
 	<style type="text/css">
-		.box{border:1px solid #ccc;padding:5px;margin:10px 0;overflow:hidden;}
-			.box p{background:#eee;margin-bottom:5px;}
-			.box p.col{background:#eee;padding:3px;margin:0 5px 5px 0;float:left;width:280px;}
+		.section{border:1px solid #666;padding:10px 5px 2px;margin:20px 0 10px;zoom:1;}
+			.legend{float:left;border:1px solid #666;background:#ccc;height:16px;padding:1px 3px;margin:-20px 0 5px 0;}
+			.box{clear:left;overflow:hidden;}
+				.box p{background:#eee;padding:2px;margin-bottom:5px;}
+				.box p.col{background:#eee;padding:2px;margin:0 5px 5px 0;float:left;width:280px;}
 	</style>
 </head>
 <body style="padding:20px 50px;">
-	<div class="box">
-		<p>2011-3-21 11:36:16:
-		<br />统一验证写法为 data-valid-type="pattern, pattern, pattern"
-		<br />减少记忆难度
-		<br />减少代码复杂度
-		</p>
-		<p>pattern请查看源代码注释</p>
+	<div class="section">
+		<div class="legend">说明</div>
+		<div class="box">
+			<p>2011-3-21 11:36:16:
+			<br />统一验证写法为 data-valid-type="pattern, pattern, pattern"
+			<br />减少记忆难度
+			<br />减少代码复杂度
+			</p>
+			<p>pattern请查看源代码注释</p>
+		</div>
 	</div>
+
+	<div class="section">
+		<div class="legend">form测试 - 提交按钮为button</div>
+		<div class="box">
+			<form action="#" data-submit-button="#form-submit">
+				<p><input class="text" type="text" name="" value="" data-valid-type="ripv4" /></p>
+				<p><input type="button" value="提交" disabled="disabled" id="form-submit" /></p>
+			</form>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">form测试 - 提交按钮为submit</div>
+		<div class="box">
+			<form action="#">
+				<p><input class="text" type="text" name="" value="" data-valid-type="ripv4" /></p>
+				<p><input type="submit" value="提交" disabled="disabled" /></p>
+			</form>
+		</div>
+	</div>
+
 
 	<div class="box">
 		<p class="col">正则验证-IPV4:
