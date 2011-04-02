@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		body{font-family:"宋体",serif;font-size:75%;padding:50px;}
+		a img{border:none;}
+		table{border-collapse:collapse;border-spacing:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		a:hover{text-decoration:underline;}
+		
+		li{height:18px;background:green;}
+		li span{float:left;height:18px;width:100px;background:#ccc;}
+		.with-vab li{vertical-align:bottom;}
+	</style>
+	<style type="text/css">
+		.box{border:1px solid #ccc;padding:5px;margin-bottom:10px;}
+			.box p{background:#eee;margin-bottom:5px;}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p>ie下, li内有浮动元素时,下边会产生2px边距</p>
+		<p>li样式加入<span style="color:red;">vertical-align:bottom;</span>解决</p>
+	</div>
+	<div class="box">
+		<p>未加入</p>
+		<ul>
+			<li>
+				<span>1</span>
+			</li>
+			<li>
+				<span>2</span>
+			</li>
+			<li>
+				<span>3</span>
+			</li>
+		</ul>
+	</div>
+	<div class="box">
+		<p>加入<span style="color:red;">vertical-align:bottom;</span></p>
+		<ul class="with-vab">
+			<li>
+				<span>1</span>
+			</li>
+			<li>
+				<span>2</span>
+			</li>
+			<li>
+				<span>3</span>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

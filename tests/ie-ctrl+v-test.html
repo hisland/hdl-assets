@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				var ie = /*@cc_on!@*/!1;
+				function iptKeyDown(e){
+					//ie 的 ctrl+v 检测
+					if(ie && e.ctrlKey && e.keyCode == 86){
+						$('<p>按下了ctrl+v组合键!</p>').appendTo('body');
+					}
+				}
+				$('input').keydown(iptKeyDown);
+			});
+		});
+	</script>
+</head>
+<body style="margin:50px;">
+	<input type="text" name="" value="" />
+</body>
+</html>

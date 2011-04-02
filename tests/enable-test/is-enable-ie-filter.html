@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		.a{z-index:10;position:absolute;top:10px;left:10px;width:100px;height:100px;background:red;opacity:0.5;filter:alpha(opacity=50);}
+		.b{position:absolute;top:60px;left:60px;width:100px;height:100px;background:green;opacity:0.8;filter:alpha(opacity=80);}
+
+		.c{padding-top:150px;}
+	</style>
+</head>
+<body>
+	<div class="a">遮盖它</div>
+	<div class="b">还能看见我</div>
+	<p class="c">正常情况应该是下面这样:</p>
+	<p><img src="right.jpg" /></p>
+</body>
+</html>
