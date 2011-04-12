@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, demo-css, jquery-1.4.2', function(){
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="section">
+		<div class="legend">结论</div>
+		<div class="box">
+			<p>提交按钮被disabled时, 在输入框回车</p>
+			<p>form使用submit按钮
+			<br />ie: 只有一个输入框时会提交,2个不提交
+			<br />ff: <span class="red">始终不会提交</span>
+			</p>
+			<p>form<span class="red">不</span>使用submit按钮
+			<br />ie: 只有一个输入框时会提交,2个不提交
+			<br />ff: 只有一个输入框时会提交,2个不提交
+			</p>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">form测试 - 提交按钮为button,通过form的data-submit-button属性指定</div>
+		<div class="box">
+			<form action="#" data-submit-button="#form-submit">
+				<p>正则验证-IPV4: <input class="text" type="text" name="" value="" data-valid-type="ripv4" /></p>
+				<p><input type="button" value="提交" disabled="disabled" id="form-submit" /></p>
+			</form>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">form测试 - 提交按钮为button,通过form的data-submit-button属性指定</div>
+		<div class="box">
+			<form action="#" data-submit-button="#form-submit">
+				<p>正则验证-IPV4: <input class="text" type="text" name="" value="" data-valid-type="ripv4" /></p>
+				<p>正则验证-整数: <input class="text" type="text" name="" value="" data-valid-type="rinteger" /></p>
+				<p><input type="button" value="提交" disabled="disabled" id="form-submit" /></p>
+			</form>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">form测试 - 提交按钮为submit</div>
+		<div class="box">
+			<form action="#">
+				<p>正则验证-IPV4: <input class="text" type="text" name="" value="" data-valid-type="ripv4" /></p>
+				<p><input type="submit" value="提交" disabled="disabled" /></p>
+			</form>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">form测试 - 提交按钮为submit</div>
+		<div class="box">
+			<form action="#">
+				<p>正则验证-IPV4: <input class="text" type="text" name="" value="" data-valid-type="ripv4" /></p>
+				<p>正则验证-整数: <input class="text" type="text" name="" value="" data-valid-type="rinteger" /></p>
+				<p><input type="submit" value="提交" disabled="disabled" /></p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

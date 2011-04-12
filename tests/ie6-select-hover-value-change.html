@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				function god(e){
+					$('<p>'+e.target.tagName+'--'+e.type+'--'+$(this).val()+'</p>').appendTo('body');
+				}
+				$('select, option').change(god).click(god).mouseover(god);
+			});
+		});
+	</script>
+</head>
+<body style="padding:50px 150px;">
+	<p>
+		ie6: 
+		<br />当下拉框动画完成前,放到某个选项上,动画完成后select显示的文本是那个选项的文本,值不发生改变
+		<br />option无法注册事件,无法知道select在上述情况下,到底显示的是哪个选项的文本.
+		<br />ie7的option也无法注册事件.
+	</p>
+
+	<select style="margin-left:-100px">
+		<option value="bb1" onclick="alert(3)">aaa1</option>
+		<option value="bb2" onclick="alert(3)">bb2</option>
+		<option value="bb3" onclick="alert(3)">cc3</option>
+		<option value="bb4" onclick="alert(3)">dd4</option>
+		<option value="bb5" onclick="alert(3)">ee5</option>
+		<option value="bb6" onclick="alert(3)">ff6</option>
+		<option value="bb7" onclick="alert(3)">aa7</option>
+		<option value="bb8" onclick="alert(3)">ggd8</option>
+		<option value="bb9" onclick="alert(3)">dd9</option>
+		<option value="bb10" onclick="alert(3)">bb10</option>
+		<option value="bb11" onclick="alert(3)">cc11</option>
+		<option value="bb12" onclick="alert(3)">dd12</option>
+		<option value="bb13" onclick="alert(3)">ee13</option>
+		<option value="bb14" onclick="alert(3)">ff14</option>
+		<option value="bb15" onclick="alert(3)">aa15</option>
+		<option value="bb16" onclick="alert(3)">ggd16</option>
+		<option value="bb17" onclick="alert(3)">dd17</option>
+	</select>
+</body>
+</html>
