@@ -7,103 +7,117 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, hdlGrid+css', function(){
-				console.log('ok!');
+				
 			});
 		});
 	</script>
 	<style type="text/css">
-		.wrap{width:500px;height:300px;background:#eee;}
+		.hdlgrid-wrap{width:500px;height:300px;}
 	</style>
 </head>
 
 <body style="padding:50px;">
 
-<div class="wrap">
-	<div class="hdl-grid-wrap">
-		<div class="hdl-grid-head">
-			<table>
-				<thead>
-					<tr>
-						<th><input type="checkbox" name="" value="" /></th>
-						<th>列名4</th>
-						<th>列名5</th>
-						<th>列名6</th>
-						<th>列名7</th>
-						<th>列名8</th>
-						<th>列名9</th>
-					</tr>
-				</thead>
-			</table>
-		</div>
-		<div class="hdl-grid-body">
-			<table>
-				<tbody>
-					<tr>
-						<td class="td-center"><input type="checkbox" name="" value="" /></td>
-						<td>内容4</td>
-						<td>内容5</td>
-						<td>内容6</td>
-						<td>内容7</td>
-						<td>内容8</td>
-						<td>内容9</td>
-					</tr>
-					<tr>
-						<td class="td-center"><input type="checkbox" name="" value="" /></td>
-						<td>内容4</td>
-						<td>内容5</td>
-						<td>内容6</td>
-						<td>内容7</td>
-						<td>内容8</td>
-						<td>内容9</td>
-					</tr>
-					<tr>
-						<td class="td-center"><input type="checkbox" name="" value="" /></td>
-						<td>内容4</td>
-						<td>内容5</td>
-						<td>内容6</td>
-						<td>内容7</td>
-						<td>内容8</td>
-						<td>内容9</td>
-					</tr>
-					<tr>
-						<td class="td-center"><input type="checkbox" name="" value="" /></td>
-						<td>内容4</td>
-						<td>内容5</td>
-						<td>内容6</td>
-						<td>内容7</td>
-						<td>内容8</td>
-						<td>内容9</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="hdl-grid-pager">
-			<span class="hdl-grid-prev hdl-grid-prev-gray"></span>
-			<span class="hdl-grid-next hdl-grid-next-gray"></span>
-			<span class="hdl-grid-first hdl-grid-first-gray"></span>
-			<span class="hdl-grid-last hdl-grid-last-gray"></span>
-			<span class="hdl-grid-sep"></span>
-			<span class="hdl-grid-text"></span>
-			<span class="hdl-grid-sum"></span>
-		</div>
-		<div class="hdl-grid-resizer">
-			<div class="hdl-grid-resizer-1"></div>
-		</div>
-		<div class="hdl-grid-toggle-div">
-			<table>
-				<tbody>
-					<tr>
-						<td><input type="checkbox" /></td>
-						<td>列名列名列名</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="hdl-grid-toggle-btn"></div>
-		<div class="hdl-grid-mask"></div>
-		<div class="hdl-grid-nodata">暂无数据,根据内容填充后的大小居中显示</div>
-		<div class="hdl-grid-loading"></div>
+<div class="hdlgrid-wrap">
+	<div class="hdlgrid-head">
+		<table>
+			<col style="width:50px" />
+			<col style="width:50px" />
+			<col style="width:50px" />
+			<col style="width:50px" />
+			<col style="width:50px" />
+			<col style="width:50px" />
+			<col style="width:50px" />
+			<thead>
+				<tr>
+					<th><input type="checkbox" name="" value="" /></th>
+					<th>列名4</th>
+					<th>列名5</th>
+					<th>列名6</th>
+					<th>列名7</th>
+					<th>列名8</th>
+					<th>列名9</th>
+				</tr>
+			</thead>
+		</table>
 	</div>
+	<div class="hdlgrid-body">
+		<div class="hdlgrid-body-in">
+			<table>
+				<col style="width:50px" />
+				<col style="width:50px" />
+				<col style="width:50px" />
+				<col style="width:50px" />
+				<col style="width:50px" />
+				<col style="width:50px" />
+				<col style="width:50px" />
+				<tbody>
+					<tr>
+						<td class="td-center"><input type="checkbox" name="" value="" /></td>
+						<td>内容4</td>
+						<td>内容5</td>
+						<td>内容6</td>
+						<td>内容7</td>
+						<td>内容8</td>
+						<td>内容9</td>
+					</tr>
+					<tr>
+						<td class="td-center"><input type="checkbox" name="" value="" /></td>
+						<td>内容4</td>
+						<td>内容5</td>
+						<td>内容6</td>
+						<td>内容7</td>
+						<td>内容8</td>
+						<td>内容9</td>
+					</tr>
+					<tr>
+						<td class="td-center"><input type="checkbox" name="" value="" /></td>
+						<td>内容4</td>
+						<td>内容5</td>
+						<td>内容6</td>
+						<td>内容7</td>
+						<td>内容8</td>
+						<td>内容9</td>
+					</tr>
+					<tr>
+						<td class="td-center"><input type="checkbox" name="" value="" /></td>
+						<td>内容4</td>
+						<td>内容5</td>
+						<td>内容6</td>
+						<td>内容7</td>
+						<td>内容8</td>
+						<td>内容9</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="hdlgrid-pager">
+		<span class="hdlgrid-prev hdlgrid-prev-gray"></span>
+		<span class="hdlgrid-next hdlgrid-next-gray"></span>
+		<span class="hdlgrid-first hdlgrid-first-gray"></span>
+		<span class="hdlgrid-last hdlgrid-last-gray"></span>
+		<span class="hdlgrid-sep"></span>
+		<span class="hdlgrid-text"></span>
+		<span class="hdlgrid-sum"></span>
+	</div>
+	<div class="hdlgrid-resizer">
+		<div class="hdlgrid-resizer-i"></div>
+	</div>
+	<div class="hdlgrid-toggle-div">
+		<table>
+			<tbody>
+				<tr>
+					<td><input type="checkbox" /></td>
+					<td>列名列名列名</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="hdlgrid-toggle-btn"></div>
+	<div class="hdlgrid-mask"></div>
+	<div class="hdlgrid-nodata">暂无数据,根据内容填充后的大小居中显示</div>
+	<div class="hdlgrid-loading"></div>
 </div>
 
 </body>

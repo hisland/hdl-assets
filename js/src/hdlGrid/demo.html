@@ -7,13 +7,33 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, hdlGrid+css', function(){
-				console.log('ok!');
+				var grid = $.hdlGrid({
+						url: 'data.js',
+						col_model : [
+							{display: '统计区间', name : 'countSegent', width : '27%', enable_sort : true, align: 'center'},
+							{display: '缓存用户数', name : 'cacheUserNum', width : '12%', enable_sort : true, align: 'center'},
+							{display: '缓存消息数', name : 'cacheNum', width : '12%', enable_sort : true, align: 'center'},
+							{display: '审核平台放通用户数', name : 'personCheckuserNum', width : '12%', enable_sort : true, align: 'center'},
+							{display: '审核平台拦截用户数', name : 'personCheckuserstopNum', width : '12%', enable_sort : true, align: 'center'},
+							{display: '拦截准确率', name : 'stopExactRate', width : '9%', enable_sort : true, align: 'center'},
+							{display: '统计时间', name : 'writeTime', width : '14%', enable_sort : true, align: 'center'}
+							], 
+						enable_pager: true,
+						num_per_page: 15
+						});
+				
+				grid.fillInto('.wrap');
+
+				window.aaa = grid;
 			});
 		});
 	</script>
+	<style type="text/css">
+		.wrap{width:500px;height:300px;border:1px solid #ccc;}
+	</style>
 </head>
 
 <body style="padding:50px;">
-
+	<div class="wrap"></div>
 </body>
 </html>
