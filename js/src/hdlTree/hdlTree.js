@@ -75,11 +75,16 @@ leaf:{
 	b:		blank
 
 TODO:
-	+此层 -此层
-	+所有 -所有
+	+下级 -下级 - 当前和所有下级
+	+所有 -所有 - 全部
+	箭头代表的是当前级别
 */
 
 	function Tree(){
+		//更改为构造方式
+		if(!(this instanceof Tree)){
+			return new Tree();
+		}
 		this.uid = Tree.uid();
 		this.__last_selected = $('');
 	}
@@ -458,7 +463,7 @@ TODO:
 	}
 
 	function hdlTree(data, setting){
-		var tree = new Tree();
+		var tree = Tree();
 		tree.dom = this;
 		this.click(treeClick);
 		global_tree[tree.uid] = tree;
