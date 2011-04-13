@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, jquery-1.4.2', function(){
+				
+			});
+		});
+	</script>
+	<style type="text/css">
+		input{background-image:url('ico3.gif');background-position:5px 3px;background-attachment:fixed; }
+	</style>
+</head>
+<body style="margin:50px;">
+	<p>ff: input背景background-attachment:fixed; 和 background-repeat有冲突, <span class="red">直接使用background-attachment:fixed;</span></p>
+	<p>IE6: input可以同时使用背景background-attachment:fixed; 和 background-repeat</p>
+	<p>IE6: input背景 background-attachment:fixed; 和 background-repeat有冲突, 不使用background-repeat可考虑使用大背景图使repeat效果走出范围</p>
+	<input type="text" class="text" name="" value="" />
+</body>
+</html>
