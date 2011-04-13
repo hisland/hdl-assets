@@ -9,6 +9,7 @@
  *		confirm点击是或否应该有 returnValue
  *		需要一个机制来控制不能关闭此层 - 2010-8-19 14:5:35
  *		defaultFocus - 2010-10-12 10:33:29
+ *		显示之后,焦点不能跑到后面去 - 2011-4-6 15:33:11
  */
 
 KISSY.add('hdlTipMsg', function(S, undef) {

@@ -10,6 +10,7 @@
  * hdlReg.add('regName1', /regPattern/, '此模式说明', true); 增加正则并给出说明并使用函数返回的相反值
  * 
  * hdlReg.test('regName1', 'test-string'); 使用验证
+ * hdlReg.item('regName1').test('test-string'); 使用验证
  */
 KISSY.add('hdlReg', function(S, undef) {
 	var hdlReg = {

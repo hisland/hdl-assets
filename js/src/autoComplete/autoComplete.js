@@ -5,6 +5,9 @@
  * 时间: 2011-3-1 14:11:31
  * 版本: v2
  * 
+ * 2011-4-11 15:30:28:
+ *		数据html实体转义
+ * 
  */
 
 KISSY.add('autoComplete', function(S, undef) {
