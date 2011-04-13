@@ -2,13 +2,10 @@
  * 名称: 表单验证控件
  * 作者: hisland
  * 邮件: hisland@qq.com
- * 时间: 2011-2-18 9:15:24
- * 版本: v1
- * 
+ * 时间: 2011-4-12 17:9:55
+ * 版本: v1.1
  * 
  * 2011-4-11 14:35:14 - 多异步支持
- * 
- * 
  * 
  */
 
@@ -44,7 +41,8 @@ KISSY.add('hdlValidator', function(S, undef) {
 	2011-3-21 12:40:50考虑
 	usage:
 		data-valid-type="pattern, pattern, pattern"
-		pattern间使用[, ]分隔, 若在pattern内要使用','号(正则,selector里面可能有),请加\进行转义(\自身不需要转义),如:/,,/ ==> /\,\,/ 和 eq#id1,id2 ==> eq#id1\,id2
+		pattern间使用[, ]分隔, 若在pattern内要使用','号(正则,selector里面可能有),请加\进行转义(\自身不需要转义),
+			如:/,,/ ==> /\,\,/ 和 eq#id1,id2 ==> eq#id1\,id2
 		更多查看 demo.html
 
 	pattern:
@@ -62,10 +60,10 @@ KISSY.add('hdlValidator', function(S, undef) {
 		gtselector				对比>selector值
 		ltselector				对比<selector值
 
-	init -> fn(pattern) -> fn(value) -> refresh:
+	Validator.addValiType -> fn(pattern) -> fn(value, fn2) -> fn2(rs):
 		首先初始化一个验证方式,接受pattern来判断是否属于此方式
-		如果符合则生成一个接受value来进行验证的函数,执行此函数刷新显示数据并验证通过返回true, 否则false
-		通过valid方法来批量验证
+		如果符合则生成一个接受value来进行验证的函数,
+		执行此函数进行验证并将结果传入回调fn2
 
  */
 
@@ -671,7 +669,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 		return this.each(function(i, v){
 			var dv = $(v), fn, validator, btn_submit;
 			if(dv.is('form')){
-				//保留引用,方便控制disabled状态
+				//保留submit的引用,方便控制disabled状态
 				btn_submit = $(dv.attr('data-submit-button')).add(dv.find(':submit'));
 
 				//验证成功与否的回调, 用于修改submit的disabled状态, this被指向validator
