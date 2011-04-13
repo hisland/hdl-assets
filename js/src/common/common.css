@@ -9,7 +9,7 @@
 .text-right{text-align:right;}
 
 /* 文本框类 */
-.text{width:127px;height:13px;line-height:13px;padding:1px;border:1px solid #7f9db9;}
+input.text{width:127px;height:13px;line-height:13px;padding:1px;border:1px solid #7f9db9;}
 
 
 /* 下拉框 */
@@ -19,17 +19,17 @@
 
 
 /* 左侧无边距,其它有4px边距 */
-.checkbox, .radio{margin:3px 3px 3px 0;*margin:-1px 0 0 -4px;vertical-align:middle;}
+input.checkbox, input.radio{margin:3px 3px 3px 0;*margin:-1px 0 0 -4px;vertical-align:middle;}
 /* 和ie相同,默认有4px边距 */
-.checkbox2, .radio2{margin:3px;*margin:0;vertical-align:middle;}
+input.checkbox2, input.radio2{margin:3px;*margin:0;vertical-align:middle;}
 /* 默认没有边距 */
-.checkbox3, .radio3{margin:0;*margin:-3px;vertical-align:middle;}
+input.checkbox3, input.radio3{margin:0;*margin:-3px;vertical-align:middle;}
 
 
 /* 不同长度背景的按钮 */
-.button{width:72px;height:22px;line-height:22px;border:none;background:url('img/btn1.gif') no-repeat 0 0;cursor:pointer;}
-.button2{width:100px;height:22px;line-height:22px;border:none;background:url('img/btn2.gif') no-repeat 0 0;cursor:pointer;}
-.button3{width:150px;height:22px;line-height:22px;border:none;background:url('img/btn3.gif') no-repeat 0 0;cursor:pointer;}
+input.button{width:72px;height:22px;line-height:22px;border:none;background:url('img/btn1.gif') no-repeat 0 0;cursor:pointer;}
+input.button2{width:100px;height:22px;line-height:22px;border:none;background:url('img/btn2.gif') no-repeat 0 0;cursor:pointer;}
+input.button3{width:150px;height:22px;line-height:22px;border:none;background:url('img/btn3.gif') no-repeat 0 0;cursor:pointer;}
 
 
 .label{display:inline-block;vertical-align:middle;min-width:50px;_width:50px;margin-right:5px;}
@@ -41,4 +41,4 @@ textarea{padding:1px;border:1px solid #7f9db9;}
 .ov-auto{height:100%;overflow:auto;}
 
 
-.loading{background:url('img/loading.gif') no-repeat 50% 50%;}
+.loading{background:url('common-img/loading.gif') no-repeat 50% 50%;}
