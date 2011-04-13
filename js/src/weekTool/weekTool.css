@@ -2,18 +2,23 @@
 
 .weektool-wrap{position:absolute;width:312px;height:210px;border:1px solid #7f9db9;background:#fff;text-align:center;}
 	.weektool-wrap a:hover{text-decoration:none;color:#fe6710;}
-	.weektool-div1{float:left;width:35px;height:212px;}
-		.weektool-col1-0{display:block;height:18px;border-bottom:1px solid #B9D6E7;}
-		.weektool-col1w{height:172px;}
+
+	.weektool-legend{height:38px;}
+		.weektool-div1{float:left;width:35px;}
+			.weektool-col1-0{display:block;height:18px;border-bottom:1px solid #B9D6E7;}
+		.weektool-div2{float:left;width:130px;border-left:1px solid #B9D6E7;}
+			.weektool-col2-0{display:block;height:18px;border-bottom:1px solid #B9D6E7;}
+		.weektool-div3{float:left;width:145px;border-left:1px solid #B9D6E7;}
+			.weektool-col3-0{display:block;height:18px;border-bottom:1px solid #B9D6E7;}
+
+	.weektool-content{height:172px;overflow-x:hidden;overflow-y:scroll;}
+		.weektool-col1w{float:left;width:35px;}
 			.weektool-col1{display:block;height:18px;border-bottom:1px solid #dbeef9;}
-	.weektool-div2{float:left;width:130px;height:212px;border-left:1px solid #B9D6E7;}
-		.weektool-col2-0{display:block;height:18px;border-bottom:1px solid #B9D6E7;}
-		.weektool-col2w{height:172px;}
+		.weektool-col2w{float:left;width:130px;border-left:1px solid #B9D6E7;}
 			.weektool-col2{display:block;height:18px;border-bottom:1px solid #dbeef9;}
-	.weektool-div3{float:left;width:145px;height:212px;border-left:1px solid #B9D6E7;}
-		.weektool-col3-0{display:block;height:18px;padding-right:17px;border-bottom:1px solid #B9D6E7;}
-		.weektool-col3w{height:172px;overflow-x:hidden;overflow-y:scroll;}
+		.weektool-col3w{float:left;width:128px;border-left:1px solid #B9D6E7;}
 			.weektool-col3{display:block;height:18px;border-bottom:1px solid #dbeef9;}
+
 	.weektool-div4{display:none;position:absolute;width:120px;height:130px;border:1px solid #7f9db9;background:#fff;}
 		.weektool-div4-1{padding:2px;height:108px;}
 			.weektool-4-i{}
@@ -21,9 +26,9 @@
 			.weektool-4-p{margin-right:5px;}
 			.weektool-4-n{}
 
-		.weektool-yearp{margin-right:3px;}
-		.weektool-year{}
-		.weektool-yearn{margin-right:8px;}
-		.weektool-yeart{}
+	.weektool-yearp{margin-right:5px;}
+	.weektool-year{margin-right:3px;}
+	.weektool-yearn{margin-right:8px;}
+	.weektool-yeart{}
 
-		.weektool-selected{background:#dbeef9;}
+	.weektool-selected{background:#dbeef9;}
