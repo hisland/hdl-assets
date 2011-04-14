@@ -35,7 +35,7 @@ KISSY.add('loopFuncs', function(S, undef) {
 			funcs.push(fn_first);
 		}
 		function init(callback){
-			for(var i=0; i < funcs.length && !_stopped; i++){
+			for(var i=0; i < funcs.length; i++){
 				funcs[i]();
 			}
 			if(typeof callback === 'function'){
