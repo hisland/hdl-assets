@@ -8,7 +8,6 @@
  * 获得一个函数, 运行可执行里面的函数列表
  * 函数列表可增加,删除
  * 可自动循环执行,停止,并设置循环间隔
- * 默认自动生成了一个loopFuncs在全局上
  *
  * API:
  *	o = getLoopFuncs() 获得一个实例
@@ -100,7 +99,4 @@ KISSY.add('loopFuncs', function(S, undef) {
 	}
 
 	window.getLoopFuncs = getLoopFuncs;
-
-	//默认初始化一个
-	window.loopFuncs = getLoopFuncs();
 });
