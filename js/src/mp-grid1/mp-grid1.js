@@ -48,7 +48,7 @@
 		}else if(elm.is('strong')){
 			if(elm.attr('class') === 'mp-g1-0'){
 				elm.attr('class', 'mp-g1-1');
-			}else{
+			}else if(elm.attr('class') === 'mp-g1-1'){
 				elm.attr('class', 'mp-g1-0');
 			}
 		}
@@ -65,7 +65,7 @@
 	}
 
 	$.extend({
-		mpGrid1: function(elm, data){
+		mpGrid1: function(elm, data, fn){
 			elm = $(elm);
 			if(!elm.length){
 				alert('mpGrid1: 指定放置表格的元素不存在!');
@@ -86,17 +86,14 @@
 				b.push('<div class="mp-g1-box-rt"><table><thead><tr>');
 				$.each(data.header, function(i, v){
 					header_len++;//顺便计数
-					b.push('<th>', v, '</th>');
+					b.push('<th data-idx="', i, '">', v, '</th>');
 				});
 				b.push('</tr></thead></table></div>');
 
-				b.push('<div class="mp-g1-box-rb" style="visibility:hidden;"><table', ($.browser.msie ? '' : ' style="width:100%"'), '>');
-				$.each(data.header, function(i, v){
-					b.push('<col />');
-				});
+				b.push('<div class="mp-g1-box-rb" style="visibility:hidden;"><table>');
 				b.push('<thead>');
 				$.each(data.data, function(i, v){
-					var d = v[1];
+					var d = v[2];
 					//取header_len个数字
 					d = d.substr(0, header_len);
 					//不足位数补全,末尾加N个1
@@ -104,7 +101,7 @@
 						d += new Array(header_len-d.length+1).join(1);
 					}
 					d = d.split('');
-					b.push('<tr data-idx="', v[0], '">');
+					b.push('<tr data-idx="', v[1], '">');
 					$.each(d, function(i, v){
 						b.push('<td><strong class="mp-g1-', v, '"></strong></td>');
 					});
@@ -123,9 +120,11 @@
 			if($.browser.version == 6.0){
 				setTimeout(function(){
 					elm.mpGrid1Init();
+					$.isFunction(fn) && fn();
 				}, 10);
 			}else{
 				elm.mpGrid1Init();
+				$.isFunction(fn) && fn();
 			}
 		}
 	});
@@ -148,14 +147,11 @@
 				//水平单元格对齐
 				thead = elm.find('.mp-g1-box-rt');
 				tbody = elm.find('.mp-g1-box-rb');
+				tbody.find('table').width(thead.find('table').width());
 				ths = thead.find('th');
-				cols = tbody.find('col');
+				cols = tbody.find('tr:eq(0) td');
 				ths.each(function(i, v){
-					if($.browser.msie){
-						cols.eq(i).width(v.clientWidth);
-					}else{
-						cols.eq(i).width(v.clientWidth+1);
-					}
+					cols.eq(i).width(v.clientWidth);
 				});
 				tbody.add(ul.parent()).height(elm.height() - thead.outerHeight());
 				tbody.scroll(tableScroll).css('visibility', '');
@@ -178,7 +174,7 @@
 				v = $(v);
 				var str = v.attr('data-idx')+'-'+i+'-';
 				str += v.find('strong').map(function(i, v){
-					return v.className.match(last)[0];
+					return v.className ? v.className.match(last)[0] : '1';
 				}).get().join('');
 				data.push(str);
 			});
