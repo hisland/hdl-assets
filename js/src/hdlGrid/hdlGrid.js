@@ -17,6 +17,19 @@
  * 
  * g.div - 指向表格的最外层元素,为一个jq对象
  * 
+ * 2011-4-23 16:35:4:
+ * 		3步走:
+ * 			1.初始化一个空壳
+ * 			2.填充数据
+ * 			3.修正宽高
+ * 			3.drag位置及初始化[如果有]
+ * 
+ * 		表格生成之后可以:
+ * 			1.增加行/列
+ * 			2.修改行/列
+ * 			3.遍历行/列
+ * 			4.修改设置[grid, col, row]
+ * 
  */
 
 KISSY.add('hdlGrid', function(S, undef) {
@@ -37,48 +50,59 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 	//表格预设置,需要修改时可参考
 	var pre_setting = {
-			 page_curr: 0		//当前页
-			,page_total: 0		//总页数
-			,num_per_page: 15	//每页显示数量
+			 enable_checkbox: true		//是否启用左侧的checkbox
+			,var_checkbox: 'ckb-name'	//checkbox的name, 对应后台接收
 
-			,enable_checkbox: true	//是否启用左侧的checkbox
-			,checkbox_name: 'ckb-name'	//checkbox值的name
-			,enable_drag: true		//是否启用列拖动
-			,enable_sort: true		//是否启用列排序
-			,enable_toggle: true	//是否启用列切换显示
-			,enable_edit: true		//是否可编辑
-			,enable_col_resize: true//是否可改变列宽度
-			,enable_pager: true		//是否显示分页
+			,enable_drag: true			//是否启用列拖动
+			,enable_sort: true			//是否启用列排序
+			,enable_toggle: true		//是否启用列切换显示
+			,enable_edit: true			//是否可编辑
+			,enable_col_resize: true	//是否可改变列宽度
 
-			,url: ''				//获取数据的地址
-			,param: 'a=b&c=d'		//传递的额外参数
-			,auto_load: true		//是否自动加载
+			,enable_pop_detail: true	//是否显示弹出的详细信息
 
-			,single_check: false	//单列选中
-			,single_select: false	//单列选择
+			,min_width: 150				//最小宽度
+			,min_height: 100			//最小高度
 
-			,null_data: '--'		//空数据替代显示
-			,msg_empty: '无数据时显示的内容'	//无数据时显示的内容
+			,max_width: 1500			//最大宽度
+			,max_height: 1000			//最大高度
+
+			,enable_page: true			//是否使用分页
+			,page_curr: 0				//当前页
+			,var_page: 'page'			//page_curr的name, 对应后台接收
+			,page_total: 0				//总页数
+			,num_per_page: [15, [5, 10, 15, 20]]//[0]为每页显示数量, [1]为可选择的页数量值
+			,var_num_per_page: 'perPageNum'	//每页显示数量的name, 对应后台接收
+
+			,url: ''					//获取数据的地址
+			,param: ''					//传递的额外参数, 可为函数, 函数命名空间[暂不支持]
+			,last_param: ''				//上次请求时的参数列表, 不含var_page, var_num_per_page
+			,auto_load: true			//是否自动加载
+
+			,single_check: false		//单列选中
+			,single_select: false		//单列选择
+
+			,msg_empty: '暂无数据,根据内容填充后的大小居中显示'	//无数据时显示的内容
+			,msg_proc: '正在加载,请稍等...'	//加载时显示的内容
 
 			,row_colors: ['#fff', '#f00']		 //间隔色设置
 		};
 
 	//表头预设置,需要修改时可参考
 	var pre_col_model = {
-			 display: '列名'			//显示名称
-			,name: ''					//对应的键名
-			,width: '50'				//列宽度,数字或 百分比('50%')
-			,align: 'left'				//对齐方式
-			,align_head: 'center'		//表头对齐方式
-			,enable_sort: true			//可否排序
-			,enable_hide: true			//可否隐藏
-			//,cell_process: fn			//单元格处理
+			 display: '列名'				//显示名称
+			,name: ''						//对应的键名
+			,width: '50'					//列宽度,数字或 百分比('50%')
+			,align: 'left'					//对齐方式
+			,align_head: 'center'			//表头对齐方式
+			,enable_sort: true				//可否排序
+			,enable_hide: true				//可否隐藏
+			,col_process: function(cell){}	//列单元格处理
 		}
 
 	//行预设置,需要修改时可参考
 	var pre_row = {
-			 id: 0
-			,enable_edit: true
+			 enable_edit: true
 			,enable_delete: true
 			,enable_select: true
 		};
@@ -91,23 +115,8 @@ KISSY.add('hdlGrid', function(S, undef) {
 		}
 
 		var grid = this;
-		var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><table><thead><tr></tr></thead></table></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><tbody></tbody></table></div></div><div class="hdlgrid-pager"><span class="hdlgrid-prev hdlgrid-prev-gray"></span><span class="hdlgrid-next hdlgrid-next-gray"></span><span class="hdlgrid-first hdlgrid-first-gray"></span><span class="hdlgrid-last hdlgrid-last-gray"></span><span class="hdlgrid-sep"></span><span class="hdlgrid-text"></span><span class="hdlgrid-sum"></span></div><div class="hdlgrid-resizer"></div><div class="hdlgrid-toggle-div"></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata">暂无数据,根据内容填充后的大小居中显示</div><div class="hdlgrid-loading"></div></div>');
 
-		div.whead = div.find('div.hdlgrid-head');
-		div.wbody = div.whead.next();
-		div.pager = div.wbody.next();
-
-		div.thead = div.whead.find('thead:eq(0)');
-		div.tbody = div.wbody.find('tbody:eq(0)');
-
-		div.head = div.thead.parent();
-		div.body = div.tbody.parent();
-
-		div.mask = div.find('div.hdlgrid-mask');
-		div.nodata = div.mask.next();
-		div.loading = div.nodata.next();
-
-		this.div = div;
+		this.__initTable();
 
 		this._col = [];
 		$.each(setting.col_model, function(i, v){
@@ -122,7 +131,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 		}
 
 		this._data = [];
-		this._op_cache = [];//刷新表格时需要执行的动作,每更新一个动作加入一条,刷新后置空
+		this._refresh_cache = [];//刷新表格时需要执行的动作,每更新一个动作加入一条,刷新后置空
 
 		return this;
 	}
@@ -135,6 +144,28 @@ KISSY.add('hdlGrid', function(S, undef) {
 		//修改一列定义
 		,setCol: function(n, fn){
 			
+		}
+		//修改一列定义
+		,__initTable: function(){
+			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><table><thead><tr></tr></thead></table></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><tbody></tbody></table></div></div><div class="hdlgrid-pager"><span class="hdlgrid-prev hdlgrid-prev-gray"></span><span class="hdlgrid-next hdlgrid-next-gray"></span><span class="hdlgrid-first hdlgrid-first-gray"></span><span class="hdlgrid-last hdlgrid-last-gray"></span><span class="hdlgrid-sep"></span><span class="hdlgrid-text"></span><span class="hdlgrid-sum"></span></div><div class="hdlgrid-resizer"></div><div class="hdlgrid-toggle-div"></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
+
+			div.whead = div.find('div.hdlgrid-head');
+			div.wbody = div.whead.next();
+			div.pager = div.wbody.next();
+
+			div.thead = div.whead.find('thead:eq(0)');
+			div.tbody = div.wbody.find('tbody:eq(0)');
+
+			div.head = div.thead.parent();
+			div.body = div.tbody.parent();
+
+			div.mask = div.find('div.hdlgrid-mask');
+			div.nodata = div.mask.next();
+			div.loading = div.nodata.next();
+
+			this.div = div;
+
+			return this;
 		}
 		//交换两个索引指向的列
 		,swapCol: function(n1, n2){
@@ -181,7 +212,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 			
 		}
 		//遍历某行的单元格
-		,walkCell: function(fn){
+		,walkCell: function(row_n, fn){
 			
 		}
 		//遍历行
@@ -203,12 +234,29 @@ KISSY.add('hdlGrid', function(S, undef) {
 		}
 
 		//更新拖动条位置
-		,rePosDrag: function(){
+		,fixDragPos: function(){
 			
+		}
+		//更新宽高
+		,fixSize: function(){
+			//body有无滚动条的情况
+			//thead,tbody相互修正宽度
 		}
 
 		//刷新显示
 		,refresh: function(){
+			
+		}
+		//遮罩的显示与否
+		,loading: function(status){
+			if(status){
+				div.mask.add(div.loading).show();
+			}else{
+				div.mask.add(div.loading).hide();
+			}
+		}
+		//转到某页
+		,goPage: function(n){
 			
 		}
 		//刷新显示
@@ -252,6 +300,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 			var whead = div.whead;
 			
 			setTimeout(function(){
+				console.log(wb.clientHeight, wb.scrollHeight);
 				if(wb.clientHeight < wb.scrollHeight){
 					whead.css('padding-right', 17);
 				}
