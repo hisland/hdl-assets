@@ -6,7 +6,8 @@
  * 版本: v2
  * 
  * 2011-4-12 15:3:54:
- *		元素设置data-adjust-offset属性使对齐可以加一定的偏移
+ *		元素设置data-offset属性使对齐可以加一定的偏移
+ *		元素设置data-adjust-type属性使强制左/右/上/下对齐或者以显示完全为主要对齐(某些情况强制对齐一边浮动元素都不能显示全)
  *
  * 使用方法:
  *			$('').adjustElement(target);
@@ -20,7 +21,7 @@ KISSY.add('adjustElement', function(S, undef) {
 		var elm = this.eq(0);
 		target = $(target);
 
-		if(!target || !target.length){
+		if(!target.length){
 			alert('adjustElement: 必须有个 target');
 			return elm;
 		}
@@ -50,7 +51,7 @@ KISSY.add('adjustElement', function(S, undef) {
 		}
 
 		//有回调的回调
-		$.isFunction(target) && callback(elm);
+		$.isFunction(callback) && callback(elm);
 
 		return elm;
 	}
