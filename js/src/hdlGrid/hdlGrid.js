@@ -29,6 +29,7 @@
  * 			2.修改行/列
  * 			3.遍历行/列
  * 			4.修改设置[grid, col, row]
+ * 			5.嵌入html要注意html实体的转义,除非特殊指明使用原始数据
  * 
  */
 
@@ -92,6 +93,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 	var pre_col_model = {
 			 display: '列名'				//显示名称
 			,name: ''						//对应的键名
+			,hide: false					//显示与否
 			,width: '50'					//列宽度,数字或 百分比('50%')
 			,align: 'left'					//对齐方式
 			,align_head: 'center'			//表头对齐方式
@@ -145,7 +147,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 		,setCol: function(n, fn){
 			
 		}
-		//修改一列定义
+		//初始化table基本结构,并设置引用
 		,__initTable: function(){
 			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><table><thead><tr></tr></thead></table></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><tbody></tbody></table></div></div><div class="hdlgrid-pager"><span class="hdlgrid-prev hdlgrid-prev-gray"></span><span class="hdlgrid-next hdlgrid-next-gray"></span><span class="hdlgrid-first hdlgrid-first-gray"></span><span class="hdlgrid-last hdlgrid-last-gray"></span><span class="hdlgrid-sep"></span><span class="hdlgrid-text"></span><span class="hdlgrid-sum"></span></div><div class="hdlgrid-resizer"></div><div class="hdlgrid-toggle-div"></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
 
@@ -167,14 +169,13 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 			return this;
 		}
-		//交换两个索引指向的列
+		//交换两个索引指向的列,统一的从0开始计数
 		,swapCol: function(n1, n2){
-			
 			//n1小, n2大
-			var tmp = [n1-1, n2-1].sort();
+			var tmp = [n1, n2].sort();
 			n1 = tmp[0];
 			n2 = tmp[1];
-			tmp = n2-n1-1;//标记是否相邻
+			tmp = n2-n1-1;//标记是否相邻,相邻为0为false
 
 			var  head = this.div.thead
 				,ths = head.find('th')
@@ -233,14 +234,24 @@ KISSY.add('hdlGrid', function(S, undef) {
 			
 		}
 
+		//生成/更新拖动条
+		,makeDrag: function(){
+			
+		}
 		//更新拖动条位置
 		,fixDragPos: function(){
 			
 		}
+
 		//更新宽高
 		,fixSize: function(){
-			//body有无滚动条的情况
+			//tbody有无滚动条的情况
 			//thead,tbody相互修正宽度
+		}
+
+		//获得显示的列名称,以标准键值对返回
+		,getDisplayColNames: function(var_name){
+			var_name = var_name || 'colName';
 		}
 
 		//刷新显示
@@ -250,10 +261,14 @@ KISSY.add('hdlGrid', function(S, undef) {
 		//遮罩的显示与否
 		,loading: function(status){
 			if(status){
-				div.mask.add(div.loading).show();
+				this.div.mask.add(this.div.loading).show();
 			}else{
-				div.mask.add(div.loading).hide();
+				this.div.mask.add(this.div.loading).hide();
 			}
+		}
+		//无数据显示文本
+		,noData: function(str){
+			this.div.nodata.html(str || this.msg_empty);
 		}
 		//转到某页
 		,goPage: function(n){
@@ -263,8 +278,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 		,ajaxLoad: function(fn){
 			var grid = this;
 
-			grid.div.mask.show();
-			grid.div.loading.show();
+			grid.loading(1);
 			$.getJSON(this._setting.url, function(data){
 				var b = [];
 
@@ -281,8 +295,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 				$.isFunction(fn) && fn();
 
-				grid.div.mask.hide();
-				grid.div.loading.hide();
+				grid.loading(0);
 			});
 		}
 		//将表格放入selector的位置
