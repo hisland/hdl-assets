@@ -54,17 +54,21 @@ KISSY.add('hdlReg', function(S, undef) {
 				,'IPv4,点分十进制,共四位,每个数字不能超过255,如:192.168.0.1');
 
 	hdlReg.add('integer', /^-?\d+$/, '整数(含正负)');
-	hdlReg.add('integer_positive', /^\d+$/, '正整数');
-	hdlReg.add('integer_negative', /^-\d+$/, '负整数');
+	hdlReg.add('integer-positive', /^\d+$/, '正整数');
+	hdlReg.add('integer-negative', /^-\d+$/, '负整数');
 	hdlReg.add('decimal', /^-?\d+\.\d+$/, '小数(含正负)');
-	hdlReg.add('decimal_positive', /^\d+\.\d+$/, '正小数');
-	hdlReg.add('decimal_negative', /^-\d+\.\d+$/, '负小数');
+	hdlReg.add('decimal-positive', /^\d+\.\d+$/, '正小数');
+	hdlReg.add('decimal-negative', /^-\d+\.\d+$/, '负小数');
 	hdlReg.add('number', /^-?\d+(?:\.\d+)?$/, '数字(含正负)');
-	hdlReg.add('number_positive', /^\d+(?:\.\d+)?$/, '正数字');
-	hdlReg.add('number_negative', /^-\d+(?:\.\d+)?$/, '负数字');
+	hdlReg.add('number-positive', /^\d+(?:\.\d+)?$/, '正数字');
+	hdlReg.add('number-negative', /^-\d+(?:\.\d+)?$/, '负数字');
+
+	hdlReg.add('letter', /^[a-z]+$/i, '字母,忽略大小写');
+	hdlReg.add('letter-lower', /^[a-z]+$/, '小写字母');
+	hdlReg.add('letter-upper', /^[A-Z]+$/, '大写字母');
 
 	hdlReg.add('email', /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/, 'E-mail 地址');
 
-	hdlReg.add('color_hex', /^[0-9a-f]{6}$/i, 'HEX颜色值, 形式: 00ff00');
-	hdlReg.add('color_rgb', /^rgb\((?:25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d),\s*(?:25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d),\s*(?:25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\)$/i, 'RGB颜色值, 形式: rgb(0, 255, 0)');
+	hdlReg.add('color-hex', /^[0-9a-f]{6}$/i, 'HEX颜色值, 形式: 00ff00');
+	hdlReg.add('color-rgb', /^rgb\((?:25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d),\s*(?:25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d),\s*(?:25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\)$/i, 'RGB颜色值, 形式: rgb(0, 255, 0)');
 });
