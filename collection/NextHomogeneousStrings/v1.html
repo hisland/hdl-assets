@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="robots" content="all" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		body{font-family:"宋体",serif;font-size:75%;}
+		a img{border:none;}
+		table{border-collapse:collapse;border-spacing:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		a:hover{text-decoration:underline;}
+	</style>
+	<script type="text/javascript">
+		(function(){
+			function init(d, n, seed, k){
+				if(!(this instanceof init)){
+					return new init(d, n, seed, k);
+				}
+				this.seed = seed;
+				this.d = d;
+				this.n = n;
+				this.k = k;
+
+				this.toNum();
+			}
+			init.prototype = {
+				 checkSubStrings: function(str){
+					var n = this.n, x = 0, len = str.length, tmp;
+					while(x+n <= len){
+						tmp = str.substr(x++, n);
+						if(!this.subStringsOk(tmp)){
+							return false;
+						}
+					}
+					return true;
+				}
+				,subStringsOk: function(str){
+					var len = str.length, o = {}, i = 0, d1 = 0, d = this.d;
+					for(; i<len; i++){
+						if(!o[str[i]]){
+							o[str[i]] = 1;
+							d1++;
+						}
+						if(d1 > d){
+							return false;
+						}
+					}
+					return true;
+				}
+				,next: function(){//从自身开始
+					var  num = this.num
+						,len = num.length-1
+						,i=0 ,arr;
+					
+					for(; len>=0; len--){
+						if(num[len] <= 122){
+							break;
+						}else{
+							if(len != 0){
+								num[len-1] += 1;
+								num[len] = 97;
+							}else{
+								return null;
+							}
+						}
+					}
+
+					arr = num.map(function(v, i){
+						return String.fromCharCode(v);
+					});
+
+					num[num.length-1] += 1;
+
+					return arr.join('');
+				}
+				,getResult: function(){
+					var arr = [], str = this.next();
+					this.rs = arr;
+					while(str){
+						if(this.checkSubStrings(str)){
+							arr.push(str);
+							if(arr.length == this.k+1){
+								return str;
+							}
+						}
+						str = this.next();
+					}
+					return "空";
+				}
+				,toNum: function(){
+					var  num = []
+						,len = this.seed.length, i = 0;
+					for(; i<len; i++){
+						num.push(this.seed.charCodeAt(i));
+					}
+					this.num = num;
+				}
+			}
+
+			window.nextObj = init;
+			window.getNext = function(d, n, seed, k){
+				var len = seed.length;
+				if(n < 1 || n > 9){
+					alert('n在1-9之间!');
+					return false;
+				}
+				if(d < 1 || d > n){
+					alert('d在1-n之间!');
+					return false;
+				}
+				if(k < 0 || k > 1000000000000000000){
+					alert('k在0-1000000000000000000之间!');
+					return false;
+				}
+				if(len < 1 || len > 50){
+					alert('seed长度在1-50之间!');
+					return false;
+				}
+				if(len < n){
+					alert('seed的长度应该大于n!');
+					return false;
+				}
+				if(!/^[a-z]*$/.test(seed)){
+					alert('seed只由a-z的小写字母组成!');
+					return false;
+				}
+
+				seed = new init(d, n, seed, k);
+				return seed.getResult();
+			};
+		})();
+		var d1 = new Date;
+		var rs = getNext(2, 4, 'tarrzzzz', 6);
+		var d2 = new Date;
+		alert(rs + '---' + (d2-d1));
+
+//		var rs = getNext(2, 3, 'abc', 0);
+//		var rs = getNext(1, 2, 'aaa', 3);
+//		var rs = getNext(2, 5, 'zzzzzaa', 100);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
