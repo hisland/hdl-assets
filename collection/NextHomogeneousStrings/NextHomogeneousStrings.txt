@@ -1,0 +1,64 @@
+Problem Statement
+    	A string is homogeneous if every contiguous substring of length n contains at most d different characters. For a String seed and a long k, the k-th homogeneous string is defined as the k-th element (0-indexed) in the list of all homogeneous strings which have the same length as seed and are lexicographically greater than or equal to seed. Only strings containing all lowercase letters ('a'-'z') should be considered. Return the k-th homogeneous string. If there are less than k+1 strings in this list, return "" instead (quotes for clarity).
+ 
+Definition
+    	
+Class:	NextHomogeneousStrings
+Method:	getNext
+Parameters:	int, int, String, long
+Returns:	String
+Method signature:	String getNext(int d, int n, String seed, long k)
+(be sure your method is public)
+    
+ 
+Notes
+-	If A and B are two Strings of the same length, then A comes earlier lexicographically than B if it contains a smaller character at the first position where the Strings differ.
+ 
+Constraints
+-	n will be between 1 and 9, inclusive.
+-	d will be between 1 and n, inclusive.
+-	k will be between 0 and 1000000000000000000 (10^18), inclusive.
+-	seed will contain between 1 and 50 characters, inclusive.
+-	seed will contain at least n characters.
+-	seed will contain only lowercase letters ('a'-'z').
+ 
+Examples
+0)	
+    	
+1
+2
+"aaa"
+3
+Returns: "ddd"
+The condition n=2 and d=1 requires no two consecutive characters to be different. The only homogeneous strings in this case would be: "aaa", "bbb", "ccc", "ddd", ... , "zzz". "ddd" is the fourth one.
+1)	
+    	
+2
+3
+"abc"
+0
+Returns: "aca"
+2)	
+    	
+2
+4
+"ttrrzz"
+6
+Returns: "ttsssc"
+3)	
+    	
+6
+8
+"txyaaxaassaaaarghjsdohasdghususdidisisdodo"
+10000000000000000
+Returns: "txyaaxaassaaaarghjsgaaaaaaaaadntffiniqrddy"
+4)	
+    	
+2
+5
+"zzzzzaa"
+100
+Returns: ""
+In this case, there are 25 homogeneous strings that follow the pattern "zzzzzXX", where X is any letter different from 'z'. There are another 25 homogeneous strings that follow the pattern "zzzzzXz". Finally, there are 26 homogeneous strings that begin with "zzzzzz". In total, there are only 25+25+26 = 76 homogeneous strings that are lexicographically greater than or equal to "zzzzzaa".
+This problem statement is the exclusive and proprietary property of TopCoder, Inc. Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited. (c)2010, TopCoder, Inc. All rights reserved.
+
