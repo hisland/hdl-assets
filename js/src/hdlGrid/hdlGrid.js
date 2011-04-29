@@ -80,6 +80,8 @@ KISSY.add('hdlGrid', function(S, undef) {
 			,last_param: ''				//上次请求时的参数列表, 不含var_page, var_num_per_page
 			,auto_load: true			//是否自动加载
 
+			,single_row: true			//文本强制在一行
+
 			,single_check: false		//单列选中
 			,single_select: false		//单列选择
 
@@ -115,41 +117,42 @@ KISSY.add('hdlGrid', function(S, undef) {
 		if(!(this instanceof Grid)){
 			return new Grid(setting);
 		}
-
 		var grid = this;
 
-		this.__initTable();
+		grid._setting = S.mix(setting, pre_setting, false);//不覆盖相同的设置,只copy不存在的设置
 
-		this._col = [];
-		$.each(setting.col_model, function(i, v){
+		//文本强制在一行
+		grid.__initTable();
+		//body滚动同步head
+		grid.div.wbody.scroll(function(e){
+			grid.div.head.css('left', -this.scrollLeft);
+		});
+
+		//文本强制在一行
+		if(grid._setting.single_row){
+			grid.div.addClass('hdlgrid-nowrap');
+		}
+
+		//生成表头
+		grid._col = setting.col_model;
+		delete setting.col_model;
+		$.each(grid._col, function(i, v){
 			grid.addCol(v);
 		});
 
-		delete setting.col_model;
-		this._setting = $.extend({}, pre_setting, setting);
-
-		if(this._setting.auto_load){
-			this.ajaxLoad();
+		//异步加载数据
+		if(grid._setting.url && grid._setting.auto_load){
+			grid.ajaxLoad(function(){
+				this.fixSize();
+			});
 		}
 
-		this._data = [];
-		this._refresh_cache = [];//刷新表格时需要执行的动作,每更新一个动作加入一条,刷新后置空
-
-		return this;
+		return grid;
 	}
 	$.extend(Grid.prototype, {
-		 //添加一列定义
-		 addCol: function(col_setting){
-			this._col.push(S.mix(col_setting, pre_col_model, false));//不覆盖相同的设置,只copy不存在的设置
-			this.div.thead.find('tr').append('<th>'+ col_setting.display+'</th>');
-		}
-		//修改一列定义
-		,setCol: function(n, fn){
-			
-		}
 		//初始化table基本结构,并设置引用
-		,__initTable: function(){
-			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><table><thead><tr></tr></thead></table></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><tbody></tbody></table></div></div><div class="hdlgrid-pager"><span class="hdlgrid-prev hdlgrid-prev-gray"></span><span class="hdlgrid-next hdlgrid-next-gray"></span><span class="hdlgrid-first hdlgrid-first-gray"></span><span class="hdlgrid-last hdlgrid-last-gray"></span><span class="hdlgrid-sep"></span><span class="hdlgrid-text"></span><span class="hdlgrid-sum"></span></div><div class="hdlgrid-resizer"></div><div class="hdlgrid-toggle-div"></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
+		__initTable: function(){
+			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><tbody></tbody></table></div></div><div class="hdlgrid-pager"><span class="hdlgrid-prev hdlgrid-prev-gray"></span><span class="hdlgrid-next hdlgrid-next-gray"></span><span class="hdlgrid-first hdlgrid-first-gray"></span><span class="hdlgrid-last hdlgrid-last-gray"></span><span class="hdlgrid-sep"></span><span class="hdlgrid-text"></span><span class="hdlgrid-sum"></span></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody><tr><td><input type="checkbox" /></td><td></td></tr></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
 
 			div.whead = div.find('div.hdlgrid-head');
 			div.wbody = div.whead.next();
@@ -168,6 +171,16 @@ KISSY.add('hdlGrid', function(S, undef) {
 			this.div = div;
 
 			return this;
+		}
+
+		//添加一列定义
+		,addCol: function(col_setting){
+			S.mix(col_setting, pre_col_model, false);//不覆盖相同的设置,只copy不存在的设置
+			this.div.thead.find('tr').append('<th>'+ col_setting.display+'</th>');
+		}
+		//修改一列定义
+		,setCol: function(n, fn){
+			
 		}
 		//交换两个索引指向的列,统一的从0开始计数
 		,swapCol: function(n1, n2){
@@ -195,10 +208,11 @@ KISSY.add('hdlGrid', function(S, undef) {
 					tmp && v.find('td:eq('+n1+')').before(td2);//相邻不作此操作
 				});
 			}
+			//todo:
+			//同时修改col_model里面的位置
 
 			return this;
 		}
-
 		//添加一行数据
 		,addRow: function(row_data){
 			
@@ -209,19 +223,23 @@ KISSY.add('hdlGrid', function(S, undef) {
 		}
 
 		//遍历表头
+		//fn: this->grid, (th, idx)
 		,walkHead: function(fn){
 			
 		}
 		//遍历某行的单元格
+		//fn: this->grid, (td, idx)
 		,walkCell: function(row_n, fn){
 			
 		}
-		//遍历行
-		,walkRow: function(fn){
+		//遍历列
+		//fn: this->grid, (th, td, idx)
+		,walkCol: function(col_n, fn){
 			
 		}
-		//遍历列
-		,walkCol: function(fn){
+		//遍历行
+		//fn: this->grid, (tr, idx)
+		,walkRow: function(fn){
 			
 		}
 
@@ -245,6 +263,26 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 		//更新宽高
 		,fixSize: function(){
+			var ths = this.div.thead.find('th');
+			var tds = this.div.tbody.find('tr:eq(0)').find('td');
+
+			var w11 = 0, w22 = 0;
+			ths.each(function(i, v){
+				v = $(v);
+				var td = tds.eq(i), w1 = v.width(), w2 = td.width();
+				w11 += w1;
+				w22 += w2;
+				if(w1 > w2){
+					td.width(w1);
+				}else{
+					v.width(w2);
+				}
+			});
+				if(w11 > w22){
+					this.div.body.width(w11);
+				}else{
+					 this.div.head.width(w22);
+				}
 			//tbody有无滚动条的情况
 			//thead,tbody相互修正宽度
 		}
@@ -252,6 +290,8 @@ KISSY.add('hdlGrid', function(S, undef) {
 		//获得显示的列名称,以标准键值对返回
 		,getDisplayColNames: function(var_name){
 			var_name = var_name || 'colName';
+
+			var param = [];
 		}
 
 		//刷新显示
@@ -293,7 +333,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 				grid.div.tbody.html(b.join(''));
 				grid._data = data;
 
-				$.isFunction(fn) && fn();
+				$.isFunction(fn) && fn.call(grid);
 
 				grid.loading(0);
 			});
@@ -313,7 +353,6 @@ KISSY.add('hdlGrid', function(S, undef) {
 			var whead = div.whead;
 			
 			setTimeout(function(){
-				console.log(wb.clientHeight, wb.scrollHeight);
 				if(wb.clientHeight < wb.scrollHeight){
 					whead.css('padding-right', 17);
 				}
@@ -321,11 +360,6 @@ KISSY.add('hdlGrid', function(S, undef) {
 			return this;
 		}
 	});
-
-	//tbody滚动同步thead
-	function tbodyScroll(grid){
-		grid.thead.parent().css('left', this.scrollLeft);
-	}
 
 	$.extend({
 		hdlGrid: Grid

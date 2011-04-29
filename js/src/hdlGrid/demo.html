@@ -8,16 +8,8 @@
 		KISSY.ready(function(S){
 			S.use('reset-css, hdlGrid+css', function(){
 				var setting = {
-								url: 'interface/findSysBlackInterfaceAction.do',
-								dataType: 'json',
+								url: 'data2.js',
 								colModel: [{
-									display: '<input type="checkbox" style="_position:absolute;_top:1px;" data-flexi="flex-checkbox-all" />',
-									name: 'recordId',
-									width: 18,
-									sortable: true,
-									align: 'left'
-								},
-								{
 									display: '接口名称',
 									name: 'interName',
 									width: '12%',
@@ -29,8 +21,7 @@
 									name: 'interComType',
 									width: '25%',
 									sortable: true,
-									align: 'center',
-									process: formatType1
+									align: 'center'
 								},
 								{
 									display: '端口',
@@ -52,16 +43,14 @@
 									width: '8%',
 									sortable: true,
 									align: 'center',
-									hide: true,
-									process: formatType2
+									hide: true
 								},
 								{
 									display: '版本',
 									name: 'interVerType',
 									width: '10%',
 									sortable: true,
-									align: 'center',
-									process: formatVer
+									align: 'center'
 								},
 								{
 									display: 'IP地址',
@@ -75,8 +64,7 @@
 									name: 'active',
 									width: '6%',
 									sortable: true,
-									align: 'center',
-									process: formatStatus
+									align: 'center'
 								},
 								{
 									display: '数据库名称',
@@ -92,8 +80,7 @@
 									width: 80,
 									sortable: true,
 									align: 'center',
-									hide: true,
-									process: formatType
+									hide: true
 								},
 								{
 									display: '上传文件目录',
@@ -156,8 +143,7 @@
 									name: 'serviceType',
 									width: '18%',
 									sortable: true,
-									align: 'center',
-									process: formatType3
+									align: 'center'
 								}],
 								usepager: true,
 								perPageNum: 15,
@@ -165,8 +151,7 @@
 								width: 'auto',
 								height: 390,
 								resizable: false,
-								singleSelect: true,
-								params: $('#queryForm').serializeArray()
+								singleSelect: true
 							}
 
 				var grid = $.hdlGrid({
