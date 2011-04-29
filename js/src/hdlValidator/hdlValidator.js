@@ -56,14 +56,20 @@ KISSY.add('hdlValidator', function(S, undef) {
 		// //i //g				简单正则,复杂请使用regName
 		ajax					异步验证,此则需要设置 data-ajax-url, data-ajax-data(可选)属性
 
-		eqselector				对比==selector值
-		gtselector				对比>selector值
-		ltselector				对比<selector值
+		=selector				对比==selector值
+		>selector				对比>selector值
+		<selector				对比<selector值
 
 	Validator.addValiType -> fn(pattern) -> fn(value, fn2) -> fn2(rs):
 		首先初始化一个验证方式,接受pattern来判断是否属于此方式
 		如果符合则生成一个接受value来进行验证的函数,
 		执行此函数进行验证并将结果传入回调fn2
+	
+	TODO:
+	2011-4-15 9:4:38:
+		pattern 使用 a && (b || c) 将每个pattern等量替换执行可得结果
+		nn-m数字设置为实数
+		nn-m自定义提示,使用{from} {to}引用值
 
  */
 
@@ -266,7 +272,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 	//增加异步验证方式 - ajax - 需要指定url
 	Validator.addValiType('ajax', function(){
 		return function(name, elem){
-				var p, url, msg, req, last_val, timer = 0, post_delay = 500;
+				var p, url, data, msg, req, last_val, timer = 0, post_delay = 500;
 				if(name === 'ajax'){
 					msg = elem.attr('data-valid-msg') || '不能与服务器数据相同';
 					p = $('<p class="hdl-vali-loading">' + msg + '</p>');
@@ -278,7 +284,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 					}
 					return {
 							fn: function(value, fn){
-								var item = this, data;
+								var item = this;
 
 								//值为空不与服务器通信,并设置输入框状态
 								if(!value){
@@ -323,7 +329,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 										req = $.post(url, data, function(data){
 											if(data == 'true'){
 												p.attr('class', 'hdl-vali-ok');
-												console.log(!p.siblings('.hdl-vali-err').length);
 												if(!p.siblings('.hdl-vali-err').length){
 													item.passed = 1;
 													fn('async-true');
@@ -511,7 +516,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	//增加自定义正则验证方式 - // //i //g - 为正则字面量的写法,最好简单点,复杂的在hdlReg中增加并使用正则验证方式
 	Validator.addValiType('self-defined-reg', function(){
-		var p_reg = /^\/(.*)\/(g|i|gi|ig)?$/;
+		var p_reg = /^\/(.*)\/(gi|ig|g|i)?$/;
 		return function(pattern, elem){
 				var p, reg, match = pattern.match(p_reg);
 				if(match){
@@ -538,7 +543,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	//增加对比验证-等于 - eqselector - eq某个selector的值
 	Validator.addValiType('eq-selector', function(){
-		var p_reg = /^(eq)(.*)$/;
+		var p_reg = /^(=)(.*)$/;
 		return function(pattern){
 				var p, other, match = pattern.match(p_reg);
 				if(match){
@@ -566,7 +571,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	//增加对比验证-大于 - gtselector - gt某个selector的值
 	Validator.addValiType('gt-selector', function(){
-		var p_reg = /^(gt)(.*)$/;
+		var p_reg = /^(>)(.*)$/;
 		return function(pattern){
 				var p, other, match = pattern.match(p_reg);
 				if(match){
@@ -594,7 +599,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	//增加对比验证-小于 - ltselector - lt某个selector的值
 	Validator.addValiType('lt-selector', function(){
-		var p_reg = /^(lt)(.*)$/;
+		var p_reg = /^(<)(.*)$/;
 		return function(pattern){
 				var p, other, match = pattern.match(p_reg);
 				if(match){
