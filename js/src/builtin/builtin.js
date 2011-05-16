@@ -36,6 +36,7 @@ Object.prototype.viewJSON = function(obj,tabs){
 	str += isArr ? '\n'+tabs+']' : '\n'+tabs+'}';
 	return str;
 }
+
 /**********************************************************************************************
  * 
  * 增加日期对象方法
@@ -160,6 +161,7 @@ Object.prototype.viewJSON = function(obj,tabs){
 		return this;
 	};
 })();
+
 /**********************************************************************************************
  * 
  * 增加字符串对象方法
@@ -171,8 +173,7 @@ Object.prototype.viewJSON = function(obj,tabs){
 (function(){
 	//根据字符串获取时间,不能转换返回null
 	String.prototype.getDate = function(){
-		var val = this.replace(/-/g,'/');
-		var date = new Date(val);
+		var val = this.replace(/-/g,'/'), date = new Date(val);
 		if(date.isValid()){
 			return date;
 		}else{
@@ -254,6 +255,7 @@ Object.prototype.viewJSON = function(obj,tabs){
 		});
 	}
 })();
+
 /**********************************************************************************************
  * 
  * 增加数组对象方法
@@ -277,6 +279,7 @@ Array.prototype.unique = function(){
 	}
 	return this;
 };
+
 /**********************************************************************************************
  * 
  * 增强Math对象方法
@@ -326,6 +329,7 @@ Array.prototype.unique = function(){
 		return from + temp;
 	};
 })();
+
 /**********************************************************************************************
  * 
  * 增加数字对象方法
@@ -338,10 +342,11 @@ Array.prototype.unique = function(){
  */
 
 Number.prototype.doTimes = function(fn){
-	for(var i=0;i<this;i++){
-		fn();
+	for(var i=0; i<this; i++){
+		fn(i);
 	}
 }
+
 /**********************************************************************************************
  * 
  * 增加正则对象方法

@@ -36,3 +36,4 @@ Object.prototype.viewJSON = function(obj,tabs){
 	str += isArr ? '\n'+tabs+']' : '\n'+tabs+'}';
 	return str;
 }
+

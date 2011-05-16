@@ -10,7 +10,8 @@
  */
 
 Number.prototype.doTimes = function(fn){
-	for(var i=0;i<this;i++){
-		fn();
+	for(var i=0; i<this; i++){
+		fn(i);
 	}
 }
+

@@ -9,8 +9,7 @@
 (function(){
 	//根据字符串获取时间,不能转换返回null
 	String.prototype.getDate = function(){
-		var val = this.replace(/-/g,'/');
-		var date = new Date(val);
+		var val = this.replace(/-/g,'/'), date = new Date(val);
 		if(date.isValid()){
 			return date;
 		}else{
@@ -92,3 +91,4 @@
 		});
 	}
 })();
+
