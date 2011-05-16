@@ -9,7 +9,7 @@
 .text-right{text-align:right;}
 
 /* 文本框类 */
-input.text{width:127px;height:13px;line-height:13px;padding:1px;border:1px solid #7f9db9;}
+.text1{width:115px;height:13px;line-height:13px;padding:1px;border:1px solid #7f9db9;}
 
 
 /* 下拉框 */
@@ -27,9 +27,9 @@ input.checkbox3, input.radio3{margin:0;*margin:-3px;vertical-align:middle;}
 
 
 /* 不同长度背景的按钮 */
-input.button{width:72px;height:22px;line-height:22px;border:none;background:url('img/btn1.gif') no-repeat 0 0;cursor:pointer;}
-input.button2{width:100px;height:22px;line-height:22px;border:none;background:url('img/btn2.gif') no-repeat 0 0;cursor:pointer;}
-input.button3{width:150px;height:22px;line-height:22px;border:none;background:url('img/btn3.gif') no-repeat 0 0;cursor:pointer;}
+input.button{width:72px;height:22px;line-height:22px;border:none;background:url('common-img/btn1.gif') no-repeat 0 0;cursor:pointer;}
+input.button2{width:100px;height:22px;line-height:22px;border:none;background:url('common-img/btn2.gif') no-repeat 0 0;cursor:pointer;}
+input.button3{width:150px;height:22px;line-height:22px;border:none;background:url('common-img/btn3.gif') no-repeat 0 0;cursor:pointer;}
 
 
 .label{display:inline-block;vertical-align:middle;min-width:50px;_width:50px;margin-right:5px;}
