@@ -4,7 +4,7 @@
  * 
  */
 
-Object.prototype.viewJSON = function(obj,tabs){
+function viewJSON(obj,tabs){
 	var isArr = Object.prototype.toString.apply(obj) === '[object Array]';
 	var str = isArr ? '[' : '{';
 	var arr = [];

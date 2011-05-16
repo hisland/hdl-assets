@@ -7,104 +7,71 @@
  *
  * TODO:
  *		confirm点击是或否应该有 returnValue
- *		需要一个机制来控制不能关闭此层 - 2010-8-19 14:5:35
- *		defaultFocus - 2010-10-12 10:33:29
- *		显示之后,焦点不能跑到后面去 - 2011-4-6 15:33:11
+ *		2010-8-19 14:5:35
+ *			需要一个机制来控制不能关闭此层
+ *		2010-10-12 10:33:29
+ *			defaultFocus
+ *		2011-4-6 15:33:11
+ *			显示之后,焦点不能跑到后面去
+ *		2011-4-15 14:41:55
+ *			确定和X不能拖动
  */
 
 KISSY.add('hdlTipMsg', function(S, undef) {
 	var  $ = jQuery
 		,html_string = '<div class="tipmsg_wrap"><!--[if lte IE 6]><iframe frameborder="no" scrolling="no" style="position:absolute;width:327px;filter:alpha(opacity=0);"></iframe><![endif]--><div class="tipmsg_title_wrap"><span class="tipmsg_title"></span><a href="#" class="tipmsg_close">&nbsp;</a></div><div class="tipmsg_content_wrap"><span class="tipmsg_ico"></span><div class="tipmsg_content"></div></div><div class="tipmsg_btn_wrap"><input type="button" value="确定" /></div></div>'//生成提示框用的原始html字符串
-		,guid = 0//提示层计算器
+		,guid = 3000	//提示层计算器
+		,tabi = 0		//保存切换焦点列表
 		,pre_setting = {
-						 message:'提示信息'	//字符串 提示内容,必填
-						,type:'alert'		//字符串 提示类型,内部指定
-						,title:'提示'		//字符串 提示标题
-						,auto_hide:0		//整数   自动隐藏,为数字,0表示不自动,大于0的整数表示多少秒后隐藏
-						,callback:0			//函数   针对confirm的回调函数
-						,beforeShow:0		//函数   在层打开之前的操作
-						,onShow:0			//函数   显示层时的操作
-						,onHide:0			//函数   关闭层时的操作
-						,dragable:true		//布尔值 是否可拖动
-						,slide:false		//布尔值 是否淡入淡出
+						 message: '提示信息'	//字符串 提示内容,必填
+						,type: 'alert'			//字符串 提示类型,内部指定
+						,title: '提示'			//字符串 提示标题
+						,auto_hide: 0			//整数   自动隐藏,为数字,0表示不自动,大于0的整数表示多少秒后隐藏
+						,callback: 0			//函数   针对confirm的回调函数
+						,beforeShow: 0			//函数   在层打开之前的操作
+						,onShow: 0				//函数   显示层时的操作
+						,beforeHide: 0			//函数   在层关闭之前的操作
+						,onHide: 0				//函数   关闭层时的操作
+						,dragable: 1			//布尔值 是否可拖动
+						,slide: 0				//布尔值 是否淡入淡出
 					};
-	
-	/* 内部功能函数 - 关闭 */
+
+	//提示打开时,不能用tab把焦点切换到遮罩后面, 仅在提示层上循环切换
+	function documentKeydown(e){
+		if(e.keyCode == 9){
+			tabs.eq(tabi++).focus();
+			if(tabi >= tabs.length){
+				tabi = 0;
+			}
+			return false;
+		}
+	}
+
+	//内部功能函数 - 关闭
 	function close(div, setting){
-		if(typeof setting.onHide == 'function'){
-			setting.onHide(div);
+		
+		//关闭之前的操作
+		if(S.isFunction(setting.onHide)){
+			setting.beforeHide(div);
 		}
 
-		if(setting.slide === true){
+		//消失,删除,并取消注册的事件
+		if(setting.slide){
 			div.fadeOut(function(){
 				div.remove();
+				setting.onHide(div);
 			});
 		}else{
 			div.remove();
+			setting.onHide(div);
+		}
+
+		if(guid == 3000){
+			$(document).unbind('keydown', documentKeydown);
 		}
 
 		guid--;
 		return false;
-	}
-
-	/* 内部功能函数 - z-index计数器 */
-	zid = (function zid(base){
-			return function(){
-				return ++base;
-			};
-		})(3000);
-
-	//构造函数
-	function tipmsg(setting){
-		//设置默认属性, 并用参数属性覆盖
-		$.extend(this, {
-						 message:'提示信息'	//字符串 提示内容,必填
-						,type:'alert'		//字符串 提示类型,内部指定
-						,title:'提示'		//字符串 提示标题
-						,auto_hide:0		//整数   自动隐藏,为数字,0表示不自动,大于0的整数表示多少秒后隐藏
-						,dragable:true		//布尔值 是否可拖动
-						,slide:false		//布尔值 是否淡入淡出
-						,__callback:[]		//函数列表   针对confirm的回调函数
-						,__beforeShow:[]	//函数列表   在层打开之前的操作
-						,__show:[]		//函数列表   显示层时的操作
-						,__hide:[]		//函数列表   关闭层时的操作
-					}, setting);
-		//保存原始dom
-		this.jqdom = $(tipmsg.html_string);
-	}
-	tipmsg.html_string = '<div class="tipmsg_wrap"><!--[if lte IE 6]><iframe frameborder="no" scrolling="no" style="position:absolute;width:327px;filter:alpha(opacity=0);"></iframe><![endif]--><div class="tipmsg_title_wrap"><span class="tipmsg_title"></span><a href="#" class="tipmsg_close">&nbsp;</a></div><div class="tipmsg_content_wrap"><span class="tipmsg_ico"></span><div class="tipmsg_content"></div></div><div class="tipmsg_btn_wrap"><input type="button" value="确定" /></div></div>',//生成提示框用的原始html字符串
-	tipmsg.prototype = {
-		 close: function(){
-			
-		}
-		,bind: function(type, func){
-			type = this['__'+type];
-			for(var i=0;i<type.length;i++){
-				if(type[i] === func){
-					alert('以下函数已存在,不用重复注册:\n' + func);
-					return false;
-				}
-			}
-			type.push(func);
-		}
-		,unbind: function(type, func){
-			type = this['__'+type];
-			for(var i=0;i<type.length;i++){
-				if(type[i] === func){
-					type.splice(i, 1);
-					break;
-				}
-			}
-		}
-		,trigger: function(type){
-			type = this['__'+type];
-			for(var i=0;i<type.length;i++){
-				type[i]();
-			}
-		}
-	}
-	init.prototype.close = function (){
-		
 	}
 
 	/* 内部功能函数 - 初始化 */
@@ -114,15 +81,16 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		/* 设置标题 */
 		div.find('span.tipmsg_title').html(setting.title);
 		/* 确定和关闭按钮注册关闭事件 */
-		div.find('a.tipmsg_close,input').click(function(){
+		div.find('a.tipmsg_close, input').click(function(){
 			return close(div, setting);
 		});
+
 		//判断提示类型,并设置图标,如果为confirm还要做特殊处理
 		switch(setting.type){
 			case 'alert':
 				div.find('span.tipmsg_ico').addClass('tipmsg_ico1');
 				break;
-			case 'error':
+			case 'errorTip':
 				div.find('span.tipmsg_ico').addClass('tipmsg_ico2');
 				break;
 			case 'notice':
@@ -147,16 +115,19 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		//添加到dom中
 		div.css('visibility','hidden');
 		$('body').append(div);
-		div.find('iframe').height(div.height());
+
+		tabi = 0;
+		tabs = div.find('.tipmsg_close').add(div.find('.tipmsg_btn_wrap input'));
+		$(document).keydown(documentKeydown);
 
 		//设置位置
 		div.css({
 					top :document.documentElement.scrollTop + (document.documentElement.clientHeight-div.height()-30)/2,
 					left:document.documentElement.scrollLeft + (document.documentElement.clientWidth - div.width())/2,
-					'z-index':zid()
+					'z-index': guid++
 				})
 			.mousedown(function(){
-				this.style.zIndex = zid();
+				this.style.zIndex = guid++;
 			});
 
 		//如果有显示之前的操作
@@ -213,13 +184,13 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 	}
 
 	//错误
-	function error(str, title){
+	function errorTip(str, title){
 		var setting = {};
 		if(typeof str === 'object'){
-			$.extend(true, setting, pre_setting, str, {type:'error'});
+			$.extend(true, setting, pre_setting, str, {type:'errorTip'});
 		}else{
 			title = title || '错误';
-			$.extend(true, setting, pre_setting, {type:'error', title:title, message:str});
+			$.extend(true, setting, pre_setting, {type:'errorTip', title:title, message:str});
 		}
 		return init(setting);
 	}
@@ -256,7 +227,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 
 	$.extend({
 		alert   : alert,
-		errorTip   : error,
+		errorTip   : errorTip,
 		notice  : notice,
 		confirm : confirm
 	});
