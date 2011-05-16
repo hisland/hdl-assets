@@ -5,39 +5,31 @@
  * 时间: 2011-4-12 17:9:55
  * 版本: v1.1
  * 
- * 2011-4-11 14:35:14 - 多异步支持
- * 
  */
 
-KISSY.add('hdlValidator', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,ipt_now = EMPTY_$
-		,div_pop = EMPTY_$
-		,validator;
+/*
+	代码正文
 
-/**********************************************************************************************
- * 代码正文
- *
- * 触发事件:
- * 		focus	显示验证信息
- * 		keydown	控制输入
- * 		keyup	更正内容
- * 		change	检测
- * 属性:
- * 		maxlength	最大长度
- * 		minlength	最小长度
- * 		min/max		最小/最大值 - 表示此只能输入数字 同时指定一个step属性,否则默认增量为1
- * 		step		值的递增步长
- * 		pattern		输入内容需要匹配的模式
- * 		required	此项必填
- * 验证情况:
- * 		valiFunc	函数验证
- * 		valiReg		正则验证
- * 		valiNormal	一般验证
- * 自定义事件:
- * 		textChange	函数
+	触发事件:
+			focus	显示验证信息
+			keydown	控制输入
+			keyup	更正内容
+			change	检测
+	属性:
+			maxlength	最大长度
+			minlength	最小长度
+			min/max		最小/最大值 - 表示此只能输入数字 同时指定一个step属性,否则默认增量为1
+			step		值的递增步长
+			pattern		输入内容需要匹配的模式
+			required	此项必填
+	验证情况:
+			valiFunc	函数验证
+			valiReg		正则验证
+			valiNormal	一般验证
+	自定义事件:
+			textChange	函数
 
+	TODO:
 	2011-3-21 12:40:50考虑
 	usage:
 		data-valid-type="pattern, pattern, pattern"
@@ -57,6 +49,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 		ajax					异步验证,此则需要设置 data-ajax-url, data-ajax-data(可选)属性
 
 		=selector				对比==selector值
+		!=selector				对比!=selector值
 		>selector				对比>selector值
 		<selector				对比<selector值
 
@@ -64,14 +57,30 @@ KISSY.add('hdlValidator', function(S, undef) {
 		首先初始化一个验证方式,接受pattern来判断是否属于此方式
 		如果符合则生成一个接受value来进行验证的函数,
 		执行此函数进行验证并将结果传入回调fn2
-	
-	TODO:
+
+	2011-4-11 14:35:14:
+		多异步支持
+
 	2011-4-15 9:4:38:
-		pattern 使用 a && (b || c) 将每个pattern等量替换执行可得结果
+		pattern 使用 a && (b || c) 将每个pattern等量替换执行可得结果, 此设置为属性, 将对应abc的值算出来再代入此计算,简化设计
 		nn-m数字设置为实数
 		nn-m自定义提示,使用{from} {to}引用值
 
+	2011-5-5 10:50:43:
+		完成触发input的change事件
+
+	2011-5-14 16:54:0:
+		滚动的时候消失
+		属性指定不显示提示层
+		全局控制不显示提示层
  */
+
+KISSY.add('hdlValidator', function(S, undef) {
+	var  $ = jQuery
+		,EMPTY_$ = $('')
+		,ipt_now = EMPTY_$
+		,div_pop = EMPTY_$
+		,validator;
 
 	//将由逗号分隔的pattern进行分割,并判断'\'转义
 	function splitPattern(str){
@@ -493,17 +502,17 @@ KISSY.add('hdlValidator', function(S, undef) {
 				if(match){
 					from = match[2]-0;
 					to = match[3]-0;
-					p = $('<p class="hdl-vali-err">数字,长度在' + from + '-' + to + '之间,现在长度[0]</p>');
+					p = $('<p class="hdl-vali-err">数字,大小在[' + from + '-' + to + ']之间</p>');
 					div_pop.append(p);
 					return {
 							fn: function(value, fn){
 								value -= 0;
 								if(!isNaN(value) && value >= from && value <= to){
-									p.attr('class', 'hdl-vali-ok').html('数字,大小在' + from + '-' + to + '之间');
+									p.attr('class', 'hdl-vali-ok');
 									this.passed = 1;
 									fn(true);
 								}else{
-									p.attr('class', 'hdl-vali-err').html('数字,大小在' + from + '-' + to + '之间');
+									p.attr('class', 'hdl-vali-err');
 									this.passed = 0;
 									fn(false);
 								}
@@ -632,23 +641,29 @@ KISSY.add('hdlValidator', function(S, undef) {
 			div_pop = $('<div class="hdl-vali-wrap"></div>');
 			div_pop.appendTo('body');
 		}
-		if(ipt_now[0] != this){
-			ipt_now = $(this);
-			div_pop.empty();
-			$.each(this.items, function(i, v){
-				div_pop.append(v.p);
-			});
-		}
+		ipt_now = $(this);
+		$.each(this.items, function(i, v){
+			div_pop.append(v.p);
+		});
 		popShow();
+	}
+	function iptBlur(e){
+		div_pop.empty();
+		popHide();
 	}
 	function iptKeyUp(e){
 		var ipt = $(this);
 		this.validator.valid(this);
 	}
+
+	//需要控制submit事件是因为在text里面回车会触发submit事件
 	function formSubmit(e){
 		if(!this.validator.allPassed()){
 			S.log('not all passed!');
 			return false;
+		}else{
+			//传递e对象,要阻止默认动作只能通过e.preventDefault()而不能采取return false;
+			this.validator.beforeSubmit.call(this, e);
 		}
 	}
 
@@ -660,15 +675,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 		div_pop.hide();
 	}
 
-	//全局隐藏操作
-	function documentClick(e){
-		//不在此范围内做隐藏操作
-		if(!$(e.target).closest('.hdl-vali-wrap, input[data-valid-type], textarea[data-valid-type]').length){
-			popHide();
-		}
-	}
-	$(document).click(documentClick);
-
 	//给form注册验证
 	function hdlValidator(callback){
 		return this.each(function(i, v){
@@ -677,12 +683,19 @@ KISSY.add('hdlValidator', function(S, undef) {
 				//保留submit的引用,方便控制disabled状态
 				btn_submit = $(dv.attr('data-submit-button')).add(dv.find(':submit'));
 
+				//代提交按钮点击需要触发form的submit事件
+				$(dv.attr('data-submit-button')).click(function(){
+					dv.submit();
+				});
+
 				//验证成功与否的回调, 用于修改submit的disabled状态, this被指向validator
 				fn = function(rs){
 					if(rs && this.allPassed()){
 						btn_submit.attr('disabled', false);
+						S.isFunction(callback) && callback(false);
 					}else{
 						btn_submit.attr('disabled', true);
+						S.isFunction(callback) && callback(true);
 					}
 				}
 
@@ -704,7 +717,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 						//ctrl+v ie在keyup中判断,ff在paste中判断
 						//右键菜单粘贴 都在paste中判断
 						//paste 与 keyup处理一样,使用同一个函数
-						v.focus(iptFocus).keyup(iptKeyUp).bind('paste',iptKeyUp);
+						v.focus(iptFocus).blur(iptBlur).keyup(iptKeyUp).bind('paste',iptKeyUp);
 					}
 				});
 
@@ -738,12 +751,19 @@ KISSY.add('hdlValidator', function(S, undef) {
 			}
 		});
 	}
+	//提交前操作
+	function addBeforeSubmit(fn){
+		return this.each(function(i, v){
+			this.validator.beforeSubmit = fn;
+		});
+	}
 
 	//放到jq原型链上
 	$.fn.extend({
 		 hdlValidator: hdlValidator
 		,addValiType: addValiType
 		,removeValiType: removeValiType
+		,addBeforeSubmit: addBeforeSubmit
 	});
 }, {
 	requires: ['jquery-1.4.2', 'adjustElement', 'hdlReg', 'hdlTest']
