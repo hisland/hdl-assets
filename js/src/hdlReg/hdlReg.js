@@ -69,6 +69,11 @@ KISSY.add('hdlReg', function(S, undef) {
 
 	hdlReg.add('email', /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/, 'E-mail 地址');
 
+	hdlReg.add('is-visible-ascii', /^[\x21-\x7e]*$/, '只能是可见的ascii字符');
+	hdlReg.add('must', /^.+$/, '此项必填');
+	hdlReg.add('username', /^\w*$/, '数字、字母(含大小写)或下划线');
+	hdlReg.add('lang-zh', /^[\u4E00-\u9FA5\uF900-\uFA2D]*$/, '仅限中文');
+
 	hdlReg.add('color-hex', /^[0-9a-f]{6}$/i, 'HEX颜色值, 形式: 00ff00');
 	hdlReg.add('color-rgb', /^rgb\((?:25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d),\s*(?:25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d),\s*(?:25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\)$/i, 'RGB颜色值, 形式: rgb(0, 255, 0)');
 });
