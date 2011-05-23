@@ -9,7 +9,8 @@
  *
  */
 KISSY.add('scrollBarWidth', function(S, undef) {
-	var div = $('<div style="visibility:hidden;position:absolute;overflow:scroll;width:50px;"></div>');
+	var  $ = jQuery
+		,div = $('<div style="visibility:hidden;position:absolute;overflow:scroll;width:50px;"></div>');
 	div.appendTo('body');
 	window.SCROLL_BAR_WIDTH = 50 - div[0].clientWidth;
 	div.remove();
