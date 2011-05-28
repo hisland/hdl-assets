@@ -42,3 +42,4 @@ textarea{padding:1px;border:1px solid #7f9db9;}
 
 
 .loading{background:url('common-img/loading.gif') no-repeat 50% 50%;}
+.icon-add{display:inline-block;width:16px;height:16px;background:url('common-img/icon+.gif') no-repeat 0 0;}

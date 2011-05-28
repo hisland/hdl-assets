@@ -1,5 +1,5 @@
 /**********************************************************************************************
- * 名称: 菜单,取自demo
+ * 名称: 菜单
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: 2011-3-22 12:54:1
@@ -11,10 +11,9 @@ KISSY.add('menu', function(S, undef) {
 	var  $ = jQuery
 		,EMPTY_$ = $('')
 		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent)
-		,menu_ul
-		,menu_wrap
-		,view_wrap
-		,timer_handle
+		,menu_ul, menu_wrap, view_wrap
+		,timer_handle, show_delay = 300, default_width = 170
+		,welcome_page = 'welcome.jsp'
 		,in_menu = false;
 
 	//菜单内部点击代理
@@ -22,19 +21,17 @@ KISSY.add('menu', function(S, undef) {
 		var elm = $(e.target), href, str;
 		//点击链接
 		if(elm.is('a')){
-			beforeLoad();
 			href = e.target.href.match(/.*#(.*)/);
 			href = href ? href[1] : false;
 			if(href){
-				$('#mod-wrap').load(href, function(){
-					str = elm.parents('ul', this).prev().find('span').add(elm).map(function(i, v){
+				menu_ul.find('a.hover').removeClass('hover');
+				elm.addClass('hover');
+				$.loadURL(href, function(){
+					str = elm.parents('ul', menu_wrap).prev().find('span').add(elm).map(function(i, v){
 								return this.innerHTML;
 							}).get().join(' &gt; ');
 					$('#u-are-here').html('您当前所在位置：' + str);
-					afterLoad();
 				});
-				$(this).find('a.hover').removeClass('hover');
-				elm.addClass('hover');
 			}else{
 				alert('此页面正在建设中……');
 				e.preventDefault();
@@ -50,7 +47,7 @@ KISSY.add('menu', function(S, undef) {
 							fixMenuWidth();
 						});
 				}else{
-					$('#menu').find('div.menu-lv1-opened').removeClass('menu-lv1-opened')
+					menu_ul.find('div.menu-lv1-opened').removeClass('menu-lv1-opened')
 						.next().slideUp('fast');
 					elm.parent().addClass('menu-lv1-opened')
 						.next().slideDown('fast', fixMenuWidth);
@@ -73,17 +70,17 @@ KISSY.add('menu', function(S, undef) {
 		in_menu = true;
 		timer_handle = setTimeout(function(){
 			fixMenuWidth();
-		}, 300);
+		}, show_delay);
 		if(ie6){
-			menu_wrap.width('auto');
+			menu_wrap.width('');
 		}
 	}
 	function outerOut(e){
 		in_menu = false;
 		clearTimeout(timer_handle);
-		$(this).width(150);
+		view_wrap.width(default_width);
 		if(ie6){
-			menu_wrap.width(148);
+			menu_wrap.width(default_width);
 		}
 	}
 
@@ -93,21 +90,22 @@ KISSY.add('menu', function(S, undef) {
 			return false;
 		}
 		var  wrap = menu_wrap[0]
-			,h = wrap.scrollHeight>wrap.clientHeight ? 19 : 2
-			,wrap2 = view_wrap.parent();
-		wrap2.width(150);
-		if(wrap.scrollWidth > wrap.clientWidth){
-			wrap2.width(wrap.scrollWidth + h + 5);
+			,h = wrap.scrollHeight>wrap.clientHeight ? 17 : 0
+			,w;
+
+		view_wrap.width(default_width);
+		w = wrap.scrollWidth;
+		if(w > default_width){
+			view_wrap.width(w + h + 5);
 		}else{
-			wrap2.width(wrap.clientWidth + h);
+			view_wrap.width(w + h);
 		}
 	}
 
 	//生成菜单html
 	function makeMenu(tree){
 		var b = [];
-		b.push('<div class="menu"><div class="menu-head"><span class="menu-head-in">导航菜单</span></div>');
-		b.push('<div class="menu-wrap"><ul class="menu-ul">');
+		b.push('<ul class="menu-ul">');
 		$.each(tree[0].children, function(i, v){
 			i += 2;
 			b.push('<li>');
@@ -116,7 +114,7 @@ KISSY.add('menu', function(S, undef) {
 			b.push('</ul>');
 			b.push('</li>');
 		});
-		b.push('</ul></div></div>');
+		b.push('</ul>');
 		return b.join('');
 	}
 	//用于递归生成2级以下目录
@@ -128,7 +126,7 @@ KISSY.add('menu', function(S, undef) {
 				makeSubMenu(b, v.children);
 				b.push('</ul>');
 			}else{
-				b.push('<div class="menu-lv2"><a class="" href="', v.url, '">', v.text, '</a></div>');
+				b.push('<div class="menu-lv2"><a id="', v.id, '" href="', v.url, '" rightsPrex="', v.prefix, '">', v.text, '</a></div>');
 			}
 			b.push('</li>');
 		});
@@ -136,39 +134,49 @@ KISSY.add('menu', function(S, undef) {
 
 	//获取菜单数据
 	function getMenu(selector, url, callback){
-		$.get(url, function(rs){
+		$.post(url, 'rights='+$('#rights').val(), function(rs){
 			try{
 				var tree = eval("(" + rs + ")");
-				view_wrap = $(makeMenu(tree));
-				menu_ul = view_wrap.find('>div>ul');
+				menu_ul = $(makeMenu(tree));
+				$(selector).empty().append(menu_ul);
+
 				menu_wrap = menu_ul.parent();
+				view_wrap = menu_wrap.parent();
+
+				view_wrap.width(default_width);
+				view_wrap.next().css('margin-left', default_width+8);
 
 				menu_ul.click(menuClick);
-				$(selector).append(view_wrap).hover(outerIn, outerOut);
+				view_wrap.hover(outerIn, outerOut);
 
-				//ie6下修正menu展开的宽度
-				if(ie6){
-					menu_wrap.width(148);
+				//载入上次页面或者欢迎页面
+				var hash = location.hash, a = $('');
+				if(hash){
+					a = menu_ul.find('a[href='+hash+']');
+					a.length ? 0 : a = menu_ul.find('a[href='+location.href+']');//ie动态载入的代码会自动补全url
+				}
+				if(a.length > 1){
+					alert('有2个菜单相同,请用firebug查看控制台输出');
+					a = a.eq(0);
+				}
+
+				if(a.length){
+					a.parents('ul', menu_wrap).show()
+						.filter('.menu-lv1-wrap').prev().addClass('menu-lv1-opened')
+						.end().end().filter('.menu-lv2-wrap').prev().addClass('menu-lv2-opened');
+					a.click();
+				}else{
+					$.loadURL(welcome_page);
 				}
 
 				//做完动作后回调
 				$.isFunction(callback) && callback();
 			}catch(e){
-				alert('获取菜单出错:\n信息前300字符:\n' + rs.substr(300));
+				alert(e.message + '\n获取菜单出错:\n信息前300字符:\n' + rs.substr(0, 300));
 			}
 		});
 	}
 
-	//初始化函数
-	function initMenu(){
-		
-		//做完动作后回调
-		$.isFunction(callback) && callback();
-	}
-
-	$.fn.extend({
-		 initMenu: initMenu
-	});
 	$.extend({
 		getMenu: getMenu
 	});
