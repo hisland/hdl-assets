@@ -6,14 +6,18 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, popWin+css', function(){
-				window.p = $.popWin.init();
-				p.show();
+			S.use('reset-css, popManager+css', function(){
+				window.p = $.popManager.init();
+				p.div.appendTo('body');
+				p.mask();
+				if(confirm('ШЅГ§екеж?')){
+					p.mask(false);
+				}
+				alert($('body').html());
 			});
 		});
 	</script>
 </head>
-
 <body>
 </body>
 </html>
