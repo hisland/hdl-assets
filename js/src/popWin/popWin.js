@@ -29,7 +29,7 @@ KISSY.add('popWin', function(S, undef) {
 		return new init();
 	}
 	popWin.clean = function(){
-		popManager.clean();
+		$.popManager.clean();
 	}
 
 	function init(){
@@ -57,12 +57,10 @@ KISSY.add('popWin', function(S, undef) {
 		self.close.add(self.btn_cancle).click(function(e){
 			self.hide();
 			e.preventDefault();
-		}).mousedown(function(e){
-			e.stopPropagation();
-		});
+		})
 
-		//内容块不能拖动
-		self.content.mousedown(function(e){
+		//设置不能拖动的内容
+		self.content.add(self.close).add(self.btn_ok).add(self.btn_cancle).mousedown(function(e){
 			e.stopPropagation();
 		});
 	}
