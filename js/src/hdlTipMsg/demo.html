@@ -6,7 +6,9 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, hdlTipMsg+css');
+			S.use('reset-css, hdlTipMsg+css', function(){
+				$.alert(3)
+			});
 		});
 	</script>
 </head>
