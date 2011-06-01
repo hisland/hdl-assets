@@ -48,7 +48,7 @@ KISSY.add('popWin', function(S, undef) {
 		self.btn_cancle = div.find('input.win1-btn-cancle');
 		self.close_able = true;
 
-		self.manager = $.popManager.init().mask();
+		self.manager = $.popManager.init();
 		self.manager.div.append(div).appendTo('body');
 		self.div.width(400);
 		self.div.hdlDrag();

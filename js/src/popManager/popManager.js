@@ -47,6 +47,7 @@ KISSY.add('popManager', function(S, undef) {
 
 	function init(){
 		this.div = $(html_string);
+		this.mask();
 		m.divs = m.divs.add(this.div);
 	}
 	$.extend(init.prototype, {
@@ -68,11 +69,15 @@ KISSY.add('popManager', function(S, undef) {
 				}else{
 					this.div.css('background-color', '');
 				}
+				this.__mask = 0;
 			}else{
-				if($.browser.msie){
+				if(this.__mask){
+				}else if($.browser.msie){
 					this.div.prepend(mask_string);
+					this.__mask = 1;
 				}else{
 					this.div.css('background-color', 'rgba(0, 0, 0, 0.2)');
+					this.__mask = 1;
 				}
 			}
 			return this;
