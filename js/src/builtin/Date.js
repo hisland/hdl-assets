@@ -40,14 +40,14 @@
 	Date.prototype.dateString = function(value){
 		if(value){
 			value += '';
-			var arr = value.match(/\d{4}([-\/])\d{1,2}\1\d{1,2}/);
+			var arr = value.match(/(\d{4})([-\/])(\d{1,2})\2(\d{1,2})/);
 			if(!arr){
 				alert('Date.prototype.dateString: 出错,请确保参数格式为 2010-09-01 或 2010/09/01 前置0可省略');
 				throw 'Date.prototype.dateString: 出错,请确保参数格式为 2010-09-01 或 2010/09/01 前置0可省略';
 			}
 			this.setFullYear(arr[1]);
-			this.setMonth(arr[2]-1);
-			this.setDate(arr[3]);
+			this.setMonth(arr[3]-1);
+			this.setDate(arr[4]);
 			return this;
 		}else{
 			var  y = this.getFullYear()
@@ -59,7 +59,7 @@
 	Date.prototype.timeString = function(value){
 		if(value){
 			value += '';
-			var arr = value.match(/\d{1,2}:\d{1,2}:\d{1,2}/);
+			var arr = value.match(/(\d{1,2}):(\d{1,2}):(\d{1,2})/);
 			if(!arr){
 				alert('Date.prototype.timeString: 出错,请确保参数格式为 09:05:02 前置0可省略');
 				throw 'Date.prototype.timeString: 出错,请确保参数格式为 09:05:02 前置0可省略';

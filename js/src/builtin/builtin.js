@@ -4,7 +4,7 @@
  * 
  */
 
-Object.prototype.viewJSON = function(obj,tabs){
+function viewJSON(obj,tabs){
 	var isArr = Object.prototype.toString.apply(obj) === '[object Array]';
 	var str = isArr ? '[' : '{';
 	var arr = [];
@@ -79,14 +79,14 @@ Object.prototype.viewJSON = function(obj,tabs){
 	Date.prototype.dateString = function(value){
 		if(value){
 			value += '';
-			var arr = value.match(/\d{4}([-\/])\d{1,2}\1\d{1,2}/);
+			var arr = value.match(/(\d{4})([-\/])(\d{1,2})\2(\d{1,2})/);
 			if(!arr){
 				alert('Date.prototype.dateString: 出错,请确保参数格式为 2010-09-01 或 2010/09/01 前置0可省略');
 				throw 'Date.prototype.dateString: 出错,请确保参数格式为 2010-09-01 或 2010/09/01 前置0可省略';
 			}
 			this.setFullYear(arr[1]);
-			this.setMonth(arr[2]-1);
-			this.setDate(arr[3]);
+			this.setMonth(arr[3]-1);
+			this.setDate(arr[4]);
 			return this;
 		}else{
 			var  y = this.getFullYear()
@@ -98,7 +98,7 @@ Object.prototype.viewJSON = function(obj,tabs){
 	Date.prototype.timeString = function(value){
 		if(value){
 			value += '';
-			var arr = value.match(/\d{1,2}:\d{1,2}:\d{1,2}/);
+			var arr = value.match(/(\d{1,2}):(\d{1,2}):(\d{1,2})/);
 			if(!arr){
 				alert('Date.prototype.timeString: 出错,请确保参数格式为 09:05:02 前置0可省略');
 				throw 'Date.prototype.timeString: 出错,请确保参数格式为 09:05:02 前置0可省略';
@@ -183,33 +183,6 @@ Object.prototype.viewJSON = function(obj,tabs){
 
 	//否可以返回正确时间
 	String.prototype.isValidDate = function(){return this.getDate() === null ? false : true};
-
-	//从字符串获取日期
-	String.prototype.dateString = function(){
-		if(this.isValidDate()){
-			return this.getDate().dateString();
-		}else{
-			return null;
-		}
-	};
-
-	//从字符串获取时间
-	String.prototype.timeString = function(){
-		if(this.isValidDate()){
-			return this.getDate().timeString();
-		}else{
-			return null;
-		}
-	};
-
-	//从字符串获取日期时间
-	String.prototype.dateTimeString = function(){
-		if(this.isValidDate()){
-			return this.getDate().dateTimeString();
-		}else{
-			return null;
-		}
-	};
 
 	//把 !'()*-._~ 这些不会编码的一起使用%XXX的形式编码
 	String.prototype.encodeAll = function(){
