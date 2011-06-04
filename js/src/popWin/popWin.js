@@ -21,7 +21,7 @@
 KISSY.add('popWin', function(S, undef) {
 	var  $ = jQuery
 		,EMPTY_$ = $('')
-		,html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title"></span><a class="win1-close" href="#"></a></div><div class="win1-content"></div><div class="win1-btns"><input class="win1-btn-ok" type="button" value="确定" /><input class="win1-btn-cancle" type="button" value="取消" /></div></div>'
+		,html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title">title</span><a class="win1-close" href="#"></a></div><div class="win1-content-wrap"><div class="win1-content"></div></div></div>'
 		,popWin = {};
 	
 	popWin.divs = EMPTY_$;
@@ -44,8 +44,6 @@ KISSY.add('popWin', function(S, undef) {
 		self.close = div.find('a.win1-close');
 		self.title = div.find('span.win1-title');
 		self.content = div.find('div.win1-content');
-		self.btn_ok = div.find('input.win1-btn-ok');
-		self.btn_cancle = div.find('input.win1-btn-cancle');
 		self.close_able = true;
 
 		self.manager = $.popManager.init();
@@ -54,13 +52,19 @@ KISSY.add('popWin', function(S, undef) {
 		self.div.hdlDrag();
 
 		//设置关闭按钮
-		self.close.add(self.btn_cancle).click(function(e){
+		self.close.click(function(e){
 			self.hide();
 			e.preventDefault();
-		})
+		});
+		//设置关闭按钮
+		self.div.click(function(e){
+			if($(e.target).is('.win1-btn-cancle')){
+				self.hide();
+			}
+		});
 
-		//设置不能拖动的内容
-		self.content.add(self.close).add(self.btn_ok).add(self.btn_cancle).mousedown(function(e){
+		//设置不能拖动的地方
+		self.content.add(self.close).mousedown(function(e){
 			e.stopPropagation();
 		});
 	}

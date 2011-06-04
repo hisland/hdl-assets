@@ -5,7 +5,8 @@
 		.win1-close{position:absolute;top:5px;right:5px;background:url('popWin-img/x.gif') no-repeat 0 0;width:13px;height:13px;overflow:hidden;}
 		.win1-close:hover{background-position: 0px -20px;text-decoration:none;}
 
-	.win1-content{border-top:1px solid #92b1dc;margin:1px -1px 0;padding:10px 3px 3px;cursor:default;}
-	
-	.win1-btns{text-align:right;padding:5px 20px 5px;}
+	.win1-content-wrap{border-top:1px solid #92b1dc;margin:1px -1px -1px;padding:8px;}
+		.win1-content{cursor:default;}
+
+	.win1-btns{text-align:right;padding:5px;}
 		.win1-btns input{width:72px;height:22px;line-height:22px;margin-left:8px;background:url('popWin-img/btn1.gif') no-repeat 0 0;border:none;cursor:pointer;}

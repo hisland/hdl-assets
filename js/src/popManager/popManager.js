@@ -20,7 +20,7 @@
 KISSY.add('popManager', function(S, undef) {
 	var  $ = jQuery
 		,EMPTY_$ = $('')
-		,base_z_index = 3000
+		,base_z_index = 1000
 		,html_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;"></div>'
 		,mask_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>'
 		,m = {}
