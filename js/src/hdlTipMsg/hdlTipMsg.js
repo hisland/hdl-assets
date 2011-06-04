@@ -31,7 +31,7 @@
  * 		,onHide: 0				//函数   关闭层时的操作
  * 		,dragable: 1			//布尔值 是否可拖动
  * 		,slide: 0				//布尔值 是否淡入淡出
- * 		,focus: 0				//布尔值 是否淡入淡出
+ * 		,focus_yes: 1			//布尔值 默认焦点在yes上
  * }
  */
 
@@ -118,6 +118,16 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 				break;
 		}
 
+		//设置关闭事件
+		div.close.add(div.btn_cancle).click(function(e){
+			close(div, setting);
+			e.preventDefault();
+		})
+		//不能被拖动
+		.add(div.btn_ok).mousedown(function(e){
+			e.stopPropagation();
+		});
+
 		//设置标题
 		div.title.html(setting.title);
 
@@ -128,6 +138,9 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		div.manager = $.popManager.init();
 		div.appendTo(div.manager.div);
 		div.manager.div.appendTo('body').show();
+		div.remove = function(){
+			this.manager.remove();
+		};
 
 		//居中
 		div.css({
