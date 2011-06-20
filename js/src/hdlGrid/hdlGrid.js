@@ -5,17 +5,18 @@
  * 时间: 2011-2-21 15:32:38
  * 版本: v1
  * 
- * var g = $.hdlGrid(setting); - 生成一个表格对象并传入预设置
- * g.setting(setting); - 修改设置
- * g.data(data); - 修改内容
- * g.refresh(); - 刷新表格显示
- * 
- * g.addCol(col_set); - 添加一列
- * g.setCol(n, [fn|col_set]); - 修改n列, 传入修改函数或者设置
- * g.addRow(data); - 添加一行
- * g.setRow(n, fn); - 修改n行, 传入修改函数
- * 
- * g.div - 指向表格的最外层元素,为一个jq对象
+ * API:
+ * 		var g = $.hdlGrid(setting); - 生成一个表格对象并传入预设置
+ * 		g.setting(setting); - 修改设置
+ * 		g.data(data); - 修改内容
+ * 		g.refresh(); - 刷新表格显示
+ * 		
+ *      g.addCol(col_set); - 添加一列
+ * 		g.setCol(n, [fn|col_set]); - 修改n列, 传入修改函数或者设置
+ * 		g.addRow(data); - 添加一行
+ * 		g.setRow(n, fn); - 修改n行, 传入修改函数
+ * 		
+ * 		g.div - 指向表格的最外层元素,为一个jq对象
  * 
  * 2011-4-23 16:35:4:
  * 		3步走:
@@ -31,23 +32,20 @@
  * 			4.修改设置[grid, col, row]
  * 			5.嵌入html要注意html实体的转义,除非特殊指明使用原始数据
  * 
+ * 2011-06-20 16:43:51:
+ * 		single_check, chekckbox只能选择一个, 没有全选checkbox, 也就是一次只能操作1行数据
+ * 		动态改变列
+ * 		动态改变行
+ * 		checkbox
+ * 		编辑
+ * 		scrollbar_width
+ * 		合并单元格
+ * 
  */
 
 KISSY.add('hdlGrid', function(S, undef) {
 	var  $ = jQuery
 		,EMPTY_$ = $('');
-	
-/**********************************************************************************************
-*代码正文
-*	动态改变列
-*	动态改变行
-*	checkbox
-*	编辑
-*	scrollbar_width
-*	合并单元格
-*	
-*	
-*/
 
 	//表格预设置,需要修改时可参考
 	var pre_setting = {
@@ -64,7 +62,6 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 			,min_width: 150				//最小宽度
 			,min_height: 100			//最小高度
-
 			,max_width: 1500			//最大宽度
 			,max_height: 1000			//最大高度
 
@@ -82,8 +79,8 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 			,single_row: true			//文本强制在一行
 
-			,single_check: false		//单列选中
-			,single_select: false		//单列选择
+			,single_check: false		//单行选中checkbox
+			,single_select: false		//单行选择
 
 			,msg_empty: '暂无数据,根据内容填充后的大小居中显示'	//无数据时显示的内容
 			,msg_proc: '正在加载,请稍等...'	//加载时显示的内容
@@ -139,13 +136,6 @@ KISSY.add('hdlGrid', function(S, undef) {
 		$.each(grid._col, function(i, v){
 			grid.addCol(v);
 		});
-
-		//异步加载数据
-		if(grid._setting.url && grid._setting.auto_load){
-			grid.ajaxLoad(function(){
-				this.fixSize();
-			});
-		}
 
 		return grid;
 	}
@@ -263,28 +253,29 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 		//更新宽高
 		,fixSize: function(){
-			var ths = this.div.thead.find('th');
-			var tds = this.div.tbody.find('tr:eq(0)').find('td');
+			var  ths = this.div.thead.find('th')
+				,tds = this.div.tbody.find('tr:eq(0)').find('td')
+				,headnbody = this.div.head.add(this.div.body)
+				,w11 = 0, w22 = 0;
 
-			var w11 = 0, w22 = 0;
 			ths.each(function(i, v){
 				v = $(v);
-				var td = tds.eq(i), w1 = v.width(), w2 = td.width();
+				var td = tds.eq(i), w1 = v.outerWidth(), w2 = td.outerWidth();
 				w11 += w1;
 				w22 += w2;
 				if(w1 > w2){
-					td.width(w1);
+					v.add(td).width(w1);
 				}else{
-					v.width(w2);
+					v.add(td).width(w2);
 				}
 			});
-				if(w11 > w22){
-					this.div.body.width(w11);
-				}else{
-					 this.div.head.width(w22);
-				}
-			//tbody有无滚动条的情况
-			//thead,tbody相互修正宽度
+			if(w11 > w22){
+				headnbody.width(w11);
+			}else{
+				headnbody.width(w22);
+			}
+
+			headnbody.css('table-layout', 'fixed');
 		}
 
 		//获得显示的列名称,以标准键值对返回
@@ -340,23 +331,26 @@ KISSY.add('hdlGrid', function(S, undef) {
 		}
 		//将表格放入selector的位置
 		,fillInto: function(selector){
-			var elm = $(selector).eq(0);
-			var width = elm.width();
-			var height = elm.height();
-			var div = this.div;
+			var  elm = $(selector).eq(0)
+				,grid = this
+				,width = elm.width()
+				,height = elm.height()
+				,div = grid.div;
 
 			elm.empty().append(div);
 			div.width(width).height(height);
 			div.wbody.height(height - div.whead.outerHeight() -div.pager.outerHeight());
 
-			var wb = div.wbody[0];
-			var whead = div.whead;
-			
-			setTimeout(function(){
-				if(wb.clientHeight < wb.scrollHeight){
-					whead.css('padding-right', 17);
-				}
-			}, 10);
+			//异步加载数据
+			if(grid._setting.url && grid._setting.auto_load){
+				grid.ajaxLoad(function(){
+					var wb = div.wbody[0], whead = div.whead;
+					this.fixSize();
+//					if(wb.clientHeight < wb.scrollHeight){
+//						whead.css('padding-right', 17);
+//					}
+				});
+			}
 			return this;
 		}
 	});
