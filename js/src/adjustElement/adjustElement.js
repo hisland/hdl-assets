@@ -9,9 +9,9 @@
  *		元素设置data-offset="x, y", 默认[0, 0], 属性使对齐可以加一定的偏移
  *		元素设置data-adjust-type="force", 默认[view], 属性使强制左/右/上/下对齐[force]或者以显示完全为主要对齐[view](某些情况强制对齐一边浮动元素都不能显示全)
  *
- * 使用方法:
- *			$('').adjustElement(target);
- *			$('').adjustElement(target, callback);
+ * API:
+ *		$('').adjustElement(target);
+ *		$('').adjustElement(target, callback);
  */
 
 KISSY.add('adjustElement', function(S, undef) {
@@ -56,7 +56,7 @@ KISSY.add('adjustElement', function(S, undef) {
 			}
 
 			//设置垂直位置
-			if(me_height + offset[1] + t_offset.top > p_height){
+			if(me_height + offset[1] + t_offset.top + t_height > p_height){
 				elm.css('top', t_offset.top - me_height -1);//target顶边对齐
 			}else{
 				elm.css('top', t_offset.top + offset[1] + t_height + 1);//target底边对齐
@@ -76,7 +76,7 @@ KISSY.add('adjustElement', function(S, undef) {
 			//设置垂直位置
 			if(me_height > p_height){
 				elm.css('top', 0);//窗口顶边线对齐
-			}else if(me_height + offset[1] + t_offset.top > p_height){
+			}else if(me_height + offset[1] + t_offset.top + t_height > p_height){
 				elm.css('top', p_height - me_height -1);//窗口底边线对齐
 			}else{
 				elm.css('top', t_offset.top + offset[1] + t_height + 1);//target底边对齐
