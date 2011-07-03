@@ -3,9 +3,14 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-
-	<link rel="stylesheet" type="text/css" href="../../../css/src/reset/reset.css" />
-	<link rel="stylesheet" type="text/css" href="hdlMessager.css" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, hdlMessager+css', function(){
+				
+			});
+		});
+	</script>
 
 	<style type="text/css">
 		body{padding:50px;}

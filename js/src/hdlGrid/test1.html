@@ -3,18 +3,20 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="../../../css/src/reset/reset.css" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				$('#aa').html($('#hdl-grid-body-in')[0].clientWidth);
+			});
+		});
+	</script>
 	<style type="text/css">
 		body{padding:50px;}
 		#hdl-grid-body{width:500px;height:300px;overflow:scroll;}
 			#hdl-grid-body-in{zoom:1;}
 			#hdl-grid-body-in table{width:100%;}
 	</style>
-	<script type="text/javascript">
-		window.onload = function(){
-			document.getElementById('aa').innerHTML = document.getElementById('hdl-grid-body-in').clientWidth;
-		}
-	</script>
 </head>
 
 <body>
