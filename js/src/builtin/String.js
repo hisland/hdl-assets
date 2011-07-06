@@ -35,9 +35,9 @@
 	String.prototype.trim = function(){return this.replace(/^[\s\u3000]*|[\s\u3000]*$/g,'')};	//左右空白字符
 	String.prototype.trimAll = function(){return this.replace(/[\s\u3000]*/g,'')};	//全部(包括中间)空白字符
 
-	//按c标签的输出进行转换, ["']这两个使用实体编号,其它3个使用实体名称
-	//note:实测FF对于"'的处理是不编码直接显示
-	var entityHTMLReg = /[&<>]/g;
+	//note:实测FF对于"'的处理是不编码直接显示(在firebug中查看html,实际源码还是实体)
+	//note:IE不支持'转换成&apos; ,故使用实体编号&#39;
+	var entityHTMLReg = /[&<>'"]/g;
 	String.prototype.entityHTML = function(){
 		return this.replace(entityHTMLReg, function(v){
 			if(v === '&'){
@@ -46,11 +46,15 @@
 				return '&lt;';
 			}else if(v === '>'){
 				return '&gt;';
+			}else if(v === "'"){
+				return '&#39;';
+			}else if(v === '"'){
+				return '&quot;';
 			}
 			return v;
 		});
 	}
-	var unentityHTMLReg = /&lt;|&gt;|&amp;/g;
+	var unentityHTMLReg = /&amp;|&lt;|&gt;|&#39;|&quot;|&#34;/g;
 	String.prototype.unentityHTML = function(){
 		return this.replace(unentityHTMLReg, function(v){
 			if(v === '&amp;'){
@@ -59,6 +63,10 @@
 				return '<';
 			}else if(v === '&gt;'){
 				return '>';
+			}else if(v === '&#39;'){
+				return "'";
+			}else if(v === '&quot;' || v === '&#34;'){
+				return '"';
 			}
 			return v;
 		});
