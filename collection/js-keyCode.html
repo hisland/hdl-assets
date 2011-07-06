@@ -6,25 +6,22 @@
 	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher, jquery-1.4.2', function(){
-				S.useCSS('reset', function(){
-					document.getElementById('keydown_input').onkeydown = function(e){
-						e = e || window.event;
-						document.getElementById('keydown_show').innerHTML = e.keyCode;
-						document.getElementById('keydown_show2').innerHTML = e.charCode;
-					}
-					document.getElementById('keydown_input').onkeypress = function(e){
-						e = e || window.event;
-						document.getElementById('keypress_show').innerHTML = e.keyCode;
-						document.getElementById('keypress_show2').innerHTML = e.charCode;
-					}
-					document.getElementById('keydown_input').onkeyup = function(e){
-						e = e || window.event;
-						document.getElementById('keyup_show').innerHTML = e.keyCode;
-						document.getElementById('keyup_show2').innerHTML = e.charCode;
-					}
-				});
+			S.use('reset-css, jquery-1.4.2', function(){
+				document.getElementById('keydown_input').onkeydown = function(e){
+					e = e || window.event;
+					document.getElementById('keydown_show').innerHTML = e.keyCode;
+					document.getElementById('keydown_show2').innerHTML = e.charCode;
+				}
+				document.getElementById('keydown_input').onkeypress = function(e){
+					e = e || window.event;
+					document.getElementById('keypress_show').innerHTML = e.keyCode;
+					document.getElementById('keypress_show2').innerHTML = e.charCode;
+				}
+				document.getElementById('keydown_input').onkeyup = function(e){
+					e = e || window.event;
+					document.getElementById('keyup_show').innerHTML = e.keyCode;
+					document.getElementById('keyup_show2').innerHTML = e.charCode;
+				}
 			});
 		});
 	</script>

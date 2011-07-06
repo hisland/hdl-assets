@@ -6,20 +6,16 @@
 	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher, jquery-1.4.2', function(){
-				S.useCSS('reset', function(){
-					
-				});
+			S.use('reset-css, jquery-1.4.2', function(){
+				for(var i=0;i<kk.length;i++){
+					k = kk[i];
+					for(var j=0;j<5;j++){
+						test();
+					}
+				}
 			});
 		});
 	</script>
-	<style type="text/css">
-		hr{margin:10px 0;height:1px;border:none;border-top:1px solid #ccc;background:none;}
-
-		body{padding:50px;}
-		p{padding:5px;}
-	</style>
 </head>
 <body style="margin:50px;">
 <pre>
@@ -29,6 +25,12 @@
 #        +padding:7px; /* ie7 */
 #         _padding:6px; /* ie6 */
 </pre>
-
+<pre>
+	@-moz-document url-prefix(){
+		#right_mod_wrap form .input_list li input.short1{width:50px;margin-right:5px;}
+		#right_mod_wrap form .input_list li label.short1 input{width:auto;vertical-align:middle;margin-right:4px;position:relative;top:-2px;}
+		#right_mod_wrap form .input_list li.with3row strong input{margin:3px;}
+	}
+</pre>
 </body>
 </html>

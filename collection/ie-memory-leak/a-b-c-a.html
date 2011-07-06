@@ -7,23 +7,29 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, jquery-1.4.2', function(){
-				var arr = [];
-				for(var i=0;i<100000;i++){
-					arr.push({a: i});
-				}
-				document.getElementById('aa').ref = arr;
-				arr.b = {};
-				arr.b.c = document.getElementById('aa');
+				$('#delete').click(function(e){
+					$('#wrap').empty();
+				});
+				$('#add').click(function(e){
+					var arr = [];
+					for(var i=0;i<10000;i++){
+						arr.push({a: i});
+					}
+					var a = $('<div id="aa">ee<div id="bb"><div id="cc"></div></div></div>');
+					a.x = arr;
+					a.click(function(e){
+						var k = a;
+					});
+					$('#wrap').prepend(a);
+				});
 			});
 		});
 	</script>
 </head>
 
 <body>
-	<div id="aa">
-	  native a, b <br />
-	  dom c <br />
-	  a 引用 b, b 引用 c, c 引用 a
-	</div>
+	<div id="wrap"></div>
+	<input type="button" id="delete" value="delete" />
+	<input type="button" id="add" value="add" />
 </body>
 </html>

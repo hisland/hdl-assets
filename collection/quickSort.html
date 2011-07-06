@@ -84,16 +84,13 @@
 			document.getElementById('aa').innerHTML += str;
 		}
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher, jquery-1.4.2', function(){
-				S.useCSS('reset', function(){
+			S.use('reset-css, jquery-1.4.2', function(){
 					for(var i=0;i<kk.length;i++){
 						k = kk[i];
 						for(var j=0;j<5;j++){
 							test();
 						}
 					}
-				});
 			});
 		});
 	</script>

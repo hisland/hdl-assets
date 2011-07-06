@@ -9,9 +9,7 @@
 			return '<'+name+'>'+value+'</'+name+'>';
 		}
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher, jquery-1.4.2', function(){
-				S.useCSS('reset', function(){
+			S.use('reset-css, jquery-1.4.2', function(){
 					var div = document.createElement('div');
 					var str1 = '';
 
@@ -66,7 +64,6 @@
 
 					div.innerHTML = str1;
 					document.body.appendChild(div);
-				});
 			});
 		});
 	</script>

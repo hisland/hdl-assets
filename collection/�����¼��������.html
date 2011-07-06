@@ -6,9 +6,7 @@
 	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher, jquery-1.4.2', function(){
-				S.useCSS('reset', function(){
+			S.use('reset-css, jquery-1.4.2', function(){
 //					$('#aa').keypress(function(e){
 //						$('body').append('<p>#aa keypress: '+ $(this).find(':text')[0].value + '</p>');
 //					}).keydown(function(e){
@@ -28,7 +26,6 @@
 //					$('body').keypress(function(e){
 //						$('body').append('<p>#aa keypress: '+ $(this).find(':text')[0].value + '</p>');
 //					});
-				});
 			});
 		});
 	</script>

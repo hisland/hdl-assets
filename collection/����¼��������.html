@@ -6,9 +6,7 @@
 	<script type="text/javascript" src="../js/src/seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.css_base_path = '../../css/src';
-			S.use('kissy-patcher, jquery-1.4.2', function(){
-				S.useCSS('reset', function(){
+			S.use('reset-css, jquery-1.4.2', function(){
 			$('#aa').click(function(e){
 				$('body').append('<p>#aa click: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
 //					}).mousedown(function(e){
@@ -29,7 +27,6 @@
 					}).dblclick(function(e){
 						$('body').append('<p>#aa dblclick: ' + e.eventPhase + '  ' + $(this).find(':checkbox')[0].checked + '</p>');
 					});
-				});
 			});
 		});
 	</script>
