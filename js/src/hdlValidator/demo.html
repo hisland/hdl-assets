@@ -16,9 +16,9 @@
 	</script>
 </head>
 <body style="padding:20px 50px;">
-	<div class="section">
-		<div class="legend">说明</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">说明</div>
+		<div class="demo-box">
 			<p>2011-3-21 11:36:16:
 			<br />统一验证写法为 data-valid-type="pattern, pattern, pattern"
 			<br />减少记忆难度
@@ -28,9 +28,9 @@
 		</div>
 	</div>
 
-	<div class="section">
-		<div class="legend">form测试 - 提交按钮为button,通过form的data-submit-button属性指定</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">form测试 - 提交按钮为button,通过form的data-submit-button属性指定</div>
+		<div class="demo-box">
 			<form action="#" data-submit-button="#form-submit">
 				<p>正则验证-IPV4: <input class="text1" type="text" name="" value="" data-valid-type="ripv4" /></p>
 				<p><input type="button" value="提交" disabled="disabled" id="form-submit" /></p>
@@ -38,9 +38,9 @@
 		</div>
 	</div>
 
-	<div class="section">
-		<div class="legend">form测试 - 提交按钮为submit</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">form测试 - 提交按钮为submit</div>
+		<div class="demo-box">
 			<form action="#">
 				<p>正则验证-IPV4: <input class="text1" type="text" name="" value="" data-valid-type="ripv4" /></p>
 				<p><input type="submit" value="提交" disabled="disabled" /></p>
@@ -48,9 +48,9 @@
 		</div>
 	</div>
 
-	<div class="section">
-		<div class="legend">form测试 - 多个条件同时通过,submit才可用!</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">form测试 - 多个条件同时通过,submit才可用!</div>
+		<div class="demo-box">
 			<form action="#">
 				<p>正则验证-IPV4: <input class="text1" type="text" name="" value="" data-valid-type="ripv4" /></p>
 				<p>正则验证-整数: <input class="text1" type="text" name="" value="" data-valid-type="rinteger" /></p>
@@ -59,9 +59,9 @@
 		</div>
 	</div>
 
-	<div class="section">
-		<div class="legend">各种测试</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">各种测试</div>
+		<div class="demo-box">
 			<form action="#">
 				<p>UTF8长度验证-任意字符[10-16]: <input class="text1" type="text" name="" value="" data-valid-type="lu10-16" /></p>
 				<p>长度验证-大小写字母[2-16]: <input class="text1" type="text" name="" value="" data-valid-type="la2-16" /></p>
@@ -78,9 +78,9 @@
 		</div>
 	</div>
 
-	<div class="section">
-		<div class="legend">其它形式验证</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">其它形式验证</div>
+		<div class="demo-box">
 			<form action="#">
 				<p>对比验证-左侧值小于右侧值: <input class="text1" type="text" name="" value="" id="comp1" data-valid-type="<#comp2" />-<input class="text1" type="text" name="" value="" id="comp2" data-valid-type=">#comp1" /></p>
 				<p>异步验证(将自身name=value组成数据提交), 输入'hello'验证成功:
@@ -97,9 +97,9 @@
 		</div>
 	</div>
 
-	<div class="section">
-		<div class="legend">textarea测试</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">textarea测试</div>
+		<div class="demo-box">
 			<form action="#">
 				<p>textarea验证:
 				<br /><textarea rows="5" cols="25" name="a-name" data-valid-type="l0-200"></textarea>

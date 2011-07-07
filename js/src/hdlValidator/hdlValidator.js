@@ -33,7 +33,7 @@
 	2011-3-21 12:40:50考虑
 	usage:
 		data-valid-type="pattern, pattern, pattern"
-		pattern间使用[, ]分隔, 若在pattern内要使用','号(正则,selector里面可能有),请加\进行转义(\自身不需要转义),
+		pattern使用[, ]分隔, 若在pattern内要使用','号(正则,selector里面可能有),请加\进行转义(\自身不需要转义),
 			如:/,,/ ==> /\,\,/ 和 eq#id1,id2 ==> eq#id1\,id2
 		更多查看 demo.html
 
@@ -63,6 +63,7 @@
 
 	2011-4-15 9:4:38:
 		pattern 使用 a && (b || c) 将每个pattern等量替换执行可得结果, 此设置为属性, 将对应abc的值算出来再代入此计算,简化设计
+			data-valid-rule="a && (b || c)"
 		nn-m数字设置为实数
 		nn-m自定义提示,使用{from} {to}引用值
 
@@ -71,8 +72,41 @@
 
 	2011-5-14 16:54:0:
 		滚动的时候消失
-		属性指定不显示提示层
-		全局控制不显示提示层
+		属性指定不显示提示层cnotip
+		全局控制不显示提示层form的属性data-valid-notip="true"
+
+	2011-5-25 10:47:32:
+		直接js代码直接添加验证方式,类似formValidator的实现
+		firefox右键粘贴,鼠标点击自动完成的填充无法触发事件(或者是触发的事件的时候值还没被修改)
+		数字长度可以为0时,不测试值是否为数字
+		验证失去焦点后,自动把值修正,如去首尾空格...
+		pattern里面可以带c前缀的设置,如ctrim
+		可以在层上面写验证,验证内部的一个结构,如checkbox至少选2个,这里需要在hover上显示验证消息
+		取pattern时,过滤掉错误以及异常
+
+	2011-05-31 19:00:56:
+		层上初始化验证,指定触发按钮
+	2011-06-10 10:54:53:
+		使用函数验证时,根据返回的文本内容进行提示,而不是固定的提示,只有返回true表示成功
+		考虑验证方式的判定使用多个字符,避免出现某个方式判定在另一个方式里导致错误,如: l, ln, 
+			以前的l -> lenall:
+			以前的lu -> lenutf8:
+			以前的la -> lenletter:
+			以前的ln -> lenint:
+			以前的n -> int:
+			以前的r -> reg:
+			以前的t -> fn:
+		对比验证,单向联动,双向联动
+		提交时统一验证一次,并设置状态
+
+	2011-06-28 09:09:52:
+		数字值验证注意含[eE]的情况会被当作指数处理
+
+	2011-07-04 18:15:58:
+		禁用和readonly的都应该[不检测]且[通过]也[不显示验证状态]
+		每个item的状态可选择[显示|不显示]
+		input验证成功或失败使用回调[每次回调|状态切换回调]
+		form验证成功或失败使用回调[每次回调|状态切换回调]
  */
 
 KISSY.add('hdlValidator', function(S, undef) {
@@ -80,6 +114,8 @@ KISSY.add('hdlValidator', function(S, undef) {
 		,EMPTY_$ = $('')
 		,ipt_now = EMPTY_$
 		,div_pop = EMPTY_$
+		,ifr_string = '<iframe style="position:absolute;top:0;left:0;z-index:-1;width:100%;height:100px;" frameborder="no" scrolling="no"></iframe>'
+		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent) && !/msie 7.0/i.test(navigator.userAgent)
 		,validator;
 
 	//将由逗号分隔的pattern进行分割,并判断'\'转义
@@ -145,9 +181,17 @@ KISSY.add('hdlValidator', function(S, undef) {
 				return this;
 			}
 
-			$.each(input.items, function(i, v){
-				v.fn(v.input.val(), check);
-			});
+			//禁用的默认是通过
+			if(input.disabled || input.readonly){
+				$.each(input.items, function(i, v){
+					v.passed = true;
+					check(true);
+				});
+			}else{
+				$.each(input.items, function(i, v){
+					v.fn(v.input.val().trim(), check);
+				});
+			}
 
 			function check(rs){
 				if(rs === false){
@@ -166,6 +210,10 @@ KISSY.add('hdlValidator', function(S, undef) {
 				timer = setTimeout(delayCheck, 10);//使用延迟避免同一个输入多个pattern的执行多次调用delayCheck
 			}
 			function delayCheck(){
+				var can_not_modify = $(input).parents('form').attr('data-can-not-modify');
+				if(can_not_modify === 'true'){
+					return false;
+				}
 				if(!async && ok){
 					$(input).removeClass('hdl-vali-ipt-err');
 					instance.success(true);
@@ -231,11 +279,20 @@ KISSY.add('hdlValidator', function(S, undef) {
 				var p, reg, match = pattern.match(p_reg);
 				if(match){
 					reg = hdlReg.item(match[2]);
+					if(!reg){
+						p = $('<p class="hdl-vali-err">'+objCodesJsFrame['JsFrame2065'] + match[2] + '</p>');	//没有找到预定义正则
+						return {
+								fn: function(value, fn){
+									p.attr('class', 'hdl-vali-err');
+									fn(false);
+								}
+								,p: p
+						};
+					}else{
 					p = $('<p class="hdl-vali-err">' + reg.desc + '</p>');
-					div_pop.append(p);
 					return {
 							fn: function(value, fn){
-								if(reg.test(value)){
+									if(hdlReg.test(match[2], value)){
 									p.attr('class', 'hdl-vali-ok');
 									this.passed = 1;
 									fn(true);
@@ -247,6 +304,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 							}
 							,p: p
 					};
+				}
 				}
 			};
 	});
@@ -258,22 +316,37 @@ KISSY.add('hdlValidator', function(S, undef) {
 				var p, reg, match = pattern.match(p_reg);
 				if(match){
 					reg = hdlTest.item(match[2]);
+					if(!reg){
+						p = $('<p class="hdl-vali-err">'+objCodesJsFrame['JsFrame2066'] + match[2] + '</p>');	//没有找到预定义函数
+						return {
+								fn: function(value, fn){
+									p.attr('class', 'hdl-vali-err');
+									fn(false);
+								}
+								,p: p
+						};
+					}else{
 					p = $('<p class="hdl-vali-err">' + reg.desc + '</p>');
-					div_pop.append(p);
 					return {
 							fn: function(value, fn){
-								if(reg.test(value)){
+								var rs = reg(value);
+								if(rs === true){
 									p.attr('class', 'hdl-vali-ok');
 									this.passed = 1;
 									fn(true);
-								}else{
+								}else if(rs === false){
 									p.attr('class', 'hdl-vali-err');
+									this.passed = 0;
+									fn(false);
+								}else{
+									p.attr('class', 'hdl-vali-err').html(rs);
 									this.passed = 0;
 									fn(false);
 								}
 							}
 							,p: p
 					};
+				}
 				}
 			};
 	});
@@ -285,7 +358,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 				if(name === 'ajax'){
 					msg = elem.attr('data-valid-msg') || '不能与服务器数据相同';
 					p = $('<p class="hdl-vali-loading">' + msg + '</p>');
-					div_pop.append(p);
 					url = elem.attr('data-ajax-url');
 					data = elem.attr('data-ajax-data');
 					if(data && data.indexOf('fn:') == 0){
@@ -369,7 +441,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 					from = match[2]-0;
 					to = match[3]-0;
 					p = $('<p class="hdl-vali-err">字符串长度在' + from + '-' + to + '之间,现在长度[0]</p>');
-					div_pop.append(p);
 					return {
 							fn: function(value, fn, length){
 								length = value.length;
@@ -414,7 +485,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 					from = match[2]-0;
 					to = match[3]-0;
 					p = $('<p class="hdl-vali-err">字符串UTF8长度在' + from + '-' + to + '之间,现在长度[0]</p>');
-					div_pop.append(p);
 					return {
 							fn: function(value, fn, length){
 								length = lengthUTF8(value);
@@ -444,7 +514,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 					from = match[2]-0;
 					to = match[3]-0;
 					p = $('<p class="hdl-vali-err">a-z大小写,长度在' + from + '-' + to + '之间,现在长度[0]</p>');
-					div_pop.append(p);
 					return {
 							fn: function(value, fn, length){
 								length = value.length;
@@ -474,11 +543,10 @@ KISSY.add('hdlValidator', function(S, undef) {
 					from = match[2]-0;
 					to = match[3]-0;
 					p = $('<p class="hdl-vali-err">数字,长度在' + from + '-' + to + '之间,现在长度[0]</p>');
-					div_pop.append(p);
 					return {
 							fn: function(value, fn, length){
 								length = value.length;
-								if(p_num.test(value) && length >= from && length <= to){
+								if((from == 0 && length == 0) || (p_num.test(value) && length >= from && length <= to)){
 									p.attr('class', 'hdl-vali-ok').html('数字,长度在' + from + '-' + to + '之间,现在长度[' + length +']');
 									this.passed = 1;
 									fn(true);
@@ -497,17 +565,16 @@ KISSY.add('hdlValidator', function(S, undef) {
 	//增加数字值大小验证方式 - nn-m
 	Validator.addValiType('number-value', function(){
 		var p_reg = /^(n)(\d+)(?:-(\d+))?$/;
+		var p_num = /^\d+$/i;
 		return function(pattern){
 				var p, from, to, match = pattern.match(p_reg);
 				if(match){
 					from = match[2]-0;
 					to = match[3]-0;
 					p = $('<p class="hdl-vali-err">数字,大小在[' + from + '-' + to + ']之间</p>');
-					div_pop.append(p);
 					return {
 							fn: function(value, fn){
-								value -= 0;
-								if(!isNaN(value) && value >= from && value <= to){
+								if(p_num.test(value) && value >= from && value <= to){
 									p.attr('class', 'hdl-vali-ok');
 									this.passed = 1;
 									fn(true);
@@ -531,7 +598,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 				if(match){
 					reg = new RegExp(match[1], match[2]);
 					p = $('<p class="hdl-vali-err">' + (elem.attr('data-valid-msg') || '自定义正则验证') + '</p>');
-					div_pop.append(p);
 					return {
 							fn: function(value, fn){
 								if(reg.test(value)){
@@ -552,13 +618,38 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	//增加对比验证-等于 - eqselector - eq某个selector的值
 	Validator.addValiType('eq-selector', function(){
-		var p_reg = /^(=)(.*)$/;
+		var p_reg = /^(eq:)(.*)$/;
 		return function(pattern){
 				var p, other, match = pattern.match(p_reg);
 				if(match){
 					other = $(match[2]);
 					p = $('<p class="hdl-vali-err"></p>');
-					div_pop.append(p);
+					return {
+							fn: function(value, fn){
+								value -= 0;
+								if(value == other.val()){
+									p.attr('class', 'hdl-vali-ok').html(objCodesJsFrame['JsFrame2077'] + other.val());	//应该等于
+									this.passed = 1;
+									fn(true);
+								}else{
+									p.attr('class', 'hdl-vali-err').html(objCodesJsFrame['JsFrame2077'] + other.val());	//应该等于
+									this.passed = 0;
+									fn(false);
+								}
+							}
+							,p: p
+					};
+				}
+			};
+	});
+	//增加对比验证-不等于 - neqselector - neq某个selector的值
+	Validator.addValiType('neq-selector', function(){
+		var p_reg = /^(eq:)(.*)$/;
+		return function(pattern){
+				var p, other, match = pattern.match(p_reg);
+				if(match){
+					other = $(match[2]);
+					p = $('<p class="hdl-vali-err"></p>');
 					return {
 							fn: function(value, fn){
 								value -= 0;
@@ -580,13 +671,12 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	//增加对比验证-大于 - gtselector - gt某个selector的值
 	Validator.addValiType('gt-selector', function(){
-		var p_reg = /^(>)(.*)$/;
+		var p_reg = /^(gt:)(.*)$/;
 		return function(pattern){
 				var p, other, match = pattern.match(p_reg);
 				if(match){
 					other = $(match[2]);
 					p = $('<p class="hdl-vali-err"></p>');
-					div_pop.append(p);
 					return {
 							fn: function(value, fn){
 								value -= 0;
@@ -608,13 +698,12 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	//增加对比验证-小于 - ltselector - lt某个selector的值
 	Validator.addValiType('lt-selector', function(){
-		var p_reg = /^(<)(.*)$/;
+		var p_reg = /^(lt:)(.*)$/;
 		return function(pattern){
 				var p, other, match = pattern.match(p_reg);
 				if(match){
 					other = $(match[2]);
 					p = $('<p class="hdl-vali-err"></p>');
-					div_pop.append(p);
 					return {
 							fn: function(value, fn){
 								value -= 0;
@@ -638,7 +727,10 @@ KISSY.add('hdlValidator', function(S, undef) {
 	function iptFocus(e){
 		//需要时再加载此层
 		if(!div_pop.length){
-			div_pop = $('<div class="hdl-vali-wrap"></div>');
+			div_pop = $('<div class="hdl-vali-wrap" data-adjust-type="force"></div>');
+			if(ie6){
+				div_pop.append(ifr_string);
+			}
 			div_pop.appendTo('body');
 		}
 		ipt_now = $(this);
@@ -649,6 +741,9 @@ KISSY.add('hdlValidator', function(S, undef) {
 	}
 	function iptBlur(e){
 		div_pop.empty();
+		if(ie6){
+			div_pop.append(ifr_string);
+		}
 		popHide();
 	}
 	function iptKeyUp(e){
@@ -660,11 +755,11 @@ KISSY.add('hdlValidator', function(S, undef) {
 	function formSubmit(e){
 		if(!this.validator.allPassed()){
 			S.log('not all passed!');
-			return false;
 		}else{
-			//传递e对象,要阻止默认动作只能通过e.preventDefault()而不能采取return false;
 			this.validator.beforeSubmit.call(this, e);
 		}
+		//默认即阻止提交,这里统一控制
+		e.preventDefault();
 	}
 
 	//公共显示隐藏函数
@@ -678,23 +773,25 @@ KISSY.add('hdlValidator', function(S, undef) {
 	//给form注册验证
 	function hdlValidator(callback){
 		return this.each(function(i, v){
-			var dv = $(v), fn, validator, btn_submit;
+			var dv = $(v), fn, validator, btn_submit, btn_type_submit;
 			if(dv.is('form')){
 				//保留submit的引用,方便控制disabled状态
-				btn_submit = $(dv.attr('data-submit-button')).add(dv.find(':submit'));
+				btn_submit = $(dv.attr('data-submit-button'));
+				btn_type_submit = dv.find(':submit');
 
 				//代提交按钮点击需要触发form的submit事件
-				$(dv.attr('data-submit-button')).click(function(){
+				$(btn_submit).click(function(){
 					dv.submit();
 				});
 
 				//验证成功与否的回调, 用于修改submit的disabled状态, this被指向validator
 				fn = function(rs){
+					//this指向validator
 					if(rs && this.allPassed()){
-						btn_submit.attr('disabled', false);
+						btn_submit.add(btn_type_submit).attr('disabled', false);
 						S.isFunction(callback) && callback(false);
 					}else{
-						btn_submit.attr('disabled', true);
+						btn_submit.add(btn_type_submit).attr('disabled', true);
 						S.isFunction(callback) && callback(true);
 					}
 				}
@@ -721,7 +818,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 					}
 				});
 
-				//在input里面回车也可提交,统一在submit事件里面进行控制
+				//在input里面回车也可提交,统一在formSubmit函数里面进行控制
 				dv.bind('submit', formSubmit);
 
 				//初始化测试,设置input的状态
@@ -740,7 +837,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 		});
 	}
 	//删除一个验证方式
-	function removeValiType(pattern){//pattern为具体名称或编号[从0开始]
+	function removeValiType(pattern){//pattern为[具体名称]或[编号-从0开始]
 		return this.each(function(i, v){
 			if($.isString(pattern)){
 				
@@ -758,12 +855,23 @@ KISSY.add('hdlValidator', function(S, undef) {
 		});
 	}
 
+	function validate(){
+		return this.each(function(i, v){
+			me = $(v);
+			if(me.is('form')){
+				v.validator && v.validator.valid();
+			}else if(me.is('input, textarea')){
+				v.validator && v.validator.valid(v);
+			}
+		});
+	}
 	//放到jq原型链上
 	$.fn.extend({
 		 hdlValidator: hdlValidator
 		,addValiType: addValiType
 		,removeValiType: removeValiType
 		,addBeforeSubmit: addBeforeSubmit
+		,validate: validate
 	});
 }, {
 	requires: ['jquery-1.4.2', 'adjustElement', 'hdlReg', 'hdlTest']

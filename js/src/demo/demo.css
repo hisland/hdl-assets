@@ -1,8 +1,8 @@
 @charset "utf-8";
 body{padding:50px;}
 
-.section{border:1px solid #666;padding:10px 5px 2px;margin:20px 0 10px;zoom:1;}
-	.legend{float:left;border:1px solid #666;background:#ccc;height:16px;padding:1px 3px;margin:-20px 0 5px 0;}
-	.box{clear:left;overflow:hidden;}
-		.box p{background:#eee;padding:2px;margin-bottom:5px;}
-		.box p.col{background:#eee;padding:2px;margin:0 5px 5px 0;float:left;width:280px;}
+.demo-section{border:1px solid #666;padding:10px 5px 2px;margin:20px 0 10px;zoom:1;}
+	.demo-legend{float:left;border:1px solid #666;background:#ccc;height:16px;padding:1px 3px;margin:-20px 0 5px 0;}
+	.demo-box{clear:left;overflow:hidden;}
+		.demo-box p{background:#eee;padding:2px;margin-bottom:5px;}
+		.demo-box p.col{background:#eee;padding:2px;margin:0 5px 5px 0;float:left;width:280px;}
