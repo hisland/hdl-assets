@@ -1,9 +1,9 @@
 @charset "utf-8";
 /* all icon size: 16*16 */
-.hdl-tree{}
+.hdl-tree{line-height:16px;}
 	.hdl-tree ul{}
 	.hdl-tree ul.close{display:none;}
-	.hdl-tree div{white-space:nowrap;line-height:16px;}
+	.hdl-tree div{white-space:nowrap;}
 	.hdl-tree div.selected{background:#d9e8fb;}
 	.hdl-tree div:hover{background:#eee;}
 	.hdl-tree span,/* for text & span-wrap */
