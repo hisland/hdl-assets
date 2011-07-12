@@ -107,6 +107,10 @@
 		每个item的状态可选择[显示|不显示]
 		input验证成功或失败使用回调[每次回调|状态切换回调]
 		form验证成功或失败使用回调[每次回调|状态切换回调]
+
+	2011-07-07 11:11:36:
+		ie使用 propertychange 事件进行监听,避免autocomplete填充导致没有监听到
+		或者在注册时就设置autocomplete为false
  */
 
 KISSY.add('hdlValidator', function(S, undef) {
