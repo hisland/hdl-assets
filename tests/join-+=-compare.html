@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				//test firefox must i  < 1000000, or the time is 0
+				if(/*@cc_on!@*/!1 && /msie [67].0/i.test(navigator.userAgent)){
+					var end = 10000;
+				}else{
+					var end = 1000000;
+				}
+				var d1 = new Date()
+				var str = [];
+				for(var i = 0; i < end; i++){
+					str.push('ss');
+				}
+				str = str.join('');
+				var d2 = new Date()
+				alert('join,run '+end+' times: ' + (d2-d1))
+
+				var d1 = new Date()
+				var str = '';
+				for(var i = 0; i < end; i++){
+					str += 'ss';
+				}
+				var d2 = new Date()
+				alert('+=,run '+end+' times: ' + (d2-d1))
+			});
+		});
+	</script>
+</head>
+<body style="margin:50px;">
+	IE6,7: +=方式明显比join费时
+	ie8, ff: += 方式做了优化比join更好用
+</body>
+</html>
