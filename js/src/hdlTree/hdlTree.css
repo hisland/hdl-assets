@@ -16,6 +16,12 @@
 	.hdl-tree span.text{width:auto;}
 	.hdl-tree b.blank{background:none;}
 
+	/* no checkbox */
+	.no-checkbox strong{display:none;}
+
+	/* no icon */
+	.no-icon small{display:none;}
+
 /* default theme */
 	/* arrow state */
 	.hdl-tree em.arrow,
