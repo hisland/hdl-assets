@@ -6,29 +6,59 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, common-css, hdlValidator+css');
+			S.use('reset-css, jquery-1.4.2', function(){
+				S.use('moni-select+css, adjustElement');
+			});
 		});
 	</script>
-	<style type="text/css">
-		.box{border:1px solid #ccc;padding:5px;margin:10px 0;}
-			.box p{background:#eee;margin-bottom:5px;}
-	</style>
 </head>
-<body style="padding:50px;">
-	<div class="hdl-vali-wrap">
-		<p class="hdl-vali-ok">长度为1-10</p>
-		<p class="hdl-vali-err">数字为9-20之间</p>
-		<p class="hdl-vali-loading">不能和服务器已有数据重复</p>
-	</div>
 
-	<div class="box" style="margin-top:120px;">
-		<p>输入框验证状态:</p>
-		<p>
-			错误: <input class="text" type="text" name="" value="" class="text hdl-vali-ipt-err" />
-		</p>
-		<p>
-			正确: <input class="text" type="text" name="" value="" />
-		</p>
-	</div>
+<body style="padding:50px">
+	<a class="moni-select" href="javascript:void(0)">
+		<span class="moni-select-text">全部</span>
+		<select name="form.smId">
+			<option value="">全部</option>
+			<option value="822">abc-点对点短信-20101205181910</option>
+			<option value="823">abc-梦网SP短信-20101205181910</option>
+			<option value="824">abc-行业SP短信-20101205181910</option>
+			<option value="828">bat-行业SP短信-20101206141511</option>
+			<option value="825">lx-点对点短信</option>
+			<option value="826">lx-梦网SP短信</option>
+		</select>
+	</a>
+	<a class="moni-select" href="javascript:void(0)">
+		<span class="moni-select-text">全部</span>
+		<select name="form.smId">
+			<option value="">全部</option>
+			<option value="822">abc-点对点短信-20101205181910</option>
+			<option value="823">abc-梦网SP短信-20101205181910</option>
+			<option value="824">abc-行业SP短信-20101205181910</option>
+			<option value="828">bat-行业SP短信-20101206141511</option>
+			<option value="825">lx-点对点短信</option>
+			<option value="826">lx-梦网SP短信</option>
+		</select>
+	</a>
+	<a class="moni-select moni-select-disabled" disabled="disabled" href="javascript:void(0)">
+		<span class="moni-select-text">全部</span>
+		<select name="form.smId">
+			<option value="">全部</option>
+			<option value="822">abc-点对点短信-20101205181910</option>
+			<option value="823">abc-梦网SP短信-20101205181910</option>
+			<option value="824">abc-行业SP短信-20101205181910</option>
+			<option value="828">bat-行业SP短信-20101206141511</option>
+			<option value="825">lx-点对点短信</option>
+			<option value="826">lx-梦网SP短信</option>
+		</select>
+	</a>
+
+	<select name="form.smId">
+		<option value="">全部</option>
+		<option value="822">abc-点对点短信-20101205181910</option>
+		<option value="823">abc-梦网SP短信-20101205181910</option>
+		<option value="824">abc-行业SP短信-20101205181910</option>
+		<option value="828">bat-行业SP短信-20101206141511</option>
+		<option value="825">lx-点对点短信</option>
+		<option value="826">lx-梦网SP短信</option>
+	</select>
 </body>
 </html>
