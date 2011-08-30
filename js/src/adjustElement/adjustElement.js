@@ -35,8 +35,9 @@ KISSY.add('adjustElement', function(S, undef) {
 			,t_height = target.outerHeight()
 			,t_offset = target.offset()
 
-			,p_width = document.documentElement.clientWidth + document.documentElement.scrollLeft
-			,p_height = document.documentElement.clientHeight + document.documentElement.scrollTop;
+			,doc_elm = document.documentElement
+			,p_width = doc_elm.clientWidth + doc_elm.scrollLeft
+			,p_height = doc_elm.clientHeight + doc_elm.scrollTop;
 
 		//得到偏移
 		$.each((elm.attr('data-offset')+'').split(/[,\s]+/), function(i, v){
