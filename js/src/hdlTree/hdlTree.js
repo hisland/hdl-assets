@@ -6,17 +6,8 @@
  * 版本: v1
  *
  * API:
- */
-KISSY.add('hdlTree', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,global_tree = window.hdl_tree || [];
-	
-	if($.fn.hdlTree){
-		return false;
-	}
-	window.hdl_tree = global_tree;
-/*
+ *
+ *
 tree:{
 	 use_checkbox: true			//是否使用checkbox
 	,use_icon: true				//是否使用icon图标
@@ -91,7 +82,7 @@ TODO:
 	2011-5-24 17:43:29:
 		上面的使用右键菜单?
 		$('').hdlTree() 取配置
-		$('').hdlTree(setting) 初始化并配置
+		$('').hdlTree(setting) 初始化/修改配置
 	2011-06-13 10:50:53:
 		单个节点禁用
 		隐藏的不进行上下级关联显示计数
@@ -102,6 +93,16 @@ TODO:
 		反选功能
 		蹦床功能,避免递归溢出
 */
+
+KISSY.add('hdlTree', function(S, undef) {
+	var  $ = jQuery
+		,EMPTY_$ = $('')
+		,global_tree = window.hdl_tree || [];
+	
+	if($.fn.hdlTree){
+		return false;
+	}
+	window.hdl_tree = global_tree;
 
 	var uid = (function(id) {
 		return function(){
@@ -574,7 +575,7 @@ TODO:
 
 	function hdlTree(data, setting){
 		//无参表示读取树设置
-		if(!data){
+		if(!arguments.length){
 			return global_tree[this.attr('data-hdl-tree')];
 		}
 
