@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				
+			});
+		});
+	</script>
+	<style type="text/css">
+		#test{overflow:auto;width:100px;}
+			#test div{margin-bottom:1px;}
+			#test p{border:1px solid #ccc;white-space:nowrap;}
+	</style>
+</head>
+<body style="margin:50px;">
+	<div id="test">
+		<div>
+			<p>1钳工载枯载村花样百出地</p>
+			<p>2钳工载枯载村花样百出地</p>
+			<p>3钳工载枯载村花样百出地</p>
+			<p>4钳工载枯载村花样百出地</p>
+			<p>5钳工载枯载村花样百出地</p>
+			<p>6钳工载枯载村花样百出地</p>
+			<p>7钳工载枯载村花样百出地</p>
+			<p>8钳工载枯载村花样百出地</p>
+		</div>
+	</div>
+	<p>IE6,7设置为overflow:auto时.出现水平滚动条随即出来垂直滚动条</p>
+	<p>IE8不出现,FF也不出现</p>
+	<p>显示设置overflow:scroll不会出现</p>
+	<hr />
+	<p>IE6,7可考虑expression解决</p>
+	<p>判断是否IE6,7在需要出现滚动条的容器最后加入一个空白的元素如上例的p元素</p>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<!-- 原生也一样
+	<script type="text/javascript">
+		window.onload = function(){
+			document.onmousemove = function(){
+				var span = document.createElement('<span style="display:inline-block;margin-right:20px;"></span>');
+				span.innerHTML = event.clientX+'--'+event.clientY;
+				document.body.appendChild(span);
+			}
+		}
+	</script> 
+	-->
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				$(document).mousemove(function(e){
+					$('body').append('<span style="display:inline-block;margin-right:20px;">'+e.clientX+'--'+e.clientY+' </span>');
+				});
+			});
+		});
+	</script>
+	<style type="text/css">
+		#test{overflow:auto;width:100px;}
+			#test div{margin-bottom:1px;}
+			#test p{border:1px solid #ccc;white-space:nowrap;}
+	</style>
+</head>
+<body style="margin:50px;">
+	<p>某些IE在鼠标不动的情况下会一直触发mousemove事件</p>
+	<p>并且双击也会触发mousemove事件</p>
+</body>
+</html>

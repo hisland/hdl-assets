@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, builtin, jquery-1.4.2', function(){
+				$('#select').change(function(e){
+					alert(3);
+				});
+				$('#click').click(function(e){
+					var i = Math.random(9);
+					$('#select').val(i);
+					$('#select').click();
+				});
+
+			});
+		});
+	</script>
+</head>
+<body style="margin:50px;">
+	<p>ie[6,7,8,9],修改select的值后, 紧接着触发click会同时触发change事件</p>
+	<p id="click" style="border:1px solid green;background:#ccc;">点击这里</p>
+	<select id="select">
+		<option value="0">0</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+	</select>
+</body>
+</html>
