@@ -7,16 +7,26 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, jquery-1.4.2', function(){
-				
+				var aa = 'abcdef';
+				var str2 = [];
+				str2.push('aa is ' + aa + ', and aa[1] is ' + aa[1]);
+				str2.push('aa is ' + aa + ', and aa.substr(1) is ' + aa.substr(1, 1 ));
+				str2.push('aa is ' + aa + ', and aa.substring(1, 2) is ' + aa.substring(1, 2));
+				str2.push('aa is ' + aa + ', and aa.slice(1, 2) is ' + aa.slice(1, 2));
+				str2.push('aa is ' + aa + ', and aa.charAt(1) is ' + aa.charAt(1));
+				alert(str2.join('\n'));
 			});
 		});
 	</script>
 </head>
 <body style="margin:50px;">
 	<div id="aa">
-		<p>ie不支持[]方式取子字符串</p>
-		<p>使用substr方式取</p>
-		<p>也可使用charAt()方法</p>
+		<p>ie6, ie7 不支持[n]方式取子字符串</p>
+		<p>使用substr(n, len)方式取</p>
+		<p>使用substring(n, m)方式取</p>
+		<p>使用slice(n, m)方式取</p>
+		<p>使用charAt(n)方法</p>
+		<p style="color:red;">优先使用charAt(n)方法</p>
 	</div>
 </body>
 </html>

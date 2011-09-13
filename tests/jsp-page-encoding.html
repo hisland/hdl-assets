@@ -21,12 +21,13 @@
 <body style="margin:50px;">
 	<p>JSP页面</p>
 	<p>&lt;%@ page language="java" contentType="text/html; charset=gb2312" pageEncoding="UTF-8"%&gt;</p>
-	<p>pageEncoding影响的是把jsp转化成java代码时,对于jsp页面内容读取的编码方式</p>
-	<p>pageEncoding要和jsp保存使用的编码相同</p>
+	<p>无contentType时,使用pageEncoding, 如 pageEncoding="UTF-8" 得 contentType="text/html; charset=UTF-8"</p>
+	<p>pageEncoding影响的是把[jsp文本文件]转化成[java代码文件]时,对于[jsp文本文件]读取的编码方式</p>
+	<p>pageEncoding要和[jsp文本文件]保存所使用的编码相同</p>
 	<p>contentType是服务器返回的响应头-Content-Type</p>
-	<p>响应头 Content-Type 比页面的 meta标签更管用</p>
+	<p>contentType="text/html; charset=gb2312" 会在java文件里生成 response.setContentType("text/html; charset=UTF-8");</p>
+	<p>响应头 Content-Type 比页面的 meta标签 优先级高</p>
 
-	<p></p>
 	<p>Sevlet</p>
 	<p>request.setCharacterEncoding("UTF-8");</p>
 	<p>所有取参之前[request.getParameter("")], 需要设置上面这句话,否则不起作用</p>

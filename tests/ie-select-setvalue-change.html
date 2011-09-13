@@ -8,21 +8,31 @@
 		KISSY.ready(function(S){
 			S.use('reset-css, builtin, jquery-1.4.2', function(){
 				$('#select').change(function(e){
-					alert(3);
+					$('body').append('<p>change</p>');
 				});
 				$('#click').click(function(e){
 					var i = Math.random(9);
 					$('#select').val(i);
+					$('body').append('<p>i='+i+'</p>');
 					$('#select').click();
 				});
-
+				$('#click2').click(function(e){
+					var prev = $('#select').val();
+					var i = Math.random(9);
+					$('#select').val(i);
+					$('#select').val(prev);
+					$('body').append('<p>i='+i+', prev='+prev+'</p>');
+					$('#select').click();
+				});
 			});
 		});
 	</script>
 </head>
 <body style="margin:50px;">
 	<p>ie[6,7,8,9],修改select的值后, 紧接着触发click会同时触发change事件</p>
-	<p id="click" style="border:1px solid green;background:#ccc;">点击这里</p>
+	<p>ie[6,7,8,9],修改select的值后再改回去, 紧接着触发click<span style="color:red;">不会</span>同时触发change事件</p>
+	<p id="click" style="border:1px solid green;background:#ccc;">点击这里-改值并触发click</p>
+	<p id="click2" style="border:1px solid green;background:#ccc;">点击这里-改值改回去触发click</p>
 	<select id="select">
 		<option value="0">0</option>
 		<option value="1">1</option>
