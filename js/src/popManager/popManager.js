@@ -15,6 +15,10 @@
  * 
  * 		p.div 最外层元素的jquery对象
  * 		p.div.appendTo('body') 将层放到dom树中
+ * 
+ * TODO:
+ * 		2011-08-09 09:15:49:
+ * 			IE6的内存泄露问题
  */
 
 KISSY.add('popManager', function(S, undef) {
@@ -22,7 +26,9 @@ KISSY.add('popManager', function(S, undef) {
 		,EMPTY_$ = $('')
 		,base_z_index = 1000
 		,html_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;"></div>'
+		,ifr_string = '<iframe style="position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;filter:alpha(opacity=0);" frameborder="no" scrolling="no"></iframe>'
 		,mask_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>'
+		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent) && !/msie 7.0/i.test(navigator.userAgent)
 		,m = {}
 		
 		,_uid = 0
@@ -47,6 +53,9 @@ KISSY.add('popManager', function(S, undef) {
 
 	function init(){
 		this.div = $(html_string);
+		if(ie6){
+			this.div.append(ifr_string);
+		}
 		this.mask();
 		m.divs = m.divs.add(this.div);
 	}
@@ -79,6 +88,14 @@ KISSY.add('popManager', function(S, undef) {
 					this.div.css('background-color', 'rgba(0, 0, 0, 0.2)');
 					this.__mask = 1;
 				}
+			}
+			return this;
+		}
+		,loading: function(str){
+			if (str == false) {
+				this.div.removeClass('loading');
+			}else{
+				this.div.addClass('loading');
 			}
 			return this;
 		}
