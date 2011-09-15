@@ -12,11 +12,18 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, hdlTipMsg+css', function(){
-				$.alert(3)
+				$('#aaa').click(function(){
+					$.alert('im a tip!');
+				});
+				$('#bbb').click(function(){
+					$.popManager.clean();
+				});
 			});
 		});
 	</script>
 </head>
 <body>
+<input type="button" name="" value="show one" id="aaa" />
+<input type="button" name="" value="clean manager" id="bbb" />
 </body>
 </html>

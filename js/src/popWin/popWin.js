@@ -49,23 +49,29 @@ KISSY.add('popWin', function(S, undef) {
 		self.manager = $.popManager.init();
 		self.manager.div.append(div).appendTo('body');
 		self.div.width(400);
-		self.div.hdlDrag();
+		self.div.hdlDrag({
+			trigger_filter: function(e){
+				if($(e.target).closest('.win1-content, .win1-close').length){
+					return false;
+				}
+			}
+		});
 
 		//设置关闭按钮
 		self.close.click(function(e){
 			self.hide();
 			e.preventDefault();
+		})
+		//不能拖拽
+		.bind('dragstart', function(e){
+			e.preventDefault();
 		});
+
 		//设置关闭按钮
 		self.div.click(function(e){
 			if($(e.target).is('.win1-btn-cancle')){
 				self.hide();
 			}
-		});
-
-		//设置不能拖动的地方
-		self.content.add(self.close).mousedown(function(e){
-			e.stopPropagation();
 		});
 	}
 
@@ -78,12 +84,23 @@ KISSY.add('popWin', function(S, undef) {
 			this.manager.mask(use);
 			return this;
 		}
+		,loading: function(str){
+			if (str == false) {
+				this.div.show();
+				this.manager.loading(str);
+			}else{
+				this.div.hide();
+				this.manager.loading(str);
+			}
+			return this;
+		}
 		,show: function(){
 			this.manager.div.show();
-			this.div.css({
+			//先hide再show是因为某些IE会先显示出来然后再定位调整,会有闪烁的感觉
+			this.div.hide().css({
 				 top: (document.documentElement.clientHeight-this.div.height())/2
 				,left:(document.documentElement.clientWidth-this.div.width())/2
-			});
+			}).show();
 			return this;
 		}
 		,hide: function(){

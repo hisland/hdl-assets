@@ -19,20 +19,21 @@
  * 			Y/N快捷键支持
  * 
  * 
- * pre_setting = {
- * 		 message: '默认信息'	//字符串 提示内容,必填
- * 		,type: 'alert'			//字符串 提示类型,内部指定
- * 		,title: '提示'			//字符串 提示标题
- * 		,auto_hide: 0			//整数   自动隐藏,为数字,0表示不自动,大于0的整数表示多少秒后隐藏
- * 		,callback: 0			//函数   针对confirm的回调函数
- * 		,beforeShow: 0			//函数   在层打开之前的操作
- * 		,onShow: 0				//函数   显示层时的操作
- * 		,beforeHide: 0			//函数   在层关闭之前的操作
- * 		,onHide: 0				//函数   关闭层时的操作
- * 		,dragable: 1			//布尔值 是否可拖动
- * 		,slide: 0				//布尔值 是否淡入淡出
- * 		,focus_yes: 1			//布尔值 默认焦点在yes上
- * }
+pre_setting = {
+	 message: '默认信息'	//字符串 提示内容,必填
+	,type: 'alert'			//字符串 提示类型,内部指定
+	,title: '提示'			//字符串 提示标题
+	,auto_hide: 0			//整数   自动隐藏,为数字,0表示不自动,大于0的整数表示多少秒后隐藏
+	,callback: 0			//函数   针对confirm的回调函数
+	,beforeShow: 0			//函数   在层打开之前的操作
+	,onShow: 0				//函数   显示层时的操作
+	,beforeHide: 0			//函数   在层关闭之前的操作
+	,onHide: 0				//函数   关闭层时的操作
+	,dragable: 1			//布尔值 是否可拖动
+	,slide: 0				//布尔值 是否淡入淡出
+	,focus_yes: 1			//布尔值 默认焦点在yes上
+}
+ * 
  */
 
 KISSY.add('hdlTipMsg', function(S, undef) {
@@ -93,8 +94,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		}
 
 		div.close = div.find('a.tipmsg-close');
-		div.btn_ok = div.find('input');
-		div.btn_cancle = div.btn_ok;
+		div.btn_cancle = div.btn_ok = div.find('input');
 		div.content = div.find('div.tipmsg-content');
 		div.icon = div.find('div.tipmsg-alert');
 		div.title = div.find('span.tipmsg-title');
@@ -123,9 +123,9 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 			close(div, setting);
 			e.preventDefault();
 		})
-		//不能被拖动
-		.add(div.btn_ok).mousedown(function(e){
-			e.stopPropagation();
+		//不能拖拽
+		.bind('dragstart', function(e){
+			e.preventDefault();
 		});
 
 		//设置标题
@@ -137,6 +137,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		//设置弹出管理
 		div.manager = $.popManager.init();
 		div.appendTo(div.manager.div);
+		div.hide();
 		div.manager.div.appendTo('body').show();
 		div.remove = function(){
 			this.manager.remove();
@@ -173,13 +174,14 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 
 		//拖动与否
 		if(setting.dragable){
-			div.hdlDrag();
+			div.hdlDrag({
+				trigger_filter: function(e){
+					if($(e.target).closest(':button, .tipmsg-content, .tipmsg-close').length){
+						return false;
+					}
+				}
+			});
 		}
-
-		//阻止内容里面点击时的拖动
-		div.content.mousedown(function(e){
-			e.stopPropagation();
-		});
 
 		//是否自动关闭
 		if(setting.auto_hide > 0){
@@ -187,6 +189,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 				div.close.click();
 			}, setting.auto_hide*1000);
 		}
+		div.show();
 
 		return div;
 	}
