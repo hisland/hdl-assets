@@ -5,13 +5,9 @@
  * 时间: 2010-8-21 16:58:32
  * 版本: v1
  *
- * 前置脚本:
- *			../jquery-1.4.2.min.js
- *			../hdlTipMsg/jquery.hdlTipMsg.js
- *			../swfobject1-5/swfobject.js
- *			../jquery.hdlDrag.js
  */
-(function($){
+KISSY.add('flashUpload', function(S, undef) {
+	var $ = jQuery;
 	//已经有了此函数则不用重复注册了
 	if($.flashUpload){
 		return false;
@@ -123,4 +119,6 @@
 
 	//注册到jq命名空间上
 	$.flashUpload = flashUpload;
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2', 'hdlTipMsg', 'swfobject']
+});

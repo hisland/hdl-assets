@@ -54,6 +54,7 @@ KISSY.add('hdlMessager', function(S, undef) {
 		}
 		,autoClose: function(){
 			var me = this;
+			clearTimeout(this._close_timer);
 			this._close_timer = setTimeout(function(){
 				me.hide();
 			}, this.auto_close * 1000);
@@ -89,12 +90,10 @@ KISSY.add('hdlMessager', function(S, undef) {
 		,uid: function(){
 			return 'hdlmsgr' + (++this._uid);
 		}
-		,str_html: '<div class="hdl-msgr-wrap"><div class="hdl-msgr-head"><div class="hdl-msgr-head-inner"><span></span><a href="#"></a></div></div><div class="hdl-msgr-con"><div class="hdl-msgr-con-inner"></div></div></div>'
+		,str_html: '<div class="hdl-msgr-wrap"><!--[if IE 6]><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;filter:alpha(opacity=0);" frameborder="no" scrolling="no"></iframe><![endif]--><div class="hdl-msgr-head"><div class="hdl-msgr-head-inner"><span></span><a href="#"></a></div></div><div class="hdl-msgr-con"><div class="hdl-msgr-con-inner"></div></div></div>'
 	});
 
-/**********************************************************************************************
-*注册到jq原型上
-*/
+
 	function hdlMessager(setting, content){
 		var msgr = new Messager();
 		$.extend(msgr, {
