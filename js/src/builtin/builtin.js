@@ -1,6 +1,10 @@
 /**********************************************************************************************
- *
  * 查看一个对象的json表示
+ * 
+ * 作者: hisland
+ * 邮件: hisland@qq.com
+ * 时间: @TIMESTAMP@
+ * 版本: @VERSION@
  * 
  */
 
@@ -11,25 +15,43 @@ function viewJSON(obj,tabs){
 	tabs = tabs ? tabs : '';
 	var tabs2 = tabs ? tabs+'\t' : '\t';
 	for(var i in obj){
+		//只显示自己的属性,不显示原型链上的属性
 		if (!obj.hasOwnProperty(i)){
 			continue;
 		}
-		if(typeof obj[i] == 'number'){//返回 'key':val|数组val;
-			arr.push('\n'+tabs2+(isArr ? '' : '"'+i+'":')+obj[i]);
-		}else if(typeof obj[i] == 'string'){//返回 'key':'val'|数组'val';
-			arr.push('\n'+tabs2+(isArr ? '"' : '"'+i+'":"')+obj[i]+'"');
-		}else if(typeof obj[i] == 'boolean'){//返回 'key':'val'|数组'val';
-			arr.push('\n'+tabs2+(isArr ? '' : '"'+i+'":')+obj[i]+'');
-		}else if(obj[i] == null){//返回 'key':null|数组null;
-			arr.push('\n'+tabs2+(isArr ? '' : '"'+i+'":')+'null');
-		}else if(obj[i] == undefined){//返回 'key':undefined|数组undefined;
-			arr.push('\n'+tabs2+(isArr ? '' : '"'+i+'":')+'undefined');
-		}else if(typeof obj[i] == 'object'){
-			arr.push((isArr ? '' : '\n'+tabs2+'"'+i+'":')+viewJSON(obj[i],tabs2));
-		}else if(typeof obj[i] == 'function'){
-			arr.push('\n'+tabs2+(isArr ? '"' : '"'+i+'":"')+'[function]"');
-		}else{
-			throw ('出错: '+obj[i]);
+
+		var type = typeof obj[i];
+		
+		if(type === 'number'){
+			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), obj[i]);
+		}
+
+		else if(type === 'string'){
+			arr.push('\n', tabs2, (isArr ? '"' : '"'+i+'":"'), obj[i], '"');
+		}
+
+		else if(type === 'boolean'){
+			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), obj[i], '');
+		}
+		
+		else if(type === 'object'){
+			arr.push((isArr ? '' : '\n'+tabs2+'"'+i+'":'), viewJSON(obj[i],tabs2));
+		}
+		
+		else if(type === 'function'){
+			arr.push('\n', tabs2, (isArr ? '"' : '"'+i+'":"'), '[function]"');
+		}
+
+		else if(obj[i] === null){
+			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), 'null');
+		}
+
+		else if(obj[i] === undefined){
+			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), 'undefined');
+		}
+		
+		else{
+			arr.push('\n', tabs2, (isArr ? '"' : '"'+i+'":"'), '[unKnownType]"');
 		}
 	}
 	str += arr.join(',');
@@ -138,7 +160,7 @@ function viewJSON(obj,tabs){
 
 	//var d = new Date()
 	//d.add(123) d.add('1234') d.add(-123) 增加或减少毫秒数,参数为可转化成数字的变量
-	//d.add('year) d.add('month')  指定部分加1,参数为[year|month|date|hour|minute|second]
+	//d.add('year') d.add('month')  指定部分加1,参数为[year|month|date|hour|minute|second]
 	//d.add('year', 123) d.add('month', '1234')  增加或减少指定部分[year|month|date|hour|minute|second],参数为可转化成数字的变量其余的忽略
 	Date.prototype.add = function(type, value){
 		var reg = /^(?:year|month|date|hour|minute|second)$/;
@@ -238,8 +260,7 @@ function viewJSON(obj,tabs){
 })();
 
 /**********************************************************************************************
- * 
- * 增加数组对象方法
+ * 数组对象方法
  * 
  * 作者: hisland
  * 邮件: hisland@qq.com
@@ -262,7 +283,6 @@ Array.prototype.unique = function(){
 };
 
 /**********************************************************************************************
- * 
  * 增强Math对象方法
  * 
  * 作者: hisland
@@ -312,7 +332,6 @@ Array.prototype.unique = function(){
 })();
 
 /**********************************************************************************************
- * 
  * 增加数字对象方法
  * 
  * 作者: hisland

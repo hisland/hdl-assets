@@ -99,7 +99,7 @@
 
 	//var d = new Date()
 	//d.add(123) d.add('1234') d.add(-123) 增加或减少毫秒数,参数为可转化成数字的变量
-	//d.add('year) d.add('month')  指定部分加1,参数为[year|month|date|hour|minute|second]
+	//d.add('year') d.add('month')  指定部分加1,参数为[year|month|date|hour|minute|second]
 	//d.add('year', 123) d.add('month', '1234')  增加或减少指定部分[year|month|date|hour|minute|second],参数为可转化成数字的变量其余的忽略
 	Date.prototype.add = function(type, value){
 		var reg = /^(?:year|month|date|hour|minute|second)$/;
