@@ -22,7 +22,7 @@ KISSY.add('adjustElement', function(S, undef) {
 		target = $(target).eq(0);
 
 		if(!target.length){
-			alert('adjustElement: 必须有个 target');
+			alert('adjustElement: must have target');
 			return elm;
 		}
 

@@ -19,6 +19,8 @@
  * TODO:
  * 		2011-08-09 09:15:49:
  * 			IE6的内存泄露问题
+ * 		2011-09-16 18:56:51:
+ * 			ESC隐藏控制
  */
 
 KISSY.add('popManager', function(S, undef) {
@@ -28,7 +30,7 @@ KISSY.add('popManager', function(S, undef) {
 		,html_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;"></div>'
 		,ifr_string = '<iframe style="position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;filter:alpha(opacity=0);" frameborder="no" scrolling="no"></iframe>'
 		,mask_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>'
-		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent) && !/msie 7.0/i.test(navigator.userAgent)
+		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent) && !/msie [78].0/i.test(navigator.userAgent)
 		,m = {}
 		
 		,_uid = 0
@@ -40,7 +42,7 @@ KISSY.add('popManager', function(S, undef) {
 
 	//初始化一个弹出层包含块
 	m.init = function(){
-		return new init().front();
+		return (new init()).front();
 	}
 
 	//清除所有的弹出层包含块
