@@ -1,21 +1,41 @@
 /**********************************************************************************************
- * 
  * 增加日期对象方法
- * 
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: @TIMESTAMP@
  * 版本: @VERSION@
  * 
+ * NOTICE:
+ *		设置时,前置0都可省略
+ * 
+ * API:
+ *		var d = new Date();
+ *		d.dateString();		//取得日期字符串,如:2011-09-20
+ *		d.dateString('2010-09-1');		//将日期设置为2010-09-1
+ *		d.dateString('2010/09/1');		//将日期设置为2010-09-1
+ * 
+ *		d.timeString();		//取得日期字符串,如:10:46:11
+ *		d.timeString('10:46:11');		//将时间设置为10:46:11
+ * 
+ *		d.dateTimeString();		//取得日期字符串,如:2011-09-20 10:47:10
+ *		d.dateTimeString('2011-09-20 10:47:10');		//将时间设置为2011-09-20 10:47:10
+ *		d.dateTimeString('2011/09/20 10:47:10');		//将时间设置为2011-09-20 10:47:10
+ *		
+ *		d.isValid();	//检测日期是否合法,返回true|false
+ *		
+ *		d.add(123); d.add('1234'); d.add(-123) 增加或减少毫秒数,参数为可转化成数字的变量
+ *		d.add('year'); d.add('month')  指定部分加1,参数为[year|month|date|hour|minute|second]
+ *		d.add('year', 123); d.add('month', '1234')  增加或减少指定部分[year|month|date|hour|minute|second],参数为可转化成数字的变量其余的忽略
+ * 
  */
 
 (function(){
 	//将长度为1的字符串前置0
-	function length1Prefix0(value){
+	function __length1Prefix0(value){
 		value += '';
 		return value.length==1 ? '0'+value : value;
 	}
-	//内部add方法,,add具体的type
+	//add具体的type
 	function __add(type, value){
 		if(type === 'year'){
 			this.setFullYear(this.getFullYear() + value);
@@ -35,15 +55,12 @@
 		return this;
 	};
 
-	//有value设置日期,无value读取日期
-	//参数形式:'2010-09-01'|'2010/09/01' 前置0可省略
 	Date.prototype.dateString = function(value){
 		if(value){
 			value += '';
 			var arr = value.match(/(\d{4})([-\/])(\d{1,2})\2(\d{1,2})/);
 			if(!arr){
-				alert('Date.prototype.dateString: 出错,请确保参数格式为 2010-09-01 或 2010/09/01 前置0可省略');
-				throw 'Date.prototype.dateString: 出错,请确保参数格式为 2010-09-01 或 2010/09/01 前置0可省略';
+				alert('Date.prototype.dateString: setting error!');
 			}
 			this.setFullYear(arr[1]);
 			this.setMonth(arr[3]-1);
@@ -51,8 +68,8 @@
 			return this;
 		}else{
 			var  y = this.getFullYear()
-				,m = length1Prefix0(this.getMonth()+1)
-				,d = length1Prefix0(this.getDate());
+				,m = __length1Prefix0(this.getMonth()+1)
+				,d = __length1Prefix0(this.getDate());
 			return y+'-'+m+'-'+d;
 		}
 	};
@@ -61,17 +78,16 @@
 			value += '';
 			var arr = value.match(/(\d{1,2}):(\d{1,2}):(\d{1,2})/);
 			if(!arr){
-				alert('Date.prototype.timeString: 出错,请确保参数格式为 09:05:02 前置0可省略');
-				throw 'Date.prototype.timeString: 出错,请确保参数格式为 09:05:02 前置0可省略';
+				alert('Date.prototype.timeString: setting error!');
 			}
 			this.setHours(arr[1]);
 			this.setMinutes(arr[2]);
 			this.setSeconds(arr[3]);
 			return this;
 		}else{
-			var  h = length1Prefix0(this.getHours())
-				,m = length1Prefix0(this.getMinutes())
-				,s = length1Prefix0(this.getSeconds());
+			var  h = __length1Prefix0(this.getHours())
+				,m = __length1Prefix0(this.getMinutes())
+				,s = __length1Prefix0(this.getSeconds());
 			return h+':'+m+':'+s;
 		}
 	};
@@ -80,8 +96,7 @@
 			value += '';
 			var arr = value.match(/(\d{4}([-\/])\d{1,2}\2\d{1,2}) (\d{1,2}:\d{1,2}:\d{1,2})/);
 			if(!arr){
-				alert('Date.prototype.dateTimeString: 出错,请确保参数格式为 2010-09-01 09:05:02 或 2010/09/01 09:05:02 前置0可省略');
-				throw 'Date.prototype.dateTimeString: 出错,请确保参数格式为 2010-09-01 09:05:02 或 2010/09/01 09:05:02 前置0可省略';
+				alert('Date.prototype.dateTimeString: setting error!');
 			}
 			this.dateString(arr[1]);
 			this.timeString(arr[3]);
@@ -96,15 +111,11 @@
 		}
 		return true;
 	};
-
-	//var d = new Date()
-	//d.add(123) d.add('1234') d.add(-123) 增加或减少毫秒数,参数为可转化成数字的变量
-	//d.add('year') d.add('month')  指定部分加1,参数为[year|month|date|hour|minute|second]
-	//d.add('year', 123) d.add('month', '1234')  增加或减少指定部分[year|month|date|hour|minute|second],参数为可转化成数字的变量其余的忽略
 	Date.prototype.add = function(type, value){
 		var reg = /^(?:year|month|date|hour|minute|second)$/;
 
 		if(type === undefined){
+			alert('Date.prototype.add: type is undefined!');
 		}else if(value === undefined){
 			if(!isNaN(type)){
 				type -= 0;

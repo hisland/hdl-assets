@@ -1,6 +1,5 @@
 /**********************************************************************************************
  * 查看一个对象的json表示
- * 
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: @TIMESTAMP@
@@ -8,54 +7,63 @@
  * 
  */
 
-function viewJSON(obj,tabs){
-	var isArr = Object.prototype.toString.apply(obj) === '[object Array]';
-	var str = isArr ? '[' : '{';
-	var arr = [];
-	tabs = tabs ? tabs : '';
-	var tabs2 = tabs ? tabs+'\t' : '\t';
-	for(var i in obj){
+function __escapeDashQuote(str){
+	return str.replace(/[\\"]/, function(m){
+		if(m == '\\'){
+			return '\\\\';
+		}else{
+			return '\\"';
+		}
+	});
+}
+function viewJSON(obj, tabs){
+	var isArr = Object.prototype.toString.apply(obj) === '[object Array]',
+		bracket  = isArr ? '[' : '{',
+		buff = [], i, type, tmp;
+	tabs = tabs || '';
+	var indent = tabs + '\t';
+	for(i in obj){
 		//只显示自己的属性,不显示原型链上的属性
 		if (!obj.hasOwnProperty(i)){
 			continue;
 		}
 
-		var type = typeof obj[i];
+		tmp = obj[i];
+		type = typeof tmp;
 		
 		if(type === 'number'){
-			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), obj[i]);
+			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + tmp);
 		}
 
 		else if(type === 'string'){
-			arr.push('\n', tabs2, (isArr ? '"' : '"'+i+'":"'), obj[i], '"');
+			buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + __escapeDashQuote(tmp) + '"');
 		}
 
 		else if(type === 'boolean'){
-			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), obj[i], '');
+			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + tmp + '');
 		}
 		
 		else if(type === 'object'){
-			arr.push((isArr ? '' : '\n'+tabs2+'"'+i+'":'), viewJSON(obj[i],tabs2));
+			buff.push((isArr ? '' : '\n'+indent+'"'+i+'":') + viewJSON(tmp,indent));
 		}
 		
 		else if(type === 'function'){
-			arr.push('\n', tabs2, (isArr ? '"' : '"'+i+'":"'), '[function]"');
+			buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + '[function]"');
 		}
 
-		else if(obj[i] === null){
-			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), 'null');
+		else if(tmp === null){
+			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + 'null');
 		}
 
-		else if(obj[i] === undefined){
-			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), 'undefined');
+		else if(tmp === undefined){
+			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + 'undefined');
 		}
 		
 		else{
-			arr.push('\n', tabs2, (isArr ? '"' : '"'+i+'":"'), '[unKnownType]"');
+			buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + '[unKnownType]"');
 		}
 	}
-	str += arr.join(',');
-	str += isArr ? '\n'+tabs+']' : '\n'+tabs+'}';
-	return str;
+	bracket += buff.join(',');
+	bracket += '\n' + tabs + (isArr ? ']' : '}');
+	return bracket ;
 }
-

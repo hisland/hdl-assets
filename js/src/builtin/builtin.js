@@ -1,6 +1,5 @@
 /**********************************************************************************************
  * 查看一个对象的json表示
- * 
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: @TIMESTAMP@
@@ -8,75 +7,104 @@
  * 
  */
 
-function viewJSON(obj,tabs){
-	var isArr = Object.prototype.toString.apply(obj) === '[object Array]';
-	var str = isArr ? '[' : '{';
-	var arr = [];
-	tabs = tabs ? tabs : '';
-	var tabs2 = tabs ? tabs+'\t' : '\t';
-	for(var i in obj){
+function __escapeDashQuote(str){
+	return str.replace(/[\\"]/, function(m){
+		if(m == '\\'){
+			return '\\\\';
+		}else{
+			return '\\"';
+		}
+	});
+}
+function viewJSON(obj, tabs){
+	var isArr = Object.prototype.toString.apply(obj) === '[object Array]',
+		bracket  = isArr ? '[' : '{',
+		buff = [], i, type, tmp;
+	tabs = tabs || '';
+	var indent = tabs + '\t';
+	for(i in obj){
 		//只显示自己的属性,不显示原型链上的属性
 		if (!obj.hasOwnProperty(i)){
 			continue;
 		}
 
-		var type = typeof obj[i];
+		tmp = obj[i];
+		type = typeof tmp;
 		
 		if(type === 'number'){
-			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), obj[i]);
+			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + tmp);
 		}
 
 		else if(type === 'string'){
-			arr.push('\n', tabs2, (isArr ? '"' : '"'+i+'":"'), obj[i], '"');
+			buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + __escapeDashQuote(tmp) + '"');
 		}
 
 		else if(type === 'boolean'){
-			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), obj[i], '');
+			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + tmp + '');
 		}
 		
 		else if(type === 'object'){
-			arr.push((isArr ? '' : '\n'+tabs2+'"'+i+'":'), viewJSON(obj[i],tabs2));
+			buff.push((isArr ? '' : '\n'+indent+'"'+i+'":') + viewJSON(tmp,indent));
 		}
 		
 		else if(type === 'function'){
-			arr.push('\n', tabs2, (isArr ? '"' : '"'+i+'":"'), '[function]"');
+			buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + '[function]"');
 		}
 
-		else if(obj[i] === null){
-			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), 'null');
+		else if(tmp === null){
+			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + 'null');
 		}
 
-		else if(obj[i] === undefined){
-			arr.push('\n', tabs2, (isArr ? '' : '"'+i+'":'), 'undefined');
+		else if(tmp === undefined){
+			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + 'undefined');
 		}
 		
 		else{
-			arr.push('\n', tabs2, (isArr ? '"' : '"'+i+'":"'), '[unKnownType]"');
+			buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + '[unKnownType]"');
 		}
 	}
-	str += arr.join(',');
-	str += isArr ? '\n'+tabs+']' : '\n'+tabs+'}';
-	return str;
+	bracket += buff.join(',');
+	bracket += '\n' + tabs + (isArr ? ']' : '}');
+	return bracket ;
 }
-
 /**********************************************************************************************
- * 
  * 增加日期对象方法
- * 
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: @TIMESTAMP@
  * 版本: @VERSION@
  * 
+ * NOTICE:
+ *		设置时,前置0都可省略
+ * 
+ * API:
+ *		var d = new Date();
+ *		d.dateString();		//取得日期字符串,如:2011-09-20
+ *		d.dateString('2010-09-1');		//将日期设置为2010-09-1
+ *		d.dateString('2010/09/1');		//将日期设置为2010-09-1
+ * 
+ *		d.timeString();		//取得日期字符串,如:10:46:11
+ *		d.timeString('10:46:11');		//将时间设置为10:46:11
+ * 
+ *		d.dateTimeString();		//取得日期字符串,如:2011-09-20 10:47:10
+ *		d.dateTimeString('2011-09-20 10:47:10');		//将时间设置为2011-09-20 10:47:10
+ *		d.dateTimeString('2011/09/20 10:47:10');		//将时间设置为2011-09-20 10:47:10
+ *		
+ *		d.isValid();	//检测日期是否合法,返回true|false
+ *		
+ *		d.add(123); d.add('1234'); d.add(-123) 增加或减少毫秒数,参数为可转化成数字的变量
+ *		d.add('year'); d.add('month')  指定部分加1,参数为[year|month|date|hour|minute|second]
+ *		d.add('year', 123); d.add('month', '1234')  增加或减少指定部分[year|month|date|hour|minute|second],参数为可转化成数字的变量其余的忽略
+ * 
  */
 
 (function(){
 	//将长度为1的字符串前置0
-	function length1Prefix0(value){
+	function __length1Prefix0(value){
 		value += '';
 		return value.length==1 ? '0'+value : value;
 	}
-	//内部add方法,,add具体的type
+	//add具体的type
 	function __add(type, value){
 		if(type === 'year'){
 			this.setFullYear(this.getFullYear() + value);
@@ -96,15 +124,12 @@ function viewJSON(obj,tabs){
 		return this;
 	};
 
-	//有value设置日期,无value读取日期
-	//参数形式:'2010-09-01'|'2010/09/01' 前置0可省略
 	Date.prototype.dateString = function(value){
 		if(value){
 			value += '';
 			var arr = value.match(/(\d{4})([-\/])(\d{1,2})\2(\d{1,2})/);
 			if(!arr){
-				alert('Date.prototype.dateString: 出错,请确保参数格式为 2010-09-01 或 2010/09/01 前置0可省略');
-				throw 'Date.prototype.dateString: 出错,请确保参数格式为 2010-09-01 或 2010/09/01 前置0可省略';
+				alert('Date.prototype.dateString: setting error!');
 			}
 			this.setFullYear(arr[1]);
 			this.setMonth(arr[3]-1);
@@ -112,8 +137,8 @@ function viewJSON(obj,tabs){
 			return this;
 		}else{
 			var  y = this.getFullYear()
-				,m = length1Prefix0(this.getMonth()+1)
-				,d = length1Prefix0(this.getDate());
+				,m = __length1Prefix0(this.getMonth()+1)
+				,d = __length1Prefix0(this.getDate());
 			return y+'-'+m+'-'+d;
 		}
 	};
@@ -122,17 +147,16 @@ function viewJSON(obj,tabs){
 			value += '';
 			var arr = value.match(/(\d{1,2}):(\d{1,2}):(\d{1,2})/);
 			if(!arr){
-				alert('Date.prototype.timeString: 出错,请确保参数格式为 09:05:02 前置0可省略');
-				throw 'Date.prototype.timeString: 出错,请确保参数格式为 09:05:02 前置0可省略';
+				alert('Date.prototype.timeString: setting error!');
 			}
 			this.setHours(arr[1]);
 			this.setMinutes(arr[2]);
 			this.setSeconds(arr[3]);
 			return this;
 		}else{
-			var  h = length1Prefix0(this.getHours())
-				,m = length1Prefix0(this.getMinutes())
-				,s = length1Prefix0(this.getSeconds());
+			var  h = __length1Prefix0(this.getHours())
+				,m = __length1Prefix0(this.getMinutes())
+				,s = __length1Prefix0(this.getSeconds());
 			return h+':'+m+':'+s;
 		}
 	};
@@ -141,8 +165,7 @@ function viewJSON(obj,tabs){
 			value += '';
 			var arr = value.match(/(\d{4}([-\/])\d{1,2}\2\d{1,2}) (\d{1,2}:\d{1,2}:\d{1,2})/);
 			if(!arr){
-				alert('Date.prototype.dateTimeString: 出错,请确保参数格式为 2010-09-01 09:05:02 或 2010/09/01 09:05:02 前置0可省略');
-				throw 'Date.prototype.dateTimeString: 出错,请确保参数格式为 2010-09-01 09:05:02 或 2010/09/01 09:05:02 前置0可省略';
+				alert('Date.prototype.dateTimeString: setting error!');
 			}
 			this.dateString(arr[1]);
 			this.timeString(arr[3]);
@@ -157,15 +180,11 @@ function viewJSON(obj,tabs){
 		}
 		return true;
 	};
-
-	//var d = new Date()
-	//d.add(123) d.add('1234') d.add(-123) 增加或减少毫秒数,参数为可转化成数字的变量
-	//d.add('year') d.add('month')  指定部分加1,参数为[year|month|date|hour|minute|second]
-	//d.add('year', 123) d.add('month', '1234')  增加或减少指定部分[year|month|date|hour|minute|second],参数为可转化成数字的变量其余的忽略
 	Date.prototype.add = function(type, value){
 		var reg = /^(?:year|month|date|hour|minute|second)$/;
 
 		if(type === undefined){
+			alert('Date.prototype.add: type is undefined!');
 		}else if(value === undefined){
 			if(!isNaN(type)){
 				type -= 0;
@@ -185,10 +204,31 @@ function viewJSON(obj,tabs){
 })();
 
 /**********************************************************************************************
- * 
  * 增加字符串对象方法
+ * 作者: hisland
+ * 邮件: hisland@qq.com
+ * 时间: @TIMESTAMP@
+ * 版本: @VERSION@
  * 
- * 先引入Date模块
+ * API:
+ *		var d = '2011-09-20'.getDate();		//从日期字符串获得Date对象
+ *		var d = '2011/09/20'.getDate();		//从日期字符串获得Date对象
+ *		var d = '2011-09-20 10:58:37'.getDate();		//从日期字符串获得Date对象
+ *		var d = '2011/09/20 10:58:37'.getDate();		//从日期字符串获得Date对象
+ * 
+ *		var d = 'xx'.getDate();		//值为null, 字符串必须能转换成日期对象
+ *		var rs = 'xx'.isValidDate();		//值为true|false, 检测字符串能否转换成日期对象
+ * 
+ *		var rs = '()*-'.encodeAll();		//把 !'()*-._~ 这些不会编码的一起使用%XXX的形式编码
+ *		var rs = '()*-'.escapeAll();		//把 *+-./@_ 这些不会编码的一起使用%XXX的形式编码
+ * 
+ *		var rs = '  jj  '.lTrim();			//去左空白字符
+ *		var rs = '  jj  '.rTrim();			//去右空白字符
+ *		var rs = '  jj  '.trim();			//去左右空白字符
+ *		var rs = '  jj  '.trimAll();			//去全部(包括中间)空白字符
+ * 
+ *		var rs = '  jj  '.entityHTML();			//对字符串进行实体编码|编号转换
+ *		var rs = '  jj  '.unentityHTML();			//上一函数的反向操作
  * 
  */
 
@@ -261,11 +301,13 @@ function viewJSON(obj,tabs){
 
 /**********************************************************************************************
  * 数组对象方法
- * 
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: @TIMESTAMP@
  * 版本: @VERSION@
+ * 
+ * API:
+ *		var rs = [1,1,3].unique();	//rs为 [1,3]
  * 
  */
 
@@ -284,18 +326,20 @@ Array.prototype.unique = function(){
 
 /**********************************************************************************************
  * 增强Math对象方法
- * 
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: @TIMESTAMP@
  * 版本: @VERSION@
  * 
+ * API:
+ *		var num = Math.random();		//得到原始的随机数
+ *		var num = Math.random(100);		//得到0-100的随机数
+ *		var num = Math.random(5, 100);	//得到5-100的随机数
+ *		var num = Math.random(100, 5);	//得到5-100的随机数
+ * 
  */
 
 (function(){
-
-	//增强Math.random
-	//产生一个from 到 to的随机整数
 	var oldRandom = Math.random;
 	Math.random= function(from, to){
 		var temp = 0, len = arguments.length;
@@ -305,14 +349,16 @@ Array.prototype.unique = function(){
 			return oldRandom();
 		}else if(len === 1){
 			if(isNaN(from)){
-				return oldRandom();
+				alert('Math.random: from is error!');
+				return null;
 			}else{
 				to = from;
 				from = 0;
 			}
 		}else{
 			if(isNaN(from) && isNaN(to)){
-				return oldRandom();
+				alert('Math.random: from and to are error!');
+				return null;
 			}else if(isNaN(from)){
 				from = 0;
 			}else if(isNaN(to)){
@@ -333,11 +379,13 @@ Array.prototype.unique = function(){
 
 /**********************************************************************************************
  * 增加数字对象方法
- * 
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: @TIMESTAMP@
  * 版本: @VERSION@
+ * 
+ * API:
+ *		5.doTimes(fn);	//执行fn5次, fn的第1个参数为n
  * 
  */
 
@@ -348,7 +396,6 @@ Number.prototype.doTimes = function(fn){
 }
 
 /**********************************************************************************************
- * 
  * 增加正则对象方法
  * 
  * 作者: hisland

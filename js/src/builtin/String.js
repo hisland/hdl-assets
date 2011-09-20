@@ -1,8 +1,29 @@
 /**********************************************************************************************
- * 
  * 增加字符串对象方法
+ * 作者: hisland
+ * 邮件: hisland@qq.com
+ * 时间: @TIMESTAMP@
+ * 版本: @VERSION@
  * 
- * 先引入Date模块
+ * API:
+ *		var d = '2011-09-20'.getDate();		//从日期字符串获得Date对象
+ *		var d = '2011/09/20'.getDate();		//从日期字符串获得Date对象
+ *		var d = '2011-09-20 10:58:37'.getDate();		//从日期字符串获得Date对象
+ *		var d = '2011/09/20 10:58:37'.getDate();		//从日期字符串获得Date对象
+ * 
+ *		var d = 'xx'.getDate();		//值为null, 字符串必须能转换成日期对象
+ *		var rs = 'xx'.isValidDate();		//值为true|false, 检测字符串能否转换成日期对象
+ * 
+ *		var rs = '()*-'.encodeAll();		//把 !'()*-._~ 这些不会编码的一起使用%XXX的形式编码
+ *		var rs = '()*-'.escapeAll();		//把 *+-./@_ 这些不会编码的一起使用%XXX的形式编码
+ * 
+ *		var rs = '  jj  '.lTrim();			//去左空白字符
+ *		var rs = '  jj  '.rTrim();			//去右空白字符
+ *		var rs = '  jj  '.trim();			//去左右空白字符
+ *		var rs = '  jj  '.trimAll();			//去全部(包括中间)空白字符
+ * 
+ *		var rs = '  jj  '.entityHTML();			//对字符串进行实体编码|编号转换
+ *		var rs = '  jj  '.unentityHTML();			//上一函数的反向操作
  * 
  */
 
