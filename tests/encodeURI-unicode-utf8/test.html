@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2, builtin', function(){
+				
+			});
+		});
+	</script>
+	<style type="text/css">
+		th, td{border:1px solid #ccc;}
+		.red{color:red;}
+		.green{color:green;}
+		.purple{color:purple;}
+	</style>
+</head>
+
+<body style="padding:20px;">
+	<div>
+		<p>encodeURL使用UTF8编码</p>
+		<p>文字: 你</p>
+		<p>十进制: 20320</p>
+		<p>16进制: 4F60</p>
+		<p>escape: %u4F60</p>
+		<p>二进制: 100111101100000</p>
+		<hr />
+		<p>二进制: &nbsp;100111101100000 15位</p>
+		<p>二进制: <span class="red">0100</span><span class="green">111101</span><span class="purple">100000</span> 16位</p>
+		<p>16进制4F60落在下表第3行,所以编码取 1110xxxx 10xxxxxx 10xxxxxx</p>
+		<p>填入: 1110<span class="red">0100</span>10<span class="green">111101</span>10<span class="purple">100000</span></p>
+		<p>8位分16进制: E4BDA0</p>
+		<p>加上%: %E4%BD%A0</p>
+		<p>encodeURI: %E4%BD%A0</p>
+		<hr />
+		<p>java getBytes: [-28, -67, -96]</p>
+		<p>第1个8位: 11100100, 第1位为1,表示负数</p>
+		<p>求绝对值: 00011100, 为28</p>
+		<p>故第1位 : -28</p>
+		<p>其它依此类推</p>
+		<p>由下表得第2行开始,所有8位都是1开头,所以值全为负</p>
+	</div>
+	<div>
+<table style="float: center; margin: 0 0 1em 1em;" class="wikitable">
+<caption><b>Unicode和UTF-8之间的转换关系表</b></caption>
+<tbody><tr>
+<th style="background: #efefef"><a title="UTF-32" href="/wiki/UTF-32">UCS-4</a>编码</th>
+<th style="background: #efefef">UTF-8字节流</th>
+</tr>
+<tr>
+<td>U+00000000 &ndash; U+0000007F</td>
+<td>0xxxxxxx</td>
+</tr>
+<tr>
+<td>U+00000080 &ndash; U+000007FF</td>
+<td>110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>U+00000800 &ndash; U+0000FFFF</td>
+<td>1110xxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>U+00010000 &ndash; U+001FFFFF</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>U+00200000 &ndash; U+03FFFFFF</td>
+<td>111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>U+04000000 &ndash; U+7FFFFFFF</td>
+<td>1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody></table>
+	</div>
+	<div>
+		<h3>Links</h3>
+		<p><a href="http://en.wikipedia.org/wiki/Percent-encoding">Percent-encoding</a></p>
+		<p><a href="http://zh.wikipedia.org/wiki/UTF-8">UTF-8</a></p>
+	</div>
+</body>
+</html>
