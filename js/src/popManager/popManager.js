@@ -31,29 +31,28 @@ KISSY.add('popManager', function(S, undef) {
 		,ifr_string = '<iframe style="position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;filter:alpha(opacity=0);" frameborder="no" scrolling="no"></iframe>'
 		,mask_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>'
 		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent) && !/msie [78].0/i.test(navigator.userAgent)
-		,m = {}
-		
-		,_uid = 0
-		,uid = function(){
-			return (++_uid + base_z_index);
-		};
+		,m = {};
 
 	m.divs = EMPTY_$;
 
 	//初始化一个弹出层包含块
 	m.init = function(){
-		return (new init()).front();
+		return init().front();
 	}
 
 	//清除所有的弹出层包含块
 	m.clean = function(){
 		m.divs.remove();
 		m.divs = EMPTY_$;
-		_uid = 0;
 		return this;
 	}
 
 	function init(){
+		//更改为构造方式
+		if(!(this instanceof init)){
+			return new init();
+		}
+
 		this.div = $(html_string);
 		if(ie6){
 			this.div.append(ifr_string);
@@ -63,18 +62,18 @@ KISSY.add('popManager', function(S, undef) {
 	}
 	$.extend(init.prototype, {
 		//放到最前
-		 front: function () {
-			this.div.css('z-index', uid());
+		front: function () {
+			this.div.css('z-index', $.zindexManager.up());
 			return this;
-		}
+		},
 		//删除此弹出层
-		,remove: function () {
+		remove: function () {
 			this.div.remove();
 			return this;
-		}
+		},
 		//遮罩处理,css3使用半透明背景,否则使用半透明层
-		,mask: function (use) {
-			if(use == false){
+		mask: function (use) {
+			if(use === false){
 				if($.browser.msie){
 					this.div.children('div:first').remove();
 				}else{
@@ -92,9 +91,9 @@ KISSY.add('popManager', function(S, undef) {
 				}
 			}
 			return this;
-		}
-		,loading: function(str){
-			if (str == false) {
+		},
+		loading: function(str){
+			if (str === false) {
 				this.div.removeClass('loading');
 			}else{
 				this.div.addClass('loading');
@@ -107,5 +106,5 @@ KISSY.add('popManager', function(S, undef) {
 		popManager: m
 	});
 }, {
-	requires: ['jquery-1.4.2']
+	requires: ['jquery-1.4.2', 'zindexManager']
 });

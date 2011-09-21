@@ -76,16 +76,16 @@ KISSY.add('popWin', function(S, undef) {
 	}
 
 	$.extend(init.prototype, {
-		 front: function(){
+		front: function(){
 			this.manager.front();
 			return this;
-		}
-		,mask: function(use){
+		},
+		mask: function(use){
 			this.manager.mask(use);
 			return this;
-		}
-		,loading: function(str){
-			if (str == false) {
+		},
+		loading: function(str){
+			if (str === false) {
 				this.div.show();
 				this.manager.loading(str);
 			}else{
@@ -93,8 +93,8 @@ KISSY.add('popWin', function(S, undef) {
 				this.manager.loading(str);
 			}
 			return this;
-		}
-		,show: function(){
+		},
+		show: function(){
 			this.manager.div.show();
 			//先hide再show是因为某些IE会先显示出来然后再定位调整,会有闪烁的感觉
 			this.div.hide().css({
@@ -102,14 +102,14 @@ KISSY.add('popWin', function(S, undef) {
 				,left:(document.documentElement.clientWidth-this.div.width())/2
 			}).show();
 			return this;
-		}
-		,hide: function(){
+		},
+		hide: function(){
 			if(this.close_able){
 				this.manager.div.hide();
 			}
 			return this;
-		}
-		,remove: function(){
+		},
+		remove: function(){
 			this.manager.div.remove();
 			return this;
 		}

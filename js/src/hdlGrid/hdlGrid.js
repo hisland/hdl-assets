@@ -328,15 +328,14 @@ KISSY.add('hdlGrid', function(S, undef) {
 			
 		}
 
-		//显示遮罩
-		,loading: function(){
-			this.div.mask.add(this.div.loading).show();
-			return this;
-		}
+		//显示/隐藏遮罩
+		,loading: function(str){
+			if (str === false) {
+				this.div.mask.add(this.div.loading).hide();
+			}else{
+				this.div.mask.add(this.div.loading).show();
+			}
 
-		//隐藏遮罩
-		,loaded: function(){
-			this.div.mask.add(this.div.loading).hide();
 			return this;
 		}
 

@@ -15,11 +15,11 @@
 KISSY.add('zindexManager', function(S, undef) {
 	jQuery.extend({
 		zindexManager: {
-			 base: 1000
-			,up: function(){
+			base: 1000,
+			up: function(){
 				return ++this.base;
-			}
-			,down: function(){
+			},
+			down: function(){
 				return --this.base;
 			}
 		}
