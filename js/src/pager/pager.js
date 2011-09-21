@@ -1,12 +1,12 @@
 /**********************************************************************************************
- * 名称: 分页组件
+ * 名称: 分页纯逻辑处理
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: 2011-05-30 10:20:41
  * 版本: v1
  * 
- * 分页纯逻辑处理
- * 
+ * API:
+ *		
  * 
  * 
  * 
@@ -31,53 +31,62 @@ KISSY.add('pager', function(S, undef) {
 		}
 	}
 	$.extend(pagerLocal.prototype, {
-		 reset: function(){
+		reset: function(){
 			this.data = [];
 			this.totals = 0;
 			this.page_now = 0;
 			this.page_totals = 0;
 			return this;
-		}
-		,setData: function(data){
+		},
+		setData: function(data){
 			if($.isArray(data)){
 				this.data = data;
 				this.totals = data.length;
-				this.page_now = 0;
+				this.page_now = 1;
 				this.page_totals = Math.ceil(this.totals / this.num_per_page);
 			}else{
-				S.log('pagerLocal.setData: data应该是一个数组');
+				S.log('pagerLocal.setData: data must be an array!');
 			}
 			return this;
-		}
-		,setNumPerPage: function(num){
-			if($.isArray(num) && num > 1){
+		},
+		setNumPerPage: function(num){
+			if(num > 1){
 				this.num_per_page = num;
 				this.page_totals = Math.ceil(this.totals / this.num_per_page);
 			}else{
-				S.log('pagerLocal.setNumPerPage: num应该是一个大于1数字');
+				S.log('pagerLocal.setNumPerPage: num must gt 1!');
 			}
 			return this;
-		}
-		,prev: function(){
+		},
+		prev: function(){
 			if(this.page_now > 1){
 				return this.getPage(this.page_now--);
+			}else{
+				S.log('pagerLocal.prev: no more page!');
+				return null;
 			}
-		}
-		,next: function(){
+		},
+		next: function(){
 			if(this.page_now < this.page_totals){
 				return this.getPage(this.page_now++);
+			}else{
+				S.log('pagerLocal.next: no more page!');
+				return null;
 			}
-		}
-		,getPage: function(p){
+		},
+		getPage: function(p){
 			if(p < 1){
-				S.log('pagerLocal.getPage: 读取页数应大于等于1');
+				S.log('pagerLocal.getPage: page must gt 1');
 				return null;
 			}else if(p > this.page_totals){
-				S.log('pagerLocal.getPage: 读取页数超过最大页数!');
+				S.log('pagerLocal.getPage: page must lt max!');
 				return null;
-			}else{
+			}else if(S.isNumber(p-=0)){
 				this.page_now = p;
 				return this.data.slice((p-1)*this.num_per_page, p*this.num_per_page);
+			}else{
+				S.log('pagerLocal.getPage: page invalid!');
+				return null;
 			}
 		}
 	});
@@ -98,7 +107,7 @@ KISSY.add('pager', function(S, undef) {
 		this.loading = null;
 	}
 	$.extend(pagerAjax.prototype, {
-		 reset: function(url, param){
+		reset: function(url, param){
 			if(url){
 				this.url = url;
 			}
@@ -108,22 +117,22 @@ KISSY.add('pager', function(S, undef) {
 			this.currPage = 0;
 			this.allPage = 0;
 			return this;
-		}
-		,prev: function(callback){
+		},
+		prev: function(callback){
 			this.getPage(this.currPage--, callback);
-		}
-		,next: function(callback){
+		},
+		next: function(callback){
 			this.getPage(this.currPage++, callback);
-		}
-		,getPage: function(p, callback){
+		},
+		getPage: function(p, callback){
 			var param, me = this;
 			if(p < 1){
 				this.currPage = 0;
-				S.log('pagerAjax.getPage: 读取页数应大于等于1');
+				S.log('pagerAjax.getPage: page must gt 1');
 				return null;
 			}else if(this.allPage && p > this.allPage){
 				this.currPage = this.allPage;
-				S.log('pagerAjax.getPage: 读取页数超过最大页数!');
+				S.log('pagerAjax.getPage: page must lt max!');
 				return null;
 			}else{
 				param = $.isFunction(this.param) ? this.param() : param;
@@ -140,10 +149,9 @@ KISSY.add('pager', function(S, undef) {
 		}
 	});
 
-	//放到jquery命名空间上
 	$.extend({
-		 pagerLocal: pagerLocal
-		,pagerAjax: pagerAjax
+		pager: pagerLocal,
+		pagerAjax: pagerAjax
 	});
 }, {
 	requires: ['jquery-1.4.2']
