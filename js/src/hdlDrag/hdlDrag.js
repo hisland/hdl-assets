@@ -93,8 +93,11 @@ KISSY.add('hdlDrag', function(S, undef) {
 
 		//检测窗口失去[焦点|捕获]时,取消注册
 		if(need_capture){
-			trigger.setCapture();
-			$(trigger).bind('losecapture', end);
+			//ie下setCapture会导致输入框焦点不会失去,延迟可以正常
+			setTimeout(function() {
+				trigger.setCapture();
+				$(trigger).bind('losecapture', end);
+			}, 1);
 		}else{
 			$(window).blur(end);
 		}
@@ -109,8 +112,9 @@ KISSY.add('hdlDrag', function(S, undef) {
 
 		//取消检测
 		if(need_capture){
-			trigger.releaseCapture();
+			//releaseCapture会触发losecapture, 优先取消注册
 			$(trigger).unbind('losecapture', end);
+			trigger.releaseCapture();
 		}else{
 			$(window).unbind('blur', end);
 		}

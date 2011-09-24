@@ -33,16 +33,14 @@ KISSY.add('loopFuncs', function(S, undef) {
 			,funcs = []
 			,interval = 500;
 
-		if(typeof fn_first === 'function'){
+		if(S.isFunction(fn_first)){
 			funcs.push(fn_first);
 		}
 		function init(callback){
 			for(var i=0; i < funcs.length; i++){
 				funcs[i]();
 			}
-			if(typeof callback === 'function'){
-				callback();
-			}
+			S.isFunction(callback) && callback();
 		}
 		function act(){
 			if(!_stopped){
@@ -54,7 +52,8 @@ KISSY.add('loopFuncs', function(S, undef) {
 		init.add = function(fn, doit){
 			doit = doit === false ? doit : true;
 			var i=0, has=false;
-			if(typeof fn === 'function'){
+			if(S.isFunction(fn)){
+				//检查是否重复
 				for(; i < funcs.length; i++){
 					if(funcs[i] === fn){
 						has = true;
@@ -64,6 +63,8 @@ KISSY.add('loopFuncs', function(S, undef) {
 				if(!has){
 					funcs.push(fn);
 				}
+
+				//是否立即执行一次
 				if(doit){
 					fn();
 				}
@@ -71,7 +72,7 @@ KISSY.add('loopFuncs', function(S, undef) {
 		}
 		init.remove = function(fn){
 			var i=0;
-			if(fn){
+			if(S.isFunction(fn)){
 				for(; i < funcs.length; i++){
 					if(funcs[i] === fn){
 						funcs.splice(i, 1);

@@ -24,13 +24,13 @@ KISSY.add('pager', function(S, undef) {
 		}
 
 		this.num_per_page = 15;
-		if(data){
+		if(S.isArray(data)){
 			this.setData(data);
 		}else{
 			this.reset();
 		}
 	}
-	$.extend(pagerLocal.prototype, {
+	S.augment(pagerLocal, {
 		reset: function(){
 			this.data = [];
 			this.totals = 0;
@@ -59,20 +59,10 @@ KISSY.add('pager', function(S, undef) {
 			return this;
 		},
 		prev: function(){
-			if(this.page_now > 1){
-				return this.getPage(this.page_now--);
-			}else{
-				S.log('pagerLocal.prev: no more page!');
-				return null;
-			}
+			return this.getPage(this.page_now--);
 		},
 		next: function(){
-			if(this.page_now < this.page_totals){
-				return this.getPage(this.page_now++);
-			}else{
-				S.log('pagerLocal.next: no more page!');
-				return null;
-			}
+			return this.getPage(this.page_now++);
 		},
 		getPage: function(p){
 			if(p < 1){
@@ -106,7 +96,7 @@ KISSY.add('pager', function(S, undef) {
 		//读取中的回调
 		this.loading = null;
 	}
-	$.extend(pagerAjax.prototype, {
+	S.augment(pagerAjax, {
 		reset: function(url, param){
 			if(url){
 				this.url = url;
