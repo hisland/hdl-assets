@@ -1,3 +1,3 @@
-call ant concat
+call ant
 pause
 exit

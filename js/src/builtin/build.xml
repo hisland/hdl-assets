@@ -1,16 +1,12 @@
-<project name="mod.builtin" default="build" basedir=".">
-
-	<property name="title.view" value="内置函数功能增强"/>
+<project name="mod.builtin" default="concat">
+	<property name="title.view" value="augment builtin's prototype"/>
 	<property name="mod.version" value="1"/>
 	<property name="charset" value="UTF-8"/>
 	<tstamp>
 		<format property="build.time" pattern="yyyy-MM-dd HH:mm:ss" />
 	</tstamp>
 
-	<target name="clean">
-		<delete file="builtin.js" />
-	</target>
-	<target name="concat" depends="clean">
+	<target name="concat">
 		<concat destfile="builtin.js" encoding="${charset}" outputencoding="${charset}">
 			<path path="Object.js" />
 			<path path="Date.js" />
@@ -20,7 +16,5 @@
 			<path path="Number.js" />
 			<path path="RegExp.js" />
 		</concat>
-	</target>
-	<target name="build" depends="clean, concat">
 	</target>
 </project>
