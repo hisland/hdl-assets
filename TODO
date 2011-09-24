@@ -8,3 +8,6 @@ css文件:
 	实现标准浏览器和ie系列分开加载,
 	标准浏览器:modname-std.css
 	ie浏览器:modname.css
+
+2011-05-25 15:15:33:
+	$.dateString(Date|String|Number) ...

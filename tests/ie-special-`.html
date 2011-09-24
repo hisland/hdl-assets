@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('jquery-1.4.2, builtin', function(){
+				$('#bb').click(function(e){
+					$('#aa')[0].innerHTML = '<div god="ss>aa</div>';
+					alert(document.getElementById('aa').innerHTML);
+				});
+			});
+		});
+	</script>
+</head>
+<body style="margin:20px;">
+	<div id="aa" >位置</div>
+	<input type="button" name="" value="放置" id="bb" />
+	<p id="aa2" >IE下 `(反引号) 也可作为属性字符串界定符</p>
+	<p id="aa2" >IE下 属性内出现[空格'"]或为[空值]时,使用innerHTML取出来的值才会被引号包围,否则没有引号</p>
+	<p id="aa2" >IE下从字符串生成标签(如:使用innerHTML赋值)时, 各种标签的属性=号后面的界定符[`"']不配对时,将不能生成标签</p>
+</body>
+</html>

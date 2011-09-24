@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('jquery-1.4.2, hdlDrag', function(){
+				$('#test').hdlDrag();
+			});
+		});
+	</script>
+</head>
+<body style="margin:20px;">
+	<p>IE6,7,8内部的鼠标事件在离开窗口后不能触发,可以设置setCapture让其捕获</p>
+	<p>IE9, ff均能在窗口外获得鼠标事件</p>
+	<div id="test" style="width:100px;height:100px;background:green;position:absolute;">拖动我试试</div>
+</body>
+</html>

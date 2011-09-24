@@ -5,16 +5,15 @@
  * 时间: 2011-2-21 12:36:50
  * 版本: v1
  *
- *
- * 使用方法:
- *			
+ * API:
+ *		
  */
 
 KISSY.add('popSelect', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,div_pop = EMPTY_$
-		,ipt_target = EMPTY_$;
+	var $ = jQuery,
+		EMPTY_$ = $(''),
+		div_pop = EMPTY_$,
+		ipt_target = EMPTY_$;
 
 	//输入框点击事件
 	function iptClick(e){
@@ -24,9 +23,9 @@ KISSY.add('popSelect', function(S, undef) {
 	}
 	//弹出层点击作相应操作
 	function divPopClick(e){
-		var  t = e.target
-			,dt = $(t)
-			,str = [];
+		var t = e.target,
+			dt = $(t),
+			str = [];
 
 		if(dt.is('a')){
 			//选择某个市
@@ -118,8 +117,8 @@ KISSY.add('popSelect', function(S, undef) {
 
 	//文档上监听并注册事件,如已注册则忽略, 顺带做隐藏操作
 	function documentClick(e){
-		var  t = e.target
-			,dt = $(t);
+		var t = e.target,
+			dt = $(t);
 		if(dt.is('input[data-province],input[data-city]') && !t.__bind_pop_select){
 			dt.popSelect();
 			dt.click();

@@ -3,28 +3,65 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript" src="../jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="mouseTip.js"></script>
+	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
-		$(function(){
-			
+		KISSY.ready(function(S){
+			S.use('reset-css, mouseTip', function(){
+				$('#aa').mouseTip('hello');
+				$('#bb').mouseTip(function(){
+					return this.html();
+				});
+			});
 		});
 	</script>
 	<style type="text/css">
-		*{padding:0;margin:0;}
-		body{font-family:"宋体",serif;font-size:75%;}
-		a img{border:none;}
-		table{border-collapse:collapse;border-spacing:0;}
-		ol,ul{list-style:none;}
-		a{text-decoration:none;}
-		a:hover{text-decoration:underline;}
-		
-		body{padding:50px;}
-		p{margin:10px 0;}
+		#aa{width:200px;height:200px;border:1px solid green;margin:50px;}
+		#bb{width:200px;height:200px;border:1px solid green;margin:50px;}
 	</style>
 </head>
 
 <body>
-	<p id="aa">aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p><p>aa</p>
+	<div id="aa">test div</div>
+	<div id="bb">god shit u</div>
+
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
+	<p>p</p>
 </body>
 </html>

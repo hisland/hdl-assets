@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				var aa = 'abcdef';
+				var str2 = [];
+				str2.push('aa is ' + aa + ', and aa[1] is ' + aa[1]);
+				str2.push('aa is ' + aa + ', and aa.substr(1) is ' + aa.substr(1, 1 ));
+				str2.push('aa is ' + aa + ', and aa.substring(1, 2) is ' + aa.substring(1, 2));
+				str2.push('aa is ' + aa + ', and aa.slice(1, 2) is ' + aa.slice(1, 2));
+				str2.push('aa is ' + aa + ', and aa.charAt(1) is ' + aa.charAt(1));
+				alert(str2.join('\n'));
+			});
+		});
+	</script>
+</head>
+<body style="margin:50px;">
+	<div id="aa">
+		<p>ie6, ie7 不支持[n]方式取子字符串</p>
+		<p>使用substr(n, len)方式取</p>
+		<p>使用substring(n, m)方式取</p>
+		<p>使用slice(n, m)方式取</p>
+		<p>使用charAt(n)方法</p>
+		<p style="color:red;">优先使用charAt(n)方法</p>
+	</div>
+</body>
+</html>

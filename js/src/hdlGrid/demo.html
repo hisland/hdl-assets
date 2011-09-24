@@ -7,6 +7,153 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, hdlGrid+css', function(){
+				var setting = {
+								url: 'data2.js',
+								colModel: [{
+									display: '接口名称',
+									name: 'interName',
+									width: '12%',
+									sortable: true,
+									align: 'center'
+								},
+								{
+									display: '接口类型',
+									name: 'interComType',
+									width: '25%',
+									sortable: true,
+									align: 'center'
+								},
+								{
+									display: '端口',
+									name: 'remoteFtpPort',
+									width: '6%',
+									sortable: true,
+									align: 'center'
+								},
+								{
+									display: '用户名',
+									name: 'remoteFtpUser',
+									width: '10%',
+									sortable: true,
+									align: 'center'
+								},
+								{
+									display: '被动方式',
+									name: 'remoteFtpPasv',
+									width: '8%',
+									sortable: true,
+									align: 'center',
+									hide: true
+								},
+								{
+									display: '版本',
+									name: 'interVerType',
+									width: '10%',
+									sortable: true,
+									align: 'center'
+								},
+								{
+									display: 'IP地址',
+									name: 'remoteFtpIp',
+									width: '10%',
+									sortable: true,
+									align: 'center'
+								},
+								{
+									display: '是否启用',
+									name: 'active',
+									width: '6%',
+									sortable: true,
+									align: 'center'
+								},
+								{
+									display: '数据库名称',
+									name: 'dbName',
+									width: 80,
+									sortable: true,
+									align: 'center',
+									hide: true
+								},
+								{
+									display: '数据库类型',
+									name: 'dbType',
+									width: 80,
+									sortable: true,
+									align: 'center',
+									hide: true
+								},
+								{
+									display: '上传文件目录',
+									name: 'remoteFtpUpPath',
+									width: 80,
+									sortable: true,
+									align: 'center',
+									hide: true
+								},
+								{
+									display: '上传备份目录',
+									name: 'rftpUpPathBak',
+									width: 80,
+									sortable: true,
+									align: 'center',
+									hide: true
+								},
+								{
+									display: '上传文件前缀',
+									name: 'rftpUpPrefix',
+									width: 80,
+									sortable: true,
+									align: 'center',
+									hide: true
+								},
+								{
+									display: '上传文件时间片',
+									name: 'rftpUpTime',
+									width: 80,
+									sortable: true,
+									align: 'center',
+									hide: true
+								},
+								{
+									display: '上传文件序列号',
+									name: 'rftpUpSeqence',
+									width: 80,
+									sortable: true,
+									align: 'center',
+									hide: true
+								},
+								{
+									display: '删除备份时间片',
+									name: 'backupKeepDays',
+									width: 80,
+									sortable: true,
+									align: 'center',
+									hide: true
+								},
+								{
+									display: '备注',
+									name: 'remarks',
+									width: 80,
+									sortable: true,
+									align: 'center',
+									hide: true
+								},
+								{
+									display: '承载业务类型',
+									name: 'serviceType',
+									width: '18%',
+									sortable: true,
+									align: 'center'
+								}],
+								usepager: true,
+								perPageNum: 15,
+								showTableToggleBtn: false,
+								width: 'auto',
+								height: 390,
+								resizable: false,
+								singleSelect: true
+							}
+
 				var grid = $.hdlGrid({
 						url: 'data.js',
 						col_model : [
@@ -29,7 +176,7 @@
 		});
 	</script>
 	<style type="text/css">
-		.wrap{width:500px;height:300px;border:1px solid #ccc;}
+		.wrap{width:500px;height:300px;border:1px solid #ccc;margin-bottom:20px;}
 	</style>
 </head>
 

@@ -8,7 +8,9 @@
  * 获得一个函数, 运行可执行里面的函数列表
  * 函数列表可增加,删除
  * 可自动循环执行,停止,并设置循环间隔
- * 默认自动生成了一个loopFuncs在全局上
+ *
+ * 不使用 S.isFunction 方法,则内部代码可随意copy到其它地方仍然可用,降低耦合
+ *
  *
  * API:
  *	o = getLoopFuncs() 获得一个实例
@@ -35,7 +37,7 @@ KISSY.add('loopFuncs', function(S, undef) {
 			funcs.push(fn_first);
 		}
 		function init(callback){
-			for(var i=0; i < funcs.length && !_stopped; i++){
+			for(var i=0; i < funcs.length; i++){
 				funcs[i]();
 			}
 			if(typeof callback === 'function'){
@@ -100,7 +102,4 @@ KISSY.add('loopFuncs', function(S, undef) {
 	}
 
 	window.getLoopFuncs = getLoopFuncs;
-
-	//默认初始化一个
-	window.loopFuncs = getLoopFuncs();
 });

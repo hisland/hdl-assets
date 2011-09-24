@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				
+			});
+		});
+	</script>
+	<script type="text/javascript">
+function randomNum(from, to){
+	if(!from || isNaN(from-0)){
+		alert('randomNum: 至少得有一个可转换成数字的参数');
+		throw 'randomNum: 至少得有一个可转换成数字的参数';
+	}
+	if(!to){
+		to = from;
+		from = 0;
+	}
+	if(isNaN(to-0)){
+		alert('randomNum: to参数必须可转换成数字');
+		throw 'randomNum: to参数必须可转换成数字';
+	}
+
+	var temp = 0;
+	if(from > to){
+		temp = from;
+		from = to;
+		to = temp;
+	}
+
+	temp = to - from;
+	temp = Math.round(Math.random() * (temp+100) % temp);
+	return from + temp;
+}
+
+a = [];
+for(var i=0;i<1000;i++){
+	a.push(randomNum(1, 1000));
+}
+
+//		a = [532, 795, 234, 952, 280, 119]
+var t1 = new Date();
+//		反复排序-冒泡升级版
+//		k == 25
+//		var tmp;
+var k = 0;
+//		for(var i=0;i<a.length-1;){
+//			k++;
+//			if(a[i] > a[i+1]){
+//				tmp = a[i];
+//				a[i] = a[i+1]
+//				a[i+1] = tmp;
+//				i--;
+//			}else{
+//				i++;
+//			}
+//		}
+//		alert(k);
+//		alert(a);
+
+//	合并排序
+//	k==11
+//var k = 0;
+//function merge(left, right) {
+//	var re = [];
+//	while (left.length > 0 && right.length > 0) {
+//		k++;
+//		if (left[0] < right[0]) {
+//			re.push(left.shift());
+//		} else {
+//			re.push(right.shift());
+//		}
+//	}
+//	return re.concat(left).concat(right);
+//}
+//function mergeSort(array) {
+//	if (array.length == 1) return array;
+//	var mid = Math.floor(array.length / 2);
+//	var left = array.slice(0, mid);
+//	var right = array.slice(mid);
+//	return merge(mergeSort(left), mergeSort(right));
+//}
+//a = mergeSort(a);
+//alert(k);
+//alert(a);
+
+//ff k==9
+//ie k==17
+//var k = 0;
+a.sort(function(a, b){
+	k++;
+	return a-b;
+});
+
+var t2 = new Date();
+alert(t2-t1+'----------'+k);
+	</script>
+</head>
+<body style="margin:50px;">
+	
+</body>
+</html>

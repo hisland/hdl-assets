@@ -8,7 +8,7 @@
 	"allPage": 1,
 	"rows": [{
 		"countSegent": -100,
-		"cacheUserNum": 0,
+		"cacheUserNum": "sssssssssssssssssssssssssssssssssss",
 		"cacheNum": 0,
 		"personCheckuserNum": 0,
 		"personCheckuserstopNum": 0,

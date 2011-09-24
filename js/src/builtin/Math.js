@@ -1,18 +1,19 @@
 /**********************************************************************************************
- * 
  * 增强Math对象方法
- * 
  * 作者: hisland
  * 邮件: hisland@qq.com
  * 时间: @TIMESTAMP@
  * 版本: @VERSION@
  * 
+ * API:
+ *		var num = Math.random();		//得到原始的随机数
+ *		var num = Math.random(100);		//得到0-100的随机数
+ *		var num = Math.random(5, 100);	//得到5-100的随机数
+ *		var num = Math.random(100, 5);	//得到5-100的随机数
+ * 
  */
 
 (function(){
-
-	//增强Math.random
-	//产生一个from 到 to的随机整数
 	var oldRandom = Math.random;
 	Math.random= function(from, to){
 		var temp = 0, len = arguments.length;
@@ -22,14 +23,16 @@
 			return oldRandom();
 		}else if(len === 1){
 			if(isNaN(from)){
-				return oldRandom();
+				alert('Math.random: from is error!');
+				return null;
 			}else{
 				to = from;
 				from = 0;
 			}
 		}else{
 			if(isNaN(from) && isNaN(to)){
-				return oldRandom();
+				alert('Math.random: from and to are error!');
+				return null;
 			}else if(isNaN(from)){
 				from = 0;
 			}else if(isNaN(to)){
@@ -47,3 +50,4 @@
 		return from + temp;
 	};
 })();
+

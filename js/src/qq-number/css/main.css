@@ -1,0 +1,9 @@
+html, body{height:100%;overflow:hidden;}
+body{background:#E8F5FE;padding:3px;}
+
+#controls{height:30%;border:1px solid #ccc;border-bottom:none;overflow:auto;}
+	.ctrl-p{padding:2px 3px;float:left;}
+	.ctrl-p2{float:right;}
+	.ctrl-rs{clear:left;}
+	#result{height:60%;border-top:1px solid #ccc;}
+#show-log{height:70%;border:1px solid #ccc;overflow:auto;}

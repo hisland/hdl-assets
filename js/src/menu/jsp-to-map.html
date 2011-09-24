@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, menu+css, builtin', function(){
+				$.getMenu('#menu', 'jsonTree.js', function(){
+					var arr = [];
+					var k = 0;
+					$('#menu_list c\\:if').map(function(i, v){
+						v = $(v);
+						i = [];
+						
+						//只含license的
+						if(v.attr('test').indexOf('license') != -1){
+							k++;
+							i.push('// ', k, '. ', v.find('a').text(), '\n');
+							i.push('put(', v.find('a').attr('rightsprex').replace('<%=', '').replace('%>', ''), ',\n');
+							i.push('\t', v.attr('test').replace('<%=', '').replace('%>', '').replace(/    /g, '\t').replace(/\t\t\t\t/g, ''), ');\n\n');
+						}
+//						//所有
+//						k++;
+//						i.push('// ', k, '. ', v.find('a').text(), '\n');
+//						i.push('put(', v.find('a').attr('rightsprex').replace('<%=', '').replace('%>', ''), ',\n');
+//						i.push('\t', v.attr('test').replace('<%=', '').replace('%>', '').replace(/    /g, '\t').replace(/\t\t\t\t/g, ''), ');\n\n');
+
+						arr.push(i.join(''));
+
+//						//菜单名
+//						put("hello",
+//							false);
+					});
+					$('body').prepend('<textarea>'+arr.join('')+'</textarea>');
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+		<div id="menu_list">
+						
+			<!-- 菜单1 -->
+			<h3 class="menu_head menu_opened"><span class="menu_ico2">安全管理</span><span class="openArrow">&nbsp;</span></h3>
+			<ul class="menu_body menu_opened">
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.USER_)%>'>
+					<li><a href="#<%=path %>/sysuser/initSysUser.do" id="menu_as_sysuser" 
+					       rightsPrex="<%=SysConstants.USER_%>">用户管理</a></li>
+				</c:if>				
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.ROLE_) %>'>
+					<li><a href="#<%=path %>/sysusergrp/initSysRole.do" id="menu_as_sysrole" 
+					       rightsPrex="<%=SysConstants.ROLE_%>">用户组管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.LOG_) %>'>
+					<li><a href="#<%=path %>/systemlog/iniSystemLog.do" id="menu_as_modelue" 
+					       rightsPrex="<%=SysConstants.LOG_%>">日志查询</a></li>
+				</c:if>
+				<li><a href="#<%=path %>/sysuser/initModifyPwd.do" id="menu_as_modifypwd">修改密码</a></li>
+				
+			</ul>
+			
+			<!-- 菜单2 -->
+		<% if (GlobalControl.isMenuExist(SysConstants.ROOT_INTERFACE,request)){ %>
+			<h3 class="menu_head"><span class="menu_ico3">接口管理</span><span class="closeArrow">&nbsp;</span></h3>
+			<ul class="menu_body">
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.SYS_NE_) %>'>
+					<li><a href="#<%=path %>/interfacecomm/initSysNe.do" id="menu_as_sysne" 
+                           rightsPrex="<%=SysConstants.SYS_NE_%>">网元管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.SYS_PROXY_) %>'>
+					<li><a href="#<%=path %>/interface/initSysBlackInterface.do" id="menu_as_typename" 
+					       rightsPrex="<%=SysConstants.SYS_PROXY_%>">黑名单接口管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getBossCheck() == Constants.ACTIVE
+				        && (license.getBossType()== SysInterfaceService.BOSS_TYPE_10
+				        || license.getBossType()==SysInterfaceService.BOSS_TYPE_11
+				        || license.getBossType()==SysInterfaceService.BOSS_TYPE_12)
+						&& GlobalControl.hasPageRight(rights,SysConstants.REAL_TIME_BOSS_) %>'>
+					<li><a href="#<%=path %>/interface/initRealTimeBossAction.do" id="menu_as_sysinterface" 
+					       rightsPrex="<%=SysConstants.REAL_TIME_BOSS_%>">实时BOSS参数配置</a></li>
+				</c:if>
+				<c:if test='<%=license.getBossCheck() == Constants.ACTIVE
+				        && (license.getBossType()== SysInterfaceService.BOSS_TYPE_1
+				        || license.getBossType()==SysInterfaceService.BOSS_TYPE_0
+				        || license.getBossType()==SysInterfaceService.BOSS_TYPE_2)
+				        && GlobalControl.hasPageRight(rights,SysConstants.NOT_REAL_TIME_) %>'>
+					<li><a href="#<%=path %>/interface/initNotRealTimeBoss.do" id="menu_as_sysblackcfg" 
+					       rightsPrex="<%=SysConstants.NOT_REAL_TIME_%>">非实时BOSS参数配置</a></li>
+				</c:if>
+				<c:if test='<%=license.getBossCheck() == Constants.ACTIVE
+				        && license.getMsgRelax()==Constants.ACTIVE 
+				        && (license.getBossType()== SysInterfaceService.BOSS_TYPE_3
+					        || license.getBossType()==SysInterfaceService.BOSS_TYPE_4)
+						&& GlobalControl.hasPageRight(rights,SysConstants.AUDITING_FLAT_) %>'>
+					<li><a href="#<%=path %>/interface/initExamineInterface.do" id="menu_as_sysblackcfg" 
+					       rightsPrex="<%=SysConstants.AUDITING_FLAT_%>">审核平台接口参数配置</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.SYS_PORTS_) %>'>
+					<li><a href="#<%=path %>/interfacecomm/initSysPorts.do" id="menu_as_sysports" 
+					       rightsPrex="<%=SysConstants.SYS_PORTS_%>">模块连接端口配置</a></li>
+				</c:if>
+				<c:if test='<%=(license.getComplaints() == Constants.ACTIVE ||
+						license.getCustomerServiceSys() == Constants.ACTIVE) &&
+						GlobalControl.hasPageRight(rights,SysConstants.SYS_INTERFACEUSER_) %>'>
+					<li><a href="#<%=path %>/interface/initSysInterfaceUser.do" id="menu_as_typename" 
+					       rightsPrex="<%=SysConstants.SYS_INTERFACEUSER_%>">外部接口平台帐户管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.SYS_ALARM_CFG_) %>'>
+					<li><a href="#<%=path %>/interface/initSysAlarmCfg.do" id="menu_as_sys_alarm_cfg" 
+					       rightsPrex="<%=SysConstants.SYS_ALARM_CFG_%>">业务告警设置</a></li>
+				</c:if>
+				<c:if test='<%=license.getUserGroup()==Constants.ACTIVE
+				    	&& GlobalControl.hasPageRight(rights,SysConstants.USRGRP_FTP_CFG_)
+						&& (license.getGroupCfg().get(0).getUserGroupInter()==Constants.ACTIVE
+						|| license.getGroupCfg().get(1).getUserGroupInter()==Constants.ACTIVE) %>'>
+					<li><a href="#<%=path %>/interface/findUsrGrpInterfaceCfg.do" id="menu_as_UsrGrpInterfaceCfg" 
+					       rightsPrex="<%=SysConstants.USRGRP_FTP_CFG_%>">用户群FTP接口配置</a></li>
+				</c:if>
+				<c:if test='<%=license.getGrayCheck() == Constants.ACTIVE 
+				            && GlobalControl.hasPageRight(rights,SysConstants.GRAY_INTERFACE_CFG_)%>'>
+					<li><a href="#<%=path %>/interface/findGrayInterface.do" id="gray_interface_info" 
+					       rightsPrex="<%=SysConstants.GRAY_INTERFACE_CFG_%>">灰名单接口管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getStrategyCfg().get(11).getModelActive() == Constants.ACTIVE
+				            && GlobalControl.hasPageRight(rights,"SYS_MM5_")%>'>
+					<li><a href="#<%=path %>/interface/initSysMM5Interface.do" id="menu_as_SysMm5Cfg"  
+					       rightsPrex="<%=SysConstants.SYS_MM5_%>">复制卡监控参数配置</a></li>
+				</c:if>
+				<c:if test='<%=license.getRealtime() == Constants.REAL_TIME
+						&& license.getMsgRelax()==Constants.ACTIVE 
+						&& GlobalControl.hasPageRight(rights,SysConstants.CACHE_PARAMS_) %>'>
+					<li><a href="#<%=path %>/interface/initSysCommonValue.do" id="menu_as_SysCommon"
+							rightsPrex="<%=SysConstants.CACHE_PARAMS_%>">缓存短信参数配置</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.AUTO_REPORT_CFG_)%>'>
+					<li><a href="#<%=path %>/interface/findSysAutoCreateReportConfig.do" id="menu_as_autoReportCfg"
+					       rightsPrex="<%=SysConstants.AUTO_REPORT_CFG_%>">自动报表生成参数配置</a></li>
+				</c:if>
+				<c:if test='<%=license.getKeywordsOuterSoap() == Constants.ACTIVE
+						&& GlobalControl.hasPageRight(rights,SysConstants.SYS_CLIENT_INFO_) %>'>
+					<li><a href="#<%=path %>/pages/pgm/ClientInfo.jsp"
+					       rightsPrex="<%=SysConstants.SYS_CLIENT_INFO_%>">WebService客服端信息管理</a></li>
+				</c:if>
+				
+			</ul>
+			
+		
+
+			<!-- 菜单3 -->
+			<h3 class="menu_head"><span class="menu_ico4">监控策略</span><span class="closeArrow">&nbsp;</span></h3>
+			<ul class="menu_body">
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.SYS_MODEL_)%>'>
+					<li><a href="#<%=path %>/strategy/initSysModel.do" id="menu_as_sysModel" 
+					       rightsPrex="<%=SysConstants.SYS_MODEL_%>">基本模型管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getUserGroup()==Constants.ACTIVE&&GlobalControl.hasPageRight(rights,SysConstants.GROUPS_)%>'> 
+					<li><a href="#<%=path %>/strategy/initUserGroup.do" rightsPrex="<%=SysConstants.GROUPS_%>">用户群管理</a></li> 
+				</c:if> 
+				<c:if test='<%=license.getUserGroup() == Constants.ACTIVE 
+				            && GlobalControl.hasPageRight(rights,SysConstants.USER_GROUP_)%>'>
+					<li><a href="#<%=path %>/strategy/initGroup.do" rightsPrex="<%=SysConstants.USER_GROUP_%>">用户群名单管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.SYS_MONITOR_TIME_)%>'>
+					<li><a href="#<%=path %>/strategy/initSysMonitorTime.do" id="menu_as_sysmonitortime" 
+						   rightsPrex="<%=SysConstants.SYS_MONITOR_TIME_%>">监控时段管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.SYS_OUTLAWREASON_CFG_) %>'>
+					<li><a href="#<%=path %>/pages/qg/strategy/SysOutlawreasonConfig.jsp" id="menu_as_SysOutlCfg"
+					       rightsPrex="<%=SysConstants.SYS_OUTLAWREASON_CFG_%>">违规原因转换配置</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.SYS_STRATEGY_) %>'>
+					<li><a href="#<%=path %>/strategy/sysStrategyInit.do" id="menu_as_strategy" 
+					       rightsPrex="<%=SysConstants.SYS_STRATEGY_%>">监控策略管理</a></li>
+				</c:if>
+				
+			</ul> 
+
+		
+		
+			<!-- 菜单4 -->
+			<h3 class="menu_head"><span class="menu_ico5">业务管理</span><span class="closeArrow">&nbsp;</span></h3>
+			<ul class="menu_body">
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.MODULES_) %>'>
+					<li><a href="#<%=path %>/businesscomm/initSysModules.do" id="menu_as_sysmodule" 
+					       rightsPrex="<%=SysConstants.MODULES_%>">系统模块管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getGrayCheck() == Constants.ACTIVE
+				            && GlobalControl.hasPageRight(rights,SysConstants.GRAY_LISTS_)%>'>
+					<li><a href="#<%=path %>/business/initGrayList.do" id="menu_as_graylists" 
+					       rightsPrex="<%=SysConstants.GRAY_LISTS_%>">灰名单管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getSpecialNumber() == Constants.ACTIVE
+				            && GlobalControl.hasPageRight(rights,SysConstants.SPECIAL_NUMBER_) %>'>
+					<li><a href="#<%=path %>/pages/qg/business/SpecialNumber.jsp" id="menu_as_specialNumber" 
+					       rightsPrex="<%=SysConstants.SPECIAL_NUMBER_%>">特殊号码管理</a></li>
+				 </c:if>
+				<c:if test='<%=license.getStrategyCfg().get(5).getModelActive()  == Constants.ACTIVE 
+		            && GlobalControl.hasPageRight(rights,SysConstants.LOCAL_PHONE_) %>'>
+					<li><a href="#<%=path %>/pages/qg/business/SysLocalPhonepart.jsp" id="menu_as_localPhone" 
+					       rightsPrex="<%=SysConstants.LOCAL_PHONE_%>">本省号段管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getStrategyCfg().get(11).getModelActive()  == Constants.ACTIVE 
+				            && GlobalControl.hasPageRight(rights,SysConstants.SYS_MO_MSC_) %>'>
+					<li><a href="#<%=path %>/pages/qg/business/SysMoMsc.jsp" id="menu_as_sysMoMsc" 
+					       rightsPrex="<%=SysConstants.SYS_MO_MSC_%>">MO_MSC_ID管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.USER_TYPE_PHONE_) %>'>
+	                <li><a href="#<%=path %>/business/SysUsertypePhonepartAction!init.do" id="menu_as_usertypephone" 
+	                       rightsPrex="<%=SysConstants.USER_TYPE_PHONE_%>">用户类型号段管理</a></li>
+                </c:if>
+                <c:if test='<%=license.getAreaCheck() == Constants.ACTIVE
+					        && GlobalControl.hasPageRight(rights,SysConstants.SIGN_BRAND_)%>'>
+					<li><a href="#<%=path %>/pages/common/business/Brand.jsp" id="menu_as_brand" 
+					       rightsPrex="<%=SysConstants.SIGN_BRAND_%>">品牌管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getAreaCheck() == Constants.ACTIVE
+				            && GlobalControl.hasPageRight(rights,SysConstants.SIGN_AREANUM_)%>'>
+					<li><a href="#<%=path %>/business/areaNumprefGinit.do" id="menu_as_areanumpref" 
+					       rightsPrex="<%=SysConstants.SIGN_AREANUM_%>">归属号首管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.ALARM_PARAM_CFG_) %>'>
+					<li><a href="#<%=path %>/interface/initAlarmParamCfg.do" id="menu_as_alarmParamCfg" 
+					       rightsPrex="<%=SysConstants.ALARM_PARAM_CFG_%>">告警处理参数配置</a></li>
+				</c:if>
+				<c:if test='<%=license.getPhoneCheck() == Constants.ACTIVE 
+				            && GlobalControl.hasPageRight(rights,SysConstants.SYS_GET_PHONE_) %>'>
+					<li><a href="#<%=path %>/business/initSysCaCfg.do" id="menu_as_sysGetPhone" 
+					       rightsPrex="<%=SysConstants.SYS_GET_PHONE_%>">提取电话号码管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getRealtime() == Constants.REAL_TIME
+		            		&& license.getSpMonitor() == Constants.ACTIVE
+				            && GlobalControl.hasPageRight(rights,SysConstants.SP_NUMBER_) %>'>
+					<li><a href="#<%=path %>/pages/qg/business/SpNumber.jsp" id="menu_as_spNumber"
+							rightsPrex="<%=SysConstants.SP_NUMBER_ %>">SP接入号配置管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getSuspectSp() == Constants.ACTIVE
+				            && GlobalControl.hasPageRight(rights,SysConstants.ALARM_SUSPECT_SP_) %>'>
+					<li><a href="#<%=path %>/business/initDataAlarmSuspectSp.do" id="menu_as_dataAlarmSuspectSp"
+							rightsPrex="<%=SysConstants.ALARM_SUSPECT_SP_ %>">涉嫌违规SP管理</a></li>
+				</c:if>
+				
+				
+			</ul>
+			
+		
+
+			<!-- 菜单5 -->
+			<h3 class="menu_head"><span class="menu_ico11">黑白名单管理</span><span class="closeArrow">&nbsp;</span></h3>
+			<ul class="menu_body">
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.WHITE_LISTS_) %>'>
+					<li><a href="#<%=path %>/phonecode/initDataWhitelists.do" id="menu_as_whitelists" 
+					       rightsPrex="<%=SysConstants.WHITE_LISTS_%>">主叫白名单管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getReceiptorCheck() == Constants.ACTIVE
+				            && GlobalControl.hasPageRight(rights,SysConstants.WHITE_LISTSR_)%>'>
+					<li><a href="#<%=path %>/pages/qg/phonecode/DataWhiteListsR.jsp" id="menu_as_whitelistsr" 
+					       rightsPrex="<%=SysConstants.WHITE_LISTSR_%>">被叫白名单管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.BLK_LISTSM_) %>'>
+					<li><a href="#<%=path %>/phonecode/initDataBlklists.do" id="menu_as_blklists" 
+					       rightsPrex="<%=SysConstants.BLK_LISTSM_%>">黑/嫌疑名单管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getBlklistR() == Constants.ACTIVE 
+				            && GlobalControl.hasPageRight(rights,SysConstants.BLK_LISTSR_) %>'>
+					<li><a href="#<%=path %>/phonecode/initDataBlklistsR.do" id="menu_as_blklistsr" 
+					       rightsPrex="<%=SysConstants.BLK_LISTSR_%>">被叫黑名单管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.TYPE_LEVEL_) %>'>
+					<li><a href="#<%=path %>/businesscomm/initTypeLevel.do" id="menu_as_typelevel" 
+					       rightsPrex="<%=SysConstants.TYPE_LEVEL_%>">黑白名单优先级管理</a></li>
+				</c:if>
+				
+			</ul>
+			
+		
+
+			<!-- 菜单6 -->
+			<h3 class="menu_head"><span class="menu_ico6">关键字管理</span><span class="closeArrow">&nbsp;</span></h3>
+			<ul class="menu_body">
+				<c:if test='<%=license.getKeyauto() == Constants.ACTIVE
+				            && GlobalControl.hasPageRight(rights,SysConstants.KEY_PARAM_) %>'>
+					<li><a href="#<%=path %>/keywordscomm/KeywordsParamAction!init.do" id="menu_as_keywordparam" 
+					       rightsPrex="<%=SysConstants.KEY_PARAM_%>">关键字参数设置</a></li>
+				</c:if>
+				<c:if test='<%=license.getKeychar() != Constants.IN_ACTIVE
+				            && GlobalControl.hasPageRight(rights,SysConstants.KEY_CHAR_) %>'>
+					<li><a href="#<%=path %>/pages/common/keywords/KeywordsChar.jsp" id="menu_as_keywordschar" 
+					       rightsPrex="<%=SysConstants.KEY_CHAR_%>">关键字分隔符管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getKeypool() == Constants.ACTIVE
+				            && GlobalControl.hasPageRight(rights,SysConstants.KEY_POOL_) %>'>
+					<li><a href="#<%=path %>/keywordscomm/BaseKeywordsPoolAction!init.do" id="menu_as_keywordspool" 
+					       rightsPrex="<%=SysConstants.KEY_POOL_%>">嫌疑短信管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.KEYWORDS_)%>'>
+					<li><a href="#<%=path %>/keywords/initKeywords.do" id="menu_as_keywords" 
+					       rightsPrex="<%=SysConstants.KEYWORDS_%>">关键字管理</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.KEY_GROUP_) %>'>
+					<li><a href="#<%=path %>/pages/qg/keywords/KeywordsGroup.jsp" id="menu_as_keywordsGroup"
+							rightsPrex="<%=SysConstants.KEY_GROUP_ %>">关键字分组管理</a></li>
+				</c:if>
+				<c:if test='<%=license.getKeywordsAutoInput() == Constants.ACTIVE
+				            && GlobalControl.hasPageRight(rights,SysConstants.KEY_AUTO_INPUT_) %>'>
+					<li><a href="#<%=path %>/keywords/findCfgOutInterface.do" id="menu_as_keyAutoInput"
+					       rightsPrex="<%=SysConstants.KEY_AUTO_INPUT_%>">关键字自动导入参数</a></li>
+				</c:if>
+							
+			</ul>
+			
+		
+			
+			<!-- 菜单7 -->
+			<h3 class="menu_head"><span class="menu_ico12">统计管理</span><span class="closeArrow">&nbsp;</span></h3>
+			<ul class="menu_body">
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.NE_STAT_TIMESQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initNeStatTimesAciton.do" id="menu_as_neStatTimesq"
+					       rightsPrex="<%=SysConstants.NE_STAT_TIMESQ_%>">网元流量统计</a></li>
+				</c:if>
+				<c:if test='<%=license.getBossCheck() == Constants.ACTIVE&&
+				GlobalControl.hasPageRight(rights,SysConstants.STA_BOSSQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initStaBoss.do" id="menu_as_staBossq"
+					       rightsPrex="<%=SysConstants.STA_BOSSQ_%>">提交审核统计</a></li>
+				</c:if>
+				<c:if test='<%=license.getBossCheck() == Constants.ACTIVE&&
+					GlobalControl.hasPageRight(rights,SysConstants.REP_DATE_BLACKLISTQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initRepUnrecognizedBlacklist.do" 
+					       id="menu_as_repUnrecognizedBlacklistq"
+					       rightsPrex="<%=SysConstants.REP_DATE_BLACKLISTQ_%>">提交审核按日统计</a></li> 
+				</c:if>
+				<c:if test='<%=license.getRealtime() == Constants.REAL_TIME
+				    && GlobalControl.hasPageRight(rights,SysConstants.DATA_BLKLISTSQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initDataBlklistsAction.do" id="menu_as_dataBlklistsq"
+					       rightsPrex="<%=SysConstants.DATA_BLKLISTSQ_%>">黑名单统计</a></li>
+				</c:if>
+				<c:if test='<%=license.getUserGroup()==Constants.ACTIVE&&
+				    GlobalControl.hasPageRight(rights,SysConstants.SUM_USERGROUPQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initBlklistsUserGroupAction.do" id="menu_as_blklistsUserGroup"
+					       rightsPrex="<%=SysConstants.SUM_USERGROUPQ_%>">用户群违规统计</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.STA_KEYWORDSQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initStaKeywords.do" id="menu_as_staKeywords"
+					       rightsPrex="<%=SysConstants.STA_KEYWORDSQ_%>">关键字统计</a></li>
+				</c:if>
+				<c:if test='<%=license.getKeyrateCheck() == Constants.ACTIVE
+					&& GlobalControl.hasPageRight(rights,SysConstants.KEYWORDSRATEQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initKeywordsRate.do" id="menu_as_keywordsRates"
+					       rightsPrex="<%=SysConstants.KEYWORDSRATEQ_%>">关键字拦截效率统计</a></li> 
+				</c:if>
+			<c:if test='<%=license.getRealtime() == Constants.REAL_TIME%>'>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.REPKEYWORDSSTOPQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initRepKeywordsStopCount.do" id="menu_as_repKeywordsStop"
+					       rightsPrex="<%=SysConstants.REPKEYWORDSSTOPQ_%>">关键字拦截统计</a></li> 
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.BLK_SUMQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initSumBlkSum.do" id="menu_as_blkSumq"
+					       rightsPrex="<%=SysConstants.BLK_SUMQ_%>">黑名单拦截统计</a></li>
+				</c:if>
+			</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.BLK_LISTSDETAILQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initBlklistsDetailAction.do" id="menu_as_blklistsDetailq"
+					       rightsPrex="<%=SysConstants.BLK_LISTSDETAILQ_%>">黑名单明细统计</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.SUM_BLK_OUTLAWQ_) %>'>
+					<li><a href="#<%=path %>/statistic/initSumblkOutlaw.do" id="menu_as_sumblkOutlawq"
+					       rightsPrex="<%=SysConstants.SUM_BLK_OUTLAWQ_%>">黑名单违规量统计</a></li>  
+				</c:if>
+				<c:if test='<%=license.getRealtime() == Constants.NOT_REAL_TIME
+				    && license.getSumsender() == Constants.ACTIVE
+				    && GlobalControl.hasPageRight(rights,SysConstants.SUM_SENDERQ_)%>'>
+					<li><a href="#<%=path %>/statistic/initSenderFrequency.do" id="menu_as_senderFrequency"
+					       rightsPrex="<%=SysConstants.SUM_SENDERQ_%>">主叫频次统计</a></li> 
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.REP_BY_USERQ_) 
+				            && license.getByUserCount() == Constants.ACTIVE %>'>
+					<li><a href="#<%=path %>/statistic/initRepByUser.do" id="menu_as_repByUserq"
+					       rightsPrex="<%=SysConstants.REP_BY_USERQ_%>">按账号统计</a></li> 
+				</c:if>
+			<c:if test='<%=license.getRealtime() == Constants.REAL_TIME %>'>
+				<c:if test='<%=license.getMsgRelax() == Constants.ACTIVE  %>'>
+				   <c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.REPCACHEQ_) %>'>
+					 <li><a href="#<%=path %>/statistic/initRepCache.do" id="menu_as_repCacheq"
+					       rightsPrex="<%=SysConstants.REPCACHEQ_%>">短信缓存统计</a></li> 
+				   </c:if>
+				   <c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.REP_SYSTEM_PERFORMANCEQ_) %>'>
+					 <li><a href="#<%=path %>/statistic/initRepSystemPerformance.do" id="menu_as_repSystemPerformance"
+					       rightsPrex="<%=SysConstants.REP_SYSTEM_PERFORMANCEQ_%>">系统处理峰值统计</a></li> 
+				   </c:if>
+				   
+				</c:if>
+			   <c:if test='<%=license.getRunReport() == Constants.ACTIVE
+				    && GlobalControl.hasPageRight(rights,SysConstants.REP_SYSTEMRUN_COUNTQ_) %>'>
+				 <li><a href="#<%=path %>/statistic/initRepSystemrunCount.do" id="menu_as_repSystemRunCount"
+				       rightsPrex="<%=SysConstants.REP_SYSTEMRUN_COUNTQ_%>">系统运行统计</a></li> 
+			   </c:if>
+			   
+			</c:if>
+				
+			</ul>
+			
+		
+			
+			<!-- 菜单8 -->
+			<h3 class="menu_head"><span class="menu_ico8">查询管理</span><span class="closeArrow">&nbsp;</span></h3>
+			<ul class="menu_body">
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.DW_LISTSHISQ_) %>'>
+					<li><a href="#<%=path %>/query/initDWListsHis.do" id="menu_as_dtlistsHisq"
+					       rightsPrex="<%=SysConstants.DW_LISTSHISQ_%>">主叫白名单操作查询</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.DATA_SM_STOPQ_) %>'>
+					<li><a href="#<%=path %>/query/initDataSmStopAction.do" id="menu_as_dataSmstopq"
+					       rightsPrex="<%=SysConstants.DATA_SM_STOPQ_%>">阻止短消息查询</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.ALAR_QUERYQ_) %>'>
+					<li><a href="#<%=path %>/query/initAlarmQuery.do" id="menu_as_alarQueryq"
+					       rightsPrex="<%=SysConstants.ALAR_QUERYQ_%>">告警查询</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.CONTENT_ALARMQ_) %>'>
+					<li><a href="#<%=path %>/query/initContentAlarm.do" id="menu_as_contentAlarmq"
+					       rightsPrex="<%=SysConstants.CONTENT_ALARMQ_%>">内容分析告警查询</a></li>
+				</c:if>
+				<c:if test='<%=license.getPhoneCheck() == Constants.ACTIVE 
+		            && GlobalControl.hasPageRight(rights,SysConstants.DATA_SM_PHONEQ_) %>'>
+					<li><a href="#<%=path %>/query/initDataSmPhone.do" id="menu_as_dataSmPhoneq"
+					       rightsPrex="<%=SysConstants.DATA_SM_PHONEQ_%>">提取号码短消息查询</a></li>
+				</c:if>
+				<c:if test='<%=license.getBossCheck() == Constants.ACTIVE&&
+					GlobalControl.hasPageRight(rights,SysConstants.BOSS_TOLISTQ_) %>'>
+					<li><a href="#<%=path %>/query/initBossToList.do" id="menu_as_bossToListq"
+					       rightsPrex="<%=SysConstants.BOSS_TOLISTQ_%>">提交审核记录查询</a></li> 
+				</c:if>
+				<c:if test='<%=license.getBossCheck() == Constants.ACTIVE&&
+					GlobalControl.hasPageRight(rights,SysConstants.BOSS_BACK_LISTQ_) %>'>
+					<li><a href="#<%=path %>/query/initBossBackList.do" id="menu_as_bossBackListq"
+					       rightsPrex="<%=SysConstants.BOSS_BACK_LISTQ_%>">审核结果记录查询</a></li>
+				</c:if>
+				
+			</ul>
+			
+		
+			
+			<!-- 菜单9 -->
+			<h3 class="menu_head"><span class="menu_ico10">告警管理</span><span class="closeArrow">&nbsp;</span></h3>
+			<ul class="menu_body">
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.STAKEOUT_ALARM_) %>'>
+					<li><a href="#<%=path %>/flex/alarm.html" id="menu_as_stakeoutAlarm"
+					       rightsPrex="<%=SysConstants.STAKEOUT_ALARM_%>">告警监控</a></li>
+				</c:if>
+				<c:if test='<%=GlobalControl.hasPageRight(rights,SysConstants.STAKEOUT_SERVICE_) %>'>
+				<li><a href="#<%=path %>/flex/service.html" id="menu_as_stakeoutService"
+					       rightsPrex="<%=SysConstants.STAKEOUT_SERVICE_%>">业务拓扑</a></li>
+				</c:if>
+				
+			</ul>
+			
+		
+		
+			<!-- 菜单10 -->
+			<h3 class="menu_head"><span class="menu_ico9">导入导出管理</span><span class="closeArrow">&nbsp;</span></h3>
+			<ul class="menu_body">
+					<li><a href="#<%=path %>/pages/qg/file/export.jsp" id="menu_as_export">导入导出管理</a></li>
+			</ul>
+		</div>
+</body>
+</html>

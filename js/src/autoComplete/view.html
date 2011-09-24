@@ -44,37 +44,38 @@
 <body style="padding:50px;">
 	<!-- data-ns == data namespace 与url同时存在则优先使用 -->
 	<span class="auto-comp" data-data-ns="god.ss">
-		<input type="text" value="this is text" class="auto-comp-txt" />
-		<a class="auto-comp-arr" href="javascript:void(0)"></a>
+		<input type="text" value="this is text" />
+		<a href="javascript:void(0)"></a>
 	</span>
+
 	<!-- data-url == ajax data url -->
 	<span class="auto-comp" data-data-url="data.js">
-		<input type="text" value="this is text" class="auto-comp-txt" />
-		<a class="auto-comp-arr" href="javascript:void(0)"></a>
+		<input type="text" value="this is text" />
+		<a href="javascript:void(0)"></a>
 	</span>
 
 	<!-- 禁用时加上 auto-comp-disabled -->
-	<span class="auto-comp auto-comp-disabled">
-		<input type="text" value="this is text" class="auto-comp-txt" />
-		<a class="auto-comp-arr" href="javascript:void(0)"></a>
+	<span class="auto-comp auto-comp-disabled" data-data-url="data.js">
+		<input type="text" value="this is text" disabled="disabled" />
+		<a href="javascript:void(0)"></a>
 	</span>
 
 
 
 	<!-- 下拉层样式与结构 -->
-	<div class="auto-comp-p">
+	<div class="auto-comp-pop" style="display:block;">
 		<div class="auto-comp-loading">加载中...</div>
-		<div class="auto-comp-pis">
-			<a class="auto-comp-i" href="#" data-value="1">1</a>
-			<a class="auto-comp-i" href="#" data-value="2">2</a>
-			<a class="auto-comp-i" href="#" data-value="3">3</a>
-			<a class="auto-comp-i" href="#" data-value="4">4</a>
-			<a class="auto-comp-i" href="#" data-value="5">5</a>
+		<div class="auto-comp-as">
+			<a class="auto-comp-a" href="#" data-value="1">1</a>
+			<a class="auto-comp-a" href="#" data-value="2">2</a>
+			<a class="auto-comp-a" href="#" data-value="3">3</a>
+			<a class="auto-comp-a" href="#" data-value="4">4</a>
+			<a class="auto-comp-a" href="#" data-value="5">5</a>
 		</div>
-		<div class="auto-comp-pm">
-			<a class="auto-comp-pp" href="#">上一页</a>
-			<a class="auto-comp-pn" href="#">下一页</a>
-			<span class="auto-comp-ew">[<span class="auto-comp-ec">1</span>]<span class="auto-comp-ef">1</span>-<span class="auto-comp-el">15</span>/<span class="auto-comp-et">450</span>条</span>
+		<div class="auto-comp-page">
+			<a class="auto-comp-prev" href="#">上一页</a>
+			<a class="auto-comp-next" href="#">下一页</a>
+			<span class="auto-comp-tip">[<span class="auto-comp-match">1</span>]<span class="auto-comp-from">1</span>-<span class="auto-comp-to">15</span>/<span class="auto-comp-totals">450</span>条</span>
 		</div>
 	</div>
 

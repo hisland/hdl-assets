@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2, builtin', function(){
+				alert('[有]默认selected属性,值: ' + $('#god1').val());
+				alert('[无]默认selected属性,值: ' + $('#god2').val());
+				$('#cc1').click(function(){
+					$('#shit1')[0].reset();
+					alert($('#god1').val());
+				});
+				$('#cc2').click(function(){
+					$('#shit2')[0].reset();
+					alert($('#god2').val());
+				});
+			});
+		});
+	</script>
+	<link rel="stylesheet" type="text/css" href="css/select.css" />
+</head>
+
+<body style="padding:20px;">
+	<p>跟ie的select.value与选中option.selected属性不一致有关,jqueyr1.6.2无此问题</p>
+	<div>
+		<p>输出option[有]默认selected属性</p>
+		<form id="shit1">
+		<select id="god1">
+			<option value="1" selected="selected">aaa</option>
+			<option value="2">bbb</option>
+		</select>
+		<input type="button" name="" value="do-reset" id="cc1" />
+		</form>
+	</div>
+	<hr />
+	<div>
+		<p>输出option[无]默认selected属性</p>
+		<form id="shit2">
+		<select id="god2">
+			<option value="1">aaa</option>
+			<option value="2">bbb</option>
+		</select>
+		<input type="button" name="" value="do-reset" id="cc2" />
+		</form>
+	</div>
+</body>
+</html>

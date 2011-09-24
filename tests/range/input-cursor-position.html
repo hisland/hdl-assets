@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2, builtin', function(){
+				if($.browser.msie){
+					$('#aa').click(function(e){
+						var obj = {};
+						var cr = document.selection.createRange();
+						cr = cr.duplicate();
+						this.select();
+						var ar = document.selection.createRange();
+						var  pos = 0, cp = cr.duplicate();
+						while(cp.compareEndPoints('StartToStart', ar) > 0){
+							cp.moveStart('character', -1);
+							pos++;
+						}
+						obj.selectionStart = pos;
+						obj.selectionEnd = pos + cr.htmlText.length;
+						cr.select();
+						$('#b1').html(obj.selectionStart);
+						$('#b2').html(obj.selectionEnd);
+						$('#b3').html(obj.selectionStart);
+					});
+					$(document).click(function(e){
+						if($(e.target).is('#aa')){
+							return ;
+						}
+						var a = $('#aa')[0];
+						var b = Math.random(0,7);
+						var c = Math.random(8,13);
+						var r = a.createTextRange();
+						var len = r.htmlText.length;
+						r.moveStart('character', b);
+						r.moveEnd('character', c-len);
+						//设置光标只需要折叠,不需要moveEnd
+						//r.collapse(true); 
+//						alert(b +'--'+ c);
+						r.select();
+						a.focus();
+					});
+				}else{
+					//for firefox
+					$('#aa').click(function(e){
+						$('#b1').html(this.selectionStart);
+						$('#b2').html(this.selectionEnd);
+						$('#b3').html(this.selectionStart);
+					});
+					$(document).click(function(e){
+						if($(e.target).is('#aa')){
+							return ;
+						}
+						var a = $('#aa')[0];
+						var b = Math.random(0,7);
+						var c = Math.random(8,13);
+//						console.log(b, c);
+						a.setSelectionRange(b,c);
+						a.focus();
+					});
+				}
+				window.aa = $('#aa')[0];
+			});
+		});
+	</script>
+</head>
+
+<body style="padding:20px;">
+	<input id="aa" type="text" name="" value="this is a good" />
+	<p>选择开始: <span id="b1"></span></p>
+	<p>选择结束: <span id="b2"></span></p>
+	<p>光标位置: <span id="b3"></span></p>
+	<div>
+		<p>考虑实现cursorAt(obj), cursorEnd(obj), cursorStart(obj)方法</p>
+		<p>考虑实现setSelectionRange(obj, pos1)-设置光标位置, setSelectionRange(obj, pos1, pos2)-设置选择范围</p>
+	</div>
+</body>
+</html>

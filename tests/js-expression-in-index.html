@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				
+			});
+		});
+	</script>
+</head>
+<body style="margin:50px;">
+	<p>array[index], obj[key]</p>
+	<p>index, key可以为表达式</p>
+	<p>","号表达式结果为最后一个表达式的值</p>
+	<p>所以</p>
+	<p>[1, 2, 3, 4][1, 2] 得 3, 索引位置3的值</p>
+	<p>[1, 2, 3, 4][1, 2, 1] 得 2, 索引位置2的值</p>
+	<p>jj = {a:3, b:'kk'}; jj[1, 3, 'a'] 得 3, 属性a的值</p>
+	<p>不可以: {a:3, b:'kk'}[1, 3, 'a'], 语法错误, 其实是直接写json"{a:3, b:'kk'}"运行会报错</p>
+	<p>可以: a = {a:3, b:'kk'}[1, 3, 'a']</p>
+</body>
+</html>

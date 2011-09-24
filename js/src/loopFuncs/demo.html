@@ -7,7 +7,7 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, jquery-1.4.2, loopFuncs', function(){
-				var i = 0;
+				var i = 0, loopFuncs = getLoopFuncs();
 				loopFuncs.add(function(){
 					$('#aa').append('<span>'+i+'</span>');
 					i++;

@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				for(var i=0;i<kk.length;i++){
+					k = kk[i];
+					for(var j=0;j<5;j++){
+						test();
+					}
+				}
+			});
+		});
+	</script>
+</head>
+<body style="margin:50px;">
+<pre>
+#         padding:9px\9; /* all ie */
+#         padding:8px\0; /* ie8-9 */
+#         *padding:5px; /* ie6-7 */
+#        +padding:7px; /* ie7 */
+#         _padding:6px; /* ie6 */
+</pre>
+<pre>
+	@-moz-document url-prefix(){
+		#right_mod_wrap form .input_list li input.short1{width:50px;margin-right:5px;}
+		#right_mod_wrap form .input_list li label.short1 input{width:auto;vertical-align:middle;margin-right:4px;position:relative;top:-2px;}
+		#right_mod_wrap form .input_list li.with3row strong input{margin:3px;}
+	}
+</pre>
+</body>
+</html>

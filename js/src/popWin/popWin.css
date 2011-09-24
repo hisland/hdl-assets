@@ -1,11 +1,12 @@
 .win1-wrap{background-color:#fff;border:1px solid #92b1dc;overflow:hidden;padding:1px;position:absolute;}
 
-	.win1-title-wrap{height:23px;line-height:23px;background:url('img/bg1.gif') repeat-x 0 0;padding:0 20px 0 10px;position:relative;}
-		.win1-title{font-weight:700;display:block;width:100%;overflow:hidden;text-overflow:ellipsis;}
-		.win1-close{position:absolute;top:5px;right:5px;background:url('img/x.gif') no-repeat 0 0;width:13px;height:13px;overflow:hidden;}
+	.win1-title-wrap{height:23px;line-height:23px;background:url('popWin-img/bg1.gif') repeat-x 0 0;padding:0 20px 0 10px;position:relative;}
+		.win1-title{font-weight:700;display:block;width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+		.win1-close{position:absolute;top:5px;right:5px;background:url('popWin-img/x.gif') no-repeat 0 0;width:13px;height:13px;overflow:hidden;}
 		.win1-close:hover{background-position: 0px -20px;text-decoration:none;}
 
-	.win1-content{border-top:1px solid #92b1dc;margin:1px -1px 0;padding:10px 3px 3px;cursor:default;}
-	
-	.win1-btns{text-align:right;padding:5px 20px 5px;}
-		.win1-btns input{width:72px;height:22px;line-height:22px;margin-left:8px;background:url('img/btn1.gif') no-repeat 0 0;border:none;cursor:pointer;}
+	.win1-content-wrap{border-top:1px solid #92b1dc;margin:1px -1px -1px;padding:8px;background:#f8fbff;}
+		.win1-content{cursor:default;background:#fff;position:relative;}
+
+	.win1-btns{text-align:right;padding:5px;}
+		.win1-btns input{width:72px;height:22px;line-height:22px;margin-left:8px;background:url('popWin-img/btn1.gif') no-repeat 0 0;border:none;cursor:pointer;}

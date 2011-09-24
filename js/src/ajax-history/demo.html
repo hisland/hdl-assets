@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, demo-css, hdlValidator+css', function(){
+				window.getName2 = function(){
+					return 'name2=god3';
+				}
+				$('form').hdlValidator();
+			});
+		});
+	</script>
+</head>
+<body style="padding:20px 50px;">
+	<div class="section">
+		<div class="legend">说明</div>
+		<div class="box">
+			<p>2011-3-21 11:36:16:
+			<br />统一验证写法为 data-valid-type="pattern, pattern, pattern"
+			<br />减少记忆难度
+			<br />减少代码复杂度
+			</p>
+			<p>pattern请查看源代码注释</p>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">form测试 - 提交按钮为button,通过form的data-submit-button属性指定</div>
+		<div class="box">
+			<form action="#" data-submit-button="#form-submit">
+				<p>正则验证-IPV4: <input class="text1" type="text" name="" value="" data-valid-type="ripv4" /></p>
+				<p><input type="button" value="提交" disabled="disabled" id="form-submit" /></p>
+			</form>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">form测试 - 提交按钮为submit</div>
+		<div class="box">
+			<form action="#">
+				<p>正则验证-IPV4: <input class="text1" type="text" name="" value="" data-valid-type="ripv4" /></p>
+				<p><input type="submit" value="提交" disabled="disabled" /></p>
+			</form>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">form测试 - 多个条件同时通过,submit才可用!</div>
+		<div class="box">
+			<form action="#">
+				<p>正则验证-IPV4: <input class="text1" type="text" name="" value="" data-valid-type="ripv4" /></p>
+				<p>正则验证-整数: <input class="text1" type="text" name="" value="" data-valid-type="rinteger" /></p>
+				<p><input type="submit" value="提交" disabled="disabled" /></p>
+			</form>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">各种测试</div>
+		<div class="box">
+			<form action="#">
+				<p>UTF8长度验证-任意字符[10-16]: <input class="text1" type="text" name="" value="" data-valid-type="lu10-16" /></p>
+				<p>长度验证-大小写字母[2-16]: <input class="text1" type="text" name="" value="" data-valid-type="la2-16" /></p>
+				<p>长度验证-数字[1-8]: <input class="text1" type="text" name="" value="" data-valid-type="ln1-8" /></p>
+				<p>数字验证-值范围[20-99]: <input class="text1" type="text" name="" value="" data-valid-type="n20-99" /></p>
+				<p>自定义正则 - /^abc[ga]$/i - 要整个匹配请加上^$标志开始结尾, 默认提示为: '自定义正则验证':
+				<br /><input class="text1" type="text" name="" value="" data-valid-type="/^abc[ga]$/i" />
+				</p>
+				<p>自定义正则 - /^abc[ga]$/i - 要整个匹配请加上^$标志开始结尾, 自定义验证提示信息:
+				<br /><input class="text1" type="text" name="" value="" data-valid-type="/^abc[ga]$/i" data-valid-msg="形式为abc[ga], 忽略大小写" />
+				</p>
+				<p><input type="submit" value="提交" disabled="disabled" /></p>
+			</form>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">其它形式验证</div>
+		<div class="box">
+			<form action="#">
+				<p>对比验证-左侧值小于右侧值: <input class="text1" type="text" name="" value="" id="comp1" data-valid-type="<#comp2" />-<input class="text1" type="text" name="" value="" id="comp2" data-valid-type=">#comp1" /></p>
+				<p>异步验证(将自身name=value组成数据提交), 输入'hello'验证成功:
+				<br /><input class="text1" type="text" name="name" value="" data-valid-type="ajax, la3-6" data-ajax-url="check.php" data-ajax-type="post" data-valid-msg="用户名不能与服务器相同" />
+				</p>
+				<p>异步验证(自身+额外数据), 输入'good'验证成功:
+				<br /><input class="text1" type="text" name="name" value="" data-valid-type="ajax" data-ajax-url="check2.php" data-ajax-data="name2=god" />
+				</p>
+				<p>异步验证(自身+额外数据[根据函数执行结果), 输入'aha'验证成功:
+				<br /><input class="text1" type="text" name="name" value="" data-valid-type="ajax" data-ajax-url="check3.php" data-ajax-data="fn:getName2" />
+				</p>
+				<p><input type="submit" value="提交" disabled="disabled" /></p>
+			</form>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="legend">textarea测试</div>
+		<div class="box">
+			<form action="#">
+				<p>textarea验证:
+				<br /><textarea rows="5" cols="25" name="a-name" data-valid-type="l0-200"></textarea>
+				</p>
+				<p><input type="submit" value="提交" disabled="disabled" /></p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

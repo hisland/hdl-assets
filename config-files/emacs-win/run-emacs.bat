@@ -1,2 +1,1 @@
-bin\runemacs.exe -q -l .emacs
-pause
+bin\runemacs.exe -q -l .emacspause

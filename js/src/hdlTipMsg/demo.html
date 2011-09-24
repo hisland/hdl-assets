@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<!--[if IE 6]>
+		<style type="text/css">
+			body { height: 100%; width: 100%; }
+		</style>
+	<![endif]-->
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, hdlTipMsg+css', function(){
+				$('#aaa').click(function(){
+					$.alert('im a tip!');
+				});
+				$('#bbb').click(function(){
+					$.popManager.clean();
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+<input type="button" name="" value="show one" id="aaa" />
+<input type="button" name="" value="clean manager" id="bbb" />
+</body>
+</html>
