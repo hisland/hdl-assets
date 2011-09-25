@@ -7,50 +7,54 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, common-css, demo-css, jquery-1.4.2', function(){
+				$('form').submit(function(e){
+					alert('submit!');
+					e.preventDefault();
+				});
 			});
 		});
 	</script>
 </head>
 <body>
-	<div class="section">
-		<div class="legend">结论</div>
-		<div class="box">
-			<p>提交按钮被disabled时, 在输入框回车</p>
+	<div class="demo-section">
+		<div class="demo-legend">结论</div>
+		<div class="demo-box">
+			<p>提交按钮被<span class="red">disabled</span>时, 在输入框回车</p>
 			<p>form使用submit按钮
-			<br />ie: 只有一个输入框时会提交,2个不提交
+			<br />ie6,7,8: 只有一个输入框时会提交,2个不提交
 			<br />ff: <span class="red">始终不会提交</span>
 			</p>
 			<p>form<span class="red">不</span>使用submit按钮
-			<br />ie: 只有一个输入框时会提交,2个不提交
+			<br />ie6,7,8: 只有一个输入框时会提交,2个不提交
 			<br />ff: 只有一个输入框时会提交,2个不提交
 			</p>
 		</div>
 	</div>
 
-	<div class="section">
-		<div class="legend">form测试 - 提交按钮为button,通过form的data-submit-button属性指定</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">type="button", one input</div>
+		<div class="demo-box">
 			<form action="#" data-submit-button="#form-submit">
 				<p>正则验证-IPV4: <input class="text" type="text" name="" value="" data-valid-type="ripv4" /></p>
-				<p><input type="button" value="提交" disabled="disabled" id="form-submit" /></p>
+				<p><input type="button" value="button" disabled="disabled" id="form-submit" /></p>
 			</form>
 		</div>
 	</div>
 
-	<div class="section">
-		<div class="legend">form测试 - 提交按钮为button,通过form的data-submit-button属性指定</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">type="button", 2 more input</div>
+		<div class="demo-box">
 			<form action="#" data-submit-button="#form-submit">
 				<p>正则验证-IPV4: <input class="text" type="text" name="" value="" data-valid-type="ripv4" /></p>
 				<p>正则验证-整数: <input class="text" type="text" name="" value="" data-valid-type="rinteger" /></p>
-				<p><input type="button" value="提交" disabled="disabled" id="form-submit" /></p>
+				<p><input type="button" value="button" disabled="disabled" id="form-submit" /></p>
 			</form>
 		</div>
 	</div>
 
-	<div class="section">
-		<div class="legend">form测试 - 提交按钮为submit</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">type="submit", one input</div>
+		<div class="demo-box">
 			<form action="#">
 				<p>正则验证-IPV4: <input class="text" type="text" name="" value="" data-valid-type="ripv4" /></p>
 				<p><input type="submit" value="提交" disabled="disabled" /></p>
@@ -58,9 +62,9 @@
 		</div>
 	</div>
 
-	<div class="section">
-		<div class="legend">form测试 - 提交按钮为submit</div>
-		<div class="box">
+	<div class="demo-section">
+		<div class="demo-legend">type="submit", 2 more input</div>
+		<div class="demo-box">
 			<form action="#">
 				<p>正则验证-IPV4: <input class="text" type="text" name="" value="" data-valid-type="ripv4" /></p>
 				<p>正则验证-整数: <input class="text" type="text" name="" value="" data-valid-type="rinteger" /></p>
