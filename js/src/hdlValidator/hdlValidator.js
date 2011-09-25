@@ -111,6 +111,17 @@
 	2011-07-07 11:11:36:
 		ie使用 propertychange 事件进行监听,避免autocomplete填充导致没有监听到
 		或者在注册时就设置autocomplete为false
+		
+	2011-07-18 12:45:46:
+		需要验证的input或form禁止浏览器的autocomplete
+
+	2011-08-05 09:22:37:
+		增加验证规则使用方法形式:
+			must(patterns)增加必填项
+			optional(patterns)增加可选项,如果输入还是要符合规则
+	
+	2011-09-11 15:31:08:
+		ie不支持[]方式取子字符串,使用substr方式取, 改为使用charAt(n)
  */
 
 KISSY.add('hdlValidator', function(S, undef) {
@@ -132,7 +143,8 @@ KISSY.add('hdlValidator', function(S, undef) {
 			idx = str.indexOf(',', idx);
 			if(idx != -1){
 				//有转义符号'\'向前移动1位并继续下一次
-				if(str[idx-1] == '\\'){
+				//ie不支持[]方式取子字符串,改为使用charAt(n)
+				if(str.charAt(idx-1) == '\\'){
 					idx += 1;
 					continue;
 				//否则截取pattern
@@ -146,7 +158,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 				p = str.substring(last_idx);
 			}
 			//过滤掉前后空格并将转义的'\,'换成正常的','
-			arr.push(p.replace(/^\s*|\s*$/g, '').replace('\\,', ','));
+			arr.push(p.replace(/^\s*|\s*$/g, '').replace(/\\,/g, ','));
 		}
 		return arr;
 	}
@@ -760,6 +772,9 @@ KISSY.add('hdlValidator', function(S, undef) {
 		if(!this.validator.allPassed()){
 			S.log('not all passed!');
 		}else{
+			//由于ie下只有一个输入框按回车会被提交,所以,隐藏操作在完全验证成功后进行
+			popHide();
+			loop.stop();
 			this.validator.beforeSubmit.call(this, e);
 		}
 		//默认即阻止提交,这里统一控制

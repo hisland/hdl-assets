@@ -1,8 +1,3 @@
 <?php
-	sleep(1);
-	if($_REQUEST['name'] == 'hello'){
-		echo 'true';
-	}else{
-		echo 'false';
-	}
+	echo '{reg: /^$|^[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ\-asdfghjklqwertyuiopzxcvbnm]+$/,msg: "说明信息"}';
 ?>

@@ -6,28 +6,18 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, common-css, demo-css, hdlValidator+css', function(){
-				window.getName2 = function(){
-					return 'name2=god3';
-				}
-				$('form').hdlValidator();
+			S.use('reset-css, common-css, demo-css, jquery-1.4.2', function(){
+				$.get('check.php', function(data){
+					console.log(data);
+					data = eval('(' + data + ')');
+					window.aa = data;
+					console.log(data);
+				});
 			});
 		});
 	</script>
 </head>
-<body style="padding:20px 50px;">
-	<div class="demo-section">
-		<div class="demo-legend">说明</div>
-		<div class="demo-box">
-			<p>2011-3-21 11:36:16:
-			<br />统一验证写法为 data-valid-type="pattern, pattern, pattern"
-			<br />减少记忆难度
-			<br />减少代码复杂度
-			</p>
-			<p>pattern请查看源代码注释</p>
-		</div>
-	</div>
-
+<body style="padding:10px 20px;">
 	<div class="demo-section">
 		<div class="demo-legend">form测试 - 提交按钮为button,通过form的data-submit-button属性指定</div>
 		<div class="demo-box">
