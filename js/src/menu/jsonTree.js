@@ -1,4 +1,4 @@
-[{
+{
 		"text":"根节点",
 		"children":[{
 				"text":"系统管理",
@@ -274,12 +274,12 @@
 								"id":"menu_as_dataAlarmSuspectSp"
 							},{
 								"text":"特殊转发号码管理",
-								"url":"#/antispam2850/pages/qg/business/SpecialNumber.jsp",
-								"prefix":"SPECIAL_NUMBER_",
-								"id":"menu_as_specialNumber"
+								"url":"#/antispam2850/pages/qg/business/DataSpecialLists.jsp",
+								"prefix":"DATA_SPECIALLISTS_",
+								"id":"menu_as_dataSpecialLists"
 							},{
 								"text":"VIP名单管理",
-								"url":"#",
+								"url":"#/antispam2850/pages/qg/business/DataVipList.jsp",
 								"prefix":null,
 								"id":""
 							},{
@@ -431,9 +431,9 @@
 								"id":"menu_as_repSystemPerformance"
 							},{
 								"text":"H2接口统计",
-								"url":"#",
+								"url":"#/antispam2850/statistic/initH2InterfaceStatistic.do",
 								"prefix":null,
-								"id":""
+								"id":"menu_as_h2interfacestatistic"
 							}
 						]
 					}
@@ -464,4 +464,3 @@
 			}
 		]
 	}
-]

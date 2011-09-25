@@ -10,40 +10,37 @@
  * 		p = $.popManager.init() 初始化一个弹出层包含块
  * 		p.front() 将此层放到最前面
  * 		p.mask() 使用遮罩
- * 		p.mask(false) 去除遮罩
+ * 		p.demask() 去除遮罩
+ * 		p.loading() 显示loading状态
+ * 		p.loaded() 去除loading状态
  * 		p.remove() 删除此层
  * 
- * 		p.div 最外层元素的jquery对象
- * 		p.div.appendTo('body') 将层放到dom树中
+ * 		p.$fndiv() 获得最外层元素
+ * 		p.$fnmask() 获得遮罩元素
  * 
  * TODO:
  * 		2011-08-09 09:15:49:
  * 			IE6的内存泄露问题
  * 		2011-09-16 18:56:51:
  * 			ESC隐藏控制
+ * 
  */
 
 KISSY.add('popManager', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,base_z_index = 1000
-		,html_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;"></div>'
-		,ifr_string = '<iframe style="position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;filter:alpha(opacity=0);" frameborder="no" scrolling="no"></iframe>'
-		,mask_string = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>'
-		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent) && !/msie [78].0/i.test(navigator.userAgent)
-		,m = {};
-
-	m.divs = EMPTY_$;
+	var $ = jQuery,
+		prefix = 'pop-manager-',
+		html_string = '<div class="pop-manager-wrap" style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;"></div>',
+		mask_string = '<div class="pop-manager-mask" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>',
+		popManager = {};
 
 	//初始化一个弹出层包含块
-	m.init = function(){
-		return init().front();
+	popManager.init = function(){
+		return init();
 	}
 
 	//清除所有的弹出层包含块
-	m.clean = function(){
-		m.divs.remove();
-		m.divs = EMPTY_$;
+	popManager.clean = function(){
+		$('.pop-manager-wrap').remove();
 		return this;
 	}
 
@@ -53,57 +50,89 @@ KISSY.add('popManager', function(S, undef) {
 			return new init();
 		}
 
-		this.div = $(html_string);
-		if(ie6){
-			this.div.append(ifr_string);
-		}
-		this.mask();
-		m.divs = m.divs.add(this.div);
+		//设置id
+		var id = S.guid(prefix);
+		$(html_string).attr('id', id).appendTo('body');
+		this.selector = '#' + id;
+
+		this.__init_mask().__init_ie6Iframe();
 	}
-	$.extend(init.prototype, {
+	S.augment(init, {
 		//放到最前
-		front: function () {
-			this.div.css('z-index', $.zindexManager.up());
+		front: function() {
+			this.$fndiv().css('z-index', $.zindexManager.up());
 			return this;
 		},
+
 		//删除此弹出层
-		remove: function () {
-			this.div.remove();
+		remove: function() {
+			this.$fndiv().remove();
 			return this;
 		},
-		//遮罩处理,css3使用半透明背景,否则使用半透明层
-		mask: function (use) {
-			if(use === false){
-				if($.browser.msie){
-					this.div.children('div:first').remove();
-				}else{
-					this.div.css('background-color', '');
-				}
-				this.__mask = 0;
-			}else{
-				if(this.__mask){
-				}else if($.browser.msie){
-					this.div.prepend(mask_string);
-					this.__mask = 1;
-				}else{
-					this.div.css('background-color', 'rgba(0, 0, 0, 0.2)');
-					this.__mask = 1;
-				}
+
+		//获得弹出层外层
+		$fndiv: function() {
+			return $(this.selector);
+		},
+
+		//获得弹出层遮罩div
+		$fnmask: function() {
+			return this.$fndiv().children('div:first');
+		},
+
+		//删除此弹出层
+		__init_mask: function() {
+			if($.browser.msie){
+				this.$fndiv().prepend(mask_string);
 			}
 			return this;
 		},
-		loading: function(str){
-			if (str === false) {
-				this.div.removeClass('loading');
+
+		//显示遮罩, css3使用半透明背景, 否则使用半透明层
+		mask: function() {
+			if($.browser.msie){
+				this.$fnmask().show();
 			}else{
-				this.div.addClass('loading');
+				this.div.css('background-color', 'rgba(0, 0, 0, 0.2)');
+			}
+			return this;
+		},
+
+		//隐藏遮罩
+		demask: function() {
+			if($.browser.msie){
+				this.$fnmask().hide();
+			}else{
+				this.div.css('background-color', '');
+			}
+			return this;
+		},
+
+		//显示loading层
+		loading: function(){
+			this.mask();
+			this.$fndiv().addClass('loading');
+			return this;
+		},
+
+		//显示loading层
+		loaded: function(){
+			this.demask();
+			this.$fndiv().removeClass('loading');
+			return this;
+		},
+		
+		//ie6下增加iframe垫层
+		__init_ie6Iframe: function(){
+			if(/*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent) && !/msie [78].0/i.test(navigator.userAgent)){
+				this.$fndiv().append('<iframe style="position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;filter:alpha(opacity=0);" frameborder="no" scrolling="no"></iframe>');
 			}
 			return this;
 		}
 	});
 
 	$.extend({
-		popManager: m
+		popManager: popManager
 	});
 }, {
 	requires: ['jquery-1.4.2', 'zindexManager']

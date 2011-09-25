@@ -482,7 +482,6 @@ KISSY.add('dateTool', function(S, undef) {
 
 	//在文档上监听是否打开日期控件以及何时关闭日期控件
 	$(document).click(documentClick);
-
 }, {
 	requires: ['jquery-1.4.2', 'adjustElement', 'builtin']
 });

@@ -16,6 +16,7 @@
  * 		p.div 最外层元素的jquery对象
  * 		p.show() 显示弹出窗口
  * 		p.hide() 隐藏弹出窗口
+ * 
  */
 
 KISSY.add('popWin', function(S, undef) {
@@ -24,42 +25,26 @@ KISSY.add('popWin', function(S, undef) {
 		,html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title">title</span><a class="win1-close" href="#"></a></div><div class="win1-content-wrap"><div class="win1-content"></div></div></div>'
 		,popWin = {};
 	
-	popWin.divs = EMPTY_$;
 	popWin.init = function(){
-		return new init();
+		return init();
 	}
 	popWin.clean = function(){
-		$.popManager.clean();
+		$('.win1-wrap').remove();
+		return this;
 	}
 
 	function init(){
-		var  self = this
-			,div = $(html_string);
+		//更改为构造方式
+		if(!(this instanceof init)){
+			return new init();
+		}
 
-		//保存到全局
-		popWin.divs = popWin.divs.add(div);
-
-		//设置属性
-		self.div = div;
-		self.close = div.find('a.win1-close');
-		self.title = div.find('span.win1-title');
-		self.content = div.find('div.win1-content');
-		self.close_able = true;
-
-		self.manager = $.popManager.init();
-		self.manager.div.append(div).appendTo('body');
-		self.div.width(400);
-		self.div.hdlDrag({
-			trigger_filter: function(e){
-				if($(e.target).closest('.win1-content, .win1-close').length){
-					return false;
-				}
-			}
-		});
+		var manager = this.manager = $.popManager.init();
+		manager.$fndiv().append(div);
 
 		//设置关闭按钮
-		self.close.click(function(e){
-			self.hide();
+		this.$fnclose().click(function(e){
+			$(this).closest('.win1-wrap').hide();
 			e.preventDefault();
 		})
 		//不能拖拽
@@ -67,31 +52,34 @@ KISSY.add('popWin', function(S, undef) {
 			e.preventDefault();
 		});
 
-		//设置关闭按钮
-		self.div.click(function(e){
+		//代理取消按钮
+		this.$fndiv().click(function(e){
 			if($(e.target).is('.win1-btn-cancle')){
-				self.hide();
+				$(this).hide();
 			}
 		});
 	}
-
-	$.extend(init.prototype, {
+	S.augment(init, {
 		front: function(){
 			this.manager.front();
 			return this;
 		},
-		mask: function(use){
+		mask: function(){
 			this.manager.mask(use);
 			return this;
 		},
-		loading: function(str){
-			if (str === false) {
-				this.div.show();
-				this.manager.loading(str);
-			}else{
-				this.div.hide();
-				this.manager.loading(str);
-			}
+		demask: function(){
+			this.manager.mask(use);
+			return this;
+		},
+		loading: function(){
+			this.div.hide();
+			this.manager.loading(str);
+			return this;
+		},
+		loaded: function(){
+			this.div.show();
+			this.manager.loading(str);
 			return this;
 		},
 		show: function(){
@@ -104,7 +92,7 @@ KISSY.add('popWin', function(S, undef) {
 			return this;
 		},
 		hide: function(){
-			if(this.close_able){
+			if(this.__close_able){
 				this.manager.div.hide();
 			}
 			return this;
@@ -112,6 +100,56 @@ KISSY.add('popWin', function(S, undef) {
 		remove: function(){
 			this.manager.div.remove();
 			return this;
+		},
+		setCloseable: function(status){
+			if(status === true){
+				this.__close_able = true;
+			}else ifstatus === false){
+				this.__close_able = false;
+			}else{
+				S.log('popWin.setCloseable: you must specify true or false!');
+			}
+		},
+		setDraggable: function(status){
+			if(status === true){
+				this.$fndiv().hdlDrag({
+					trigger_filter: function(e){
+						if($(e.target).closest('.win1-content, .win1-close').length){
+							return false;
+						}
+					}
+				});
+			}else ifstatus === false){
+				//需要对等的取消拖动代码
+			}else{
+				S.log('popWin.setDraggable: you must specify true or false!');
+			}
+		},
+		setWidth: function(num){
+			if(S.isNumber(num-0)){
+				this.$fndiv().width(num);
+			}else{
+				S.log('popWin.setWidth: num must be a valid number!');
+			}
+		},
+		setHeight: function(num){
+			if(S.isNumber(num-0)){
+				this.$fndiv().height(num);
+			}else{
+				S.log('popWin.setHeight: num must be a valid number!');
+			}
+		},
+		$fndiv: function(){
+			return $(this.selector);
+		},
+		$fnclose: function(){
+			return this.$fndiv().find('a.win1-close');
+		},
+		$fntitle: function(){
+			return this.$fndiv().find('span.win1-title');
+		},
+		$fncontent: function(){
+			return this.$fndiv().find('div.win1-content');
 		}
 	});
 

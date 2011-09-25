@@ -7,7 +7,6 @@
  *
  * API:
  *
- *
 tree:{
 	 use_checkbox: true			//是否使用checkbox
 	,use_icon: true				//是否使用icon图标
@@ -96,48 +95,45 @@ TODO:
 
 KISSY.add('hdlTree', function(S, undef) {
 	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,global_tree = window.hdl_tree || [];
-	
-	if($.fn.hdlTree){
-		return false;
-	}
-	window.hdl_tree = global_tree;
+		,EMPTY_$ = $('');
 
+	//各元素对应的标签
+	var tag_arrow = '<em class="arrow"></em>',
+		tag_arrow_end = '<em class="arrow-end"></em>',
+		tag_arrow_open = '<em class="arrow-open"></em>',
+		tag_arrow_end_open = '<em class="arrow-end-open"></em>',
+
+		tag_loading = '<small class="loading"></small>',
+		tag_leaf = '<small class="leaf"></small>',
+		tag_branch = '<small class="branch"></small>',
+		tag_branch_open = '<small class="branch-open"></small>',
+
+		tag_checked = '<strong class="checked"></strong>',
+		tag_partial = '<strong class="partial"></strong>',
+		tag_unchecked = '<strong class="unchecked"></strong>',
+
+		tag_blank = '<b class="blank"></b>',
+		tag_line = '<b class="line"></b>',
+		tag_line_elbow = '<b class="line-elbow"></b>',
+		tag_line_elbow_end = '<b class="line-elbow-end"></b>';
+
+	//获得uid
 	var uid = (function(id) {
 		return function(){
 			return 'hdltree' + (id++);
 		};
 	})(0);
 
-	function Tree(){
+	function Tree(setting){
 		//更改为构造方式
 		if(!(this instanceof Tree)){
-			return new Tree();
+			return new Tree(setting);
 		}
 
 		this.uid = uid();
 		this.__last_selected = EMPTY_$;
-
-		this.str_arrow = '<em class="arrow"></em>';
-		this.str_arrow_end = '<em class="arrow-end"></em>';
-		this.str_arrow_open = '<em class="arrow-open"></em>';
-		this.str_arrow_end_open = '<em class="arrow-end-open"></em>';
-
-		this.str_loading = '<small class="loading"></small>';
-		this.str_leaf = '<small class="leaf"></small>';
-		this.str_branch = '<small class="branch"></small>';
-		this.str_branch_open = '<small class="branch-open"></small>';
-
-		this.str_checked = '<strong class="checked"></strong>';
-		this.str_partial = '<strong class="partial"></strong>';
-		this.str_unchecked = '<strong class="unchecked"></strong>';
-
-		this.str_blank = '<b class="blank"></b>';
-		this.str_line = '<b class="line"></b>';
-		this.str_line_elbow = '<b class="line-elbow"></b>';
-		this.str_line_elbow_end = '<b class="line-elbow-end"></b>';
 	}
+
 	//设置原型方法
 	S.augment(Tree, {
 		 init: function(data, setting){//初始化树
@@ -207,15 +203,15 @@ KISSY.add('hdlTree', function(S, undef) {
 			if(child.children){
 				child.checked_len = 0;
 				if(!this.lazy || child.opened == true){
-					html.push(child.__end ? this.str_arrow_end_open : this.str_arrow_open);
+					html.push(child.__end ? tag_arrow_end_open : tag_arrow_open);
 				}else{
 					child.opened == false;
-					html.push(child.__end ? this.str_arrow_end : this.str_arrow);
+					html.push(child.__end ? tag_arrow_end : tag_arrow);
 				}
-				html.push(this.str_branch);
+				html.push(tag_branch);
 			}else{
-				html.push(child.__end ? this.str_line_elbow_end : this.str_line_elbow);
-				html.push(this.str_leaf);
+				html.push(child.__end ? tag_line_elbow_end : tag_line_elbow);
+				html.push(tag_leaf);
 			}
 
 			//__state 状态
@@ -229,9 +225,9 @@ KISSY.add('hdlTree', function(S, undef) {
 
 			//checkbox 状态
 			if(child.__state == 2){
-				html.push(this.str_checked);
+				html.push(tag_checked);
 			}else{
-				html.push(this.str_unchecked);
+				html.push(tag_unchecked);
 			}
 
 			html.push('<span class="text">', child.text, '</span>');
@@ -256,13 +252,15 @@ KISSY.add('hdlTree', function(S, undef) {
 			if(len){
 				html.push('<span class="indent">');
 				for(; i<len; i++){
-					html.push(indent[i] == '1' ? this.str_line : this.str_blank);
+					html.push(indent[i] == '1' ? tag_line : tag_blank);
 				}
 				html.push('</span>');
 			}
 			return this;
 		}
-		,walkDescendants: function(node, func){//遍历下级节点,包括当前节点
+
+		//遍历下级节点,包括当前节点
+		,walkDescendants: function(node, func){
 			func.call(this, node);
 			if(node.children){
 				for(var i = 0, item = node.children[i]; item;){
@@ -272,7 +270,9 @@ KISSY.add('hdlTree', function(S, undef) {
 			}
 			return this;
 		}
-		,walkAncestors: function(node, func){//遍历上级节点
+
+		//遍历上级节点
+		,walkAncestors: function(node, func){
 			var parent = node.__parent;
 			while(parent != this){
 				func.call(this, node, parent);
@@ -281,7 +281,9 @@ KISSY.add('hdlTree', function(S, undef) {
 			}
 			return this;
 		}
-		,checkNode: function(node, checked){//设置当前节点选中状态,并遍历上下级节点
+
+		//设置当前节点选中状态,并遍历上下级节点
+		,checkNode: function(node, checked){
 			var i, chks, parent = node.__parent, state0 = true;
 			if(checked){
 				if (node.checked) {
@@ -380,7 +382,9 @@ KISSY.add('hdlTree', function(S, undef) {
 			}
 			return this;
 		}
-		,getNode: function(path){//根据path获得指定js对象
+
+		//根据path获得指定js对象
+		,getNode: function(path){
 			var elm, i = 1;
 			path = path.split('-');
 			path.shift();
@@ -390,13 +394,17 @@ KISSY.add('hdlTree', function(S, undef) {
 			}
 			return elm;
 		}
-		,getDom: function(path){//根据node/path获得指定DOM节点
+
+		//根据node/path获得指定DOM节点
+		,getDom: function(path){
 			if(S.isObject(path)){
 				path = path.__path;
 			}
 			return $('#'+path);
 		}
-		,addData: function(data, node){//设置并列
+
+		//设置并列
+		,addData: function(data, node){
 			if(!node){
 				node = this;
 			}
@@ -406,7 +414,9 @@ KISSY.add('hdlTree', function(S, undef) {
 				
 			}
 		}
-		,setTheme: function(theme){//设置显示风格样式
+
+		//设置显示风格样式
+		,setTheme: function(theme){
 			if(S.isString(theme)){
 				var reg = /theme-[^ ]+/;
 				this.getDom(this).attr('class', function(i, attr){
@@ -418,7 +428,9 @@ KISSY.add('hdlTree', function(S, undef) {
 				});
 			}
 		}
-		,setValue: function(value){//重新设置树的值, value为值数组或者使用[, -]分隔的字符串
+
+		//重新设置树的值, value为值数组或者使用[, -]分隔的字符串
+		,setValue: function(value){
 			value = S.isArray(value) ? value : S.isString(value) ? value.split(/[, -]+/) : null;
 			//转换成map避免多次使用inArray方法
 			var map = {};
@@ -435,7 +447,9 @@ KISSY.add('hdlTree', function(S, undef) {
 				}
 			});
 		}
-		,mergeValue: function(value){//树的新值与旧值合并, value为值数组或者使用[, -]分隔的字符串
+
+		//树的新值与旧值合并, value为值数组或者使用[, -]分隔的字符串
+		,mergeValue: function(value){
 			value = S.isArray(value) ? value : S.isString(value) ? value.split(/[, -]+/) : null;
 			//转换成map避免多次使用inArray方法
 			var map = {};
@@ -450,7 +464,9 @@ KISSY.add('hdlTree', function(S, undef) {
 				}
 			});
 		}
-		,toggleIcon: function(state){//切换icon的显示与否状态
+
+		//切换icon的显示与否状态
+		,toggleIcon: function(state){
 			//不传state为反转状态
 			state = S.isUndefined(state) ? !this.use_icon : state;
 			if(state){
@@ -461,7 +477,9 @@ KISSY.add('hdlTree', function(S, undef) {
 				$('#'+this.uid).addClass('no-icon');
 			}
 		}
-		,toggleCheckbox: function(state){//切换checkbox的显示与否状态
+
+		//切换checkbox的显示与否状态
+		,toggleCheckbox: function(state){
 			//不传state为反转状态
 			state = S.isUndefined(state) ? !this.use_checkbox : state;
 			if(state){
@@ -472,7 +490,9 @@ KISSY.add('hdlTree', function(S, undef) {
 				$('#'+this.uid).addClass('no-checkbox');
 			}
 		}
-		,toggleHide: function(node, state){//切换item的显示与否状态
+
+		//切换item的显示与否状态
+		,toggleHide: function(node, state){
 			if(!node || node == this){
 				return this;
 			}
@@ -486,6 +506,8 @@ KISSY.add('hdlTree', function(S, undef) {
 				$(node.path).show();
 			}
 		}
+
+		//获取选中的json表示
 		,getJSON: function(){
 			var  name = this.name
 				,arr = [];
@@ -506,6 +528,7 @@ KISSY.add('hdlTree', function(S, undef) {
 			,css_class = target.attr('class')
 			,tree = $(this).hdlTree()
 			,node = tree.getNode(id);
+
 		//点击checkbox
 		if(target.is('strong')){
 			//可点时做下面操作
@@ -516,10 +539,14 @@ KISSY.add('hdlTree', function(S, undef) {
 					tree.checkNode(node, false);
 				}
 			}
+		}
+
 		//点击箭头
-		}else if(target.is('em')){
+		else if(target.is('em')){
 			toggleCollapse.call(target, node, css_class);
-		}else{
+		}
+
+		else{
 			target = target.closest('div');
 		}
 //		//点击branch|leaf
@@ -551,8 +578,10 @@ KISSY.add('hdlTree', function(S, undef) {
 		//展开/收缩全部
 		if(target.is('b')){
 			
+		}
+
 		//展开/收缩当层及下级
-		}else if(target.is('em')){
+		else if(target.is('em')){
 			
 		}
 	}
@@ -573,26 +602,41 @@ KISSY.add('hdlTree', function(S, undef) {
 		}
 	}
 
-	function hdlTree(data, setting){
+	function hdlTree(setting, data){
 		//无参表示读取树设置
 		if(!arguments.length){
 			return global_tree[this.attr('data-hdl-tree')];
 		}
 
-		//已经初始化了退出
-		if(this.data('--bind-hdltree')){
-			return this;
-		}
-		this.data('--bind-hdltree', true);
+		return this.each(function(i, v){
+			//初始化
+			if(!this['--bind-hdltree']){
+				this['--bind-hdltree'] = true;
 
-		//初始化树
-		var tree = Tree();
-		global_tree[tree.uid] = tree;
-		tree.dom = this;
-		tree.init(data, setting);
-		this.click(treeClick);
-		this.attr('data-hdl-tree', tree.uid);
-		return this;
+				//初始化树
+				var tree = Tree();
+
+				//使用selector避免引用dom
+				if(this.id){
+					tree.selector = '#' + this.id;
+				}else{
+					this.id = tree.selector = tree.uid;
+				}
+
+				//存在dom上
+				this.tree = tree;
+				tree.init(data, setting);
+
+				//设置事件
+				$(this).click(treeClick);
+			}
+
+			//修改配置
+			else{
+				//只能修改[拖动目标, 过滤函数]
+				S.mix(this.tree, setting, ['target', 'trigger_filter']);
+			}
+		});
 	}
 
 	$.fn.extend({

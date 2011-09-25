@@ -18,22 +18,6 @@
  * 		2011-06-01 13:15:55
  * 			Y/N快捷键支持
  * 
- * 
-pre_setting = {
-	 message: '默认信息'	//字符串 提示内容,必填
-	,type: 'alert'			//字符串 提示类型,内部指定
-	,title: '提示'			//字符串 提示标题
-	,auto_hide: 0			//整数   自动隐藏,为数字,0表示不自动,大于0的整数表示多少秒后隐藏
-	,callback: 0			//函数   针对confirm的回调函数
-	,beforeShow: 0			//函数   在层打开之前的操作
-	,onShow: 0				//函数   显示层时的操作
-	,beforeHide: 0			//函数   在层关闭之前的操作
-	,onHide: 0				//函数   关闭层时的操作
-	,dragable: 1			//布尔值 是否可拖动
-	,slide: 0				//布尔值 是否淡入淡出
-	,focus_yes: 1			//布尔值 默认焦点在yes上
-}
- * 
  */
 
 KISSY.add('hdlTipMsg', function(S, undef) {
@@ -44,14 +28,23 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 			 message: '默认信息'
 			,type: 'alert'
 			,title: '提示'
+			//自动隐藏,为数字,0表示不自动,大于0的整数表示多少秒后隐藏
 			,auto_hide: 0
+			//针对confirm的回调函数
 			,callback: 0
+			//在层打开之前的操作
 			,beforeShow: 0
+			//显示层时的操作
 			,onShow: 0
+			//在层关闭之前的操作
 			,beforeHide: 0
+			//关闭层时的操作
 			,onHide: 0
+			//是否可拖动
 			,dragable: 1
+			//是否淡入淡出
 			,slide: 0
+			//默认焦点在yes上
 			,focus_yes: 1
 		};
 

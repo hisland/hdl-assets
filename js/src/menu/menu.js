@@ -30,7 +30,7 @@ KISSY.add('menu', function(S, undef) {
 					str = elm.parents('ul', menu_wrap).prev().find('span').add(elm).map(function(i, v){
 								return this.innerHTML;
 							}).get().join(' &gt; ');
-					$('#u-are-here').html('您当前所在位置：' + str);
+					$('#u-are-here').html('您当前所在位置:' + str);
 				});
 			}else{
 				alert('此页面正在建设中……');
@@ -106,7 +106,7 @@ KISSY.add('menu', function(S, undef) {
 	function makeMenu(tree){
 		var b = [];
 		b.push('<ul class="menu-ul">');
-		$.each(tree[0].children, function(i, v){
+		$.each(tree.children, function(i, v){
 			i += 2;
 			b.push('<li>');
 			b.push('<div class="menu-lv1"><span class="menu-ico', i, '">', v.text, '</span></div><ul class="menu-lv1-wrap">');
@@ -136,7 +136,7 @@ KISSY.add('menu', function(S, undef) {
 	function getMenu(selector, url, callback){
 		$.post(url, 'rights='+$('#rights').val(), function(rs){
 			try{
-				var tree = eval("(" + rs + ")");
+				var tree = $.parseJSON(rs);
 				menu_ul = $(makeMenu(tree));
 				$(selector).empty().append(menu_ul);
 
@@ -181,5 +181,5 @@ KISSY.add('menu', function(S, undef) {
 		getMenu: getMenu
 	});
 }, {
-	requires: ['jquery-1.4.2']
+	requires: ['jquery-1.4.2', 'load-url']
 });

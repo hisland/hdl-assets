@@ -5,23 +5,25 @@
  * 时间: @TIMESTAMP@
  * 版本: @VERSION@
  * 
- * hdlReg.add('regName1', /regPattern/, '此模式说明'); 增加正则并给出说明
- * hdlReg.add('regName1', /regPattern/, true); 增加正则,使用相反值
- * hdlReg.add('regName1', /regPattern/, '此模式说明', true); 增加正则并给出说明并使用函数返回的相反值
+ * API:
+ *		hdlReg.add('regName1', /regPattern/, '此模式说明'); 增加正则并给出说明
+ *		hdlReg.add('regName1', /regPattern/, true); 增加正则,使用相反值
+ *		hdlReg.add('regName1', /regPattern/, '此模式说明', true); 增加正则并给出说明并使用函数返回的相反值
  * 
- * hdlReg.test('regName1', 'test-string'); 使用验证
- * hdlReg.item('regName1').test('test-string'); 使用验证,此方式为正则自己的test方法,不能使用到相反值
-
+ *		hdlReg.test('regName1', 'test-string'); 使用验证
+ *		hdlReg.item('regName1').test('test-string'); 使用验证,此方式为正则自己的test方法,不能使用到相反值
+ * 
  * 2011-06-10 14:30:10:
  * 		默认都可为空,如果验证非空,请加入must, 或者在自定义函数里面检测为空的情况
  */
+
 KISSY.add('hdlReg', function(S, undef) {
 	var hdlReg = {
 		 add: function(name, pattern, desc, reverse) {
 			if(!name || !pattern){
 				return false;
 			}
-			if(typeof desc === 'boolean' && desc === true){
+			if(desc === true){
 				reverse = true;
 				desc = undefined;
 			}
@@ -33,11 +35,11 @@ KISSY.add('hdlReg', function(S, undef) {
 		,test: function(name, str) {
 			var t, p;
 			if(!name){
-				S.log(['hdlReg: 正则名字不存在', name]);
+				S.log(['hdlReg: regName not exist!', name]);
 				return false;
 			}
 			if(str === undefined){
-				S.log(['hdlReg: 检测的字符串必填.']);
+				S.log(['hdlReg: param str not exist!']);
 				return false;
 			}
 			p = this.item(name);
