@@ -15,11 +15,11 @@
  *			解决: 加标记位,如果已改变且没有change, 触发change事件
  */
 KISSY.add('moni-select', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,target = EMPTY_$
-		,list = EMPTY_$
-		,select = EMPTY_$;
+	var $ = jQuery,
+		EMPTY_$ = $(''),
+		target = EMPTY_$,
+		list = EMPTY_$,
+		select = EMPTY_$;
 
 	function listClick(e){
 		var elm = $(e.target), changed = false;

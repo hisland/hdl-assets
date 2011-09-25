@@ -5,28 +5,30 @@
  * 时间: @TIMESTAMP@
  * 版本: @VERSION@
  * 
- * 注册一个全局监听点击函数,根据input的type为date time datetime来显示日期控件
- * 并可根据节点上的配置进行定制
- *
- * 使用方法参见demo.html
- *
+ * NOTICE:
+ *		注册一个全局监听点击函数,根据input的type为date time datetime来显示日期控件
+ *		并可根据节点上的配置进行定制
+ * 
+ * API:
+ *		使用方法参见demo.html
+ * 
  */
 
 KISSY.add('dateTool', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,div_wrap
-		,btn_clear, btn_now, btn_complete
-		,ipt_year, ipt_month, ipt_date, ipt_hour, ipt_minute, ipt_second
-		,div_ipt_list, div_week_list, div_date_list, div_drop_list
-		,now_date, now_drop
-		,drop_prev, drop_next, drop_close
-		,drop_arr, drop_arr_class
-		,target_ipt, target_fill = EMPTY_$
-		,_is_opened = false;
+	var $ = jQuery,
+		EMPTY_$ = $(''),
+		div_wrap,
+		btn_clear, btn_now, btn_complete,
+		ipt_year, ipt_month, ipt_date, ipt_hour, ipt_minute, ipt_second,
+		div_ipt_list, div_week_list, div_date_list, div_drop_list,
+		now_date, now_drop,
+		drop_prev, drop_next, drop_close,
+		drop_arr, drop_arr_class,
+		target_ipt, target_fill = EMPTY_$,
+		_is_opened = false;
 
-	var  ie = /*@cc_on!@*/!1
-		,date_arr
+	var ie = /*@cc_on!@*/!1,
+		date_arr,
 
 		//reg_date共5种形式
 		// (^\d{4}\/\d{1,2}\/\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}$) yyyy/mm/dd hh:mm:ss
@@ -34,7 +36,7 @@ KISSY.add('dateTool', function(S, undef) {
 		// (^\d{1,2}:\d{1,2}:\d{1,2}$)	hh:mm:ss
 		// (^\d{4}\/\d{1,2}$)			yyyy/mm
 		// (^\d{1,2}\/\d{1,2}$)		mm/dd
-		,reg_date = /(^\d{4}\/\d{1,2}\/\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}$)|(^\d{4}\/\d{1,2}\/\d{1,2}$)|(^\d{1,2}:\d{1,2}:\d{1,2}$)|(^\d{4}\/\d{1,2}$)|(^\d{1,2}\/\d{1,2}$)/;
+		reg_date = /(^\d{4}\/\d{1,2}\/\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}$)|(^\d{4}\/\d{1,2}\/\d{1,2}$)|(^\d{1,2}:\d{1,2}:\d{1,2}$)|(^\d{4}\/\d{1,2}$)|(^\d{1,2}\/\d{1,2}$)/;
 
 
 	function length1Prefix0(value) {
@@ -84,97 +86,126 @@ KISSY.add('dateTool', function(S, undef) {
 			this.setDate(date);
 		}
 	}
-	DateArr.days_list = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	DateArr.prototype.item = function(type, value){
-		if(arguments.length == 2){
-			value = length1Prefix0(value);
-			if(this[type] == 'any'){
-				this.real(type, value);
-			}else if(this[type] == 'e'){
-				this.real(type, this.getMonthDays());
-			}else{
-				this[type] = value;
-				this.real(type, value);
+	S.augment(DateArr, {
+		days_list: [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+		item: function(type, value){
+			if(arguments.length == 2){
+				value = length1Prefix0(value);
+				if(this[type] == 'any'){
+					this.real(type, value);
+				}else if(this[type] == 'e'){
+					this.real(type, this.getMonthDays());
+				}else{
+					this[type] = value;
+					this.real(type, value);
+				}
+				return this;
+			}else if(arguments.length == 1){
+				return this[type];
+			}
+		},
+		real: function(type, value){
+			var m;
+			if(arguments.length == 2){
+				value -= 0;
+				this['real_'+type] = value;
+				if(type === 'year'){
+					this.repairMonth2();
+				}
+				//修正日期大于真实值的情况
+				m = this.real('month');
+				if(type === 'month' || (type === 'year' && m === 2)){
+					if(this.real('date') > DateArr.days_list[m]){
+						this.item('date', DateArr.days_list[m]);
+					}
+				}
+				return this;
+			}else if(arguments.length == 1){
+				return this['real_'+type];
+			}
+		},
+		getMonthDays: function(){
+			return DateArr.days_list[this.real('month')];
+		},
+		getMonthFirstDay: function(){
+			var first_day = new Date(this.real('year')+'/'+this.real('month')+'/1').getDay();
+			return first_day || 7;
+		},
+		repairMonth2: function(){
+			var year = this.real('year');
+			DateArr.days_list[2] = year%400==0 || (year%4==0 && year%100!=0) ? 29 : 28;
+			return this;
+		},
+		setDate: function(date){
+			if(date instanceof Date){
+				this.item('year', date.getFullYear());
+				this.item('month', date.getMonth()+1);
+				this.item('date', date.getDate());
+				this.item('hour', date.getHours());
+				this.item('minute', date.getMinutes());
+				this.item('second', date.getSeconds());
 			}
 			return this;
-		}else if(arguments.length == 1){
-			return this[type];
-		}
-	}
-	DateArr.prototype.real = function(type, value){
-		var m;
-		if(arguments.length == 2){
-			value -= 0;
-			this['real_'+type] = value;
-			if(type === 'year'){
-				this.repairMonth2();
+		},
+		getDate: function(){
+			var i, arr, str, arr2=[];
+			arr = 'year,month,date'.split(',');
+			for(i=0;i<3;i++){
+				arr2.push(this.real(arr[i]));
 			}
-			//修正日期大于真实值的情况
-			m = this.real('month');
-			if(type === 'month' || (type === 'year' && m === 2)){
-				if(this.real('date') > DateArr.days_list[m]){
-					this.item('date', DateArr.days_list[m]);
+			str = arr2.join('/');
+
+			arr = 'hour,minute,second'.split(',');
+			arr2.length = 0;
+			for(i=0;i<3;i++){
+				arr2.push(this.real(arr[i]));
+			}
+			str += ' ' + arr2.join(':');
+
+			return new Date(str);
+		},
+		reg_fixed: /(year|month|date|hour|minute|second)([\de]*)/g,
+		refreshFixed: function(fixed){
+			var i, v, o = {}, ipt_list = ipt_year.parent();
+			fixed.replace(DateArr.reg_fixed, function(a, b, c){
+				if(b && !o[b]){
+					o[b] = c;
+				}
+			});
+			ipt_list.find(':disabled').attr('disabled', false).removeClass('disabled');
+			for(i in o){
+				if(o.hasOwnProperty(i)){
+					v = o[i] || 'any';
+					ipt_list.find('input.hdt-' + i).attr('disabled',true).addClass('disabled');
+					this[i] = v;
 				}
 			}
+			this.fixed = o;
 			return this;
-		}else if(arguments.length == 1){
-			return this['real_'+type];
-		}
-	}
-	DateArr.prototype.getMonthDays = function(){
-		return DateArr.days_list[this.real('month')];
-	}
-	DateArr.prototype.getMonthFirstDay = function(){
-		var first_day = new Date(this.real('year')+'/'+this.real('month')+'/1').getDay();
-		return first_day || 7;
-	}
-	DateArr.prototype.repairMonth2 = function(){
-		var year = this.real('year');
-		DateArr.days_list[2] = year%400==0 || (year%4==0 && year%100!=0) ? 29 : 28;
-		return this;
-	}
-	DateArr.prototype.setDate = function(date){
-		if(date instanceof Date){
-			this.item('year', date.getFullYear());
-			this.item('month', date.getMonth()+1);
-			this.item('date', date.getDate());
-			this.item('hour', date.getHours());
-			this.item('minute', date.getMinutes());
-			this.item('second', date.getSeconds());
-		}
-		return this;
-	}
-	DateArr.prototype.getDate = function(){
-		var i, arr, str, arr2=[];
-		arr = 'year,month,date'.split(',');
-		for(i=0;i<3;i++){
-			arr2.push(this.real(arr[i]));
-		}
-		str = arr2.join('/');
-
-		arr = 'hour,minute,second'.split(',');
-		arr2.length = 0;
-		for(i=0;i<3;i++){
-			arr2.push(this.real(arr[i]));
-		}
-		str += ' ' + arr2.join(':');
-
-		return new Date(str);
-	}
-	DateArr.prototype.refreshDataList = function(itemFilter){
-		var  str = [], i
-			,days = this.getMonthDays()
-			,firstDay = this.getMonthFirstDay()
-			,nowDay = this.real('date')
-			,_date_disabled = this.fixed.hasOwnProperty('date') ? 1 : 0;
-		for(i = 1; i < firstDay; i++) {
-			str.push('<span></span>');
-		}
-		if(_date_disabled || typeof itemFilter === 'function'){
-			for(i = 1; i <= days; i++) {
-				if(_date_disabled || !itemFilter(i)){
-					str.push('<strong>' + i + '</strong>');
-				}else{
+		},
+		refreshDataList: function(itemFilter){
+			var  str = [], i
+				,days = this.getMonthDays()
+				,firstDay = this.getMonthFirstDay()
+				,nowDay = this.real('date')
+				,_date_disabled = this.fixed.hasOwnProperty('date') ? 1 : 0;
+			for(i = 1; i < firstDay; i++) {
+				str.push('<span></span>');
+			}
+			if(_date_disabled || typeof itemFilter === 'function'){
+				for(i = 1; i <= days; i++) {
+					if(_date_disabled || !itemFilter(i)){
+						str.push('<strong>' + i + '</strong>');
+					}else{
+						if(i !== nowDay){
+							str.push('<a href="#">' + i + '</a>');
+						}else{
+							str.push('<a href="#" class="hdt-date-now">' + i + '</a>');
+						}
+					}
+				}
+			}else{
+				for(i = 1; i <= days; i++) {
 					if(i !== nowDay){
 						str.push('<a href="#">' + i + '</a>');
 					}else{
@@ -182,140 +213,113 @@ KISSY.add('dateTool', function(S, undef) {
 					}
 				}
 			}
-		}else{
-			for(i = 1; i <= days; i++) {
-				if(i !== nowDay){
-					str.push('<a href="#">' + i + '</a>');
-				}else{
-					str.push('<a href="#" class="hdt-date-now">' + i + '</a>');
-				}
+			div_date_list.html(str.join(''));
+			return this;
+		},
+		refreshDropList: function(type, itemFilter){
+			var str = [], from, to, now = this.real(type);
+
+			if(type === 'year'){
+				from = now-12;
+				to = now+12;
+				div_drop_list.removeClass('hdt-drop-list-l');
+			}else if(type === 'month'){
+				from = 1;
+				to = 12;
+				div_drop_list.removeClass('hdt-drop-list-l');
+			}else if(type === 'date'){
+				from = 1;
+				to = this.getMonthDays();
+				div_drop_list.addClass('hdt-drop-list-l');
+			}else if(type === 'hour'){
+				from = 0;
+				to = 23;
+				div_drop_list.removeClass('hdt-drop-list-l');
+			}else{
+				from = 0;
+				to = 59;
+				div_drop_list.addClass('hdt-drop-list-l');
 			}
-		}
-		div_date_list.html(str.join(''));
-		return this;
-	}
-	DateArr.prototype.refreshDropList = function(type, itemFilter){
-		var str = [], from, to, now = this.real(type);
 
-		if(type === 'year'){
-			from = now-12;
-			to = now+12;
-			div_drop_list.removeClass('hdt-drop-list-l');
-		}else if(type === 'month'){
-			from = 1;
-			to = 12;
-			div_drop_list.removeClass('hdt-drop-list-l');
-		}else if(type === 'date'){
-			from = 1;
-			to = this.getMonthDays();
-			div_drop_list.addClass('hdt-drop-list-l');
-		}else if(type === 'hour'){
-			from = 0;
-			to = 23;
-			div_drop_list.removeClass('hdt-drop-list-l');
-		}else{
-			from = 0;
-			to = 59;
-			div_drop_list.addClass('hdt-drop-list-l');
-		}
+			if(type === 'year'){
+				drop_prev.add(drop_next).css('visibility', '');
+			}else{
+				drop_prev.add(drop_next).css('visibility', 'hidden');
+			}
 
-		if(type === 'year'){
-			drop_prev.add(drop_next).css('visibility', '');
-		}else{
-			drop_prev.add(drop_next).css('visibility', 'hidden');
-		}
-
-		if(typeof itemFilter === 'function'){
-			for( ; from <= to ; from++ ){
-				if(itemFilter(from)){
+			if(typeof itemFilter === 'function'){
+				for( ; from <= to ; from++ ){
+					if(itemFilter(from)){
+						if(from !== now){
+							str.push('<a href="#">' + from + '</a>');
+						}else{
+							str.push('<a href="#" class="hdt-drop-list-now">' + from + '</a>');
+						}
+					}else{
+						str.push('<strong>' + from + '</strong>');
+					}
+				}
+			}else{
+				for( ; from <= to ; from++ ){
 					if(from !== now){
 						str.push('<a href="#">' + from + '</a>');
 					}else{
 						str.push('<a href="#" class="hdt-drop-list-now">' + from + '</a>');
 					}
-				}else{
-					str.push('<strong>' + from + '</strong>');
 				}
 			}
-		}else{
-			for( ; from <= to ; from++ ){
-				if(from !== now){
-					str.push('<a href="#">' + from + '</a>');
+			div_drop_list.html(str.join(''));
+			return this;
+		},
+		refreshIpts: function(type){
+			var arr, i;
+			if(type === 'year'){
+				ipt_year.val(this.item(type));
+			}else if(type === 'month'){
+				ipt_month.val(this.item(type));
+			}else if(type === 'date'){
+				if(this.item(type) == 'e'){
+					ipt_date.val(this.getMonthDays());
 				}else{
-					str.push('<a href="#" class="hdt-drop-list-now">' + from + '</a>');
+					ipt_date.val(this.item(type));
 				}
-			}
-		}
-		div_drop_list.html(str.join(''));
-		return this;
-	}
-	DateArr.prototype.refreshIpts = function(type){
-		var arr, i;
-		if(type === 'year'){
-			ipt_year.val(this.item(type));
-		}else if(type === 'month'){
-			ipt_month.val(this.item(type));
-		}else if(type === 'date'){
-			if(this.item(type) == 'e'){
-				ipt_date.val(this.getMonthDays());
+			}else if(type === 'hour'){
+				ipt_hour.val(this.item(type));
+			}else if(type === 'minute'){
+				ipt_minute.val(this.item(type));
+			}else if(type === 'second'){
+				ipt_second.val(this.item(type));
 			}else{
-				ipt_date.val(this.item(type));
+				arr = 'year,month,date,hour,minute,second'.split(',');
+				for (i = 0; i < arr.length; i++) {
+					this.refreshIpts(arr[i]);
+				}
 			}
-		}else if(type === 'hour'){
-			ipt_hour.val(this.item(type));
-		}else if(type === 'minute'){
-			ipt_minute.val(this.item(type));
-		}else if(type === 'second'){
-			ipt_second.val(this.item(type));
-		}else{
-			arr = 'year,month,date,hour,minute,second'.split(',');
-			for (i = 0; i < arr.length; i++) {
-				this.refreshIpts(arr[i]);
+			return this;
+		},
+		fillTarget: function(){
+			var arr, str, temp, arr2=[], i;
+			arr = 'year,month,date'.split(',');
+			for(i=0;i<3;i++){
+				temp = this.item(arr[i]);
+				//日期末尾可能是e表示当月的最大值
+				temp == 'any' ? 0 : (temp == 'e' ? arr2.push(this.getMonthDays()) : arr2.push(temp));
 			}
-		}
-		return this;
-	}
-	DateArr.reg_fixed = /(year|month|date|hour|minute|second)([\de]*)/g;
-	DateArr.prototype.refreshFixed = function(fixed){
-		var i, v, o = {}, ipt_list = ipt_year.parent();
-		fixed.replace(DateArr.reg_fixed, function(a, b, c){
-			if(b && !o[b]){
-				o[b] = c;
-			}
-		});
-		ipt_list.find(':disabled').attr('disabled', false).removeClass('disabled');
-		for(i in o){
-			if(o.hasOwnProperty(i)){
-				v = o[i] || 'any';
-				ipt_list.find('input.hdt-' + i).attr('disabled',true).addClass('disabled');
-				this[i] = v;
-			}
-		}
-		this.fixed = o;
-		return this;
-	}
-	DateArr.prototype.fillTarget = function(){
-		var arr, str, temp, arr2=[], i;
-		arr = 'year,month,date'.split(',');
-		for(i=0;i<3;i++){
-			temp = this.item(arr[i]);
-			//日期末尾可能是e表示当月的最大值
-			temp == 'any' ? 0 : (temp == 'e' ? arr2.push(this.getMonthDays()) : arr2.push(temp));
-		}
-		str = arr2.join('-');
-		arr2.length = 0;
+			str = arr2.join('-');
+			arr2.length = 0;
 
-		arr = 'hour,minute,second'.split(',');
-		for(i=0;i<3;i++){
-			temp = this.item(arr[i]);
-			temp == 'any' ? 0 : arr2.push(temp);
-		}
-		arr = arr2.join(':');
-		arr ? str += ' '+arr : 0;
+			arr = 'hour,minute,second'.split(',');
+			for(i=0;i<3;i++){
+				temp = this.item(arr[i]);
+				temp == 'any' ? 0 : arr2.push(temp);
+			}
+			arr = arr2.join(':');
+			arr ? str += ' '+arr : 0;
 
-		target_fill.val(str);
-		return this;
-	}
+			target_fill.val(str);
+			return this;
+		}
+	});
 
 	function dropOpen(){
 		var type = target_ipt[0].className.substring(4);
@@ -480,5 +484,5 @@ KISSY.add('dateTool', function(S, undef) {
 	$(document).click(documentClick);
 
 }, {
-	requires: ['jquery-1.4.2', 'adjustElement']
+	requires: ['jquery-1.4.2', 'adjustElement', 'builtin']
 });
