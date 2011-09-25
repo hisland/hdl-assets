@@ -13,12 +13,50 @@ KISSY.add('popSelect', function(S, undef) {
 	var $ = jQuery,
 		EMPTY_$ = $(''),
 		div_pop = EMPTY_$,
-		ipt_target = EMPTY_$;
+		ipt_target = EMPTY_$,
+		pop = $.popWin.init();
+
+	var default_setting = {
+		//对应值,显示文本的属性名
+		var_id: 'id',
+		var_text: 'name',
+		title: 'please select',
+		//是否复选
+		multi: false,
+		//点击回调
+		onClick: null,
+		//显示前回调
+		onShow: null,
+		//隐藏前回调
+		onHide: null,
+		//生成列表时的生成item函数
+		itemMaker: null,
+		//是否异步取数据
+		is_ajax: false,
+	}
+
+	//显示
+	function popShow(){
+		pop.manager.show();
+		pop.show();
+	}
+	//隐藏
+	function popHide(){
+		pop.manager.hide();
+	}
+
+	//初始化包含层
+	function initDiv(){
+		//建立弹出层并初始化事件
+		div_pop = $('<div class="pop-select"><div class="pop-select-legend"></div><div class="pop-select-in"><table class="pop-select-t"><tbody><body></tbody></table></div></div>');
+		div_pop.click(divPopClick).dblclick(divPopDblClick);
+		pop.content.empty().append(div_pop);
+	}
 
 	//输入框点击事件
 	function iptClick(e){
-		var me = $(this);
-		ipt_target = me;
+		ipt_target = $(this);
+		//onShow
 		popShow();
 	}
 	//弹出层点击作相应操作
@@ -59,75 +97,23 @@ KISSY.add('popSelect', function(S, undef) {
 		}
 	}
 
-	//公共显示隐藏函数
-	function popShow(){
-		if(!div_pop.length){
-			//根据省按字母排序
-			PCList.sort(function(a, b){
-				if(a.prefix > b.prefix){
-					return 1;
-				}else{
-					return -1;
-				}
-			});
-			//根据需要建立弹出层并初始化引用与事件
-			var b = [], c, last_p, legend_arr = [];
-			b.push('<div class="pop-select"><div class="pop-select-legend"></div><div class="pop-select-in"><table class="pop-select-t"><tbody>');
-			$.each(PCList, function(i, v, k){
-				if(last_p != v.prefix){
-					last_p = v.prefix;
-					k = v.prefix.toUpperCase();
-					legend_arr.push('<a href="#">', k, '</a>');
-					b.push('<tr><td class="pop-select-td1" colspan="2">', k, '</td></tr>');
-				}
-				b.push('<tr><td class="pop-select-td2" data-id="', v.id, '">', v.name, '</td><td class="pop-select-td3">');
-				i = v.cities;
-				$.each(i, function(i, v){
-					b.push('<a href="#" data-id="', v.id, '">', v.name, '</a>');
-				});
-				b.push('</td></tr>');
-			});
-			b.push('<body></tbody></table></div></div>');
-			div_pop = $(b.join(''));
-			div_pop.find('div.pop-select-legend').html(legend_arr.join(''));
-			div_pop.click(divPopClick).dblclick(divPopDblClick);
-			div_pop.appendTo('body');
-		}
-		div_pop.show().adjustElement(ipt_target);//先show再adjustElement可避免闪烁,可能和jq计算宽高有关;
-		return div_pop;
-	}
-	function popHide(){
-		return div_pop.hide();
-	}
-
-	//注册事件,可用于手工注册
-	function popSelect(){
+	function popSelect(setting){
 		this.each(function(i, v){
-			if(!v.__bind_pop_select){
-				v.__bind_pop_select = true;
-				$(v).click(iptClick);
+			//初始化
+			if(!v['--bind_pop_select']){
+				v['--bind_pop_select'] = true;
+				$(v).click(iptClick).data('setting', S.merge(default_setting, setting));
+			}
+			//修改配置
+			else{
+				S.mix($(v).data('setting'), setting);
 			}
 		});
 	}
 
-	//放到jq原型链上
 	$.fn.extend({
 		popSelect: popSelect
 	});
-
-	//文档上监听并注册事件,如已注册则忽略, 顺带做隐藏操作
-	function documentClick(e){
-		var t = e.target,
-			dt = $(t);
-		if(dt.is('input[data-province],input[data-city]') && !t.__bind_pop_select){
-			dt.popSelect();
-			dt.click();
-		}
-		if(!dt.closest('.pop-select, input[data-province], input[data-city]').length){
-			popHide();
-		}
-	}
-	$(document).click(documentClick);
 }, {
-	requires: ['jquery-1.4.2', 'adjustElement']
+	requires: ['jquery-1.4.2', 'popWin']
 });

@@ -24,9 +24,9 @@
  */
 
 KISSY.add('hdlDrag', function(S, undef) {
-	var  $ = jQuery
-		,need_capture = /*@cc_on!@*/!1 && /msie [678].0/i.test(navigator.userAgent)
-		,trigger, target;
+	var $ = jQuery,
+		need_capture = /*@cc_on!@*/!1 && /msie [678].0/i.test(navigator.userAgent),
+		trigger, target;
 
 	function mouseDown(e){
 		var filter = this.drag_setting.trigger_filter;
@@ -59,13 +59,13 @@ KISSY.add('hdlDrag', function(S, undef) {
 	}
 	function mouseMove(e){
 		//快捷变量
-		var old_mouse = target.drag_setting.old_mouse;
-		var old_pos = target.drag_setting.old_pos;
-		var range = target.drag_setting.range;
+		var old_mouse = target.drag_setting.old_mouse,
+			old_pos = target.drag_setting.old_pos,
+			range = target.drag_setting.range;
 
 		//计算偏移与新位置
-		var diff_mouse = [e.clientX - old_mouse[0], e.clientY - old_mouse[1]];
-		var new_pos = [old_pos[0] + diff_mouse[0], old_pos[1] + diff_mouse[1]];
+		var diff_mouse = [e.clientX - old_mouse[0], e.clientY - old_mouse[1]],
+			new_pos = [old_pos[0] + diff_mouse[0], old_pos[1] + diff_mouse[1]];
 
 		//修正水平垂直最小最大范围
 		new_pos[0] = new_pos[0] < range[0][0] ? range[0][0] : new_pos[0] > range[0][1] ? range[0][1] : new_pos[0];
