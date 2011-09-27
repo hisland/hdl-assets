@@ -9,7 +9,7 @@
  * Requires: 1.2.2+
  */
 
-(function($) {
+KISSY.add('jquery.mousewheel', function(S, undef) {
 
 var types = ['DOMMouseScroll', 'mousewheel'];
 
@@ -57,4 +57,6 @@ function handler(event) {
 	return $.event.handle.apply(this, args);
 }
 
-})(jQuery);
+}, {
+	requires: ['jquery-1.4.2']
+});
