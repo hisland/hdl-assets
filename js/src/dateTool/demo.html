@@ -9,8 +9,9 @@
 			S.use('reset-css, demo-css, dateTool+css', function(){
 				$('#aa').dateTool();
 				$('#bb').dateTool('year2010, month05, date03');
-				$('#cc').dateTool('year2010, month05, date03');
-				$('#dd').dateTool('datee, hour, minute, second');
+				$('#cc').dateTool('datee, hour, minute, second');
+				$('#dd').dateTool().setWeekStart(7);
+				$('#ee').dateTool().setWeekStart(2);
 			});
 		});
 	</script>
@@ -20,10 +21,21 @@
 	<div class="demo-section">
 		<div class="demo-legend">例子</div>
 		<div class="demo-box">
-			<input id="aa" type="text" name="any-value" value="any-value" />
-			<input id="bb" type="text" name="any-value" value="any-value" />
-			<input id="cc" type="text" name="any-value" value="any-value" />
-			<input id="dd" type="text" name="any-value" value="any-value" />
+			<p>一般情况
+			<br /><input id="aa" type="text" name="any-value" value="any-value" />
+			</p>
+			<p>固定年月日为2010-05-03
+			<br /><input id="bb" type="text" name="any-value" value="any-value" />
+			</p>
+			<p>固定日期为最后一天, 禁用时分秒
+			<br /><input id="cc" type="text" name="any-value" value="any-value" />
+			</p>
+			<p>周从星期天开始
+			<br /><input id="dd" type="text" name="any-value" value="any-value" />
+			</p>
+			<p>周从星期二开始
+			<br /><input id="ee" type="text" name="any-value" value="any-value" />
+			</p>
 		</div>
 	</div>
 </body>

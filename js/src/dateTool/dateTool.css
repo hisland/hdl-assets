@@ -7,20 +7,21 @@
 			.hdt-btns a{float:left;color:#000;text-decoration:none;margin-left:8px;outline:none;}
 			.hdt-btns a:hover{color:#666;}
 
-	.hdt-ipt-list{padding:4px 3px;height:16px;position:relative;z-index:1;}
+	.hdt-ipt-list{padding:4px 3px;height:16px;position:relative;z-index:1;cursor:default;}
 		.hdt-ipt-list input{font-size:12px;height:14px;width:23px;border:1px solid #bbe1f1;text-align:center;margin:0 1px;-moz-border-radius:3px;border-radius:3px;ime-mode:disabled;}
 		.hdt-ipt-list input:focus{border-color:#92b0dd;}
-		.hdt-ipt-list input.disabled{border-color:#999;color:#999;background:#ddd;}
+		.hdt-ipt-list input.disabled{border-color:#ccc;color:#ccc;background:#fcfcfc;}
 		.hdt-ipt-list input.hdt-hour{margin-left:13px;}
 		.hdt-ipt-list input.hdt-year{width:35px;}
 
 	.hdt-week-list{height:18px;padding:3px 0;}
 		.hdt-week-list span{float:left;width:21px;height:18px;line-height:18px;padding:0 5px;cursor:default;text-align:center;color:#444444;}
+		.hdt-week-list span.hdt-weekend{color:red;}
 
 	.hdt-date-list{width:218px;overflow:hidden;padding:1px 0 5px;}
 		.hdt-date-list a{float:left;width:21px;height:18px;line-height:18px;margin:0 5px;text-align:center;color:#004499;outline:none;}
 		.hdt-date-list span{float:left;width:21px;height:18px;margin:0 5px;cursor:default;}
-		.hdt-date-list strong{float:left;width:21px;height:18px;line-height:18px;margin:0 5px;text-align:center;font-weight:400;color:#8c8c8c;cursor:default;}
+		.hdt-date-list strong{float:left;width:21px;height:18px;line-height:18px;margin:0 5px;text-align:center;font-weight:400;color:#ccc;cursor:default;}
 		.hdt-date-list a:hover{background:#ebf4fc;text-decoration:none;}
 		.hdt-date-list a.hdt-date-now{color:#ff6600;font-weight:700;}
 

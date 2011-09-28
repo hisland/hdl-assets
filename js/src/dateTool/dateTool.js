@@ -7,8 +7,21 @@
  * 
  * NOTICE:
  *		
+ * 
  * API:
- *		使用方法参见demo.html
+ *		$('input').dateTool();	//初始化, 返回值为date_setting
+ *		$('input').dateTool('year2011');	//初始化,固定住年为2011
+ *		$('input').dateTool('year2011, month9');	//初始化,固定住年为2011,固定住月为9月
+ *		$('input').dateTool({btn_clear_enable: true});	//初始化,可以使用清除按钮
+ *		$('input').dateTool().setWeekStart(7);	//设置周开始为周日
+ *		$('input').dateTool().setWeekStart(1);	//设置周开始为周一
+ * 
+ * 2011-09-28 10:56:16:
+ *		各种功能都有开关
+ *		最大最小时间限制填充,不限制选择,方便实现, 开关确定是否填充
+ *		周开始时间设置
+ *		不同月份日期可能变化,e为有效最大值, 其它值不合法时设置为合法值,否则不变
+ *		zindexManager控制层级
  * 
  */
 
@@ -25,16 +38,10 @@ KISSY.add('dateTool', function(S, undef) {
 		$target_ipt, $target_fill = $EMPTY,
 		setting;
 
-	var msg_week_1 = '一',
-		msg_week_2 = '二',
-		msg_week_3 = '三',
-		msg_week_4 = '四',
-		msg_week_5 = '五',
-		msg_week_6 = '六',
-		msg_week_7 = '日',
+	var msg_week = ['', '一', '二', '三', '四', '五', '六', '日'],
 		msg_clear = '清除',
 		msg_now = '现在',
-		msg_ok = '完成',
+		msg_complete = '完成',
 		msg_page_up = '上页',
 		msg_page_down = '下页',
 		msg_close = '关闭';
@@ -94,10 +101,18 @@ KISSY.add('dateTool', function(S, undef) {
 			return new DateSetting();
 		}
 
+		//固定字符串
 		this.fixed = '';
+
+		//每周从周一开始
+		this.__week_start = 1;
+		this.__date_disabled = false;
+
+		//超过最大最小时间继续填充否
+		this.__error_fill = false;
 	}
 	S.mix(DateSetting, {
-		reg_fixed: /(year|month|date|hour|minute|second)([\de]*)/g,
+		reg_fixed: /(year|month|date|hour|minute|second)(e|\d*)/g,
 		isFixedString: function(str){
 			return this.reg_fixed.test(str);
 		}
@@ -144,8 +159,13 @@ KISSY.add('dateTool', function(S, undef) {
 			return this.days_list[this.real('month')];
 		},
 		getMonthFirstDay: function(){
-			var first_day = new Date(this.real('year')+'/'+this.real('month')+'/1').getDay();
-			return first_day || 7;
+			return first_day = new Date(this.real('year')+'/'+this.real('month')+'/1').getDay();
+		},
+		__getBlank: function(){
+			//月第一行的空白 = monthfirstday - (weekstart - 7)
+			var blank = this.getMonthFirstDay() - (this.__week_start - 7);
+			//取值为0-6
+			return blank % 7;
 		},
 		repairMonth2: function(){
 			var year = this.real('year');
@@ -165,7 +185,7 @@ KISSY.add('dateTool', function(S, undef) {
 			return this;
 		},
 		getDate: function(){
-			return this.__data;
+			return this.__date;
 		},
 		refreshFixed: function(){
 			var i, v, o = {}, $ipt_list = $ipt_year.parent();
@@ -182,23 +202,29 @@ KISSY.add('dateTool', function(S, undef) {
 					this[i] = v;
 				}
 			}
+
+			//日期被禁用
+			if(o['date']){
+				this.__date_disabled = true;
+			}else{
+				this.__date_disabled = false;
+			}
 			return this;
 		},
-		refreshDataList: function(itemFilter){
+		refreshDataList: function(){
 			var  str = [], i
 				,days = this.getMonthDays()
-				,firstDay = this.getMonthFirstDay()
-				,nowDay = this.real('date')
-				,_date_disabled = this.fixed.hasOwnProperty('date') ? 1 : 0;
-			for(i = 1; i < firstDay; i++) {
+				,blank = this.__getBlank()
+				,now_day = this.real('date');
+			for(i = 0; i < blank; i++) {
 				str.push('<span></span>');
 			}
-			if(_date_disabled || S.isFunction(itemFilter)){
+			if(this.__date_disabled || S.isFunction(this.itemFilter)){
 				for(i = 1; i <= days; i++) {
-					if(_date_disabled || !itemFilter(i)){
+					if(this.__date_disabled || !this.itemFilter(i)){
 						str.push('<strong>' + i + '</strong>');
 					}else{
-						if(i !== nowDay){
+						if(i !== now_day){
 							str.push('<a href="#">' + i + '</a>');
 						}else{
 							str.push('<a href="#" class="hdt-date-now">' + i + '</a>');
@@ -207,7 +233,7 @@ KISSY.add('dateTool', function(S, undef) {
 				}
 			}else{
 				for(i = 1; i <= days; i++) {
-					if(i !== nowDay){
+					if(i !== now_day){
 						str.push('<a href="#">' + i + '</a>');
 					}else{
 						str.push('<a href="#" class="hdt-date-now">' + i + '</a>');
@@ -217,9 +243,39 @@ KISSY.add('dateTool', function(S, undef) {
 			$div_date_list.html(str.join(''));
 			return this;
 		},
-		refreshDropList: function(type, itemFilter){
+		makeDropList: function(from, to, now){
+			var str = [];
+
+			//生成列表
+			if(S.isFunction(this.itemFilter)){
+				for( ; from <= to ; from++ ){
+					if(this.itemFilter(from)){
+						if(from !== now){
+							str.push('<a href="#">' + from + '</a>');
+						}else{
+							str.push('<a href="#" class="hdt-drop-now">' + from + '</a>');
+						}
+					}else{
+						str.push('<strong>' + from + '</strong>');
+					}
+				}
+			}else{
+				for( ; from <= to ; from++ ){
+					if(from !== now){
+						str.push('<a href="#">' + from + '</a>');
+					}else{
+						str.push('<a href="#" class="hdt-drop-now">' + from + '</a>');
+					}
+				}
+			}
+
+			$div_drop_list.html(str.join(''));
+			return this;
+		},
+		refreshDropList: function(type){
 			var str = [], from, to, now = this.real(type);
 
+			//各种范围
 			if(type === 'year'){
 				from = now-12;
 				to = now+12;
@@ -242,34 +298,14 @@ KISSY.add('dateTool', function(S, undef) {
 				$div_drop_list.addClass('hdt-drop-list-l');
 			}
 
+			//上下翻页按钮
 			if(type === 'year'){
 				$drop_prev.add($drop_next).css('visibility', '');
 			}else{
 				$drop_prev.add($drop_next).css('visibility', 'hidden');
 			}
 
-			if(S.isFunction(itemFilter)){
-				for( ; from <= to ; from++ ){
-					if(itemFilter(from)){
-						if(from !== now){
-							str.push('<a href="#">' + from + '</a>');
-						}else{
-							str.push('<a href="#" class="hdt-drop-list-now">' + from + '</a>');
-						}
-					}else{
-						str.push('<strong>' + from + '</strong>');
-					}
-				}
-			}else{
-				for( ; from <= to ; from++ ){
-					if(from !== now){
-						str.push('<a href="#">' + from + '</a>');
-					}else{
-						str.push('<a href="#" class="hdt-drop-list-now">' + from + '</a>');
-					}
-				}
-			}
-			$div_drop_list.html(str.join(''));
+			this.makeDropList(from, to, now);
 			return this;
 		},
 		refreshIpts: function(type){
@@ -279,7 +315,8 @@ KISSY.add('dateTool', function(S, undef) {
 			}else if(type === 'month'){
 				$ipt_month.val(this.item(type));
 			}else if(type === 'date'){
-				if(this.item(type) == 'e'){
+				//有效末尾或者值超过最大值,使用有效值
+				if(this.item(type) == 'e' || this.item(type) > this.getMonthDays()){
 					$ipt_date.val(this.getMonthDays());
 				}else{
 					$ipt_date.val(this.item(type));
@@ -302,26 +339,77 @@ KISSY.add('dateTool', function(S, undef) {
 			return this;
 		},
 		fillTarget: function(){
-			var arr, str, temp, arr2=[], i;
-			arr = 'year,month,date'.split(',');
-			for(i=0;i<3;i++){
-				temp = this.item(arr[i]);
-				//日期末尾可能是e表示当月的最大值
-				temp == 'any' ? 0 : (temp == 'e' ? arr2.push(this.getMonthDays()) : arr2.push(temp));
-			}
-			str = arr2.join('-');
-			arr2.length = 0;
+			//从input取值,因为item的设置可能不正确
+			var str, arr=[], ipts = $div_ipt_list.find('input'), me = this;
+			ipts.filter(':lt(3)').each(function(i, v){
+				if(this.value !== 'any'){
+					arr.push(this.value);
+				}
+			});
+			str = arr.join('-');
+			arr.length = 0;
 
-			arr = 'hour,minute,second'.split(',');
-			for(i=0;i<3;i++){
-				temp = this.item(arr[i]);
-				temp == 'any' ? 0 : arr2.push(temp);
+			ipts.filter(':gt(2)').each(function(i, v){
+				if(this.value !== 'any'){
+					arr.push(this.value);
+				}
+			});
+
+			if(arr.length){
+				str += ' '+arr.join(':');
 			}
-			arr = arr2.join(':');
-			arr ? str += ' '+arr : 0;
 
 			$target_fill.val(str);
 			return this;
+		},
+		setWeekStart: function(n){
+			n = parseInt(n);
+			if(n > 0 && n < 8){
+				this.__week_start = n;
+			}else{
+				S.log('$.dateTool.setWeekStart: n must in 1-7!');
+			}
+			return this;
+		},
+		refreshWeekList: function(){
+			var n = this.__week_start, b = [];
+			do{
+				if(n === 6 || n === 7){
+					b.push('<span class="hdt-weekend">', msg_week[n], '</span>');
+				}else{
+					b.push('<span>', msg_week[n], '</span>');
+				}
+				n++;
+				if(n === 8){
+					n = 1;
+				}
+			}while(n != this.__week_start);
+
+			$div_week_list.html(b.join(''));
+			return this;
+		},
+		setMinTime: function(time){
+			
+			return this;
+		},
+		setMaxTime: function(time){
+			
+			return this;
+		},
+		open: function(){
+			//清除按钮可用与否
+			if(this.btn_clear_enable){
+				$btn_clear.show();
+			}else{
+				$btn_clear.hide();
+			}
+			//今天按钮可用与否
+			if(this.btn_now_enable){
+				$btn_now.show();
+			}else{
+				$btn_now.hide();
+			}
+			return this.refreshFixed().refreshIpts().refreshWeekList().refreshDataList();
 		}
 	});
 
@@ -335,20 +423,24 @@ KISSY.add('dateTool', function(S, undef) {
 		$div_drop_list.parent().hide();
 	}
 	function dropPrev(){
-		setting.real('year', $div_drop_list.find('a:first').html()-1).refreshDropList('year');
+		var to = $div_drop_list.find('a:first').html()-0, from = to-24;
+		setting.makeDropList(from, to, setting.real('year'));
 	}
 	function dropNext(){
-		setting.real('year', ($div_drop_list.find('a:last').html()-0)+1).refreshDropList('year');
+		var from = $div_drop_list.find('a:last').html()-0, to = from+24;
+		setting.makeDropList(from, to, setting.real('year'));
 	}
-	function dropSelect($t){
+	function dropSelect($t, no_close){
 		var type = $target_ipt[0].className.substring(4);
 		setting.item(type, $t.html()).refreshIpts(type);
-		$t.addClass('hdt-drop-list-now').siblings('a.hdt-drop-list-now').removeClass('hdt-drop-list-now');
+		$t.addClass('hdt-drop-now').siblings('a.hdt-drop-now').removeClass('hdt-drop-now');
 		if(type === 'year' || type === 'month' || type === 'date'){
 			setting.refreshIpts('date').refreshDataList();
 		}
 		setting.fillTarget();
-		dropClose();
+		if(!no_close){
+			dropClose();
+		}
 	}
 	function dateSelect($t){
 		setting.item('date', $t.html()).refreshIpts('date').fillTarget();
@@ -368,7 +460,8 @@ KISSY.add('dateTool', function(S, undef) {
 	}
 
 
-	function divWrapClick(e){
+	//鼠标点击代理, 内部点击由此分发
+	function divWrapClick(e, no_close){
 		var t = e.target,
 			$t = $(t);
 		if($t.is('input') && !t.disabled){
@@ -376,7 +469,7 @@ KISSY.add('dateTool', function(S, undef) {
 			dropOpen();
 		}else if($t.is('a')){
 			if($t.closest('.hdt-drop-list').length){
-				dropSelect($t);
+				dropSelect($t, no_close);
 			}else if($t.closest('.hdt-date-list').length){
 				dateSelect($t);
 			}else if(t === $btn_clear[0]){
@@ -397,32 +490,39 @@ KISSY.add('dateTool', function(S, undef) {
 			dropClose();
 		}
 	}
+	//鼠标双代理
 	function divWrapDblclick(e){
 		if($(e.target).is('a') && $(e.target).parent().is('.hdt-date-list')){
 			toolClose();
 		}
 	}
+	//鼠标滚动代理
 	function divWrapWheel(e, delta){
 		var t = e.target,
 			$t = $(t);
-		if($div_wrap.find('.hdt-drop-list').is(':visible')){
+		//选择列表打开时滚动, 滚动点击不关闭层
+		if($div_drop_list.is(':visible')){
 			if(delta < 0){
-				$div_wrap.find('.hdt-drop-now').next('a').click();
+				$div_wrap.find('.hdt-drop-now').nextAll('a:first').trigger('click', [true]);
 			}else{
-				$div_wrap.find('.hdt-drop-now').prev('a').click();
+				//因为不是按DOM的排列顺序,所以还是第1个匹配的
+				$div_wrap.find('.hdt-drop-now').prevAll('a:first').trigger('click', [true]);
 			}
-		}else{
+		}
+		//在日期列表内滚动
+		else if($t.closest('.hdt-date-list').length){
 			if(delta < 0){
-				$div_wrap.find('.hdt-date-now').next('a').click();
+				$div_wrap.find('.hdt-date-now').nextAll('a:first').click();
 			}else{
-				$div_wrap.find('.hdt-date-now').prev('a').click();
+				//因为不是按DOM的排列顺序,所以还是第1个匹配的
+				$div_wrap.find('.hdt-date-now').prevAll('a:first').click();
 			}
 		}
 	}
 
 
 	//初始化DOM结构, 各个节点的引用
-	$div_wrap = $('<div class="hdt-wrap"><div class="hdt-ctrl"><div class="hdt-tips"></div><div class="hdt-btns"><a href="#" class="hdt-clear">清除</a><a href="#" class="hdt-now">现在</a><a href="#" class="hdt-complete">完成</a></div></div><div class="hdt-ipt-list"><input type="text" class="hdt-year" />-<input type="text" class="hdt-month" />-<input type="text" class="hdt-date" /><input type="text" class="hdt-hour" />:<input type="text" class="hdt-minute" />:<input type="text" class="hdt-second" /></div><div class="hdt-week-list"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="hdt-date-list"></div><div class="hdt-drop-list-wrap"><div class="hdt-drop-list"></div><p class="hdt-drop-list-ctrl"><a href="#">上页</a><a href="#">下页</a><a href="#">关闭</a></p></div></div>');
+	$div_wrap = $('<div class="hdt-wrap"><div class="hdt-ctrl"><div class="hdt-tips"></div><div class="hdt-btns"><a href="#" class="hdt-clear"></a><a href="#" class="hdt-now"></a><a href="#" class="hdt-complete"></a></div></div><div class="hdt-ipt-list"><input type="text" class="hdt-year" />-<input type="text" class="hdt-month" />-<input type="text" class="hdt-date" /><input type="text" class="hdt-hour" />:<input type="text" class="hdt-minute" />:<input type="text" class="hdt-second" /></div><div class="hdt-week-list"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="hdt-date-list"></div><div class="hdt-drop-list-wrap"><div class="hdt-drop-list"></div><p class="hdt-drop-list-ctrl"><a href="#">上页</a><a href="#">下页</a><a href="#">关闭</a></p></div></div>');
 
 	$btn_clear = $div_wrap.find('a.hdt-clear');
 	$btn_now = $btn_clear.next();
@@ -444,6 +544,14 @@ KISSY.add('dateTool', function(S, undef) {
 	$drop_next = $drop_prev.next();
 	$drop_close = $drop_next.next();
 
+	//设置显示文字
+	$btn_clear.html(msg_clear);
+	$btn_now.html(msg_now);
+	$btn_complete.html(msg_complete);
+	$drop_prev.html(msg_page_up);
+	$drop_next.html(msg_page_down);
+	$drop_close.html(msg_close);
+
 	//箭头, IE使用图片, 标准浏览器使用css3
 	if(/*@cc_on!@*/!1){
 		$drop_arr = $('<span class="hdt-drop-arr"></span>');
@@ -463,7 +571,7 @@ KISSY.add('dateTool', function(S, undef) {
 	function toolOpen(target){
 		$target_fill = $(target);
 		setting = target.date_setting;
-		setting.refreshFixed().refreshIpts().refreshDataList();
+		setting.open();
 		$div_wrap.adjustElement(target).show();
 	}
 	function toolClose(){
@@ -503,10 +611,10 @@ KISSY.add('dateTool', function(S, undef) {
 
 			//有参为修改
 			if(setting){
-				//修改配置
+				//修改配置, 只修改需要的
 				if(S.isPlainObject()){
 					ipts.each(function(i, v){
-						S.mix(this.date_setting, setting);
+						S.mix(this.date_setting, setting, ['fixed', 'btn_clear_enable', 'btn_now_enable',  'itemFilter', '__error_fill']);
 					});
 				}
 				//修改fixed字符串
