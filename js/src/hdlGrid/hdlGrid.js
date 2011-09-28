@@ -8,7 +8,7 @@
  * API:
  * 		var g = $.hdlGrid(setting); - 生成一个表格对象并传入预设置
  * 		g.setting(setting); - 修改设置
- * 		g.data(data); - 修改内容
+ * 		g.setData(data); - 修改内容
  * 		g.refresh(); - 刷新表格显示
  * 
  *		g.addCol(col_set); - 添加一列
@@ -128,23 +128,21 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 		grid._setting = S.mix(setting, pre_setting, false);//不覆盖相同的设置,只copy不存在的设置
 
-		//文本强制在一行
+		//初始化DOM结构
 		grid.__initTable();
 
 		//body滚动同步head
-		grid.div.wbody.scroll(function(e){
-			grid.div.head.css('left', -this.scrollLeft);
+		grid.$div.wbody.scroll(function(e){
+			$(this).prev().find('table').css('left', -this.scrollLeft);
 		});
 
 		//文本强制在一行
 		if(grid._setting.single_row){
-			grid.div.addClass('hdlgrid-nowrap');
+			grid.$div.addClass('hdlgrid-nowrap');
 		}
 
 		//生成表头
-		grid._col = setting.col_model;
-		delete setting.col_model;
-		$.each(grid._col, function(i, v){
+		$.each(grid._setting.col_model, function(i, v){
 			grid.addCol(v);
 		});
 
@@ -159,7 +157,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 			div.whead = div.find('div.hdlgrid-head');
 			div.wbody = div.whead.next();
-			div.pager = div.wbody.next();
+			div.wpager = div.wbody.next();
 
 			div.thead = div.whead.find('thead:eq(0)');
 			div.tbody = div.wbody.find('tbody:eq(0)');
@@ -171,7 +169,12 @@ KISSY.add('hdlGrid', function(S, undef) {
 			div.nodata = div.mask.next();
 			div.loading = div.nodata.next();
 
-			this.div = div;
+			this.$div = div;
+
+			return this;
+		},
+		//初始化各事件
+		__initEvent: function(){
 
 			return this;
 		},
@@ -179,7 +182,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 		//添加一列数据
 		addCol: function(col_setting){
 			S.mix(col_setting, pre_col_model, false);//不覆盖相同的设置,只copy不存在的设置
-			this.div.thead.find('tr').append('<th>'+ col_setting.display+'</th>');
+			this.$div.thead.find('tr').append('<th>'+ col_setting.display+'</th>');
 			return this;
 		},
 
@@ -197,11 +200,11 @@ KISSY.add('hdlGrid', function(S, undef) {
 			n2 = tmp[1];
 			tmp = n2-n1-1;//标记是否相邻,相邻为0为false
 
-			var  head = this.div.thead
-				,ths = head.find('th')
-				,th1 = ths.filter('th:eq('+n1+')')
-				,th2 = ths.filter('th:eq('+n2+')')
-				,trs = this.div.tbody.find('tr');
+			var head = this.$div.thead,
+				ths = head.find('th'),
+				th1 = ths.filter('th:eq('+n1+')'),
+				th2 = ths.filter('th:eq('+n2+')'),
+				trs = this.$div.tbody.find('tr');
 
 			//需要交换的两列都存在才做操作
 			if(th1.length && th2.length){
@@ -274,7 +277,11 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 		//修改数据
 		setData: function(data){
-			
+			if(S.isArray(data)){
+				
+			}else{
+				S.log('$.Grid.setData: data must be an array!');
+			}
 			return this;
 		},
 
@@ -292,29 +299,32 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 		//更新宽高
 		fixSize: function(){
-			var  ths = this.div.thead.find('th')
-				,tds = this.div.tbody.find('tr:eq(0)').find('td')
-				,headnbody = this.div.head.add(this.div.body)
-				,w11 = 0, w22 = 0;
+			var ths = this.$div.thead.find('th'),
+				tds = this.$div.tbody.find('tr:eq(0)').find('td'),
+				headnbody = this.$div.head.add(this.$div.body),
+				w_head_sum = 0, w_body_sum = 0;
 
 			ths.each(function(i, v){
 				v = $(v);
 				var td = tds.eq(i), w1 = v.outerWidth(), w2 = td.outerWidth();
-				w11 += w1;
-				w22 += w2;
+				w_head_sum += w1;
+				w_body_sum += w2;
 				if(w1 > w2){
 					v.add(td).width(w1);
 				}else{
 					v.add(td).width(w2);
 				}
 			});
-			if(w11 > w22){
-				headnbody.width(w11);
+			if(w_head_sum > w_body_sum){
+				headnbody.width(w_head_sum);
 			}else{
-				headnbody.width(w22);
+				headnbody.width(w_body_sum);
 			}
 
 			headnbody.css('table-layout', 'fixed');
+
+			console.log(this.$div.parent().outerHeight());
+			this.$div.wbody.height(this.$div.parent().outerHeight() - this.$div.whead.outerHeight() - this.$div.wpager.outerHeight())
 
 			return this;
 		},
@@ -332,20 +342,21 @@ KISSY.add('hdlGrid', function(S, undef) {
 			
 		},
 
-		//显示/隐藏遮罩
-		loading: function(str){
-			if (str === false) {
-				this.div.mask.add(this.div.loading).hide();
-			}else{
-				this.div.mask.add(this.div.loading).show();
-			}
+		//加载中
+		loading: function(){
+			this.$div.mask.add(this.$div.loading).show();
+			return this;
+		},
 
+		//加载完成
+		loaded: function(){
+			this.$div.mask.add(this.$div.loading).hide();
 			return this;
 		},
 
 		//无数据显示文本
 		noData: function(str){
-			this.div.nodata.html(str || this.msg_empty);
+			this.$div.nodata.html(str || this.msg_empty);
 			return this;
 		},
 
@@ -358,47 +369,41 @@ KISSY.add('hdlGrid', function(S, undef) {
 		ajaxLoad: function(fn){
 			var grid = this;
 
-			grid.loading(1);
+			grid.loading();
 			$.getJSON(this._setting.url, function(data){
 				var b = [];
 
 				$.each(data.rows, function(i, v){
 					b.push('<tr>');
-					$.each(grid._col, function(i1, v1){
+					$.each(grid._setting.col_model, function(i1, v1){
 						b.push('<td>', v[v1.name], '</td>');
 					});
 					b.push('</tr>');
 				});
 
-				grid.div.tbody.html(b.join(''));
+				grid.$div.tbody.html(b.join(''));
 				grid._data = data;
 
 				$.isFunction(fn) && fn.call(grid);
 
-				grid.loading(0);
+				grid.loaded();
 			});
 		},
 
 		//将表格放入selector的位置
 		fillInto: function(selector){
-			var  elm = $(selector).eq(0)
-				,grid = this
-				,width = elm.width()
-				,height = elm.height()
-				,div = grid.div;
+			var elm = $(selector).eq(0),
+				grid = this,
+				width = elm.width(),
+				height = elm.height(),
+				div = grid.$div;
 
 			elm.empty().append(div);
-			div.width(width).height(height);
-			div.wbody.height(height - div.whead.outerHeight() -div.pager.outerHeight());
 
 			//异步加载数据
 			if(grid._setting.url && grid._setting.auto_load){
 				grid.ajaxLoad(function(){
-					var wb = div.wbody[0], whead = div.whead;
 					this.fixSize();
-//					if(wb.clientHeight < wb.scrollHeight){
-//						whead.css('padding-right', 17);
-//					}
 				});
 			}
 			return this;
