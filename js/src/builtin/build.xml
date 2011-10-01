@@ -8,13 +8,13 @@
 
 	<target name="concat">
 		<concat destfile="builtin.js" encoding="${charset}" outputencoding="${charset}">
-			<path path="Object.js" />
-			<path path="Date.js" />
-			<path path="String.js" />
-			<path path="Array.js" />
-			<path path="Math.js" />
-			<path path="Number.js" />
-			<path path="RegExp.js" />
+			<path path="misc/Object.js" />
+			<path path="misc/Date.js" />
+			<path path="misc/String.js" />
+			<path path="misc/Array.js" />
+			<path path="misc/Math.js" />
+			<path path="misc/Number.js" />
+			<path path="misc/RegExp.js" />
 		</concat>
 	</target>
 </project>
