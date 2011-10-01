@@ -8,15 +8,27 @@
 		KISSY.ready(function(S){
 			S.use('reset-css, popWin+css', function(){
 				window.p = $.popWin.init();
+				p.$content.append($('#tb').show());
 				p.show();
-				p.content.append($('#tb').show());
+
+				$('#add').click(function(e){
+					$.popWin.init().show();
+				});
+				$('#del').click(function(e){
+					$.popWin.clean();
+				});
 			});
 		});
 	</script>
+	<style type="text/css">
+		html,body{height:100%;}
+	</style>
 </head>
 
 <body style="height:100%;">
-	<div id="tb" style="width:300px;height:150px;overflow:auto;display:none;">
+	<input style="position:relative;z-index:2000;" type="button" id="add" value="增加" />
+	<input style="position:relative;z-index:2000;" type="button" id="del" value="清除" />
+	<div id="tb" style="display:none;">
 	<table>
 		<tr>
 			<td>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>

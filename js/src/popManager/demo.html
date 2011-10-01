@@ -7,17 +7,21 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, popManager+css', function(){
-				window.p = $.popManager.init();
-				p.div.appendTo('body');
-				p.mask();
-				if(confirm('È¥³ýÕÚÕÖ?')){
-					p.mask(false);
-				}
-				alert($('body').html());
+				$('#add').click(function(e){
+					$.popManager.init().show().mask();
+				});
+				$('#del').click(function(e){
+					$.popManager.clean();
+				});
 			});
 		});
 	</script>
+	<style type="text/css">
+		html,body{height:100%;}
+	</style>
 </head>
 <body>
+	<input style="position:relative;z-index:2000;" type="button" id="add" value="å¢žåŠ " />
+	<input style="position:relative;z-index:2000;" type="button" id="del" value="æ¸…é™¤" />
 </body>
 </html>

@@ -21,6 +21,10 @@
  *		ie使用losecapture 检测焦点丢失时取消注册, ie的window.blur会在焦点失去再得到时触发,故不用它
  *		ff使用window.blur 检测焦点丢失时取消注册
  * 
+ * 2011-10-01 11:31:29:
+ *		多数操作都需要对等函数,如show,hide, mask,demask...
+ *		启用停用
+ * 
  */
 
 KISSY.add('hdlDrag', function(S, undef) {
@@ -28,11 +32,15 @@ KISSY.add('hdlDrag', function(S, undef) {
 		need_capture = /*@cc_on!@*/!1 && /msie [678].0/i.test(navigator.userAgent),
 		trigger, target;
 
+	var default_setting = {
+			enable: true
+		};
+
 	function mouseDown(e){
 		var filter = this.drag_setting.trigger_filter;
 
-		//有检测函数且返回值为fasle时,不进行拖动
-		if(S.isFunction(filter) && filter.call(this, e) === false){
+		//停用时,有检测函数且返回值为fasle时,不进行拖动
+		if(!this.drag_setting.enable || (S.isFunction(filter) && filter.call(this, e) === false)){
 			//do nothing
 		}else{
 			trigger = this;
@@ -154,12 +162,12 @@ KISSY.add('hdlDrag', function(S, undef) {
 				$(this).mousedown(mouseDown).css('cursor', 'move');
 
 				//新增设置
-				this.drag_setting = setting;
+				this.drag_setting = S.mix(setting, default_setting, false);
 			}
 			//修改设置
 			else{
 				//只能修改[拖动目标, 过滤函数]
-				S.mix(this.drag_setting, setting, ['target', 'trigger_filter']);
+				S.mix(this.drag_setting, setting, ['target', 'trigger_filter', 'enable']);
 			}
 		});
 	}
