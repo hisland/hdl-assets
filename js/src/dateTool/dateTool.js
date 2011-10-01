@@ -109,7 +109,13 @@ KISSY.add('dateTool', function(S, undef) {
 		this.__date_disabled = false;
 
 		//超过最大最小时间继续填充否
-		this.__error_fill = false;
+		this.error_fill = false;
+
+		//是否禁用
+		this.disabled = false;
+
+		//时间偏移
+		this.offset = 0;
 	}
 	S.mix(DateSetting, {
 		reg_fixed: /(year|month|date|hour|minute|second)(e|\d*)/g,
@@ -581,7 +587,7 @@ KISSY.add('dateTool', function(S, undef) {
 	}
 	//输入框获得焦点显示
 	function iptFocus(e){
-		if(this.disabled){// || this.date_setting.disabled
+		if(this.disabled || this.date_setting.disabled){
 		}else{
 			$(document).click(docHide);
 			toolOpen(this);
@@ -614,7 +620,7 @@ KISSY.add('dateTool', function(S, undef) {
 				//修改配置, 只修改需要的
 				if(S.isPlainObject()){
 					ipts.each(function(i, v){
-						S.mix(this.date_setting, setting, ['fixed', 'btn_clear_enable', 'btn_now_enable',  'itemFilter', '__error_fill']);
+						S.mix(this.date_setting, setting, ['fixed', 'btn_clear_enable', 'btn_now_enable',  'itemFilter', 'error_fill', 'disabled']);
 					});
 				}
 				//修改fixed字符串

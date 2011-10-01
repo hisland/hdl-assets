@@ -13,10 +13,13 @@
  */
 
 KISSY.add('checkString', function(S, undef) {
+	//保存每个配置
+	var items = {};
+
 	window.checkString = {
 		add: function(name, fn, desc, reverse){
 			if(!S.isString(name) || !fn){
-				S.log('window.checkString: must have name[String] and fn!');
+				S.log('window.checkString: must have name[String] and fn or reg!');
 				return false;
 			}
 
@@ -27,7 +30,7 @@ KISSY.add('checkString', function(S, undef) {
 			}
 
 			//保存设置
-			this[name] = {
+			items[name] = {
 				type: 'function',
 				item: fn,
 				desc: desc,
@@ -35,13 +38,14 @@ KISSY.add('checkString', function(S, undef) {
 			};
 			return this;
 		},
+
 		test: function(name, str){
 			if(!S.isString(name) || !str){
 				S.log('window.checkString: must have name[String] and str!');
 				return false;
 			}
 
-			var item = this[name], rs = false;
+			var item = items[name], rs = false;
 
 			return rs;
 		}
