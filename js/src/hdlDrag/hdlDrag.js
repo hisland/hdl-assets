@@ -103,8 +103,11 @@ KISSY.add('hdlDrag', function(S, undef) {
 		if(need_capture){
 			//ie下setCapture会导致输入框焦点不会失去,延迟可以正常
 			setTimeout(function() {
-				trigger.setCapture();
-				$(trigger).bind('losecapture', end);
+				//由于存在延迟,trigger也有清除操作,所以需要检测
+				if(trigger){
+					trigger.setCapture();
+					$(trigger).bind('losecapture', end);
+				}
 			}, 1);
 		}else{
 			$(window).blur(end);
