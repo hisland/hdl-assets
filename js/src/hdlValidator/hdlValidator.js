@@ -118,6 +118,10 @@
 	
 	2011-09-11 15:31:08:
 		ie不支持[]方式取子字符串,使用substr方式取, 改为使用charAt(n)
+	
+	2011-10-03 16:30:41:
+		数字验证先使用正则检测是否为全数字再进行转换
+		前置0, 前置0x, eE指数, 后置0
  */
 
 KISSY.add('hdlValidator', function(S, undef) {
@@ -152,12 +156,10 @@ KISSY.add('hdlValidator', function(S, undef) {
 	}
 
 	//执行生成uid, native与dom都通过id进行交流
-	var uid = (function(){
-		var __uid = 0, __uid_prefix = 'hdl-validator-'
-		return function(){
-			return __uid_prefix + __uid++;
-		}
-	})();
+	//使用kissy的guid
+	var uid = function(){
+		return S.guid('hdl-validator-');
+	};
 
 	function Validator(setting){
 		//更改为构造方式

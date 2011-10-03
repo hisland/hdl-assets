@@ -16,7 +16,7 @@
  * 		g.addRow(data); - 添加一行
  * 		g.setRow(n, fn); - 修改n行, 传入修改函数
  * 
- * 		g.div - 指向表格的最外层元素,为一个jq对象
+ * 		g.$div - 指向表格的最外层元素,为一个jq对象
  * 
 
 2011-4-23 16:35:4:
@@ -74,6 +74,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 			min_height: 100,			//最小高度
 			max_width: 1500,			//最大宽度
 			max_height: 1000,			//最大高度
+			auto_size: true,			//初始化时,自动调整宽度
 
 			enable_page: true,			//是否使用分页
 			page_curr: 0,				//当前页
@@ -87,7 +88,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 			last_param: '',				//上次请求时的参数列表, 不含var_page, var_num_per_page
 			auto_load: true,			//是否自动加载
 
-			single_row: true,			//文本强制在一行
+			nowrap: true,			//文本强制在一行
 
 			single_check: false,		//单行选中checkbox, 无全选
 			single_select: true,		//单行选择
@@ -108,7 +109,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 			align_head: 'center',			//表头对齐方式
 			enable_sort: true,				//可否排序
 			enable_hide: true,				//可否隐藏
-			col_process: null	//列单元格处理, function(cell){}
+			colProcess: null	//列单元格处理, function(cell){}
 		};
 
 	//行预设置,需要修改时可参考
@@ -129,15 +130,13 @@ KISSY.add('hdlGrid', function(S, undef) {
 		grid._setting = S.mix(setting, pre_setting, false);//不覆盖相同的设置,只copy不存在的设置
 
 		//初始化DOM结构
-		grid.__initTable();
+		grid.__initDOM();
 
-		//body滚动同步head
-		grid.$div.wbody.scroll(function(e){
-			$(this).prev().find('table').css('left', -this.scrollLeft);
-		});
+		//初始化事件
+		grid.__initEvent();
 
 		//文本强制在一行
-		if(grid._setting.single_row){
+		if(grid._setting.nowrap){
 			grid.$div.addClass('hdlgrid-nowrap');
 		}
 
@@ -152,8 +151,8 @@ KISSY.add('hdlGrid', function(S, undef) {
 	//设置原型方法
 	S.augment(Grid, {
 		//初始化table基本结构,并设置引用
-		__initTable: function(){
-			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><tbody></tbody></table></div></div><div class="hdlgrid-pager"><span class="hdlgrid-prev hdlgrid-prev-gray"></span><span class="hdlgrid-next hdlgrid-next-gray"></span><span class="hdlgrid-first hdlgrid-first-gray"></span><span class="hdlgrid-last hdlgrid-last-gray"></span><span class="hdlgrid-sep"></span><span class="hdlgrid-text"></span><span class="hdlgrid-sum"></span></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody><tr><td><input type="checkbox" /></td><td></td></tr></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
+		__initDOM: function(){
+			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><tbody></tbody></table></div></div><div class="hdlgrid-pager"></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
 
 			div.whead = div.find('div.hdlgrid-head');
 			div.wbody = div.whead.next();
@@ -175,7 +174,17 @@ KISSY.add('hdlGrid', function(S, undef) {
 		},
 		//初始化各事件
 		__initEvent: function(){
+			//body滚动同步head
+			this.$div.wbody.scroll(function(e){
+				$(this).prev().find('table').css('left', -this.scrollLeft);
+			});
+			//
+			return this;
+		},
 
+		//无数据时填充空白行,使水平滚动条显示出来
+		__blankLine: function(){
+			
 			return this;
 		},
 
@@ -323,7 +332,6 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 			headnbody.css('table-layout', 'fixed');
 
-			console.log(this.$div.parent().outerHeight());
 			this.$div.wbody.height(this.$div.parent().outerHeight() - this.$div.whead.outerHeight() - this.$div.wpager.outerHeight())
 
 			return this;
@@ -399,6 +407,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 				div = grid.$div;
 
 			elm.empty().append(div);
+			this.fixSize();
 
 			//异步加载数据
 			if(grid._setting.url && grid._setting.auto_load){
