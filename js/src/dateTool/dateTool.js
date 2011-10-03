@@ -65,7 +65,7 @@ KISSY.add('dateTool', function(S, undef) {
 	function parseValueToDate(value, time_offset){
 		var arr = value.replace(/-/g,'/').match(reg_date),
 			date_now = now(time_offset),
-			date_obj = date_now;
+			date_obj = null;
 
 		//没有的时候,不做操作,返回当前时间
 		if(!arr){
@@ -106,16 +106,22 @@ KISSY.add('dateTool', function(S, undef) {
 
 		//每周从周一开始
 		this.__week_start = 1;
-		this.__date_disabled = false;
 
-		//超过最大最小时间继续填充否
-		this.error_fill = false;
+		//日期禁止
+		this.__date_disabled = false;
 
 		//是否禁用
 		this.disabled = false;
 
 		//时间偏移
 		this.offset = 0;
+
+		//时间范围
+		this.min_time = null;
+		this.max_time = null;
+
+		//超过最大最小时间继续填充否
+		this.over_fill = false;
 	}
 	S.mix(DateSetting, {
 		reg_fixed: /(year|month|date|hour|minute|second)(e|\d*)/g,
@@ -147,7 +153,7 @@ KISSY.add('dateTool', function(S, undef) {
 				value -= 0;
 				this['real_'+type] = value;
 				if(type === 'year'){
-					this.repairMonth2();
+					this.__repairMonth2();
 				}
 				//修正日期大于真实值的情况
 				m = this.real('month');
@@ -173,7 +179,7 @@ KISSY.add('dateTool', function(S, undef) {
 			//取值为0-6
 			return blank % 7;
 		},
-		repairMonth2: function(){
+		__repairMonth2: function(){
 			var year = this.real('year');
 			this.days_list[2] = year%400==0 || (year%4==0 && year%100!=0) ? 29 : 28;
 			return this;
@@ -395,11 +401,33 @@ KISSY.add('dateTool', function(S, undef) {
 			return this;
 		},
 		setMinTime: function(time){
-			
+			if(time instanceof Date){
+				this.min_time = time;
+			}else if(S.isString(time) && time.isValidDate()){
+				time = time.getDate();
+				this.min_time = time;
+			}else{
+				S.log('$.dateTool.setMinTime: time must be a time-string or date-object!');
+			}
 			return this;
 		},
 		setMaxTime: function(time){
-			
+			if(time instanceof Date){
+				this.max_time = time;
+			}else if(S.isString(time) && time.isValidDate()){
+				time = time.getDate();
+				this.max_time = time;
+			}else{
+				S.log('$.dateTool.setMaxTime: time must be a time-string or date-object!');
+			}
+			return this;
+		},
+		setTimeOffset: function(offset){
+			if(S.isNumber(offset)){
+				this.offset = offset;
+			}else{
+				S.log('$.dateTool.setTimeOffset: offset must be a number in ms!');
+			}
 			return this;
 		},
 		open: function(){
@@ -528,7 +556,7 @@ KISSY.add('dateTool', function(S, undef) {
 
 
 	//初始化DOM结构, 各个节点的引用
-	$div_wrap = $('<div class="hdt-wrap"><div class="hdt-ctrl"><div class="hdt-tips"></div><div class="hdt-btns"><a href="#" class="hdt-clear"></a><a href="#" class="hdt-now"></a><a href="#" class="hdt-complete"></a></div></div><div class="hdt-ipt-list"><input type="text" class="hdt-year" />-<input type="text" class="hdt-month" />-<input type="text" class="hdt-date" /><input type="text" class="hdt-hour" />:<input type="text" class="hdt-minute" />:<input type="text" class="hdt-second" /></div><div class="hdt-week-list"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="hdt-date-list"></div><div class="hdt-drop-list-wrap"><div class="hdt-drop-list"></div><p class="hdt-drop-list-ctrl"><a href="#">上页</a><a href="#">下页</a><a href="#">关闭</a></p></div></div>');
+	$div_wrap = $('<div class="hdt-wrap"><div class="hdt-ctrl"><div class="hdt-tips"></div><div class="hdt-btns"><a href="#" class="hdt-clear"></a><a href="#" class="hdt-now"></a><a href="#" class="hdt-complete"></a></div></div><div class="hdt-ipt-list"><input type="text" class="hdt-year" />-<input type="text" class="hdt-month" />-<input type="text" class="hdt-date" /><input type="text" class="hdt-hour" />:<input type="text" class="hdt-minute" />:<input type="text" class="hdt-second" /></div><div class="hdt-week-list"></div><div class="hdt-date-list"></div><div class="hdt-drop-list-wrap"><div class="hdt-drop-list"></div><p class="hdt-drop-list-ctrl"><a href="#"></a><a href="#"></a><a href="#"></a></p></div></div>');
 
 	$btn_clear = $div_wrap.find('a.hdt-clear');
 	$btn_now = $btn_clear.next();
@@ -579,6 +607,10 @@ KISSY.add('dateTool', function(S, undef) {
 		setting = target.date_setting;
 		setting.open();
 		$div_wrap.adjustElement(target).show();
+
+		if($.zindexManager){
+			$div_wrap.css('z-index', $.zindexManager.up());
+		}
 	}
 	function toolClose(){
 		dropClose();
@@ -610,7 +642,7 @@ KISSY.add('dateTool', function(S, undef) {
 				if(!this['--bind-dateTool']){
 					this['--bind-dateTool'] = true;
 					this.date_setting = DateSetting();
-					this.date_setting.setDate(parseValueToDate(this.value));
+					this.date_setting.setDate(parseValueToDate(this.value, this.date_setting.offset) || now(this.date_setting.offset));
 					$(this).focus(iptFocus);
 				}
 			});
@@ -620,7 +652,7 @@ KISSY.add('dateTool', function(S, undef) {
 				//修改配置, 只修改需要的
 				if(S.isPlainObject()){
 					ipts.each(function(i, v){
-						S.mix(this.date_setting, setting, ['fixed', 'btn_clear_enable', 'btn_now_enable',  'itemFilter', 'error_fill', 'disabled']);
+						S.mix(this.date_setting, setting, ['fixed', 'btn_clear_enable', 'btn_now_enable',  'itemFilter', 'over_fill', 'disabled']);
 					});
 				}
 				//修改fixed字符串
@@ -646,5 +678,5 @@ KISSY.add('dateTool', function(S, undef) {
 		}
 	});
 }, {
-	requires: ['jquery-1.4.2', 'adjustElement', 'builtin', 'jquery.mousewheel']
+	requires: ['jquery-1.4.2', 'adjustElement', 'builtin', 'jquery.mousewheel', 'zindexManager']
 });
