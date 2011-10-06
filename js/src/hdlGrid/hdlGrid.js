@@ -127,7 +127,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 		}
 		var grid = this;
 
-		grid._setting = S.mix(setting, pre_setting, false);//不覆盖相同的设置,只copy不存在的设置
+		grid.setting = S.mix(setting, pre_setting, false);//不覆盖相同的设置,只copy不存在的设置
 
 		//初始化DOM结构
 		grid.__initDOM();
@@ -136,12 +136,12 @@ KISSY.add('hdlGrid', function(S, undef) {
 		grid.__initEvent();
 
 		//文本强制在一行
-		if(grid._setting.nowrap){
+		if(grid.setting.nowrap){
 			grid.$div.addClass('hdlgrid-nowrap');
 		}
 
 		//生成表头
-		$.each(grid._setting.col_model, function(i, v){
+		$.each(grid.setting.col_model, function(i, v){
 			grid.addCol(v);
 		});
 
@@ -152,7 +152,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 	S.augment(Grid, {
 		//初始化table基本结构,并设置引用
 		__initDOM: function(){
-			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><tbody></tbody></table></div></div><div class="hdlgrid-pager"></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
+			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><colgroup></colgroup><tbody></tbody></table></div></div><div class="hdlgrid-pager"></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
 
 			div.whead = div.find('div.hdlgrid-head');
 			div.wbody = div.whead.next();
@@ -160,6 +160,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 			div.thead = div.whead.find('thead:eq(0)');
 			div.tbody = div.wbody.find('tbody:eq(0)');
+			div.colgroup = div.tbody.prev();
 
 			div.head = div.thead.parent();
 			div.body = div.tbody.parent();
@@ -184,14 +185,22 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 		//无数据时填充空白行,使水平滚动条显示出来
 		__blankLine: function(){
-			
+			var b = ['<tr>'];
+			this.$div.colgroup.find('col').each(function(i, v){
+				b.push('<td></td>');
+			});
+			b.push('</tr>');
+			this.$div.tbody.html(b.join(''));
 			return this;
 		},
 
 		//添加一列数据
 		addCol: function(col_setting){
-			S.mix(col_setting, pre_col_model, false);//不覆盖相同的设置,只copy不存在的设置
+			//不覆盖相同的设置,只copy不存在的设置
+			S.mix(col_setting, pre_col_model, false);
+
 			this.$div.thead.find('tr').append('<th>'+ col_setting.display+'</th>');
+			this.$div.colgroup.append('<col />');
 			return this;
 		},
 
@@ -279,7 +288,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 		},
 
 		//修改设置
-		setting: function(setting){
+		setSetting: function(setting){
 			
 			return this;
 		},
@@ -287,7 +296,9 @@ KISSY.add('hdlGrid', function(S, undef) {
 		//修改数据
 		setData: function(data){
 			if(S.isArray(data)){
-				
+				$.each(data, function(i, v){
+					
+				});
 			}else{
 				S.log('$.Grid.setData: data must be an array!');
 			}
@@ -378,12 +389,12 @@ KISSY.add('hdlGrid', function(S, undef) {
 			var grid = this;
 
 			grid.loading();
-			$.getJSON(this._setting.url, function(data){
+			$.getJSON(this.setting.url, function(data){
 				var b = [];
 
 				$.each(data.rows, function(i, v){
 					b.push('<tr>');
-					$.each(grid._setting.col_model, function(i1, v1){
+					$.each(grid.setting.col_model, function(i1, v1){
 						b.push('<td>', v[v1.name], '</td>');
 					});
 					b.push('</tr>');
@@ -407,10 +418,9 @@ KISSY.add('hdlGrid', function(S, undef) {
 				div = grid.$div;
 
 			elm.empty().append(div);
-			this.fixSize();
 
 			//异步加载数据
-			if(grid._setting.url && grid._setting.auto_load){
+			if(grid.setting.url && grid.setting.auto_load){
 				grid.ajaxLoad(function(){
 					this.fixSize();
 				});

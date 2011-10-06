@@ -171,6 +171,16 @@
 				
 				grid.fillInto('.wrap');
 
+				setTimeout(function(){
+					$('col').each(function(i, v){
+						$('#tt').append('<p>'+$(v).width()+'</p>');
+					});
+					$('#tt').append('<p>------------------------------------</p>');
+					$('.hdlgrid-body-in tbody tr:eq(0) td').each(function(i, v){
+						$('#tt').append('<p>'+$(v).outerWidth()+'</p>');
+					});
+				}, 1000);
+
 				window.aaa = grid;
 			});
 		});
@@ -182,5 +192,7 @@
 
 <body style="padding:50px;">
 	<div class="wrap"></div>
+
+	<div id="tt"></div>
 </body>
 </html>
