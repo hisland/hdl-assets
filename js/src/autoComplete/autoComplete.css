@@ -2,13 +2,14 @@
 
 .auto-comp{display:inline-block;position:relative;height:15px;width:100px;padding:1px 15px 1px 1px;_padding:0 15px 0 1px;border:1px solid #7f9db9;color:#000;}
 	.auto-comp input{width:100%;height:14px;line-height:1em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:none;background:#fff;}
-	.auto-comp a{position:absolute;top:2px;right:1px;width:13px;height:13px;line-height:1em;border-left:1px solid #7f9db9;background:url('autoComplete-img/arr1.gif') no-repeat 3px 5px;}
-	.auto-comp a:hover{top:1px;width:12px;height:13px;border:1px solid #7f9db9;}
+	.auto-comp span{position:absolute;top:2px;right:1px;width:13px;height:13px;line-height:1em;border-left:1px solid #7f9db9;background:url('autoComplete-img/arr1.gif') no-repeat 3px 5px;}
+	.auto-comp span:hover,
+	.auto-comp span.ie6-hover{top:1px;width:12px;height:13px;border:1px solid #7f9db9;cursor:pointer;}
 
 .auto-comp-disabled{border-color:#ccc;background-color:#eee;}
 		.auto-comp-disabled input{background:#eee;color:#999;cursor:default;}
-		.auto-comp-disabled a{border-color:#ccc;}
-		.auto-comp-disabled a:hover{top:2px;width:13px;height:13px;border-width:0 0 0 1px;border-color:#ccc;cursor:default;}
+		.auto-comp-disabled span{border-color:#ccc;}
+		.auto-comp-disabled span:hover{top:2px;width:13px;height:13px;border-width:0 0 0 1px;border-color:#ccc;cursor:default;}
 
 /* pop */
 .auto-comp-pop{display:none;position:absolute;border:1px solid #7f9db9;background:#fff;z-index:8000;overflow:auto;}

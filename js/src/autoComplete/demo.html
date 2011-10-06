@@ -36,7 +36,9 @@
 						"trew"
 					]
 				};
-			S.use('reset-css, autoComplete+css');
+			S.use('reset-css, autoComplete+css', function(){
+				$('.auto-comp').autoComplete();
+			});
 		});
 	</script>
 	<style type="text/css">
@@ -47,24 +49,26 @@
 <body style="padding:50px;">
 	<p>使用本地数据:</p>
 	<span class="auto-comp" data-data-ns="god.ss">
-		<input type="text" value="this is text" class="auto-comp-txt" />
-		<a class="auto-comp-arr" href="javascript:void(0)"></a>
+		<input type="text" value="this is text" />
+		<span></span>
 	</span>
+
 	<p>使用服务器js:</p>
 	<span class="auto-comp" data-data-url="data.js">
-		<input type="text" value="this is text" class="auto-comp-txt" />
-		<a class="auto-comp-arr" href="javascript:void(0)"></a>
+		<input type="text" value="this is text" />
+		<span></span>
 	</span>
+
 	<p>使用服务器php(需要apache服务器-模拟加载等待):</p>
 	<span class="auto-comp" data-data-url="data.php">
-		<input type="text" value="this is text" class="auto-comp-txt" />
-		<a class="auto-comp-arr" href="javascript:void(0)"></a>
+		<input type="text" value="this is text" />
+		<span></span>
 	</span>
 
 	<p>禁用:</p>
 	<span class="auto-comp auto-comp-disabled">
-		<input type="text" value="this is text" class="auto-comp-txt" />
-		<a class="auto-comp-arr" href="javascript:void(0)"></a>
+		<input type="text" value="this is text" disabled="disabled" />
+		<span></span>
 	</span>
 </body>
 </html>
