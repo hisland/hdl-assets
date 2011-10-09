@@ -263,38 +263,31 @@ function viewJSON(obj, tabs){
 
 	//note:实测FF对于"'的处理是不编码直接显示(在firebug中查看html,实际源码还是实体)
 	//note:IE不支持'转换成&apos; ,故使用实体编号&#39;
-	var entityHTMLReg = /[&<>'"]/g;
+	var entityHTML_reg = /[&<>'"]/g;
+	var entityHTML_obj = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'\'': '&#39;',
+		'"': '&quot;'
+	};
 	String.prototype.entityHTML = function(){
-		return this.replace(entityHTMLReg, function(v){
-			if(v === '&'){
-				return '&amp;';
-			}else if(v === '<'){
-				return '&lt;';
-			}else if(v === '>'){
-				return '&gt;';
-			}else if(v === "'"){
-				return '&#39;';
-			}else if(v === '"'){
-				return '&quot;';
-			}
-			return v;
+		return this.replace(entityHTML_reg, function(v){
+			return entityHTML_obj[v];
 		});
 	}
-	var unentityHTMLReg = /&amp;|&lt;|&gt;|&#39;|&quot;|&#34;/g;
+	var unentityHTML_reg = /&amp;|&lt;|&gt;|&#39;|&quot;|&#34;/g;
+	var unentityHTML_obj = {
+		'&amp;': '&',
+		'&lt;': '<',
+		'&gt;': '>',
+		'&#39;': '\'',
+		'&quot;': '"',
+		'&#34;': '"'
+	};
 	String.prototype.unentityHTML = function(){
-		return this.replace(unentityHTMLReg, function(v){
-			if(v === '&amp;'){
-				return '&';
-			}else if(v === '&lt;'){
-				return '<';
-			}else if(v === '&gt;'){
-				return '>';
-			}else if(v === '&#39;'){
-				return "'";
-			}else if(v === '&quot;' || v === '&#34;'){
-				return '"';
-			}
-			return v;
+		return this.replace(unentityHTML_reg, function(v){
+			return unentityHTML_obj[v];
 		});
 	}
 })();
