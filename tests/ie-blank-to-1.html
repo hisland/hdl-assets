@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2, builtin', function(){
+				var aa = '<span>aa      bb        dd</span>';
+				$(aa).appendTo('#bb');
+
+				var span = document.createElement('span');
+				span.innerHTML = 'aa      bb        dd';
+				$('#bb').append(span);
+
+				$('#bbb').click(function(e){
+					alert(document.getElementById('bb').innerHTML);
+				});
+				$('#ccc').click(function(e){
+					alert(document.getElementById('cc').innerHTML);
+				});
+				$('#ddd').click(function(e){
+					alert(document.getElementById('dd').innerHTML);
+				});
+				$('#eee').click(function(e){
+					alert(document.getElementsByTagName('body')[0].innerHTML);
+				});
+
+				var pre = false;
+				$('#fff').click(function(e){
+					if(pre){
+						$('body').css('white-space', '');
+						$(this).val('white-space:pre-off');
+					}else{
+						$('body').css('white-space', 'pre');
+						$(this).val('white-space:pre-on');
+					}
+					pre = !pre;
+				});
+			});
+		});
+	</script>
+</head>
+<body style="margin:50px;">
+	<div id="aa">
+		<p>ie6,7,8 不管是页面本身的还是动态生成的元素,都会被压缩空格,标签之间的空白全被去掉,innerHTML读出来是压缩后的样子</p>
+		<p>ie6,7,8 使用white-space:pre;后可以保留空白字符,但同时显示也显示出来了</p>
+		<p>ie6,7,8 动态生成的元素, white-space:pre;也不行</p>
+		<p>FF 输入是什么样,取出来还是什么样</p>
+		<input id="bbb" type="button" name="" value="显示生成的" />
+		<input id="ccc" type="button" name="" value="显示本来的的" />
+		<input id="ddd" type="button" name="" value="显示实体的" />
+		<input id="eee" type="button" name="" value="显示body" />
+		<input id="fff" type="button" name="" value="切换pre" />
+	</div>
+	<div id="bb">生成的: </div>
+	<div id="cc"><span>原生: god  oh my     shit</span></div>
+	<div id="dd"><span>实体: god&nbsp;&nbsp;oh&nbsp;my&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shit</span></div>
+</body>
+</html>
