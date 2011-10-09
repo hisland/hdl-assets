@@ -34,8 +34,8 @@ KISSY.add('pager', function(S, undef) {
 		reset: function(){
 			this.data = [];
 			this.totals = 0;
-			this.page_now = 0;
-			this.page_totals = 0;
+			this.page_now = 1;
+			this.page_totals = 1;
 			return this;
 		},
 		setData: function(data){
@@ -95,6 +95,7 @@ KISSY.add('pager', function(S, undef) {
 
 		//读取中的回调
 		this.loading = null;
+		this.loaded = null;
 	}
 	S.augment(pagerAjax, {
 		reset: function(url, param){
@@ -104,8 +105,8 @@ KISSY.add('pager', function(S, undef) {
 			if(param){
 				this.param = param;
 			}
-			this.currPage = 0;
-			this.allPage = 0;
+			this.currPage = 1;
+			this.allPage = 1;
 			return this;
 		},
 		prev: function(callback){
@@ -129,9 +130,9 @@ KISSY.add('pager', function(S, undef) {
 				param = $.param(param);
 				param = (param ? param + '&' : '') + this.var_page + '=' + p;
 
-				$.isFunction(this.loading) && this.loading(true);
+				$.isFunction(this.loading) && this.loading();
 				$.post(this.url, param, function(data){
-					$.isFunction(me.loading) && me.loading(false);
+					$.isFunction(me.loaded) && me.loaded();
 					$.extend(me, data);
 					$.isFunction(callback) && callback(me);
 				}, 'json');
@@ -140,7 +141,7 @@ KISSY.add('pager', function(S, undef) {
 	});
 
 	$.extend({
-		pager: pagerLocal,
+		pagerLocal: pagerLocal,
 		pagerAjax: pagerAjax
 	});
 }, {
