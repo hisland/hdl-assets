@@ -45,7 +45,7 @@ KISSY.add('pager', function(S, undef) {
 				this.page_now = 1;
 				this.page_totals = Math.ceil(this.totals / this.num_per_page);
 			}else{
-				S.log('pagerLocal.setData: data must be an array!');
+				S.log('$.pagerLocal.setData: data must be an array!');
 			}
 			return this;
 		},
@@ -54,28 +54,28 @@ KISSY.add('pager', function(S, undef) {
 				this.num_per_page = num;
 				this.page_totals = Math.ceil(this.totals / this.num_per_page);
 			}else{
-				S.log('pagerLocal.setNumPerPage: num must gt 1!');
+				S.log('$.pagerLocal.setNumPerPage: num must gt 1!');
 			}
 			return this;
 		},
 		prev: function(){
-			return this.getPage(this.page_now--);
+			return this.getPage(this.page_now - 1);
 		},
 		next: function(){
-			return this.getPage(this.page_now++);
+			return this.getPage(this.page_now + 1);
 		},
-		getPage: function(p){
-			if(p < 1){
-				S.log('pagerLocal.getPage: page must gt 1');
+		getPage: function(page){
+			if(page < 1){
+				S.log('$.pagerLocal.getPage: page must gt 1');
 				return null;
-			}else if(p > this.page_totals){
-				S.log('pagerLocal.getPage: page must lt max!');
+			}else if(page > this.page_totals){
+				S.log('$.pagerLocal.getPage: page must lt max!');
 				return null;
-			}else if(S.isNumber(p-=0)){
-				this.page_now = p;
-				return this.data.slice((p-1)*this.num_per_page, p*this.num_per_page);
+			}else if(S.isNumber(page-=0)){
+				this.page_now = page;
+				return this.data.slice((page-1)*this.num_per_page, page*this.num_per_page);
 			}else{
-				S.log('pagerLocal.getPage: page invalid!');
+				S.log('$.pagerLocal.getPage: page invalid!');
 				return null;
 			}
 		}
@@ -88,55 +88,118 @@ KISSY.add('pager', function(S, undef) {
 			return new pagerAjax(url, param);
 		}
 
-		this.reset(url, param);
+		this.setUrl(url);
+		if(param){
+			this.setParam(param);
+		}
+		this.reset();
 
 		//后台对应属性名
-		this.var_page = 'page';
+		this.var_page = 'currPage';
 
-		//读取中的回调
-		this.loading = null;
-		this.loaded = null;
+		//读取中/完成的回调
+		this.__loading = this.__loaded = this.__callback = function(){};
 	}
 	S.augment(pagerAjax, {
-		reset: function(url, param){
-			if(url){
-				this.url = url;
-			}
-			if(param){
-				this.param = param;
-			}
+		reset: function(){
 			this.currPage = 1;
 			this.allPage = 1;
+			this.perPageNum = 15;
 			return this;
 		},
-		prev: function(callback){
-			this.getPage(this.currPage--, callback);
+		prev: function(){
+			return this.getPage(this.currPage - 1);
 		},
-		next: function(callback){
-			this.getPage(this.currPage++, callback);
+		next: function(){
+			return this.getPage(this.currPage + 1);
 		},
-		getPage: function(p, callback){
+		getPage: function(page){
 			var param, me = this;
-			if(p < 1){
-				this.currPage = 0;
-				S.log('pagerAjax.getPage: page must gt 1');
-				return null;
-			}else if(this.allPage && p > this.allPage){
-				this.currPage = this.allPage;
-				S.log('pagerAjax.getPage: page must lt max!');
-				return null;
-			}else{
-				param = $.isFunction(this.param) ? this.param() : param;
-				param = $.param(param);
-				param = (param ? param + '&' : '') + this.var_page + '=' + p;
 
-				$.isFunction(this.loading) && this.loading();
-				$.post(this.url, param, function(data){
-					$.isFunction(me.loaded) && me.loaded();
-					$.extend(me, data);
-					$.isFunction(callback) && callback(me);
+			if(page < 1){
+				S.log('$.pagerAjax.getPage: page must gt 1');
+			}else if(this.allPage && page > this.allPage){
+				S.log('$.pagerAjax.getPage: page must lt max!');
+			}else if(S.isNumber(page-=0)){
+				this.currPage = page;
+
+				param = S.isFunction(this.__param) ? this.__param() : this.__param;
+
+				//TODO:param为String, Array, Object的时候的统一处理
+				if(S.isString(param)){
+					param = S.unparam(param);
+				}
+				param = $.param(param);
+				param = (param ? param + '&' : '') + this.var_page + '=' + page;
+
+				this.__loading();
+				this.__req = $.post(this.__url, param, function(rs){
+					me.__loaded();
+					S.mix(me, rs);
+					me.__callback(me);
 				}, 'json');
+			}else{
+				S.log('$.pagerAjax.getPage: page invalid!');
 			}
+
+			return this;
+		},
+		setNumPerPage: function(num){
+			if(num > 1){
+				this.num_per_page = num;
+				this.page_totals = Math.ceil(this.totals / this.num_per_page);
+			}else{
+				S.log('$.pagerAjax.setNumPerPage: num must gt 1!');
+			}
+			return this;
+		},
+		setVarPage: function(str){
+			if(S.isString(str)){
+				this.var_page = str;
+			}else{
+				S.log('$.pagerAjax.setVarPage: str must be a string!');
+			}
+			return this;
+		},
+		setUrl: function(url){
+			if(S.isFunction(url) || S.isString(url)){
+				this.__url = url;
+			}else{
+				S.log('$.pagerAjax.setUrl: url must be a function or string!');
+			}
+			return this;
+		},
+		setParam: function(param){
+			if(S.isFunction(param) || S.isString(param)){
+				this.__param = param;
+			}else{
+				S.log('$.pagerAjax.setParam: param must be a function or string!');
+			}
+			return this;
+		},
+		setCallback: function(fn){
+			if(S.isFunction(fn)){
+				this.__callback = fn;
+			}else{
+				S.log('$.pagerAjax.setCallback: fn must be a function!');
+			}
+			return this;
+		},
+		setLoading: function(fn){
+			if(S.isFunction(fn)){
+				this.__loading = fn;
+			}else{
+				S.log('$.pagerAjax.setLoading: fn must be a function!');
+			}
+			return this;
+		},
+		setLoaded: function(fn){
+			if(S.isFunction(fn)){
+				this.__loaded = fn;
+			}else{
+				S.log('$.pagerAjax.setLoaded: fn must be a function!');
+			}
+			return this;
 		}
 	});
 
