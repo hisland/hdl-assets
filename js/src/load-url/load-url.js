@@ -17,6 +17,9 @@
  * 		$.loadURL(url, callback)
  * 		$.loadURL(url, param, callback)
  * 
+ * 2011-06-01 19:53:34:
+ *		loadURL同时多个请求时,取消前面的请求
+ * 
  */
 
 
@@ -28,6 +31,10 @@ KISSY.add('load-url', function(S, undef) {
 
 	//载入前的清理操作
 	var beforeLoad = getLoopFuncs();
+	beforeLoad.add(function(){
+		//清理popManager
+		$.popManager.clean();
+	});
 
 	//载入后的初始化操作
 	var afterLoad = getLoopFuncs();
@@ -70,5 +77,5 @@ KISSY.add('load-url', function(S, undef) {
 		,afterLoad: afterLoad
 	});
 }, {
-	requires: ['jquery-1.4.2', 'loopFuncs']
+	requires: ['jquery-1.4.2', 'loopFuncs', 'popManager']
 });
