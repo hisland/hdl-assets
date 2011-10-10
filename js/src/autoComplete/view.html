@@ -6,61 +6,24 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			var god = S.namespace('god', true);
-			god.ss= {
-					"perPageNum": 15,
-					"currPage": 1,
-					"beginNum": 1,
-					"endNum": 15,
-					"totals": 63,
-					"currRecordNum": 15,
-					"allPage": 5,
-					"rows": [
-						"''||\" \"",
-						"''||''4",
-						"sd",
-						"77sd1",
-						"87sd6543214",
-						"asdsdsd3",
-						"asdsdsds3",
-						"asdsdsds3",
-						"asdsdsde3",
-						"dfd&sdfssddf1",
-						"ewsdr",
-						"ffsdsd",
-						"fgpdepde'0tdssqe'pfd_7843920",
-						"fgpdepde'0tdssqe'pf_88884",
-						"fgpdepde'0tgaojing",
-						"iujyhgfdsxb",
-						"sdfa56fasdsf+as65df65a6d5f6dsa5f6dsa5f6ds5f6dsa4f6ds4f5d6s4f6d5s4f6ds54f6ads45f6sd54f6ds54f5d6f4d65sf4d65s4fd65sf4d6sf43",
-						"trew"
-					]
-				};
-			S.use('reset-css, autoComplete+css');
+			S.use('reset-css, common-css, autoComplete+css');
 		});
 	</script>
 </head>
 
 <body style="padding:50px;">
-	<!-- data-ns == data namespace 与url同时存在则优先使用 -->
-	<span class="auto-comp" data-data-ns="god.ss">
-		<input type="text" value="this is text" />
-		<span></span>
+	<span class="auto-comp">
+		<input type="text" value="this is text" /><span></span>
 	</span>
 
-	<!-- data-url == ajax data url -->
-	<span class="auto-comp" data-data-url="data.js">
-		<input type="text" value="this is text" />
-		<span></span>
-	</span>
+	<br /><br />
 
 	<!-- 禁用时加上 auto-comp-disabled -->
-	<span class="auto-comp auto-comp-disabled" data-data-url="data.js">
-		<input type="text" value="this is text" disabled="disabled" />
-		<span></span>
+	<span class="auto-comp auto-comp-disabled">
+		<input type="text" value="this is text" disabled="disabled" /><span></span>
 	</span>
 
-
+	<br /><br />
 
 	<!-- 下拉层样式与结构 -->
 	<div class="auto-comp-pop" style="display:block;">
@@ -75,7 +38,7 @@
 		<div class="auto-comp-page">
 			<a class="auto-comp-prev" href="#">上一页</a>
 			<a class="auto-comp-next" href="#">下一页</a>
-			<span class="auto-comp-tip">[<span class="auto-comp-match">1</span>]<span class="auto-comp-from">1</span>-<span class="auto-comp-to">15</span>/<span class="auto-comp-totals">450</span>条</span>
+			<span class="auto-comp-tip"></span>
 		</div>
 	</div>
 

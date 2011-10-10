@@ -6,8 +6,7 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			var god = S.namespace('god', true);
-			god.ss= {
+			var data = {
 					"perPageNum": 15,
 					"currPage": 1,
 					"beginNum": 1,
@@ -35,40 +34,50 @@
 						"sdfa56fasdsf+as65df65a6d5f6dsa5f6dsa5f6ds5f6dsa4f6ds4f5d6s4f6d5s4f6ds54f6ads45f6sd54f6ds54f5d6f4d65sf4d65s4fd65sf4d6sf43",
 						"trew"
 					]
-				};
-			S.use('reset-css, autoComplete+css', function(){
-				$('.auto-comp').autoComplete();
+				}
+			S.use('reset-css, common-css, demo-css, autoComplete+css', function(){
+				$(':text').autoComplete();
+
+				var enabled = true;
+				$('#test-disabled-ctrl').click(function(e){
+					if(enabled){
+						$('#test-disabled').autoCompleteDisable();
+						enabled = false;
+					}else{
+						$('#test-disabled').autoCompleteDisable(false);
+						enabled = true;
+					}
+				});
 			});
 		});
 	</script>
-	<style type="text/css">
-		body p{margin-top:10px;}
-	</style>
 </head>
 
-<body style="padding:50px;">
-	<p>使用本地数据:</p>
-	<span class="auto-comp" data-data-ns="god.ss">
-		<input type="text" value="this is text" />
-		<span></span>
-	</span>
-
-	<p>使用服务器js:</p>
-	<span class="auto-comp" data-data-url="data.js">
-		<input type="text" value="this is text" />
-		<span></span>
-	</span>
-
-	<p>使用服务器php(需要apache服务器-模拟加载等待):</p>
-	<span class="auto-comp" data-data-url="data.php">
-		<input type="text" value="this is text" />
-		<span></span>
-	</span>
-
-	<p>禁用:</p>
-	<span class="auto-comp auto-comp-disabled">
-		<input type="text" value="this is text" disabled="disabled" />
-		<span></span>
-	</span>
+<body>
+	<div class="demo-section">
+		<div class="demo-legend">使用本地数据</div>
+		<div class="demo-box">
+			<input id="use-local" type="text" value="this is text" />
+		</div>
+	</div>
+	<div class="demo-section">
+		<div class="demo-legend">使用服务器js</div>
+		<div class="demo-box">
+	<input id="use-remote" type="text" value="this is text" />
+		</div>
+	</div>
+	<div class="demo-section">
+		<div class="demo-legend">使用服务器php(需要apache服务器-模拟加载等待)</div>
+		<div class="demo-box">
+			<input id="use-remote2" type="text" value="this is text" />
+		</div>
+	</div>
+	<div class="demo-section">
+		<div class="demo-legend">使用本地数据</div>
+		<div class="demo-box">
+			<input id="test-disabled-ctrl" type="button" name="" value="禁用" /><br />
+			<input id="test-disabled" type="text" value="this is text" />
+		</div>
+	</div>
 </body>
 </html>
