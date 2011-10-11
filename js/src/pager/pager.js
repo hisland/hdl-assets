@@ -98,7 +98,7 @@ KISSY.add('pager', function(S, undef) {
 		this.var_page = 'currPage';
 
 		//读取中/完成的回调
-		this.__loading = this.__loaded = this.__callback = function(){};
+		this.__loading = this.__loaded = this.__callback = $.noop;
 	}
 	S.augment(pagerAjax, {
 		reset: function(){
@@ -132,8 +132,16 @@ KISSY.add('pager', function(S, undef) {
 				param = $.param(param);
 				param = (param ? param + '&' : '') + this.var_page + '=' + page;
 
-				this.__loading();
+				//已经在加载中,取消上次
+				if(this.loading){
+					this.__req.abort();
+				}else{
+					this.__loading();
+					this.loading = true;
+				}
+
 				this.__req = $.post(this.__url, param, function(rs){
+					me.loading = false;
 					me.__loaded();
 					S.mix(me, rs);
 					me.__callback(me);
@@ -142,6 +150,12 @@ KISSY.add('pager', function(S, undef) {
 				S.log('$.pagerAjax.getPage: page invalid!');
 			}
 
+			return this;
+		},
+		abort: function(){
+			if(this.loading){
+				this.__req.abort();
+			}
 			return this;
 		},
 		setNumPerPage: function(num){

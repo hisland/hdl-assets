@@ -36,15 +36,26 @@
 					]
 				}
 			S.use('reset-css, common-css, demo-css, autoComplete+css', function(){
-				$(':text').autoComplete();
+
+				$('#use-local').autoComplete({
+					url: '',
+					param: '',
+					disabled: false
+				});
+
+				$('#use-remote').autoComplete({
+					url: 'data.js',
+				});
 
 				var enabled = true;
 				$('#test-disabled-ctrl').click(function(e){
 					if(enabled){
 						$('#test-disabled').autoCompleteDisable();
+						$(this).val('启用');
 						enabled = false;
 					}else{
 						$('#test-disabled').autoCompleteDisable(false);
+						$(this).val('禁用');
 						enabled = true;
 					}
 				});
@@ -63,7 +74,7 @@
 	<div class="demo-section">
 		<div class="demo-legend">使用服务器js</div>
 		<div class="demo-box">
-	<input id="use-remote" type="text" value="this is text" />
+			<input id="use-remote" type="text" value="this is text" />
 		</div>
 	</div>
 	<div class="demo-section">

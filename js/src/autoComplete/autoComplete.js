@@ -30,50 +30,115 @@ KISSY.add('autoComplete', function(S, undef) {
 	var $ = jQuery,
 		EMPTY_$ = $(''),
 		div_pop, div_loading, div_list, a_prev, a_next, span_state,
-		delay = 300, delay_handler = 0,
+		delay = 300, delay_handler = null,
 		msg_loading = '加载中...',
 		msg_prev = '上一页',
 		msg_next = '下一页',
 		msg_count = '${from}-${to}/${totals}条',
-		pager_ajax = $.pagerAjax();
+		pager_ajax = $.pagerAjax(),
+		target_ipt, target_setting;
+
+	var default_setting = {
+		url: '',
+		param: '',
+		disabled: false,
+		loading: $.noop,
+		loaded: $.noop,
+		filter: $.noop,
+		click: $.noop,
+		change: $.noop,
+		callback: $.noop
+	}
+
+	//加载中各状态
+	pager_ajax.setLoading(function(){
+		div_loading.show();
+	}).setLoaded(function(){
+		div_loading.hide();
+	});
+
+	//按键延迟过滤
+	function doPress(val){
+		if(target_setting.prev_val !== val){
+			div_list.fadeTo('fast', 0.1);
+			clearTimeout(delay_handler);
+			delay_handler = setTimeout(function(){
+				changeText(val);
+			}, delay);
+		}else{
+			div_list.fadeTo('fast', 1);
+		}
+	}
+	//此会保存prev_val值
+	function changeText(val){
+		pager_ajax.setCallback(function(rs){
+			target_setting.prev_val = val;
+			makeList(rs.rows);
+		}).getPage(1);
+	}
+
+	//点击展开所有
+	function spanClick(e){
+		pager_ajax.setCallback(function(rs){
+			makeList(rs.rows);
+		}).getPage(1);
+	}
+
+	//选择某个选项
+	function userSelect(dt){
+		
+	}
+
+	//生成下拉列表
+	function makeList(rows){
+		var b = [];
+		S.each(rows, function(v, k, o){
+			b.push('<a class="auto-comp-a" href="javascript:;">', v, '</a>');
+		});
+		div_list.html(b.join('')).fadeTo('fast', 1);
+	}
+
+	//打开时阻止回车,否则可能导致form提交
+	function iptKeyDown(e){
+		if(e.keyCode === 13 && div_pop.is(':visible')){
+			e.stopPropagation();
+		}
+	}
 
 	//上下选择及匹配操作
 	function iptKeyPress(e){
-		var a = div_list.find('.hover'), key_code = e.keyCode || e.charCode;
+		var a = div_list.find('.hover'), key_code = e.keyCode || e.charCode, tmp;
 
 		if(!div_opened){
 			target = $(this);
 			popShow();
-		}else{
-			if(key_code === 13){
-				a.click();
-				popHide();
-				e.stopPropagation();
-			}
+		}else if(key_code === 13){
+			a.click();
+			popHide();
 		}
 
 		//向上
 		if(key_code === 38){
-			if(a.length){
-				tmp = a.prev();
-				tmp.length ? tmp.addClass('hover').focus().end().removeClass('hover') : 0;
+			tmp = a.prev();
+			if(a.length && tmp.length){
+				tmp.addClass('hover');
+				a.removeClass('hover');
 			}else{
-				a = div_list.find('a:first');
-				a.addClass('hover');
+				div_list.find('a:last').addClass('hover');
 			}
-
+		}
 		//向下
-		}else if(key_code === 40){
-			if(a.length){
-				tmp = a.next();
-				tmp.length ? tmp.addClass('hover').focus().end().removeClass('hover') : 0;
+		else if(key_code === 40){
+			tmp = a.next();
+			if(a.length && tmp.length){
+				tmp.addClass('hover');
+				a.removeClass('hover');
 			}else{
-				a = div_list.find('a:first');
-				a.addClass('hover');
+				div_list.find('a:first').addClass('hover');
 			}
-
+		}
 		//下面这些情况,重新进行匹配
-		}else if((key_code >= 48 && key_code <= 90)//[0-9a-z]
+		else if((key_code >= 48 && key_code <= 90)//[0-9a-z]
 					|| key_code == 32//空格
 					|| key_code == 8//backspace
 					|| key_code == 46//delete
@@ -81,45 +146,8 @@ KISSY.add('autoComplete', function(S, undef) {
 					|| (key_code >= 186 && key_code <= 192)//一些符号
 					|| (key_code >= 219 && key_code <= 222)){//一些括号
 
-			doMatch(this.value);
+			doPress(this.value);
 		}
-
-		target.focus();
-	}
-
-	//得到焦点或点击相同处理
-	function iptClick(e, val){
-		
-	}
-	//打开时回车阻止,否则可能导致form提交
-	function iptKeyDown(e){
-		if(e.keyCode === 13 && div_pop.is(':visible')){
-			e.stopPropagation();
-		}
-	}
-
-	//点击展开所有
-	function spanClick(e){
-		
-	}
-
-	//下拉层单击
-	function divPopClick(e){
-		
-	}
-	//下拉层双击
-	function divPopDblClick(e){
-		
-	}
-
-	function doMatch(val){
-		
-	}
-	function changeText(val){
-		
-	}
-	function makeList(val, page){
-		
 	}
 
 	//全局监听关闭
@@ -130,10 +158,12 @@ KISSY.add('autoComplete', function(S, undef) {
 	}
 	function iptFocus(){
 		div_pop.adjustElement($(this).parent());
-		$(document).click(docClose);
+		$(document).mousedown(docClose);
+		target_ipt = this;
+		target_setting = this.auto_comp;
 	}
 	function popHide(){
-		$(document).unbind('click', docClose);
+		$(document).unbind('mousedown', docClose);
 		div_pop.hide();
 	}
 
@@ -141,16 +171,24 @@ KISSY.add('autoComplete', function(S, undef) {
 	div_pop = $('<div class="auto-comp-pop"><div class="auto-comp-loading"></div><div class="auto-comp-as"></div><div class="auto-comp-page"><a class="auto-comp-prev" href="#"></a><a class="auto-comp-next" href="#"></a><span class="auto-comp-tip"></span></div></div>');
 	//内部变量的引用
 	div_loading = div_pop.find('div.auto-comp-loading').html(msg_loading);
-	div_list = div_loading.next();
-	a_prev = div_pop.find('a.auto-comp-prev').html(msg_prev);
-	a_next = a_prev.next().html(msg_next);
+	div_list = div_loading.next().click(function(e){
+		var dt = $(e.target).closest('a', this);
+		if(dt.length){
+			userSelect(dt);
+		}
+	});
+	a_prev = div_pop.find('a.auto-comp-prev').html(msg_prev).click(function(e){
+		pager_ajax.prev();
+	});
+	a_next = a_prev.next().html(msg_next).click(function(e){
+		pager_ajax.next();
+	});
 	span_state = a_next.next();
 	//事件注册
-	div_pop.click(divPopClick).dblclick(divPopDblClick).appendTo('body');
+	div_pop.appendTo('body');
 
 	//初始化函数
-	function autoComplete(){
-		console.log(this);
+	function autoComplete(setting){
 		return this.filter(':text').each(function(i, v){
 			if(!this['--auto-comp-bind']){
 				this['--auto-comp-bind'] = true;
