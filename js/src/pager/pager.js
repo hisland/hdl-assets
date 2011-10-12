@@ -6,9 +6,27 @@
  * 版本: v1
  * 
  * API:
- *		
+ *		var lp = $.pagerLocal();	//得到一个分页对象
+ *		var lp = $.pagerLocal([1,2,3,4]);	//得到一个分页对象,并传入需要分页的数据
+ *		lp.setData(['a','b','c','d']);		//重新设置数据
+ *		lp.setNumPerPage(5);		//设置每页数量
+ *		lp.prev();		//取上一页数据
+ *		lp.next();		//取下一页数据
+ *		lp.getPage(3);		//取下3页数据
  * 
- * 
+ *		var ap = $.pagerAjax();	//得到一个分页对象
+ *		var ap = $.pagerAjax('ns/data.js');	//得到一个分页对象,设置取数据url
+ *		var ap = $.pagerAjax('ns/data.js', 'param=33');	//得到一个分页对象,设置取数据url与参数
+ *		ap.setNumPerPage(5);		//设置每页数量
+ *		ap.prev();		//取上一页数据
+ *		ap.next();		//取下一页数据
+ *		ap.getPage(3);		//取下3页数据
+ *		ap.setVarPage();		//设置服务器接收的第N页的变量,默认是'currPage'
+ *		ap.setUrl();		//重新设置url
+ *		ap.setParam();		//重新设置参数,为函数
+ *		ap.setLoading();		//加载前函数
+ *		ap.setLoaded();		//加载完成函数
+ *		ap.setCallback();		//完成后的函数
  * 
  */
 
@@ -191,14 +209,6 @@ KISSY.add('pager', function(S, undef) {
 			}
 			return this;
 		},
-		setCallback: function(fn){
-			if(S.isFunction(fn)){
-				this.__callback = fn;
-			}else{
-				S.log('$.pagerAjax.setCallback: fn must be a function!');
-			}
-			return this;
-		},
 		setLoading: function(fn){
 			if(S.isFunction(fn)){
 				this.__loading = fn;
@@ -212,6 +222,14 @@ KISSY.add('pager', function(S, undef) {
 				this.__loaded = fn;
 			}else{
 				S.log('$.pagerAjax.setLoaded: fn must be a function!');
+			}
+			return this;
+		},
+		setCallback: function(fn){
+			if(S.isFunction(fn)){
+				this.__callback = fn;
+			}else{
+				S.log('$.pagerAjax.setCallback: fn must be a function!');
 			}
 			return this;
 		}

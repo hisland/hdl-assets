@@ -44,4 +44,22 @@ KISSY.add('Tools', function(S, undef) {
 			alert(t2-t1);
 		}
 	}
+
+	//测试fn的执行时间
+	var t_array_rang = /^(\d+)\.\.(\d+)$/;
+	Tools.array = function(str){
+		if(S.isString(str)){
+			//n..m生成数组n-m,从小到大
+			var tmp = t_array_rang.exec(str);
+			if(tmp){
+				var arr = [], from = tmp[1]-0, to = tmp[2]-0;
+				if(from < to){
+					for(; from<=to; from++){
+						arr.push(from);
+					}
+					return arr;
+				}
+			}
+		}
+	}
 });
