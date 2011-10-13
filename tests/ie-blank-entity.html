@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, builtin, jquery-1.4.2', function(){
+				
+			});
+		});
+	</script>
+</head>
+<body style="margin:50px;">
+	<p>IE多个空格会被压缩成一个空格,出来也一样,会丢失内容</p>
+	<p>IE的'空格实体'用$.text方法取出来的&nbsp;是'%C2%A0', 正常的空格是'%20'转换成&nbsp;</p>
+</body>
+</html>
