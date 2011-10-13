@@ -18,21 +18,32 @@ KISSY.add('checkString', function(S, undef) {
 
 	window.checkString = {
 		add: function(name, fn, desc, reverse){
-			if(!S.isString(name) || !fn){
-				S.log('window.checkString: must have name[String] and fn or reg!');
-				return false;
+			//检查名字为字符串
+			if(!S.isString(name)){
+				S.log('window.checkString.add: name must be String!');
+				return this;
 			}
 
-			//取反向值
-			if(desc === true){
-				reverse = true;
-				desc = undefined;
+			//检查验证方法为函数或者正则
+			if(!S.isFunction(fn) || !S.isRegExp(fn)){
+				S.log('window.checkString.add: fn must be a function or RegExp!');
+				return this;
+			}
+
+			//检查验证方法为函数或者正则
+			if(!S.isString(desc)){
+				S.log('window.checkString.add: desc must be String!');
+				return this;
+			}
+
+			//提示覆盖情况
+			if(items[name]){
+				S.log('window.checkString.add: name already exist, override it!');
 			}
 
 			//保存设置
 			items[name] = {
-				type: 'function',
-				item: fn,
+				fn: fn,
 				desc: desc,
 				reverse: reverse
 			};
@@ -41,11 +52,23 @@ KISSY.add('checkString', function(S, undef) {
 
 		test: function(name, str){
 			if(!S.isString(name) || !str){
-				S.log('window.checkString: must have name[String] and str!');
+				S.log('window.checkString.test: must have name[String] and str!');
 				return false;
 			}
 
 			var item = items[name], rs = false;
+
+			//函数验证
+			if(S.isFunction(item.fn)){
+				rs = item.fn(str);
+			}else{
+				rs = item.fn.test(str);
+			}
+
+			//取反
+			if(item.reverse === true){
+				rs = !rs;
+			}
 
 			return rs;
 		}
@@ -54,4 +77,18 @@ KISSY.add('checkString', function(S, undef) {
 	checkString.add('ipv4', function(str){
 					
 				}, 'IPv4,点分十进制共四位,每个数字不能超过255');
+
+
+	//默认正则都可为空,不能为空请加上must规则
+	checkString.add('must', /^.+$/, '此项必填');
+	checkString.add(
+		'ipv4',
+		/^$|^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$/,
+		'IPv4,点分十进制共四位,每个数字不能超过255'
+	);
+	checkString.add(
+		'ipv4-prefix0',
+		/^$|^(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)$/,
+		'IPv4,点分十进制,共四位,每个数字不能超过255,可有前置0'
+	);
 });

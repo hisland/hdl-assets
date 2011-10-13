@@ -42,23 +42,24 @@ function viewJSON(obj, tabs){
 		else if(type === 'boolean'){
 			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + tmp + '');
 		}
-		
+
+		//typeof null === 'object', so check the real value first
+		else if(tmp === null){
+			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + 'null');
+		}
+
 		else if(type === 'object'){
 			buff.push((isArr ? '' : '\n'+indent+'"'+i+'":') + viewJSON(tmp,indent));
 		}
-		
+
 		else if(type === 'function'){
 			buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + '[function]"');
-		}
-
-		else if(tmp === null){
-			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + 'null');
 		}
 
 		else if(tmp === undefined){
 			buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + 'undefined');
 		}
-		
+
 		else{
 			buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + '[unKnownType]"');
 		}
