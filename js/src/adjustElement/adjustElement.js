@@ -26,18 +26,18 @@ KISSY.add('adjustElement', function(S, undef) {
 			return elm;
 		}
 
-		var  me_width = elm.outerWidth()
-			,me_height = elm.outerHeight()
-			,offset = [0, 0]
-			,tmp
+		var me_width = elm.outerWidth(),
+			me_height = elm.outerHeight(),
+			offset = [0, 0],
+			tmp,
 
-			,t_width = target.outerWidth()
-			,t_height = target.outerHeight()
-			,t_offset = target.offset()
+			t_width = target.outerWidth(),
+			t_height = target.outerHeight(),
+			t_offset = target.offset(),
 
-			,doc_elm = document.documentElement
-			,p_width = doc_elm.clientWidth + doc_elm.scrollLeft
-			,p_height = doc_elm.clientHeight + doc_elm.scrollTop;
+			doc_elm = document.documentElement,
+			p_width = doc_elm.clientWidth + doc_elm.scrollLeft,
+			p_height = doc_elm.clientHeight + doc_elm.scrollTop;
 
 		//得到偏移
 		$.each((elm.attr('data-offset')+'').split(/[,\s]+/), function(i, v){

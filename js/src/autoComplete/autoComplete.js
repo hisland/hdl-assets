@@ -142,9 +142,9 @@ KISSY.add('autoComplete', function(S, undef) {
 					|| key_code == 32//空格
 					|| key_code == 8//backspace
 					|| key_code == 46//delete
-					|| (key_code >= 96 && key_code <= 111)//小键盘
-					|| (key_code >= 186 && key_code <= 192)//一些符号
-					|| (key_code >= 219 && key_code <= 222)){//一些括号
+					|| (key_code >= 96 && key_code <= 111)//小键盘0-9+-*/.
+					|| (key_code >= 186 && key_code <= 192)//<>,./?~` ie:+=-_
+					|| (key_code >= 219 && key_code <= 222)){//{}[]\|'"
 
 			doPress(this.value);
 		}
@@ -173,14 +173,23 @@ KISSY.add('autoComplete', function(S, undef) {
 	div_loading = div_pop.find('div.auto-comp-loading').html(msg_loading);
 	div_list = div_loading.next().click(function(e){
 		var dt = $(e.target).closest('a', this);
+		//点中a标签时处理
 		if(dt.length){
 			userSelect(dt);
 		}
 	});
 	a_prev = div_pop.find('a.auto-comp-prev').html(msg_prev).click(function(e){
+		a_next.show();
+		if(pager_ajax.currPage === 2){
+			$(this).hide();
+		}
 		pager_ajax.prev();
 	});
 	a_next = a_prev.next().html(msg_next).click(function(e){
+		a_prev.show();
+		if(pager_ajax.currPage+1 === pager_ajax.allPage){
+			$(this).hide();
+		}
 		pager_ajax.next();
 	});
 	span_state = a_next.next();
