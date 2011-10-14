@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+.ajax-tab{}
+	.ajax-tab-nav{height:22px;padding:5px 0 0 5px;border-bottom:1px solid #a1c6e1;}
+		.ajax-tab-nav li{float:left;margin-right:5px;background:url('ajax-tab-img/tabs.gif') no-repeat 0 0;padding-left:10px;}
+			.ajax-tab-nav a{float:left;height:22px;line-height:22px;color:#000;background:url('ajax-tab-img/tabs.gif') no-repeat right 0;padding-right:10px;outline:none;}
+			.ajax-tab-nav a:hover{text-decoration:none;color:#666;}
+			.ajax-tab-nav span{float:left;height:22px;line-height:22px;cursor:pointer;background:url('ajax-tab-img/tabs.gif') repeat-x 0 -50px;}
+		.ajax-tab-nav .hover{height:23px;font-weight:700;background:url('ajax-tab-img/tabs.gif') no-repeat 0 -25px;margin-bottom:-1px;position:relative;}
+			.ajax-tab-nav .hover a{height:23px;font-weight:700;background:url('ajax-tab-img/tabs.gif') no-repeat right -25px;}
+			.ajax-tab-nav .hover span{height:23px;background-position:0 -75px;}
+	.ajax-tab-con{}
