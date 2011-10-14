@@ -12,3 +12,6 @@
 
 样式图片文件夹命名:
 	modName-img	方便combine的时候,当样式文件合并,可以有不同的子目录来放置图片
+
+misc - miscellaneous:
+	misc目录放置各种各样的资源
