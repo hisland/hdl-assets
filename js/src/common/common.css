@@ -12,6 +12,8 @@
 input.text1{width:116px;height:14px;line-height:14px;padding:1px;border:1px solid #7f9db9;}
 textarea{width:116px;height:56px;padding:1px;border:1px solid #7f9db9;}
 
+/* 禁用输入法 */
+.no-ime{ime-mode:disabled;}
 
 /* 下拉框 */
 select.select1{width:120px;}
