@@ -49,31 +49,12 @@
 			disabled : 当前禁用状态
 			readonly : 当前只读状态
 			required : 表单必填
+			autocomplete : 浏览器自带的自动完成功能开启与否
+			
+			list标签的id依附于外层,因为内部多个checkbox不能有重复id
 		]]>
 	</description>
 
-	<tag>
-		<name>query</name>
-		<tag-class>com.cdsf.tag.Query</tag-class>
-		<body-content>JSP</body-content>
-		<description>查询条件</description>
-		<attribute>
-			<name>name</name>
-			<required>true</required>
-			<description><![CDATA[必须, 查询条件内form的实例名字, 对应id也是此值]]></description>
-		</attribute>
-		<attribute>
-			<name>action</name>
-			<required>true</required>
-			<description><![CDATA[必须, 查询条件内form的action]]></description>
-		</attribute>
-		<attribute>
-			<name>id</name>
-			<required>false</required>
-			<description><![CDATA[可选, 查询条件内form的id属性, 若无则使用name值]]></description>
-		</attribute>
-	</tag>
-	
 	<tag>
 		<name>text</name>
 		<tag-class>com.cdsf.tag.Text</tag-class>
@@ -122,17 +103,22 @@
 		<attribute>
 			<name>disabled</name>
 			<required>false</required>
-			<description><![CDATA[可选,输入项禁用时为true, 与readonly互斥, disabled优先]]></description>
+			<description><![CDATA[可选,输入项禁用时为true, 与readonly互斥, disabled优先, true|false]]></description>
 		</attribute>
 		<attribute>
 			<name>readonly</name>
 			<required>false</required>
-			<description><![CDATA[可选,输入项只读时为true, 与disabled互斥, disabled优先]]></description>
+			<description><![CDATA[可选,输入项只读时为true, 与disabled互斥, disabled优先, true|false]]></description>
 		</attribute>
 		<attribute>
 			<name>required</name>
 			<required>false</required>
-			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示, true|false]]></description>
+		</attribute>
+		<attribute>
+			<name>autocomplete</name>
+			<required>false</required>
+			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启, true|false]]></description>
 		</attribute>
 	</tag>
 </taglib>
