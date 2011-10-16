@@ -23,19 +23,6 @@ public abstract class AbstractTag extends BodyTagSupport {
 
 	/**
 	 * @author hdl
-	 * @param bundle
-	 * get i18n value
-	 */
-	public String getText(String key) {
-		if (bundle == null) {
-			return key;
-		}else {
-			return String.valueOf(bundle.getObject(key));
-		}
-	}
-	
-	/**
-	 * @author hdl
 	 * @param text
 	 * adjust character
 	 */

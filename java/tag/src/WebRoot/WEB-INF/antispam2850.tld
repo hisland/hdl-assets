@@ -4,7 +4,7 @@
 	"http://java.sun.com/j2ee/dtd/web-jsptaglibrary_1_2.dtd">
 
 <taglib>
-	<tlib-version>1.0</tlib-version>
+	<tlib-version>1.2</tlib-version>
 	<jsp-version>1.2</jsp-version>
 	<short-name>antispam2850's tags</short-name>
 	<uri>/antispam2850-tags</uri>
@@ -16,7 +16,6 @@
 			pop: 弹出层
 			
 			text: 文本输入框
-			text-suffix: 文本输入框,后面带文本
 			textarea: 输入区域
 			password: 密码输入
 			list: checkbox列表
@@ -50,6 +49,7 @@
 			readonly : 当前只读状态
 			required : 表单必填
 			autocomplete : 浏览器自带的自动完成功能开启与否
+			suffix : 文本输入框后面带文本, 需要自己设置style保证文本不换行
 			
 			list标签的id依附于外层,因为内部多个checkbox不能有重复id
 		]]>
@@ -61,24 +61,24 @@
 		<body-content>empty</body-content>
 		<description>text标签</description>
 		<attribute>
-			<name>i18n</name>
-			<required>false</required>
-			<description><![CDATA[显示的label, 为国际化key,与text互斥]]></description>
-		</attribute>
-		<attribute>
-			<name>text</name>
-			<required>false</required>
-			<description><![CDATA[显示的label, 为直接文本,与i18n互斥]]></description>
-		</attribute>
-		<attribute>
 			<name>name</name>
 			<required>true</required>
-			<description><![CDATA[必须,后台form对应的属性名]]></description>
+			<description><![CDATA[必填,后台form对应的属性名]]></description>
 		</attribute>
 		<attribute>
 			<name>id</name>
 			<required>false</required>
-			<description><![CDATA[可选,生成html的id属性,若无使用name值]]></description>
+			<description><![CDATA[可选,生成表单元素的id属性,若无使用name值]]></description>
+		</attribute>
+		<attribute>
+			<name>i18n</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>text</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>style</name>
@@ -103,22 +103,27 @@
 		<attribute>
 			<name>disabled</name>
 			<required>false</required>
-			<description><![CDATA[可选,输入项禁用时为true, 与readonly互斥, disabled优先, true|false]]></description>
+			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
 		</attribute>
 		<attribute>
 			<name>readonly</name>
 			<required>false</required>
-			<description><![CDATA[可选,输入项只读时为true, 与disabled互斥, disabled优先, true|false]]></description>
+			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
 		</attribute>
 		<attribute>
 			<name>required</name>
 			<required>false</required>
-			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示, true|false]]></description>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
 		</attribute>
 		<attribute>
 			<name>autocomplete</name>
 			<required>false</required>
-			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启, true|false]]></description>
+			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启]]></description>
+		</attribute>
+		<attribute>
+			<name>suffix</name>
+			<required>false</required>
+			<description><![CDATA[可选,文本输入框后面带文本, 需要自己设置style保证文本不换行]]></description>
 		</attribute>
 	</tag>
 </taglib>
