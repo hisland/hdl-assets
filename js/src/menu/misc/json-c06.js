@@ -1,4 +1,4 @@
-a = [{
+[{
 	"text":"根节点",
 	"children":[{
 			"text":"系统管理",
@@ -383,20 +383,3 @@ a = [{
 		}
 	]
 }]
-
-//a = {}
-//a为服务器返回json
-b = [];
-function aaa(b, arr, tabs){
-$.each(arr, function(i, v){
-	if(v.children){
-		b.push(tabs, '<menu text="', v.text, '">\n');
-		aaa(b, v.children, tabs+'\t');
-		b.push(tabs, '</menu>\n');
-	}else{
-		b.push(tabs, '<item prefix="', v.prefix, '" url="', v.url, '" id="', v.id, '">', v.text, '</item>\n')
-	}
-});
-}
-aaa(b, a, '')
-$('body').prepend('<textarea>'+b.join('')+'</textarea>');
