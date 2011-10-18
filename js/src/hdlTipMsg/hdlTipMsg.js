@@ -21,13 +21,22 @@
  */
 
 KISSY.add('hdlTipMsg', function(S, undef) {
-	var  $ = jQuery
-		,html_string = '<div class="tipmsg-wrap"><div class="tipmsg-h1"><div class="tipmsg-h2"><div class="tipmsg-h3"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div></div></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg-b1"><div class="tipmsg-b2"><div class="tipmsg-b3"><input type="button" value="确定" /></div></div></div></div>'
-		,html_css3 = '<div class="tipmsg-wrap"><div class="tipmsg2-h1"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg2-b1"><input type="button" value="确定" /></div></div>'
-		,pre_setting = {
-			 message: '默认信息'
+	var $ = jQuery,
+
+		msg_alert = '提示',
+		msg_error = '错误',
+		msg_notice = '警告',
+		msg_confirm = '确认',
+		msg_defalt = '默认信息',
+		msg_ok = '确定',
+		msg_cancle = '取消',
+
+		html_string = '<div class="tipmsg-wrap"><div class="tipmsg-h1"><div class="tipmsg-h2"><div class="tipmsg-h3"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div></div></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg-b1"><div class="tipmsg-b2"><div class="tipmsg-b3"><input type="button" value="'+msg_ok+'" /></div></div></div></div>',
+		html_css3 = '<div class="tipmsg-wrap"><div class="tipmsg2-h1"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg2-b1"><input type="button" value="'+msg_ok+'" /></div></div>',
+		pre_setting = {
+			 message: msg_defalt
 			,type: 'alert'
-			,title: '提示'
+			,title: msg_alert
 			//自动隐藏,为数字,0表示不自动,大于0的整数表示多少秒后隐藏
 			,auto_hide: 0
 			//针对confirm的回调函数
@@ -101,13 +110,13 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 				break;
 			case 'confirm':
 				div.icon.attr('class', 'tipmsg-confirm');
-				div.btn_ok = $('<input type="button" value="确定" />').click(function(){
+				div.btn_ok = $('<input type="button" value='+msg_ok+' />').click(function(){
 						if($.isFunction(setting.callback)){
 							setting.callback(div);
 						}
 						close(div, setting);
 					});
-				div.btn_cancle.val('取消').before(div.btn_ok);
+				div.btn_cancle.val(msg_cancle).before(div.btn_ok);
 				break;
 		}
 
@@ -194,7 +203,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 			if(typeof str === 'object'){
 				$.extend(true, setting, pre_setting, str, {type:'alert'});
 			}else{
-				title = title || '提示';
+				title = title || msg_alert;
 				$.extend(true, setting, pre_setting, {type:'alert', title:title, message:str});
 			}
 			return init(setting);
@@ -206,7 +215,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 			if(typeof str === 'object'){
 				$.extend(true, setting, pre_setting, str, {type:'errorTip'});
 			}else{
-				title = title || '错误';
+				title = title || msg_error;
 				$.extend(true, setting, pre_setting, {type:'errorTip', title:title, message:str});
 			}
 			return init(setting);
@@ -218,7 +227,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 			if(typeof str === 'object'){
 				$.extend(true, setting, pre_setting, str, {type:'notice'});
 			}else{
-				title = title || '警告';
+				title = title || msg_notice;
 				$.extend(true, setting, pre_setting, {type:'notice', title:title, message:str});
 			}
 			return init(setting);
@@ -230,12 +239,13 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 			if(typeof str === 'object'){
 				$.extend(true, setting, pre_setting, str, {type:'confirm'});
 			}else{
-				if(typeof title == 'function'){//第2个参数为函数的时候,更正参数顺序
+				//第2个参数为函数的时候,更正参数顺序
+				if(typeof title == 'function'){
 					callback = title;
-					title = '确认';
+					title = msg_confirm;
 				}
 				if(!title){
-					title = '确认';
+					title = msg_confirm;
 				}
 				$.extend(true, setting, pre_setting, {type:'confirm', title:title, message:str, callback:callback});
 			}
