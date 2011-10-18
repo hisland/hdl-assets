@@ -5,10 +5,9 @@
 	.ls1-item{float:left;height:20px;width:230px;overflow:hidden;}
 		.ls1-text{float:left;height:20px;width:110px;text-align:right;}
 		.ls1-ipts{float:left;height:20px;width:120px;}
-	.ls1-item-3r{float:left;padding:2px;height:70px;width:225px;overflow:hidden;}
-		.ls1-item-3r .ls1-text{float:left;width:105px;line-height:70px;text-align:right;}
-		.ls1-item-3r .ls1-ipts{float:left;width:119px;}
-		.ls1-item-3r textarea{width:115px;height:66px;}
+	.ls1-item-3r{float:left;height:100px;width:230px;overflow:hidden;}
+		.ls1-item-3r .ls1-text{height:100px;line-height:100px;}
+		.ls1-item-3r .ls1-ipts{height:100px;}
 	
 	.ls1-fieldset{clear:left;padding-bottom:10px;border:1px solid #DEE7EE;}
 		.ls1-legend{margin-left:10px;padding:0 3px;border:1px solid #DEE7EE;background:#fff;}
