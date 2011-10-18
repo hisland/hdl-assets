@@ -14,3 +14,10 @@
 		.ls1-box{padding-top:10px;overflow:hidden;}
 
 
+/* 查询条件 */
+.search-condition{padding:0 150px 3px 0;overflow:hidden;margin:3px;border:1px solid #D7E2ED;*zoom:1;}
+	.search-condition-c1{float:left;width:100%;overflow:hidden;}
+	.search-condition-c2{float:right;width:140px;padding:3px 5px 0;margin-right:-150px;_position:relative;_display:inline;}
+		.search-submit{float:left;width:73px;height:22px;overflow:hidden;text-indent:-30em;border:none;background:url('condition-list-img/btn_search.gif') no-repeat 0 0;cursor:pointer;}
+		.search-more{float:left;margin-left:5px;padding-left:10px;line-height:22px;background:url('condition-list-img/arr_up_down.gif') no-repeat 0 0;cursor:pointer;}
+		.search-more-2{background-position: 0px -22px;}
