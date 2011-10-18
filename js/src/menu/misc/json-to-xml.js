@@ -394,7 +394,7 @@ $.each(arr, function(i, v){
 		aaa(b, v.children, tabs+'\t');
 		b.push(tabs, '</menu>\n');
 	}else{
-		b.push(tabs, '<item prefix="', v.prefix, '" url="', v.url, '" id="', v.id, '">', v.text, '</item>\n')
+		b.push(tabs, '<item prefix="', v.prefix, '" id="', v.id, '" remark="', v.text, '" url="', v.url, '" helpurl="', v.helpurl, '" />\n')
 	}
 });
 }
