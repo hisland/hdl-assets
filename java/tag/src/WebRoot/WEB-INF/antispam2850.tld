@@ -46,13 +46,79 @@
 			disabled : 当前禁用状态
 			readonly : 当前只读状态
 			required : 表单必填
-			autocomplete : 浏览器自带的自动完成功能开启与否
+			autocomplete : 浏览器自带的自动完成功能开启与否, [默认关闭]
 			suffix : 文本输入框后面带文本, 需要自己设置style保证文本不换行
+			data-valid : 验证信息
+			data-fuzzy : 模糊匹配的ids
 			
 			list标签的id依附于外层,因为内部多个checkbox不能有重复id
 		]]>
 	</description>
 
+	<tag>
+		<name>query</name>
+		<tag-class>com.cdsf.tag.Query</tag-class>
+		<body-content>jsp</body-content>
+		<description>查询条件结构</description>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<description><![CDATA[必填,后台form对应的实例名]]></description>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<description><![CDATA[可选,生成form的id属性,若无使用name值]]></description>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的style属性, 与html的style属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>cssclass</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>autocomplete</name>
+			<required>false</required>
+			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>pop</name>
+		<tag-class>com.cdsf.tag.Pop</tag-class>
+		<body-content>jsp</body-content>
+		<description>弹出添加修改结构</description>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<description><![CDATA[必填,后台form对应的实例名]]></description>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<description><![CDATA[可选,生成form的id属性,若无使用name值]]></description>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的style属性, 与html的style属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>cssclass</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>autocomplete</name>
+			<required>false</required>
+			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启]]></description>
+		</attribute>
+	</tag>
+	
 	<tag>
 		<name>text</name>
 		<tag-class>com.cdsf.tag.Text</tag-class>
@@ -117,6 +183,135 @@
 			<name>autocomplete</name>
 			<required>false</required>
 			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启]]></description>
+		</attribute>
+		<attribute>
+			<name>suffix</name>
+			<required>false</required>
+			<description><![CDATA[可选,文本输入框后面带文本, 需要自己设置style保证文本不换行]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>password</name>
+		<tag-class>com.cdsf.tag.Password</tag-class>
+		<body-content>empty</body-content>
+		<description>password标签</description>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<description><![CDATA[必填,后台form对应的属性名]]></description>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<description><![CDATA[可选,生成表单元素的id属性,若无使用name值]]></description>
+		</attribute>
+		<attribute>
+			<name>i18n</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>text</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的style属性, 与html的style属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>cssclass</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>maxlength</name>
+			<required>false</required>
+			<description><![CDATA[可选,最大长度]]></description>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>false</required>
+			<description><![CDATA[可选,设置默认值]]></description>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+		</attribute>
+		<attribute>
+			<name>readonly</name>
+			<required>false</required>
+			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+		</attribute>
+		<attribute>
+			<name>required</name>
+			<required>false</required>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
+		</attribute>
+		<attribute>
+			<name>autocomplete</name>
+			<required>false</required>
+			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启]]></description>
+		</attribute>
+		<attribute>
+			<name>suffix</name>
+			<required>false</required>
+			<description><![CDATA[可选,文本输入框后面带文本, 需要自己设置style保证文本不换行]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>select</name>
+		<tag-class>com.cdsf.tag.Select</tag-class>
+		<body-content>jsp</body-content>
+		<description>select标签</description>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<description><![CDATA[必填,后台form对应的属性名]]></description>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<description><![CDATA[可选,生成表单元素的id属性,若无使用name值]]></description>
+		</attribute>
+		<attribute>
+			<name>i18n</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>text</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的style属性, 与html的style属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>cssclass</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>false</required>
+			<description><![CDATA[可选,设置默认值]]></description>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+		</attribute>
+		<attribute>
+			<name>required</name>
+			<required>false</required>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
 		</attribute>
 		<attribute>
 			<name>suffix</name>

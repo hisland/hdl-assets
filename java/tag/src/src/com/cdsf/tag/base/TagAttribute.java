@@ -9,18 +9,26 @@ public abstract class TagAttribute extends AbstractTag {
 	
 	private String name;
 	private String id;
+	
+	//表单元素前置文本[国际化key/文本],文本优先
 	private String i18n;
 	private String text;
+	
 	private String style;
 	private String cssclass;
 	private String value;
 	private String suffix;
 	private int maxlength;
+	
+	//为true时表单元素会被禁用/只读, 禁用优先
 	private boolean disabled;
 	private boolean readonly;
+	
+	//为true时会在前面加红色*号
 	private boolean required;
-	private boolean autocomplete;
-	protected StringBuffer sb = new StringBuffer();
+	
+	//默认关闭浏览器的自动完成功能
+	private boolean autocomplete = false;
 
 	//text的name属性
 	public String getName() {
@@ -146,9 +154,9 @@ public abstract class TagAttribute extends AbstractTag {
 	//表单的浏览器自动完成功能
 	public String getAutocomplete() {
 		if (autocomplete == false) {
-			return "";
-		}else {
 			return " autocomplete=\"off\"";
+		}else {
+			return "";
 		}
 	}
 	public void setAutocomplete(boolean autocomplete) {
@@ -157,7 +165,11 @@ public abstract class TagAttribute extends AbstractTag {
 
 	//文本框后面的文本
 	public String getSuffix() {
-		return suffix;
+		if (suffix == null) {
+			return "";
+		}else {
+			return suffix;
+		}
 	}
 	public void setSuffix(String suffix) {
 		this.suffix = suffix;

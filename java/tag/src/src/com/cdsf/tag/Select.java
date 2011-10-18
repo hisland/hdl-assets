@@ -3,6 +3,7 @@ package com.cdsf.tag;
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
 
 import com.cdsf.tag.base.TagAttribute;
 
@@ -17,18 +18,11 @@ import com.cdsf.tag.base.TagAttribute;
 </div>
  */
 @SuppressWarnings("serial")
-public class Text extends TagAttribute {
+public class Select extends TagAttribute {
 	@Override
 	public int doStartTag(){
-		return SKIP_BODY;
-	}
-	
-	/**
-	 * 由于是自关闭标签,直接在endTag里面做所有事情
-	 */
-	@Override
-	public int doEndTag() throws JspException {
 		StringBuffer sb = new StringBuffer();
+		JspWriter out = pageContext.getOut();
 		try {
 			sb.append("<div class=\"ls1-item\">");
 			sb.append("<div class=\"ls1-text\">");
@@ -44,17 +38,43 @@ public class Text extends TagAttribute {
 			sb.append("</div>");
 			sb.append("<div class=\"ls1-ipts\">");
 			
-			//input标签
-			sb.append("<input type=\"text\"");
+			sb.append("<select");
 			sb.append(getName());
 			sb.append(getId());
 			sb.append(getStyle());
 			sb.append(getCssclass());
 			sb.append(getDisabledReadonly());
 			sb.append(getValue());
-			sb.append(getMaxlength());
-			sb.append(getAutocomplete());
-			sb.append(" />");
+			sb.append(">");
+			
+			//自定义内容前的内容
+			sb.append("<option value=\"0\">before</option>");
+			
+			out.write(sb.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return EVAL_BODY_INCLUDE;
+	}
+	
+	/**
+	 * 由于是自关闭标签,直接在endTag里面做所有事情
+	 */
+	@Override
+	public int doEndTag() throws JspException {
+		StringBuffer sb = new StringBuffer();
+		try {
+
+			//自定义内容
+			if (bodyContent != null) {
+				sb.append(bodyContent.toString());
+			}
+			
+			//自定义内容后的内容
+			sb.append("<option value=\"3\">after</option>");
+			
+			//input标签
+			sb.append("</select>");
 			
 			//后缀文本
 			sb.append(getSuffix());

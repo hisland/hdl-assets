@@ -17,7 +17,7 @@ import com.cdsf.tag.base.TagAttribute;
 </div>
  */
 @SuppressWarnings("serial")
-public class Text extends TagAttribute {
+public class Password extends TagAttribute {
 	@Override
 	public int doStartTag(){
 		return SKIP_BODY;
@@ -45,7 +45,7 @@ public class Text extends TagAttribute {
 			sb.append("<div class=\"ls1-ipts\">");
 			
 			//input标签
-			sb.append("<input type=\"text\"");
+			sb.append("<input type=\"password\"");
 			sb.append(getName());
 			sb.append(getId());
 			sb.append(getStyle());
