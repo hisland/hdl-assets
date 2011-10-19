@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
-import com.cdsf.tag.base.TagAttribute;
+import com.cdsf.tag.base.TagAttr;
 
 /**
  * @author hdl
@@ -20,7 +20,10 @@ import com.cdsf.tag.base.TagAttribute;
 </form>
  */
 @SuppressWarnings("serial")
-public class Pop extends TagAttribute {
+public class Pop extends TagAttr {
+	//默认关闭浏览器的自动完成功能
+	private boolean autocomplete = false;
+	
 	@Override
 	public int doStartTag(){
 		StringBuffer sb = new StringBuffer();
@@ -51,5 +54,17 @@ public class Pop extends TagAttribute {
 			e.printStackTrace();
 		}
 		return EVAL_PAGE;
+	}
+
+	//表单的浏览器自动完成功能
+	public String getAutocomplete() {
+		if (autocomplete == false) {
+			return " autocomplete=\"off\"";
+		}else {
+			return "";
+		}
+	}
+	public void setAutocomplete(boolean autocomplete) {
+		this.autocomplete = autocomplete;
 	}
 }

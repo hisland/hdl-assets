@@ -4,22 +4,19 @@ import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 
-import com.cdsf.tag.base.TagAttr;
-
 /**
  * @author hdl
  * 标签结构:
 <div class="ls1-item">
-	<div class="ls1-text">输入文字:</div>
+	<div class="ls1-text">模糊匹配:</div>
 	<div class="ls1-ipts">
-		<input class="text1" type="password" name="" value="" />
+		<input class="text1" type="checkbox" name="" value="" data-fuzzy-targets="#id1, #id2" />
 	</div>
 </div>
  */
 @SuppressWarnings("serial")
-public class Password extends TagAttr {
-	private int maxlength;
-	private String dataValidType;
+public class Fuzzy extends Checkbox {
+	private String dataFuzzyIds;
 	
 	@Override
 	public int doStartTag(){
@@ -46,15 +43,14 @@ public class Password extends TagAttr {
 			sb.append("<div class=\"ls1-ipts\">");
 			
 			//input标签
-			sb.append("<input");
-			sb.append(getType());
+			sb.append("<input type=\"checkbox\"");
 			sb.append(getName());
 			sb.append(getId());
 			sb.append(getStyle());
 			sb.append(getCssclass());
 			sb.append(getDisabledReadonly());
 			sb.append(getValue());
-			sb.append(getMaxlength());
+			sb.append(getDataFuzzyIds());
 			sb.append(" />");
 			
 			sb.append("</div>");
@@ -66,32 +62,15 @@ public class Password extends TagAttr {
 		}
 		return EVAL_PAGE;
 	}
-	
-	public String getType() {
-		return " type=\"password\"";
-	}
 
-	//text的maxlength属性
-	public String getMaxlength() {
-		if (maxlength == 0) {
-			return "";
-		}else {
-			return " maxlength=\"" + maxlength + "\"";
-		}
-	}
-	public void setMaxlength(int maxlength) {
-		this.maxlength = maxlength;
-	}
-	
-	//验证信息
-	public String getDataValidType() {
-		if (dataValidType != null) {
-			return " data-valid-type=\"" + dataValidType + "\"";
+	public String getDataFuzzyIds() {
+		if (dataFuzzyIds != null) {
+			return " data-fuzzy-ids=\"" + dataFuzzyIds + "\"";
 		}else {
 			return "";
 		}
 	}
-	public void setDataValidType(String dataValidType) {
-		this.dataValidType = dataValidType;
+	public void setDataFuzzyIds(String dataFuzzyIds) {
+		this.dataFuzzyIds = dataFuzzyIds;
 	}
 }

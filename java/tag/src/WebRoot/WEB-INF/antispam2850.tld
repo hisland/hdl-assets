@@ -8,22 +8,23 @@
 	<uri>/antispam2850-tags</uri>
 	<description>
 		<![CDATA[
-			taglib for antispam2850
-			
-			query: 查询条件
-			pop: 弹出层
+			query: 查询条件结构
+			pop: 弹出层结构
 			
 			text: 文本输入框
-			textarea: 输入区域
 			password: 密码输入
-			list: checkbox列表
 			select: 下拉
 			fuzzy: 模糊匹配checkbox
+			
+			textarea: 输入区域
+			checkbox-box: 类似textarea的大块选择框
+			checkbox-row: 2列或者3列的横向选择框
+			list标签的id依附于外层,因为内部多个checkbox不能有重复id
 			
 			tip: 提示信息,红色字体
 			
 			autocomplete: 自动完成下拉输入
-			time: 时间输入
+			time: 时间输入, 带启用禁用的checkbox
 			week: 周输入
 			
 			tabs: tab包含块
@@ -31,7 +32,7 @@
 
 			标签属性:
 			id 如果没有, 使用对应的name值,最好遵循此规则,否则可能导致混乱
-			text 使用直接文本, i18n使用国际化key, 必选一个
+			text 使用直接文本, i18n使用国际化key, text优先
 			disabled, readonly 互斥, disabled优先
 
 			name     : form或者表单元素的name属性
@@ -48,10 +49,12 @@
 			required : 表单必填
 			autocomplete : 浏览器自带的自动完成功能开启与否, [默认关闭]
 			suffix : 文本输入框后面带文本, 需要自己设置style保证文本不换行
-			data-valid : 验证信息
-			data-fuzzy : 模糊匹配的ids
-			
-			list标签的id依附于外层,因为内部多个checkbox不能有重复id
+			data-valid-type : 验证信息
+			data-fuzzy-ids : 模糊匹配的ids
+			float : 表单元素块的float样式
+			wrap-id: 包含块id,方便单个隐藏显示
+			items: 下拉框的数据源
+			items-after: 下拉框的数据源,放到自定义数据后面
 		]]>
 	</description>
 
@@ -69,6 +72,11 @@
 			<name>id</name>
 			<required>false</required>
 			<description><![CDATA[可选,生成form的id属性,若无使用name值]]></description>
+		</attribute>
+		<attribute>
+			<name>action</name>
+			<required>true</required>
+			<description><![CDATA[可选,form的action属性]]></description>
 		</attribute>
 		<attribute>
 			<name>style</name>
@@ -189,6 +197,11 @@
 			<required>false</required>
 			<description><![CDATA[可选,文本输入框后面带文本, 需要自己设置style保证文本不换行]]></description>
 		</attribute>
+		<attribute>
+			<name>data-valid-type</name>
+			<required>false</required>
+			<description><![CDATA[可选,文本输入框的验证]]></description>
+		</attribute>
 	</tag>
 	
 	<tag>
@@ -261,6 +274,78 @@
 			<required>false</required>
 			<description><![CDATA[可选,文本输入框后面带文本, 需要自己设置style保证文本不换行]]></description>
 		</attribute>
+		<attribute>
+			<name>data-valid-type</name>
+			<required>false</required>
+			<description><![CDATA[可选,文本输入框的验证]]></description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>textarea</name>
+		<tag-class>com.cdsf.tag.Textarea</tag-class>
+		<body-content>JSP</body-content>
+		<description>textarea标签</description>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<description><![CDATA[必填,后台form对应的属性名]]></description>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<description><![CDATA[可选,生成表单元素的id属性,若无使用name值]]></description>
+		</attribute>
+		<attribute>
+			<name>i18n</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>text</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的style属性, 与html的style属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>cssclass</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>maxlength</name>
+			<required>false</required>
+			<description><![CDATA[可选,最大长度]]></description>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>false</required>
+			<description><![CDATA[可选,设置默认值]]></description>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>false</required>
+			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+		</attribute>
+		<attribute>
+			<name>readonly</name>
+			<required>false</required>
+			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+		</attribute>
+		<attribute>
+			<name>required</name>
+			<required>false</required>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
+		</attribute>
+		<attribute>
+			<name>data-valid-type</name>
+			<required>false</required>
+			<description><![CDATA[可选,文本输入框的验证]]></description>
+		</attribute>
 	</tag>
 	
 	<tag>
@@ -309,14 +394,14 @@
 			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
 		</attribute>
 		<attribute>
+			<name>readonly</name>
+			<required>false</required>
+			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+		</attribute>
+		<attribute>
 			<name>required</name>
 			<required>false</required>
 			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
-		</attribute>
-		<attribute>
-			<name>suffix</name>
-			<required>false</required>
-			<description><![CDATA[可选,文本输入框后面带文本, 需要自己设置style保证文本不换行]]></description>
 		</attribute>
 	</tag>
 </taglib>

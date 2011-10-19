@@ -1,10 +1,11 @@
 <project name="java.tag" default="jar">
 	<property name="encoding" value="UTF-8"/>
+	<property name="version" value="1.0"/>
 	<property name="dir.dest" value="build"/>
 
 	<tstamp>
 		<format property="build.time" pattern="yyyy-MM-dd HH:mm:ss" />
-		<format property="build.ts" pattern="yyyy-MM-dd_HH.mm.ss" />
+		<format property="build.ts" pattern="yyyyMMddHHmmss" />
 	</tstamp>
 
 	<target name="jar">
@@ -15,7 +16,7 @@
 				<fileset dir="src/WebRoot/WEB-INF/lib" includes="*.jar" />
 			</classpath>
 		</javac>
-		<jar destfile="${dir.dest}/cdsf-tag-${build.ts}.jar" basedir="${dir.dest}/tmp"/>
+		<jar destfile="${dir.dest}/cdsf-tag-${version}-${build.ts}.jar" basedir="${dir.dest}/tmp"/>
 		<delete dir="${dir.dest}/tmp" />
 	</target>
 </project>
