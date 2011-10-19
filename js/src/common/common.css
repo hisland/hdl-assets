@@ -10,7 +10,7 @@
 
 /* 文本框类 */
 input.text1{width:116px;height:14px;line-height:14px;padding:1px;border:1px solid #7f9db9;}
-textarea{width:116px;height:96px;padding:1px;border:1px solid #7f9db9;}
+textarea{width:116px;height:78px;padding:1px;border:1px solid #7f9db9;}
 
 /* 禁用输入法 */
 .no-ime{ime-mode:disabled;}
@@ -31,6 +31,14 @@ input.checkbox3, input.radio3{margin:0;*margin:-3px;vertical-align:middle;}
 input.button1{width:72px;height:22px;line-height:22px;border:none;background:url('common-img/btn1.gif') no-repeat 0 0;cursor:pointer;}
 input.button2{width:100px;height:22px;line-height:22px;border:none;background:url('common-img/btn2.gif') no-repeat 0 0;cursor:pointer;}
 input.button3{width:150px;height:22px;line-height:22px;border:none;background:url('common-img/btn3.gif') no-repeat 0 0;cursor:pointer;}
+
+/* 模糊查询匹配的颜色 */
+input.fuzzy-search{border:1px solid #446ed5;background:#e5edf8;}
+span.fuzzy-search{color:#446ed5;}
+
+
+.label-1r{display:block;vertical-align:middle;white-space:nowrap;}
+.label{display:inline-block;vertical-align:middle;white-space:nowrap;margin-right:5px;}
 
 
 .ov-hidden{height:100%;overflow:hidden;}

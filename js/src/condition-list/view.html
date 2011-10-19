@@ -12,7 +12,7 @@
 </head>
 
 <body style="padding:50px;">
-	<div class="ls1">
+	<div class="ls1" style="margin:3px;padding:3px;">
 		<div class="ls1-item">
 			<div class="ls1-text"><strong class="red">*</strong>输入文字:</div>
 			<div class="ls1-ipts">
@@ -45,20 +45,44 @@
 				<textarea></textarea>
 			</div>
 		</div>
-
-		<fieldset class="ls1-fieldset">
-			<legend class="ls1-legend">这是文字</legend>
-			<div class="ls1-box">
-				<div class="ls1-item">
-					<div class="ls1-text">输入文字:</div>
-					<div class="ls1-ipts"><input class="text1" type="text" name="" value="" /></div>
-				</div>
-				<div class="ls1-item">
-					<div class="ls1-text">启用:</div>
-					<div class="ls1-ipts"><input class="checkbox1" type="checkbox" name="" value="" /></div>
-				</div>
+		<div class="ls1-item-3r">
+			<div class="ls1-text">备注:</div>
+			<div class="ls1-ipts ls1-ipts-box">
+				<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值1</label>
+				<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值2</label>
+				<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值3</label>
+				<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值4</label>
 			</div>
-		</fieldset>
+		</div>
+	</div>
+
+	<div class="ls1" style="clear:left;width:460px;overflow:hidden;border:1px solid green;margin:3px;padding:3px;">
+		<div class="ls1-item-3r" style="float:right;">
+			<div class="ls1-text">备注:</div>
+			<div class="ls1-ipts">
+				<textarea></textarea>
+			</div>
+		</div>
+		<div class="ls1-item">
+			<div class="ls1-text"><strong class="red">*</strong>时间片:</div>
+			<div class="ls1-ipts">
+				<input style="width:80px;" class="text1" type="text" name="" value="" />分钟
+			</div>
+		</div>
+		<div class="ls1-item">
+			<div class="ls1-text">启用:</div>
+			<div class="ls1-ipts">
+				<input class="checkbox1" type="checkbox" name="" value="" />
+			</div>
+		</div>
+		<div class="ls1-item">
+			<div class="ls1-text">请选择:</div>
+			<div class="ls1-ipts">
+				<select class="select1" name="">
+					<option value="aa">aaa</option>
+				</select>
+			</div>
+		</div>
 	</div>
 
 	
@@ -67,6 +91,19 @@
 		<!-- 条件列表摆放 -->
 		<div class="search-condition-c1">
 			<div class="ls1">
+				<fieldset class="ls1-fieldset">
+					<legend class="ls1-legend">这是文字</legend>
+					<div class="ls1-box">
+						<div class="ls1-item">
+							<div class="ls1-text">输入文字:</div>
+							<div class="ls1-ipts"><input class="text1" type="text" name="" value="" /></div>
+						</div>
+						<div class="ls1-item">
+							<div class="ls1-text">启用:</div>
+							<div class="ls1-ipts"><input class="checkbox1" type="checkbox" name="" value="" /></div>
+						</div>
+					</div>
+				</fieldset>
 			</div>
 		</div>
 		<!-- 按钮 -->
@@ -77,7 +114,8 @@
 	</form>
 
 	<!-- 弹出层的form -->
-	<form style="display:none;">
+	<!-- <form style="display:none;"> -->
+	<form>
 		<div class="ls1">
 		</div>
 		<div class="win1-btns">
