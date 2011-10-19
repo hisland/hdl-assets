@@ -125,6 +125,9 @@
 	
 	2011-10-09 17:12:43:
 		调用canEmpty()可以为空
+	
+	2011-10-19 15:53:59:
+		各种验证可以直接在外面调用
  */
 
 KISSY.add('hdlValidator', function(S, undef) {
