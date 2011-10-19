@@ -1,11 +1,12 @@
 package com.cdsf.tag;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
-import com.cdsf.tag.base.TagAttribute;
+import com.cdsf.tag.base.TagAttr;
 
 /**
  * @author hdl
@@ -13,12 +14,14 @@ import com.cdsf.tag.base.TagAttribute;
 <div class="ls1-item">
 	<div class="ls1-text">输入文字:</div>
 	<div class="ls1-ipts">
-		<input class="text1" type="text" name="" value="" />
+		<select class="text1" name="" value="">
+			<option value="0">text</option>
+		</select>
 	</div>
 </div>
  */
 @SuppressWarnings("serial")
-public class Select extends TagAttribute {
+public class Select extends TagAttr {
 	@Override
 	public int doStartTag(){
 		StringBuffer sb = new StringBuffer();
@@ -28,9 +31,7 @@ public class Select extends TagAttribute {
 			sb.append("<div class=\"ls1-text\">");
 			
 			//红色*号
-			if (isRequired()) {
-				sb.append("<strong class=\"red\">*</strong>");
-			}
+			sb.append(getRequiredString());
 
 			//label
 			sb.append(getLable());
@@ -64,20 +65,11 @@ public class Select extends TagAttribute {
 	public int doEndTag() throws JspException {
 		StringBuffer sb = new StringBuffer();
 		try {
-
-			//自定义内容
-			if (bodyContent != null) {
-				sb.append(bodyContent.toString());
-			}
-			
 			//自定义内容后的内容
 			sb.append("<option value=\"3\">after</option>");
 			
 			//input标签
 			sb.append("</select>");
-			
-			//后缀文本
-			sb.append(getSuffix());
 			
 			sb.append("</div>");
 			sb.append("</div>");
@@ -87,5 +79,10 @@ public class Select extends TagAttribute {
 			e.printStackTrace();
 		}
 		return EVAL_PAGE;
+	}
+	
+	//根据data生成option标签
+	public String makeOptions(List<?> data) {
+		return "";
 	}
 }

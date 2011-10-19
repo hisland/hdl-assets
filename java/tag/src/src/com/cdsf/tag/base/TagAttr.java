@@ -5,10 +5,12 @@ package com.cdsf.tag.base;
  * @description handle some common attribute
  */
 @SuppressWarnings("serial")
-public abstract class TagAttribute extends AbstractTag {
+public abstract class TagAttr extends TagI18n {
+	protected static final String COLON = ":";
 	
 	private String name;
 	private String id;
+	private String wrapId;
 	
 	//表单元素前置文本[国际化key/文本],文本优先
 	private String i18n;
@@ -16,19 +18,15 @@ public abstract class TagAttribute extends AbstractTag {
 	
 	private String style;
 	private String cssclass;
-	private String value;
-	private String suffix;
-	private int maxlength;
 	
-	//为true时表单元素会被禁用/只读, 禁用优先
+	private String value;
+	
+	//为true时表单元素会被[禁用/只读], 禁用优先
 	private boolean disabled;
 	private boolean readonly;
 	
 	//为true时会在前面加红色*号
 	private boolean required;
-	
-	//默认关闭浏览器的自动完成功能
-	private boolean autocomplete = false;
 
 	//text的name属性
 	public String getName() {
@@ -41,7 +39,6 @@ public abstract class TagAttribute extends AbstractTag {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	//text的id属性
 	public String getId() {
 		if (id == null) {
@@ -52,6 +49,40 @@ public abstract class TagAttribute extends AbstractTag {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	//外层包含块id
+	public String getWrapId() {
+		if (wrapId == null) {
+			return "";
+		}else {
+			return " id=\"" + wrapId + "\"";
+		}
+	}
+	public void setWrapId(String wrapId) {
+		this.wrapId = wrapId;
+	}
+	
+	//标签的label, i18n,text二选一,text优先
+	public void setI18n(String i18n) {
+		this.i18n = i18n;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+	public String getText(String key) {
+		if (bundle == null) {
+			return key;
+		}else {
+			return String.valueOf(bundle.getObject(key));
+		}
+	}
+	public String getLable() {
+		if (text == null) {
+			return getText(i18n) + COLON;
+		}else {
+			return text + COLON;
+		}
 	}
 
 	//text的style属性
@@ -76,18 +107,6 @@ public abstract class TagAttribute extends AbstractTag {
 	}
 	public void setCssclass(String cssclass) {
 		this.cssclass = cssclass;
-	}
-
-	//text的maxlength属性
-	public String getMaxlength() {
-		if (maxlength == 0) {
-			return "";
-		}else {
-			return " maxlength=\"" + maxlength + "\"";
-		}
-	}
-	public void setMaxlength(int maxlength) {
-		this.maxlength = maxlength;
 	}
 
 	//默认的value属性
@@ -122,56 +141,14 @@ public abstract class TagAttribute extends AbstractTag {
 	}
 
 	//是否必须,根据此会在前面加红色*号
-	public boolean isRequired() {
-		return required;
+	public String getRequiredString() {
+		if (required == true) {
+			return "<strong class=\"red\">*</strong>";
+		}else {
+			return "";
+		}
 	}
 	public void setRequired(boolean required) {
 		this.required = required;
-	}
-	
-	//标签的label, i18n,text二选一,text优先
-	public void setI18n(String i18n) {
-		this.i18n = i18n;
-	}
-	public void setText(String text) {
-		this.text = text;
-	}
-	public String getText(String key) {
-		if (bundle == null) {
-			return key;
-		}else {
-			return String.valueOf(bundle.getObject(key));
-		}
-	}
-	public String getLable() {
-		if (text == null) {
-			return getText(i18n);
-		}else {
-			return text;
-		}
-	}
-
-	//表单的浏览器自动完成功能
-	public String getAutocomplete() {
-		if (autocomplete == false) {
-			return " autocomplete=\"off\"";
-		}else {
-			return "";
-		}
-	}
-	public void setAutocomplete(boolean autocomplete) {
-		this.autocomplete = autocomplete;
-	}
-
-	//文本框后面的文本
-	public String getSuffix() {
-		if (suffix == null) {
-			return "";
-		}else {
-			return suffix;
-		}
-	}
-	public void setSuffix(String suffix) {
-		this.suffix = suffix;
 	}
 }

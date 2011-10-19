@@ -12,15 +12,12 @@ import com.cdsf.tag.base.TagAttr;
 <div class="ls1-item">
 	<div class="ls1-text">输入文字:</div>
 	<div class="ls1-ipts">
-		<input class="text1" type="password" name="" value="" />
+		<input class="text1" type="text" name="" value="" />
 	</div>
 </div>
  */
 @SuppressWarnings("serial")
-public class Password extends TagAttr {
-	private int maxlength;
-	private String dataValidType;
-	
+public class Checkbox extends TagAttr {
 	@Override
 	public int doStartTag(){
 		return SKIP_BODY;
@@ -46,15 +43,13 @@ public class Password extends TagAttr {
 			sb.append("<div class=\"ls1-ipts\">");
 			
 			//input标签
-			sb.append("<input");
-			sb.append(getType());
+			sb.append("<input type=\"checkbox\"");
 			sb.append(getName());
 			sb.append(getId());
 			sb.append(getStyle());
 			sb.append(getCssclass());
 			sb.append(getDisabledReadonly());
 			sb.append(getValue());
-			sb.append(getMaxlength());
 			sb.append(" />");
 			
 			sb.append("</div>");
@@ -65,33 +60,5 @@ public class Password extends TagAttr {
 			e.printStackTrace();
 		}
 		return EVAL_PAGE;
-	}
-	
-	public String getType() {
-		return " type=\"password\"";
-	}
-
-	//text的maxlength属性
-	public String getMaxlength() {
-		if (maxlength == 0) {
-			return "";
-		}else {
-			return " maxlength=\"" + maxlength + "\"";
-		}
-	}
-	public void setMaxlength(int maxlength) {
-		this.maxlength = maxlength;
-	}
-	
-	//验证信息
-	public String getDataValidType() {
-		if (dataValidType != null) {
-			return " data-valid-type=\"" + dataValidType + "\"";
-		}else {
-			return "";
-		}
-	}
-	public void setDataValidType(String dataValidType) {
-		this.dataValidType = dataValidType;
 	}
 }

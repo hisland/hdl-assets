@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
-import com.cdsf.tag.base.TagAttribute;
+import com.cdsf.tag.base.TagAttr;
 
 /**
  * @author hdl
@@ -23,7 +23,11 @@ import com.cdsf.tag.base.TagAttribute;
 </form>
  */
 @SuppressWarnings("serial")
-public class Query extends TagAttribute {
+public class Query extends TagAttr {
+	//默认关闭浏览器的自动完成功能
+	private boolean autocomplete = false;
+	private String action;
+	
 	@Override
 	public int doStartTag(){
 		StringBuffer sb = new StringBuffer();
@@ -55,5 +59,29 @@ public class Query extends TagAttribute {
 			e.printStackTrace();
 		}
 		return EVAL_PAGE;
+	}
+
+	//表单的浏览器自动完成功能
+	public String getAutocomplete() {
+		if (autocomplete == false) {
+			return " autocomplete=\"off\"";
+		}else {
+			return "";
+		}
+	}
+	public void setAutocomplete(boolean autocomplete) {
+		this.autocomplete = autocomplete;
+	}
+
+	//form的action属性
+	public String getAction() {
+		if (action == null) {
+			return "";
+		}else {
+			return " action=\"" + action + "\"";
+		}
+	}
+	public void setAction(String action) {
+		this.action = action;
 	}
 }

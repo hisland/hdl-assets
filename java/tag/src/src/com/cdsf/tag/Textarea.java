@@ -3,6 +3,7 @@ package com.cdsf.tag;
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
 
 import com.cdsf.tag.base.TagAttr;
 
@@ -12,28 +13,20 @@ import com.cdsf.tag.base.TagAttr;
 <div class="ls1-item">
 	<div class="ls1-text">输入文字:</div>
 	<div class="ls1-ipts">
-		<input class="text1" type="password" name="" value="" />
+		<textarea></textarea>
 	</div>
 </div>
  */
 @SuppressWarnings("serial")
-public class Password extends TagAttr {
-	private int maxlength;
+public class Textarea extends TagAttr {
 	private String dataValidType;
 	
 	@Override
 	public int doStartTag(){
-		return SKIP_BODY;
-	}
-	
-	/**
-	 * 由于是自关闭标签,直接在endTag里面做所有事情
-	 */
-	@Override
-	public int doEndTag() throws JspException {
 		StringBuffer sb = new StringBuffer();
+		JspWriter out = pageContext.getOut();
 		try {
-			sb.append("<div class=\"ls1-item\">");
+			sb.append("<div class=\"ls1-item-3r\">");
 			sb.append("<div class=\"ls1-text\">");
 			
 			//红色*号
@@ -45,17 +38,29 @@ public class Password extends TagAttr {
 			sb.append("</div>");
 			sb.append("<div class=\"ls1-ipts\">");
 			
-			//input标签
-			sb.append("<input");
-			sb.append(getType());
+			sb.append("<textarea");
 			sb.append(getName());
 			sb.append(getId());
 			sb.append(getStyle());
 			sb.append(getCssclass());
 			sb.append(getDisabledReadonly());
-			sb.append(getValue());
-			sb.append(getMaxlength());
-			sb.append(" />");
+			sb.append(">");
+			
+			out.write(sb.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return EVAL_BODY_INCLUDE;
+	}
+	
+	/**
+	 * 由于是自关闭标签,直接在endTag里面做所有事情
+	 */
+	@Override
+	public int doEndTag() throws JspException {
+		StringBuffer sb = new StringBuffer();
+		try {
+			sb.append("</textarea>");
 			
 			sb.append("</div>");
 			sb.append("</div>");
@@ -65,22 +70,6 @@ public class Password extends TagAttr {
 			e.printStackTrace();
 		}
 		return EVAL_PAGE;
-	}
-	
-	public String getType() {
-		return " type=\"password\"";
-	}
-
-	//text的maxlength属性
-	public String getMaxlength() {
-		if (maxlength == 0) {
-			return "";
-		}else {
-			return " maxlength=\"" + maxlength + "\"";
-		}
-	}
-	public void setMaxlength(int maxlength) {
-		this.maxlength = maxlength;
 	}
 	
 	//验证信息
