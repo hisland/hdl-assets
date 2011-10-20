@@ -9,7 +9,7 @@ import com.cdsf.tag.base.TagAttr;
 
 /**
  * @author hdl
- * 标签结构:
+ * @description 标签结构:
 <form style="display:none;">
 	<div class="ls1">
 	</div>
@@ -26,7 +26,7 @@ public class Pop extends TagAttr {
 	
 	@Override
 	public int doStartTag(){
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		JspWriter out = pageContext.getOut();
 		try {
 //			sb.append("<form style=\"display:none;\">");
@@ -41,7 +41,7 @@ public class Pop extends TagAttr {
 	
 	@Override
 	public int doEndTag() throws JspException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		JspWriter out = pageContext.getOut();
 		try {
 			sb.append("</div>");
@@ -57,7 +57,7 @@ public class Pop extends TagAttr {
 	}
 
 	//表单的浏览器自动完成功能
-	public String getAutocomplete() {
+	public String getAutocompleteAttr() {
 		if (autocomplete == false) {
 			return " autocomplete=\"off\"";
 		}else {

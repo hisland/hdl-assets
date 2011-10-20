@@ -9,18 +9,16 @@ import com.cdsf.tag.base.TagAttr;
 
 /**
  * @author hdl
- * 标签结构:
+ * @description 标签结构:
 <div class="red"></div>
  */
 @SuppressWarnings("serial")
 public class Tip extends TagAttr {
 	@Override
 	public int doStartTag(){
-		StringBuffer sb = new StringBuffer();
 		JspWriter out = pageContext.getOut();
 		try {
-			sb.append("<div class=\"red\">");
-			out.write(sb.toString());
+			out.write("<div class=\"red\">");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -29,11 +27,9 @@ public class Tip extends TagAttr {
 	
 	@Override
 	public int doEndTag() throws JspException {
-		StringBuffer sb = new StringBuffer();
 		JspWriter out = pageContext.getOut();
 		try {
-			sb.append("</div>");
-			out.write(sb.toString());
+			out.write("</div>");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

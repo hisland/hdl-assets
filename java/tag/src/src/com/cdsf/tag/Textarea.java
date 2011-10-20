@@ -9,7 +9,7 @@ import com.cdsf.tag.base.TagAttr;
 
 /**
  * @author hdl
- * 标签结构:
+ * @description 标签结构:
 <div class="ls1-item">
 	<div class="ls1-text">输入文字:</div>
 	<div class="ls1-ipts">
@@ -23,14 +23,11 @@ public class Textarea extends TagAttr {
 	
 	@Override
 	public int doStartTag(){
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		JspWriter out = pageContext.getOut();
 		try {
 			sb.append("<div class=\"ls1-item-3r\">");
 			sb.append("<div class=\"ls1-text\">");
-			
-			//红色*号
-			sb.append(getRequiredString());
 
 			//label
 			sb.append(getLable());
@@ -39,11 +36,7 @@ public class Textarea extends TagAttr {
 			sb.append("<div class=\"ls1-ipts\">");
 			
 			sb.append("<textarea");
-			sb.append(getName());
-			sb.append(getId());
-			sb.append(getStyle());
-			sb.append(getCssclass());
-			sb.append(getDisabledReadonly());
+			sb.append(getCommonAttr());
 			sb.append(">");
 			
 			out.write(sb.toString());
@@ -58,7 +51,7 @@ public class Textarea extends TagAttr {
 	 */
 	@Override
 	public int doEndTag() throws JspException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		try {
 			sb.append("</textarea>");
 			

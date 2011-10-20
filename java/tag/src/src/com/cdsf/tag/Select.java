@@ -10,7 +10,7 @@ import com.cdsf.tag.base.TagAttr;
 
 /**
  * @author hdl
- * 标签结构:
+ * @description 标签结构:
 <div class="ls1-item">
 	<div class="ls1-text">输入文字:</div>
 	<div class="ls1-ipts">
@@ -24,14 +24,12 @@ import com.cdsf.tag.base.TagAttr;
 public class Select extends TagAttr {
 	@Override
 	public int doStartTag(){
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		JspWriter out = pageContext.getOut();
 		try {
+			setDefaultCssclass("select1");
 			sb.append("<div class=\"ls1-item\">");
 			sb.append("<div class=\"ls1-text\">");
-			
-			//红色*号
-			sb.append(getRequiredString());
 
 			//label
 			sb.append(getLable());
@@ -63,7 +61,7 @@ public class Select extends TagAttr {
 	 */
 	@Override
 	public int doEndTag() throws JspException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		try {
 			//自定义内容后的内容
 			sb.append("<option value=\"3\">after</option>");

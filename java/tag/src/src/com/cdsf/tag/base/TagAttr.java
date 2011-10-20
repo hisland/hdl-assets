@@ -18,6 +18,8 @@ public abstract class TagAttr extends TagI18n {
 	
 	private String style;
 	private String cssclass;
+	private String defaultStyle;
+	private String defaultCssclass;
 	
 	private String value;
 	
@@ -28,12 +30,23 @@ public abstract class TagAttr extends TagI18n {
 	//为true时会在前面加红色*号
 	private boolean required;
 
+	//获取公共属性
+	public String getCommonAttr() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName())
+		.append(getId())
+		.append(getStyle())
+		.append(getCssclass())
+		.append(getDisabledReadonly());
+		return sb.toString();
+	}
+
 	//text的name属性
 	public String getName() {
-		if (name == null) {
-			return "";
-		}else {
+		if (name != null) {
 			return " name=\"" + name + "\"";
+		}else {
+			return "";
 		}
 	}
 	public void setName(String name) {
@@ -41,10 +54,10 @@ public abstract class TagAttr extends TagI18n {
 	}
 	//text的id属性
 	public String getId() {
-		if (id == null) {
-			return getName();
-		}else {
+		if (id != null) {
 			return " id=\"" + id + "\"";
+		}else {
+			return getName();
 		}
 	}
 	public void setId(String id) {
@@ -53,10 +66,10 @@ public abstract class TagAttr extends TagI18n {
 	
 	//外层包含块id
 	public String getWrapId() {
-		if (wrapId == null) {
-			return "";
-		}else {
+		if (wrapId != null) {
 			return " id=\"" + wrapId + "\"";
+		}else {
+			return "";
 		}
 	}
 	public void setWrapId(String wrapId) {
@@ -71,26 +84,31 @@ public abstract class TagAttr extends TagI18n {
 		this.text = text;
 	}
 	public String getText(String key) {
-		if (bundle == null) {
-			return key;
-		}else {
+		if (bundle != null) {
 			return String.valueOf(bundle.getObject(key));
+		}else {
+			return key;
 		}
 	}
 	public String getLable() {
-		if (text == null) {
-			return getText(i18n) + COLON;
+		String rs = "";
+		//是否必须,根据此会在前面加红色*号
+		if (required == true) {
+			rs = "<strong class=\"red\">*</strong>";
+		}
+		if (text != null) {
+			return rs + text + COLON;
 		}else {
-			return text + COLON;
+			return rs + getText(i18n) + COLON;
 		}
 	}
 
 	//text的style属性
 	public String getStyle() {
-		if (style == null) {
-			return "";
+		if (style != null) {
+			return " style=\"" + (defaultStyle == null ? style : defaultStyle + style) + "\"";
 		}else {
-			return " style=\"" + style + "\"";
+			return defaultStyle == null ? "" : " style=\"" + defaultStyle + "\"";
 		}
 	}
 	public void setStyle(String style) {
@@ -99,22 +117,29 @@ public abstract class TagAttr extends TagI18n {
 
 	//text的class属性
 	public String getCssclass() {
-		if (cssclass == null) {
-			return "";
+		if (cssclass != null) {
+			return " class=\"" + (defaultCssclass == null ? cssclass : defaultCssclass + " " + cssclass) + "\"";
 		}else {
-			return " class=\"" + cssclass + "\"";
+			return defaultCssclass == null ? "" : " class=\"" + defaultCssclass + "\"";
 		}
 	}
 	public void setCssclass(String cssclass) {
 		this.cssclass = cssclass;
 	}
 
+	public void setDefaultStyle(String defaultStyle) {
+		this.defaultStyle = defaultStyle;
+	}
+	public void setDefaultCssclass(String defaultCssclass) {
+		this.defaultCssclass = defaultCssclass;
+	}
+
 	//默认的value属性
 	public String getValue() {
-		if (value == null) {
-			return "";
-		}else {
+		if (value != null) {
 			return " value=\"" + value + "\"";
+		}else {
+			return "";
 		}
 	}
 	public void setValue(String value) {
@@ -129,25 +154,17 @@ public abstract class TagAttr extends TagI18n {
 		this.readonly = readonly;
 	}
 	public String getDisabledReadonly() {
-		if (disabled == false) {
-			if (readonly == false) {
-				return "";
-			}else {
-				return " readonly=\"readonly\"";
-			}
-		}else {
+		if (disabled != false) {
 			return " disabled=\"disabled\"";
+		}else {
+			if (readonly != false) {
+				return " readonly=\"readonly\"";
+			}else {
+				return "";
+			}
 		}
 	}
 
-	//是否必须,根据此会在前面加红色*号
-	public String getRequiredString() {
-		if (required == true) {
-			return "<strong class=\"red\">*</strong>";
-		}else {
-			return "";
-		}
-	}
 	public void setRequired(boolean required) {
 		this.required = required;
 	}

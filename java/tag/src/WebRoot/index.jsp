@@ -14,18 +14,22 @@
 	</script>
 </head>
 <body>
-	<anti:query name="hello" action="text.action">
+	<anti:query name="hello" action="test.action">
 		<anti:text name="god" text="禁用标签" disabled="true" value="禁用标签" />
 		<anti:text name="cc" text="只读标签" readonly="true" value="只读标签" />
+		<anti:text name="god" text="最大长度4" value="" maxlength="4" />
 		<anti:text name="cc" text="时间片" suffix="分钟" style="width:90px;" />
 		<anti:text name="cc" text="必填项" required="true" />
+		<anti:text name="cc" text="验证数字1-3" required="true" dataValidType="n1-3" />
 		<anti:text name="cc" text="文本标签" />
 		<anti:password name="cc" text="密码" />
 		<anti:select name="cc" text="下拉" />
-		<anti:select name="cc" text="自定义项下拉">
+		<anti:select name="cc" text="自定义项下拉项">
 			<option value="3">555</option>
 		</anti:select>
 		<anti:textarea name="tt" text="备注">bbq</anti:textarea>
+		<anti:checkbox name="queryForm.q_arg3" id="q_slur" text="启用" value="1" checked="true" />
+		<anti:fuzzy name="queryForm.q_arg3" id="q_slur" text="模糊匹配" value="1" checked="true" dataFuzzyIds="#q_slur" />
 	</anti:query>
 	
 	<anti:pop name="hello">

@@ -6,11 +6,11 @@ import javax.servlet.jsp.JspException;
 
 /**
  * @author hdl
- * 标签结构:
+ * @description 标签结构:
 <div class="ls1-item">
 	<div class="ls1-text">模糊匹配:</div>
 	<div class="ls1-ipts">
-		<input class="text1" type="checkbox" name="" value="" data-fuzzy-targets="#id1, #id2" />
+		<input class="checkbox1" type="checkbox" name="" value="" data-fuzzy-ids="#id1, #id2" />
 	</div>
 </div>
  */
@@ -28,13 +28,11 @@ public class Fuzzy extends Checkbox {
 	 */
 	@Override
 	public int doEndTag() throws JspException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		try {
+			setDefaultCssclass("checkbox1");
 			sb.append("<div class=\"ls1-item\">");
 			sb.append("<div class=\"ls1-text\">");
-			
-			//红色*号
-			sb.append(getRequiredString());
 
 			//label
 			sb.append(getLable());
@@ -42,14 +40,10 @@ public class Fuzzy extends Checkbox {
 			sb.append("</div>");
 			sb.append("<div class=\"ls1-ipts\">");
 			
-			//input标签
 			sb.append("<input type=\"checkbox\"");
-			sb.append(getName());
-			sb.append(getId());
-			sb.append(getStyle());
-			sb.append(getCssclass());
-			sb.append(getDisabledReadonly());
+			sb.append(getCommonAttr());
 			sb.append(getValue());
+			sb.append(getCheckedAttr());
 			sb.append(getDataFuzzyIds());
 			sb.append(" />");
 			

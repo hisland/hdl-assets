@@ -6,7 +6,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * @author hdl
- * @description handle some common process and i18n
+ * @description handle some i18n process
  */
 @SuppressWarnings("serial")
 public abstract class TagI18n extends BodyTagSupport {

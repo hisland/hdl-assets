@@ -4,14 +4,14 @@
 	<property name="dir.dest" value="build"/>
 
 	<tstamp>
-		<format property="build.time" pattern="yyyy-MM-dd HH:mm:ss" />
-		<format property="build.ts" pattern="yyyyMMddHHmmss" />
+		<format property="build.time" pattern="yyyy-MM-dd HH:mm:ss" offset="8" unit="hour" />
+		<format property="build.ts" pattern="yyyyMMddHHmmss" offset="8" unit="hour" />
 	</tstamp>
 
 	<target name="jar">
 		<mkdir dir="${dir.dest}/tmp/META-INF" />
 		<copy todir="${dir.dest}/tmp/META-INF" file="src/WebRoot/WEB-INF/antispam2850.tld" />
-		<javac encoding="${encoding}" srcdir="src/src" destdir="${dir.dest}/tmp">
+		<javac encoding="${encoding}" srcdir="src/src" destdir="${dir.dest}/tmp" includeantruntime="true">
 			<classpath>
 				<fileset dir="src/WebRoot/WEB-INF/lib" includes="*.jar" />
 			</classpath>

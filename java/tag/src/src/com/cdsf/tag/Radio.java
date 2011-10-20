@@ -17,7 +17,7 @@ import com.cdsf.tag.base.TagAttr;
 </div>
  */
 @SuppressWarnings("serial")
-public class Checkbox extends TagAttr {
+public class Radio extends TagAttr {
 	private boolean checked;
 	
 	@Override
@@ -32,7 +32,6 @@ public class Checkbox extends TagAttr {
 	public int doEndTag() throws JspException {
 		StringBuilder sb = new StringBuilder();
 		try {
-			setDefaultCssclass("checkbox1");
 			sb.append("<div class=\"ls1-item\">");
 			sb.append("<div class=\"ls1-text\">");
 
@@ -61,7 +60,7 @@ public class Checkbox extends TagAttr {
 
 	public String getCheckedAttr() {
 		if (checked) {
-			return " checked=\"checked\"";
+			return "checked=\"checked\"";
 		}else {
 			return "";
 		}

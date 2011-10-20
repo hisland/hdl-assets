@@ -8,7 +8,7 @@ import com.cdsf.tag.base.TagAttr;
 
 /**
  * @author hdl
- * 标签结构:
+ * @description 标签结构:
 <div class="ls1-item">
 	<div class="ls1-text">输入文字:</div>
 	<div class="ls1-ipts">
@@ -31,13 +31,11 @@ public class Password extends TagAttr {
 	 */
 	@Override
 	public int doEndTag() throws JspException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		try {
+			setDefaultCssclass("text1");
 			sb.append("<div class=\"ls1-item\">");
 			sb.append("<div class=\"ls1-text\">");
-			
-			//红色*号
-			sb.append(getRequiredString());
 
 			//label
 			sb.append(getLable());
@@ -48,13 +46,10 @@ public class Password extends TagAttr {
 			//input标签
 			sb.append("<input");
 			sb.append(getType());
-			sb.append(getName());
-			sb.append(getId());
-			sb.append(getStyle());
-			sb.append(getCssclass());
-			sb.append(getDisabledReadonly());
+			sb.append(getCommonAttr());
 			sb.append(getValue());
-			sb.append(getMaxlength());
+			sb.append(getMaxlengthAttr());
+			sb.append(getDataValidType());
 			sb.append(" />");
 			
 			sb.append("</div>");
@@ -72,11 +67,11 @@ public class Password extends TagAttr {
 	}
 
 	//text的maxlength属性
-	public String getMaxlength() {
-		if (maxlength == 0) {
-			return "";
-		}else {
+	public String getMaxlengthAttr() {
+		if (maxlength != 0) {
 			return " maxlength=\"" + maxlength + "\"";
+		}else {
+			return "";
 		}
 	}
 	public void setMaxlength(int maxlength) {

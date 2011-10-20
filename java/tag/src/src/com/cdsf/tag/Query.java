@@ -9,7 +9,7 @@ import com.cdsf.tag.base.TagAttr;
 
 /**
  * @author hdl
- * 标签结构:
+ * @description 标签结构:
 <form class="search-condition">
 	<div class="search-condition-c1">
 		<div class="ls1">
@@ -30,7 +30,7 @@ public class Query extends TagAttr {
 	
 	@Override
 	public int doStartTag(){
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		JspWriter out = pageContext.getOut();
 		try {
 			sb.append("<form class=\"search-condition\">");
@@ -45,7 +45,7 @@ public class Query extends TagAttr {
 	
 	@Override
 	public int doEndTag() throws JspException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		JspWriter out = pageContext.getOut();
 		try {
 			sb.append("</div>");
@@ -62,7 +62,7 @@ public class Query extends TagAttr {
 	}
 
 	//表单的浏览器自动完成功能
-	public String getAutocomplete() {
+	public String getAutocompleteAttr() {
 		if (autocomplete == false) {
 			return " autocomplete=\"off\"";
 		}else {

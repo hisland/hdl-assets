@@ -8,7 +8,7 @@ import com.cdsf.tag.base.TagAttr;
 
 /**
  * @author hdl
- * 标签结构:
+ * @description 标签结构:
 <div class="ls1-item">
 	<div class="ls1-text">XX开始时间:</div>
 	<div class="ls1-ipts">
@@ -34,29 +34,10 @@ public class Time extends TagAttr {
 	 */
 	@Override
 	public int doEndTag() throws JspException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		try {
 			sb.append("<div class=\"ls1-item\">");
 			sb.append("<div class=\"ls1-text\">");
-			
-			//红色*号
-			sb.append(getRequiredString());
-
-			//label
-			sb.append(getLable());
-			
-			sb.append("</div>");
-			sb.append("<div class=\"ls1-ipts\">");
-			
-			//input标签
-			sb.append("<input type=\"text\"");
-			sb.append(getName());
-			sb.append(getId());
-			sb.append(getStyle());
-			sb.append(getCssclass());
-			sb.append(getDisabledReadonly());
-			sb.append(getValue());
-			sb.append(" />");
 			
 			sb.append("</div>");
 			sb.append("</div>");
