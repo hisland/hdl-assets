@@ -28,7 +28,7 @@ input.checkbox3, input.radio3{margin:0;*margin:-3px;vertical-align:middle;}
 
 
 /* 不同长度背景的按钮 */
-input.button1{width:72px;height:22px;line-height:22px;border:none;background:url('common-img/btn1.gif') no-repeat 0 0;cursor:pointer;}
+input.button{width:72px;height:22px;line-height:22px;border:none;background:url('common-img/btn1.gif') no-repeat 0 0;cursor:pointer;}
 input.button2{width:100px;height:22px;line-height:22px;border:none;background:url('common-img/btn2.gif') no-repeat 0 0;cursor:pointer;}
 input.button3{width:150px;height:22px;line-height:22px;border:none;background:url('common-img/btn3.gif') no-repeat 0 0;cursor:pointer;}
 

@@ -6,55 +6,137 @@
 	<script type="text/javascript" charset="utf-8" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, common-css, condition-list-css');
+			S.use('reset-css, common-css, condition-list-css, popWin-css');
 		});
 	</script>
 </head>
 
 <body style="padding:50px;">
-	<div class="ls1" style="margin:3px;padding:3px;">
-		<div class="ls1-item">
-			<div class="ls1-text"><strong class="red">*</strong>输入文字:</div>
-			<div class="ls1-ipts">
-				<input class="text1" type="text" name="" value="" />
+
+	<!-- 查询条件的form -->
+	<form class="search-condition">
+		<!-- 条件列表摆放 -->
+		<div class="search-condition-c1">
+			<div class="ls1">
+				<fieldset class="ls1-fieldset">
+					<legend class="ls1-legend">这是文字</legend>
+					<div class="ls1-box">
+						<div class="ls1-item">
+							<div class="ls1-text">输入文字:</div>
+							<div class="ls1-ipts"><input class="text1" type="text" name="" value="" /></div>
+						</div>
+						<div class="ls1-item">
+							<div class="ls1-text">启用:</div>
+							<div class="ls1-ipts"><input class="checkbox1" type="checkbox" name="" value="" /></div>
+						</div>
+					</div>
+				</fieldset>
 			</div>
 		</div>
-		<div class="ls1-item">
-			<div class="ls1-text"><strong class="red">*</strong>时间片:</div>
-			<div class="ls1-ipts">
-				<input style="width:80px;" class="text1" type="text" name="" value="" />分钟
+		<!-- 按钮 -->
+		<div class="search-condition-c2">
+			<input class="search-submit" type="button" value="查询" />
+			<p class="search-more">收起条件</p>
+		</div>
+	</form>
+
+	<!-- 查询条件的form -->
+	<form class="search-condition">
+		<!-- 条件列表摆放 -->
+		<div class="search-condition-c1">
+			<div class="ls1">
+				<div class="ls1-item">
+					<div class="ls1-text"><strong class="red">*</strong>输入文字:</div>
+					<div class="ls1-ipts">
+						<input class="text1" type="text" name="" value="" />
+					</div>
+				</div>
+				<div class="ls1-item">
+					<div class="ls1-text"><strong class="red">*</strong>时间片:</div>
+					<div class="ls1-ipts">
+						<input style="width:80px;" class="text1" type="text" name="" value="" />分钟
+					</div>
+				</div>
+				<div class="ls1-item">
+					<div class="ls1-text">启用:</div>
+					<div class="ls1-ipts">
+						<input class="checkbox1" type="checkbox" name="" value="" />
+					</div>
+				</div>
+				<div class="ls1-item">
+					<div class="ls1-text">请选择:</div>
+					<div class="ls1-ipts">
+						<select class="select1" name="">
+							<option value="aa">aaa</option>
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="ls1-item">
-			<div class="ls1-text">启用:</div>
-			<div class="ls1-ipts">
-				<input class="checkbox1" type="checkbox" name="" value="" />
+		<!-- 按钮 -->
+		<div class="search-condition-c2">
+			<input class="search-submit" type="button" value="查询" />
+			<p class="search-more">收起条件</p>
+		</div>
+	</form>
+
+	<!-- 查询条件的form -->
+	<form class="search-condition">
+		<!-- 条件列表摆放 -->
+		<div class="search-condition-c1">
+			<div class="ls1">
+				<div class="ls1-item">
+					<div class="ls1-text"><strong class="red">*</strong>输入文字:</div>
+					<div class="ls1-ipts">
+						<input class="text1" type="text" name="" value="" />
+					</div>
+				</div>
+				<div class="ls1-item">
+					<div class="ls1-text"><strong class="red">*</strong>时间片:</div>
+					<div class="ls1-ipts">
+						<input style="width:80px;" class="text1" type="text" name="" value="" />分钟
+					</div>
+				</div>
+				<div class="ls1-item">
+					<div class="ls1-text">启用:</div>
+					<div class="ls1-ipts">
+						<input class="checkbox1" type="checkbox" name="" value="" />
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="ls1-item">
-			<div class="ls1-text">请选择:</div>
-			<div class="ls1-ipts">
-				<select class="select1" name="">
-					<option value="aa">aaa</option>
-				</select>
+		<!-- 按钮 -->
+		<div class="search-condition-c2">
+			<input class="search-submit" type="button" value="查询" />
+			<p class="search-more">收起条件</p>
+		</div>
+	</form>
+
+	<!-- 弹出层的form -->
+	<!-- <form style="display:none;"> -->
+	<form>
+		<div class="ls1">
+			<div class="ls1-item-3r">
+				<div class="ls1-text">备注:</div>
+				<div class="ls1-ipts">
+					<textarea></textarea>
+				</div>
+			</div>
+			<div class="ls1-item-3r">
+				<div class="ls1-text">备注:</div>
+				<div class="ls1-ipts ls1-ipts-box">
+					<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值1</label>
+					<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值2</label>
+					<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值3</label>
+					<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值4</label>
+				</div>
 			</div>
 		</div>
-		<div class="ls1-item-3r">
-			<div class="ls1-text">备注:</div>
-			<div class="ls1-ipts">
-				<textarea></textarea>
-			</div>
+		<div class="win1-btns">
+			<input class="win1-btn-ok" type="submit" id="rSavedatabtn"  value="确定" />
+			<input  class="win1-btn-cancle" type="button" id="rClosepopbtn" value="取消" />
 		</div>
-		<div class="ls1-item-3r">
-			<div class="ls1-text">备注:</div>
-			<div class="ls1-ipts ls1-ipts-box">
-				<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值1</label>
-				<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值2</label>
-				<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值3</label>
-				<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值4</label>
-			</div>
-		</div>
-	</div>
+	</form>
 
 	<div class="ls1" style="clear:left;width:460px;overflow:hidden;border:1px solid green;margin:3px;padding:3px;">
 		<div class="ls1-item-3r" style="float:right;">
@@ -84,44 +166,5 @@
 			</div>
 		</div>
 	</div>
-
-	
-	<!-- 查询条件的form -->
-	<form class="search-condition">
-		<!-- 条件列表摆放 -->
-		<div class="search-condition-c1">
-			<div class="ls1">
-				<fieldset class="ls1-fieldset">
-					<legend class="ls1-legend">这是文字</legend>
-					<div class="ls1-box">
-						<div class="ls1-item">
-							<div class="ls1-text">输入文字:</div>
-							<div class="ls1-ipts"><input class="text1" type="text" name="" value="" /></div>
-						</div>
-						<div class="ls1-item">
-							<div class="ls1-text">启用:</div>
-							<div class="ls1-ipts"><input class="checkbox1" type="checkbox" name="" value="" /></div>
-						</div>
-					</div>
-				</fieldset>
-			</div>
-		</div>
-		<!-- 按钮 -->
-		<div class="search-condition-c2">
-			<input class="search-submit" type="button" value="查询" />
-			<p class="search-more">收起条件</p>
-		</div>
-	</form>
-
-	<!-- 弹出层的form -->
-	<!-- <form style="display:none;"> -->
-	<form>
-		<div class="ls1">
-		</div>
-		<div class="win1-btns">
-			<input class="win1-btn-ok" type="submit" id="rSavedatabtn"  value="确定" />
-			<input  class="win1-btn-cancle" type="button" id="rClosepopbtn" value="取消" />
-		</div>
-	</form>
 </body>
 </html>

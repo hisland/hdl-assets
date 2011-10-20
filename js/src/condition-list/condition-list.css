@@ -2,7 +2,7 @@
 
 /* 头和内容并行排列 */
 .ls1{overflow:hidden;}
-	.ls1-item{float:left;height:20px;width:230px;overflow:hidden;padding:4px 0;}
+	.ls1-item{float:left;height:20px;line-height:1.5;width:230px;overflow:hidden;padding:4px 0;}
 		.ls1-text{float:left;height:20px;width:110px;text-align:right;}
 		.ls1-ipts{float:left;height:20px;width:120px;}
 	.ls1-item-3r{float:left;height:84px;width:230px;overflow:hidden;}
@@ -16,9 +16,9 @@
 
 
 /* 查询条件 */
-.search-condition{padding:0 150px 3px 0;overflow:hidden;margin:3px;border:1px solid #D7E2ED;*zoom:1;}
-	.search-condition-c1{float:left;width:100%;overflow:hidden;}
+.search-condition{padding:0 150px 0 0;overflow:hidden;margin:3px;border:1px solid #D7E2ED;*zoom:1;}
+	.search-condition-c1{float:left;width:100%;overflow:hidden;position:relative;}
 	.search-condition-c2{float:right;width:140px;padding:3px 5px 0;margin-right:-150px;_position:relative;_display:inline;}
-		.search-submit{float:left;width:73px;height:22px;overflow:hidden;text-indent:-30em;border:none;background:url('condition-list-img/btn_search.gif') no-repeat 0 0;cursor:pointer;}
+		.search-submit{float:left;padding-left:20px;width:73px;height:22px;line-height:22px;_line-height:24px;overflow:hidden;border:none;background:url('condition-list-img/btn_search.gif') no-repeat 0 0;cursor:pointer;color:#fff;font-weight:700;letter-spacing:5px;}
 		.search-more{float:left;margin-left:5px;padding-left:10px;width:50px;line-height:22px;background:url('condition-list-img/arr_up_down.gif') no-repeat 0 0;cursor:pointer;}
 		.search-more-2{background-position: 0px -22px;}
