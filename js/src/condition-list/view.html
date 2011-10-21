@@ -200,5 +200,44 @@
 			</div>
 		</div>
 	</div>
+
+	<form id="saveForm" name="saveForm" autocomplete="off" method="post" action="keywords/addKeywords.do">
+		<div class="ls1">
+			<div class="ls1-item-3r" style="float:right;">
+				<div class="ls1-text">备注:</div>
+				<div class="ls1-ipts">
+					<textarea></textarea>
+				</div>
+			</div>
+			<div class="ls1-item">
+				<div class="ls1-text"><strong class="red">*</strong>时间片:</div>
+				<div class="ls1-ipts">
+					<input style="width:80px;" class="text1" type="text" name="" value="" />分钟
+				</div>
+			</div>
+			<div class="ls1-item">
+				<div class="ls1-text">启用:</div>
+				<div class="ls1-ipts">
+					<input class="checkbox1" type="checkbox" name="" value="" />
+				</div>
+			</div>
+			<div class="ls1-item">
+				<div class="ls1-text">请选择:</div>
+				<div class="ls1-ipts">
+					<select class="select1" name="">
+						<option value="aa">aaa</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<input type="hidden" id="listId" name="keywordsAddForm.listId" value="">
+		<input type="hidden" id="bgnTime" name="keywordsAddForm.bgnTime">
+		
+		<div class="win1-btns">
+			<input type="submit" value="确定" id="savedatabtn" class="win1-btn-ok" disabled="">
+			<input type="button" value="取消" id="closepopbtn" class="win1-btn-cancle">
+		</div>
+	</form>
 </body>
 </html>
