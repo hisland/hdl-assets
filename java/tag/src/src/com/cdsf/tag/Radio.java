@@ -18,8 +18,6 @@ import com.cdsf.tag.base.TagAttr;
  */
 @SuppressWarnings("serial")
 public class Radio extends TagAttr {
-	private boolean checked;
-	
 	@Override
 	public int doStartTag(){
 		return SKIP_BODY;
@@ -45,7 +43,6 @@ public class Radio extends TagAttr {
 			sb.append("<input type=\"checkbox\"");
 			sb.append(getCommonAttr());
 			sb.append(getValue());
-			sb.append(getCheckedAttr());
 			sb.append(" />");
 			
 			sb.append("</div>");
@@ -56,16 +53,5 @@ public class Radio extends TagAttr {
 			e.printStackTrace();
 		}
 		return EVAL_PAGE;
-	}
-
-	public String getCheckedAttr() {
-		if (checked) {
-			return "checked=\"checked\"";
-		}else {
-			return "";
-		}
-	}
-	public void setChecked(boolean checked) {
-		this.checked = checked;
 	}
 }

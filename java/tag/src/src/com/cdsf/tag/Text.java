@@ -49,7 +49,7 @@ public class Text extends Password {
 			sb.append(getValue());
 			sb.append(getMaxlengthAttr());
 			sb.append(getDataValidType());
-			sb.append(getAutocompleteAttr());
+			sb.append(getAutocomplete());
 			sb.append(" />");
 			
 			//后缀文本
@@ -82,14 +82,18 @@ public class Text extends Password {
 	}
 
 	//表单的浏览器自动完成功能
-	public String getAutocompleteAttr() {
+	public String getAutocomplete() {
 		if (autocomplete == false) {
 			return " autocomplete=\"off\"";
 		}else {
 			return "";
 		}
 	}
-	public void setAutocomplete(boolean autocomplete) {
-		this.autocomplete = autocomplete;
+	public void setAutocomplete(String autocomplete) throws Exception {
+		if ("true".equals(autocomplete)) {
+			this.autocomplete = true;
+		}else {
+			throw new Exception("\n\n\n autocomplete must be true!----<<<\n\n");
+		}
 	}
 }

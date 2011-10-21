@@ -23,6 +23,8 @@ import com.cdsf.tag.base.TagAttr;
 public class Pop extends TagAttr {
 	//默认关闭浏览器的自动完成功能
 	private boolean autocomplete = false;
+	private boolean needButtons = true;
+	private String action;
 	
 	@Override
 	public int doStartTag(){
@@ -30,7 +32,11 @@ public class Pop extends TagAttr {
 		JspWriter out = pageContext.getOut();
 		try {
 //			sb.append("<form style=\"display:none;\">");
-			sb.append("<form>");
+			sb.append("<form");
+			sb.append(getAction());
+			sb.append(getCommonAttr());
+			sb.append(getAutocomplete());
+			sb.append(">");
 			sb.append("<div class=\"ls1\">");
 			out.write(sb.toString());
 		} catch (IOException e) {
@@ -45,10 +51,13 @@ public class Pop extends TagAttr {
 		JspWriter out = pageContext.getOut();
 		try {
 			sb.append("</div>");
-			sb.append("<div class=\"win1-btns\">");
-			sb.append("<input class=\"win1-btn-ok\" type=\"submit\" value=\"确定\" />");
-			sb.append("<input  class=\"win1-btn-cancle\" type=\"button\" value=\"取消\" />");
-			sb.append("</div></form>");
+			if (needButtons) {
+				sb.append("<div class=\"win1-btns\">");
+				sb.append("<input class=\"win1-btn-ok\" type=\"submit\" value=\"确定\" />");
+				sb.append("<input  class=\"win1-btn-cancle\" type=\"button\" value=\"取消\" />");
+				sb.append("</div>");
+			}
+			sb.append("</form>");
 			out.write(sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -57,14 +66,38 @@ public class Pop extends TagAttr {
 	}
 
 	//表单的浏览器自动完成功能
-	public String getAutocompleteAttr() {
+	public String getAutocomplete() {
 		if (autocomplete == false) {
 			return " autocomplete=\"off\"";
 		}else {
 			return "";
 		}
 	}
-	public void setAutocomplete(boolean autocomplete) {
-		this.autocomplete = autocomplete;
+	public void setAutocomplete(String autocomplete) throws Exception {
+		if ("true".equals(autocomplete)) {
+			this.autocomplete = true;
+		}else {
+			throw new Exception("\n\n\n autocomplete must be true!----<<<\n\n");
+		}
+	}
+	
+	public void setNeedButtons(String needButtons) throws Exception {
+		if ("false".equals(needButtons)) {
+			this.needButtons = false;
+		}else {
+			throw new Exception("\n\n\n needButtons must be false!----<<<\n\n");
+		}
+	}
+
+	//form的action属性
+	public String getAction() {
+		if (action == null) {
+			return "";
+		}else {
+			return " action=\"" + action + "\"";
+		}
+	}
+	public void setAction(String action) {
+		this.action = action;
 	}
 }

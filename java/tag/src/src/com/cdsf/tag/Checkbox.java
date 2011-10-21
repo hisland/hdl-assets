@@ -46,7 +46,7 @@ public class Checkbox extends TagAttr {
 			sb.append("<input type=\"checkbox\"");
 			sb.append(getCommonAttr());
 			sb.append(getValue());
-			sb.append(getCheckedAttr());
+			sb.append(getChecked());
 			sb.append(" />");
 			
 			sb.append("</div>");
@@ -59,14 +59,18 @@ public class Checkbox extends TagAttr {
 		return EVAL_PAGE;
 	}
 
-	public String getCheckedAttr() {
+	public String getChecked() {
 		if (checked) {
 			return " checked=\"checked\"";
 		}else {
 			return "";
 		}
 	}
-	public void setChecked(boolean checked) {
-		this.checked = checked;
+	public void setChecked(String checked) throws Exception {
+		if ("true".equals(checked)) {
+			this.checked = true;
+		}else {
+			throw new Exception("\n\n\n checked must be true!----<<<\n\n");
+		}
 	}
 }

@@ -33,7 +33,11 @@ public class Query extends TagAttr {
 		StringBuilder sb = new StringBuilder();
 		JspWriter out = pageContext.getOut();
 		try {
-			sb.append("<form class=\"search-condition\">");
+			sb.append("<form class=\"search-condition\"");
+			sb.append(getAction());
+			sb.append(getCommonAttr());
+			sb.append(getAutocomplete());
+			sb.append(">");
 			sb.append("<div class=\"search-condition-c1\">");
 			sb.append("<div class=\"ls1\">");
 			out.write(sb.toString());
@@ -62,15 +66,19 @@ public class Query extends TagAttr {
 	}
 
 	//表单的浏览器自动完成功能
-	public String getAutocompleteAttr() {
+	public String getAutocomplete() {
 		if (autocomplete == false) {
 			return " autocomplete=\"off\"";
 		}else {
 			return "";
 		}
 	}
-	public void setAutocomplete(boolean autocomplete) {
-		this.autocomplete = autocomplete;
+	public void setAutocomplete(String autocomplete) throws Exception {
+		if ("true".equals(autocomplete)) {
+			this.autocomplete = true;
+		}else {
+			throw new Exception("\n\n\n autocomplete must be true!----<<<\n\n");
+		}
 	}
 
 	//form的action属性

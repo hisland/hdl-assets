@@ -43,7 +43,7 @@ public class Fuzzy extends Checkbox {
 			sb.append("<input type=\"checkbox\"");
 			sb.append(getCommonAttr());
 			sb.append(getValue());
-			sb.append(getCheckedAttr());
+			sb.append(getChecked());
 			sb.append(getDataFuzzyIds());
 			sb.append(" />");
 			

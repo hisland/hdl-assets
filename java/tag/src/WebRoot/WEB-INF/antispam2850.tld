@@ -51,12 +51,11 @@
 			required : 表单必填
 			autocomplete : 浏览器自带的自动完成功能开启与否, [默认关闭]
 			suffix : 文本输入框后面带文本, 需要自己设置style保证文本不换行
-			data-valid-type : 验证信息
-			data-fuzzy-ids : 模糊匹配的ids
+			dataValidType : 验证信息
+			dataFuzzyIds : 模糊匹配的ids
 			float : 表单元素块的float样式
 			wrap-id: 包含块id,方便单个隐藏显示
-			items: 下拉框的数据源
-			items-after: 下拉框的数据源,放到自定义数据后面
+			needButtons: 下拉框的数据源,放到自定义数据后面
 		]]>
 	</description>
 
@@ -67,8 +66,8 @@
 		<description>查询条件结构</description>
 		<attribute>
 			<name>name</name>
-			<required>true</required>
-			<description><![CDATA[必填,后台form对应的实例名]]></description>
+			<required>false</required>
+			<description><![CDATA[可选,后台form对应的实例名]]></description>
 		</attribute>
 		<attribute>
 			<name>id</name>
@@ -77,7 +76,7 @@
 		</attribute>
 		<attribute>
 			<name>action</name>
-			<required>true</required>
+			<required>false</required>
 			<description><![CDATA[可选,form的action属性]]></description>
 		</attribute>
 		<attribute>
@@ -93,7 +92,7 @@
 		<attribute>
 			<name>autocomplete</name>
 			<required>false</required>
-			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启]]></description>
+			<description><![CDATA[可选,表单元素自身的自动完成功能,值只能是true]]></description>
 		</attribute>
 	</tag>
 	
@@ -104,13 +103,18 @@
 		<description>弹出添加修改结构</description>
 		<attribute>
 			<name>name</name>
-			<required>true</required>
-			<description><![CDATA[必填,后台form对应的实例名]]></description>
+			<required>false</required>
+			<description><![CDATA[可选,后台form对应的实例名]]></description>
 		</attribute>
 		<attribute>
 			<name>id</name>
 			<required>false</required>
 			<description><![CDATA[可选,生成form的id属性,若无使用name值]]></description>
+		</attribute>
+		<attribute>
+			<name>action</name>
+			<required>false</required>
+			<description><![CDATA[可选,form的action属性]]></description>
 		</attribute>
 		<attribute>
 			<name>style</name>
@@ -125,7 +129,12 @@
 		<attribute>
 			<name>autocomplete</name>
 			<required>false</required>
-			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启]]></description>
+			<description><![CDATA[可选,表单元素自身的自动完成功能,值只能是true]]></description>
+		</attribute>
+		<attribute>
+			<name>needButtons</name>
+			<required>false</required>
+			<description><![CDATA[可选,自己生成确定按钮时设置为false,值只能是false]]></description>
 		</attribute>
 	</tag>
 	
@@ -136,8 +145,8 @@
 		<description>text标签</description>
 		<attribute>
 			<name>name</name>
-			<required>true</required>
-			<description><![CDATA[必填,后台form对应的属性名]]></description>
+			<required>false</required>
+			<description><![CDATA[可选,后台form对应的属性名]]></description>
 		</attribute>
 		<attribute>
 			<name>id</name>
@@ -147,12 +156,12 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>style</name>
@@ -177,22 +186,22 @@
 		<attribute>
 			<name>disabled</name>
 			<required>false</required>
-			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>readonly</name>
 			<required>false</required>
-			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>required</name>
 			<required>false</required>
-			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>autocomplete</name>
 			<required>false</required>
-			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启]]></description>
+			<description><![CDATA[可选,表单元素自身的自动完成功能,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>suffix</name>
@@ -213,8 +222,8 @@
 		<description>password标签</description>
 		<attribute>
 			<name>name</name>
-			<required>true</required>
-			<description><![CDATA[必填,后台form对应的属性名]]></description>
+			<required>false</required>
+			<description><![CDATA[可选,后台form对应的属性名]]></description>
 		</attribute>
 		<attribute>
 			<name>id</name>
@@ -224,12 +233,12 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>style</name>
@@ -254,27 +263,17 @@
 		<attribute>
 			<name>disabled</name>
 			<required>false</required>
-			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>readonly</name>
 			<required>false</required>
-			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>required</name>
 			<required>false</required>
-			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
-		</attribute>
-		<attribute>
-			<name>autocomplete</name>
-			<required>false</required>
-			<description><![CDATA[可选,表单元素自身的自动完成功能是否开启]]></description>
-		</attribute>
-		<attribute>
-			<name>suffix</name>
-			<required>false</required>
-			<description><![CDATA[可选,文本输入框后面带文本, 需要自己设置style保证文本不换行]]></description>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>dataValidType</name>
@@ -290,8 +289,8 @@
 		<description>textarea标签</description>
 		<attribute>
 			<name>name</name>
-			<required>true</required>
-			<description><![CDATA[必填,后台form对应的属性名]]></description>
+			<required>false</required>
+			<description><![CDATA[可选,后台form对应的属性名]]></description>
 		</attribute>
 		<attribute>
 			<name>id</name>
@@ -301,12 +300,12 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>style</name>
@@ -331,17 +330,17 @@
 		<attribute>
 			<name>disabled</name>
 			<required>false</required>
-			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>readonly</name>
 			<required>false</required>
-			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>required</name>
 			<required>false</required>
-			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>dataValidType</name>
@@ -357,8 +356,8 @@
 		<description>select标签</description>
 		<attribute>
 			<name>name</name>
-			<required>true</required>
-			<description><![CDATA[必填,后台form对应的属性名]]></description>
+			<required>false</required>
+			<description><![CDATA[可选,后台form对应的属性名]]></description>
 		</attribute>
 		<attribute>
 			<name>id</name>
@@ -368,12 +367,12 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>style</name>
@@ -393,17 +392,12 @@
 		<attribute>
 			<name>disabled</name>
 			<required>false</required>
-			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
-		</attribute>
-		<attribute>
-			<name>readonly</name>
-			<required>false</required>
-			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>required</name>
 			<required>false</required>
-			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示,值只能是true]]></description>
 		</attribute>
 	</tag>
 	
@@ -414,8 +408,8 @@
 		<description>checkbox标签</description>
 		<attribute>
 			<name>name</name>
-			<required>true</required>
-			<description><![CDATA[必填,后台form对应的属性名]]></description>
+			<required>false</required>
+			<description><![CDATA[可选,后台form对应的属性名]]></description>
 		</attribute>
 		<attribute>
 			<name>id</name>
@@ -425,12 +419,12 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>style</name>
@@ -450,17 +444,17 @@
 		<attribute>
 			<name>disabled</name>
 			<required>false</required>
-			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>required</name>
 			<required>false</required>
-			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>checked</name>
 			<required>false</required>
-			<description><![CDATA[可选,当前选中与否]]></description>
+			<description><![CDATA[可选,当前选中与否,值只能是true]]></description>
 		</attribute>
 	</tag>
 
@@ -471,8 +465,8 @@
 		<description>模糊匹配标签</description>
 		<attribute>
 			<name>name</name>
-			<required>true</required>
-			<description><![CDATA[必填,后台form对应的属性名]]></description>
+			<required>false</required>
+			<description><![CDATA[可选,后台form对应的属性名]]></description>
 		</attribute>
 		<attribute>
 			<name>id</name>
@@ -482,12 +476,12 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
-			<description><![CDATA[i18n,text二选一, 显示的label]]></description>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>style</name>
@@ -507,17 +501,17 @@
 		<attribute>
 			<name>disabled</name>
 			<required>false</required>
-			<description><![CDATA[可选, 与readonly, disabled二选一, disabled优先]]></description>
+			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>required</name>
 			<required>false</required>
-			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示]]></description>
+			<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>checked</name>
 			<required>false</required>
-			<description><![CDATA[可选,当前选中与否]]></description>
+			<description><![CDATA[可选,当前选中与否,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>dataFuzzyIds</name>

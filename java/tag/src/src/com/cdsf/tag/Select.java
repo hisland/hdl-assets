@@ -1,7 +1,6 @@
 package com.cdsf.tag;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -46,9 +45,6 @@ public class Select extends TagAttr {
 			sb.append(getValue());
 			sb.append(">");
 			
-			//自定义内容前的内容
-			sb.append("<option value=\"0\">before</option>");
-			
 			out.write(sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -63,10 +59,7 @@ public class Select extends TagAttr {
 	public int doEndTag() throws JspException {
 		StringBuilder sb = new StringBuilder();
 		try {
-			//自定义内容后的内容
-			sb.append("<option value=\"3\">after</option>");
 			
-			//input标签
 			sb.append("</select>");
 			
 			sb.append("</div>");
@@ -77,10 +70,5 @@ public class Select extends TagAttr {
 			e.printStackTrace();
 		}
 		return EVAL_PAGE;
-	}
-	
-	//根据data生成option标签
-	public String makeOptions(List<?> data) {
-		return "";
 	}
 }

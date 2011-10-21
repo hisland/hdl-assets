@@ -147,11 +147,19 @@ public abstract class TagAttr extends TagI18n {
 	}
 
 	//readonly, disabled二选一, disabled优先
-	public void setDisabled(boolean disabled) {
-		this.disabled = disabled;
+	public void setDisabled(String disabled) throws Exception {
+		if ("true".equals(disabled)) {
+			this.disabled = true;
+		}else {
+			throw new Exception("\n\n\n disabled must be true!----<<<\n\n");
+		}
 	}
-	public void setReadonly(boolean readonly) {
-		this.readonly = readonly;
+	public void setReadonly(String readonly) throws Exception {
+		if ("true".equals(readonly)) {
+			this.readonly = true;
+		}else {
+			throw new Exception("\n\n\n readonly must be true!----<<<\n\n");
+		}
 	}
 	public String getDisabledReadonly() {
 		if (disabled != false) {
@@ -165,7 +173,11 @@ public abstract class TagAttr extends TagI18n {
 		}
 	}
 
-	public void setRequired(boolean required) {
-		this.required = required;
+	public void setRequired(String required) throws Exception {
+		if ("true".equals(required)) {
+			this.required = true;
+		}else {
+			throw new Exception("\n\n\n required must be true!----<<<\n\n");
+		}
 	}
 }
