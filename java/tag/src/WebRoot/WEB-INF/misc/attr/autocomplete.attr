@@ -1,0 +1,5 @@
+<attribute>
+	<name>autocomplete</name>
+	<required>false</required>
+	<description><![CDATA[可选,表单元素自身的自动完成功能,值只能是true]]></description>
+</attribute>

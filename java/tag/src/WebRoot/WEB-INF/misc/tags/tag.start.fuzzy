@@ -1,0 +1,5 @@
+<tag>
+	<name>fuzzy</name>
+	<tag-class>com.cdsf.tag.Fuzzy</tag-class>
+	<body-content>empty</body-content>
+	<description>模糊匹配标签</description>

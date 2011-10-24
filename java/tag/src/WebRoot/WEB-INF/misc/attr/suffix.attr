@@ -1,0 +1,5 @@
+<attribute>
+	<name>suffix</name>
+	<required>false</required>
+	<description><![CDATA[可选,文本输入框后面带文本, 需要自己设置style保证文本不换行]]></description>
+</attribute>

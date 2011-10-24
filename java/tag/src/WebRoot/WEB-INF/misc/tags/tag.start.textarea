@@ -1,0 +1,5 @@
+<tag>
+	<name>textarea</name>
+	<tag-class>com.cdsf.tag.Textarea</tag-class>
+	<body-content>JSP</body-content>
+	<description>textarea标签</description>

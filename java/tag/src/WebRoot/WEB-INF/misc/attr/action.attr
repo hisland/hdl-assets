@@ -1,0 +1,5 @@
+<attribute>
+	<name>action</name>
+	<required>false</required>
+	<description><![CDATA[可选,form的action属性]]></description>
+</attribute>

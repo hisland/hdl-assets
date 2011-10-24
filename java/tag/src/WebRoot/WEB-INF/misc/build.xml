@@ -1,0 +1,176 @@
+<project name="java.tag" default="make-tld">
+	<property name="encoding" value="UTF-8"/>
+	<property name="version" value="1.0"/>
+
+	<extension-point name="tld-pre" />
+	<target name="make-tld" depends="tld-pre">
+		<concat destfile="antispam2850.tld" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/tld.start" />
+
+			<path path="tags/tag.query" />
+			<path path="tags/tag.pop" />
+
+			<path path="tags/tld.end" />
+		</concat>
+	</target>
+
+	<target name="tag.query" extensionOf="tld-pre">
+		<concat destfile="tags/tag.query" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/tag.start.query" />
+
+			<path path="attr/name.attr" />
+			<path path="attr/id.attr" />
+			<path path="attr/style.attr" />
+			<path path="attr/cssclass.attr" />
+
+			<path path="attr/action.attr" />
+			<path path="attr/autocomplete.attr" />
+
+			<path path="tags/tag.end" />
+		</concat>
+	</target>
+
+	<target name="tag.pop" extensionOf="tld-pre">
+		<concat destfile="tags/tag.pop" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/tag.start.pop" />
+
+			<path path="attr/name.attr" />
+			<path path="attr/id.attr" />
+			<path path="attr/style.attr" />
+			<path path="attr/cssclass.attr" />
+
+			<path path="attr/action.attr" />
+			<path path="attr/autocomplete.attr" />
+			<path path="attr/needButtons.attr" />
+
+			<path path="tags/tag.end" />
+		</concat>
+	</target>
+
+	<target name="tag.text" extensionOf="tld-pre">
+		<concat destfile="tags/tag.text" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/tag.start.text" />
+
+			<path path="attr/name.attr" />
+			<path path="attr/id.attr" />
+			<path path="attr/style.attr" />
+			<path path="attr/cssclass.attr" />
+
+			<path path="attr/i18n.attr" />
+			<path path="attr/text.attr" />
+			<path path="attr/maxlength.attr" />
+			<path path="attr/autocomplete.attr" />
+			<path path="attr/disabled.attr" />
+			<path path="attr/readonly.attr" />
+			<path path="attr/value.attr" />
+			<path path="attr/required.attr" />
+			<path path="attr/suffix.attr" />
+			<path path="attr/dataValidType.attr" />
+
+			<path path="tags/tag.end" />
+		</concat>
+	</target>
+
+	<target name="tag.password" extensionOf="tld-pre">
+		<concat destfile="tags/tag.text" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/tag.start.password" />
+
+			<path path="attr/name.attr" />
+			<path path="attr/id.attr" />
+			<path path="attr/style.attr" />
+			<path path="attr/cssclass.attr" />
+
+			<path path="attr/i18n.attr" />
+			<path path="attr/text.attr" />
+			<path path="attr/maxlength.attr" />
+			<path path="attr/disabled.attr" />
+			<path path="attr/readonly.attr" />
+			<path path="attr/value.attr" />
+			<path path="attr/required.attr" />
+			<path path="attr/dataValidType.attr" />
+
+			<path path="tags/tag.end" />
+		</concat>
+	</target>
+
+	<target name="tag.textarea" extensionOf="tld-pre">
+		<concat destfile="tags/tag.textarea" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/tag.start.textarea" />
+
+			<path path="attr/name.attr" />
+			<path path="attr/id.attr" />
+			<path path="attr/style.attr" />
+			<path path="attr/cssclass.attr" />
+
+			<path path="attr/i18n.attr" />
+			<path path="attr/text.attr" />
+			<path path="attr/maxlength.attr" />
+			<path path="attr/disabled.attr" />
+			<path path="attr/readonly.attr" />
+			<path path="attr/value.attr" />
+			<path path="attr/required.attr" />
+			<path path="attr/dataValidType.attr" />
+
+			<path path="tags/tag.end" />
+		</concat>
+	</target>
+
+	<target name="tag.select" extensionOf="tld-pre">
+		<concat destfile="tags/tag.select" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/tag.start.pop" />
+
+			<path path="attr/name.attr" />
+			<path path="attr/id.attr" />
+			<path path="attr/style.attr" />
+			<path path="attr/cssclass.attr" />
+
+			<path path="attr/i18n.attr" />
+			<path path="attr/text.attr" />
+			<path path="attr/disabled.attr" />
+			<path path="attr/value.attr" />
+			<path path="attr/required.attr" />
+
+			<path path="tags/tag.end" />
+		</concat>
+	</target>
+
+	<target name="tag.checkbox" extensionOf="tld-pre">
+		<concat destfile="tags/tag.checkbox" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/tag.start.checkbox" />
+
+			<path path="attr/name.attr" />
+			<path path="attr/id.attr" />
+			<path path="attr/style.attr" />
+			<path path="attr/cssclass.attr" />
+
+			<path path="attr/i18n.attr" />
+			<path path="attr/text.attr" />
+			<path path="attr/disabled.attr" />
+			<path path="attr/value.attr" />
+			<path path="attr/required.attr" />
+			<path path="attr/checked.attr" />
+
+			<path path="tags/tag.end" />
+		</concat>
+	</target>
+
+	<target name="tag.fuzzy" extensionOf="tld-pre">
+		<concat destfile="tags/tag.fuzzy" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/tag.start.fuzzy" />
+
+			<path path="attr/name.attr" />
+			<path path="attr/id.attr" />
+			<path path="attr/style.attr" />
+			<path path="attr/cssclass.attr" />
+
+			<path path="attr/i18n.attr" />
+			<path path="attr/text.attr" />
+			<path path="attr/disabled.attr" />
+			<path path="attr/value.attr" />
+			<path path="attr/required.attr" />
+			<path path="attr/dataFuzzyIds.attr" />
+
+			<path path="tags/tag.end" />
+		</concat>
+	</target>
+</project>

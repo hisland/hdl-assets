@@ -1,0 +1,5 @@
+<attribute>
+	<name>maxlength</name>
+	<required>false</required>
+	<description><![CDATA[可选,最大长度]]></description>
+</attribute>

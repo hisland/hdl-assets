@@ -1,0 +1,41 @@
+<tag>
+	<name>pop</name>
+	<tag-class>com.cdsf.tag.Pop</tag-class>
+	<body-content>jsp</body-content>
+	<description>弹出添加修改结构</description>
+<attribute>
+	<name>name</name>
+	<required>false</required>
+	<description><![CDATA[可选,后台form对应的属性名]]></description>
+</attribute>
+<attribute>
+	<name>id</name>
+	<required>false</required>
+	<description><![CDATA[可选,生成表单元素的id属性,若无使用name值]]></description>
+</attribute>
+<attribute>
+	<name>style</name>
+	<required>false</required>
+	<description><![CDATA[可选,额外的style属性, 与html的style属性一致]]></description>
+</attribute>
+<attribute>
+	<name>cssclass</name>
+	<required>false</required>
+	<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+</attribute>
+<attribute>
+	<name>action</name>
+	<required>false</required>
+	<description><![CDATA[可选,form的action属性]]></description>
+</attribute>
+<attribute>
+	<name>autocomplete</name>
+	<required>false</required>
+	<description><![CDATA[可选,表单元素自身的自动完成功能,值只能是true]]></description>
+</attribute>
+<attribute>
+	<name>needButtons</name>
+	<required>false</required>
+	<description><![CDATA[可选,自己生成确定按钮时设置为false,值只能是false]]></description>
+</attribute>
+</tag>

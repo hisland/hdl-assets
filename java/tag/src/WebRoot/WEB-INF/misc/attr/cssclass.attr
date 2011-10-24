@@ -1,0 +1,5 @@
+<attribute>
+	<name>cssclass</name>
+	<required>false</required>
+	<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+</attribute>

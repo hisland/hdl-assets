@@ -1,0 +1,5 @@
+<attribute>
+	<name>dataFuzzyIds</name>
+	<required>false</required>
+	<description><![CDATA[可选,模糊的:text的#id, #id...]]></description>
+</attribute>

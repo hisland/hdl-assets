@@ -1,0 +1,5 @@
+<attribute>
+	<name>required</name>
+	<required>false</required>
+	<description><![CDATA[可选,此条目是否必须, 会在前面加*号表示,值只能是true]]></description>
+</attribute>

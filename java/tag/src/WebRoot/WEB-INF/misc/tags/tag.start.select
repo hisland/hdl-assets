@@ -1,0 +1,5 @@
+<tag>
+	<name>select</name>
+	<tag-class>com.cdsf.tag.Select</tag-class>
+	<body-content>jsp</body-content>
+	<description>select标签</description>

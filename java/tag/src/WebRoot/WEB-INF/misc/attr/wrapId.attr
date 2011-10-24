@@ -1,0 +1,5 @@
+<attribute>
+	<name>wrapId</name>
+	<required>false</required>
+	<description><![CDATA[可选,查询条件外层包含块的id属性]]></description>
+</attribute>

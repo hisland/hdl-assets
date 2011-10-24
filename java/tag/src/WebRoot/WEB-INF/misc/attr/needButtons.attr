@@ -1,0 +1,5 @@
+<attribute>
+	<name>needButtons</name>
+	<required>false</required>
+	<description><![CDATA[可选,自己生成确定按钮时设置为false,值只能是false]]></description>
+</attribute>
