@@ -1,0 +1,5 @@
+		<attribute>
+			<name>i18n</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
+		</attribute>

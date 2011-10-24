@@ -1,0 +1,5 @@
+		<attribute>
+			<name>maxlength</name>
+			<required>false</required>
+			<description><![CDATA[可选,文本框或者密码框的最大长度]]></description>
+		</attribute>

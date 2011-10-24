@@ -1,0 +1,5 @@
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<description><![CDATA[可选,与html的id属性一致,若无使用name值]]></description>
+		</attribute>

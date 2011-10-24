@@ -1,0 +1,5 @@
+	<tag>
+		<name>text</name>
+		<tag-class>com.cdsf.tag.Text</tag-class>
+		<body-content>empty</body-content>
+		<description>text标签</description>

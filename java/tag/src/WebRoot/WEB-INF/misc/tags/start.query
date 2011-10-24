@@ -1,0 +1,5 @@
+	<tag>
+		<name>query</name>
+		<tag-class>com.cdsf.tag.Query</tag-class>
+		<body-content>jsp</body-content>
+		<description>查询条件结构</description>
