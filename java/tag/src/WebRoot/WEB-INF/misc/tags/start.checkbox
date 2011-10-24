@@ -1,0 +1,5 @@
+	<tag>
+		<name>checkbox</name>
+		<tag-class>com.cdsf.tag.Checkbox</tag-class>
+		<body-content>empty</body-content>
+		<description>checkbox标签</description>

@@ -1,5 +1,0 @@
-<attribute>
-	<name>id</name>
-	<required>false</required>
-	<description><![CDATA[可选,生成表单元素的id属性,若无使用name值]]></description>
-</attribute>

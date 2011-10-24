@@ -1,0 +1,5 @@
+		<attribute>
+			<name>readonly</name>
+			<required>false</required>
+			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
+		</attribute>

@@ -1,5 +1,0 @@
-<attribute>
-	<name>dataValidType</name>
-	<required>false</required>
-	<description><![CDATA[可选,文本输入框的验证]]></description>
-</attribute>

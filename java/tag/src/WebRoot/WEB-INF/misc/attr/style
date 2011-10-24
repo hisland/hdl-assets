@@ -1,0 +1,5 @@
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的style属性, 与html的style属性一致]]></description>
+		</attribute>

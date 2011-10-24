@@ -1,5 +1,0 @@
-<attribute>
-	<name>name</name>
-	<required>false</required>
-	<description><![CDATA[可选,后台form对应的属性名]]></description>
-</attribute>
