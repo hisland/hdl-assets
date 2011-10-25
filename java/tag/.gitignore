@@ -1,2 +1,3 @@
 build
-src/WebRoot/assets
+customTag/WebRoot/assets
+simpleTag/WebRoot/assets

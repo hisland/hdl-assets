@@ -10,10 +10,10 @@
 
 	<target name="jar">
 		<mkdir dir="${dir.dest}/tmp/META-INF" />
-		<copy todir="${dir.dest}/tmp/META-INF" file="src/WebRoot/WEB-INF/antispam2850.tld" />
-		<javac encoding="${encoding}" srcdir="src/src" destdir="${dir.dest}/tmp" includeantruntime="true">
+		<copy todir="${dir.dest}/tmp/META-INF" file="customTag/WebRoot/WEB-INF/antispam2850.tld" />
+		<javac encoding="${encoding}" srcdir="customTag/src" destdir="${dir.dest}/tmp" includeantruntime="true">
 			<classpath>
-				<fileset dir="src/WebRoot/WEB-INF/lib" includes="*.jar" />
+				<fileset dir="customTag/WebRoot/WEB-INF/lib" includes="*.jar" />
 			</classpath>
 		</javac>
 		<jar destfile="${dir.dest}/cdsf-tag-${version}-${build.ts}.jar" basedir="${dir.dest}/tmp"/>
