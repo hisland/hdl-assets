@@ -1,0 +1,5 @@
+		<attribute>
+			<name>fuzzyChecked</name>
+			<required>false</required>
+			<description><![CDATA[可选,文本框模糊查询checkbox的选中状态,值只能是true]]></description>
+		</attribute>

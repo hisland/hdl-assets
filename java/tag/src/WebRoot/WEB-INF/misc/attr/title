@@ -1,0 +1,5 @@
+		<attribute>
+			<name>title</name>
+			<required>false</required>
+			<description><![CDATA[可选,元素的title属性]]></description>
+		</attribute>

@@ -6,8 +6,6 @@ package com.cdsf.tag.base;
  */
 @SuppressWarnings("serial")
 public abstract class TagAttr extends TagI18n {
-	protected static final String COLON = ":";
-	
 	private String name;
 	private String id;
 	private String wrapId;

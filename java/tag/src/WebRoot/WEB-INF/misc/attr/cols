@@ -1,0 +1,5 @@
+		<attribute>
+			<name>cols</name>
+			<required>false</required>
+			<description><![CDATA[可选,基本查询条件item的宽度,默认是1,值为2,3,其它无效]]></description>
+		</attribute>

@@ -5,7 +5,7 @@
 	<tlib-version>1.2</tlib-version>
 	<jsp-version>1.2</jsp-version>
 	<short-name>antispam2850-tags</short-name>
-	<uri>/antispam2850-tags</uri>
+	<uri>/aa-tags</uri>
 	<description>
 		<![CDATA[
 			query: 查询条件结构
@@ -58,8 +58,44 @@
 			float : 表单元素块的float样式
 			wrapId: 包含块id,方便单个隐藏显示
 			needButtons: 弹出层是否自动生成确定按钮
-			fuzzyChecked:文本框模糊查询checkbox的选中状态,值只能是true
-			fuzzyValue:文本框模糊查询checkbox的默认值
 		]]>
 	</description>
 
+	<tag>
+		<name>query</name>
+		<tag-class>bbq.AAA</tag-class>
+		<body-content>scriptless</body-content>
+		<description>查询条件结构</description>
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+			<description><![CDATA[可选,与html的name属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<description><![CDATA[可选,与html的id属性一致,若无使用name值]]></description>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的style属性, 与html的style属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>cssclass</name>
+			<required>false</required>
+			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>action</name>
+			<required>false</required>
+			<description><![CDATA[可选,form的action属性]]></description>
+		</attribute>
+		<attribute>
+			<name>autocomplete</name>
+			<required>false</required>
+			<description><![CDATA[可选,表单元素自身的自动完成功能,值只能为true]]></description>
+		</attribute>
+	</tag>
+
+</taglib>

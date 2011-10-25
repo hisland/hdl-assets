@@ -10,7 +10,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 @SuppressWarnings("serial")
 public abstract class TagI18n extends BodyTagSupport {
-	public static ResourceBundle bundle = null;
+	protected static final String COLON = ":";
+	protected static ResourceBundle bundle = null;
 	
 	/**
 	 * @author hdl

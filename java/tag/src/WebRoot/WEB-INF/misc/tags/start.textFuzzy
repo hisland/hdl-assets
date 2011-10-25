@@ -1,0 +1,5 @@
+	<tag>
+		<name>textFuzzy</name>
+		<tag-class>com.cdsf.tag.TextFuzzy</tag-class>
+		<body-content>empty</body-content>
+		<description>text标签,后带模糊与否的checkbox</description>

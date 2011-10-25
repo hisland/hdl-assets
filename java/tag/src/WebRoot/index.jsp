@@ -32,15 +32,19 @@
 		<anti:text name="cc" text="启用自动完成" autocomplete="true" />
 		<anti:text name="cc" text="验证数字1-3" required="true" dataValidType="n1-3" />
 		<anti:text name="cc" text="文本标签" />
+		
 		<anti:password name="cc" text="密码" />
-		<anti:select name="cc" text="下拉" />
+		<anti:password name="cc" text="密码验证数字1-3" required="true" dataValidType="n1-3" />
+		
 		<anti:select name="cc" text="c标签生成下拉项">
 			<option value="">全部</option>
 			<c:forEach items="${god}" var="ii">
 				<option value="${ii}">${ii}</option>
 			</c:forEach>
 		</anti:select>
+		
 		<anti:textarea name="tt" text="备注">bbq</anti:textarea>
+		
 		<anti:checkbox name="queryForm.q_arg3" id="q_slur" text="启用" value="1" checked="true" />
 		<anti:fuzzy name="queryForm.q_arg3" id="q_slur" text="模糊匹配" value="1" checked="true" dataFuzzyIds="#q_slur" />
 	</anti:query>
