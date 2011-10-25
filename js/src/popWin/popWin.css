@@ -8,5 +8,5 @@
 	.win1-content-wrap{border-top:1px solid #92b1dc;margin:1px -1px -1px;padding:8px;background:#f8fbff;}
 		.win1-content{cursor:default;background:#fff;position:relative;overflow:auto;}
 
-	.win1-btns{text-align:right;padding:5px;}
+	.win1-btns{text-align:right;padding:5px;clear:left;}
 		.win1-btns input{width:72px;height:22px;line-height:22px;margin-left:8px;background:url('popWin-img/btn1.gif') no-repeat 0 0;border:none;cursor:pointer;}
