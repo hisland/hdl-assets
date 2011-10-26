@@ -133,8 +133,9 @@ KISSY.add('weekTool', function(S, undef) {
 					}
 				}
 			}else{
-				console.log('$.week().setDate(date), date must be a valid Date or dateString!');
+				S.log('$.week().setDate(date): date must be a valid Date or dateString!');
 			}
+			return this;
 		}
 		,start: function(){
 			return new Date(+this.base_date + (this.__week-1)*7*86400000);

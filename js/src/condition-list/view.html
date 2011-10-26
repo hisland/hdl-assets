@@ -103,22 +103,22 @@
 				<div class="ls1-item">
 					<div class="ls1-text"><strong class="red">*</strong>网元查询:</div>
 					<div class="ls1-ipts">
-						<input style="width:95px;vertical-align:middle;" class="text1" type="text" name="" value="" /><input class="checkbox2" type="checkbox" name="" value="" />
+						<input style="width:95px;" class="text1" type="text" name="" value="" /><input class="checkbox2" type="checkbox" name="" value="" />
 					</div>
 				</div>
-				<div class="ls1-item-2c">
+				<div class="ls1-item ls1-2c">
 					<div class="ls1-text">时间段:</div>
 					<div class="ls1-ipts">
-						<input class="text1" type="text" name="" value="" />-<input class="text1" type="text" name="" value="" />
+						<input class="text1" type="text" name="" value="" /><span style="display:inline-block;line-height:18px;padding:0 2px;">-</span><input class="text1" type="text" name="" value="" />
 					</div>
 				</div>
-				<div class="ls1-item-2c">
+				<div class="ls1-item ls1-2c">
 					<div class="ls1-text">时间段:</div>
 					<div class="ls1-ipts">
-						<input class="text1" type="text" name="" value="" />-<input class="text1" type="text" name="" value="" /><input class="checkbox2" type="checkbox" name="" value="" />
+						<input class="text1" type="text" name="" value="" /><span style="display:inline-block;line-height:18px;padding:0 2px;">-</span><input class="text1" type="text" name="" value="" /><input class="checkbox2" type="checkbox" name="" value="" />
 					</div>
 				</div>
-				<div class="ls1-item-2c">
+				<div class="ls1-item ls1-2c">
 					<div class="ls1-text">告警等级:</div>
 					<div class="ls1-ipts">
 						<label class="label"><input type="checkbox" class="checkbox3" name="" value="" />值1</label>
@@ -127,7 +127,7 @@
 						<label class="label"><input type="checkbox" class="checkbox3" name="" value="" />值4</label>
 					</div>
 				</div>
-				<div class="ls1-item-2c">
+				<div class="ls1-item ls1-2c">
 					<div class="ls1-text">处理方式:</div>
 					<div class="ls1-ipts">
 						<label class="label"><input type="radio" class="checkbox3" name="act-type" value="" />方式1</label>
@@ -148,19 +148,21 @@
 		<!-- 条件列表摆放 -->
 		<div class="search-condition-c1">
 			<div class="ls1">
-				<div class="ls1-item-3r">
+				<div class="ls1-item ls1-3r">
 					<div class="ls1-text">备注:</div>
 					<div class="ls1-ipts">
 						<textarea></textarea>
 					</div>
 				</div>
-				<div class="ls1-item-3r">
+				<div class="ls1-item ls1-3r">
 					<div class="ls1-text">请选择:</div>
-					<div class="ls1-ipts ls1-ipts-box">
-						<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值1</label>
-						<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值2</label>
-						<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值3</label>
-						<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值4</label>
+					<div class="ls1-ipts">
+						<div class="label-box">
+							<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值1</label>
+							<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值2</label>
+							<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值3</label>
+							<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值4</label>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -173,7 +175,7 @@
 	</form>
 
 	<div class="ls1" style="clear:left;width:460px;overflow:hidden;border:1px solid #D7E2ED;margin:3px;padding:3px;">
-		<div class="ls1-item-3r" style="float:right;">
+		<div class="ls1-item ls1-3r" style="float:right;">
 			<div class="ls1-text">备注:</div>
 			<div class="ls1-ipts">
 				<textarea></textarea>
@@ -203,7 +205,7 @@
 
 	<form id="saveForm" name="saveForm" autocomplete="off" method="post" action="keywords/addKeywords.do">
 		<div class="ls1">
-			<div class="ls1-item-3r" style="float:right;">
+			<div class="ls1-item ls1-3r" style="float:right;">
 				<div class="ls1-text">备注:</div>
 				<div class="ls1-ipts">
 					<textarea></textarea>
@@ -239,5 +241,7 @@
 			<input type="button" value="取消" id="closepopbtn" class="win1-btn-cancle">
 		</div>
 	</form>
+
+	<input type="checkbox" name="" value="" style="width:50px;height:50px;" />
 </body>
 </html>

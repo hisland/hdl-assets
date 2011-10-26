@@ -9,7 +9,7 @@
 			S.use('reset-css, common-css, jquery-1.4.2, builtin', function(){
 				if($.browser.msie){
 					$('#aa').bind('propertychange', function(e){
-						$('#view').html('<pre>'+viewJSON1(e)+'</pre>');
+						$('#view').html('<pre>'+viewJSON1(event)+'</pre>');
 					});
 				}else{
 					$('#aa').bind('input', function(e){
@@ -31,10 +31,16 @@
 	</script>
 </head>
 <body style="margin:20px;">
-	<p>IE的input发生改变时,会触发propertychange事件</p>
+	<p>:text被修改情况:</p>
+	<p>通过键盘, 监听keypress等事件获知</p>
+	<p>鼠标右键, 监听paste等事件, 使用循环检测</p>
+	<p>鼠标拖拽, 监听drag-drop等事件, 使用循环检测</p>
+	<p>程序修改或者其它情况, 使用循环检测</p>
+	<br />
+	<p>IE的input发生改变时,会触发propertychange事件, 需要自己原生的event对象才会有'propertyName'属性, jquery修改后的e没有</p>
 	<p>FF的input发生改变时,会触发input事件</p>
 	<input id="toggle" type="button" name="" value="禁用" />
-	<br /><br />
+	<br />
 	<input type="text" name="" value="normal" id="aa" />
 	<div id="view"></div>
 </body>

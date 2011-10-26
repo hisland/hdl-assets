@@ -1,31 +1,34 @@
 @charset "utf-8";
 
-/* 头和内容并行排列 */
-.ls1{overflow:hidden;line-height:1.5;}
-.ls1-bg .ls1-text{background:#e3ecee;}
-.ls1-bg .ls1-ipts{background:#ecf4f6}
-	.ls1-item{float:left;height:20px;width:230px;overflow:hidden;padding:4px 0;}
-		.ls1-text{float:left;height:20px;width:110px;text-align:right;}
-		.ls1-ipts{float:left;height:20px;width:120px;}
-
-	.ls1-item-3r{float:left;height:80px;width:230px;overflow:hidden;padding:2px 0;}
-		.ls1-item-3r .ls1-text{height:80px;line-height:80px;}
-		.ls1-item-3r .ls1-ipts{height:80px;}
-		.ls1-item-3r .ls1-ipts-box{border:1px solid #7F9DB9;padding:1px;height:76px;width:116px;overflow:auto;}
-
-	.ls1-item-2c{float:left;height:20px;width:460px;overflow:hidden;padding:4px 0;}
-		.ls1-item-2c .ls1-text{}
-		.ls1-item-2c .ls1-ipts{width:350px;}
-	
-	.ls1-fieldset{clear:left;padding-bottom:5px;border:1px solid #DEE7EE;margin:4px;}
-		.ls1-legend{margin-left:10px;padding:0 3px;border:1px solid #DEE7EE;background:#fff;}
-		.ls1-box{padding-top:5px;overflow:hidden;}
-
-
 /* 查询条件 */
-.search-condition{padding:0 150px 0 0;overflow:hidden;margin:3px;border:1px solid #D7E2ED;*zoom:1;}
+.search-condition{padding:2px 150px 0 2px;overflow:hidden;margin:3px;border:1px solid #D7E2ED;*zoom:1;}
 	.search-condition-c1{float:left;width:100%;overflow:hidden;position:relative;}
 	.search-condition-c2{float:right;width:140px;padding:3px 5px 0;margin-right:-150px;_position:relative;_display:inline;}
 		.search-submit{float:left;padding-left:20px;width:73px;height:22px;line-height:22px;_line-height:24px;overflow:hidden;border:none;background:url('condition-list-img/btn_search.gif') no-repeat 0 0;cursor:pointer;color:#fff;font-weight:700;letter-spacing:5px;}
 		.search-more{float:left;margin-left:5px;padding-left:10px;width:50px;line-height:22px;background:url('condition-list-img/arr_up_down.gif') no-repeat 0 0;cursor:pointer;}
 		.search-more-2{background-position: 0px -22px;}
+
+
+/* 头和内容并行排列 */
+.ls1{overflow:hidden;line-height:1.5;}
+/*	.ls1-bg .ls1-item{border-color:#d0deea;}
+		.ls1-bg .ls1-text{background:#d0deea;}
+		.ls1-bg .ls1-ipts{background:#eef6ff;}*/
+
+	.ls1-item{float:left;height:24px;width:230px;border:1px solid #d0deea;margin:0 2px 2px 0;overflow:hidden;}
+		.ls1-text{float:left;height:24px;line-height:24px;width:100px;text-align:right;background:#d0deea;}
+		.ls1-ipts{float:left;padding:3px;height:18px;width:124px;background:#eef6ff;}
+
+	.ls1-2c{width:464px;}
+		.ls1-2c .ls1-ipts{width:358px;}
+
+	.ls1-3c{width:697px;}
+		.ls1-3c .ls1-ipts{width:589px;}
+
+	.ls1-3r{height:80px;}
+		.ls1-3r .ls1-text{height:80px;line-height:80px;}
+		.ls1-3r .ls1-ipts{height:74px;}
+	
+	.ls1-fieldset{clear:left;padding-bottom:5px;border:1px solid #DEE7EE;margin:4px;}
+		.ls1-legend{margin-left:10px;padding:0 3px;border:1px solid #DEE7EE;background:#fff;}
+		.ls1-box{padding-top:5px;overflow:hidden;}

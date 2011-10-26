@@ -80,7 +80,7 @@ function viewJSON1(obj, tabs){
 	var indent = tabs + '\t';
 	for(i in obj){
 		//只显示自己的属性,不显示原型链上的属性
-		if (!obj.hasOwnProperty(i)){
+		if (obj.hasOwnProperty && !obj.hasOwnProperty(i)){
 			continue;
 		}
 

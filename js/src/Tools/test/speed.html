@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, Tools, jquery-1.4.2, builtin', function(){
+				var rs = [{"content":"f1","parentId":0,"contactId":0}], a, max=10000;
+				for(var i=1;i<=max;i++){
+					rs.push({"content":"f1","parentId":i-1,"contactId":i});
+				}
+
+				var d1 = new Date();
+//				for(var i=0;i<10;i++){
+					window.kkk = Tools.dataToTree(rs, 'children', 'contactId', 'parentId');
+//					window.kkk = getCheckJson(rs);
+//				}
+				var d2 = new Date();
+				alert(d2-d1);
+
+
+//				$('body').prepend('<pre>'+viewJSON(rs)+'</pre>');
+
+				function getCheckJson(jsonObj){
+					var jsonLength = jsonObj.length;
+					var c = 'children', id='contactId', pid='parentId';
+					
+					//把所有的子节点挂到相应的父节点上
+					for(var i=0;i < jsonLength;i++){
+						for(var j=0; j < jsonLength;j++){
+							if(jsonObj[i][id] == jsonObj[j][pid]){
+								if(!jsonObj[i][c]) jsonObj[i][c] = [];
+								jsonObj[i][c].push(jsonObj[j]);
+							}
+						}
+					}
+					
+					//删除所有不是根节点的子节点
+					for(var k=0;k < jsonLength;k++){
+						if(jsonObj[k][pid] != 0){
+							jsonObj.splice(k,1);
+							k--;
+							jsonLength--;
+						}
+					}
+					
+					return jsonObj;
+				}
+			});
+		});
+	</script>
+</head>
+
+<body style="margin:50px;">
+	<p>数据量小的时候用循环比较快</p>
+	<p>数据量大的时候用递归比较快</p>
+	<p>方法调用时,层级越多越慢,比如a()比c.b.a()快</p>
+</body>
+</html>
