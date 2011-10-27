@@ -25,10 +25,12 @@ public class Item extends TagI18n {
 	private int itemWidth = 230;
 	private String wrapId;
 
-	//作为父类时,子类覆盖此方法可在内部嵌入内容
-	public void childDo(){}
 	//作为父类时,子类需要进行一些参数的初始化
 	public void preInit(){}
+	//作为父类时,子类覆盖此方法返回body前面的内容
+	public String beforeBody(){return "";}
+	//作为父类时,子类覆盖此方法返回body后面的内容
+	public String afterBody(){return "";}
 	
 	@Override
 	public int doStartTag(){
@@ -51,6 +53,8 @@ public class Item extends TagI18n {
 			sb.append(getIptWidth());
 			sb.append(">");
 			
+			sb.append(beforeBody());
+			
 			pageContext.getOut().write(sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -62,11 +66,13 @@ public class Item extends TagI18n {
 	public int doEndTag() throws JspException {
 		try {
 			StringBuffer sb = new StringBuffer();
+			
 			if (bodyContent != null) {
 				sb.append(bodyContent.getString());
-			}else {
-				childDo();
 			}
+			
+			sb.append(afterBody());
+			
 			sb.append("</div>");
 			sb.append("</div>");
 			pageContext.getOut().write(sb.toString());

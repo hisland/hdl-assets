@@ -17,7 +17,12 @@ import com.cdsf.tag.base.Item;
 @SuppressWarnings("serial")
 public class Select extends Item {
 	@Override
-	public void childDo() {
-		
+	public String beforeBody() {
+		return "";
 	};
+	
+	@Override
+	public String afterBody() {
+		return "";
+	}
 }

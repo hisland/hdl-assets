@@ -1,8 +1,5 @@
 package com.cdsf.tag;
 
-import java.io.IOException;
-
-import javax.servlet.jsp.JspException;
 
 
 /**
@@ -23,32 +20,23 @@ public class Textarea extends Text {
 	}
 	
 	@Override
-	public void childDo() {}
+	public String beforeBody() {
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<textarea");
+		sb.append(getName());
+		sb.append(getId());
+		sb.append(getStyle());
+		sb.append(getCssclass());
+		sb.append(getDisabledReadonly());
+		sb.append(getDataValidType());
+		sb.append(">");
+		
+		return sb.toString();
+	}
 	
 	@Override
-	public int doEndTag() throws JspException {
-		try {
-			StringBuffer sb = new StringBuffer();
-			
-			sb.append("<textarea");
-			sb.append(getName());
-			sb.append(getId());
-			sb.append(getStyle());
-			sb.append(getCssclass());
-			sb.append(getDisabledReadonly());
-			sb.append(getDataValidType());
-			sb.append(">");
-			if (bodyContent != null) {
-				sb.append(bodyContent.getString());
-			}
-			sb.append("</textarea>");
-			
-			sb.append("</div>");
-			sb.append("</div>");
-			pageContext.getOut().write(sb.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return EVAL_PAGE;
+	public String afterBody() {
+		return "</textarea>";
 	}
 }

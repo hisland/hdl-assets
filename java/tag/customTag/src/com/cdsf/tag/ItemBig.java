@@ -16,5 +16,8 @@ import com.cdsf.tag.base.Item;
  */
 @SuppressWarnings("serial")
 public class ItemBig extends Item {
-	
+	@Override
+	public void preInit() {
+		setRows("4");
+	}
 }

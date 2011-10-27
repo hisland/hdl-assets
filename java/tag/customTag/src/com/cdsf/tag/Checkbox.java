@@ -17,9 +17,14 @@ public class Checkbox extends Item {
 	private boolean checked;
 	
 	@Override
-	public void childDo() {
-		
+	public String beforeBody() {
+		return "";
 	};
+	
+	@Override
+	public String afterBody() {
+		return "";
+	}
 
 	public String getChecked() {
 		if (checked) {

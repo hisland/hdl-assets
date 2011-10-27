@@ -1,7 +1,5 @@
 package com.cdsf.tag;
 
-import java.io.IOException;
-
 import com.cdsf.tag.base.Item;
 
 /**
@@ -34,28 +32,23 @@ public class Text extends Item {
 	private String dataValidType;
 	
 	@Override
-	public void childDo() {
-		try {
-			StringBuffer sb = new StringBuffer();
-			sb.append("<input");
-			sb.append(getType());
-			sb.append(getName());
-			sb.append(getId());
-			sb.append(getStyle());
-			sb.append(getCssclass());
-			sb.append(getValue());
-			sb.append(getDisabledReadonly());
-			sb.append(getAutocomplete());
-			sb.append(getMaxlengthAttr());
-			sb.append(getDataValidType());
-			sb.append(" />");
-			
-			sb.append(getSuffix());
-			
-			pageContext.getOut().write(sb.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public String beforeBody() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<input");
+		sb.append(getType());
+		sb.append(getName());
+		sb.append(getId());
+		sb.append(getStyle());
+		sb.append(getCssclass());
+		sb.append(getValue());
+		sb.append(getDisabledReadonly());
+		sb.append(getAutocomplete());
+		sb.append(getMaxlengthAttr());
+		sb.append(getDataValidType());
+		sb.append(" />");
+		
+		sb.append(getSuffix());
+		return sb.toString();
 	}
 	
 	//子标签可覆盖可设置type
