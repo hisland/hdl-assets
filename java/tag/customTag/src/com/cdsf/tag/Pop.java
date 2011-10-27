@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
-import com.cdsf.tag.base.TagAttr;
+import com.cdsf.tag.base.TagI18n;
 
 /**
  * @author hdl
@@ -20,7 +20,7 @@ import com.cdsf.tag.base.TagAttr;
 </form>
  */
 @SuppressWarnings("serial")
-public class Pop extends TagAttr {
+public class Pop extends TagI18n {
 	//默认关闭浏览器的自动完成功能
 	private boolean autocomplete = false;
 	private boolean needButtons = true;
@@ -34,7 +34,6 @@ public class Pop extends TagAttr {
 //			sb.append("<form style=\"display:none;\">");
 			sb.append("<form");
 			sb.append(getAction());
-			sb.append(getCommonAttr());
 			sb.append(getAutocomplete());
 			sb.append(">");
 			sb.append("<div class=\"ls1\">");
@@ -42,7 +41,7 @@ public class Pop extends TagAttr {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return EVAL_BODY_INCLUDE;
+		return EVAL_BODY_BUFFERED;
 	}
 	
 	@Override
@@ -58,7 +57,7 @@ public class Pop extends TagAttr {
 				sb.append("</div>");
 			}
 			sb.append("</form>");
-			out.write(sb.toString());
+			out.write("3");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

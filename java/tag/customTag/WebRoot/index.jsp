@@ -23,44 +23,41 @@
 	</script>
 </head>
 <body>
-	<anti:query name="hello" action="test.action">
-		<anti:text name="god" text="禁用标签" disabled="true" value="禁用标签" />
-		<anti:text name="cc" text="只读标签" readonly="true" value="只读标签" />
-		<anti:text name="god" text="最大长度4" value="" maxlength="4" />
-		<anti:text name="cc" text="时间片" suffix="分钟" style="width:90px;" />
-		<anti:text name="cc" text="必填项" required="true" />
-		<anti:text name="cc" text="启用自动完成" autocomplete="true" />
-		<anti:text name="cc" text="验证数字1-3" required="true" dataValidType="n1-3" />
-		<anti:text name="cc" text="文本标签" />
-		
-		<anti:password name="cc" text="密码" />
-		<anti:password name="cc" text="密码验证数字1-3" required="true" dataValidType="n1-3" />
-		
-		<anti:select name="cc" text="c标签生成下拉项">
-			<option value="">全部</option>
-			<c:forEach items="${god}" var="ii">
-				<option value="${ii}">${ii}</option>
-			</c:forEach>
-		</anti:select>
-		
-		<anti:textarea name="tt" text="备注">bbq</anti:textarea>
-		
-		<anti:checkbox name="queryForm.q_arg3" id="q_slur" text="启用" value="1" checked="true" />
-		<anti:fuzzy name="queryForm.q_arg3" id="q_slur" text="模糊匹配" value="1" checked="true" dataFuzzyIds="#q_slur" />
-	</anti:query>
+	<anti:item />
+	<anti:item cols="2" />
+	<anti:item cols="3" />
+	<anti:item rows="3" />
+	<anti:item rows="4" />
+	<anti:item text="hello" />
+	<anti:item text="hello" required="true" />
+	<anti:item text="hello" required="true" textWidth="150" />
+	<anti:item i18n="i18n-key" />
+	<anti:item i18n="i18n-key">有内容</anti:item>
 	
-	<anti:pop name="hello" action="pop.action">
-		<anti:text name="cc" text="文本标签" />
-	</anti:pop>
+	<anti:text text="god" />
+	<anti:text text="disabled" disabled="true"  />
+	<anti:text text="readonly" readonly="true" />
+	<anti:text text="时间片" suffix="分钟" style="width:90px;" />
+	<anti:text text="god" value="有默认值" />
 	
-	<anti:pop name="hello" action="pop.action" needButtons="false">
-		<anti:text name="cc" text="文本标签" />
-		<div class="win1-btns">
-			<input type="submit" value="确定" class="win1-btn-ok">
-			<input type="button" value="取消" class="win1-btn-cancle">
-			<input type="button" value="其它" class="win1-btn-cancle">
-			<input type="button" value="自定义的" class="win1-btn-cancle">
-		</div>
-	</anti:pop>
+	<anti:textFuzzy fuzzyChecked="true" />
+	
+	<anti:password text="密码" value="pass" />
+	
+	<anti:textarea text="cc">ss</anti:textarea>
+	
+	<anti:item text="hello" cols="2">
+		<anti:baseCheckbox value="aa" text="god" />
+		<anti:baseCheckbox value="aa" text="god" disabled="true" />
+		<anti:baseCheckbox value="aa" text="god" />
+		<anti:baseCheckbox value="aa" text="god" disabled="true" />
+	</anti:item>
+	
+	<anti:item text="hello" cols="2">
+		<anti:baseRadio value="aa" text="god" />
+		<anti:baseRadio value="aa" text="god" disabled="true" />
+		<anti:baseRadio value="aa" text="god" />
+		<anti:baseRadio value="aa" text="god" disabled="true" />
+	</anti:item>
 </body>
 </html>

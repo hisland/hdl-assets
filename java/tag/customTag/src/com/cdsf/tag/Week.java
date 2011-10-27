@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 
-import com.cdsf.tag.base.TagAttr;
+import com.cdsf.tag.base.TagI18n;
 
 /**
  * @author hdl
@@ -23,7 +23,7 @@ import com.cdsf.tag.base.TagAttr;
 </div>
  */
 @SuppressWarnings("serial")
-public class Week extends TagAttr {
+public class Week extends TagI18n{
 	@Override
 	public int doStartTag(){
 		return SKIP_BODY;

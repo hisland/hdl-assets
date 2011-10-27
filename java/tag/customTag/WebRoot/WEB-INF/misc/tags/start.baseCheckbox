@@ -1,5 +1,5 @@
 	<tag>
-		<name>itemCheckbox</name>
-		<tag-class>com.cdsf.tag.ItemCheckbox</tag-class>
+		<name>baseCheckbox</name>
+		<tag-class>com.cdsf.tag.BaseCheckbox</tag-class>
 		<body-content>empty</body-content>
 		<description>基本的checkbox,右侧带label</description>

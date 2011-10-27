@@ -10,6 +10,8 @@
 			<path path="tags/tag.query" />
 			<path path="tags/tag.pop" />
 
+			<path path="tags/tag.item" />
+			
 			<path path="tags/tag.text" />
 			<path path="tags/tag.textFuzzy" />
 			<path path="tags/tag.password" />
@@ -20,10 +22,8 @@
 			<path path="tags/tag.checkbox" />
 			<path path="tags/tag.fuzzy" />
 			
-			<path path="tags/tag.item" />
-			<path path="tags/tag.itemBig" />
-			<path path="tags/tag.itemCheckbox" />
-			<path path="tags/tag.itemRadio" />
+			<path path="tags/tag.baseCheckbox" />
+			<path path="tags/tag.baseRadio" />
 
 			<path path="tags/tld.end" />
 		</concat>
@@ -38,8 +38,10 @@
 
 			<path path="attr/name" />
 			<path path="attr/id" />
+			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			
 			<path path="attr/action" />
 			<path path="attr/autocomplete" />
 
@@ -53,11 +55,30 @@
 
 			<path path="attr/name" />
 			<path path="attr/id" />
+			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			
 			<path path="attr/action" />
 			<path path="attr/autocomplete" />
 			<path path="attr/needButtons" />
+
+			<path path="tags/end.tag" />
+		</concat>
+	</target>
+
+	<target name="tag.item" extensionOf="tld-pre">
+		<concat destfile="tags/tag.item" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/start.item" />
+
+			<path path="attr/cols" />
+			<path path="attr/rows" />
+			<path path="attr/textWidth" />
+			
+			<path path="attr/i18n" />
+			<path path="attr/text" />
+			
+			<path path="attr/required" />
 
 			<path path="tags/end.tag" />
 		</concat>
@@ -69,17 +90,21 @@
 
 			<path path="attr/name" />
 			<path path="attr/id" />
+			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
-			<path path="attr/maxlength" />
-			<path path="attr/autocomplete" />
+			
 			<path path="attr/disabled" />
 			<path path="attr/readonly" />
-			<path path="attr/value" />
+			
+			<path path="attr/maxlength" />
+			<path path="attr/autocomplete" />
 			<path path="attr/required" />
 			<path path="attr/suffix" />
+			<path path="attr/value" />
 			<path path="attr/dataValidType" />
 
 			<path path="tags/end.tag" />
@@ -92,18 +117,22 @@
 
 			<path path="attr/name" />
 			<path path="attr/id" />
+			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
-			<path path="attr/maxlength" />
-			<path path="attr/autocomplete" />
+			
 			<path path="attr/disabled" />
 			<path path="attr/readonly" />
-			<path path="attr/value" />
+			
+			<path path="attr/maxlength" />
+			<path path="attr/autocomplete" />
 			<path path="attr/required" />
-			<path path="attr/suffix" />
+			<path path="attr/value" />
 			<path path="attr/dataValidType" />
+			
 			<path path="attr/fuzzyChecked" />
 			<path path="attr/fuzzyValue" />
 
@@ -117,15 +146,19 @@
 
 			<path path="attr/name" />
 			<path path="attr/id" />
+			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
-			<path path="attr/maxlength" />
+			
 			<path path="attr/disabled" />
 			<path path="attr/readonly" />
-			<path path="attr/value" />
+			
+			<path path="attr/maxlength" />
 			<path path="attr/required" />
+			<path path="attr/value" />
 			<path path="attr/dataValidType" />
 
 			<path path="tags/end.tag" />
@@ -135,18 +168,23 @@
 	<target name="tag.textarea" extensionOf="tld-pre">
 		<concat destfile="tags/tag.textarea" encoding="${encoding}" outputencoding="${encoding}">
 			<path path="tags/start.textarea" />
+			
+			<path path="attr/rows" />
 
 			<path path="attr/name" />
 			<path path="attr/id" />
+			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
-			<path path="attr/maxlength" />
+			
 			<path path="attr/disabled" />
 			<path path="attr/readonly" />
-			<path path="attr/value" />
+			
 			<path path="attr/required" />
+			<path path="attr/value" />
 			<path path="attr/dataValidType" />
 
 			<path path="tags/end.tag" />
@@ -159,10 +197,13 @@
 
 			<path path="attr/name" />
 			<path path="attr/id" />
+			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
+			
 			<path path="attr/disabled" />
 			<path path="attr/value" />
 			<path path="attr/required" />
@@ -177,10 +218,13 @@
 
 			<path path="attr/name" />
 			<path path="attr/id" />
+			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
+			
 			<path path="attr/disabled" />
 			<path path="attr/value" />
 			<path path="attr/required" />
@@ -196,10 +240,13 @@
 
 			<path path="attr/name" />
 			<path path="attr/id" />
+			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
+			
 			<path path="attr/disabled" />
 			<path path="attr/value" />
 			<path path="attr/required" />
@@ -210,42 +257,16 @@
 		</concat>
 	</target>
 
-	<target name="tag.item" extensionOf="tld-pre">
-		<concat destfile="tags/tag.item" encoding="${encoding}" outputencoding="${encoding}">
-			<path path="tags/start.item" />
-
-			<path path="attr/cols" />
-			<path path="attr/i18n" />
-			<path path="attr/text" />
-			<path path="attr/required" />
-
-			<path path="tags/end.tag" />
-		</concat>
-	</target>
-
-	<target name="tag.itemBig" extensionOf="tld-pre">
-		<concat destfile="tags/tag.itemBig" encoding="${encoding}" outputencoding="${encoding}">
-			<path path="tags/start.itemBig" />
+	<target name="tag.baseCheckbox" extensionOf="tld-pre">
+		<concat destfile="tags/tag.baseCheckbox" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/start.baseCheckbox" />
 
 			<path path="attr/name" />
 			<path path="attr/id" />
-			<path path="attr/cols" />
+			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
-			<path path="attr/required" />
-
-			<path path="tags/end.tag" />
-		</concat>
-	</target>
-
-	<target name="tag.itemCheckbox" extensionOf="tld-pre">
-		<concat destfile="tags/tag.itemCheckbox" encoding="${encoding}" outputencoding="${encoding}">
-			<path path="tags/start.itemCheckbox" />
-
-			<path path="attr/name" />
-			<path path="attr/id" />
-			<path path="attr/i18n" />
-			<path path="attr/text" />
+			
 			<path path="attr/disabled" />
 			<path path="attr/value" />
 			<path path="attr/checked" />
@@ -254,14 +275,16 @@
 		</concat>
 	</target>
 
-	<target name="tag.itemRadio" extensionOf="tld-pre">
-		<concat destfile="tags/tag.itemRadio" encoding="${encoding}" outputencoding="${encoding}">
-			<path path="tags/start.itemRadio" />
+	<target name="tag.baseRadio" extensionOf="tld-pre">
+		<concat destfile="tags/tag.baseRadio" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/start.baseRadio" />
 
 			<path path="attr/name" />
 			<path path="attr/id" />
+			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
+			
 			<path path="attr/disabled" />
 			<path path="attr/value" />
 			<path path="attr/selected" />

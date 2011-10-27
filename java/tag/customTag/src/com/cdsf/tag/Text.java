@@ -2,7 +2,7 @@ package com.cdsf.tag;
 
 import java.io.IOException;
 
-import javax.servlet.jsp.JspException;
+import com.cdsf.tag.base.Item;
 
 /**
  * @author hdl
@@ -15,67 +15,135 @@ import javax.servlet.jsp.JspException;
 </div>
  */
 @SuppressWarnings("serial")
-public class Text extends Password {
+public class Text extends Item {
+	private String name;
+	private String id;
+	
+	private String style;
+	private String cssclass;
+	
+	//为true时表单元素会被[禁用/只读], 禁用优先
+	private boolean disabled;
+	private boolean readonly;
+
+	private String value;
 	private String suffix;
 	//默认关闭浏览器的自动完成功能
-	private boolean autocomplete = false;
+	private String autocomplete;
+	private String maxlength;
+	private String dataValidType;
 	
 	@Override
-	public int doStartTag(){
-		return SKIP_BODY;
-	}
-	
-	/**
-	 * 由于是自关闭标签,直接在endTag里面做所有事情
-	 */
-	@Override
-	public int doEndTag() throws JspException {
-		StringBuilder sb = new StringBuilder();
+	public void childDo() {
 		try {
-			setDefaultCssclass("text1");
-			sb.append("<div class=\"ls1-item\">");
-			sb.append("<div class=\"ls1-text\">");
-
-			//label
-			sb.append(getLable());
-			
-			sb.append("</div>");
-			sb.append("<div class=\"ls1-ipts\">");
-			
-			//input标签
+			StringBuffer sb = new StringBuffer();
 			sb.append("<input");
 			sb.append(getType());
-			sb.append(getCommonAttr());
+			sb.append(getName());
+			sb.append(getId());
+			sb.append(getStyle());
+			sb.append(getCssclass());
 			sb.append(getValue());
+			sb.append(getDisabledReadonly());
+			sb.append(getAutocomplete());
 			sb.append(getMaxlengthAttr());
 			sb.append(getDataValidType());
-			sb.append(getAutocomplete());
 			sb.append(" />");
 			
-			//后缀文本
 			sb.append(getSuffix());
-			
-			sb.append("</div>");
-			sb.append("</div>");
 			
 			pageContext.getOut().write(sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return EVAL_PAGE;
 	}
 	
+	//子标签可覆盖可设置type
 	public String getType() {
 		return " type=\"text\"";
 	}
 
+	//text的name属性
+	public String getName() {
+		if (name != null) {
+			return " name=\"" + name + "\"";
+		}else {
+			return "";
+		}
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	//text的id属性
+	public String getId() {
+		if (id != null) {
+			return " id=\"" + id + "\"";
+		}else {
+			return getName();
+		}
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	//text的style属性
+	public String getStyle() {
+		if (style != null) {
+			return " style=\"" + style + "\"";
+		}else {
+			return "";
+		}
+	}
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
+	//text的class属性
+	public String getCssclass() {
+		return " class=\"text1" + (cssclass != null ? " "+cssclass : "") + "\"";
+	}
+	public void setCssclass(String cssclass) {
+		this.cssclass = cssclass;
+	}
+
+	//默认的value属性
+	public String getValue() {
+		if (value != null) {
+			return " value=\"" + value + "\"";
+		}else {
+			return "";
+		}
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	//readonly, disabled二选一, disabled优先
+	public void setDisabled(String disabled){
+		if ("true".equals(disabled)) {
+			this.disabled = true;
+		}
+	}
+	public void setReadonly(String readonly){
+		if ("true".equals(readonly)) {
+			this.readonly = true;
+		}
+	}
+	public String getDisabledReadonly() {
+		if (disabled != false) {
+			return " disabled=\"disabled\"";
+		}else {
+			if (readonly != false) {
+				return " readonly=\"readonly\"";
+			}else {
+				return "";
+			}
+		}
+	}
+
 	//文本框后面的文本
 	public String getSuffix() {
-		if (suffix == null) {
-			return "";
-		}else {
-			return suffix;
-		}
+		return suffix != null ? suffix : "";
 	}
 	public void setSuffix(String suffix) {
 		this.suffix = suffix;
@@ -83,17 +151,29 @@ public class Text extends Password {
 
 	//表单的浏览器自动完成功能
 	public String getAutocomplete() {
-		if (autocomplete == false) {
-			return " autocomplete=\"off\"";
-		}else {
-			return "";
+		return autocomplete != null ? " autocomplete=\"off\"" : "";
+	}
+	public void setAutocomplete(String autocomplete){
+		if ("true".equals(autocomplete)) {
+			this.autocomplete = autocomplete;
 		}
 	}
-	public void setAutocomplete(String autocomplete) throws Exception {
-		if ("true".equals(autocomplete)) {
-			this.autocomplete = true;
-		}else {
-			throw new Exception("\n\n\n autocomplete must be true!----<<<\n\n");
+
+	//text的maxlength属性
+	public String getMaxlengthAttr() {
+		return maxlength != null ? " maxlength=\"" + maxlength + "\"" : "";
+	}
+	public void setMaxlength(String maxlength) {
+		if ("true".equals(maxlength)) {
+			this.maxlength = maxlength;
 		}
+	}
+	
+	//验证信息
+	public String getDataValidType() {
+		return dataValidType != null ? " data-valid-type=\"" + dataValidType + "\"" : "";
+	}
+	public void setDataValidType(String dataValidType) {
+		this.dataValidType = dataValidType;
 	}
 }

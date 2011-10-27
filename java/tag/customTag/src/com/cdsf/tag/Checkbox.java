@@ -1,10 +1,6 @@
 package com.cdsf.tag;
 
-import java.io.IOException;
-
-import javax.servlet.jsp.JspException;
-
-import com.cdsf.tag.base.TagAttr;
+import com.cdsf.tag.base.Item;
 
 /**
  * @author hdl
@@ -17,47 +13,13 @@ import com.cdsf.tag.base.TagAttr;
 </div>
  */
 @SuppressWarnings("serial")
-public class Checkbox extends TagAttr {
+public class Checkbox extends Item {
 	private boolean checked;
 	
 	@Override
-	public int doStartTag(){
-		return SKIP_BODY;
-	}
-	
-	/**
-	 * 由于是自关闭标签,直接在endTag里面做所有事情
-	 */
-	@Override
-	public int doEndTag() throws JspException {
-		StringBuilder sb = new StringBuilder();
-		try {
-			setDefaultCssclass("checkbox1");
-			sb.append("<div class=\"ls1-item\">");
-			sb.append("<div class=\"ls1-text\">");
-
-			//label
-			sb.append(getLable());
-			
-			sb.append("</div>");
-			sb.append("<div class=\"ls1-ipts\">");
-			
-			//input标签
-			sb.append("<input type=\"checkbox\"");
-			sb.append(getCommonAttr());
-			sb.append(getValue());
-			sb.append(getChecked());
-			sb.append(" />");
-			
-			sb.append("</div>");
-			sb.append("</div>");
-			
-			pageContext.getOut().write(sb.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return EVAL_PAGE;
-	}
+	public void childDo() {
+		
+	};
 
 	public String getChecked() {
 		if (checked) {
@@ -66,11 +28,9 @@ public class Checkbox extends TagAttr {
 			return "";
 		}
 	}
-	public void setChecked(String checked) throws Exception {
+	public void setChecked(String checked){
 		if ("true".equals(checked)) {
 			this.checked = true;
-		}else {
-			throw new Exception("\n\n\n checked must be true!----<<<\n\n");
 		}
 	}
 }

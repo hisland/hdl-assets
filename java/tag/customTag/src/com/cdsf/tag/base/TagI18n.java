@@ -13,6 +13,10 @@ public abstract class TagI18n extends BodyTagSupport {
 	protected static final String COLON = ":";
 	protected static ResourceBundle bundle = null;
 	
+	//表单元素前置文本[国际化key/文本],文本优先
+	private String i18n;
+	private String text;
+	
 	/**
 	 * @author hdl
 	 * @param ResourceBundle bund
@@ -37,5 +41,27 @@ public abstract class TagI18n extends BodyTagSupport {
 			text = text.replaceFirst("(.)(.)", "$1&nbsp;$2&nbsp;");
 		}
 		return text;
+	}
+	
+	//i18n,text二选一,text优先
+	public void setI18n(String i18n) {
+		this.i18n = i18n;
+	}
+	public String getI18n() {
+		if (bundle != null) {
+			return String.valueOf(bundle.getObject(i18n));
+		}else {
+			return i18n;
+		}
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+	public String getText() {
+		if (text != null) {
+			return text + COLON;
+		}else {
+			return getI18n() + COLON;
+		}
 	}
 }

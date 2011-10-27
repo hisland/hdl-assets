@@ -1,5 +1,5 @@
 	<tag>
-		<name>itemRadio</name>
-		<tag-class>com.cdsf.tag.ItemRadio</tag-class>
+		<name>baseRadio</name>
+		<tag-class>com.cdsf.tag.BaseRadio</tag-class>
 		<body-content>empty</body-content>
 		<description>基本的radio,右侧带label</description>

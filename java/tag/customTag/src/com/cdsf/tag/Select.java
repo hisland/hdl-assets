@@ -1,11 +1,6 @@
 package com.cdsf.tag;
 
-import java.io.IOException;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-
-import com.cdsf.tag.base.TagAttr;
+import com.cdsf.tag.base.Item;
 
 /**
  * @author hdl
@@ -20,55 +15,9 @@ import com.cdsf.tag.base.TagAttr;
 </div>
  */
 @SuppressWarnings("serial")
-public class Select extends TagAttr {
+public class Select extends Item {
 	@Override
-	public int doStartTag(){
-		StringBuilder sb = new StringBuilder();
-		JspWriter out = pageContext.getOut();
-		try {
-			setDefaultCssclass("select1");
-			sb.append("<div class=\"ls1-item\">");
-			sb.append("<div class=\"ls1-text\">");
-
-			//label
-			sb.append(getLable());
-			
-			sb.append("</div>");
-			sb.append("<div class=\"ls1-ipts\">");
-			
-			sb.append("<select");
-			sb.append(getName());
-			sb.append(getId());
-			sb.append(getStyle());
-			sb.append(getCssclass());
-			sb.append(getDisabledReadonly());
-			sb.append(getValue());
-			sb.append(">");
-			
-			out.write(sb.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return EVAL_BODY_INCLUDE;
-	}
-	
-	/**
-	 * 由于是自关闭标签,直接在endTag里面做所有事情
-	 */
-	@Override
-	public int doEndTag() throws JspException {
-		StringBuilder sb = new StringBuilder();
-		try {
-			
-			sb.append("</select>");
-			
-			sb.append("</div>");
-			sb.append("</div>");
-			
-			pageContext.getOut().write(sb.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return EVAL_PAGE;
-	}
+	public void childDo() {
+		
+	};
 }

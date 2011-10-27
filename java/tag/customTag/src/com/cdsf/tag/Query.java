@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
-import com.cdsf.tag.base.TagAttr;
+import com.cdsf.tag.base.TagI18n;
 
 /**
  * @author hdl
@@ -23,7 +23,7 @@ import com.cdsf.tag.base.TagAttr;
 </form>
  */
 @SuppressWarnings("serial")
-public class Query extends TagAttr {
+public class Query extends TagI18n {
 	//默认关闭浏览器的自动完成功能
 	private boolean autocomplete = false;
 	private String action;
@@ -35,7 +35,6 @@ public class Query extends TagAttr {
 		try {
 			sb.append("<form class=\"search-condition\"");
 			sb.append(getAction());
-			sb.append(getCommonAttr());
 			sb.append(getAutocomplete());
 			sb.append(">");
 			sb.append("<div class=\"search-condition-c1\">");

@@ -1,5 +1,5 @@
 		<attribute>
 			<name>fuzzyValue</name>
 			<required>false</required>
-			<description><![CDATA[可选,文本框模糊查询checkbox的默认值]]></description>
+			<description><![CDATA[可选,文本框模糊查询checkbox的值]]></description>
 		</attribute>

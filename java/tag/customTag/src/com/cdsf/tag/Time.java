@@ -4,26 +4,20 @@ import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 
-import com.cdsf.tag.base.TagAttr;
+import com.cdsf.tag.base.TagI18n;
 
 /**
  * @author hdl
  * @description 标签结构:
 <div class="ls1-item">
-	<div class="ls1-text">XX开始时间:</div>
+	<div class="ls1-text">XX开始段:</div>
 	<div class="ls1-ipts">
-		<input class="text1" type="text" name="" value="" />
-	</div>
-</div>
-<div class="ls1-item">
-	<div class="ls1-text">XX结束时间:</div>
-	<div class="ls1-ipts">
-		<input class="text1" type="text" name="" value="" />
+		<input class="text1" type="text" name="" value="" /> - <input class="text1" type="text" name="" value="" />
 	</div>
 </div>
  */
 @SuppressWarnings("serial")
-public class Time extends TagAttr {
+public class Time extends TagI18n {
 	@Override
 	public int doStartTag(){
 		return SKIP_BODY;

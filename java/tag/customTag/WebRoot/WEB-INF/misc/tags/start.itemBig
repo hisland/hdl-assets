@@ -1,5 +1,5 @@
 	<tag>
 		<name>itemBig</name>
 		<tag-class>com.cdsf.tag.ItemBig</tag-class>
-		<body-content>JSP</body-content>
-		<description>查询条件的基本包含块,大块</description>
+		<body-content>jsp</body-content>
+		<description>大的包含块,里面可以放checkbox</description>
