@@ -28,7 +28,7 @@ KISSY.add('popWin', function(S, undef) {
 		,EMPTY_$ = $('')
 		,html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title">title</span><a class="win1-close" href="#"></a></div><div class="win1-content-wrap"><div class="win1-content"></div></div></div>'
 		,popWin = {}
-		,default_width = 400, default_height = 300;
+		,default_width = 400;
 	
 	popWin.init = function(){
 		return init();
@@ -53,7 +53,7 @@ KISSY.add('popWin', function(S, undef) {
 		this.manager.$div.append(this.$div);
 
 		//默认宽高
-		this.setWidth(default_width).setHeight(default_height);
+		this.setWidth(default_width);
 
 		//设置关闭按钮
 		this.$close.click(function(e){
@@ -142,8 +142,8 @@ KISSY.add('popWin', function(S, undef) {
 		},
 		setWidth: function(num){
 			if(S.isNumber(num-0)){
-				this.$title.width(num-35);
-				this.$content.width(num-18);
+				this.$title.width(num-17);
+				this.$content.width(num);
 			}else{
 				S.log('popWin.setWidth: num must be a valid number!');
 			}
@@ -151,7 +151,7 @@ KISSY.add('popWin', function(S, undef) {
 		},
 		setHeight: function(num){
 			if(S.isNumber(num-0)){
-				this.$content.height(num-44);
+				this.$content.height(num);
 			}else{
 				S.log('popWin.setHeight: num must be a valid number!');
 			}
