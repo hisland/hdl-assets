@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* 查询条件 */
-.search-condition{padding:2px 150px 0 2px;overflow:hidden;margin:3px;border:1px solid #D7E2ED;*zoom:1;}
+.search-condition{padding:1px 150px 1px 1px;overflow:hidden;margin:3px;border:1px solid #D7E2ED;*zoom:1;}
 	.search-condition-c1{float:left;width:100%;overflow:hidden;position:relative;}
 	.search-condition-c2{float:right;width:140px;padding:3px 5px 0;margin-right:-150px;_position:relative;_display:inline;}
 		.search-submit{float:left;padding-left:20px;width:73px;height:22px;line-height:22px;_line-height:24px;overflow:hidden;border:none;background:url('condition-list-img/btn_search.gif') no-repeat 0 0;cursor:pointer;color:#fff;font-weight:700;letter-spacing:5px;}
@@ -15,10 +15,10 @@
 		.ls1-bg .ls1-text{background:#d0deea;}
 		.ls1-bg .ls1-ipts{background:#eef6ff;}*/
 
-	.ls1-item{float:left;height:24px;width:230px;border:1px solid #d0deea;margin:0 2px 2px 0;overflow:hidden;}
+	.ls1-item{float:left;height:24px;width:230px;border:1px solid #e2edff;margin:1px;overflow:hidden;}
 	.ls1-item-right{float:right;display:inline;}
-		.ls1-text{float:left;height:24px;line-height:24px;width:100px;text-align:right;background:#d0deea;}
-		.ls1-ipts{float:left;padding:3px;height:18px;width:124px;background:#eef6ff;}
+		.ls1-text{float:left;height:24px;line-height:24px;width:100px;text-align:right;background:#e2edff;}
+		.ls1-ipts{float:left;padding:3px;height:18px;width:124px;background:#f0f7fe;}
 
 	.ls1-2c{width:464px;}
 		.ls1-2c .ls1-ipts{width:358px;}
@@ -38,4 +38,4 @@
 	
 	.ls1-fieldset{clear:left;border:1px solid #DEE7EE;margin:4px;}
 		.ls1-legend{margin-left:10px;padding:0 3px;border:1px solid #DEE7EE;background:#fff;}
-		.ls1-box{padding:5px 0 0 2px;overflow:hidden;}
+		.ls1-box{padding:5px 1px 1px;overflow:hidden;}
