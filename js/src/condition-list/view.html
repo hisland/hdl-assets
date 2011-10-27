@@ -6,12 +6,31 @@
 	<script type="text/javascript" charset="utf-8" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, common-css, condition-list-css, popWin-css');
+			S.use('reset-css, common-css, condition-list-css, popWin+css', function(){
+				var pop = $.popWin.init();
+				pop.$content.append($('#saveForm'));
+				pop.setWidth(468);
+
+				$('#show-pop').click(function(e){
+					pop.show();
+				}).click();
+
+				var pop2 = $.popWin.init();
+				pop2.$content.append($('#popForm'));
+				pop2.setWidth(468);
+				$('#show-pop2').click(function(e){
+					pop2.show();
+				});
+			});
 		});
 	</script>
 </head>
 
 <body style="padding:50px;">
+	<p style="padding:3px;">
+		<input id="show-pop" class="button" type="button" value="弹出层" />
+		<input id="show-pop2" class="button" type="button" value="弹出层2" />
+	</p>
 	<div class="ls1">
 		<fieldset class="ls1-fieldset">
 			<legend class="ls1-legend">这是文字</legend>
@@ -157,7 +176,7 @@
 				<div class="ls1-item ls1-3r">
 					<div class="ls1-text">请选择:</div>
 					<div class="ls1-ipts">
-						<div class="label-box">
+						<div  class="ls1-big-box">
 							<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值1</label>
 							<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值2</label>
 							<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值3</label>
@@ -174,8 +193,8 @@
 		</div>
 	</form>
 
-	<div class="ls1" style="clear:left;width:460px;overflow:hidden;border:1px solid #D7E2ED;margin:3px;padding:3px;">
-		<div class="ls1-item ls1-3r" style="float:right;">
+	<div class="ls1" style="clear:left;width:468px;overflow:hidden;border:1px solid #D7E2ED;margin:3px;padding:2px 0 0 2px;">
+		<div class="ls1-item ls1-3r ls1-item-right">
 			<div class="ls1-text">备注:</div>
 			<div class="ls1-ipts">
 				<textarea></textarea>
@@ -205,10 +224,10 @@
 
 	<form id="saveForm" name="saveForm" autocomplete="off" method="post" action="keywords/addKeywords.do">
 		<div class="ls1">
-			<div class="ls1-item ls1-3r" style="float:right;">
+			<div class="ls1-item ls1-3r ls1-item-right">
 				<div class="ls1-text">备注:</div>
 				<div class="ls1-ipts">
-					<textarea></textarea>
+					<textarea class="ls1-big-box"></textarea>
 				</div>
 			</div>
 			<div class="ls1-item">
@@ -233,15 +252,54 @@
 			</div>
 		</div>
 		
-		<input type="hidden" id="listId" name="keywordsAddForm.listId" value="">
-		<input type="hidden" id="bgnTime" name="keywordsAddForm.bgnTime">
+		<input type="hidden" id="listId" name="keywordsAddForm.listId" value="" />
+		<input type="hidden" id="bgnTime" name="keywordsAddForm.bgnTime" />
 		
 		<div class="win1-btns">
-			<input type="submit" value="确定" id="savedatabtn" class="win1-btn-ok" disabled="">
-			<input type="button" value="取消" id="closepopbtn" class="win1-btn-cancle">
+			<input type="submit" value="确定" class="win1-btn-ok" />
+			<input type="button" value="取消" class="win1-btn-cancle" />
 		</div>
 	</form>
 
-	<input type="checkbox" name="" value="" style="width:50px;height:50px;" />
+	<form id="popForm" autocomplete="off" method="post" action="keywords/addKeywords.do">
+		<div class="ls1">
+			<div class="ls1-item ls1-4r ls1-item-right">
+				<div class="ls1-text">备注:</div>
+				<div class="ls1-ipts">
+					<textarea class="ls1-big-box"></textarea>
+				</div>
+			</div>
+			<div class="ls1-item">
+				<div class="ls1-text"><strong class="red">*</strong>时间片:</div>
+				<div class="ls1-ipts">
+					<input style="width:80px;" class="text1" type="text" name="" value="" />分钟
+				</div>
+			</div>
+			<div class="ls1-item">
+				<div class="ls1-text">启用:</div>
+				<div class="ls1-ipts">
+					<input class="checkbox1" type="checkbox" name="" value="" />
+				</div>
+			</div>
+			<div class="ls1-item">
+				<div class="ls1-text">启用:</div>
+				<div class="ls1-ipts">
+					<input class="checkbox1" type="checkbox" name="" value="" />
+				</div>
+			</div>
+			<div class="ls1-item">
+				<div class="ls1-text">请选择:</div>
+				<div class="ls1-ipts">
+					<select class="select1" name="">
+						<option value="aa">aaa</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="win1-btns">
+			<input type="submit" value="确定" class="win1-btn-ok" />
+			<input type="button" value="取消" class="win1-btn-cancle" />
+		</div>
+	</form>
 </body>
 </html>

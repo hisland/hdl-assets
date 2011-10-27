@@ -12,7 +12,7 @@
 input.text1{width:120px;height:14px;line-height:14px;padding:1px;border:1px solid #7f9db9;}
 
 /* 标准浏览器使用resize:none;禁止改变大小 */
-textarea, .label-box{width:120px;height:70px;padding:1px;border:1px solid #7f9db9;background:#fff;resize:none;}
+textarea, .ls1-big-box{width:120px;height:70px;padding:1px;border:1px solid #7f9db9;background:#fff;resize:none;}
 
 /* 禁用输入法 */
 .no-ime{ime-mode:disabled;}
