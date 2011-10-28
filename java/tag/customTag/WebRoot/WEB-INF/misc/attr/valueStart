@@ -1,0 +1,6 @@
+		<attribute>
+			<name>valueStart</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[可选,时间段开始时间默认值]]></description>
+		</attribute>

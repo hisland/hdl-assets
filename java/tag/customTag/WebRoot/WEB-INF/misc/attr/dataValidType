@@ -1,5 +1,5 @@
 		<attribute>
 			<name>dataValidType</name>
 			<required>false</required>
-			<description><![CDATA[可选,文本输入框的验证patterns]]></description>
+			<description><![CDATA[可选,文本输入框的验证:'pattern, pattern, pattern...']]></description>
 		</attribute>

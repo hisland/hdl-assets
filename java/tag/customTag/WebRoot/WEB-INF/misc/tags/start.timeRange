@@ -1,0 +1,5 @@
+	<tag>
+		<name>timeRange</name>
+		<tag-class>com.cdsf.tag.TimeRange</tag-class>
+		<body-content>empty</body-content>
+		<description>时间段</description>

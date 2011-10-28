@@ -11,6 +11,7 @@
 			<path path="tags/tag.pop" />
 
 			<path path="tags/tag.item" />
+			<path path="tags/tag.itemBox" />
 			
 			<path path="tags/tag.text" />
 			<path path="tags/tag.textFuzzy" />
@@ -24,6 +25,8 @@
 			
 			<path path="tags/tag.baseCheckbox" />
 			<path path="tags/tag.baseRadio" />
+			
+			<path path="tags/tag.timeRange" />
 
 			<path path="tags/tld.end" />
 		</concat>
@@ -39,9 +42,6 @@
 			<path path="attr/name" />
 			<path path="attr/id" />
 			
-			<path path="attr/style" />
-			<path path="attr/cssclass" />
-			
 			<path path="attr/action" />
 			<path path="attr/autocomplete" />
 
@@ -55,9 +55,6 @@
 
 			<path path="attr/name" />
 			<path path="attr/id" />
-			
-			<path path="attr/style" />
-			<path path="attr/cssclass" />
 			
 			<path path="attr/action" />
 			<path path="attr/autocomplete" />
@@ -96,6 +93,8 @@
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
+			
+			<path path="attr/cols" />
 			
 			<path path="attr/disabled" />
 			<path path="attr/readonly" />
@@ -288,6 +287,29 @@
 			<path path="attr/disabled" />
 			<path path="attr/value" />
 			<path path="attr/selected" />
+
+			<path path="tags/end.tag" />
+		</concat>
+	</target>
+
+	<target name="tag.timeRange" extensionOf="tld-pre">
+		<concat destfile="tags/tag.timeRange" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/start.timeRange" />
+
+			<path path="attr/name" />
+			<path path="attr/id" />
+			
+			<path path="attr/i18n" />
+			<path path="attr/text" />
+			
+			<path path="attr/valueStart" />
+			<path path="attr/valueEnd" />
+			
+			<path path="attr/readonlyStart" />
+			<path path="attr/readonlyEnd" />
+			
+			<path path="attr/disabledStart" />
+			<path path="attr/disabledEnd" />
 
 			<path path="tags/end.tag" />
 		</concat>

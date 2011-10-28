@@ -1,5 +1,5 @@
 		<attribute>
 			<name>textWidth</name>
 			<required>false</required>
-			<description><![CDATA[可选,item文字部分的宽度]]></description>
+			<description><![CDATA[可选,item的text部分的宽度]]></description>
 		</attribute>

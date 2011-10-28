@@ -50,13 +50,19 @@ public class Text extends Item {
 		sb.append(getSuffix());
 		return sb.toString();
 	}
-	
-	//子标签可覆盖可设置type
+
+	/**
+	 * @author hedingliang
+	 * @return type="xx"
+	 */
 	public String getType() {
 		return " type=\"text\"";
 	}
 
-	//text的name属性
+	/**
+	 * @author hedingliang
+	 * @return name="xx"
+	 */
 	public String getName() {
 		if (name != null) {
 			return " name=\"" + name + "\"";
@@ -67,7 +73,11 @@ public class Text extends Item {
 	public void setName(String name) {
 		this.name = name;
 	}
-	//text的id属性
+	
+	/**
+	 * @author hedingliang
+	 * @return id="xx"
+	 */
 	public String getId() {
 		if (id != null) {
 			return " id=\"" + id + "\"";
@@ -78,8 +88,11 @@ public class Text extends Item {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	//text的style属性
+	
+	/**
+	 * @author hedingliang
+	 * @return style="xx"
+	 */
 	public String getStyle() {
 		if (style != null) {
 			return " style=\"" + style + "\"";
@@ -91,7 +104,10 @@ public class Text extends Item {
 		this.style = style;
 	}
 
-	//text的class属性
+	/**
+	 * @author hedingliang
+	 * @return class="xx"
+	 */
 	public String getCssclass() {
 		return " class=\"text1" + (cssclass != null ? " "+cssclass : "") + "\"";
 	}
@@ -99,7 +115,10 @@ public class Text extends Item {
 		this.cssclass = cssclass;
 	}
 
-	//默认的value属性
+	/**
+	 * @author hedingliang
+	 * @return value="xx"
+	 */
 	public String getValue() {
 		if (value != null) {
 			return " value=\"" + value + "\"";
@@ -111,7 +130,10 @@ public class Text extends Item {
 		this.value = value;
 	}
 
-	//readonly, disabled二选一, disabled优先
+	/**
+	 * @author hedingliang
+	 * @return disabled="xx" 或者 readonly="xx", disabled优先
+	 */
 	public void setDisabled(String disabled){
 		if ("true".equals(disabled)) {
 			this.disabled = true;
@@ -134,7 +156,11 @@ public class Text extends Item {
 		}
 	}
 
-	//文本框后面的文本
+
+	/**
+	 * @author hedingliang
+	 * @return 文本框后面的文本
+	 */
 	public String getSuffix() {
 		return suffix != null ? suffix : "";
 	}
@@ -142,7 +168,10 @@ public class Text extends Item {
 		this.suffix = suffix;
 	}
 
-	//表单的浏览器自动完成功能
+	/**
+	 * @author hedingliang
+	 * @return autocomplete="off"
+	 */
 	public String getAutocomplete() {
 		return autocomplete != null ? " autocomplete=\"off\"" : "";
 	}
@@ -152,7 +181,10 @@ public class Text extends Item {
 		}
 	}
 
-	//text的maxlength属性
+	/**
+	 * @author hedingliang
+	 * @return maxlength="xx"
+	 */
 	public String getMaxlengthAttr() {
 		return maxlength != null ? " maxlength=\"" + maxlength + "\"" : "";
 	}
@@ -162,7 +194,10 @@ public class Text extends Item {
 		}
 	}
 	
-	//验证信息
+	/**
+	 * @author hedingliang
+	 * @return 验证信息, data-valid-type="xx"
+	 */
 	public String getDataValidType() {
 		return dataValidType != null ? " data-valid-type=\"" + dataValidType + "\"" : "";
 	}

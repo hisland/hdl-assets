@@ -15,8 +15,8 @@ import com.cdsf.tag.base.TagI18n;
 public class BaseCheckbox extends TagI18n {
 	private String name;
 	private String id;
-	private boolean disabled;
 	private String value;
+	private boolean disabled;
 	private boolean checked;
 	
 	@Override

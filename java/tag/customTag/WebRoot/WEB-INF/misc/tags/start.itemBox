@@ -1,0 +1,5 @@
+	<tag>
+		<name>itemBox</name>
+		<tag-class>com.cdsf.tag.ItemBox</tag-class>
+		<body-content>jsp</body-content>
+		<description>大的包含块,里面可以放checkbox,带边框</description>

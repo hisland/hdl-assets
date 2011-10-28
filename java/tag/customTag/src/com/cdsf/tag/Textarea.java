@@ -20,6 +20,15 @@ public class Textarea extends Text {
 	}
 	
 	@Override
+	public void setRows(String rows) {
+		if ("3".equals(rows) || "4".equals(rows)) {
+			super.setRows(rows);
+		}else {
+			super.setRows("3");
+		}
+	}
+	
+	@Override
 	public String beforeBody() {
 		StringBuffer sb = new StringBuffer();
 		

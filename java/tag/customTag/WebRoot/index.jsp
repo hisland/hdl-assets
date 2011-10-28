@@ -23,41 +23,46 @@
 	</script>
 </head>
 <body>
-	<anti:item />
-	<anti:item cols="2" />
-	<anti:item cols="3" />
-	<anti:item rows="3" />
-	<anti:item rows="4" />
-	<anti:item text="hello" />
-	<anti:item text="hello" required="true" />
-	<anti:item text="hello" required="true" textWidth="150" />
-	<anti:item i18n="i18n-key" />
-	<anti:item i18n="i18n-key">有内容</anti:item>
+	<anti:query>
+		<anti:item />
+		<anti:item cols="2" textWidth="200" />
+		<anti:item cols="3" />
+		<anti:item rows="3" />
+		<anti:item rows="4" />
+		<anti:item text="hello" />
+		<anti:item text="hello" required="true" />
+		<anti:item text="hello" required="true" textWidth="150" />
+		<anti:item i18n="i18n-key" />
+		<anti:item i18n="i18n-key">有内容</anti:item>
+	</anti:query>
 	
-	<anti:text text="god" />
-	<anti:text text="disabled" disabled="true"  />
-	<anti:text text="readonly" readonly="true" />
-	<anti:text text="时间片" suffix="分钟" style="width:90px;" />
-	<anti:text text="god" value="有默认值" />
+	<anti:query>
+		<anti:text text="god" cols="2" />
+		<anti:text text="disabled" disabled="true"  />
+		<anti:text text="readonly" readonly="true" />
+		<anti:text text="时间片" suffix="分钟" style="width:90px;" />
+		<anti:text text="god" value="有默认值" />
+	</anti:query>
 	
-	<anti:textFuzzy fuzzyChecked="true" />
-	
-	<anti:password text="密码" value="pass" />
-	
-	<anti:textarea text="cc">ss</anti:textarea>
-	
-	<anti:item text="hello" cols="2">
-		<anti:baseCheckbox value="aa" text="god" />
-		<anti:baseCheckbox value="aa" text="god" disabled="true" />
-		<anti:baseCheckbox value="aa" text="god" />
-		<anti:baseCheckbox value="aa" text="god" disabled="true" />
-	</anti:item>
-	
-	<anti:item text="hello" cols="2">
-		<anti:baseRadio value="aa" text="god" />
-		<anti:baseRadio value="aa" text="god" disabled="true" />
-		<anti:baseRadio value="aa" text="god" />
-		<anti:baseRadio value="aa" text="god" disabled="true" />
-	</anti:item>
+	<anti:query>
+		<anti:textFuzzy fuzzyChecked="true" />
+		
+		<anti:password text="密码" value="pass" />
+		
+		<anti:textarea text="cc">ss</anti:textarea>
+		<anti:item text="hello" cols="2">
+			<anti:baseCheckbox value="aa" text="god" />
+			<anti:baseCheckbox value="aa" text="god" disabled="true" />
+			<anti:baseCheckbox value="aa" text="god" />
+			<anti:baseCheckbox value="aa" text="god" disabled="true" />
+		</anti:item>
+		
+		<anti:item text="hello" cols="2">
+			<anti:baseRadio value="aa" text="god" />
+			<anti:baseRadio value="aa" text="god" disabled="true" />
+			<anti:baseRadio value="aa" text="god" />
+			<anti:baseRadio value="aa" text="god" disabled="true" />
+		</anti:item>
+	</anti:query>
 </body>
 </html>

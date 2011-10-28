@@ -1,0 +1,6 @@
+		<attribute>
+			<name>valueEnd</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[可选,时间段结束时间默认值]]></description>
+		</attribute>

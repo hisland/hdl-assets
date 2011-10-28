@@ -1,5 +1,0 @@
-	<tag>
-		<name>itemBig</name>
-		<tag-class>com.cdsf.tag.ItemBig</tag-class>
-		<body-content>jsp</body-content>
-		<description>大的包含块,里面可以放checkbox</description>

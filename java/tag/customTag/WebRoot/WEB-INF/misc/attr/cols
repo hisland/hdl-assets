@@ -1,5 +1,5 @@
 		<attribute>
-			<name>rows</name>
+			<name>cols</name>
 			<required>false</required>
-			<description><![CDATA[可选,基本查询条件item的高度,默认是1,值为3,4,5,..其它无效]]></description>
+			<description><![CDATA[可选,值为2,3,其它无效]]></description>
 		</attribute>

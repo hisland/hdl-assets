@@ -3,7 +3,6 @@ package com.cdsf.tag;
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
 
 import com.cdsf.tag.base.TagI18n;
 
@@ -17,7 +16,7 @@ import com.cdsf.tag.base.TagI18n;
 		</div>
 	</div>
 	<div class="search-condition-c2">
-		<input class="search-submit" type="button" value="查询" />
+		<input class="search-submit" type="submit" value="查询" />
 		<p class="search-more">收起条件</p>
 	</div>
 </form>
@@ -25,21 +24,24 @@ import com.cdsf.tag.base.TagI18n;
 @SuppressWarnings("serial")
 public class Query extends TagI18n {
 	//默认关闭浏览器的自动完成功能
-	private boolean autocomplete = false;
+	private boolean autocomplete;
 	private String action;
+	private String name;
+	private String id;
 	
 	@Override
 	public int doStartTag(){
-		StringBuilder sb = new StringBuilder();
-		JspWriter out = pageContext.getOut();
 		try {
+			StringBuffer sb = new StringBuffer();
 			sb.append("<form class=\"search-condition\"");
+			sb.append(getId());
+			sb.append(getName());
 			sb.append(getAction());
 			sb.append(getAutocomplete());
 			sb.append(">");
 			sb.append("<div class=\"search-condition-c1\">");
 			sb.append("<div class=\"ls1\">");
-			out.write(sb.toString());
+			pageContext.getOut().write(sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -48,23 +50,25 @@ public class Query extends TagI18n {
 	
 	@Override
 	public int doEndTag() throws JspException {
-		StringBuilder sb = new StringBuilder();
-		JspWriter out = pageContext.getOut();
 		try {
+			StringBuffer sb = new StringBuffer();
 			sb.append("</div>");
 			sb.append("</div>");
 			sb.append("<div class=\"search-condition-c2\">");
-			sb.append("<input class=\"search-submit\" type=\"button\" value=\"查询\" />");
+			sb.append("<input class=\"search-submit\" type=\"submit\" value=\"查询\" />");
 			sb.append("<p class=\"search-more\">收起条件</p>");
 			sb.append("</div></form>");
-			out.write(sb.toString());
+			pageContext.getOut().write(sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return EVAL_PAGE;
 	}
 
-	//表单的浏览器自动完成功能
+	/**
+	 * @author hedingliang
+	 * @return autocomplete="off"
+	 */
 	public String getAutocomplete() {
 		if (autocomplete == false) {
 			return " autocomplete=\"off\"";
@@ -72,23 +76,54 @@ public class Query extends TagI18n {
 			return "";
 		}
 	}
-	public void setAutocomplete(String autocomplete) throws Exception {
+	public void setAutocomplete(String autocomplete){
 		if ("true".equals(autocomplete)) {
 			this.autocomplete = true;
-		}else {
-			throw new Exception("\n\n\n autocomplete must be true!----<<<\n\n");
 		}
 	}
 
-	//form的action属性
+	/**
+	 * @author hedingliang
+	 * @return action="xx"
+	 */
 	public String getAction() {
-		if (action == null) {
-			return "";
-		}else {
+		if (action != null) {
 			return " action=\"" + action + "\"";
+		}else {
+			return "";
 		}
 	}
 	public void setAction(String action) {
 		this.action = action;
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return name="xx"
+	 */
+	public String getName() {
+		if (name != null) {
+			return " name=\"" + name + "\"";
+		}else {
+			return "";
+		}
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * @author hedingliang
+	 * @return id="xx"
+	 */
+	public String getId() {
+		if (id != null) {
+			return " id=\"" + id + "\"";
+		}else {
+			return getName();
+		}
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 }

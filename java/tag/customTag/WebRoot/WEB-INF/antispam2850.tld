@@ -79,16 +79,6 @@
 			<description><![CDATA[可选,与html的id属性一致,若无使用name值]]></description>
 		</attribute>
 		<attribute>
-			<name>style</name>
-			<required>false</required>
-			<description><![CDATA[可选,额外的style属性, 与html的style属性一致]]></description>
-		</attribute>
-		<attribute>
-			<name>cssclass</name>
-			<required>false</required>
-			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
-		</attribute>
-		<attribute>
 			<name>action</name>
 			<required>false</required>
 			<description><![CDATA[可选,form的action属性]]></description>
@@ -116,16 +106,6 @@
 			<description><![CDATA[可选,与html的id属性一致,若无使用name值]]></description>
 		</attribute>
 		<attribute>
-			<name>style</name>
-			<required>false</required>
-			<description><![CDATA[可选,额外的style属性, 与html的style属性一致]]></description>
-		</attribute>
-		<attribute>
-			<name>cssclass</name>
-			<required>false</required>
-			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
-		</attribute>
-		<attribute>
 			<name>action</name>
 			<required>false</required>
 			<description><![CDATA[可选,form的action属性]]></description>
@@ -148,19 +128,19 @@
 		<body-content>jsp</body-content>
 		<description>输入框的基本包含块</description>
 		<attribute>
-			<name>rows</name>
-			<required>false</required>
-			<description><![CDATA[可选,基本查询条件item的高度,默认是1,值为3,4,5,..其它无效]]></description>
-		</attribute>
-		<attribute>
 			<name>cols</name>
 			<required>false</required>
-			<description><![CDATA[可选,基本查询条件item的宽度,默认是1,值为2,3,其它无效]]></description>
+			<description><![CDATA[可选,值为2,3,其它无效]]></description>
+		</attribute>
+		<attribute>
+			<name>rows</name>
+			<required>false</required>
+			<description><![CDATA[可选,值为3,4,5,其它无效]]></description>
 		</attribute>
 		<attribute>
 			<name>textWidth</name>
 			<required>false</required>
-			<description><![CDATA[可选,item文字部分的宽度]]></description>
+			<description><![CDATA[可选,item的text部分的宽度]]></description>
 		</attribute>
 		<attribute>
 			<name>i18n</name>
@@ -215,6 +195,11 @@
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
+			<name>cols</name>
+			<required>false</required>
+			<description><![CDATA[可选,值为2,3,其它无效]]></description>
+		</attribute>
+		<attribute>
 			<name>disabled</name>
 			<required>false</required>
 			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
@@ -253,7 +238,7 @@
 		<attribute>
 			<name>dataValidType</name>
 			<required>false</required>
-			<description><![CDATA[可选,文本输入框的验证patterns]]></description>
+			<description><![CDATA[可选,文本输入框的验证:'pattern, pattern, pattern...']]></description>
 		</attribute>
 	</tag>
 
@@ -326,7 +311,7 @@
 		<attribute>
 			<name>dataValidType</name>
 			<required>false</required>
-			<description><![CDATA[可选,文本输入框的验证patterns]]></description>
+			<description><![CDATA[可选,文本输入框的验证:'pattern, pattern, pattern...']]></description>
 		</attribute>
 		<attribute>
 			<name>fuzzyChecked</name>
@@ -404,7 +389,7 @@
 		<attribute>
 			<name>dataValidType</name>
 			<required>false</required>
-			<description><![CDATA[可选,文本输入框的验证patterns]]></description>
+			<description><![CDATA[可选,文本输入框的验证:'pattern, pattern, pattern...']]></description>
 		</attribute>
 	</tag>
 
@@ -414,9 +399,9 @@
 		<body-content>JSP</body-content>
 		<description>textarea标签</description>
 		<attribute>
-			<name>cols</name>
+			<name>rows</name>
 			<required>false</required>
-			<description><![CDATA[可选,基本查询条件item的宽度,默认是1,值为2,3,其它无效]]></description>
+			<description><![CDATA[可选,值为3,4,5,其它无效]]></description>
 		</attribute>
 		<attribute>
 			<name>name</name>
@@ -472,7 +457,7 @@
 		<attribute>
 			<name>dataValidType</name>
 			<required>false</required>
-			<description><![CDATA[可选,文本输入框的验证patterns]]></description>
+			<description><![CDATA[可选,文本输入框的验证:'pattern, pattern, pattern...']]></description>
 		</attribute>
 	</tag>
 
@@ -646,7 +631,7 @@
 		<attribute>
 			<name>dataFuzzyIds</name>
 			<required>false</required>
-			<description><![CDATA[可选,模糊查询目标的id-selector, '#id1, #id2...']]></description>
+			<description><![CDATA[可选,模糊查询目标的css-selector, 形式:'#id1, #id2...']]></description>
 		</attribute>
 	</tag>
 
@@ -733,6 +718,65 @@
 			<name>selected</name>
 			<required>false</required>
 			<description><![CDATA[可选,radio的选中状态,值只能是true]]></description>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>timeRange</name>
+		<tag-class>com.cdsf.tag.TimeRange</tag-class>
+		<body-content>empty</body-content>
+		<description>时间段</description>
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+			<description><![CDATA[可选,与html的name属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<description><![CDATA[可选,与html的id属性一致,若无使用name值]]></description>
+		</attribute>
+		<attribute>
+			<name>i18n</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>text</name>
+			<required>false</required>
+			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>valueStart</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[可选,时间段开始时间默认值]]></description>
+		</attribute>
+		<attribute>
+			<name>valueEnd</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[可选,时间段结束时间默认值]]></description>
+		</attribute>
+		<attribute>
+			<name>readonlyStart</name>
+			<required>false</required>
+			<description><![CDATA[可选,时间段开始时间只读, 与readonly,disabled二选一,disabled优先,值只能是true]]></description>
+		</attribute>
+		<attribute>
+			<name>readonlyEnd</name>
+			<required>false</required>
+			<description><![CDATA[可选,时间段结束时间只读, 与readonly,disabled二选一,disabled优先,值只能是true]]></description>
+		</attribute>
+		<attribute>
+			<name>disabledStart</name>
+			<required>false</required>
+			<description><![CDATA[可选,时间段开始时间禁用, 与readonly,disabled二选一,disabled优先,值只能是true]]></description>
+		</attribute>
+		<attribute>
+			<name>disabledEnd</name>
+			<required>false</required>
+			<description><![CDATA[可选,时间段结束时间禁用, 与readonly,disabled二选一,disabled优先,值只能是true]]></description>
 		</attribute>
 	</tag>
 

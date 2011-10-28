@@ -1,5 +1,5 @@
 		<attribute>
 			<name>dataFuzzyIds</name>
 			<required>false</required>
-			<description><![CDATA[可选,模糊查询目标的id-selector, '#id1, #id2...']]></description>
+			<description><![CDATA[可选,模糊查询目标的css-selector, 形式:'#id1, #id2...']]></description>
 		</attribute>
