@@ -58,6 +58,7 @@
 			
 			<path path="attr/action" />
 			<path path="attr/autocomplete" />
+			
 			<path path="attr/needButtons" />
 
 			<path path="tags/end.tag" />
@@ -122,6 +123,8 @@
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
+			
+			<path path="attr/cols" />
 			
 			<path path="attr/disabled" />
 			<path path="attr/readonly" />
@@ -310,6 +313,9 @@
 			
 			<path path="attr/disabledStart" />
 			<path path="attr/disabledEnd" />
+
+			<path path="attr/enableValue" />
+			<path path="attr/enableChecked" />
 
 			<path path="tags/end.tag" />
 		</concat>

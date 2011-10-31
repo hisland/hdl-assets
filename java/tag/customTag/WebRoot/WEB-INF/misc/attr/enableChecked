@@ -1,0 +1,5 @@
+		<attribute>
+			<name>enableChecked</name>
+			<required>false</required>
+			<description><![CDATA[可选,启用选中状态,值只能是true]]></description>
+		</attribute>

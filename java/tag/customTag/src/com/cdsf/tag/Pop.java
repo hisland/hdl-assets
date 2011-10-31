@@ -25,8 +25,8 @@ public class Pop extends Query {
 	public int doStartTag(){
 		try {
 			StringBuffer sb = new StringBuffer();
-//			sb.append("<form style=\"display:none;\"");
-			sb.append("<form");
+			sb.append("<form style=\"display:none;\"");
+//			sb.append("<form");
 			sb.append(getId());
 			sb.append(getName());
 			sb.append(getAction());

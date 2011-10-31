@@ -12,8 +12,8 @@
 /* 头和内容并行排列 */
 .ls1{overflow:hidden;line-height:1.5;}
 /*	.ls1-bg .ls1-item{border-color:#d0deea;}
-		.ls1-bg .ls1-text{background:#d0deea;}
-		.ls1-bg .ls1-ipts{background:#eef6ff;}*/
+		.ls1-bg .ls1-text{background:#e2edff;}
+		.ls1-bg .ls1-ipts{background:#f0f7fe;}*/
 
 	.ls1-item{float:left;height:24px;width:230px;border:1px solid #e2edff;margin:1px;overflow:hidden;}
 	.ls1-item-right{float:right;display:inline;}

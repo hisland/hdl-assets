@@ -1,0 +1,5 @@
+		<attribute>
+			<name>enableValue</name>
+			<required>false</required>
+			<description><![CDATA[可选,,启用checkbox的值]]></description>
+		</attribute>

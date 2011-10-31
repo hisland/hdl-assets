@@ -14,6 +14,10 @@ package com.cdsf.tag;
 @SuppressWarnings("serial")
 public class Fuzzy extends Checkbox {
 	private String dataFuzzyIds;
+	
+	public String getMore() {
+		return getDataFuzzyIds();
+	}
 
 	public String getDataFuzzyIds() {
 		if (dataFuzzyIds != null) {

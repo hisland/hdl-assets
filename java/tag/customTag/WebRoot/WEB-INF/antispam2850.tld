@@ -278,6 +278,11 @@
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
+			<name>cols</name>
+			<required>false</required>
+			<description><![CDATA[可选,值为2,3,其它无效]]></description>
+		</attribute>
+		<attribute>
 			<name>disabled</name>
 			<required>false</required>
 			<description><![CDATA[可选,与readonly,disabled二选一,disabled优先,值只能是true]]></description>
@@ -777,6 +782,16 @@
 			<name>disabledEnd</name>
 			<required>false</required>
 			<description><![CDATA[可选,时间段结束时间禁用, 与readonly,disabled二选一,disabled优先,值只能是true]]></description>
+		</attribute>
+		<attribute>
+			<name>enableValue</name>
+			<required>false</required>
+			<description><![CDATA[可选,,启用checkbox的值]]></description>
+		</attribute>
+		<attribute>
+			<name>enableChecked</name>
+			<required>false</required>
+			<description><![CDATA[可选,启用选中状态,值只能是true]]></description>
 		</attribute>
 	</tag>
 
