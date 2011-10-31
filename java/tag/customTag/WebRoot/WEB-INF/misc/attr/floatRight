@@ -1,0 +1,5 @@
+		<attribute>
+			<name>floatRight</name>
+			<required>false</required>
+			<description><![CDATA[可选,box往右边靠时,值为true]]></description>
+		</attribute>

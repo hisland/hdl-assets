@@ -5,7 +5,7 @@
 
 	<tstamp>
 		<format property="build.time" pattern="yyyy-MM-dd HH:mm:ss" offset="8" unit="hour" />
-		<format property="build.ts" pattern="yyyyMMddHHmmss" offset="8" unit="hour" />
+		<format property="build.ts" pattern="yyyyMMdd-HHmm" offset="8" unit="hour" />
 	</tstamp>
 
 	<target name="jar">

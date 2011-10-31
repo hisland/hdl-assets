@@ -429,6 +429,11 @@
 			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
 		</attribute>
 		<attribute>
+			<name>floatRight</name>
+			<required>false</required>
+			<description><![CDATA[可选,box往右边靠时,值为true]]></description>
+		</attribute>
+		<attribute>
 			<name>i18n</name>
 			<required>false</required>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>

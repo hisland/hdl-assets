@@ -178,6 +178,7 @@
 			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			<path path="attr/floatRight" />
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
