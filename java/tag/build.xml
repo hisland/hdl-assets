@@ -19,4 +19,19 @@
 		<jar destfile="${dir.dest}/cdsf-tag-${version}-${build.ts}.jar" basedir="${dir.dest}/tmp"/>
 		<delete dir="${dir.dest}/tmp" />
 	</target>
+
+	<target name="jar-src">
+		<mkdir dir="${dir.dest}/tmp/META-INF" />
+		<copy todir="${dir.dest}/tmp/META-INF" file="customTag/WebRoot/WEB-INF/antispam2850.tld" />
+		<copy todir="${dir.dest}/tmp/">
+			<fileset dir="customTag/src" includes="**/*.java" />
+		</copy>
+		<javac encoding="${encoding}" srcdir="customTag/src" destdir="${dir.dest}/tmp" includeantruntime="true">
+			<classpath>
+				<fileset dir="customTag/WebRoot/WEB-INF/lib" includes="*.jar" />
+			</classpath>
+		</javac>
+		<jar destfile="${dir.dest}/cdsf-tag-${version}-${build.ts}-src.jar" basedir="${dir.dest}/tmp"/>
+		<delete dir="${dir.dest}/tmp" />
+	</target>
 </project>
