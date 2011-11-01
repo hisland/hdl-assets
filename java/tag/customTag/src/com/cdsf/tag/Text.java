@@ -77,11 +77,7 @@ public class Text extends Item {
 	 * @return name="xx"
 	 */
 	public String getName() {
-		if (name != null) {
-			return " name=\"" + name + "\"";
-		}else {
-			return "";
-		}
+		return name != null ? " name=\"" + name + "\"" : "";
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -92,11 +88,7 @@ public class Text extends Item {
 	 * @return id="xx"
 	 */
 	public String getId() {
-		if (id != null) {
-			return " id=\"" + id + "\"";
-		}else {
-			return getName();
-		}
+		return id != null ? " id=\"" + id + "\"" : getName();
 	}
 	public void setId(String id) {
 		this.id = id;
@@ -107,11 +99,7 @@ public class Text extends Item {
 	 * @return style="xx"
 	 */
 	public String getStyle() {
-		if (style != null) {
-			return " style=\"" + style + "\"";
-		}else {
-			return "";
-		}
+		return style != null ? " style=\"" + style + "\"" : "";
 	}
 	public void setStyle(String style) {
 		this.style = style;
@@ -175,7 +163,7 @@ public class Text extends Item {
 	 * @return 文本框后面的文本
 	 */
 	public String getSuffix() {
-		return suffix != null ? suffix : "";
+		return suffix != null ? "<span>" + suffix + "</span>" : "";
 	}
 	public void setSuffix(String suffix) {
 		this.suffix = suffix;
@@ -186,7 +174,7 @@ public class Text extends Item {
 	 * @return autocomplete="off"
 	 */
 	public String getAutocompleteAttr() {
-		return autocomplete ? " autocomplete=\"off\"" : "";
+		return !autocomplete ? " autocomplete=\"off\"" : "";
 	}
 	public void setAutocomplete(boolean autocomplete){
 		if (autocomplete) {

@@ -291,11 +291,7 @@ public class Item extends TagI18n {
 	 * @return 如果有id,返回id="id"
 	 */
 	public String getWrapId() {
-		if (wrapId != null) {
-			return " id=\"" + wrapId + "\"";
-		}else {
-			return "";
-		}
+		return wrapId != null ? " id=\"" + wrapId + "\"" : "";
 	}
 	public void setWrapId(String wrapId) {
 		this.wrapId = wrapId;

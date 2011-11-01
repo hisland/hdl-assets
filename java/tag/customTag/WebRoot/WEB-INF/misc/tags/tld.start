@@ -23,12 +23,12 @@
 			textarea: 输入区域
 			
 			item: 小的包含块,可设置col为2或者3
-			itemBig: textarea那么大的查询条件包含块
-			itemCheckbox: 右侧带label的checkbox
-			itemRadio: 右侧带label的radio
+			itemBox: textarea那么大的查询条件包含块
+			baseCheckbox: 右侧带label的checkbox
+			baseRadio: 右侧带label的radio
 			
 			autocomplete: 自动完成下拉输入
-			time: 时间输入, 带启用禁用的checkbox
+			timeRange: 时间输入, 带启用禁用的checkbox
 			week: 周输入
 			
 			tabs: tab包含块
@@ -36,7 +36,7 @@
 
 			标签属性:
 			id 如果没有, 使用对应的name值,最好遵循此规则,否则可能导致混乱
-			text 使用直接文本, i18n使用国际化key, text优先
+			text, i18n 互斥, text优先
 			disabled, readonly 互斥, disabled优先
 
 			name     : form或者表单元素的name属性
