@@ -14,22 +14,35 @@ import com.cdsf.tag.base.Item;
  */
 @SuppressWarnings("serial")
 public class Text extends Item {
-	private String name;
-	private String id;
+	protected String name;
+	protected String id;
 	
-	private String style;
-	private String cssclass;
+	protected String style;
+	protected String cssclass;
 	
 	//为true时表单元素会被[禁用/只读], 禁用优先
-	private boolean disabled;
-	private boolean readonly;
+	protected boolean disabled;
+	protected boolean readonly;
 
-	private String value;
-	private String suffix;
+	protected String value;
+	protected String suffix;
 	//默认关闭浏览器的自动完成功能
-	private String autocomplete;
-	private String maxlength;
-	private String dataValidType;
+	protected boolean autocomplete;
+	protected int maxlength;
+	protected String dataValidType;
+	
+	@Override
+	public void preInit() {
+		super.preInit();
+		
+		if (iptWidth != 124) {
+			if (style != null) {
+				setStyle("width:" + (iptWidth - 4) + "px;" + style);
+			} else {
+				setStyle("width:" + (iptWidth - 4) + "px;");
+			}
+		}
+	}
 	
 	@Override
 	public String beforeBody() {
@@ -42,7 +55,7 @@ public class Text extends Item {
 		sb.append(getCssclass());
 		sb.append(getValue());
 		sb.append(getDisabledReadonly());
-		sb.append(getAutocomplete());
+		sb.append(getAutocompleteAttr());
 		sb.append(getMaxlengthAttr());
 		sb.append(getDataValidType());
 		sb.append(" />");
@@ -134,21 +147,21 @@ public class Text extends Item {
 	 * @author hedingliang
 	 * @return disabled="xx" 或者 readonly="xx", disabled优先
 	 */
-	public void setDisabled(String disabled){
-		if ("true".equals(disabled)) {
-			this.disabled = true;
+	public void setDisabled(boolean disabled){
+		if (disabled) {
+			this.disabled = disabled;
 		}
 	}
-	public void setReadonly(String readonly){
-		if ("true".equals(readonly)) {
-			this.readonly = true;
+	public void setReadonly(boolean readonly){
+		if (readonly) {
+			this.readonly = readonly;
 		}
 	}
 	public String getDisabledReadonly() {
-		if (disabled != false) {
+		if (disabled) {
 			return " disabled=\"disabled\"";
 		}else {
-			if (readonly != false) {
+			if (readonly) {
 				return " readonly=\"readonly\"";
 			}else {
 				return "";
@@ -172,11 +185,11 @@ public class Text extends Item {
 	 * @author hedingliang
 	 * @return autocomplete="off"
 	 */
-	public String getAutocomplete() {
-		return autocomplete != null ? " autocomplete=\"off\"" : "";
+	public String getAutocompleteAttr() {
+		return autocomplete ? " autocomplete=\"off\"" : "";
 	}
-	public void setAutocomplete(String autocomplete){
-		if ("true".equals(autocomplete)) {
+	public void setAutocomplete(boolean autocomplete){
+		if (autocomplete) {
 			this.autocomplete = autocomplete;
 		}
 	}
@@ -186,12 +199,10 @@ public class Text extends Item {
 	 * @return maxlength="xx"
 	 */
 	public String getMaxlengthAttr() {
-		return maxlength != null ? " maxlength=\"" + maxlength + "\"" : "";
+		return maxlength != 0 ? " maxlength=\"" + maxlength + "\"" : "";
 	}
-	public void setMaxlength(String maxlength) {
-		if ("true".equals(maxlength)) {
-			this.maxlength = maxlength;
-		}
+	public void setMaxlength(int maxlength) {
+		this.maxlength = maxlength;
 	}
 	
 	/**

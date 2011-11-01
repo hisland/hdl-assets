@@ -28,7 +28,7 @@ public class BaseCheckbox extends TagI18n {
 	public int doEndTag() throws JspException {
 		try {
 			StringBuffer sb = new StringBuffer();
-			sb.append("<input");
+			sb.append("<input class=\"checkbox2\"");
 			sb.append(getType());
 			sb.append(getName());
 			sb.append(getId());

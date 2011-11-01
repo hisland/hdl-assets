@@ -14,18 +14,14 @@ package com.cdsf.tag;
  */
 @SuppressWarnings("serial")
 public class Textarea extends Text {
-	@Override
-	public void preInit() {
-		setRows("3");
-	}
+	private boolean floatRight;
 	
 	@Override
-	public void setRows(String rows) {
-		if ("3".equals(rows) || "4".equals(rows)) {
-			super.setRows(rows);
-		}else {
-			super.setRows("3");
+	public void preInit() {
+		if (rows == 1) {
+			rows = 3;
 		}
+		super.preInit();
 	}
 	
 	@Override
@@ -47,5 +43,20 @@ public class Textarea extends Text {
 	@Override
 	public String afterBody() {
 		return "</textarea>";
+	}
+	
+	@Override
+	public String getWrapFloat() {
+		if (floatRight) {
+			return "float:right;";
+		}else {
+			return "";
+		}
+	}
+
+	public void setFloatRight(boolean floatRight) {
+		if (floatRight) {
+			this.floatRight = floatRight;
+		}
 	}
 }

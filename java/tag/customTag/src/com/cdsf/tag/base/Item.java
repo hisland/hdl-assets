@@ -16,19 +16,26 @@ import javax.servlet.jsp.JspException;
  */
 @SuppressWarnings("serial")
 public class Item extends TagI18n {
-	private String cols;
-	private String rows;
-	private String wrapId;
-	private boolean required;
-	protected int textWidth;
-	protected int iptWidth;
-	protected int itemWidth = 230;
+	protected String wrapId;
+	protected boolean required;
+	protected int cols = 1;
+	protected int rows = 1;
+	protected int itemWidth;
+	protected int itemHeight;
+	protected int textWidth = 100;
+	protected int iptWidth = 124;
+	protected int baseWidth = 230;
+	protected int baseHeight = 24;
 
 	/**
 	 * @author hedingliang
-	 * @description 作为父类时,子类需要进行一些参数的初始化
+	 * @description 作为父类时,子类需要进行一些参数的初始化, 需要执行super.preInit()调用父类的初始化
 	 */
 	public void preInit() {
+		//初始化宽高
+		itemWidth = baseWidth * cols + (cols-1)*4;
+		iptWidth = itemWidth - textWidth - 6;
+		itemHeight = baseHeight * rows + (rows-1)*4;
 	}
 
 	/**
@@ -62,31 +69,20 @@ public class Item extends TagI18n {
 	@Override
 	public int doStartTag(){
 		try {
-			//初始化长度信息
-			if (this.textWidth != 0) {
-				int cols = 1;
-				if (this.cols != null ) {
-					cols = Integer.valueOf(this.cols);
-				}
-				this.iptWidth = this.itemWidth * cols + (cols-1)*4 - this.textWidth - 6;
-			}
-			
 			preInit();
 			
 			StringBuffer sb = new StringBuffer();
-			sb.append("<div class=\"ls1-item");
-			sb.append(getCols());
-			sb.append(getRows());
-			sb.append("\"");
+			sb.append("<div class=\"ls1-item\"");
 			sb.append(getWrapId());
+			sb.append(getWrapStyle());
 			sb.append(">");
 			sb.append("<div class=\"ls1-text\"");
-			sb.append(getTextWidth());
+			sb.append(getTextStyle());
 			sb.append(">");
 			sb.append(getLabel());
 			sb.append("</div>");
 			sb.append("<div class=\"ls1-ipts\"");
-			sb.append(getIptWidth());
+			sb.append(getIptStyle());
 			sb.append(">");
 			
 			sb.append(beforeBody());
@@ -118,63 +114,21 @@ public class Item extends TagI18n {
 
 	/**
 	 * @author hedingliang
-	 * @return ls1-*c 或者 ""
-	 */
-	public String getCols() {
-		return cols != null ? " ls1-"+cols+"c" : "";
-	}
-	
-	/**
-	 * @author hedingliang
 	 * @param cols 值只能为2或者3
 	 */
-	public void setCols(String cols) {
-		if ("2".equals(cols) || "3".equals(cols)) {
+	public void setCols(int cols) {
+		if (cols > 1 && cols < 4) {
 			this.cols = cols;
 		}
-	}
-
-	/**
-	 * @author hedingliang
-	 * @return ls1-*r 或者 ""
-	 */
-	public String getRows() {
-		return rows != null ? " ls1-"+rows+"r" : "";
 	}
 	
 	/**
 	 * @author hedingliang
 	 * @param rows 值只能为3,4或者5
 	 */
-	public void setRows(String rows) {
-		if ("3".equals(rows) || "4".equals(rows) || "5".equals(rows)) {
+	public void setRows(int rows) {
+		if (rows > 2 && rows < 6) {
 			this.rows = rows;
-		}
-	}
-
-	/**
-	 * @author hedingliang
-	 * @return style="xx"
-	 * @description label区域宽度
-	 */
-	public String getTextWidth() {
-		if (textWidth != 0) {
-			return "style=\"width:" + textWidth + "px\"";
-		}else {
-			return "";
-		}
-	}
-
-	/**
-	 * @author hedingliang
-	 * @return style="xx"
-	 * @description ipt区域宽度
-	 */
-	public String getIptWidth() {
-		if (textWidth != 0) {
-			return "style=\"width:" + iptWidth + "px\"";
-		}else {
-			return "";
 		}
 	}
 
@@ -183,10 +137,8 @@ public class Item extends TagI18n {
 	 * @param textWidth ipt区域宽度,只能为数字
 	 */
 	public void setTextWidth(String textWidth) {
-		try {
+		if (("" + textWidth).matches("\\d+")) {
 			this.textWidth = Integer.valueOf(textWidth);
-		} catch (NumberFormatException e) {
-			//not a number do nothin!
 		}
 	}
 
@@ -194,9 +146,135 @@ public class Item extends TagI18n {
 	 * @author hedingliang
 	 * @param required 是否必须,只能为true
 	 */
-	public void setRequired(String required) {
-		if ("true".equals(required)) {
-			this.required = true;
+	public void setRequired(boolean required) {
+		if (required) {
+			this.required = required;
+		}
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return width:xxpx
+	 * @description label区域宽度
+	 */
+	public String getWrapStyle() {
+		if (cols != 1 || rows != 1 || getWrapFloat() != "") {
+			return "style=\"" + getWrapWidth() + getWrapHeight() + getWrapFloat() + "\"";
+		}else {
+			return "";
+		}
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return width:xxpx;
+	 * @description item的宽度
+	 */
+	public String getWrapWidth() {
+		if (cols != 1) {
+			return "width:" + itemWidth + "px;";
+		}else {
+			return "";
+		}
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return height:xxpx;
+	 * @description item的高度
+	 */
+	public String getWrapHeight() {
+		if (rows != 1) {
+			return "height:" + itemHeight + "px;";
+		}else {
+			return "";
+		}
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return float:xx;
+	 * @description item的浮动
+	 */
+	public String getWrapFloat() {
+		return "";
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return width:xxpx
+	 * @description label区域宽度
+	 */
+	public String getTextStyle() {
+		if (textWidth != 100 || rows != 1) {
+			return "style=\"" + getTextWidth() + getTextHeight() + "\"";
+		}else {
+			return "";
+		}
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return width:xxpx
+	 * @description label区域宽度
+	 */
+	public String getTextWidth() {
+		if (textWidth != 100) {
+			return "width:" + textWidth + "px;";
+		}else {
+			return "";
+		}
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return height:xxpx;
+	 * @description item的高度
+	 */
+	public String getTextHeight() {
+		if (rows != 1) {
+			return "height:" + itemHeight + "px;line-height:" + itemHeight + "px;";
+		}else {
+			return "";
+		}
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return width:xxpx
+	 * @description label区域宽度
+	 */
+	public String getIptStyle() {
+		if (cols != 1 || rows != 1 || textWidth != 100) {
+			return "style=\"" + getIptWidth() + getIptHeight() + "\"";
+		}else {
+			return "";
+		}
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return width:xxpx
+	 * @description ipt区域宽度
+	 */
+	public String getIptWidth() {
+		if (textWidth != 0 || cols != 1) {
+			return "width:" + iptWidth + "px;";
+		}else {
+			return "";
+		}
+	}
+
+	/**
+	 * @author hedingliang
+	 * @return height:xxpx;
+	 * @description item的高度
+	 */
+	public String getIptHeight() {
+		if (rows != 1) {
+			return "height:" + (itemHeight-6) + "px;";
+		}else {
+			return "";
 		}
 	}
 

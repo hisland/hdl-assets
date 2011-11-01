@@ -91,6 +91,7 @@
 			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			<path path="attr/textWidth" />
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
@@ -120,6 +121,7 @@
 			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			<path path="attr/textWidth" />
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
@@ -151,6 +153,7 @@
 			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			<path path="attr/textWidth" />
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
@@ -178,6 +181,7 @@
 			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			<path path="attr/textWidth" />
 			<path path="attr/floatRight" />
 			
 			<path path="attr/i18n" />
@@ -203,6 +207,7 @@
 			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			<path path="attr/textWidth" />
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
@@ -224,6 +229,7 @@
 			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			<path path="attr/textWidth" />
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
@@ -246,6 +252,7 @@
 			
 			<path path="attr/style" />
 			<path path="attr/cssclass" />
+			<path path="attr/textWidth" />
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
@@ -290,7 +297,7 @@
 			
 			<path path="attr/disabled" />
 			<path path="attr/value" />
-			<path path="attr/selected" />
+			<path path="attr/checked" />
 
 			<path path="tags/end.tag" />
 		</concat>
@@ -305,9 +312,13 @@
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
+			<path path="attr/textWidth" />
 			
 			<path path="attr/valueStart" />
 			<path path="attr/valueEnd" />
+			
+			<path path="attr/nameStart" />
+			<path path="attr/nameEnd" />
 			
 			<path path="attr/readonlyStart" />
 			<path path="attr/readonlyEnd" />
@@ -316,6 +327,7 @@
 			<path path="attr/disabledEnd" />
 
 			<path path="attr/enableValue" />
+			<path path="attr/enableName" />
 			<path path="attr/enableChecked" />
 
 			<path path="tags/end.tag" />

@@ -14,5 +14,165 @@ import com.cdsf.tag.base.Item;
  */
 @SuppressWarnings("serial")
 public class TimeRange extends Item {
+	private String valueStart;
+	private String valueEnd;
+	private String nameStart;
+	private String nameEnd;
+
+	private boolean readonlyStart;
+	private boolean readonlyEnd;
+
+	private boolean disabledStart;
+	private boolean disabledEnd;
+
+	private String enableValue;
+	private String enableName;
+	private boolean enableChecked;
 	
+	@Override
+	public void preInit() {
+		setCols(2);
+		super.preInit();
+	}
+	
+	@Override
+	public String beforeBody() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<input class=\"text1\" type=\"text\"");
+		sb.append(getNameStart());
+		sb.append(getValueStart());
+		sb.append(getDisabledReadonlyStart());
+		sb.append(" />");
+		sb.append(" - ");
+		sb.append("<input class=\"text1\" type=\"text\"");
+		sb.append(getNameEnd());
+		sb.append(getValueEnd());
+		sb.append(getDisabledReadonlyEnd());
+		sb.append(" />");
+		sb.append(getEnableStr());
+		return sb.toString();
+	}
+	
+	public String getValueStart() {
+		if (valueStart != null) {
+			return " value=\""+valueStart+"\"";
+		}else {
+			return "";
+		}
+	}
+	public void setValueStart(String valueStart) {
+		this.valueStart = valueStart;
+	}
+	
+	public String getValueEnd() {
+		if (valueEnd != null) {
+			return " value=\""+valueEnd+"\"";
+		}else {
+			return "";
+		}
+	}
+	public void setValueEnd(String valueEnd) {
+		this.valueEnd = valueEnd;
+	}
+	
+	public String getNameStart() {
+		if (nameStart != null) {
+			return " name=\""+nameStart+"\"";
+		}else {
+			return "";
+		}
+	}
+	public void setNameStart(String nameStart) {
+		this.nameStart = nameStart;
+	}
+
+	public String getNameEnd() {
+		if (nameEnd != null) {
+			return " name=\""+nameEnd+"\"";
+		}else {
+			return "";
+		}
+	}
+	public void setNameEnd(String nameEnd) {
+		this.nameEnd = nameEnd;
+	}
+
+	public String getDisabledReadonlyStart() {
+		if (disabledStart) {
+			return " disabled=\"disabled\"";
+		}else {
+			if (readonlyStart) {
+				return " readonly=\"readonly\"";
+			}else {
+				return "";
+			}
+		}
+	}
+	public String getDisabledReadonlyEnd() {
+		if (disabledEnd) {
+			return " disabled=\"disabled\"";
+		}else {
+			if (readonlyEnd) {
+				return " readonly=\"readonly\"";
+			}else {
+				return "";
+			}
+		}
+	}
+	
+	public void setReadonlyStart(boolean readonlyStart) {
+		if (readonlyStart) {
+			this.readonlyStart = readonlyStart;
+		}
+	}
+	public void setReadonlyEnd(boolean readonlyEnd) {
+		if (readonlyEnd) {
+			this.readonlyEnd = readonlyEnd;
+		}
+	}
+	public void setDisabledStart(boolean disabledStart) {
+		if (disabledStart) {
+			this.disabledStart = disabledStart;
+		}
+	}
+	public void setDisabledEnd(boolean disabledEnd) {
+		if (disabledEnd) {
+			this.disabledEnd = disabledEnd;
+		}
+	}
+	
+	public String getEnableValue() {
+		return enableValue;
+	}
+	public void setEnableValue(String enableValue) {
+		this.enableValue = enableValue;
+	}
+	
+	public String getEnableName() {
+		return enableName;
+	}
+	public void setEnableName(String enableName) {
+		this.enableName = enableName;
+	}
+	
+	public void setEnableChecked(boolean enableChecked) {
+		if (enableChecked) {
+			this.enableChecked = enableChecked;
+		}
+	}
+	
+	public String getEnableStr() {
+		if (enableValue != null) {
+			if (enableChecked) {
+				return "<input class=\"checkbox2\" type=\"checkbox\" name=\""
+						+ enableName + "\" value=\"" + enableValue
+						+ "\" checked=\"checked\" />";
+			} else {
+				return "<input class=\"checkbox2\" type=\"checkbox\" name=\"\"+enableName+\"\" value=\""
+						+ enableValue + "\" />";
+			}
+		} else {
+			return "";
+		}
+	}
 }

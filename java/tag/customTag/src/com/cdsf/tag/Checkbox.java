@@ -36,6 +36,7 @@ public class Checkbox extends Item {
 		sb.append(getStyle());
 		sb.append(getCssclass());
 		sb.append(getValue());
+		sb.append(getChecked());
 		sb.append(getMore());
 		sb.append(getDisabledReadonly());
 		sb.append(" />");

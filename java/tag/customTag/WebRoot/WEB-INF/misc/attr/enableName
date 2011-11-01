@@ -1,0 +1,5 @@
+		<attribute>
+			<name>enableName</name>
+			<required>false</required>
+			<description><![CDATA[可选,时间段启用与否的name属性]]></description>
+		</attribute>

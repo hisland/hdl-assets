@@ -70,7 +70,7 @@ public class Query extends TagI18n {
 	 * @return autocomplete="off"
 	 */
 	public String getAutocomplete() {
-		if (autocomplete == false) {
+		if (autocomplete) {
 			return " autocomplete=\"off\"";
 		}else {
 			return "";

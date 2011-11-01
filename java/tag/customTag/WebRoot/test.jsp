@@ -30,6 +30,7 @@
 		<div class="ls1-box">
 			<anti:text text="autocomplete" autocomplete="false" />
 			<anti:text text="cols" cols="2" />
+			<anti:text text="cols" cols="2" suffix="分钟" style="width:330px;" />
 			<anti:text text="cssclass" cssclass="cssclass"/>
 			<anti:text text="dataValidType" dataValidType="#cc"/>
 			<anti:text text="disabled" disabled="true"/>
@@ -41,7 +42,8 @@
 			<anti:text text="required" required="true"/>
 			<anti:text text="style" style="color:red;"/>
 			<anti:text text="suffix" suffix="分钟" style="width:90px;" />
-			<anti:text text="text" text="text"/>
+			<anti:text text="text"/>
+			<anti:text text="textWidth" textWidth="150"/>
 			<anti:text text="value" value="aa" />
 		</div>
 	</fieldset>
@@ -62,7 +64,8 @@
 			<anti:textFuzzy text="readonly" readonly="true"/>
 			<anti:textFuzzy text="required" required="true"/>
 			<anti:textFuzzy text="style" style="color:red;"/>
-			<anti:textFuzzy text="text" text="text"/>
+			<anti:textFuzzy text="text"/>
+			<anti:textFuzzy text="text" textWidth="150"/>
 			<anti:textFuzzy text="value" value="aa" />
 		</div>
 	</fieldset>
@@ -79,7 +82,8 @@
 			<anti:password text="readonly" readonly="true"/>
 			<anti:password text="required" required="true"/>
 			<anti:password text="style" style="color:red;"/>
-			<anti:password text="text" text="text"/>
+			<anti:password text="text"/>
+			<anti:password text="text" textWidth="150"/>
 			<anti:password text="value" value="aa" />
 		</div>
 	</fieldset>
@@ -94,11 +98,30 @@
 			<anti:textarea text="name" name="name"></anti:textarea>
 			<anti:textarea text="readonly" readonly="true"></anti:textarea>
 			<anti:textarea text="required" required="true"></anti:textarea>
-			<anti:textarea text="rows" rows="3"></anti:textarea>
+			<anti:textarea text="rows" rows="4"></anti:textarea>
 			<anti:textarea text="style" style="color:red;"></anti:textarea>
-			<anti:textarea text="text" text="text"></anti:textarea>
+			<anti:textarea text="text"></anti:textarea>
+			<anti:textarea text="text" textWidth="150"></anti:textarea>
 			<anti:textarea text="value" value="aa"></anti:textarea>
 			<anti:textarea text="floatRight" floatRight="true"></anti:textarea>
+		</div>
+	</fieldset>
+	<fieldset class="ls1-fieldset">
+		<legend class="ls1-legend">checkbox</legend>
+		<div class="ls1-box">
+			<anti:checkbox />
+			<anti:checkbox text="checked" checked="true" />
+			<anti:checkbox text="cssclass" cssclass="god" />
+			<anti:checkbox text="disabled" disabled="true" />
+			<anti:checkbox text="i18n" i18n="i18nkey" />
+			<anti:checkbox text="id" id="id" />
+			<anti:checkbox text="name" name="name" />
+			<anti:checkbox text="required" required="true" />
+			<anti:checkbox text="style" style="width:auto;" />
+			<anti:checkbox text="text" />
+			<anti:checkbox text="text" textWidth="150" />
+			<anti:checkbox text="value" value="1" />
+			<anti:fuzzy text="dataFuzzyIds" value="1"  dataFuzzyIds="#cc" />
 		</div>
 	</fieldset>
 	<fieldset class="ls1-fieldset">
@@ -125,7 +148,10 @@
 			<anti:select text="style" style="color:red;">
 				<option value="1" selected="selected">消息(SMPP)</option>
 			</anti:select>
-			<anti:select text="text" text="text">
+			<anti:select text="text">
+				<option value="1" selected="selected">消息(SMPP)</option>
+			</anti:select>
+			<anti:select text="text" textWidth="150">
 				<option value="1" selected="selected">消息(SMPP)</option>
 			</anti:select>
 			<anti:select text="value" value="aa">
@@ -136,7 +162,7 @@
 	<fieldset class="ls1-fieldset">
 		<legend class="ls1-legend">base</legend>
 		<div class="ls1-box">
-			<anti:item text="hello" cols="2">
+			<anti:item text="hello" cols="3">
 				<anti:baseCheckbox text="checked" checked="true" />
 				<anti:baseCheckbox text="disabled" disabled="true" />
 				<anti:baseCheckbox text="i18n" i18n="i18n" />
@@ -146,8 +172,8 @@
 				<anti:baseCheckbox text="value" value="1" />
 			</anti:item>
 			
-			<anti:item text="hello" cols="2">
-				<anti:baseRadio text="selected" selected="true" />
+			<anti:item text="hello" cols="3">
+				<anti:baseRadio text="checked" checked="true" />
 				<anti:baseRadio text="disabled" disabled="true" />
 				<anti:baseRadio text="i18n" i18n="i18n" />
 				<anti:baseRadio text="id" id="id" />
@@ -158,20 +184,20 @@
 		</div>
 	</fieldset>
 	<fieldset class="ls1-fieldset">
-		<legend class="ls1-legend">checkbox</legend>
+		<legend class="ls1-legend">timeRange</legend>
 		<div class="ls1-box">
-			<anti:checkbox />
-			<anti:checkbox text="checked" checked="true" />
-			<anti:checkbox text="cssclass" cssclass="god" />
-			<anti:checkbox text="disabled" disabled="true" />
-			<anti:checkbox text="i18n" i18n="i18nkey" />
-			<anti:checkbox text="id" id="id" />
-			<anti:checkbox text="name" name="name" />
-			<anti:checkbox text="required" required="true" />
-			<anti:checkbox text="style" style="width:auto;" />
-			<anti:checkbox text="text" text="text" />
-			<anti:checkbox text="value" value="1" />
-			<anti:fuzzy text="dataFuzzyIds" value="1"  dataFuzzyIds="#cc" />
+			<anti:timeRange text="text" />
+			<anti:timeRange text="valueStart" valueStart="2011-11-01" />
+			<anti:timeRange text="valueStart" valueEnd="14:19:25" />
+			<anti:timeRange text="disabledStart" disabledStart="true" />
+			<anti:timeRange text="disabledEnd" disabledEnd="true" />
+			<anti:timeRange text="nameStart" nameStart="bb"/>
+			<anti:timeRange text="nameEnd" nameEnd="nn"/>
+			<anti:timeRange text="readonlyStart" readonlyStart="true"/>
+			<anti:timeRange text="readonlyEnd" readonlyEnd="true"/>
+			<anti:timeRange text="enableValue" enableValue="1"/>
+			<anti:timeRange text="enableName" enableValue="1" enableName="aa"/>
+			<anti:timeRange text="enableChecked" enableValue="1" enableChecked="true"/>
 		</div>
 	</fieldset>
 	

@@ -10,7 +10,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 @SuppressWarnings("serial")
 public abstract class TagI18n extends BodyTagSupport {
-	protected static final String COLON = ":";
+	protected static final String COLON = "：";
 	private static ResourceBundle bundle = null;
 	
 	//表单元素前置文本[国际化key/文本],文本优先
@@ -45,7 +45,6 @@ public abstract class TagI18n extends BodyTagSupport {
 	public void setI18n(String i18n) {
 		this.i18n = i18n;
 	}
-	
 	/**
 	 * @author hedingliang
 	 * @return 根据i18n从bundle里获取对应值,如果没有bundle直接返回key
@@ -57,10 +56,10 @@ public abstract class TagI18n extends BodyTagSupport {
 			return i18n;
 		}
 	}
+	
 	public void setText(String text) {
 		this.text = text;
 	}
-	
 	/**
 	 * @author hedingliang
 	 * @return text和i18n同时存在时, text优先考虑 

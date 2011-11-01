@@ -18,21 +18,18 @@ public class TextFuzzy extends Text {
 	
 	@Override
 	public void preInit() {
-		setStyle("width:90px;");
+		setStyle("width:100px;");
+		super.preInit();
 	}
 	
 	@Override
 	public String getSuffix() {
-		if (fuzzyChecked) {
-			StringBuffer sb = new StringBuffer();
-			sb.append("<input type=\"checkbox\"");
-			sb.append(getFuzzyValue());
-			sb.append(getFuzzyChecked());
-			sb.append(" />");
-			return sb.toString();
-		}else {
-			return "";
-		}
+		StringBuffer sb = new StringBuffer();
+		sb.append("<input type=\"checkbox\" class=\"checkbox2\"");
+		sb.append(getFuzzyValue());
+		sb.append(getFuzzyChecked());
+		sb.append(" />");
+		return sb.toString();
 	}
 	
 	public String getFuzzyChecked() {

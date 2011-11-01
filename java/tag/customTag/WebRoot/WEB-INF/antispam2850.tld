@@ -185,6 +185,11 @@
 			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
 		</attribute>
 		<attribute>
+			<name>textWidth</name>
+			<required>false</required>
+			<description><![CDATA[可选,item的text部分的宽度]]></description>
+		</attribute>
+		<attribute>
 			<name>i18n</name>
 			<required>false</required>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
@@ -266,6 +271,11 @@
 			<name>cssclass</name>
 			<required>false</required>
 			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>textWidth</name>
+			<required>false</required>
+			<description><![CDATA[可选,item的text部分的宽度]]></description>
 		</attribute>
 		<attribute>
 			<name>i18n</name>
@@ -356,6 +366,11 @@
 			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
 		</attribute>
 		<attribute>
+			<name>textWidth</name>
+			<required>false</required>
+			<description><![CDATA[可选,item的text部分的宽度]]></description>
+		</attribute>
+		<attribute>
 			<name>i18n</name>
 			<required>false</required>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
@@ -429,6 +444,11 @@
 			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
 		</attribute>
 		<attribute>
+			<name>textWidth</name>
+			<required>false</required>
+			<description><![CDATA[可选,item的text部分的宽度]]></description>
+		</attribute>
+		<attribute>
 			<name>floatRight</name>
 			<required>false</required>
 			<description><![CDATA[可选,box往右边靠时,值为true]]></description>
@@ -497,6 +517,11 @@
 			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
 		</attribute>
 		<attribute>
+			<name>textWidth</name>
+			<required>false</required>
+			<description><![CDATA[可选,item的text部分的宽度]]></description>
+		</attribute>
+		<attribute>
 			<name>i18n</name>
 			<required>false</required>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
@@ -548,6 +573,11 @@
 			<name>cssclass</name>
 			<required>false</required>
 			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>textWidth</name>
+			<required>false</required>
+			<description><![CDATA[可选,item的text部分的宽度]]></description>
 		</attribute>
 		<attribute>
 			<name>i18n</name>
@@ -606,6 +636,11 @@
 			<name>cssclass</name>
 			<required>false</required>
 			<description><![CDATA[可选,额外的class属性,与html的class属性一致]]></description>
+		</attribute>
+		<attribute>
+			<name>textWidth</name>
+			<required>false</required>
+			<description><![CDATA[可选,item的text部分的宽度]]></description>
 		</attribute>
 		<attribute>
 			<name>i18n</name>
@@ -725,9 +760,9 @@
 			<description><![CDATA[可选,设置文本框的默认值]]></description>
 		</attribute>
 		<attribute>
-			<name>selected</name>
+			<name>checked</name>
 			<required>false</required>
-			<description><![CDATA[可选,radio的选中状态,值只能是true]]></description>
+			<description><![CDATA[可选,checkbox的选中状态,值只能是true]]></description>
 		</attribute>
 	</tag>
 
@@ -757,6 +792,11 @@
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
+			<name>textWidth</name>
+			<required>false</required>
+			<description><![CDATA[可选,item的text部分的宽度]]></description>
+		</attribute>
+		<attribute>
 			<name>valueStart</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -767,6 +807,18 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[可选,时间段结束时间默认值]]></description>
+		</attribute>
+		<attribute>
+			<name>nameStart</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[可选,时间段开始时间的name属性]]></description>
+		</attribute>
+		<attribute>
+			<name>nameEnd</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description><![CDATA[可选,时间段结束时间的name属性]]></description>
 		</attribute>
 		<attribute>
 			<name>readonlyStart</name>
@@ -792,6 +844,11 @@
 			<name>enableValue</name>
 			<required>false</required>
 			<description><![CDATA[可选,,启用checkbox的值]]></description>
+		</attribute>
+		<attribute>
+			<name>enableName</name>
+			<required>false</required>
+			<description><![CDATA[可选,时间段启用与否的name属性]]></description>
 		</attribute>
 		<attribute>
 			<name>enableChecked</name>
