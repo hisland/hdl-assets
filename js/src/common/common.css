@@ -47,6 +47,6 @@ input.button3{width:150px;height:22px;line-height:22px;border:none;background:ur
 .loading{background:url('common-img/loading.gif') no-repeat 50% 50%;}
 .icon-add{display:inline-block;width:16px;height:16px;background:url('common-img/icon+.gif') no-repeat 0 0;}
 
-input[type=password][readonly], input[type=text][readonly], textarea[readonly]{background:#ddd;color:#666;border:1px solid #7f9db9;padding:1px;}
-input[type=password][disabled], input[type=text][disabled], textarea[disabled]{background:#ebebe4;text-shadow:#fff 1px 1px;border:1px solid #aca899;padding:1px;cursor:default;}
+input[type=password][readonly], input[type=text][readonly], textarea[readonly]{background:#e1dfd4;color:#666;border:1px solid #7f9db9;padding:1px;}
+input[type=password][disabled], input[type=text][disabled], textarea[disabled]{background:#f5f4ea;color:#aca899;text-shadow:#fff 1px 1px;border:1px solid #c9c7ba;padding:1px;cursor:default;}
 /* ie6的样式在ie.css里面定义 */

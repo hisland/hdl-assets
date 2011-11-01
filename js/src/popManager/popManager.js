@@ -101,14 +101,22 @@ KISSY.add('popManager', function(S, undef) {
 		//显示loading层
 		loading: function(){
 			this.mask();
-			this.$mask.addClass('loading');
+			if($.browser.msie){
+				this.$mask.addClass('loading');
+			}else{
+				this.$div.addClass('loading');
+			}
 			return this;
 		},
 
 		//隐藏loading层
 		loaded: function(){
 			this.demask();
-			this.$mask.removeClass('loading');
+			if($.browser.msie){
+				this.$mask.removeClass('loading');
+			}else{
+				this.$div.removeClass('loading');
+			}
 			return this;
 		},
 

@@ -127,6 +127,11 @@ KISSY.add('popWin', function(S, undef) {
 		setCloseable: function(status){
 			if(S.isBoolean(status)){
 				this.__close_able = status;
+				if(status){
+					this.$close.add(this.$div.find('.win1-btn-cancle')).show();
+				}else{
+					this.$close.add(this.$div.find('.win1-btn-cancle')).hide();
+				}
 			}else{
 				S.log('popWin.setCloseable: status must be true or false!');
 			}
@@ -141,6 +146,15 @@ KISSY.add('popWin', function(S, undef) {
 			return this;
 		},
 		setWidth: function(num){
+			if(S.isNumber(num-0)){
+				this.$title.width(num-35);
+				this.$content.width(num-18);
+			}else{
+				S.log('popWin.setWidth: num must be a valid number!');
+			}
+			return this;
+		},
+		setInnerWidth: function(num){
 			if(S.isNumber(num-0)){
 				this.$title.width(num-17);
 				this.$content.width(num);

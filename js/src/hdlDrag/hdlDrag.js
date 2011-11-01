@@ -162,15 +162,22 @@ KISSY.add('hdlDrag', function(S, undef) {
 			//只注册一次事件
 			if(!this['--bind-drag']){
 				this['--bind-drag'] = true;
-				$(this).mousedown(mouseDown).css('cursor', 'move');
+				$(this).mousedown(mouseDown);
 
 				//新增设置
 				this.drag_setting = S.mix(setting, default_setting, false);
 			}
 			//修改设置
 			else{
-				//只能修改[拖动目标, 过滤函数]
+				//只能修改[拖动目标, 过滤函数, 拖动与否]
 				S.mix(this.drag_setting, setting, ['target', 'trigger_filter', 'enable']);
+			}
+
+			//鼠标状态
+			if(this.drag_setting.enable){
+				$(this).css('cursor', 'move');
+			}else{
+				$(this).css('cursor', 'default');
 			}
 		});
 	}
