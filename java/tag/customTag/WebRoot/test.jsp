@@ -51,7 +51,7 @@
 		<legend class="ls1-legend">textFuzzy</legend>
 		<div class="ls1-box">
 			<anti:textFuzzy text="autocomplete" autocomplete="false" />
-			<anti:textFuzzy text="cols" cols="2" />
+			<anti:textFuzzy text="cols" cols="2" style="width:333px;" />
 			<anti:textFuzzy text="cssclass" cssclass="cssclass"/>
 			<anti:textFuzzy text="dataValidType" dataValidType="#cc"/>
 			<anti:textFuzzy text="disabled" disabled="true"/>
@@ -65,7 +65,7 @@
 			<anti:textFuzzy text="required" required="true"/>
 			<anti:textFuzzy text="style" style="color:red;"/>
 			<anti:textFuzzy text="text"/>
-			<anti:textFuzzy text="text" textWidth="150"/>
+			<anti:textFuzzy text="textWidth" textWidth="150" style="width:50px;" />
 			<anti:textFuzzy text="value" value="aa" />
 		</div>
 	</fieldset>
@@ -83,7 +83,7 @@
 			<anti:password text="required" required="true"/>
 			<anti:password text="style" style="color:red;"/>
 			<anti:password text="text"/>
-			<anti:password text="text" textWidth="150"/>
+			<anti:password text="textWidth" textWidth="150"/>
 			<anti:password text="value" value="aa" />
 		</div>
 	</fieldset>
@@ -99,11 +99,70 @@
 			<anti:textarea text="readonly" readonly="true"></anti:textarea>
 			<anti:textarea text="required" required="true"></anti:textarea>
 			<anti:textarea text="rows" rows="4"></anti:textarea>
+			<anti:textarea text="rows,cols" rows="4" cols="2"></anti:textarea>
 			<anti:textarea text="style" style="color:red;"></anti:textarea>
 			<anti:textarea text="text"></anti:textarea>
-			<anti:textarea text="text" textWidth="150"></anti:textarea>
+			<anti:textarea text="textWidth" textWidth="150"></anti:textarea>
 			<anti:textarea text="value" value="aa"></anti:textarea>
 			<anti:textarea text="floatRight" floatRight="true"></anti:textarea>
+		</div>
+	</fieldset>
+	<fieldset class="ls1-fieldset">
+		<legend class="ls1-legend">itemBox</legend>
+		<div class="ls1-box">
+			<anti:itemBox text="id" id="cccss">
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+			</anti:itemBox>
+			<anti:itemBox text="cssclass" cssclass="cssclass">
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+			</anti:itemBox>
+			<anti:itemBox text="i18n" i18n="i18n">
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+			</anti:itemBox>
+			<anti:itemBox text="required" required="true">
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+			</anti:itemBox>
+			<anti:itemBox text="rows" rows="4">
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+			</anti:itemBox>
+			<anti:itemBox text="rows,cols" rows="4" cols="2">
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+			</anti:itemBox>
+			<anti:itemBox text="style" style="color:red;">
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+			</anti:itemBox>
+			<anti:itemBox text="text">
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+			</anti:itemBox>
+			<anti:itemBox text="textWidth" textWidth="120">
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+			</anti:itemBox>
+			<anti:itemBox text="floatRight" floatRight="true">
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" />
+			</anti:itemBox>
 		</div>
 	</fieldset>
 	<fieldset class="ls1-fieldset">
@@ -119,7 +178,7 @@
 			<anti:checkbox text="required" required="true" />
 			<anti:checkbox text="style" style="width:auto;" />
 			<anti:checkbox text="text" />
-			<anti:checkbox text="text" textWidth="150" />
+			<anti:checkbox text="textWidth" textWidth="150" />
 			<anti:checkbox text="value" value="1" />
 			<anti:fuzzy text="dataFuzzyIds" value="1"  dataFuzzyIds="#cc" />
 		</div>
@@ -127,7 +186,7 @@
 	<fieldset class="ls1-fieldset">
 		<legend class="ls1-legend">select</legend>
 		<div class="ls1-box">
-			<anti:select text="cssclass" cssclass="cssclass">
+			<anti:select text="cssclass" cssclass="red">
 				<option value="1" selected="selected">消息(SMPP)</option>
 			</anti:select>
 			<anti:select text="disabled" disabled="true">
@@ -145,13 +204,13 @@
 			<anti:select text="required" required="true">
 				<option value="1" selected="selected">消息(SMPP)</option>
 			</anti:select>
-			<anti:select text="style" style="color:red;">
+			<anti:select text="style" style="color:green;">
 				<option value="1" selected="selected">消息(SMPP)</option>
 			</anti:select>
 			<anti:select text="text">
 				<option value="1" selected="selected">消息(SMPP)</option>
 			</anti:select>
-			<anti:select text="text" textWidth="150">
+			<anti:select text="textWidth" textWidth="150" style="color:red;">
 				<option value="1" selected="selected">消息(SMPP)</option>
 			</anti:select>
 			<anti:select text="value" value="aa">

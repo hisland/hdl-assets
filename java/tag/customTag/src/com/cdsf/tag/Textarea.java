@@ -22,6 +22,14 @@ public class Textarea extends Text {
 			rows = 3;
 		}
 		super.preInit();
+		
+		if (itemHeight != 24) {
+			if (style != null) {
+				setStyle("height:" + (itemHeight - 6 - 6) + "px;" + style);
+			} else {
+				setStyle("height:" + (itemHeight - 6 - 6) + "px;");
+			}
+		}
 	}
 	
 	@Override

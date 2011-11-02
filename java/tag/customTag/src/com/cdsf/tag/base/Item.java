@@ -29,7 +29,7 @@ public class Item extends TagI18n {
 
 	/**
 	 * @author hedingliang
-	 * @description 作为父类时,子类需要进行一些参数的初始化, 需要执行super.preInit()调用父类的初始化
+	 * @description 作为父类时,宽高的初始化, 可能之前也可能之后, 所以需要子类执行super.preInit()调用
 	 */
 	public void preInit() {
 		//初始化宽高
@@ -158,7 +158,7 @@ public class Item extends TagI18n {
 	 * @description label区域宽度
 	 */
 	public String getWrapStyle() {
-		if (cols != 1 || rows != 1 || getWrapFloat() != "") {
+		if (cols != 1 || rows != 1 || getWrapFloat() != null) {
 			return "style=\"" + getWrapWidth() + getWrapHeight() + getWrapFloat() + "\"";
 		}else {
 			return "";
@@ -197,7 +197,7 @@ public class Item extends TagI18n {
 	 * @description item的浮动
 	 */
 	public String getWrapFloat() {
-		return "";
+		return null;
 	}
 
 	/**
@@ -272,8 +272,8 @@ public class Item extends TagI18n {
 	 */
 	public String getIptHeight() {
 		if (rows != 1) {
-			return "height:" + (itemHeight-6) + "px;";
-		}else {
+			return "height:" + (itemHeight - 6) + "px;";
+		} else {
 			return "";
 		}
 	}

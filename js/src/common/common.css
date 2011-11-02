@@ -12,15 +12,15 @@
 input.text1{width:120px;height:14px;line-height:14px;padding:1px;border:1px solid #7f9db9;}
 
 /* 标准浏览器使用resize:none;禁止改变大小 */
-textarea, .ls1-big-box{width:120px;height:70px;padding:1px;border:1px solid #7f9db9;background:#fff;resize:none;}
+textarea, .ls1-big-box{width:120px;height:70px;padding:2px 1px;border:1px solid #7f9db9;background:#fff;resize:none;overflow:auto;}
 
 /* 禁用输入法 */
 .no-ime{ime-mode:disabled;}
 
 /* 下拉框 */
-select.select1{width:120px;}
-select.select2-1{width:60px;}
-select.select2-2{width:40px;}
+select.select1{width:124px;}
+select.select2-1{width:64px;}
+select.select2-2{width:64px;}
 
 
 /* 左侧无边距,其它有4px边距 */

@@ -33,6 +33,9 @@ public class Text extends Item {
 	
 	@Override
 	public void preInit() {
+		//内部调用时会保留上一次的值,初始化一次
+		setStyle(null);
+		
 		super.preInit();
 		
 		if (iptWidth != 124) {

@@ -27,6 +27,22 @@ public class Select extends Item {
 	private String value;
 	
 	@Override
+	public void preInit() {
+		//内部调用时会保留上一次的值,初始化一次
+		setStyle(null);
+		
+		super.preInit();
+		
+		if (iptWidth != 124) {
+			if (style != null) {
+				setStyle("width:" + iptWidth + "px;" + style);
+			} else {
+				setStyle("width:" + iptWidth + "px;");
+			}
+		}
+	}
+	
+	@Override
 	public String beforeBody() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<select");
@@ -95,7 +111,7 @@ public class Select extends Item {
 	 * @return class="xx"
 	 */
 	public String getCssclass() {
-		return " class=\"text1" + (cssclass != null ? " "+cssclass : "") + "\"";
+		return " class=\"select1" + (cssclass != null ? " "+cssclass : "") + "\"";
 	}
 	public void setCssclass(String cssclass) {
 		this.cssclass = cssclass;

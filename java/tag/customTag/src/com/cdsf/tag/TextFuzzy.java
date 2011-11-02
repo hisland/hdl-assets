@@ -18,7 +18,11 @@ public class TextFuzzy extends Text {
 	
 	@Override
 	public void preInit() {
-		setStyle("width:100px;");
+		if (style != null) {
+			setStyle("width:100px;" + style);
+		} else {
+			setStyle("width:100px;");
+		}
 		super.preInit();
 	}
 	

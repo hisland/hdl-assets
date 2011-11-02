@@ -7,4 +7,4 @@
 	.hdl-vali-loading{background:url('hdlValidator-img/loading.gif') no-repeat 0 2px;color:red;}
 	.hdl-vali-caution{background:url('hdlValidator-img/caution.gif') no-repeat 0 2px;color:#e7891a;}
 
-input.hdl-vali-ipt-err{border-color:red;}
+input.hdl-vali-ipt-err, textarea.hdl-vali-ipt-err{border-color:red;}

@@ -1,6 +1,5 @@
 package com.cdsf.tag;
 
-import com.cdsf.tag.base.Item;
 
 /**
  * @author hdl
@@ -15,6 +14,30 @@ import com.cdsf.tag.base.Item;
 </div>
  */
 @SuppressWarnings("serial")
-public class ItemBox extends Item {
+public class ItemBox extends Textarea {
+	@Override
+	public String beforeBody() {
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<div");
+		sb.append(getId());
+		sb.append(getStyle());
+		sb.append(getCssclass());
+		sb.append(">");
+		
+		return sb.toString();
+	}
 	
+	@Override
+	public String afterBody() {
+		return "</div>";
+	}
+	
+	/**
+	 * @author hedingliang
+	 * @return class="xx"
+	 */
+	public String getCssclass() {
+		return " class=\"ls1-big-box" + (cssclass != null ? " "+cssclass : "") + "\"";
+	}
 }

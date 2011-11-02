@@ -11,12 +11,12 @@
 			<path path="tags/tag.pop" />
 
 			<path path="tags/tag.item" />
-			<path path="tags/tag.itemBox" />
 			
 			<path path="tags/tag.text" />
 			<path path="tags/tag.textFuzzy" />
 			<path path="tags/tag.password" />
 			<path path="tags/tag.textarea" />
+			<path path="tags/tag.itemBox" />
 
 			<path path="tags/tag.select" />
 
@@ -175,6 +175,7 @@
 			<path path="tags/start.textarea" />
 			
 			<path path="attr/rows" />
+			<path path="attr/cols" />
 
 			<path path="attr/name" />
 			<path path="attr/id" />
@@ -193,6 +194,29 @@
 			<path path="attr/required" />
 			<path path="attr/value" />
 			<path path="attr/dataValidType" />
+
+			<path path="tags/end.tag" />
+		</concat>
+	</target>
+
+	<target name="tag.itemBox" extensionOf="tld-pre">
+		<concat destfile="tags/tag.itemBox" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/start.itemBox" />
+			
+			<path path="attr/rows" />
+			<path path="attr/cols" />
+			
+			<path path="attr/id" />
+			
+			<path path="attr/style" />
+			<path path="attr/cssclass" />
+			<path path="attr/textWidth" />
+			<path path="attr/floatRight" />
+			
+			<path path="attr/i18n" />
+			<path path="attr/text" />
+			
+			<path path="attr/required" />
 
 			<path path="tags/end.tag" />
 		</concat>
