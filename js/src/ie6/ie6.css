@@ -2,6 +2,7 @@
 
 /* ie6顶层元素绝对定位时,百分值无效,在此给body设置后正确 */
 body { height: 100%; width: 100%; }
+
 /* readonly,disabled样式 */
 input.readonly, textarea.readonly{background:#ddd;color:#666;border:1px solid #7f9db9;padding:1px;}
 input.disabled, textarea.disabled{background:#ebebe4;text-shadow:#fff 1px 1px;border:1px solid #aca899;padding:1px;cursor:default;}

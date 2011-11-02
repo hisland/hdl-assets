@@ -9,7 +9,7 @@
 			S.use('reset-css, common-css, condition-list-css, popWin+css', function(){
 				var pop = $.popWin.init();
 				pop.$content.append($('#saveForm'));
-				pop.setWidth(468);
+				pop.setInnerWidth(468);
 
 				$('#show-pop').click(function(e){
 					pop.show();
@@ -17,7 +17,7 @@
 
 				var pop2 = $.popWin.init();
 				pop2.$content.append($('#popForm'));
-				pop2.setWidth(468);
+				pop2.setInnerWidth(468);
 				$('#show-pop2').click(function(e){
 					pop2.show();
 				});

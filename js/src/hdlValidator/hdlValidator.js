@@ -358,5 +358,5 @@ KISSY.add('hdlValidator', function(S, undef) {
 		}
 	});
 }, {
-	requires: ['jquery-1.4.2', 'adjustElement', 'hdlReg', 'hdlTest']
+	requires: ['jquery-1.4.2', 'adjustElement', 'validString']
 });

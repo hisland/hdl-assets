@@ -37,20 +37,11 @@ KISSY.add('popSelect', function(S, undef) {
 
 	//显示
 	function popShow(){
-		pop.manager.show();
 		pop.show();
 	}
 	//隐藏
 	function popHide(){
-		pop.manager.hide();
-	}
-
-	//初始化包含层
-	function initDiv(){
-		//建立弹出层并初始化事件
-		div_pop = $('<div class="pop-select"><div class="pop-select-legend"></div><div class="pop-select-in"><table class="pop-select-t"><tbody><body></tbody></table></div></div>');
-		div_pop.click(divPopClick).dblclick(divPopDblClick);
-		pop.content.empty().append(div_pop);
+		pop.hide();
 	}
 
 	//输入框点击事件
@@ -97,11 +88,18 @@ KISSY.add('popSelect', function(S, undef) {
 		}
 	}
 
+	//初始化包含层
+	//建立弹出层并初始化事件
+	div_pop = $('<div class="pop-select"><div class="pop-select-legend"></div><div class="pop-select-in"><table class="pop-select-t"><tbody><body></tbody></table></div></div>');
+	div_pop.click(divPopClick).dblclick(divPopDblClick);
+	pop.$content.empty().append(div_pop);
+	pop.setInnerWidth(502).setHeight(300);
+
 	function popSelect(setting){
 		this.each(function(i, v){
 			//初始化
-			if(!v['--bind_pop_select']){
-				v['--bind_pop_select'] = true;
+			if(!v['--bind-pop-select']){
+				v['--bind-pop-select'] = true;
 				$(v).click(iptClick).data('setting', S.merge(default_setting, setting));
 			}
 			//修改配置
@@ -115,5 +113,5 @@ KISSY.add('popSelect', function(S, undef) {
 		popSelect: popSelect
 	});
 }, {
-	requires: ['jquery-1.4.2', 'popWin']
+	requires: ['jquery-1.4.2', 'popWin+css']
 });

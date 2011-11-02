@@ -12,6 +12,7 @@
 KISSY.add('ie6', function(S, undef) {
 	/* IE6 BackgroundImageCache */
 	document.execCommand('BackgroundImageCache', false, true);
+
 	//针对ie6加一层使修改[':text, :password, textarea']的[disabled,readonly]属性时更换class
 	var oldAttr = $.fn.attr;
 	var ie6_readonly = 'readonly';

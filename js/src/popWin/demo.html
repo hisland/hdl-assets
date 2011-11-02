@@ -17,6 +17,30 @@
 				$('#del').click(function(e){
 					$.popWin.clean();
 				});
+				
+				var drag = true;
+				$('#no-drag').click(function(e){
+					if(drag){
+						p.setDraggable(false);
+						$(this).val('能拖动');
+					}else{
+						p.setDraggable(true);
+						$(this).val('不能拖动');
+					}
+					drag = !drag;
+				});
+				
+				var close = true;
+				$('#no-close').click(function(e){
+					if(close){
+						p.setCloseable(false);
+						$(this).val('能关闭');
+					}else{
+						p.setCloseable(true);
+						$(this).val('不能关闭');
+					}
+					close = !close;
+				});
 			});
 		});
 	</script>
@@ -28,6 +52,8 @@
 <body style="height:100%;">
 	<input style="position:relative;z-index:2000;" type="button" id="add" value="增加" />
 	<input style="position:relative;z-index:2000;" type="button" id="del" value="清除" />
+	<input style="position:relative;z-index:2000;" type="button" id="no-drag" value="不能拖动" />
+	<input style="position:relative;z-index:2000;" type="button" id="no-close" value="不能关闭" />
 	<div id="tb" style="display:none;">
 		<table>
 			<tr><td>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
