@@ -27,6 +27,8 @@ public class TimeRange extends Item {
 
 	private String enableValue;
 	private String enableName;
+	private String enableText;
+	private String enableI18n;
 	private boolean enableChecked;
 	
 	@Override
@@ -164,15 +166,41 @@ public class TimeRange extends Item {
 	public String getEnableStr() {
 		if (enableValue != null) {
 			if (enableChecked) {
-				return "<input class=\"checkbox2\" type=\"checkbox\" name=\""
-						+ enableName + "\" value=\"" + enableValue
-						+ "\" checked=\"checked\" />";
+				return "<label class=\"label\"><input class=\"checkbox2\" type=\"checkbox\" name=\""
+						+ enableName
+						+ "\" value=\""
+						+ enableValue
+						+ "\" checked=\"checked\" />"
+						+ getEnableText()
+						+ "</label>";
 			} else {
-				return "<input class=\"checkbox2\" type=\"checkbox\" name=\"\"+enableName+\"\" value=\""
-						+ enableValue + "\" />";
+				return "<label class=\"label\"><input class=\"checkbox2\" type=\"checkbox\" name=\"\"+enableName+\"\" value=\""
+						+ enableValue + "\" />" + getEnableText() + "</label>";
 			}
 		} else {
 			return "";
 		}
+	}
+
+	public String getEnableText() {
+		if (enableText != null) {
+			return enableText;
+		}else {
+			return getEnableI18n();
+		}
+	}
+	public void setEnableText(String enableText) {
+		this.enableText = enableText;
+	}
+
+	public String getEnableI18n() {
+		if (bundle != null) {
+			return String.valueOf(bundle.getObject(enableI18n));
+		}else {
+			return enableI18n;
+		}
+	}
+	public void setEnableI18n(String enableI18n) {
+		this.enableI18n = enableI18n;
 	}
 }

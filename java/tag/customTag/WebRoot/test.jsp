@@ -111,57 +111,57 @@
 		<legend class="ls1-legend">itemBox</legend>
 		<div class="ls1-box">
 			<anti:itemBox text="id" id="cccss">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
 			</anti:itemBox>
 			<anti:itemBox text="cssclass" cssclass="cssclass">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
 			</anti:itemBox>
 			<anti:itemBox text="i18n" i18n="i18n">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
 			</anti:itemBox>
 			<anti:itemBox text="required" required="true">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
 			</anti:itemBox>
 			<anti:itemBox text="rows" rows="4">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
 			</anti:itemBox>
 			<anti:itemBox text="rows,cols" rows="4" cols="2">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
 			</anti:itemBox>
 			<anti:itemBox text="style" style="color:red;">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
 			</anti:itemBox>
 			<anti:itemBox text="text">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
 			</anti:itemBox>
 			<anti:itemBox text="textWidth" textWidth="120">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
 			</anti:itemBox>
 			<anti:itemBox text="floatRight" floatRight="true">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="checked" checked="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
+				<anti:baseCheckbox text="checked" checked="true" labelBlock="true" />
 			</anti:itemBox>
 		</div>
 	</fieldset>
@@ -254,9 +254,9 @@
 			<anti:timeRange text="nameEnd" nameEnd="nn"/>
 			<anti:timeRange text="readonlyStart" readonlyStart="true"/>
 			<anti:timeRange text="readonlyEnd" readonlyEnd="true"/>
-			<anti:timeRange text="enableValue" enableValue="1"/>
-			<anti:timeRange text="enableName" enableValue="1" enableName="aa"/>
-			<anti:timeRange text="enableChecked" enableValue="1" enableChecked="true"/>
+			<anti:timeRange text="enableValue" enableValue="1" enableText="启用"/>
+			<anti:timeRange text="enableName" enableValue="1" enableText="启用" enableName="aa"/>
+			<anti:timeRange text="enableChecked" enableValue="1" enableText="启用" enableChecked="true"/>
 		</div>
 	</fieldset>
 	

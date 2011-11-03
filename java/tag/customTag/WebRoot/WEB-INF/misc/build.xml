@@ -301,6 +301,8 @@
 			<path path="attr/i18n" />
 			<path path="attr/text" />
 			
+			<path path="attr/labelBlock" />
+			
 			<path path="attr/disabled" />
 			<path path="attr/value" />
 			<path path="attr/checked" />
@@ -318,6 +320,8 @@
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />
+			
+			<path path="attr/labelBlock" />
 			
 			<path path="attr/disabled" />
 			<path path="attr/value" />
@@ -352,6 +356,8 @@
 
 			<path path="attr/enableValue" />
 			<path path="attr/enableName" />
+			<path path="attr/enableText" />
+			<path path="attr/enableI18n" />
 			<path path="attr/enableChecked" />
 
 			<path path="tags/end.tag" />

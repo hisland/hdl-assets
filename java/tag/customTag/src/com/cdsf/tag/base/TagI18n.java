@@ -11,7 +11,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @SuppressWarnings("serial")
 public abstract class TagI18n extends BodyTagSupport {
 	protected static final String COLON = "：";
-	private static ResourceBundle bundle = null;
+	protected static ResourceBundle bundle = null;
 	
 	//表单元素前置文本[国际化key/文本],文本优先
 	private String i18n;

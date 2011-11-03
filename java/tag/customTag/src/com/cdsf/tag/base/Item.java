@@ -65,6 +65,12 @@ public class Item extends TagI18n {
 			return "";
 		}
 	}
+
+	/**
+	 * @author hedingliang
+	 * @description 标签会缓存,在一个标签输出完毕后执行一点清理工作
+	 */
+	public void clean(){}
 	
 	@Override
 	public int doStartTag(){
@@ -106,6 +112,8 @@ public class Item extends TagI18n {
 			sb.append("</div>");
 			sb.append("</div>");
 			pageContext.getOut().write(sb.toString());
+			
+			clean();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

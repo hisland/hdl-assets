@@ -1,0 +1,5 @@
+		<attribute>
+			<name>labelBlock</name>
+			<required>false</required>
+			<description><![CDATA[可选,baseCheckbox, baseRadio包围的label是块状即单独一行与否,默认false,值只能是true]]></description>
+		</attribute>

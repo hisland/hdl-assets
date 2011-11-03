@@ -1,6 +1,5 @@
 		<attribute>
 			<name>nameStart</name>
 			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[可选,时间段开始时间的name属性]]></description>
 		</attribute>

@@ -18,6 +18,7 @@ public class BaseCheckbox extends TagI18n {
 	private String value;
 	private boolean disabled;
 	private boolean checked;
+	private boolean labelBlock;
 	
 	@Override
 	public int doStartTag() {
@@ -28,16 +29,23 @@ public class BaseCheckbox extends TagI18n {
 	public int doEndTag() throws JspException {
 		try {
 			StringBuffer sb = new StringBuffer();
+			sb.append("<label class=\"");
+			if (labelBlock) {
+				sb.append("label-1r");
+			}else {
+				sb.append("label");
+			}
+			sb.append("\">");
 			sb.append("<input class=\"checkbox2\"");
 			sb.append(getType());
 			sb.append(getName());
 			sb.append(getId());
 			sb.append(getValue());
-			sb.append(getChecked());
-			sb.append(getDisabled());
+			sb.append(getCheckedAttr());
+			sb.append(getDisabledAttr());
 			sb.append(" />");
-			
 			sb.append(getText());
+			sb.append("</label>");
 			
 			pageContext.getOut().write(sb.toString());
 		} catch (IOException e) {
@@ -74,14 +82,13 @@ public class BaseCheckbox extends TagI18n {
 		this.id = id;
 	}
 
-	//disabled
-	public void setDisabled(String disabled){
-		if ("true".equals(disabled)) {
-			this.disabled = true;
+	public void setDisabled(boolean disabled){
+		if (disabled) {
+			this.disabled = disabled;
 		}
 	}
-	public String getDisabled() {
-		if (disabled != false) {
+	public String getDisabledAttr() {
+		if (disabled) {
 			return " disabled=\"disabled\"";
 		}else {
 			return "";
@@ -100,16 +107,22 @@ public class BaseCheckbox extends TagI18n {
 		this.value = value;
 	}
 
-	public String getChecked() {
+	public String getCheckedAttr() {
 		if (checked) {
 			return " checked=\"checked\"";
 		}else {
 			return "";
 		}
 	}
-	public void setChecked(String checked){
-		if ("true".equals(checked)) {
-			this.checked = true;
+	public void setChecked(boolean checked){
+		if (checked) {
+			this.checked = checked;
+		}
+	}
+
+	public void setLabelBlock(boolean labelBlock) {
+		if (labelBlock) {
+			this.labelBlock = labelBlock;
 		}
 	}
 }

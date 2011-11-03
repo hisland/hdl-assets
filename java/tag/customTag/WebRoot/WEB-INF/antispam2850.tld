@@ -145,11 +145,13 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
@@ -192,11 +194,13 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
@@ -280,11 +284,13 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
@@ -373,11 +379,13 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
@@ -461,11 +469,13 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
@@ -539,11 +549,13 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
@@ -586,11 +598,13 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
@@ -644,11 +658,13 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
@@ -707,11 +723,13 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
@@ -760,12 +778,19 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>labelBlock</name>
+			<required>false</required>
+			<description><![CDATA[可选,baseCheckbox, baseRadio包围的label是块状即单独一行与否,默认false,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>disabled</name>
@@ -803,12 +828,19 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
+		</attribute>
+		<attribute>
+			<name>labelBlock</name>
+			<required>false</required>
+			<description><![CDATA[可选,baseCheckbox, baseRadio包围的label是块状即单独一行与否,默认false,值只能是true]]></description>
 		</attribute>
 		<attribute>
 			<name>disabled</name>
@@ -846,11 +878,13 @@
 		<attribute>
 			<name>i18n</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
 			<name>text</name>
 			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[i18n,text二选一, text优先, 显示的label]]></description>
 		</attribute>
 		<attribute>
@@ -873,13 +907,11 @@
 		<attribute>
 			<name>nameStart</name>
 			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[可选,时间段开始时间的name属性]]></description>
 		</attribute>
 		<attribute>
 			<name>nameEnd</name>
 			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
 			<description><![CDATA[可选,时间段结束时间的name属性]]></description>
 		</attribute>
 		<attribute>
@@ -905,12 +937,22 @@
 		<attribute>
 			<name>enableValue</name>
 			<required>false</required>
-			<description><![CDATA[可选,,启用checkbox的值]]></description>
+			<description><![CDATA[可选,启用checkbox的值]]></description>
 		</attribute>
 		<attribute>
 			<name>enableName</name>
 			<required>false</required>
 			<description><![CDATA[可选,时间段启用与否的name属性]]></description>
+		</attribute>
+		<attribute>
+			<name>enableText</name>
+			<required>false</required>
+			<description><![CDATA[可选,时间段checkbox的label]]></description>
+		</attribute>
+		<attribute>
+			<name>enableI18n</name>
+			<required>false</required>
+			<description><![CDATA[可选,时间段checkbox的label的国际化key]]></description>
 		</attribute>
 		<attribute>
 			<name>enableChecked</name>

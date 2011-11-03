@@ -1,0 +1,5 @@
+		<attribute>
+			<name>enableI18n</name>
+			<required>false</required>
+			<description><![CDATA[可选,时间段checkbox的label的国际化key]]></description>
+		</attribute>

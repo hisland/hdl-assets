@@ -1,0 +1,5 @@
+		<attribute>
+			<name>enableText</name>
+			<required>false</required>
+			<description><![CDATA[可选,时间段checkbox的label]]></description>
+		</attribute>
