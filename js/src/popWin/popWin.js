@@ -51,6 +51,7 @@ KISSY.add('popWin', function(S, undef) {
 
 		this.manager = $.popManager.init();
 		this.manager.$div.append(this.$div);
+		this.__close_able = true;
 
 		//默认宽高
 		this.setWidth(default_width);
