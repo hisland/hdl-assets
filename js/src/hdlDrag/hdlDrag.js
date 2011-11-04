@@ -37,7 +37,7 @@ KISSY.add('hdlDrag', function(S, undef) {
 		};
 
 	function mouseDown(e){
-		var filter = this.drag_setting.trigger_filter;
+		var filter = $(this).data('trigger_filter');
 
 		//停用时,有检测函数且返回值为fasle时,不进行拖动
 		if(!this.drag_setting.enable || (S.isFunction(filter) && filter.call(this, e) === false)){
@@ -166,11 +166,21 @@ KISSY.add('hdlDrag', function(S, undef) {
 
 				//新增设置
 				this.drag_setting = S.mix(setting, default_setting, false);
+
+				//使用data避免由于作用域造成的循环引用导致内存泄露
+				if(this.drag_setting.trigger_filter){
+					$(this).data('trigger_filter', this.drag_setting.trigger_filter);
+					delete this.drag_setting.trigger_filter;
+				}
 			}
 			//修改设置
 			else{
 				//只能修改[拖动目标, 过滤函数, 拖动与否]
-				S.mix(this.drag_setting, setting, ['target', 'trigger_filter', 'enable']);
+				S.mix(this.drag_setting, setting, ['target', 'enable']);
+
+				if(setting.trigger_filter){
+					$(this).data('trigger_filter', setting.trigger_filter);
+				}
 			}
 
 			//鼠标状态

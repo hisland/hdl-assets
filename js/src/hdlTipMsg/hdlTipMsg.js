@@ -138,9 +138,8 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 
 		//设置弹出管理
 		div.manager = $.popManager.init();
-		div.appendTo(div.manager.div);
-		div.hide();
-		div.manager.div.appendTo('body').show();
+		div.appendTo(div.manager.$div);
+		div.manager.show();
 		div.remove = function(){
 			this.manager.remove();
 		};
