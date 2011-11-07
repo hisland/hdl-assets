@@ -7,8 +7,8 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<script type="text/javascript" src="assets/seed.js"></script>
 	<script type="text/javascript">
-		KISSY.use('reset-css, common-css, condition-list-css, popWin-css', function(S, undef) {
-
+		KISSY.use('reset-css, common-css, condition-list-css, popWin+css, multiCheckbox', function(S, undef) {
+			$('input.multiCheckbox').multiCheckbox();
 		});
 	</script>
 </head>
@@ -48,6 +48,36 @@
 		</div>
 	</fieldset>
 	<fieldset class="ls1-fieldset">
+		<legend class="ls1-legend">multiCheckbox</legend>
+		<div class="ls1-box">
+			<anti:multiCheckbox text="cols" cols="2" cssclass="multiCheckbox">
+				<div style="display:none;">
+					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
+					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
+					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
+					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
+					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
+					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
+					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
+					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
+					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
+				</div>
+			</anti:multiCheckbox>
+			<anti:multiCheckbox text="cols" cols="2" suffix="分钟" style="width:330px;" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="cssclass" cssclass="cssclass" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="disabled" disabled="true" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="i18n" i18n="i18n" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="id" id="id" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="readonly" readonly="true" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="required" required="true" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="style" style="color:red;" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="suffix" suffix="分钟" style="width:90px;" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="text" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="textWidth" textWidth="150" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="value" value="aa" cssclass="multiCheckbox"></anti:multiCheckbox>
+		</div>
+	</fieldset>
+	<fieldset class="ls1-fieldset">
 		<legend class="ls1-legend">textFuzzy</legend>
 		<div class="ls1-box">
 			<anti:textFuzzy text="autocomplete" autocomplete="false" />
@@ -55,6 +85,7 @@
 			<anti:textFuzzy text="cssclass" cssclass="cssclass"/>
 			<anti:textFuzzy text="dataValidType" dataValidType="#cc"/>
 			<anti:textFuzzy text="disabled" disabled="true"/>
+			<anti:textFuzzy text="fuzzyName" fuzzyName="ttt"/>
 			<anti:textFuzzy text="fuzzyChecked" fuzzyChecked="true" />
 			<anti:textFuzzy text="fuzzyValue" fuzzyValue="1" />
 			<anti:textFuzzy text="i18n" i18n="i18n"/>

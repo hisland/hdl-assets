@@ -13,6 +13,7 @@
 			<path path="tags/tag.item" />
 			
 			<path path="tags/tag.text" />
+			<path path="tags/tag.multiCheckbox" />
 			<path path="tags/tag.textFuzzy" />
 			<path path="tags/tag.password" />
 			<path path="tags/tag.textarea" />
@@ -111,6 +112,32 @@
 			<path path="tags/end.tag" />
 		</concat>
 	</target>
+	
+	<target name="tag.multiCheckbox" extensionOf="tld-pre">
+		<concat destfile="tags/tag.multiCheckbox" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/start.multiCheckbox" />
+
+			<path path="attr/id" />
+			
+			<path path="attr/style" />
+			<path path="attr/cssclass" />
+			<path path="attr/textWidth" />
+			
+			<path path="attr/i18n" />
+			<path path="attr/text" />
+			
+			<path path="attr/cols" />
+			
+			<path path="attr/disabled" />
+			<path path="attr/readonly" />
+			
+			<path path="attr/required" />
+			<path path="attr/suffix" />
+			<path path="attr/value" />
+
+			<path path="tags/end.tag" />
+		</concat>
+	</target>
 
 	<target name="tag.textFuzzy" extensionOf="tld-pre">
 		<concat destfile="tags/tag.textFuzzy" encoding="${encoding}" outputencoding="${encoding}">
@@ -136,7 +163,8 @@
 			<path path="attr/required" />
 			<path path="attr/value" />
 			<path path="attr/dataValidType" />
-			
+
+			<path path="attr/fuzzyName" />
 			<path path="attr/fuzzyChecked" />
 			<path path="attr/fuzzyValue" />
 

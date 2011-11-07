@@ -15,6 +15,7 @@ package com.cdsf.tag;
 public class TextFuzzy extends Text {
 	private boolean fuzzyChecked;
 	private String fuzzyValue;
+	private String fuzzyName;
 	
 	@Override
 	public void preInit() {
@@ -31,12 +32,21 @@ public class TextFuzzy extends Text {
 	public String getSuffix() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<input type=\"checkbox\" class=\"checkbox2\"");
+		sb.append(getFuzzyName());
 		sb.append(getFuzzyValue());
 		sb.append(getFuzzyChecked());
 		sb.append(" />");
 		return sb.toString();
 	}
 	
+	public String getFuzzyName() {
+		return fuzzyName != null ? " name=\"" + fuzzyName + "\"" : "";
+	}
+
+	public void setFuzzyName(String fuzzyName) {
+		this.fuzzyName = fuzzyName;
+	}
+
 	public String getFuzzyChecked() {
 		if (fuzzyChecked) {
 			return " checked=\"checked\"";
