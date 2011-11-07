@@ -3,28 +3,34 @@ package no.ns.hdl;
 import java.util.Date;
 
 /**
- * @author hedingliang
- * @version 1
  * 
  * 提供公历转农历的基本计算
- * 
+ * <pre>
  * TIPS:
  * 农历每月天数为29或30
  * 农历每年可有闰月或没有, 闰月天数为29或30
+ * </pre> 
  * 
+ * @author hedingliang
+ * @version 1
  * 
- * */
+ */
 public class Lunar {
 	/** 基础计算年 */
 	public static final int BASE_YEAR = 1979;
+	
 	/** 每天的秒数 */
 	public static final int SECONDS_PER_DAY = 86400;
+	
 	/** 地球公转一周的时间 */
 	public static final int SECONDS_PER_REVOLUTION = 31556925;
+	
 	/** 1980年元旦 */
 	public static final int SECONDS_AT_1980 = 315504000;
+	
 	/** 1979年春节 */
 	public static final int SECONDS_AT_1979_SPRING_FESTIVAL = 286300800;
+	
 	/** 1980年小寒 */
 	public static final int SECONDS_AT_1980_LESSER_COLD = 315980934;
 	
@@ -39,7 +45,7 @@ public class Lunar {
 	/** 农历日期前缀 */
 	public static final String[] DAY_PREFIX = { "初", "十", "廿"};
 	
-	/** 24节气 */
+	/** 24节气名 */
 	public static final String[] SOLAR_TERMS = { "小寒", "大寒", "立春", "雨水", "惊蛰", "春分",
 			"清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露",
 			"秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至" };
@@ -53,10 +59,11 @@ public class Lunar {
 	/*************************************************************************************************************
 												1979－2100年的农历资料
 												
-			说明：0x表示16进制。16进制数的前3位表示该年月份的长度，化为2进制后1表示大月（30天），0表示
-				  小月（29天）。16进制数的第4位表示该年为闰几月，如为0表示该年为平年。16进制的第5位化为
-				  2进制后第1位表示该年闰月的大小；后3位表示该年小月的数量，用以计算该年的天数，增加这一
-				  参数的目的是为了减少计算的次数，这样就不用逐月相加了。
+			说明：0x表示16进制。
+				16进制数的前3位表示该年月份的长度，化为2进制后1表示大月（30天），0表示小月（29天）。
+				16进制数的第4位表示该年为闰几月，如为0表示该年为平年。
+				16进制的第5位化为2进制后第1位表示该年闰月的大小；后3位表示该年小月的数量，用以计算该年的天数，
+				增加这一参数的目的是为了减少计算的次数，这样就不用逐月相加了。
 	**************************************************************************************************************/
 	public static final int[] LUNAR_INFO = { 
 			0x95a6e,0x95b05,//1979-1980
@@ -82,6 +89,16 @@ public class Lunar {
 	public static int daysOfYear(int year){
 		return 360 - (LUNAR_INFO[year - BASE_YEAR] & 0x7) + daysOfLeapMonth(year);
 	}
+	
+	/**
+	 * @param year
+	 * @param month
+	 * @return int 农历year年,month月的天数,不含闰月
+	 */
+	public static int daysOfMonth(int year, int month) {
+		return (LUNAR_INFO[year - BASE_YEAR] & 0x100000 >> month) != 0 ? 30 : 29;
+	}
+	
 	/**
 	 * @param year
 	 * @return int 农历year年闰月的天数,没闰返回0
@@ -101,125 +118,143 @@ public class Lunar {
 	public static int LeapMonthOfYear(int year) {
 		return (LUNAR_INFO[year - BASE_YEAR] & 0xf0) >> 4;
 	}
-	
-	/**
-	 * @param year
-	 * @param month
-	 * @return int 农历year年,month月的天数
-	 */
-	public static int daysOfMonth(int year, int month) {
-		return (LUNAR_INFO[year - BASE_YEAR] & 0x100000 >> month) != 0 ? 30 : 29;
-	}
 
 	/** 生肖列表 */
 	public static final String[] YEAR_ANIMAL = { "鼠", "牛", "虎", "兔", "龙", "蛇",
 			"马", "羊", "猴", "鸡", "狗", "猪" };
 	
-	/**网上找的简便方法,(年-4)%12得[鼠,牛,虎,兔...]中对应的index
+	/**
+	 * 网上找的简便方法,(年-4)%12得[鼠,牛,虎,兔...]中对应的index
 	 * @param year
 	 * @return String 年所对应的生肖
 	 */
 	public static String getAnimal(int year) {
 		return YEAR_ANIMAL[(year-4) % 12];
 	}
+
+	private int intYear;
+	private int intMonth;
+	private int intDate;
 	
-	private int year_int;
-	private int month_int;
-	private int date_int;
-	
-	public Lunar() {}
+	public Lunar() {
+	}
 	public Lunar(Date d) {
 		parseLunar(d);
 	}
 
 	public void parseLunar(Date d) {
-		parseLunar((long) d.getTime()/1000);
+		try {
+			parseLunar((long) d.getTime()/1000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	public void parseLunar(long seconds_to) {
-		year_int = BASE_YEAR;
-		long seconds_inc = SECONDS_AT_1979_SPRING_FESTIVAL;
-		for (; seconds_inc <= seconds_to; year_int++) {
-			seconds_inc += daysOfYear(year_int)*SECONDS_PER_DAY;
+	public void parseLunar(long secondsTo) throws Exception {
+		intYear = BASE_YEAR;
+		long secondsInc = SECONDS_AT_1979_SPRING_FESTIVAL;
+		for (; secondsInc <= secondsTo; intYear++) {
+			if (intYear > 2100) {
+				throw new Exception("年份数据截止到2100,该日期已经超过了!");
+			}
+			secondsInc += daysOfYear(intYear)*SECONDS_PER_DAY;
 		}
 		
 		//得到农历年
-		year_int--;
+		intYear--;
 
 		//当年超过的秒数
-		long seconds_in_year = seconds_to + daysOfYear(year_int)*SECONDS_PER_DAY - seconds_inc;
+		long secondsInYear = secondsTo + daysOfYear(intYear)*SECONDS_PER_DAY - secondsInc;
 
 		//当年超过的天数, 需+1
-		int days_in_year = (int) Math.ceil(seconds_in_year/SECONDS_PER_DAY) + 1;
+		int daysInYear = (int) Math.ceil(secondsInYear/SECONDS_PER_DAY) + 1;
 
-		boolean flag = true;
-		int days_inc = 0;
-		month_int = 1;
-		for (; flag; month_int++) {
-			days_inc += daysOfMonth(year_int, month_int);
-			if ( days_in_year <= days_inc ) {
-				flag = false;
-			} else if( month_int == LeapMonthOfYear(year_int) ) {
-				days_inc += daysOfLeapMonth(year_int);
-				if ( days_in_year <= days_inc ) {
-					flag = false;
-					month_int = 0;
+		boolean notEnd = true;
+		int daysInc = 0;
+		intMonth = 1;
+		for (; notEnd; intMonth++) {
+			//增加当月的天数
+			daysInc += daysOfMonth(intYear, intMonth);
+			
+			//每次都要检查天数是否已够
+			if ( daysInYear <= daysInc ) {
+				notEnd = false;
+			}
+			//不够需要检查不是闰月,并加上相应天数
+			else if( intMonth == LeapMonthOfYear(intYear) ) {
+				daysInc += daysOfLeapMonth(intYear);
+				
+				//加了之后还要检查是否已够
+				if ( daysInYear <= daysInc ) {
+					notEnd = false;
+					
+					//闰月month设置为0作为标识
+					intMonth = 0;
 				}
 			}
 		}
 
 		//得到农历月, 0表示闰月
-		month_int--;
+		if (intMonth != 0) {
+			intMonth--;
+		}
 
-		//得到农历日
-		date_int = days_in_year - days_inc;
-		if ( month_int == 0 ) {
-			date_int += daysOfLeapMonth(year_int);
+		//这里是当月剩下的天数,且为负数,加上当月天数即得当月当时的日期
+		intDate = daysInYear - daysInc;
+		if ( intMonth == 0 ) {
+			intDate += daysOfLeapMonth(intYear);
 		} else {
-			date_int += daysOfMonth(year_int, month_int);
+			intDate += daysOfMonth(intYear, intMonth);
 		}
 	}
 
 	public String getAnimal() {
-		return getAnimal(year_int);
+		return getAnimal(intYear);
 	}
 	public String getYear() {
 		return getAnimal() + "年";
 	}
 	public String getMonth() {
-		if (month_int == 0) {
-			return "闰" + MONTH[LeapMonthOfYear(year_int) - 1] + "月";
+		if (intMonth == 0) {
+			return "闰" + MONTH[LeapMonthOfYear(intYear) - 1] + "月";
 		} else {
-			return MONTH[month_int - 1] + "月";
+			return MONTH[intMonth - 1] + "月";
 		}
 	}
+	
 	public String getDate() {
-		if (date_int < 11) {
-			return DAY_PREFIX[0] + DATE[date_int - 1];
-		} else if (date_int < 20) {
-			return DAY_PREFIX[1] + DATE[date_int - 11];
-		} else if (date_int == 20) {
+		if (intDate < 11) {
+			return DAY_PREFIX[0] + DATE[intDate - 1];
+		} else if (intDate < 20) {
+			return DAY_PREFIX[1] + DATE[intDate - 11];
+		} else if (intDate == 20) {
 			return DAY_PREFIX[2] + "十";
-		} else if (date_int < 30) {
-			return DAY_PREFIX[2] + DATE[date_int - 21];
+		} else if (intDate < 30) {
+			return DAY_PREFIX[2] + DATE[intDate - 21];
 		} else {
 			return "三十";
 		}
 	}
+	
 	public String toString() {
 		return getYear() + getMonth() + getDate();
 	}
 	
-	public Object getFestivals() {
-		return "";
+	public Lunar setDate(Date d) {
+		parseLunar(d);
+		return this;
 	}
 	
-	public int getYear_int() {
-		return year_int;
+	public int getIntYear() {
+		return intYear;
 	}
-	public int getMonth_int() {
-		return month_int;
+	public int getIntMonth() {
+		return intMonth;
 	}
-	public int getDate_int() {
-		return date_int;
+	public int getIntDate() {
+		return intDate;
+	}
+
+	public static void main(String[] args) {
+		Lunar l = new Lunar();
 	}
 }
