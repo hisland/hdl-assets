@@ -75,7 +75,7 @@ KISSY.add('multiCheckbox', function(S, undef) {
 	function iptclick(e){
 		$ipt_target = $(this);
 		$box.append($ipt_target.next().show());
-		pop.show();
+		pop.front().show();
 	}
 
 	$.fn.extend({

@@ -8,11 +8,14 @@
 .text-left{text-align:left;}
 .text-right{text-align:right;}
 
+/* 清除左右浮动类 */
+.clear-both{display:block;height:1px;overflow:hidden;visibility:hidden;clear:both;font-size:1px;line-height:1px;}
+
 /* 文本框类 */
 input.text1{width:120px;height:14px;line-height:14px;padding:1px;border:1px solid #7f9db9;}
 
 /* 标准浏览器使用resize:none;禁止改变大小 */
-textarea, .ls1-big-box{width:120px;height:70px;padding:2px 1px;border:1px solid #7f9db9;background:#fff;resize:none;overflow:auto;}
+textarea, .ls1-big-box{width:120px;height:70px;line-height:1.2;padding:2px 1px;border:1px solid #7f9db9;background:#fff;resize:none;overflow:auto;}
 
 /* 禁用输入法 */
 .no-ime{ime-mode:disabled;}
