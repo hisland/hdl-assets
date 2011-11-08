@@ -67,4 +67,14 @@ public class Textarea extends Text {
 			this.floatRight = floatRight;
 		}
 	}
+	
+	/**
+	 * @author hedingliang
+	 * @param rows 值只能为3-15
+	 */
+	public void setRows(int rows) {
+		if (rows > 2 && rows < 16) {
+			this.rows = rows;
+		}
+	}
 }
