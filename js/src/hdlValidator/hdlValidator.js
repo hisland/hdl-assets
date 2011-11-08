@@ -128,6 +128,29 @@
 	
 	2011-10-19 15:53:59:
 		各种验证可以直接在外面调用
+	
+	2011-11-08 22:31:38:
+		采用js代码方式进行注册,不使用html属性
+		len(n, m);	//长度n-m, n<=m, 整数
+		utf8len(n, m); //utf8长度n-m, n<=m, 整数
+		numberRange(n, m);	//数字值范围n-m, 整数小数皆可
+		must(state);		//必填,默认可为空
+		isAlpha();	//纯字母
+		ignoreCase();	//忽略大小写
+		min(n);		最小值
+		max(n);		最大值
+		reg(reg, rev);	//正则, 是否取反
+		fn(a, b, c...);	//自定义函数
+		pre(name, name...);	//预定义验证规则,由validString模块提供
+		blankBeforeAfter();		前后空格
+		gt(selector);		//大于另一个
+		gt(selector, 'double');		//大于另一个,双向触发
+		gt(selector, 'single');		//大于另一个,单向触发
+		lt(selector|string|number);		//小于另一个
+		eq(selector);		//等于另一个
+		neq(selector);		//不能等于另一个
+		andDo(p, p, p...);	//各p是and关系
+		orDo(p, p, p...);	//各p是or关系
  */
 
 KISSY.add('hdlValidator', function(S, undef) {
@@ -163,9 +186,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 
 	//执行生成uid, native与dom都通过id进行交流
 	//使用kissy的guid
-	var uid = function(){
-		return S.guid('hdl-validator-');
-	};
+	S.guid('hdl-validator-');
 
 	function Validator(setting){
 		//更改为构造方式

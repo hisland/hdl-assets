@@ -58,7 +58,7 @@ KISSY.add('autoComplete', function(S, undef) {
 	});
 
 	//按键延迟过滤
-	function doPress(val){
+	function delayPress(val){
 		if(target_setting.prev_val !== val){
 			div_list.fadeTo('fast', 0.1);
 			clearTimeout(delay_handler);
@@ -69,6 +69,7 @@ KISSY.add('autoComplete', function(S, undef) {
 			div_list.fadeTo('fast', 1);
 		}
 	}
+
 	//此会保存prev_val值
 	function changeText(val){
 		pager_ajax.setCallback(function(rs){
@@ -146,7 +147,7 @@ KISSY.add('autoComplete', function(S, undef) {
 					|| (key_code >= 186 && key_code <= 192)//<>,./?~` ie:+=-_
 					|| (key_code >= 219 && key_code <= 222)){//{}[]\|'"
 
-			doPress(this.value);
+			delayPress(this.value);
 		}
 	}
 
@@ -156,11 +157,20 @@ KISSY.add('autoComplete', function(S, undef) {
 			popHide();
 		}
 	}
-	function iptFocus(){
+	//获得焦点的时候初始化
+	function iptFocus(e){
 		div_pop.adjustElement($(this).parent());
 		$(document).mousedown(docClose);
 		target_ipt = this;
 		target_setting = this.auto_comp;
+	}
+	//失去焦点需要最后执行一次,因为有可能速度非常快
+	function iptBlur(e){
+		changeText(this.value);
+	}
+	//采用input事件.当内容有变化时执行,不管是怎么变化的(键盘,右键还是其它的...)
+	function input(e){
+		delayPress(this.value);
 	}
 	function popHide(){
 		$(document).unbind('mousedown', docClose);
@@ -199,30 +209,29 @@ KISSY.add('autoComplete', function(S, undef) {
 	//初始化函数
 	function autoComplete(setting){
 		return this.filter(':text').each(function(i, v){
-			if(!this['--auto-comp-bind']){
-				this['--auto-comp-bind'] = true;
+			if(!$(this).data('--auto-comp-setting')){
 				$(this).wrap('<span class="auto-comp"></span>').after('<span></span>')
 					.focus(iptFocus).keypress(iptKeyPress).keydown(iptKeyDown)
 					.next();//.mousedown(elmClick);
+
+				$(this).data('--auto-comp-setting', S.mix(setting, default_setting));
+			}else{
+				S.mix($(this).data('--auto-comp-setting'), setting);
 			}
-		});
-	}
-	//切换可用状态
-	function autoCompleteDisable(state){
-		return this.each(function(i, v){
-			if(this['--auto-comp-bind']){
-				if(state === false){
-					$(this).attr('disabled', false).parent().removeClass('auto-comp-disabled');
-				}else{
-					$(this).attr('disabled', true).parent().addClass('auto-comp-disabled');
-				}
+
+			setting = $(this).data('--auto-comp-setting');
+
+			//禁用状态
+			if(setting.disabled){
+				$(this).attr('disabled', true).parent().addClass('auto-comp-disabled');
+			}else{
+				$(this).attr('disabled', false).parent().removeClass('auto-comp-disabled');
 			}
 		});
 	}
 
 	$.fn.extend({
-		autoComplete: autoComplete,
-		autoCompleteDisable: autoCompleteDisable
+		autoComplete: autoComplete
 	});
 }, {
 	requires: ['jquery-1.4.2', 'adjustElement', 'pager']

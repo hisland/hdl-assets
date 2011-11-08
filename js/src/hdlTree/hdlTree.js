@@ -117,20 +117,13 @@ KISSY.add('hdlTree', function(S, undef) {
 		tag_line_elbow = '<b class="line-elbow"></b>',
 		tag_line_elbow_end = '<b class="line-elbow-end"></b>';
 
-	//获得uid
-	var uid = (function(id) {
-		return function(){
-			return 'hdltree' + (id++);
-		};
-	})(0);
-
 	function Tree(setting){
 		//更改为构造方式
 		if(!(this instanceof Tree)){
 			return new Tree(setting);
 		}
 
-		this.uid = uid();
+		this.uid = S.guid('hdltree');
 		this.__last_selected = EMPTY_$;
 	}
 
@@ -403,7 +396,7 @@ KISSY.add('hdlTree', function(S, undef) {
 			return $('#'+path);
 		}
 
-		//设置并列
+		//设置数据
 		,addData: function(data, node){
 			if(!node){
 				node = this;
@@ -471,10 +464,10 @@ KISSY.add('hdlTree', function(S, undef) {
 			state = S.isUndefined(state) ? !this.use_icon : state;
 			if(state){
 				this.use_icon = true;
-				$('#'+this.uid).removeClass('no-icon');
+				$(this.selector).removeClass('no-icon');
 			}else{
 				this.use_icon = false;
-				$('#'+this.uid).addClass('no-icon');
+				$(this.selector).addClass('no-icon');
 			}
 		}
 
@@ -484,10 +477,10 @@ KISSY.add('hdlTree', function(S, undef) {
 			state = S.isUndefined(state) ? !this.use_checkbox : state;
 			if(state){
 				this.use_checkbox = true;
-				$('#'+this.uid).removeClass('no-checkbox');
+				$(this.selector).removeClass('no-checkbox');
 			}else{
 				this.use_checkbox = false;
-				$('#'+this.uid).addClass('no-checkbox');
+				$(this.selector).addClass('no-checkbox');
 			}
 		}
 
@@ -514,10 +507,26 @@ KISSY.add('hdlTree', function(S, undef) {
 			this.walkDescendants(this, function(node){
 				name = this.name || name;
 				if(!node.children && node.checked){
-					arr.push(name + '=' + node.value);
+					arr.push({
+						name: name,
+						value: node.value
+					});
 				}
 			});
-			return arr.join('&');
+			return arr;
+		}
+
+		//获取选中的input:hidden字符串
+		,getHiddens: function(){
+			var  name = this.name
+				,arr = [];
+			this.walkDescendants(this, function(node){
+				name = this.name || name;
+				if(!node.children && node.checked){
+					arr.push('<input type="hidden" name="', name, '" value="', node.value, '" />');
+				}
+			});
+			return arr.join('');
 		}
 	});
 
@@ -545,20 +554,19 @@ KISSY.add('hdlTree', function(S, undef) {
 		else if(target.is('em')){
 			toggleCollapse.call(target, node, css_class);
 		}
-
+		//点击branch|leaf
+		}else if(/branch|leaf|loading/.test(css_class)){
+			target = target.closest('div');
+		//点击空白
+		}else if(/blank|line/.test(css_class)){
+			target = target.closest('div');
+		//点击文字
+		}else if(/text/.test(css_class)){
+			target = target.closest('div');
+		}
 		else{
 			target = target.closest('div');
 		}
-//		//点击branch|leaf
-//		}else if(/branch|leaf|loading/.test(css_class)){
-//			target = target.closest('div');
-//		//点击空白
-//		}else if(/blank|line/.test(css_class)){
-//			target = target.closest('div');
-//		//点击文字
-//		}else if(/text/.test(css_class)){
-//			target = target.closest('div');
-//		}
 
 		//点击div
 		if(target.is('div')){
@@ -602,29 +610,26 @@ KISSY.add('hdlTree', function(S, undef) {
 		}
 	}
 
-	function hdlTree(setting, data){
+	function hdlTree(setting){
 		//无参表示读取树设置
 		if(!arguments.length){
-			return global_tree[this.attr('data-hdl-tree')];
+			return this.attr('--hdl-tree');
 		}
 
 		return this.each(function(i, v){
 			//初始化
-			if(!this['--bind-hdltree']){
-				this['--bind-hdltree'] = true;
-
+			if(!this.attr('--hdl-tree')){
 				//初始化树
 				var tree = Tree();
+				this.attr('--hdl-tree', tree);
 
 				//使用selector避免引用dom
-				if(this.id){
-					tree.selector = '#' + this.id;
-				}else{
-					this.id = tree.selector = tree.uid;
+				if(!this.id){
+					this.id = tree.uid;
 				}
+				tree.selector = '#' + this.id;
 
-				//存在dom上
-				this.tree = tree;
+				//初始化树
 				tree.init(data, setting);
 
 				//设置事件
@@ -633,8 +638,7 @@ KISSY.add('hdlTree', function(S, undef) {
 
 			//修改配置
 			else{
-				//只能修改[拖动目标, 过滤函数]
-				S.mix(this.tree, setting, ['target', 'trigger_filter']);
+				S.mix(this.tree, setting);
 			}
 		});
 	}

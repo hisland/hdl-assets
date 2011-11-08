@@ -1,0 +1,8 @@
+
+
+.province-city-left{float:left;width:200px;height:300px;overflow:auto;}
+	.province-city-left a{display:block;text-align:center;}
+	.province-city-left a:hover{background:red;}
+.province-city-right{float:left;width:200px;height:300px;overflow:auto;}
+	.province-city-right a{display:block;text-align:center;}
+	.province-city-right a:hover{background:green;}
