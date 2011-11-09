@@ -131,4 +131,12 @@ KISSY.add('validString', function(S, undef) {
 		/^$|^(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)$/,
 		'IPv4,点分十进制,共四位,每个数字不能超过255,可有前置0'
 	);
+
+
+	//此段保留在最底部,JS国际化信息的覆盖
+	if(JS_I18N){
+		S.each(items, function(v, i, o){
+			validString.setDesc(i, JS_I18N['js.common.validString.' + i]);
+		});
+	}
 });

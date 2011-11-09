@@ -21,7 +21,7 @@
  *		最大最小时间限制填充,不限制选择,方便实现, 开关确定是否填充
  *		周开始时间设置
  *		不同月份日期可能变化,e为有效最大值, 其它值不合法时设置为合法值,否则不变
- *		zindexManager控制层级
+ *		S.guid()控制层级
  * 
  * 2011-10-06 11:10:30:
  *		超出时间范围由用户决定继续填充,并加个开关是否允许
@@ -48,6 +48,19 @@ KISSY.add('dateTool', function(S, undef) {
 		msg_page_up = '上页',
 		msg_page_down = '下页',
 		msg_close = '关闭';
+
+	//JS国际化信息的覆盖
+	if(JS_I18N){
+		for(var i=1;i<8;i++){
+			msg_week[i] = JS_I18N['js.common.dateTool.msg_week' + i];
+		}
+		msg_clear = JS_I18N['js.common.dateTool.msg_clear'];
+		msg_now = JS_I18N['js.common.dateTool.msg_now'];
+		msg_complete = JS_I18N['js.common.dateTool.msg_complete'];
+		msg_page_up = JS_I18N['js.common.dateTool.msg_page_up'];
+		msg_page_down = JS_I18N['js.common.dateTool.msg_page_down'];
+		msg_close = JS_I18N['js.common.dateTool.msg_close'];
+	}
 
 	function length1Prefix0(value) {
 		value += '';
@@ -611,9 +624,7 @@ KISSY.add('dateTool', function(S, undef) {
 		setting.open();
 		$div_wrap.adjustElement(target).show();
 
-		if($.zindexManager){
-			$div_wrap.css('z-index', $.zindexManager.up());
-		}
+		$div_wrap.css('z-index', S.guid());
 	}
 	function toolClose(){
 		dropClose();
@@ -681,5 +692,5 @@ KISSY.add('dateTool', function(S, undef) {
 		}
 	});
 }, {
-	requires: ['jquery-1.4.2', 'adjustElement', 'builtin', 'jquery.mousewheel', 'zindexManager']
+	requires: ['jquery-1.4.2', 'adjustElement', 'builtin', 'jquery.mousewheel']
 });

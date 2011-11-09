@@ -59,7 +59,7 @@ KISSY.add('popManager', function(S, undef) {
 	S.augment(init, {
 		//放到最前
 		front: function() {
-			this.$div.css('z-index', $.zindexManager.up());
+			this.$div.css('z-index', S.guid());
 			return this;
 		},
 
@@ -142,5 +142,5 @@ KISSY.add('popManager', function(S, undef) {
 		popManager: popManager
 	});
 }, {
-	requires: ['jquery-1.4.2', 'zindexManager']
+	requires: ['jquery-1.4.2']
 });

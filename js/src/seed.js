@@ -45,7 +45,7 @@ build time: Jan 14 13:56
         // be overwritten so that defined namespaces are preserved.
         seed = (host && host[S]) || {},
 
-        guid = 0,
+        guid = 1000,
         EMPTY = '';
 
     // The host of runtime environment. specify by user's seed or <this>,

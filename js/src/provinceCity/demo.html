@@ -6,24 +6,35 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, common-css, demo-css, provinceCity+css', function(){
-				$('#area').provinceCity();
+			S.use('reset-css, common-css, demo-css, condition-list-css, provinceCity+css', function(){
+				$('#area, #qq').provinceCity();
 			});
 		});
 	</script>
 </head>
 <body>
 <div class="demo-section">
-	<div class="ls1">
-		<div class="ls1-item">
-			<div class="ls1-text">省市:</div>
-			<div class="ls1-ipts">
-				<input class="text1" type="text" id="area" readonly="readonly" />
-				<!-- <input type="hidden" name="province" value="" />
-				<input type="hidden" name="city" value="" /> -->
+		<div class="demo-legend">说明</div>
+		<div class="demo-box">
+			<div class="ls1">
+				<div class="ls1-item">
+					<div class="ls1-text">省市:</div>
+					<div class="ls1-ipts">
+						<input class="text1" type="text" id="area" readonly="readonly" />
+						<input type="hidden" name="province" value="" />
+						<input type="hidden" name="city" value="" />
+					</div>
+				</div>
+				<div class="ls1-item">
+					<div class="ls1-text">省市2:</div>
+					<div class="ls1-ipts">
+						<input class="text1" type="text" id="qq" readonly="readonly" />
+						<input type="hidden" name="province" value="" />
+						<input type="hidden" name="city" value="" />
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
 </div>
 </body>
 </html>

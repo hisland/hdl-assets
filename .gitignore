@@ -1,1 +1,6 @@
 *.class
+js/src/.project
+java/tag/build
+java/tag/customTag/WebRoot/assets
+java/tag/simpleTag/WebRoot/assets
+java/SolarLunar/bin

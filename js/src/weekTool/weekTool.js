@@ -107,6 +107,17 @@ KISSY.add('weekTool', function(S, undef) {
 				return this.__week;
 			}
 		},
+		maxWeek: function(){
+			var bak = this.week(), max;
+			//一年正常有53周,最多有54周,从52周开始增加,直到停止
+			this.week(52);
+			while(this.end().getFullYear() === this.year()){
+				this.next();
+			}
+			max = this.week();
+			this.week(bak);
+			return max;
+		},
 		next: function(n){
 			n = n<1 || 1;
 			this.week(this.__week + n);
@@ -154,24 +165,6 @@ KISSY.add('weekTool', function(S, undef) {
 		}
 	});
 
-//		getList: function(){
-//			var num = [], start = [], end = [],
-//				i = 1, t;
-//
-//			//按自然周算,一年正常有53周,最多有54周,最后一周根据年相同与否来判断
-//			for(; i<=54; i++){
-//				if(i<54 || this.week(i).start().getFullYear() == this.__year){
-//					this.week(i);
-//					num.push('<span class="weektool-col1">', i, '</span>');
-//					t = this.start();
-//					start.push('<a href="#" class="weektool-col2">', t.dateTimeString(), '</a>');
-//					t = this.end();
-//					end.push('<a href="#" class="weektool-col3">', t.dateTimeString(), '</a>');
-//				}
-//			}
-//			return [num.join(''), start.join(''), end.join('')];
-//		}
-
 	function makeYearList(from, to, now){
 		var  b = [];
 		for(; from<to; from++){
@@ -198,10 +191,21 @@ KISSY.add('weekTool', function(S, undef) {
 			div_pop.appendTo('body');
 		}
 		div_pop.show().adjustElement(ipt_now);
+		$(document).mousedown(docHide);
 	}
 	function wrapHide(){
 		div_year_list.parent().hide();
 		div_pop.hide();
+		$(document).unbind('mousedown', docHide);
+	}
+
+	function docHide(e){
+		var t = e.target,
+			dt = $(t);
+
+		if(!dt.closest('.weektool-wrap').length && !isWeekInput(t)){
+			wrapHide();
+		}
 	}
 
 	//输入框的一系列事件
@@ -310,33 +314,16 @@ KISSY.add('weekTool', function(S, undef) {
 		}
 	}
 
-	//注册事件,可用于手工注册
-	function weekTool(){
-		this.each(function(i, v){
-			if(!v.__bind_week_tool){
-				v.__bind_week_tool = true;
+	//注册事件
+	function weekTool(setting){
+		return this.filter(':text').each(function(i, v){
+			if(!this['--bind-week-tool']){
+				this['--bind-week-tool'] = true;
 
 				$(v).focus(iptFocus);
 			}
 		});
-		return this;
 	}
-
-	//文档上监听并注册事件
-	function documentClick(e){
-		var t = e.target,
-			dt = $(t);
-		//如已注册则忽略
-		if(!t.__bind_week_tool && isWeekInput(t)){
-			dt.weekTool();
-			dt.focus();
-		}
-		//顺带做隐藏操作
-		if(!dt.closest('.weektool-wrap').length && !isWeekInput(t)){
-			wrapHide();
-		}
-	}
-	$(document).click(documentClick);
 
 	$.extend({
 		week: WeekUtil

@@ -6,23 +6,26 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, weekTool+css', function(){
+			S.use('reset-css, common-css, demo-css, condition-list-css, weekTool+css', function(){
 				
 			});
 		});
 	</script>
-	<style type="text/css">
-		.box{border:1px solid #ccc;padding:5px;margin-bottom:10px;}
-			.box p{background:#eee;margin-bottom:5px;}
-	</style>
 </head>
 
-<body style="margin:50px;">
-	<div class="box">
-		<p>
-			选择周范围: 
-			<input type="week-start" id="week-start" data-week-end="#week-end" name="" value="" />-<input type="week-end" id="week-end" data-week-start="#week-start" name="" value="" />
-		</p>
+<body>
+<div class="demo-section">
+	<div class="demo-legend">说明</div>
+	<div class="demo-box">
+		<div class="ls1">
+			<div class="ls1-item ls1-2c">
+				<div class="ls1-text">选择周范围:</div>
+				<div class="ls1-ipts">
+					<input type="week-start" id="week-start" name="" value="" readonly="readonly"  />-<input type="week-end" id="week-end" name="" value="" readonly="readonly"  />
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
 </body>
 </html>
