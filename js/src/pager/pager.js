@@ -31,8 +31,8 @@
  */
 
 KISSY.add('pager', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('');
+	var $ = jQuery,
+		$EMPTY = $('');
 
 	//本地数据分页
 	function pagerLocal(data){

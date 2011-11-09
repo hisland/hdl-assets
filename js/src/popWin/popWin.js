@@ -24,11 +24,11 @@
  */
 
 KISSY.add('popWin', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title">title</span><a class="win1-close" href="#"></a></div><div class="win1-content-wrap"><div class="win1-content"></div></div></div>'
-		,popWin = {}
-		,default_width = 400;
+	var $ = jQuery,
+		$EMPTY = $(''),
+		html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title">title</span><a class="win1-close" href="#"></a></div><div class="win1-content-wrap"><div class="win1-content"></div></div></div>',
+		popWin = {},
+		default_width = 400;
 	
 	//清除所有的popWin
 	popWin.clean = function(){

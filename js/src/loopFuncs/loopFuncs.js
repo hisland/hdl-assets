@@ -28,10 +28,10 @@
 
 KISSY.add('loopFuncs', function(S, undef) {
 	function getLoopFuncs(fn_first){
-		var  _timer
-			,_stopped = true
-			,funcs = []
-			,interval = 500;
+		var _timer,
+			_stopped = true,
+			funcs = [],
+			interval = 500;
 
 		if(S.isFunction(fn_first)){
 			funcs.push(fn_first);

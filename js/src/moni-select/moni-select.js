@@ -16,10 +16,10 @@
  */
 KISSY.add('moni-select', function(S, undef) {
 	var $ = jQuery,
-		EMPTY_$ = $(''),
-		target = EMPTY_$,
+		$EMPTY = $(''),
+		target = $EMPTY,
 		list = $('<div class="moni-select-wrap" />'),
-		select = EMPTY_$;
+		select = $EMPTY;
 
 	list.click(listClick).appendTo('body');
 
@@ -98,7 +98,7 @@ KISSY.add('moni-select', function(S, undef) {
 			e.preventDefault();
 		}else{
 			list.hide();
-			target = EMPTY_$;
+			target = $EMPTY;
 			$(document).unbind('mousedown', closeList);
 		}
 	}
@@ -134,14 +134,14 @@ KISSY.add('moni-select', function(S, undef) {
 					$(v).parent().click(aClick);
 				}
 			}).refreshSelect();
-		}
+		},
 		//使用此方法同步真实select到moni-select
-		,refreshSelect: function() {
+		refreshSelect: function() {
 			this.filter('select').each(function(i, v) {
-				var  disabled = this.disabled
-					,idx = this.selectedIndex
-					,text = idx == -1 ? '' : this.options[idx].innerHTML
-					,me = $(this);
+				var disabled = this.disabled,
+					idx = this.selectedIndex,
+					text = idx == -1 ? '' : this.options[idx].innerHTML,
+					me = $(this);
 				
 				//修正禁用状态
 				if (disabled) {

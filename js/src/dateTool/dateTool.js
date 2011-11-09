@@ -227,10 +227,10 @@ KISSY.add('dateTool', function(S, undef) {
 			return this;
 		},
 		refreshDataList: function(){
-			var  str = [], i
-				,days = this.getMonthDays()
-				,blank = this.__getBlank()
-				,now_day = this.real('date');
+			var str = [], i,
+				days = this.getMonthDays(),
+				blank = this.__getBlank(),
+				now_day = this.real('date');
 			for(i = 0; i < blank; i++) {
 				str.push('<span></span>');
 			}

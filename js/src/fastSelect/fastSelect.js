@@ -8,13 +8,13 @@
  */
 
 KISSY.add('fastSelect', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,div_pop, aprev, anext, span_start, span_end
-		,ipt_target = EMPTY_$
-		,range, last_read, now
-		,reg_num = /\d+(?:\.\d+)?/g
-		,num_per_page = 50;
+	var $ = jQuery,
+		$EMPTY = $(''),
+		div_pop, aprev, anext, span_start, span_end,
+		ipt_target = $EMPTY,
+		range, last_read, now,
+		reg_num = /\d+(?:\.\d+)?/g,
+		num_per_page = 50;
 
 	//输入框点击事件
 	function iptClick(e){
@@ -47,8 +47,8 @@ KISSY.add('fastSelect', function(S, undef) {
 
 	//弹出层点击作相应操作
 	function divPopClick(e){
-		var  t = e.target
-			,dt = $(t);
+		var t = e.target,
+			dt = $(t);
 
 		if(dt.is('a')){
 			//点击值
@@ -75,9 +75,9 @@ KISSY.add('fastSelect', function(S, undef) {
 	}
 
 	function showPage(n){
-		var  num = range[3] || num_per_page
-			,step = range[2]
-			,start, end;
+		var num = range[3] || num_per_page,
+			step = range[2],
+			start, end;
 
 		if(n == 'next'){
 			start = last_read[1];
@@ -106,10 +106,10 @@ KISSY.add('fastSelect', function(S, undef) {
 	}
 	//生成下拉框内容
 	function makeList(start, end, step, now){
-		var  b = []
-			,step_len = (step+'').length
-			,dot_pos = (step+'').indexOf('.')
-			,dec_places = step_len-dot_pos-1;
+		var b = [],
+			step_len = (step+'').length,
+			dot_pos = (step+'').indexOf('.'),
+			dec_places = step_len-dot_pos-1;
 
 		dec_places = (dot_pos != -1 ? dec_places : dec_places-1 );
 		span_start.html(start.toFixed(dec_places));
@@ -168,8 +168,8 @@ KISSY.add('fastSelect', function(S, undef) {
 
 	//文档上监听并注册事件,如已注册则忽略, 顺带做隐藏操作
 	function documentClick(e){
-		var  t = e.target
-			,dt = $(t);
+		var t = e.target,
+			dt = $(t);
 		if(dt.is('input[data-fast-select]') && !t.__bind_fast_select){
 			dt.fastSelect();
 			dt.click();

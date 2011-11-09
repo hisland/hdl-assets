@@ -9,7 +9,7 @@
 
 KISSY.add('menu', function(S, undef) {
 	var  $ = jQuery
-		,EMPTY_$ = $('')
+		,$EMPTY = $('')
 		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent)
 		,menu_ul, menu_wrap, view_wrap
 		,timer_handle, show_delay = 300, default_width = 170

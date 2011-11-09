@@ -38,10 +38,10 @@ KISSY.add('popCheck', function(S, undef) {
 	
 	//确定按钮点击时放回去
 	$btn_ok.click(function(){
-		var  tree = $box.hdlTreeSetting()
-			,hidden = []
-			,str = []
-			,name = tree.name;
+		var tree = $box.hdlTreeSetting(),
+			hidden = [],
+			str = [],
+			name = tree.name;
 	
 		tree.walkDescendants(tree, function(node){
 			name = this.name || name;

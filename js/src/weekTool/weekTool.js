@@ -36,18 +36,18 @@
  */
 
 KISSY.add('weekTool', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,ipt_now = EMPTY_$
-		,ipt_start = EMPTY_$
-		,ipt_end = EMPTY_$
-		,a_year_from = EMPTY_$
-		,a_year_to = EMPTY_$
-		,div_pop = EMPTY_$
-		,div_num_list = EMPTY_$
-		,div_from_list = EMPTY_$
-		,div_to_list = EMPTY_$
-		,div_year_list = EMPTY_$;
+	var $ = jQuery,
+		$EMPTY = $(''),
+		ipt_now = $EMPTY,
+		ipt_start = $EMPTY,
+		ipt_end = $EMPTY,
+		a_year_from = $EMPTY,
+		a_year_to = $EMPTY,
+		div_pop = $EMPTY,
+		div_num_list = $EMPTY,
+		div_from_list = $EMPTY,
+		div_to_list = $EMPTY,
+		div_year_list = $EMPTY;
 
 	//周对象, 可方便传入年和周
 	function WeekUtil(year, week){
@@ -90,7 +90,7 @@ KISSY.add('weekTool', function(S, undef) {
 	}
 	//设置原型方法
 	S.augment(WeekUtil, {
-		 year: function(y){
+		year: function(y){
 			if(y !== undefined){
 				this.__year = y-0;
 				this.__baseDate();
@@ -98,24 +98,24 @@ KISSY.add('weekTool', function(S, undef) {
 			}else{
 				return this.__year;
 			}
-		}
-		,week: function(n){
+		},
+		week: function(n){
 			if(n !== undefined){
 				this.__week = n-0;
 				return this;
 			}else{
 				return this.__week;
 			}
-		}
-		,next: function(n){
+		},
+		next: function(n){
 			n = n<1 || 1;
 			this.week(this.__week + n);
-		}
-		,prev: function(n){
+		},
+		prev: function(n){
 			n = n<1 || 1;
 			this.week(this.__week - n);
-		}
-		,setDate: function(date){
+		},
+		setDate: function(date){
 			//从String转换成Date
 			if(S.isString(date)){
 				date = date.getDate();
@@ -136,17 +136,17 @@ KISSY.add('weekTool', function(S, undef) {
 				S.log('$.week().setDate(date): date must be a valid Date or dateString!');
 			}
 			return this;
-		}
-		,start: function(){
+		},
+		start: function(){
 			return new Date(+this.base_date + (this.__week-1)*7*86400000);
-		}
-		,end: function(){
+		},
+		end: function(){
 			return new Date(+this.base_date + this.__week*7*86400000-1);
-		}
-		,__baseDate: function(){
-			var  base_date = new Date(this.__year+'/1/1')
-				,first_day = base_date.getDay() || 7
-				,lost_days = first_day > 1 ? 8-first_day : 0;
+		},
+		__baseDate: function(){
+			var base_date = new Date(this.__year+'/1/1'),
+				first_day = base_date.getDay() || 7,
+				lost_days = first_day > 1 ? 8-first_day : 0;
 
 			//+base_date, 会将Date对象转换成数字值
 			this.base_date = lost_days ? new Date(+base_date + (lost_days-7)*86400000) : base_date;
@@ -154,9 +154,9 @@ KISSY.add('weekTool', function(S, undef) {
 		}
 	});
 
-//		,getList: function(){
-//			var  num = [], start = [], end = []
-//				,i = 1, t;
+//		getList: function(){
+//			var num = [], start = [], end = [],
+//				i = 1, t;
 //
 //			//按自然周算,一年正常有53周,最多有54周,最后一周根据年相同与否来判断
 //			for(; i<=54; i++){
@@ -216,7 +216,7 @@ KISSY.add('weekTool', function(S, undef) {
 				ipt_start = ipt_now;
 				ipt_end = $(other);
 			}else{
-				ipt_start = ipt_end = EMPTY_$;
+				ipt_start = ipt_end = $EMPTY;
 			}
 			wrapShow();
 
@@ -229,9 +229,9 @@ KISSY.add('weekTool', function(S, undef) {
 		}
 	}
 	function popClick(e){
-		var  t = e.target
-			,dt = $(t)
-			,li_p, val;
+		var t = e.target,
+			dt = $(t),
+			li_p, val;
 
 		if(dt.is('a')){
 			if(dt.is('.weektool-col2')){//开始时间
@@ -324,8 +324,8 @@ KISSY.add('weekTool', function(S, undef) {
 
 	//文档上监听并注册事件
 	function documentClick(e){
-		var  t = e.target
-			,dt = $(t);
+		var t = e.target,
+			dt = $(t);
 		//如已注册则忽略
 		if(!t.__bind_week_tool && isWeekInput(t)){
 			dt.weekTool();

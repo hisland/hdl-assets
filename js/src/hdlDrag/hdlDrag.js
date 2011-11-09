@@ -57,9 +57,9 @@ KISSY.add('hdlDrag', function(S, undef) {
 			var w = parent.clientWidth - $(target).outerWidth();
 			var h = parent.clientHeight - $(target).outerHeight();
 			S.mix(this.drag_setting, {
-				 old_mouse: [e.clientX, e.clientY]
-				,old_pos: [pos.left, pos.top]
-				,range: [[0, w], [0, h]]
+				old_mouse: [e.clientX, e.clientY],
+				old_pos: [pos.left, pos.top],
+				range: [[0, w], [0, h]]
 			});
 
 			start();
@@ -81,8 +81,8 @@ KISSY.add('hdlDrag', function(S, undef) {
 
 		//设置新位置
 		$(target).css({
-			 left: new_pos[0]
-			,top: new_pos[1]
+			left: new_pos[0],
+			top: new_pos[1]
 		});
 	}
 

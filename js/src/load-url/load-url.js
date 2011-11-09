@@ -24,10 +24,10 @@
 
 
 KISSY.add('load-url', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('')
-		,msg_loading = '加载中...'
-		,msg_load_url_err = 'loadURL必须有链接!';
+	var $ = jQuery,
+		$EMPTY = $(''),
+		msg_loading = '加载中...',
+		msg_load_url_err = 'loadURL必须有链接!';
 
 	//载入前的清理操作
 	var beforeLoad = getLoopFuncs();
@@ -72,9 +72,9 @@ KISSY.add('load-url', function(S, undef) {
 	$.extend({
 		loadURL: function(url, param, callback){
 			$('#mod-wrap').html(msg_loading).loadURL(url, param, callback);
-		}
-		,beforeLoad: beforeLoad
-		,afterLoad: afterLoad
+		},
+		beforeLoad: beforeLoad,
+		afterLoad: afterLoad
 	});
 }, {
 	requires: ['jquery-1.4.2', 'loopFuncs', 'popManager']

@@ -11,9 +11,9 @@
 
 KISSY.add('popSelect', function(S, undef) {
 	var $ = jQuery,
-		EMPTY_$ = $(''),
-		div_pop = EMPTY_$,
-		ipt_target = EMPTY_$,
+		$EMPTY = $(''),
+		div_pop = $EMPTY,
+		ipt_target = $EMPTY,
 		pop = $.popWin.init();
 
 	var default_setting = {

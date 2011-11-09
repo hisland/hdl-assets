@@ -161,8 +161,8 @@
 KISSY.add('hdlValidator', function(S, undef) {
 	//将由逗号分隔的pattern进行分割,并判断'\'转义
 	function splitPattern(str){
-		var  idx = 0, last_idx = 0
-			,arr = [], p;
+		var idx = 0, last_idx = 0,
+			arr = [], p;
 
 		//循环每个','号
 		while(idx != -1){
@@ -213,30 +213,30 @@ KISSY.add('hdlValidator', function(S, undef) {
 		this.last_passed = 0;
 	}
 	S.mix(Validator, {
-		 __vali_types: {}
-		,addValiType: function(name, initFn){//注意第一个参数[name]不能为length, 与jquery的each方法实现有关
+		__vali_types: {},
+		addValiType: function(name, initFn){//注意第一个参数[name]不能为length, 与jquery的each方法实现有关
 			this.__vali_types[name] = initFn();
 			return this;
 		}
 	});
 	S.augment(Validator, {
-		 validate: function(){
+		validate: function(){
 			var i = 0, items = this.items, len = items.length;
 			for(var i=0; i<len; i++){
 				items[i].validate();
 			}
-		}
+		},
 		//添加item
-		,add: function(item){
+		add: function(item){
 			this.items.push(item);
-		}
+		},
 		//删除指定的item
-		,remove: function(idx){
+		remove: function(idx){
 			var item = this.items.splice(idx, 1);
 			delete $('#' + item.elem_id)[0].valid_items;
-		}
+		},
 		//检查是否全部通过
-		,allPassed: function(){
+		allPassed: function(){
 			var passed = 1;
 			$.each(this.items, function(i, v){
 				if(!v.passed && v.active){
@@ -263,16 +263,16 @@ KISSY.add('hdlValidator', function(S, undef) {
 		this.__last_passed = 0;
 	}
 	S.augment(Items, {
-		 setRule: function(rule){
+		setRule: function(rule){
 			this.rule = rule;
-		}
-		,add: function(str){
+		},
+		add: function(str){
 			this.items.push(str);
-		}
-		,remove: function(idx){
+		},
+		remove: function(idx){
 			this.items = this.items.splice(idx, 1);
-		}
-		,validate: function(str){
+		},
+		validate: function(str){
 			var i = 0, items = this.items, len = items.length;
 			for(var i=0; i<len; i++){
 				items[i].fn(str);
@@ -281,12 +281,12 @@ KISSY.add('hdlValidator', function(S, undef) {
 	});
 
 
-	var  $ = jQuery
-		,EMPTY_$ = $('');
+	var $ = jQuery,
+		$EMPTY = $('');
 
 	$.fn.extend({
-		 //初始化或者修改验证设置
-		 hdlValidator: function(setting){
+		//初始化或者修改验证设置
+		hdlValidator: function(setting){
 			return this.each(function(i, v){
 				var dv = $(v), fn, validator, btn_submit, btn_type_submit;
 				if(dv.is('form')){
@@ -342,9 +342,9 @@ KISSY.add('hdlValidator', function(S, undef) {
 					S.log(['hdlValidator错误: ', v, '应该是一个form']);
 				}
 			});
-		}
+		},
 		//添加一个验证
-		,addValiType: function(pattern){
+		addValiType: function(pattern){
 			return this.each(function(i, v){
 				if($.isString(pattern)){
 					v.valid_items.add(pattern);
@@ -352,9 +352,9 @@ KISSY.add('hdlValidator', function(S, undef) {
 					S.log('error at addValiType: pattern must be a valid string');
 				}
 			});
-		}
+		},
 		//删除指定位置的验证
-		,removeValiType: function(num){
+		removeValiType: function(num){
 			return this.each(function(i, v){
 				if($.isNumber(num)){
 					v.valid_items.remove(num);
@@ -362,17 +362,17 @@ KISSY.add('hdlValidator', function(S, undef) {
 					S.log('error at removeValiType: num must be a number');
 				}
 			});
-		}
+		},
 		//修改input上验证的启用与否,不传参表示取反
-		,toggleValiActive: function(active){
+		toggleValiActive: function(active){
 			return this.each(function(i, v){
 				v.valid_items.active = S.isUndefined(active) ? 
 										(v.valid_items.active ? false : true)
 										: (active ? true : false);
 			});
-		}
+		},
 		//执行一次验证
-		,validate: function(){
+		validate: function(){
 			return this.each(function(i, v){
 				me = $(v);
 				if(me.is('form') && v.validator){

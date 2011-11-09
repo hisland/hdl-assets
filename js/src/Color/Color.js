@@ -24,22 +24,22 @@
 KISSY.add('Color', function(S, undef) {
 	//颜色名称对照表
 	var name_to_hex = {
-		 'red':'#ff0000'
-		,'green':'#008000'
-		,'blue':'#0000ff'
-		,'yellow':'#ffff00'
-		,'purple':'#800080'
-		,'gray':'#808080'
-		,'silver':'#c0c0c0'
-		,'pink':'#ffc0cb'
-		,'black':'#000000'
-		,'white':'#ffffff'
-		,'lime':'#00ff00'
-		,'aqua':'#00ffff'
-		,'fuchsia':'#ff00ff'
-		,'teal':'#008080'
-		,'maroon':'#800000'
-		,'olive':'#808000'
+		'red':'#ff0000',
+		'green':'#008000',
+		'blue':'#0000ff',
+		'yellow':'#ffff00',
+		'purple':'#800080',
+		'gray':'#808080',
+		'silver':'#c0c0c0',
+		'pink':'#ffc0cb',
+		'black':'#000000',
+		'white':'#ffffff',
+		'lime':'#00ff00',
+		'aqua':'#00ffff',
+		'fuchsia':'#ff00ff',
+		'teal':'#008080',
+		'maroon':'#800000',
+		'olive':'#808000'
 	};
 
 	
@@ -116,15 +116,15 @@ KISSY.add('Color', function(S, undef) {
 			if(sg.length==1){sg="0" + sg};
 			if(sb.length==1){sb="0" + sb};
 			return "#" + sr + sg + sb;
-		}
+		},
 
 		//转换成RGB字符串rgb(254,33,58)
-		,toRgb: function(){
+		toRgb: function(){
 			return 'rgb(' + this.r + ', ' + this.g + ', ' + this.b + ')';
-		}
+		},
 
 		//内部解析hex值用的函数
-		,__parseRgb: function(hex){
+		__parseRgb: function(hex){
 			this.r = parseInt(hex.substr(1,2), 16);
 			this.g = parseInt(hex.substr(3,2), 16);
 			this.b = parseInt(hex.substr(5,2), 16);

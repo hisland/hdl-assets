@@ -9,8 +9,8 @@
  * hdlTest.test('testName', 'str', true); 使用测试函数,使用相反值
  */
 KISSY.add('hdlTest', function(S, undef) {
-	var  prefix = 'test-'
-		,hdlTest = {
+	var prefix = 'test-',
+		hdlTest = {
 		 add: function(name, fn, desc, reverse) {
 			if(!name || !fn){
 				return false;
@@ -23,8 +23,8 @@ KISSY.add('hdlTest', function(S, undef) {
 			fn.reverse = reverse;
 			this.item(name, fn);
 			return this;
-		}
-		,test: function(name, str) {
+		},
+		test: function(name, str) {
 			var t, p;
 			if(!name || !str){
 				return false;
@@ -33,8 +33,8 @@ KISSY.add('hdlTest', function(S, undef) {
 			t = p(str);
 			p.reverse && (t = !t);
 			return t;
-		}
-		,item: function(name, value) {
+		},
+		item: function(name, value) {
 			if(value){
 				this[prefix + name] = value;
 				return this;
@@ -46,10 +46,10 @@ KISSY.add('hdlTest', function(S, undef) {
 	window.hdlTest = hdlTest;
 
 	/* 加入验证函数 */
-	hdlTest.add('ipv4'
-				,function(str){
+	hdlTest.add('ipv4',
+				function(str){
 					
-				}
-				,'IPv4,点分十进制共四位,每个数字不能超过255');
+				},
+				'IPv4,点分十进制共四位,每个数字不能超过255');
 
 });

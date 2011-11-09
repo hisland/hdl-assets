@@ -21,8 +21,8 @@
  */
 
 KISSY.add('dateRange', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('');
+	var $ = jQuery,
+		$EMPTY = $('');
 
 	function fromClick(){
 		

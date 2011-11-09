@@ -18,10 +18,10 @@ KISSY.add('flashUpload', function(S, undef) {
 	var fileSize = 10;
 	window.uploadSelected = function (){
 		uploadAlertDiv = $.alert({
-									 message:'<p>正在上传,请稍等...</p><p>上传进度: <span id="uploadPercent">0</span>%</p>'
-									,type:'alert'
-									,title:'上传状态'
-									,onHide:function(){maskDiv.remove();}
+									message:'<p>正在上传,请稍等...</p><p>上传进度: <span id="uploadPercent">0</span>%</p>',
+									type:'alert',
+									title:'上传状态',
+									onHide:function(){maskDiv.remove();}
 								});
 		uploadAlertDiv.find('input:last').attr('disabled','disabled').css('color','#ccc');
 		uploadAlertDiv.find('a.tipmsg_close').hide();
@@ -52,19 +52,19 @@ KISSY.add('flashUpload', function(S, undef) {
 	function flashUpload(params){
 //		params参数形式
 		var pre_params = {
-				 url:''	//文件上传的路径
-				,filter:'*.xls;*.xlsx'	//过滤类型
-				,upload_name:'fileUp'	//过滤类型
-				,max_size:10			//文件最大大小,单位M
-				,hole:'span.input_file'	//embed元素放入的位置, embed为全透明宽高100%
-				,flex_src:'flex-debug/file_upload.swf'	//flash存放路径
-				,funcData:'makeData'
-				,funcSelected:'uploadSelected'
-				,funcOutSize:'uploadOutSize'
-				,funcProgress:'uploadProgress'
-				,funcUploaded:'funcUploaded'
-				,funcComplete:'uploadComplete'
-				}
+			url:'',	//文件上传的路径
+			filter:'*.xls;*.xlsx',	//过滤类型
+			upload_name:'fileUp',	//过滤类型
+			max_size:10,			//文件最大大小,单位M
+			hole:'span.input_file',	//embed元素放入的位置, embed为全透明宽高100%
+			flex_src:'flex-debug/file_upload.swf',	//flash存放路径
+			funcData:'makeData',
+			funcSelected:'uploadSelected',
+			funcOutSize:'uploadOutSize',
+			funcProgress:'uploadProgress',
+			funcUploaded:'funcUploaded',
+			funcComplete:'uploadComplete'
+		}
 		params = $.extend(true, pre_params, params);
 		fileSize = params.max_size;
 		

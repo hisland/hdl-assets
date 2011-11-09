@@ -193,9 +193,9 @@ function viewJSON1(obj, tabs){
 			this.setDate(arr[4]);
 			return this;
 		}else{
-			var  y = this.getFullYear()
-				,m = __length1Prefix0(this.getMonth()+1)
-				,d = __length1Prefix0(this.getDate());
+			var y = this.getFullYear(),
+				m = __length1Prefix0(this.getMonth()+1),
+				d = __length1Prefix0(this.getDate());
 			return y+'-'+m+'-'+d;
 		}
 	};
@@ -211,9 +211,9 @@ function viewJSON1(obj, tabs){
 			this.setSeconds(arr[3]);
 			return this;
 		}else{
-			var  h = __length1Prefix0(this.getHours())
-				,m = __length1Prefix0(this.getMinutes())
-				,s = __length1Prefix0(this.getSeconds());
+			var h = __length1Prefix0(this.getHours()),
+				m = __length1Prefix0(this.getMinutes()),
+				s = __length1Prefix0(this.getSeconds());
 			return h+':'+m+':'+s;
 		}
 	};

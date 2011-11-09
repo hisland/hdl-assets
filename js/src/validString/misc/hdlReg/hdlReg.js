@@ -31,8 +31,8 @@ KISSY.add('hdlReg', function(S, undef) {
 			pattern.reverse = reverse;
 			this.item(name, pattern);
 			return this;
-		}
-		,test: function(name, str) {
+		},
+		test: function(name, str) {
 			var t, p;
 			if(!name){
 				S.log(['hdlReg: regName not exist!', name]);
@@ -46,8 +46,8 @@ KISSY.add('hdlReg', function(S, undef) {
 			t = p.test(str);
 			p.reverse && (t = !t);
 			return t;
-		}
-		,item: function(name, value) {
+		},
+		item: function(name, value) {
 			if(value){
 				this['reg-'+name] = value;
 				return this;
@@ -59,9 +59,9 @@ KISSY.add('hdlReg', function(S, undef) {
 	window.hdlReg = hdlReg;
 
 	/* 加入正则 */
-	hdlReg.add('ipv4'
-				,/^(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)$/
-				,'IPv4,点分十进制,共四位,每个数字不能超过255,如:192.168.0.1');
+	hdlReg.add('ipv4',
+				/^(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)$/,
+				'IPv4,点分十进制,共四位,每个数字不能超过255,如:192.168.0.1');
 
 	hdlReg.add('integer', /^-?\d+$/, '整数(含正负)');
 	hdlReg.add('integer-positive', /^\d+$/, '正整数');

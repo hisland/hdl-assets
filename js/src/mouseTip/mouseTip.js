@@ -13,20 +13,20 @@
  */
 
 KISSY.add('mouseTip', function(S, undef) {
-	var  $ = jQuery
-		,div_wrap = $('<div style="display:none;position:absolute;width:100px;height:50px;border:1px solid #afcdea;background:#f0f5fb;"></div>');
+	var $ = jQuery,
+		div_wrap = $('<div style="display:none;position:absolute;width:100px;height:50px;border:1px solid #afcdea;background:#f0f5fb;"></div>');
 
 	//放入DOM
 	div_wrap.appendTo('body');
 
 	//鼠标移动时调整位置
 	function mouseMove(e){
-		var  body = document.documentElement
-			,scroll_left = body.scrollLeft
-			,scroll_top = body.scrollTop
-			,max_width = body.clientWidth + scroll_left - 20
-			,max_height = body.clientHeight + scroll_top - 20
-			,pos_x, pos_y, elm_width, elm_height;
+		var body = document.documentElement,
+			scroll_left = body.scrollLeft,
+			scroll_top = body.scrollTop,
+			max_width = body.clientWidth + scroll_left - 20,
+			max_height = body.clientHeight + scroll_top - 20,
+			pos_x, pos_y, elm_width, elm_height;
 
 		//修正鼠标相对文档位置
 		if(e.pageX){

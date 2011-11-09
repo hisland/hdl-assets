@@ -21,18 +21,18 @@
 		return false;
 	}
 
-	var  global_dt = window.hdl_date_tool = []
-		,now_tool, now_ipt	//当前使用的时间工具对象, 时间控件内当前设置对象
-		,reg_fixed  = /-(year|month|date|hour|minute|second)(\d{0,4})(?=-)/gi	//fixed字符串的匹配模式,每次使用后要重置lastIndex为0
-		,pre_setting   = {
-							fixed : ''	//'-year-month-date-hour-minute-second-' 仅固定		'-year2010-month5-date15-hour-minute-second-' 固定并设置默认值
-							,time_offset:0	//如果要使用另外(如服务器)的时间,则在此保存(服务器 减 本地)时间差(毫秒数)
-							,enable: true
-							,btn_clear_enable: true
-						}
+	var global_dt = window.hdl_date_tool = [],
+		now_tool, now_ipt,	//当前使用的时间工具对象, 时间控件内当前设置对象
+		reg_fixed  = /-(year|month|date|hour|minute|second)(\d{0,4})(?=-)/gi,	//fixed字符串的匹配模式,每次使用后要重置lastIndex为0
+		pre_setting   = {
+							fixed : '',	//'-year-month-date-hour-minute-second-' 仅固定		'-year2010-month5-date15-hour-minute-second-' 固定并设置默认值
+							time_offset:0,	//如果要使用另外(如服务器)的时间,则在此保存(服务器 减 本地)时间差(毫秒数)
+							enable: true,
+							btn_clear_enable: true
+						},
 		
 		//匹配支持的日期模式
-		,reg_date   = /(^\d{4}\/\d{1,2}\/\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}$)|(^\d{4}\/\d{1,2}\/\d{1,2}$)|(^\d{1,2}:\d{1,2}:\d{1,2}$)|(^\d{4}\/\d{1,2}$)|(^\d{1,2}\/\d{1,2}$)/;
+		reg_date   = /(^\d{4}\/\d{1,2}\/\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}$)|(^\d{4}\/\d{1,2}\/\d{1,2}$)|(^\d{1,2}:\d{1,2}:\d{1,2}$)|(^\d{4}\/\d{1,2}$)|(^\d{1,2}\/\d{1,2}$)/;
 						// (^\d{4}\/\d{1,2}\/\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}$) yyyy/mm/dd hh:mm:ss
 						// (^\d{4}\/\d{1,2}\/\d{1,2}$)	yyyy/mm/dd
 						// (^\d{1,2}:\d{1,2}:\d{1,2}$)	hh:mm:ss
@@ -48,14 +48,14 @@
 	var div = $('<div id="hdlDateTool_div"><!--[if lte IE 6]><iframe frameborder="no" scrolling="no"></iframe><![endif]--><div class="hdlDateTool_wrap"><div class="hdl_ctrl"><div class="hdl_tips">鼠标滚轮选择</div><div class="hdl_btns"><a href="#" class="hdl_clear">清除</a><a href="#" class="hdl_today">今天</a><a href="#" class="hdl_complete">完成</a></div></div><div class="hdl_ipt_list"><label><input type="text" class="hdl_year" />年</label><label><input type="text" class="hdl_month" />月</label><label><input type="text" class="hdl_date" />日</label><label class="hdl_hour_label"><input type="text" class="hdl_hour" />:</label><label><input type="text" class="hdl_minute" />:</label><label><input type="text" class="hdl_second" /></label></div><div class="hdl_week_list"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="hdl_date_list"><span></span><span></span><a href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a><a href="#">11</a><a href="#">12</a><a class="now_date" href="#">13</a><a href="#">14</a><a href="#">15</a><a href="#">16</a><a href="#">17</a><a href="#">18</a><a href="#">19</a><a href="#">20</a><a href="#">21</a><a href="#">22</a><a href="#">23</a><a href="#">24</a><a href="#">25</a><a href="#">26</a><a href="#">27</a><a href="#">28</a><a href="#">29</a><a href="#">30</a></div></div><div class="hdl_drop_list"></div></div>');
 
 	//时间控件范围的变量
-	var  div_wrap	= div								//日历包含层
-		,btn_complete= div.find('a.hdl_complete')		//完成按钮
-		,btn_today	= div.find('a.hdl_today')			//今天按钮
-		,btn_clear	= div.find('a.hdl_clear')			//清除按钮
+	var div_wrap	= div,								//日历包含层
+		btn_complete= div.find('a.hdl_complete'),		//完成按钮
+		btn_today	= div.find('a.hdl_today'),			//今天按钮
+		btn_clear	= div.find('a.hdl_clear'),			//清除按钮
 
-		,list_ipt	= div.find('div.hdl_ipt_list')		//内部输入框的包含层
-		,list_drop	= div.find('div.hdl_drop_list')		//下拉列表
-		,list_date	= div.find('div.hdl_date_list');	//日期列表
+		list_ipt	= div.find('div.hdl_ipt_list'),		//内部输入框的包含层
+		list_drop	= div.find('div.hdl_drop_list'),		//下拉列表
+		list_date	= div.find('div.hdl_date_list');	//日期列表
 
 /**********************************************************************************************
 *设置层上的元素的事件
@@ -108,8 +108,8 @@
 	//向上或者向下,支持按键,滚轮
 	function upOrDown(e, delta){
 		if(now_ipt){
-			var  a = list_drop.find('a.selected'), next = $(this).parent().next('label').children('input:enabled')
-				,up = a.prev() ,down = a.next();
+			var a = list_drop.find('a.selected'), next = $(this).parent().next('label').children('input:enabled'),
+				up = a.prev() ,down = a.next();
 
 			if((e.keyCode == 38 || delta > 0) && up.length){//向上滚动
 				up.click();
@@ -336,13 +336,13 @@
 	}
 
 	Setting.prototype.refreshDropList = function(type){
-		var  range = this.getRange(type)
-			,str = Setting.getDropListString(Setting.makeArray(range[0], range[1]), this.date_arr.real(type));
+		var range = this.getRange(type),
+			str = Setting.getDropListString(Setting.makeArray(range[0], range[1]), this.date_arr.real(type));
 		list_drop.html(str);
 	}
 	Setting.prototype.refreshDataList = function(){
-		var  range = this.getRange('date')
-			,str = Setting.getDateListString(range[1], this.date_arr.getMonthFirstDay(), this.date_arr.real('date'));
+		var range = this.getRange('date'),
+			str = Setting.getDateListString(range[1], this.date_arr.getMonthFirstDay(), this.date_arr.real('date'));
 		list_date.html(str);
 	}
 	Setting.prototype.refreshFixed = function(){//修改fixed值,同时设置控件的输入框状态
@@ -457,8 +457,8 @@
 		return range;
 	}
 	Setting.prototype.getRange = function(type){
-		var  min_time = this.getMinTime(), max_time = this.getMaxTime()
-			,now_time ,diff ,value ,range = this.getBaseRange(type);
+		var min_time = this.getMinTime(), max_time = this.getMaxTime(),
+			now_time ,diff ,value ,range = this.getBaseRange(type);
 		if(min_time || max_time){
 			now_time = this.date_arr.getDate();
 			value = this.date_arr.real(type);

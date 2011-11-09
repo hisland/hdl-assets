@@ -34,27 +34,27 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		html_string = '<div class="tipmsg-wrap"><div class="tipmsg-h1"><div class="tipmsg-h2"><div class="tipmsg-h3"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div></div></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg-b1"><div class="tipmsg-b2"><div class="tipmsg-b3"><input type="button" value="'+msg_ok+'" /></div></div></div></div>',
 		html_css3 = '<div class="tipmsg-wrap"><div class="tipmsg2-h1"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg2-b1"><input type="button" value="'+msg_ok+'" /></div></div>',
 		pre_setting = {
-			 message: msg_defalt
-			,type: 'alert'
-			,title: msg_alert
+			message: msg_defalt,
+			type: 'alert',
+			title: msg_alert,
 			//自动隐藏,为数字,0表示不自动,大于0的整数表示多少秒后隐藏
-			,auto_hide: 0
+			auto_hide: 0,
 			//针对confirm的回调函数
-			,callback: 0
+			callback: 0,
 			//在层打开之前的操作
-			,beforeShow: 0
+			beforeShow: 0,
 			//显示层时的操作
-			,onShow: 0
+			onShow: 0,
 			//在层关闭之前的操作
-			,beforeHide: 0
+			beforeHide: 0,
 			//关闭层时的操作
-			,onHide: 0
+			onHide: 0,
 			//是否可拖动
-			,dragable: 1
+			dragable: 1,
 			//是否淡入淡出
-			,slide: 0
+			slide: 0,
 			//默认焦点在yes上
-			,focus_yes: 1
+			focus_yes: 1
 		};
 
 	//提示打开时,不能用tab把焦点切换到遮罩后面, 仅在提示层上循环切换
@@ -146,8 +146,8 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 
 		//居中
 		div.css({
-			 top: (document.documentElement.clientHeight - div.height())/2
-			,left:(document.documentElement.clientWidth - div.width())/2
+			top: (document.documentElement.clientHeight - div.height())/2,
+			left:(document.documentElement.clientWidth - div.width())/2
 		});
 
 		//如果有显示之前的操作
@@ -206,10 +206,10 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 				$.extend(true, setting, pre_setting, {type:'alert', title:title, message:str});
 			}
 			return init(setting);
-		}
+		},
 
 		//错误
-		,errorTip: function(str, title){
+		errorTip: function(str, title){
 			var setting = {};
 			if(typeof str === 'object'){
 				$.extend(true, setting, pre_setting, str, {type:'errorTip'});
@@ -218,10 +218,10 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 				$.extend(true, setting, pre_setting, {type:'errorTip', title:title, message:str});
 			}
 			return init(setting);
-		}
+		},
 
 		//警告
-		,notice: function(str, title){
+		notice: function(str, title){
 			var setting = {};
 			if(typeof str === 'object'){
 				$.extend(true, setting, pre_setting, str, {type:'notice'});
@@ -230,10 +230,10 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 				$.extend(true, setting, pre_setting, {type:'notice', title:title, message:str});
 			}
 			return init(setting);
-		}
+		},
 
 		//确认
-		,confirm: function(str, title, callback){
+		confirm: function(str, title, callback){
 			var setting = {};
 			if(typeof str === 'object'){
 				$.extend(true, setting, pre_setting, str, {type:'confirm'});

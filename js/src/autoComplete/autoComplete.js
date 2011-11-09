@@ -28,7 +28,7 @@
 
 KISSY.add('autoComplete', function(S, undef) {
 	var $ = jQuery,
-		EMPTY_$ = $(''),
+		$EMPTY = $(''),
 		div_pop, div_loading, div_list, a_prev, a_next, span_state,
 		delay = 300, delay_handler = null,
 		msg_loading = '加载中...',

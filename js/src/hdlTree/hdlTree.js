@@ -8,63 +8,63 @@
  * API:
  *
 tree:{
-	 use_checkbox: true			//是否使用checkbox
-	,use_icon: true				//是否使用icon图标
-	,edit_able: true			//是否可以修改状态
-	,lazy: false				//是否懒加载
-	,theme: 'line'				//使用的图标主题'pnm', line', 'blue', 'gray' 自动加上'theme-'前缀,可在样式里按照相应格式增加更多的
-	,complete: false			//子节点是否加载完成
-	,uid: ''					//唯一id
+	use_checkbox: true,			//是否使用checkbox
+	use_icon: true,				//是否使用icon图标
+	edit_able: true,			//是否可以修改状态
+	lazy: false,				//是否懒加载
+	theme: 'line',				//使用的图标主题'pnm', line', 'blue', 'gray' 自动加上'theme-'前缀,可在样式里按照相应格式增加更多的
+	complete: false,			//子节点是否加载完成
+	uid: '',					//唯一id
 
-	,ajax: {					//异步加载配置
+	ajax: {					//异步加载配置
 			 async: false
 			,url: ''
 			,datatype: 'json'
 			,method: 'POST'
-		}
+		},
 
-	,var_children: 'children'	//子节点对应的key,默认是children
-	,var_text: 'text'			//显示文本对应的key,默认是text
-	,var_value: 'value'			//name的值对应的key,默认是value
-	,var_name: 'name'			//对应的name对应的key,默认是name
+	var_children: 'children',	//子节点对应的key,默认是children
+	var_text: 'text',			//显示文本对应的key,默认是text
+	var_value: 'value',			//name的值对应的key,默认是value
+	var_name: 'name',			//对应的name对应的key,默认是name
 
-	,itemMaker: null			//生成节点的回调
+	itemMaker: null,			//生成节点的回调
 
 	//事件列表:
-	,arrowClick: null
-	,iconClick: null
-	,checkboxClick: null
-	,nodeClick: null
-	,itemMaker: null
+	arrowClick: null,
+	iconClick: null,
+	checkboxClick: null,
+	nodeClick: null,
+	itemMaker: null,
 
 	//后期加入:
-	,__last_selected:'jqdom'	//上次选中的行
+	__last_selected:'jqdom'	//上次选中的行
 	}
 branch:{
-	 children: []			//子节点列表 也用于确定是branch还是leaf
-	,opened: false			//是否打开
-	,checked: true			//是否选中
-	,hide: false				//是否隐藏
+	children: [],			//子节点列表 也用于确定是branch还是leaf
+	opened: false,			//是否打开
+	checked: true,			//是否选中
+	hide: false,				//是否隐藏
 
 	//后期加入:
-	,__checked_len: 0			//已选中节点数
-	,__complete: true			//是否加载完毕 true|false
-	,__state: 0					//当前显示状态 0不选, 1半选, 2选中
-	,__indent: '0-1-0'			//缩进字符串, 0表示无线, 1表示有线
-	,__path: 'hdltree1-0-3'		//对应的节点path
-	,__end: true				//是否为当前层级的结尾 true|false indent需要
-	,__parent: node				//上级节点
-	,__top: tree				//指向树
+	__checked_len: 0,			//已选中节点数
+	__complete: true,			//是否加载完毕 true|false
+	__state: 0,					//当前显示状态 0不选, 1半选, 2选中
+	__indent: '0-1-0',			//缩进字符串, 0表示无线, 1表示有线
+	__path: 'hdltree1-0-3',		//对应的节点path
+	__end: true,				//是否为当前层级的结尾 true|false indent需要
+	__parent: node,				//上级节点
+	__top: tree,				//指向树
 	}
 leaf:{
-	 checked: true			//是否选中
-	,hide: false				//是否隐藏
+	checked: true,			//是否选中
+	hide: false,				//是否隐藏
 
 	//后期加入:
-	,__indent: '0-1-0'		//缩进字符串, 0表示blank, 1表示line
-	,__path: 'hdltree1-0-3'	//对应的节点path
-	,__parent: node			//上级节点
-	,__top: tree			//指向树
+	__indent: '0-1-0',		//缩进字符串, 0表示blank, 1表示line
+	__path: 'hdltree1-0-3',	//对应的节点path
+	__parent: node,			//上级节点
+	__top: tree,			//指向树
 }
 
 使用下列不同的标签, 遍历效率加快:
@@ -94,8 +94,8 @@ TODO:
 */
 
 KISSY.add('hdlTree', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('');
+	var $ = jQuery,
+		$EMPTY = $('');
 
 	//各元素对应的标签
 	var tag_arrow = '<em class="arrow"></em>',
@@ -124,7 +124,7 @@ KISSY.add('hdlTree', function(S, undef) {
 		}
 
 		this.uid = S.guid('hdltree');
-		this.__last_selected = EMPTY_$;
+		this.__last_selected = $EMPTY;
 	}
 
 	//设置原型方法
@@ -155,20 +155,20 @@ KISSY.add('hdlTree', function(S, undef) {
 				this.__parent = this;
 				this.buildTree();
 			}
-		}
-		,buildTree: function(){
+		},
+		buildTree: function(){
 			var html = [];
 			html.push('<div class="hdl-tree', (this.theme ? ' theme-'+this.theme : ''), '" id="', this.__path, '">');
 			html.push(this.buildHTML(this));
 			html.push('</div>');
 			this.dom.html(html.join(''));
-		}
-		,buildHTML: function(data){
+		},
+		buildHTML: function(data){
 			var html = [];
 			this.makeUl(html, data);
 			return html.join('');
-		}
-		,makeUl: function(html, parent){
+		},
+		makeUl: function(html, parent){
 			var child, i = 0, len = parent.children.length;
 			if(len){
 				html.push('<ul>');
@@ -185,8 +185,8 @@ KISSY.add('hdlTree', function(S, undef) {
 				html.push('</ul>');
 			}
 			return this;
-		}
-		,makeLi: function(html, child){
+		},
+		makeLi: function(html, child){
 			var parent = child.__parent;
 			html.push('<li>');
 			html.push('<div id="', child.__path, '">');
@@ -237,8 +237,8 @@ KISSY.add('hdlTree', function(S, undef) {
 			}
 			html.push('</li>');
 			return this;
-		}
-		,makeIndent: function(html, indent){
+		},
+		makeIndent: function(html, indent){
 			indent = indent.substr(2).split('-');
 			indent.shift();
 			var i = 0, len = indent.length;
@@ -250,10 +250,10 @@ KISSY.add('hdlTree', function(S, undef) {
 				html.push('</span>');
 			}
 			return this;
-		}
+		},
 
 		//遍历下级节点,包括当前节点
-		,walkDescendants: function(node, func){
+		walkDescendants: function(node, func){
 			func.call(this, node);
 			if(node.children){
 				for(var i = 0, item = node.children[i]; item;){
@@ -262,10 +262,10 @@ KISSY.add('hdlTree', function(S, undef) {
 				}
 			}
 			return this;
-		}
+		},
 
 		//遍历上级节点
-		,walkAncestors: function(node, func){
+		walkAncestors: function(node, func){
 			var parent = node.__parent;
 			while(parent != this){
 				func.call(this, node, parent);
@@ -273,10 +273,10 @@ KISSY.add('hdlTree', function(S, undef) {
 				parent = node.__parent;
 			}
 			return this;
-		}
+		},
 
 		//设置当前节点选中状态,并遍历上下级节点
-		,checkNode: function(node, checked){
+		checkNode: function(node, checked){
 			var i, chks, parent = node.__parent, state0 = true;
 			if(checked){
 				if (node.checked) {
@@ -374,10 +374,10 @@ KISSY.add('hdlTree', function(S, undef) {
 				}
 			}
 			return this;
-		}
+		},
 
 		//根据path获得指定js对象
-		,getNode: function(path){
+		getNode: function(path){
 			var elm, i = 1;
 			path = path.split('-');
 			path.shift();
@@ -386,18 +386,18 @@ KISSY.add('hdlTree', function(S, undef) {
 				elm = elm.children[path[i]];
 			}
 			return elm;
-		}
+		},
 
 		//根据node/path获得指定DOM节点
-		,getDom: function(path){
+		getDom: function(path){
 			if(S.isObject(path)){
 				path = path.__path;
 			}
 			return $('#'+path);
-		}
+		},
 
 		//设置数据
-		,addData: function(data, node){
+		addData: function(data, node){
 			if(!node){
 				node = this;
 			}
@@ -406,10 +406,10 @@ KISSY.add('hdlTree', function(S, undef) {
 			}else if(S.isObject(data)){
 				
 			}
-		}
+		},
 
 		//设置显示风格样式
-		,setTheme: function(theme){
+		setTheme: function(theme){
 			if(S.isString(theme)){
 				var reg = /theme-[^ ]+/;
 				this.getDom(this).attr('class', function(i, attr){
@@ -420,10 +420,10 @@ KISSY.add('hdlTree', function(S, undef) {
 					}
 				});
 			}
-		}
+		},
 
 		//重新设置树的值, value为值数组或者使用[, -]分隔的字符串
-		,setValue: function(value){
+		setValue: function(value){
 			value = S.isArray(value) ? value : S.isString(value) ? value.split(/[, -]+/) : null;
 			//转换成map避免多次使用inArray方法
 			var map = {};
@@ -439,10 +439,10 @@ KISSY.add('hdlTree', function(S, undef) {
 					this.checkNode(node, false);
 				}
 			});
-		}
+		},
 
 		//树的新值与旧值合并, value为值数组或者使用[, -]分隔的字符串
-		,mergeValue: function(value){
+		mergeValue: function(value){
 			value = S.isArray(value) ? value : S.isString(value) ? value.split(/[, -]+/) : null;
 			//转换成map避免多次使用inArray方法
 			var map = {};
@@ -456,10 +456,10 @@ KISSY.add('hdlTree', function(S, undef) {
 					this.checkNode(node, true);
 				}
 			});
-		}
+		},
 
 		//切换icon的显示与否状态
-		,toggleIcon: function(state){
+		toggleIcon: function(state){
 			//不传state为反转状态
 			state = S.isUndefined(state) ? !this.use_icon : state;
 			if(state){
@@ -469,10 +469,10 @@ KISSY.add('hdlTree', function(S, undef) {
 				this.use_icon = false;
 				$(this.selector).addClass('no-icon');
 			}
-		}
+		},
 
 		//切换checkbox的显示与否状态
-		,toggleCheckbox: function(state){
+		toggleCheckbox: function(state){
 			//不传state为反转状态
 			state = S.isUndefined(state) ? !this.use_checkbox : state;
 			if(state){
@@ -482,10 +482,10 @@ KISSY.add('hdlTree', function(S, undef) {
 				this.use_checkbox = false;
 				$(this.selector).addClass('no-checkbox');
 			}
-		}
+		},
 
 		//切换item的显示与否状态
-		,toggleHide: function(node, state){
+		toggleHide: function(node, state){
 			if(!node || node == this){
 				return this;
 			}
@@ -498,10 +498,10 @@ KISSY.add('hdlTree', function(S, undef) {
 				node.hide = false;
 				$(node.path).show();
 			}
-		}
+		},
 
 		//获取选中的json表示
-		,getJSON: function(){
+		getJSON: function(){
 			var  name = this.name
 				,arr = [];
 			this.walkDescendants(this, function(node){
@@ -514,10 +514,10 @@ KISSY.add('hdlTree', function(S, undef) {
 				}
 			});
 			return arr;
-		}
+		},
 
 		//获取选中的input:hidden字符串
-		,getHiddens: function(){
+		getHiddens: function(){
 			var  name = this.name
 				,arr = [];
 			this.walkDescendants(this, function(node){
@@ -532,11 +532,11 @@ KISSY.add('hdlTree', function(S, undef) {
 
 	//树上的点击事件
 	function treeClick(e){
-		var  target = $(e.target)
-			,id = target.closest('div').attr('id')
-			,css_class = target.attr('class')
-			,tree = $(this).hdlTree()
-			,node = tree.getNode(id);
+		var target = $(e.target),
+			id = target.closest('div').attr('id'),
+			css_class = target.attr('class'),
+			tree = $(this).hdlTree(),
+			node = tree.getNode(id);
 
 		//点击checkbox
 		if(target.is('strong')){
@@ -577,11 +577,11 @@ KISSY.add('hdlTree', function(S, undef) {
 
 	//树双击
 	function treeDblClick(e){
-		var  target = $(e.target)
-			,id = target.closest('div').attr('id')
-			,css_class = target.attr('class')
-			,tree = $(this).hdlTree()
-			,node = tree.getNode(id);
+		var target = $(e.target),
+			id = target.closest('div').attr('id'),
+			css_class = target.attr('class'),
+			tree = $(this).hdlTree(),
+			node = tree.getNode(id);
 
 		//展开/收缩全部
 		if(target.is('b')){

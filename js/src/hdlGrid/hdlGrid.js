@@ -59,7 +59,7 @@
 
 KISSY.add('hdlGrid', function(S, undef) {
 	var $ = jQuery,
-		EMPTY_$ = $('');
+		$EMPTY = $('');
 
 	//表格预设置,需要修改时可参考
 	var pre_setting = {

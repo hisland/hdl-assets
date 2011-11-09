@@ -9,8 +9,8 @@
 
 
 KISSY.add('ajax-history', function(S, undef) {
-	var  $ = jQuery
-		,EMPTY_$ = $('');
+	var $ = jQuery,
+		$EMPTY = $('');
 
 	function ajaxHistory(){
 		
