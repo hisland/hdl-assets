@@ -25,9 +25,10 @@ KISSY.add('validString', function(S, undef) {
 	//保存每个配置
 	var items = {};
 
+	//验证函数
 	function validString(name, str){
 		if(!S.isString(name) || !str){
-			S.log('window.validString: must have name[String] and str!');
+			S.log('window.validString: must have name[String] and str!', 'warn');
 			return false;
 		}
 
@@ -48,23 +49,24 @@ KISSY.add('validString', function(S, undef) {
 		return rs;
 	}
 
-	window.validString = {
+	//作为它自己的命名空间,保存相关方法
+	S.mix(validString, {
 		add: function(name, fn, desc, reverse){
-			//检查名字为字符串
+			//名字必须为字符串
 			if(!S.isString(name)){
-				S.log('window.validString.add: name must be String!');
+				S.log('window.validString.add: name must be String!', 'warn');
 				return this;
 			}
 
-			//检查验证方法为函数或者正则
-			if(!S.isFunction(fn) || !S.isRegExp(fn)){
-				S.log('window.validString.add: fn must be a function or RegExp!');
+			//验证方法必须为函数或者正则
+			if(!S.isFunction(fn) && !S.isRegExp(fn)){
+				S.log('window.validString.add: fn must be a function or RegExp!', 'warn');
 				return this;
 			}
 
-			//检查验证方法为函数或者正则
+			//必须要有验证说明且为字符串
 			if(!S.isString(desc)){
-				S.log('window.validString.add: desc must be String!');
+				S.log('window.validString.add: desc must be String!', 'warn');
 				return this;
 			}
 
@@ -74,13 +76,13 @@ KISSY.add('validString', function(S, undef) {
 			}else if(S.isBoolean(reverse)){
 				//do nothing
 			}else{
-				S.log('window.validString.add: reverse must be undefind or a boolean value!');
+				S.log('window.validString.add: reverse must be undefind or a boolean value!', 'warn');
 				return this;
 			}
 
 			//提示覆盖情况
 			if(items[name]){
-				S.log('window.validString.add: name already exist, override it!');
+				S.log('window.validString.add: name already exist, override it!', 'warn');
 			}
 
 			//保存设置
@@ -95,15 +97,20 @@ KISSY.add('validString', function(S, undef) {
 		//修改默认的描述信息
 		setDesc: function(name, str){
 			if(!S.isString(name) || !S.isString(str)){
-				S.log('window.validString.setDesc: must have name[String] and str[String]!');
+				S.log('window.validString.setDesc: must have name[String] and str[String]!', 'warn');
 				return this;
 			}
 
 			items[name].desc = str;
 
 			return this;
+		},
+		
+		//获得当前已经有的验证规则
+		getitems: function(){
+			return items;
 		}
-	};
+	});
 
 	//expose
 	window.validString = validString;

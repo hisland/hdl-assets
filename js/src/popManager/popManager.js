@@ -6,7 +6,8 @@
  * 版本: @VERSION@
  * 
  * API:
- * 		$.popManager.clean() 清除所有的弹出层包含块
+ * 		$.popManager.clean(true) 清除所有的弹出层包含块, 包括.not-remove的div
+ * 		$.popManager.clean() 清除所有的弹出层包含块, 不会清除含.not-remove的div
  * 
  * 		p = $.popManager.init() 初始化一个弹出层包含块
  * 		p.front() 将此层放到最前面
@@ -36,22 +37,21 @@ KISSY.add('popManager', function(S, undef) {
 		popManager = {};
 
 	//清除所有的弹出层包含块
-	popManager.clean = function(){
-		$('div.pop-manager-wrap').remove();
+	popManager.clean = function(force){
+		if(force === true){
+			$('div.pop-manager-wrap').remove();
+		}else{
+			$('div.pop-manager-wrap').not('.not-remove').remove();
+		}
 		return this;
 	}
 
 	//初始化一个弹出层包含块
 	popManager.init = function(){
-		return init();
+		return new init();
 	}
 
 	function init(){
-		//更改为构造方式
-		if(!(this instanceof init)){
-			return new init();
-		}
-
 		this.$div = $(html_string).appendTo('body');
 		this.__init_mask().__init_ie6Iframe();
 		this.mask().front();

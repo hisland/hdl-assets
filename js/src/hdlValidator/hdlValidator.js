@@ -124,33 +124,38 @@
 		前置0, 前置0x, eE指数, 后置0
 	
 	2011-10-09 17:12:43:
-		调用canEmpty()可以为空
+		调用canEmpty()可以为空 - 使用required()方法
 	
 	2011-10-19 15:53:59:
 		各种验证可以直接在外面调用
 	
 	2011-11-08 22:31:38:
 		采用js代码方式进行注册,不使用html属性
-		len(n, m);	//长度n-m, n<=m, 整数
-		utf8len(n, m); //utf8长度n-m, n<=m, 整数
-		numberRange(n, m);	//数字值范围n-m, 整数小数皆可
-		must(state);		//必填,默认可为空
-		isAlpha();	//纯字母
-		ignoreCase();	//忽略大小写
-		min(n);		最小值
-		max(n);		最大值
-		reg(reg, rev);	//正则, 是否取反
-		fn(a, b, c...);	//自定义函数
-		pre(name, name...);	//预定义验证规则,由validString模块提供
-		blankBeforeAfter();		前后空格
-		gt(selector);		//大于另一个
-		gt(selector, 'double');		//大于另一个,双向触发
-		gt(selector, 'single');		//大于另一个,单向触发
-		lt(selector|string|number);		//小于另一个
-		eq(selector);		//等于另一个
-		neq(selector);		//不能等于另一个
-		andDo(p, p, p...);	//各p是and关系
-		orDo(p, p, p...);	//各p是or关系
+		charlen(n, m);				//字符长度n-m, n<=m, 整数
+		utf8len(n, m);				//utf8长度n-m, n<=m, 整数
+
+		intRange(n, m);				//整数值范围n-m
+		numberRange(n, m);			//数字值范围n-m, 整数小数皆可, 不含指数的情况
+
+		reg(reg, rev);				//正则正则, 是否取反
+		fn(a, b, c...);				//自定义函数,可一次性提供多个,全部通过才行
+		fnOr(a, b, c...);			//自定义函数,可一次性提供多个,任意一个通过都可以
+		pre(name, name...);			//预定义验证规则,由validString模块提供,可一次性提供多个,全部通过才行
+		preOr(name, name...);			//预定义验证规则,由validString模块提供,可一次性提供多个,任意一个通过都可以
+
+		trimBefore(true|false);		//验证前是否去前后空格,默认不去
+		required(true|false);		//是否必填,默认可为空
+
+		gt(selector);				//大于另一个
+			gt(selector, 'double');	//大于另一个,双向触发
+			gt(selector, 'single');	//大于另一个,单向触发
+		lt(selector|string|number);	//小于另一个
+		eq(selector|string|number)	//等于另一个
+		neq(selector|string|number)	//不能等于另一个
+
+		group(n);					//设置当前验证的上下文,默认是1
+
+		setMsg('charlen', '长度为${from}-${to}');				//设置某种验证的说明信息
  */
 
 KISSY.add('hdlValidator', function(S, undef) {

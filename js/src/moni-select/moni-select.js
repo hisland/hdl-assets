@@ -18,20 +18,29 @@ KISSY.add('moni-select', function(S, undef) {
 	var $ = jQuery,
 		EMPTY_$ = $(''),
 		target = EMPTY_$,
-		list = EMPTY_$,
+		list = $('<div class="moni-select-wrap" />'),
 		select = EMPTY_$;
 
+	list.click(listClick).appendTo('body');
+
+	function checkChanged(){
+		this['--changed'] = true;
+	}
 	function listClick(e){
 		var elm = $(e.target), changed = false;
 		if(elm.is('a')){
 			if(!elm.is('.moni-select-selected')){
+				changed = true;
+
 				target.find('em').html(elm.html());
 				elm.addClass('moni-select-selected').siblings('.moni-select-selected').removeClass('moni-select-selected');
-				select[0].selectedIndex = elm.index();
-				select[0]['--changed'] = false;
+
 				select.bind('change', checkChanged);
-				changed = true;
+				select[0]['--changed'] = false;
+
+				select[0].selectedIndex = elm.index();
 			}
+
 			//触发click事件
 			select.click();
 			//已改变且没有change, 触发change事件
@@ -39,67 +48,68 @@ KISSY.add('moni-select', function(S, undef) {
 				select.change();
 			}
 			select.unbind('change', checkChanged);
+
+			closeList();
+
 			e.preventDefault();
 		}
 	}
 
-	function checkChanged(){
-		this['--changed'] = true;
-	}
-
 	function makeList(){
-		list = $('<div class="moni-select-wrap" />');
+		list.empty();
 		select = target.find('select');
 
-		var i=0
-			, data = target.find('option')
-			, select_idx = select[0].selectedIndex
-			, len=data.length, value=data[i];
-
-		while(value){
-			value = value.innerHTML;
-			$('<a class="moni-select-item" href="#">'+value+'</a>').appendTo(list);
-			value = data[++i];
-		}
+		var str = [], select_idx = select[0].selectedIndex;
+		target.find('option').each(function(i, v){
+			str.push('<a class="moni-select-item" href="#">' + v.innerHTML + '</a>');
+		});
+		list.html(str.join(''));
 
 		list.find('a:eq('+select_idx+')').addClass('moni-select-selected');
-		list.click(listClick);
-		list.appendTo('body');
 	}
 
 	function showList(){
-		list.css('visibility', 'hidden').show();
+		//重置宽高
+		list.css({
+			width: 'auto',
+			height: 'auto',
+			visibility: 'hidden'
+		}).show();
+
+		//修正高度
 		if(list[0].scrollHeight > 300){
 			list.height(300);
 		}
-		var tw = target.outerWidth();
-		var lw = list[0].scrollWidth;
+
+		//修正宽度
+		var tw = target.outerWidth(), lw = list[0].scrollWidth;
 		if(lw > 300){
 			list.width(300);
-		}else if (lw < tw) {
-			list.width(tw);
+		}else if(lw <= tw-2) {
+			list.width(tw-2);
 		}
+
 		list.adjustElement(target).css('visibility', '').show();
-		$(document).click(closeList);
+		$(document).mousedown(closeList);
 	}
 
 	function closeList(e){
-		if($(e.target).closest('a.moni-select').length){
+		if(e && $(e.target).closest('.moni-select, .moni-select-wrap').length){
 			e.preventDefault();
 		}else{
 			list.hide();
 			target = EMPTY_$;
-			$(document).unbind('click', closeList);
+			$(document).unbind('mousedown', closeList);
 		}
 	}
 
 	function aClick(e){
-		var elm;
+		var elm = $(this);
 		//鼠标左键且是模拟select且不是disabled的,才打开
-		if(e.button == 0 && (elm = $(e.target).closest('a.moni-select')).length && elm.not('.moni-select-disabled').length){
+		if(e.button == 0 && !elm.is('.moni-select-disabled')){
+			//不是自己,重新生成列表
 			if(elm[0] != target[0]){
 				target = elm;
-				list.unbind('click', listClick).remove();
 				makeList();
 			}
 			showList();
@@ -108,22 +118,21 @@ KISSY.add('moni-select', function(S, undef) {
 		}
 	}
 
-	//在文档上进行监听
-	$(document).click(aClick);
 	$.fn.extend({
 		//将select包装成moni-select
 		moniSelect: function() {
 			this.filter('select').each(function(i, v) {
 				//只生成一次
-				if (this.__bound_moni) {
-					return;
+				if (!this['--bound-moni']) {
+					this['--bound-moni'] = true;
+					v = $(v);
+					var width = v.width(), height = v.height()-2;
+					width = (width <= 0 ? this.style.width.replace('px', '') || 122 : width)-18;
+					height = (height <= 0 ? this.style.height.replace('px', '') || 14 : height)-2;
+					v.wrap('<a class="moni-select" style="width:'+width+'px;" href="javascript:void(0)"></a>').before('<em class="moni-select-text"></em>');
+					//注册事件
+					$(v).parent().click(aClick);
 				}
-				this.__bound_moni = true;
-				v = $(v);
-				var width = v.width(), height = v.height()-2;
-				width = (width <= 0 ? this.style.width.replace('px', '') || 117 : width)-18;
-				height = (height <= 0 ? this.style.height.replace('px', '') || 14 : height)-2;
-				v.wrap('<a class="moni-select" style="width:'+width+'px;" href="javascript:void(0)"></a>').before('<em class="moni-select-text"></em>');
 			}).refreshSelect();
 		}
 		//使用此方法同步真实select到moni-select

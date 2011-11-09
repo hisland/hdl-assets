@@ -338,12 +338,11 @@ KISSY.add('weekTool', function(S, undef) {
 	}
 	$(document).click(documentClick);
 
-
-	$.fn.extend({
-		weekTool: weekTool
-	});
 	$.extend({
 		week: WeekUtil
+	});
+	$.fn.extend({
+		weekTool: weekTool
 	});
 }, {
 	requires: ['jquery-1.4.2', 'builtin', 'adjustElement']

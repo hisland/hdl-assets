@@ -39,6 +39,7 @@ KISSY.add('multiCheckbox', function(S, undef) {
 	pop.$content.append($ctrl).append($box).append($btn_wrap);
 	pop.setTitle(msg_please_check);
 	pop.$close.hide();
+	pop.manager.$div.addClass('not-remove');
 
 	//全选
 	$select_all.click(function(e){

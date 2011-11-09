@@ -30,20 +30,18 @@ KISSY.add('popWin', function(S, undef) {
 		,popWin = {}
 		,default_width = 400;
 	
-	popWin.init = function(){
-		return init();
-	}
+	//清除所有的popWin
 	popWin.clean = function(){
 		$('div.win1-wrap').parent().remove();
 		return this;
 	}
 
-	function init(){
-		//更改为构造方式
-		if(!(this instanceof init)){
-			return new init();
-		}
+	//初始化一个popWin
+	popWin.init = function(){
+		return new init();
+	}
 
+	function init(){
 		this.$div = $(html_string);
 		this.$close = this.$div.find('a.win1-close');
 		this.$title = this.$div.find('span.win1-title');

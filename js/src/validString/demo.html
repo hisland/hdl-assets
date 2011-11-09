@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> popCheck </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, demo-css, condition-list-css, validString, jquery-1.4.2', function(){
+				$('a.valid').click(function(e){
+					var rs_wrap = $(this).next();
+					var val = $(this).prev().val();
+					rs_wrap.text(validString('ipv4', val));
+					e.preventDefault();
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+<div class="demo-section">
+	<div class="demo-legend">点击验证可以看到成功与否</div>
+	<div class="demo-box">
+		<div class="ls1">
+			<div class="ls1-item ls1-2c">
+				<div class="ls1-text">ipv4:</div>
+				<div class="ls1-ipts">
+					<input class="text1" type="text" />
+					<a class="valid" href="#">验证</a>
+					<b></b>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

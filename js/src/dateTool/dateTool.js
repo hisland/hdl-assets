@@ -648,33 +648,33 @@ KISSY.add('dateTool', function(S, undef) {
 					this.date_setting.setDate(parseValueToDate(this.value, this.date_setting.offset) || now(this.date_setting.offset));
 					$(this).focus(iptFocus);
 				}
+				
+				//有参为修改
+				if(setting){
+					//修改配置, 只修改需要的
+					if(S.isPlainObject()){
+						ipts.each(function(i, v){
+							S.mix(this.date_setting, setting, ['fixed', 'btn_clear_enable', 'btn_now_enable',  'itemFilter', 'over_fill', 'disabled']);
+						});
+					}
+					//修改fixed字符串
+					else if(DateSetting.isFixedString(setting)){
+						ipts.each(function(i, v){
+							this.date_setting.fixed = setting;
+						});
+					}
+					//修改日期值
+					else if((setting instanceof Date) && setting.isValid()){
+						ipts.each(function(i, v){
+							this.date_setting.setDate(setting);
+						});
+					}
+					//例外提示
+					else{
+						S.log('$.fn.dateTool: setting must be a fixed-string or setting-object or date-object!');
+					}
+				}
 			});
-
-			//有参为修改
-			if(setting){
-				//修改配置, 只修改需要的
-				if(S.isPlainObject()){
-					ipts.each(function(i, v){
-						S.mix(this.date_setting, setting, ['fixed', 'btn_clear_enable', 'btn_now_enable',  'itemFilter', 'over_fill', 'disabled']);
-					});
-				}
-				//修改fixed字符串
-				else if(DateSetting.isFixedString(setting)){
-					ipts.each(function(i, v){
-						this.date_setting.fixed = setting;
-					});
-				}
-				//修改日期值
-				else if((setting instanceof Date) && setting.isValid()){
-					ipts.each(function(i, v){
-						this.date_setting.setDate(setting);
-					});
-				}
-				//例外提示
-				else{
-					S.log('$.fn.dateTool: setting must be a fixed-string or setting-object or date-object!');
-				}
-			}
 
 			//返回第一个元素的配置
 			return ipts[0] && ipts[0].date_setting;
