@@ -50,7 +50,7 @@ KISSY.add('dateTool', function(S, undef) {
 		msg_close = '关闭';
 
 	//JS国际化信息的覆盖
-	if(JS_I18N){
+	if(window.JS_I18N){
 		for(var i=1;i<8;i++){
 			msg_week[i] = JS_I18N['js.common.dateTool.msg_week' + i];
 		}

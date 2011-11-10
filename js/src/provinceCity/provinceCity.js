@@ -12,27 +12,30 @@
  */
 
 KISSY.add('provinceCity', function(S, undef) {
+	var msg_please_check = '请选择',
+		msg_ok = '确定',
+		msg_all_all = '全部-全部',
+		msg_close_title = '双击选择并关闭';
+	//JS国际化信息覆盖
+	if(window.JS_I18N){
+		msg_please_check = JS_I18N['js.common.provinceCity.msg_please_check'];
+		msg_ok = JS_I18N['js.common.provinceCity.msg_ok'];
+		msg_all_all = JS_I18N['js.common.provinceCity.msg_all_all'];
+		msg_close_title = JS_I18N['js.common.provinceCity.msg_close_title'];
+	}
+
 	var $ = jQuery,
 		$EMPTY = $(''),
-
-		msg_please_check = '请选择',
-		msg_ok = '确定',
 
 		pop = $.popWin.init(),
 
 		$box_left = $('<div class="province-city"></div>'),
-		$box_right = $('<div class="province-city" style="margin-left:5px;"></div>'),
+		$box_right = $('<div class="province-city" style="margin-left:5px;" title="' + msg_close_title + '"></div>'),
 
 		$btn_wrap = $('<div class="win1-btns"><input type="submit" value="' + msg_ok + '" class="win1-btn-ok"></div>'),
 		$btn_ok = $btn_wrap.find('input'),
 
 		$ipt_target = $EMPTY;
-
-	//JS国际化信息覆盖
-	if(JS_I18N){
-		msg_please_check = JS_I18N['js.common.provinceCity.msg_please_check'];
-		msg_ok = JS_I18N['js.common.provinceCity.msg_ok'];
-	}
 	
 	var province = [
 		{
@@ -1520,7 +1523,7 @@ KISSY.add('provinceCity', function(S, undef) {
 	pop.$content.append($box_left).append($box_right).append($btn_wrap);
 	pop.setTitle(msg_please_check);
 	pop.setInnerWidth(350);
-	pop.$close.hide();
+	pop.manager.$div.addClass('not-remove');
 
 	//左侧点击,切换并且更新右侧
 	$box_left.click(function(e){
@@ -1529,6 +1532,7 @@ KISSY.add('provinceCity', function(S, undef) {
 			dt.addClass('hover').siblings('.hover').removeClass('hover');
 			changeProvince(dt.attr('data-id'));
 			dt.blur();
+			e.preventDefault();
 		}
 	});
 
@@ -1538,7 +1542,10 @@ KISSY.add('provinceCity', function(S, undef) {
 		if(dt.is('a')){
 			dt.addClass('hover').siblings('.hover').removeClass('hover');
 			dt.blur();
+			e.preventDefault();
 		}
+	}).dblclick(function(e){
+		$btn_ok.click();
 	});
 
 	//确定按钮点击时放回去
@@ -1563,10 +1570,11 @@ KISSY.add('provinceCity', function(S, undef) {
 		var pid = $ipt_target.next().val();
 		var cid = $ipt_target.next().next().val();
 
-		$box_left.find('[data-id='+pid+']').click();
-		$box_right.find('[data-id='+cid+']').click();
-
+		//先显示,否则focus不起作用
 		pop.front().show();
+
+		$box_left.find('[data-id='+pid+']').focus().click();
+		$box_right.find('[data-id='+cid+']').focus().click();
 	}
 
 	//注册
@@ -1575,6 +1583,16 @@ KISSY.add('provinceCity', function(S, undef) {
 			if(!this['--bind-province']){
 				this['--bind-province'] = true;
 				$(v).click(iptclick);
+
+				if(S.isPlainObject(setting)){
+					$(v).next().val(setting.pid || 0);
+					$(v).next().next().val(setting.cid || 0);
+					$(v).val(province[setting.pid || 0].name + '-' + city[setting.pid || 0][(setting.cid % (setting.pid*100)) || 0].name);
+				}else{
+					$(v).next().val(0);
+					$(v).next().next().val(0);
+					$(v).val(msg_all_all);
+				}
 			}
 		});
 	}

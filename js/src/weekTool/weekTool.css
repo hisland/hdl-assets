@@ -1,35 +1,14 @@
 @charset "utf-8";
 
-.weektool-wrap{position:absolute;width:312px;height:210px;border:1px solid #7f9db9;background:#fff;text-align:center;}
-	.weektool-wrap a:hover{text-decoration:none;color:#fe6710;}
+.weektool{float:left;height:300px;overflow:auto;padding-bottom:10px;border:1px solid #C7D2D7;}
+	.weektool a{display:block;padding:2px 0 0;color:#4E4E4E;text-align:center;text-decoration:none;outline:none;}
+	.weektool a:hover{background:#e2edfc;}
+	.weektool a.hover{background:#B3D0FF;}
+		.weektool a strong{color:#000;display:inline-block;width:30px;text-align:center;}
+		.weektool a span{color:#999;}
+		.weektool a.hover span{color:#fff;}
 
-	.weektool-legend{height:38px;}
-		.weektool-div1{float:left;width:35px;}
-			.weektool-col1-0{display:block;height:18px;border-bottom:1px solid #7F9DB9;}
-		.weektool-div2{float:left;width:130px;border-left:1px solid #7F9DB9;}
-			.weektool-col2-0{display:block;height:18px;border-bottom:1px solid #7F9DB9;}
-		.weektool-div3{float:left;width:145px;border-left:1px solid #7F9DB9;}
-			.weektool-col3-0{display:block;height:18px;border-bottom:1px solid #7F9DB9;}
+	.weektool a.disabled{color:#eee;cursor:default;}
+	.weektool a.disabled:hover{background:none;color:#eee;}
+		.weektool a.disabled *{color:#eee;}
 
-	.weektool-content{height:172px;overflow-x:hidden;overflow-y:scroll;}
-		.weektool-col1w{float:left;width:35px;}
-			.weektool-col1{display:block;height:18px;border-bottom:1px solid #dbeef9;}
-		.weektool-col2w{float:left;width:130px;border-left:1px solid #7F9DB9;}
-			.weektool-col2{display:block;height:18px;border-bottom:1px solid #dbeef9;}
-		.weektool-col3w{float:left;width:128px;border-left:1px solid #7F9DB9;}
-			.weektool-col3{display:block;height:18px;border-bottom:1px solid #dbeef9;}
-
-	.weektool-div4{display:none;position:absolute;top:18px;left:40px;width:120px;height:130px;border:1px solid #7f9db9;background:#fff;}
-	.weektool-div4r{left:170px;}
-		.weektool-div4-1{padding:2px;height:108px;}
-			.weektool-4-i{}
-		.weektool-div4-2{border-top:1px solid #7f9db9;}
-			.weektool-4-p{margin-right:5px;}
-			.weektool-4-n{}
-
-	.weektool-yearp{margin-right:5px;}
-	.weektool-year{margin-right:3px;}
-	.weektool-yearn{margin-right:8px;}
-	.weektool-yeart{}
-
-	.weektool-selected{background:#dbeef9;}

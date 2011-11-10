@@ -134,7 +134,7 @@ KISSY.add('validString', function(S, undef) {
 
 
 	//此段保留在最底部,JS国际化信息的覆盖
-	if(JS_I18N){
+	if(window.JS_I18N){
 		S.each(items, function(v, i, o){
 			validString.setDesc(i, JS_I18N['js.common.validString.' + i]);
 		});

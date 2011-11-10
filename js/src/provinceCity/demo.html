@@ -1,13 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title> popCheck </title>
+	<title> provinceCity </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, common-css, demo-css, condition-list-css, provinceCity+css', function(){
-				$('#area, #qq').provinceCity();
+				$('#area').provinceCity();
+				$('#qq').provinceCity({
+					pid: 22,
+					cid: 2201
+				});
 			});
 		});
 	</script>
@@ -26,7 +30,7 @@
 					</div>
 				</div>
 				<div class="ls1-item">
-					<div class="ls1-text">省市2:</div>
+					<div class="ls1-text">默认四川-成都:</div>
 					<div class="ls1-ipts">
 						<input class="text1" type="text" id="qq" readonly="readonly" />
 						<input type="hidden" name="province" value="" />

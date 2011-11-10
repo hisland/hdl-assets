@@ -22,8 +22,14 @@
  *		w.setDate(new Date());	//设置时间,用日期对象
  *		w.year();	//取年
  *		w.week();	//取周
+ *		w.maxWeek();	//当年最大周
  *		w.start();	//取当周的开始时间
  *		w.end();	//取当周的结束时间
+ * 
+ *		$(':text.start').weekTool();		//初始化周控件,有弹出层显示
+ *		$(':text.start').weekTool({year_range: [2005, 2009]});		//初始化周控件,年范围为2005-2009
+ *		$(':text.start').weekTool('off');	//禁用
+ *		$(':text.start').weekTool('on');	//启用
  * 
  * TODO:
  *		2011-08-08 10:25:49:
@@ -36,18 +42,36 @@
  */
 
 KISSY.add('weekTool', function(S, undef) {
+	var msg_please_check = '请选择',
+		msg_ok = '确定',
+		msg_close_title = '双击选择并关闭';
+	//JS国际化信息覆盖
+	if(window.JS_I18N){
+		msg_please_check = JS_I18N['js.common.provinceCity.msg_please_check'];
+		msg_ok = JS_I18N['js.common.provinceCity.msg_ok'];
+		msg_close_title = JS_I18N['js.common.provinceCity.msg_close_title'];
+	}
+
 	var $ = jQuery,
 		$EMPTY = $(''),
-		ipt_now = $EMPTY,
-		ipt_start = $EMPTY,
-		ipt_end = $EMPTY,
-		a_year_from = $EMPTY,
-		a_year_to = $EMPTY,
-		div_pop = $EMPTY,
-		div_num_list = $EMPTY,
-		div_from_list = $EMPTY,
-		div_to_list = $EMPTY,
-		div_year_list = $EMPTY;
+		pop = $.popWin.init(),
+
+		$box_left = $('<div class="weektool" style="width:100px;"></div>'),
+		$box_wrap = $('<div class="weektool" style="margin-left:5px;width:340px;"></div>'),
+		$box_mid = $('<div style="float:left;width:160px;"></div>').appendTo($box_wrap),
+		$box_right = $('<div style="float:left;width:160px;" title="' + msg_close_title + '"></div>').appendTo($box_wrap),
+
+		$btn_wrap = $('<div class="win1-btns"><input type="submit" value="' + msg_ok + '" class="win1-btn-ok"></div>'),
+		$btn_ok = $btn_wrap.find('input'),
+
+		$ipt_start = $EMPTY,
+		$ipt_end = $EMPTY,
+		setting;
+	
+	var default_setting = {
+		year_range: [2000, 2030],
+		enable: true
+	}
 
 	//周对象, 可方便传入年和周
 	function WeekUtil(year, week){
@@ -111,20 +135,20 @@ KISSY.add('weekTool', function(S, undef) {
 			var bak = this.week(), max;
 			//一年正常有53周,最多有54周,从52周开始增加,直到停止
 			this.week(52);
-			while(this.end().getFullYear() === this.year()){
+			while(this.start().getFullYear() === this.year()){
 				this.next();
 			}
-			max = this.week();
+			max = this.prev().week();
 			this.week(bak);
 			return max;
 		},
 		next: function(n){
 			n = n<1 || 1;
-			this.week(this.__week + n);
+			return this.week(this.__week + n);
 		},
 		prev: function(n){
 			n = n<1 || 1;
-			this.week(this.__week - n);
+			return this.week(this.__week - n);
 		},
 		setDate: function(date){
 			//从String转换成Date
@@ -165,163 +189,185 @@ KISSY.add('weekTool', function(S, undef) {
 		}
 	});
 
-	function makeYearList(from, to, now){
-		var  b = [];
-		for(; from<to; from++){
-			b.push('<a href="#" class="weektool-4-i">', from, '</a> ');
+	//初始化弹出层结构
+	pop.$content.append($box_left).append($box_wrap).append($btn_wrap);
+	pop.setTitle(msg_please_check);
+	pop.setInnerWidth(450);
+	pop.manager.$div.addClass('not-remove');
+
+	//生成年列表
+	function makeYearList(now){
+		var b = [], from = setting.year_range[0], to = setting.year_range[1];
+		//修正当前年
+		if(now < from){
+			now = from;
+		}else if(now > to){
+			now = to;
 		}
-		div_year_list.html(b.join(''));
-	}
 
-	//日期层显示/隐藏
-	function wrapShow(){
-		//需要时再加载此层
-		if(!div_pop.length){
-			div_pop = $('<div class="weektool-wrap"><div class="weektool-legend"><div class="weektool-div1"><span class="weektool-col1-0"></span><span class="weektool-col1-0">周</span></div><div class="weektool-div2"><span class="weektool-col2-0"><a href="#" class="weektool-yearp">&lt;</a><a href="#" class="weektool-year">2011</a><a href="#" class="weektool-yearn">&gt;</a><a href="#" class="weektool-yeart">今年</a></span><span class="weektool-col2-0">开始时间</span></div><div class="weektool-div3"><span class="weektool-col3-0"><a href="#" class="weektool-yearp">&lt;</a><a href="#" class="weektool-year">2011</a><a href="#" class="weektool-yearn">&gt;</a><a href="#" class="weektool-yeart">今年</a></span><span class="weektool-col3-0">结束时间</span></div></div><div class="weektool-content"><div class="weektool-col1w"></div><div class="weektool-col2w"></div><div class="weektool-col3w"></div></div><div class="weektool-div4"><div class="weektool-div4-1"><a href="#" class="weektool-4-i"></a></div><div class="weektool-div4-2"><a href="#" class="weektool-4-p">上一页</a><a href="#" class="weektool-4-n">下一页</a></div></div></div>');
-			div_pop.click(popClick).dblclick(popDblClick);
-
-			a_year_from = div_pop.find('a.weektool-year:eq(0)');
-			a_year_to = div_pop.find('a.weektool-year:eq(1)');
-
-			div_num_list = div_pop.find('div.weektool-col1w');
-			div_from_list = div_pop.find('div.weektool-col2w');
-			div_to_list = div_pop.find('div.weektool-col3w');
-			div_year_list = div_pop.find('div.weektool-div4-1');
-
-			div_pop.appendTo('body');
-		}
-		div_pop.show().adjustElement(ipt_now);
-		$(document).mousedown(docHide);
-	}
-	function wrapHide(){
-		div_year_list.parent().hide();
-		div_pop.hide();
-		$(document).unbind('mousedown', docHide);
-	}
-
-	function docHide(e){
-		var t = e.target,
-			dt = $(t);
-
-		if(!dt.closest('.weektool-wrap').length && !isWeekInput(t)){
-			wrapHide();
-		}
-	}
-
-	//输入框的一系列事件
-	function iptFocus(e){
-		var other, list;
-		if(ipt_now[0] != this){
-			ipt_now = $(this);
-			if(other = ipt_now.attr('data-week-start')){
-				ipt_start = $(other);
-				ipt_end = ipt_now;
-			}else if(other = ipt_now.attr('data-week-end')){
-				ipt_start = ipt_now;
-				ipt_end = $(other);
+		for(; from <= to; from++){
+			if(from != now){
+				b.push('<a href="#">', from, '</a>');
 			}else{
-				ipt_start = ipt_end = $EMPTY;
+				b.push('<a href="#" class="hover">', from, '</a>');
 			}
-			wrapShow();
+		}
+		$box_left.html(b.join(''));
+	}
 
-			list = WeekUtil().getList();
-			div_num_list.html(list[0]);
-			div_from_list.html(list[1]);
-			div_to_list.html(list[2]);
-		}else{
-			wrapShow();
+	//生成开始结束时间列表
+	function makeOtherList(year){
+		var week = WeekUtil(year), max = week.maxWeek();
+		var b_start = [], b_end = [];
+		for(var i=1; i<=max; i++){
+			b_start.push('<a href="#"><strong>', i, '</strong><span>', week.week(i).start().dateTimeString(), '</span></a>')
+			b_end.push('<a href="#"><strong>', i, '</strong><span>', week.end().dateTimeString(), '</span></a>')
+		}
+		$box_mid.html(b_start.join(''));
+		$box_right.html(b_end.join(''));
+	}
+
+	//年点击更新右侧时间列表
+	$box_left.click(function(e){
+		var dt = $(e.target);
+		if(dt.is('a')){
+			dt.addClass('hover').siblings('.hover').removeClass('hover');
+
+			//保存前面的索引
+			var start = $box_mid.find('a.hover').index();
+			var end = $box_right.find('a.hover').index();
+
+			//修正在末尾的情况,因为从0开始,所以是53
+			if(start == 53){
+				start = 52;
+			}
+			if(end == 53){
+				end = 52;
+			}
+
+			//生成列表并还原选中状态
+			makeOtherList(dt.text());
+			$box_mid.find('a').eq(start).click();
+			$box_right.find('a').eq(end).click();
+
+			dt.blur();
+			e.preventDefault();
+		}
+	});
+
+	//点击开始时间,修正结束时间范围
+	function resetRight(i){
+		var as = $box_right.find('a');
+		as.eq(i).prevAll().addClass('disabled').end().nextAll().andSelf().removeClass('disabled');
+		//当选中的是禁用的时候.修改为开始时间对应的结束时间
+		if(as.filter('.hover').is('.disabled')){
+			as.eq(i).click();
 		}
 	}
-	function popClick(e){
-		var t = e.target,
-			dt = $(t),
-			li_p, val;
-
+	$box_mid.click(function(e){
+		var dt = $(e.target).closest('a', this);
 		if(dt.is('a')){
-			if(dt.is('.weektool-col2')){//开始时间
-				li_p.prevAll('.weektool-selected').removeClass('weektool-selected');
-				if(li_p.nextAll('.weektool-selected').length){
-					li_p.nextUntil('.weektool-selected').andSelf().addClass('weektool-selected');
-					ipt_start.val(dt.text());
-				}else{
-					li_p.addClass('weektool-selected');
-					ipt_start.val(dt.text());
-					ipt_end.val(dt.next().text());
-				}
-			}else if(dt.is('.weektool-col3')){//结束时间
-				li_p.nextAll('.weektool-selected').removeClass('weektool-selected');
-				if(li_p.prevAll('.weektool-selected').length){
-					li_p.prevUntil('.weektool-selected').andSelf().addClass('weektool-selected');
-					ipt_end.val(dt.text());
-				}else{
-					li_p.addClass('weektool-selected');
-					ipt_end.val(dt.text());
-					ipt_start.val(dt.prev().text());
-				}
-			}else if(dt.is('.weektool-yearp')){//年-
-				val = a_year.text()-1;
-				a_year.html(val);
-				makeList(val);
-			}else if(dt.is('.weektool-yearn')){//年+
-				val = a_year.text()-0+1;
-				a_year.html(val);
-				makeList(val);
-			}else if(dt.is('.weektool-yeart')){//今年
-				val = new Date().getFullYear();
-				if(a_year.text() != val){
-					a_year.html(val);
-					makeList(val);
-				}
-			}else if(dt.is('.weektool-year')){//点击显示年
-				val = dt.text()-0;
-				makeYearList(val-12, val+12);
-				div_year_list.parent().show();
-			}else if(dt.is('.weektool-4-i')){//年列表
-				val = dt.text()-0;
-				a_year.html(val);
-				makeList(val);
-				div_year_list.parent().hide();
-			}else if(dt.is('.weektool-4-p')){//年列表上一页
-				val = div_year_list.find('a:first').text()-0;
-				makeYearList(val-24, val);
-			}else if(dt.is('.weektool-4-n')){//年列表下一页
-				val = div_year_list.find('a:last').text()-0;
-				makeYearList(val+1, val+25);
+			dt.addClass('hover').siblings('.hover').removeClass('hover');
+			resetRight(dt.index());
+			dt.blur();
+			e.preventDefault();
+		}
+	});
+
+	//点击结束时间的操作,双击填入并关闭
+	$box_right.click(function(e){
+		var dt = $(e.target).closest('a', this);
+		if(dt.is('a')){
+			if(!dt.is('.disabled')){
+				dt.addClass('hover').siblings('.hover').removeClass('hover');
 			}
 			dt.blur();
 			e.preventDefault();
 		}
+	}).dblclick(function(e){
+		$btn_ok.click();
+	});
 
-		//内部隐藏年列表层
-		if(!(dt.is('a.weektool-year') || dt.closest('.weektool-div4').length)){
-			div_year_list.parent().hide();
-		}
-	}
-	//在日期上双击关闭
-	function popDblClick(e){
-		if($(e.target).is('.weektool-col2, .weektool-col3')){
-			wrapHide();
-		}
-	}
+	//确定按钮点击时放回去
+	$btn_ok.click(function(){
+		var start = $box_mid.find('.hover');
+		var end = $box_right.find('.hover');
 
-	//检测目录是否为周选择控件
-	function isWeekInput(elm){
-		var attr = elm.getAttribute('type');
-		if(elm.tagName.toUpperCase() === 'INPUT' && (attr === 'week-start' || attr === 'week-end')){
-			return true;
+		$ipt_start.val(start.find('span').text());
+		$ipt_end.val(end.find('span').text());
+
+		pop.hide();
+		$ipt_start = $ipt_end = $EMPTY;
+	});
+
+	function showPop(){
+		var date_start, date_end, week;
+		setting = $ipt_start.data('week-tool-setting');
+		//禁用时不打开
+		if(!setting.enable){
+			return ;
+		}
+		pop.show();
+
+		//从输入框获得时间,不成功则使用当前时间
+		if($ipt_start.val().isValidDate()){
+			date_start = $ipt_start.val().getDate();
 		}else{
-			return false;
+			date_start = new Date();
 		}
+		if($ipt_end.val().isValidDate()){
+			date_end = $ipt_end.val().getDate();
+		}else{
+			date_end = date_start;
+		}
+
+		//修正当前选择年
+		week = WeekUtil(date_start);
+		makeYearList(week.year());
+		$box_left.find('.hover').focus().click();
+
+		//填入对应的周
+		$box_mid.find('a').eq(week.week()-1).click();
+		week.setDate(date_end);
+		$box_right.find('a').eq(week.week()-1).focus().click();
+	}
+
+	//开始或者结束时间点击时将内部变量设置为正确的引用
+	function iptStartFocus(e){
+		$ipt_start = $(this);
+		$ipt_end = $ipt_start.next();
+		showPop();
+	}
+	function iptEndFocus(e){
+		$ipt_end = $(this);
+		$ipt_start = $ipt_end.prev();
+		showPop();
 	}
 
 	//注册事件
 	function weekTool(setting){
-		return this.filter(':text').each(function(i, v){
-			if(!this['--bind-week-tool']){
-				this['--bind-week-tool'] = true;
-
-				$(v).focus(iptFocus);
+		if(!S.isPlainObject(setting)){
+			if(S.isUndefined(setting)){
+				setting = {};
+			}else if(setting === 'off'){
+				setting = {enable: false};
+			}else if(setting === 'on'){
+				setting = {enable: true};
+			}else{
+				setting = {};
 			}
+		}
+
+		return this.filter(':text').each(function(i, v){
+			//初始化配置
+			if(!$(v).data('week-tool-setting')){
+				$(v).click(iptStartFocus).next().click(iptEndFocus);
+				//copy一份新的.否则会导致使用默认对象
+				$(v).data('week-tool-setting', S.mix({}, default_setting));
+			}
+
+			//修改配置,只能覆盖白名单指定的属性
+			S.mix($(v).data('week-tool-setting'), setting, ['year_range', 'enable']);
 		});
 	}
 
@@ -332,5 +378,5 @@ KISSY.add('weekTool', function(S, undef) {
 		weekTool: weekTool
 	});
 }, {
-	requires: ['jquery-1.4.2', 'builtin', 'adjustElement']
+	requires: ['jquery-1.4.2', 'builtin', 'adjustElement', 'popWin+css']
 });

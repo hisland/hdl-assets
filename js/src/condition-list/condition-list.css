@@ -17,8 +17,8 @@
 
 	.ls1-item{float:left;height:24px;width:230px;border:1px solid #e2edff;margin:1px;overflow:hidden;}
 	.ls1-item-right{float:right;display:inline;}
-		.ls1-text{float:left;height:24px;line-height:24px;width:100px;text-align:right;background:#e2edff;}
-		.ls1-ipts{float:left;padding:3px;height:18px;width:124px;background:#f0f7fe;}
+		.ls1-text{float:left;height:24px;line-height:24px;width:100px;text-align:right;white-space:nowrap;background:#e2edff;}
+		.ls1-ipts{float:left;padding:3px;height:18px;width:124px;white-space:nowrap;background:#f0f7fe;}
 
 	.ls1-2c{width:464px;}
 		.ls1-2c .ls1-ipts{width:358px;}

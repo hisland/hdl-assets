@@ -7,7 +7,7 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, common-css, demo-css, condition-list-css, weekTool+css', function(){
-				
+				$('#week1, #week2').weekTool();
 			});
 		});
 	</script>
@@ -17,11 +17,18 @@
 <div class="demo-section">
 	<div class="demo-legend">说明</div>
 	<div class="demo-box">
+		<p>统一在开始时间上进行注册</p>
 		<div class="ls1">
 			<div class="ls1-item ls1-2c">
 				<div class="ls1-text">选择周范围:</div>
 				<div class="ls1-ipts">
-					<input type="week-start" id="week-start" name="" value="" readonly="readonly"  />-<input type="week-end" id="week-end" name="" value="" readonly="readonly"  />
+					<input class="text1" type="text" id="week1" name="" value="" readonly="readonly"  />-<input class="text1" type="text" name="" value="" readonly="readonly"  />
+				</div>
+			</div>
+			<div class="ls1-item ls1-2c">
+				<div class="ls1-text">选择周范围2:</div>
+				<div class="ls1-ipts">
+					<input class="text1" type="text" id="week2" name="" value="" readonly="readonly"  />-<input class="text1" type="text" name="" value="" readonly="readonly"  />
 				</div>
 			</div>
 		</div>
