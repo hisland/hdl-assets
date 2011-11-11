@@ -6,13 +6,17 @@ import javax.servlet.jsp.JspException;
 
 
 /**
- * @author hdl
- * @description 标签结构:
+ * 标签结构:
+<pre>
+{@literal
 <div class="ls1-item">
 	<div class="ls1-text">label:</div>
 	<div class="ls1-ipts">
 	</div>
 </div>
+}
+</pre>
+ * @author hedingliang
  */
 @SuppressWarnings("serial")
 public class Item extends TagI18n {

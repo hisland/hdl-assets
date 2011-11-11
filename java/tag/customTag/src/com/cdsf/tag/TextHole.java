@@ -1,5 +1,6 @@
 package com.cdsf.tag;
 
+
 /**
  * 标签结构:
 <pre>
@@ -7,7 +8,8 @@ package com.cdsf.tag;
 <div class="ls1-item">
 	<div class="ls1-text">输入文字:</div>
 	<div class="ls1-ipts">
-		<input class="text1" type="password" name="" value="" />
+		<input class="text1" type="text" name="" value="" />
+		<!-- 标签体会显示在这里 -->
 	</div>
 </div>
 }
@@ -15,10 +17,10 @@ package com.cdsf.tag;
  * @author hedingliang
  */
 @SuppressWarnings("serial")
-public class Password extends Text {
-	
+public class TextHole extends Text {
 	@Override
-	public String getType() {
-		return " type=\"password\"";
+	public String beforeBody() {
+		setReadonly(true);
+		return super.beforeBody();
 	}
 }

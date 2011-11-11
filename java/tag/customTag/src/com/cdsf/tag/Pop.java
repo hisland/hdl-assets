@@ -5,8 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author hdl
- * @description 标签结构:
+ * 标签结构:
+<pre>
+{@literal
 <form style="display:none;">
 	<div class="ls1">
 	</div>
@@ -15,6 +16,9 @@ import java.util.regex.Pattern;
 		<input  class="win1-btn-cancle" type="button" id="rClosepopbtn" value="取消" />
 	</div>
 </form>
+}
+</pre>
+ * @author hedingliang
  */
 @SuppressWarnings("serial")
 public class Pop extends Query {

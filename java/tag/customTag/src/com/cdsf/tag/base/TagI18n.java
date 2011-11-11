@@ -5,8 +5,8 @@ import java.util.ResourceBundle;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
+ * 处理国际化与文本的基础类
  * @author hedingliang
- * @description 处理国际化与文本的基础类
  */
 @SuppressWarnings("serial")
 public abstract class TagI18n extends BodyTagSupport {

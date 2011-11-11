@@ -7,8 +7,10 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<script type="text/javascript" src="assets/seed.js"></script>
 	<script type="text/javascript">
-		KISSY.use('reset-css, common-css, condition-list-css, popWin+css, multiCheckbox', function(S, undef) {
-			$('input.multiCheckbox').multiCheckbox();
+		KISSY.use('reset-css, common-css, condition-list-css, popWin+css, multiCheckbox, provinceCity+css, weekTool+css', function(S, undef) {
+			$('#multiCheckbox1').multiCheckbox();
+			$('#select-pc').provinceCity();
+			$('#time-week').weekTool();
 		});
 	</script>
 </head>
@@ -50,7 +52,7 @@
 	<fieldset class="ls1-fieldset">
 		<legend class="ls1-legend">multiCheckbox</legend>
 		<div class="ls1-box">
-			<anti:multiCheckbox text="cols" cols="2" cssclass="multiCheckbox">
+			<anti:multiCheckbox text="cols,这个有效果" cols="2" id="multiCheckbox1">
 				<div style="display:none;">
 					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
 					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
@@ -63,18 +65,40 @@
 					<anti:baseCheckbox text="另外一个1" name="33" labelBlock="true" />
 				</div>
 			</anti:multiCheckbox>
-			<anti:multiCheckbox text="cols" cols="2" suffix="分钟" style="width:330px;" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="cssclass" cssclass="cssclass" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="disabled" disabled="true" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="i18n" i18n="i18n" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="id" id="id" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="readonly" readonly="true" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="required" required="true" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="style" style="color:red;" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="suffix" suffix="分钟" style="width:90px;" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="text" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="textWidth" textWidth="150" cssclass="multiCheckbox"></anti:multiCheckbox>
-			<anti:multiCheckbox text="value" value="aa" cssclass="multiCheckbox"></anti:multiCheckbox>
+			<anti:multiCheckbox text="cols" cols="2" suffix="分钟" style="width:330px;"></anti:multiCheckbox>
+			<anti:multiCheckbox text="cssclass" cssclass="cssclass"></anti:multiCheckbox>
+			<anti:multiCheckbox text="disabled" disabled="true"></anti:multiCheckbox>
+			<anti:multiCheckbox text="i18n" i18n="i18n"></anti:multiCheckbox>
+			<anti:multiCheckbox text="id" id="id"></anti:multiCheckbox>
+			<anti:multiCheckbox text="readonly" readonly="true"></anti:multiCheckbox>
+			<anti:multiCheckbox text="required" required="true"></anti:multiCheckbox>
+			<anti:multiCheckbox text="style" style="color:red;"></anti:multiCheckbox>
+			<anti:multiCheckbox text="suffix" suffix="分钟" style="width:90px;"></anti:multiCheckbox>
+			<anti:multiCheckbox text="text"></anti:multiCheckbox>
+			<anti:multiCheckbox text="textWidth" textWidth="150"></anti:multiCheckbox>
+			<anti:multiCheckbox text="value" value="aa"></anti:multiCheckbox>
+		</div>
+	</fieldset>
+	<fieldset class="ls1-fieldset">
+		<legend class="ls1-legend">textHole</legend>
+		<div class="ls1-box">
+			<anti:textHole text="cols" cols="2"></anti:textHole>
+			<anti:textHole text="cols" cols="2" suffix="分钟" style="width:330px;"></anti:textHole>
+			<anti:textHole text="cssclass" cssclass="cssclass"></anti:textHole>
+			<anti:textHole text="disabled" disabled="true"></anti:textHole>
+			<anti:textHole text="i18n" i18n="i18n"></anti:textHole>
+			<anti:textHole text="id" id="id"></anti:textHole>
+			<anti:textHole text="readonly" readonly="true"></anti:textHole>
+			<anti:textHole text="required" required="true"></anti:textHole>
+			<anti:textHole text="style" style="color:red;"></anti:textHole>
+			<anti:textHole text="suffix" suffix="分钟" style="width:90px;"></anti:textHole>
+			<anti:textHole text="text"></anti:textHole>
+			<anti:textHole text="textWidth" textWidth="150"></anti:textHole>
+			<anti:textHole text="value" value="aa"></anti:textHole>
+			<anti:textHole text="省市选择" id="select-pc">
+				<input type="hidden" name="province" />
+				<input type="hidden" name="city" />
+			</anti:textHole>
 		</div>
 	</fieldset>
 	<fieldset class="ls1-fieldset">
@@ -253,23 +277,23 @@
 		<legend class="ls1-legend">base</legend>
 		<div class="ls1-box">
 			<anti:item text="hello" cols="3">
-				<anti:baseCheckbox text="checked" checked="true" />
-				<anti:baseCheckbox text="disabled" disabled="true" />
-				<anti:baseCheckbox text="i18n" i18n="i18n" />
-				<anti:baseCheckbox text="id" id="id" />
-				<anti:baseCheckbox text="name" name="name" />
-				<anti:baseCheckbox text="text" text="text" />
-				<anti:baseCheckbox text="value" value="1" />
+				<anti:baseCheckbox name="name" text="checked" checked="true" />
+				<anti:baseCheckbox name="name" text="disabled" disabled="true" />
+				<anti:baseCheckbox name="name" text="i18n" i18n="i18n" />
+				<anti:baseCheckbox name="name" text="id" id="id" />
+				<anti:baseCheckbox name="name" text="name" />
+				<anti:baseCheckbox name="name" text="text" />
+				<anti:baseCheckbox name="name" text="value" value="1" />
 			</anti:item>
 			
 			<anti:item text="hello" cols="3">
-				<anti:baseRadio text="checked" checked="true" />
-				<anti:baseRadio text="disabled" disabled="true" />
-				<anti:baseRadio text="i18n" i18n="i18n" />
-				<anti:baseRadio text="id" id="id" />
-				<anti:baseRadio text="name" name="name" />
-				<anti:baseRadio text="text" text="text" />
-				<anti:baseRadio text="value" value="1" />
+				<anti:baseRadio name="name" text="checked" checked="true" />
+				<anti:baseRadio name="name" text="disabled" disabled="true" />
+				<anti:baseRadio name="name" text="i18n" i18n="i18n" />
+				<anti:baseRadio name="name" text="id" id="id" />
+				<anti:baseRadio name="name" text="name" />
+				<anti:baseRadio name="name" text="text" text="text" />
+				<anti:baseRadio name="name" text="value" value="1" />
 			</anti:item>
 		</div>
 	</fieldset>
@@ -277,6 +301,8 @@
 		<legend class="ls1-legend">timeRange</legend>
 		<div class="ls1-box">
 			<anti:timeRange text="text" />
+			<anti:timeRange text="idStart" idStart="time-start" />
+			<anti:timeRange text="idEnd" idEnd="time-end" />
 			<anti:timeRange text="valueStart" valueStart="2011-11-01" />
 			<anti:timeRange text="valueStart" valueEnd="14:19:25" />
 			<anti:timeRange text="disabledStart" disabledStart="true" />
@@ -288,6 +314,7 @@
 			<anti:timeRange text="enableValue" enableValue="1" enableText="启用"/>
 			<anti:timeRange text="enableName" enableValue="1" enableText="启用" enableName="aa"/>
 			<anti:timeRange text="enableChecked" enableValue="1" enableText="启用" enableChecked="true"/>
+			<anti:timeRange text="按周" idStart="time-week"/>
 		</div>
 	</fieldset>
 	

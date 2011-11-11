@@ -38,7 +38,6 @@
  *		2011-09-15 18:07:38:
  *			各方法的边界检测
  * 
- * 
  */
 
 KISSY.add('weekTool', function(S, undef) {
@@ -285,7 +284,9 @@ KISSY.add('weekTool', function(S, undef) {
 			e.preventDefault();
 		}
 	}).dblclick(function(e){
-		$btn_ok.click();
+		if(!$(e.target).closest('a', this).is('.disabled')){
+			$btn_ok.click();
+		}
 	});
 
 	//确定按钮点击时放回去

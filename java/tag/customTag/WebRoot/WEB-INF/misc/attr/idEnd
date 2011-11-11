@@ -1,0 +1,5 @@
+		<attribute>
+			<name>idEnd</name>
+			<required>false</required>
+			<description><![CDATA[可选,结束时间的id]]></description>
+		</attribute>

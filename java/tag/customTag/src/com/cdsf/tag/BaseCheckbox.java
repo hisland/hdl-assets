@@ -7,9 +7,15 @@ import javax.servlet.jsp.JspException;
 import com.cdsf.tag.base.TagI18n;
 
 /**
- * @author hdl
- * @description 标签结构:
-	<label class="label-1r"><input type="checkbox" class="checkbox3" name="" value="" />值1</label>
+ * 标签结构:
+<pre>
+{@literal
+<label class="label-1r">
+	<input type="checkbox" class="checkbox3" name="" value="" />值1
+</label>
+}
+</pre>
+ * @author hedingliang
  */
 @SuppressWarnings("serial")
 public class BaseCheckbox extends TagI18n {

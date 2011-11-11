@@ -14,6 +14,7 @@
 			
 			<path path="tags/tag.text" />
 			<path path="tags/tag.multiCheckbox" />
+			<path path="tags/tag.textHole" />
 			<path path="tags/tag.textFuzzy" />
 			<path path="tags/tag.password" />
 			<path path="tags/tag.textarea" />
@@ -116,6 +117,32 @@
 	<target name="tag.multiCheckbox" extensionOf="tld-pre">
 		<concat destfile="tags/tag.multiCheckbox" encoding="${encoding}" outputencoding="${encoding}">
 			<path path="tags/start.multiCheckbox" />
+
+			<path path="attr/id" />
+			
+			<path path="attr/style" />
+			<path path="attr/cssclass" />
+			<path path="attr/textWidth" />
+			
+			<path path="attr/i18n" />
+			<path path="attr/text" />
+			
+			<path path="attr/cols" />
+			
+			<path path="attr/disabled" />
+			<path path="attr/readonly" />
+			
+			<path path="attr/required" />
+			<path path="attr/suffix" />
+			<path path="attr/value" />
+
+			<path path="tags/end.tag" />
+		</concat>
+	</target>
+	
+	<target name="tag.textHole" extensionOf="tld-pre">
+		<concat destfile="tags/tag.textHole" encoding="${encoding}" outputencoding="${encoding}">
+			<path path="tags/start.textHole" />
 
 			<path path="attr/id" />
 			
@@ -363,8 +390,8 @@
 		<concat destfile="tags/tag.timeRange" encoding="${encoding}" outputencoding="${encoding}">
 			<path path="tags/start.timeRange" />
 
-			<path path="attr/name" />
-			<path path="attr/id" />
+			<path path="attr/idStart" />
+			<path path="attr/idEnd" />
 			
 			<path path="attr/i18n" />
 			<path path="attr/text" />

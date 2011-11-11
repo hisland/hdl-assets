@@ -7,8 +7,9 @@ import javax.servlet.jsp.JspException;
 import com.cdsf.tag.base.TagI18n;
 
 /**
- * @author hdl
- * @description 标签结构:
+ * 标签结构:
+<pre>
+{@literal
 <form class="search-condition">
 	<div class="search-condition-c1">
 		<div class="ls1">
@@ -20,6 +21,9 @@ import com.cdsf.tag.base.TagI18n;
 		<p class="search-more">收起条件</p>
 	</div>
 </form>
+}
+</pre>
+ * @author hedingliang
  */
 @SuppressWarnings("serial")
 public class Query extends TagI18n {

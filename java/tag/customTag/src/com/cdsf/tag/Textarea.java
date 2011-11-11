@@ -3,14 +3,18 @@ package com.cdsf.tag;
 
 
 /**
- * @author hdl
- * @description 标签结构:
+ * 标签结构:
+<pre>
+{@literal
 <div class="ls1-item">
 	<div class="ls1-text">输入文字:</div>
 	<div class="ls1-ipts">
 		<textarea class="ls1-big-box"></textarea>
 	</div>
 </div>
+}
+</pre>
+ * @author hedingliang
  */
 @SuppressWarnings("serial")
 public class Textarea extends Text {

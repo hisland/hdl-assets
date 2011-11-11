@@ -1,0 +1,5 @@
+		<attribute>
+			<name>idStart</name>
+			<required>false</required>
+			<description><![CDATA[可选,开始时间的id]]></description>
+		</attribute>

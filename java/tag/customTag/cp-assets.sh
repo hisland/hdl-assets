@@ -9,6 +9,9 @@ cp -r ../../../js/src/multiCheckbox WebRoot/assets/
 cp -r ../../../js/src/hdlDrag WebRoot/assets/
 cp -r ../../../js/src/popManager WebRoot/assets/
 cp -r ../../../js/src/jquery-1.4.2 WebRoot/assets/
-cp -r ../../../js/src/zindexManager WebRoot/assets/
+cp -r ../../../js/src/provinceCity WebRoot/assets/
+cp -r ../../../js/src/weekTool WebRoot/assets/
+cp -r ../../../js/src/adjustElement WebRoot/assets/
+cp -r ../../../js/src/builtin WebRoot/assets/
 echo ok!
 exit

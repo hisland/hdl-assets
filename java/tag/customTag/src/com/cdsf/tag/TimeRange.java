@@ -3,14 +3,18 @@ package com.cdsf.tag;
 import com.cdsf.tag.base.Item;
 
 /**
- * @author hdl
- * @description 标签结构:
+ * 标签结构:
+<pre>
+{@literal
 <div class="ls1-item">
 	<div class="ls1-text">XX开始段:</div>
 	<div class="ls1-ipts">
 		<input class="text1" type="text" name="" value="" /> - <input class="text1" type="text" name="" value="" />
 	</div>
 </div>
+}
+</pre>
+ * @author hedingliang
  */
 @SuppressWarnings("serial")
 public class TimeRange extends Item {
@@ -18,6 +22,8 @@ public class TimeRange extends Item {
 	private String valueEnd;
 	private String nameStart;
 	private String nameEnd;
+	private String idStart;
+	private String idEnd;
 
 	private boolean readonlyStart;
 	private boolean readonlyEnd;
@@ -41,12 +47,14 @@ public class TimeRange extends Item {
 	public String beforeBody() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<input class=\"text1\" type=\"text\"");
+		sb.append(getIdStart());
 		sb.append(getNameStart());
 		sb.append(getValueStart());
 		sb.append(getDisabledReadonlyStart());
 		sb.append(" />");
 		sb.append(" - ");
 		sb.append("<input class=\"text1\" type=\"text\"");
+		sb.append(getIdEnd());
 		sb.append(getNameEnd());
 		sb.append(getValueEnd());
 		sb.append(getDisabledReadonlyEnd());
@@ -97,6 +105,28 @@ public class TimeRange extends Item {
 	}
 	public void setNameEnd(String nameEnd) {
 		this.nameEnd = nameEnd;
+	}
+
+	public String getIdStart() {
+		if (idStart != null) {
+			return " id=\""+idStart+"\"";
+		}else {
+			return "";
+		}
+	}
+	public void setIdStart(String idStart) {
+		this.idStart = idStart;
+	}
+
+	public String getIdEnd() {
+		if (idEnd != null) {
+			return " id=\""+idEnd+"\"";
+		}else {
+			return "";
+		}
+	}
+	public void setIdEnd(String idEnd) {
+		this.idEnd = idEnd;
 	}
 
 	public String getDisabledReadonlyStart() {
