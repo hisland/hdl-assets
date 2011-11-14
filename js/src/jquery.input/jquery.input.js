@@ -10,39 +10,47 @@
  *		IE使用propertychange事件
  *		FF使用input事件
  * 
+ *		IE使用 this.onpropertychange = fn 形式
+ * 
  * API:
- *		$(':text').bind('input', fn);
+ *		$(':text').bind('input', fn);	//绑定一个输入事件
+ *		$(':text').input(fn);	//绑定一个输入事件
+ *		$(':text').unbind('input', fn);	//取消绑定一个输入事件
+ *		$(':text').unbind('input');	//取消绑定所有输入事件
  * 
  */
 
 KISSY.add('jquery.input', function(S, undef) {
-	var types = ['input', 'propertychange'];
-
 	function handler(e) {
-		return $.event.handle.apply(this, e);
+		e = e || window.event;
+
+		//原生支持input事件的直接触发
+		if(e.type === 'input'){
+			e = $.event.fix(e);
+			$.event.handle.apply(this, [e]);
+		}
+		//IE使用propertychange,检测change的为value才初始化并触发,不能先fix,因为会去掉propertyName属性
+		else if(e.propertyName === 'value'){
+			e = $.event.fix(e);
+			e.type = 'input';
+			e.propertyName = 'value';
+			$.event.handle.apply(this, [e]);
+		}
 	}
 
 	$.event.special.input = {
 		setup: function() {
 			if(this.addEventListener){
-				target.addEventListener('input', handler, false);
+				this.addEventListener('input', handler, false);
 			}else if(this.attachEvent){
-				this.attachEvent('onpropertychange', handler);
-			}else{
-				var oldfunc = this.onpropertychange;
-				target.onpropertychange = S.isFunction(oldfunc) ? function(){
-					oldfunc(event);
-					handler(event);
-				} : handler;
+				this.onpropertychange = handler;
 			}
 		},
 		
 		teardown: function() {
 			if (this.removeEventListener){
-				target.removeEventListener('input', handler, false);
+				this.removeEventListener('input', handler, false);
 			}else if(this.detachEvent){
-				this.detachEvent('onpropertychange', handler);
-			}else{
 				this.onpropertychange = null;
 			}
 		}
@@ -51,10 +59,6 @@ KISSY.add('jquery.input', function(S, undef) {
 	$.fn.extend({
 		input: function(fn) {
 			return fn ? this.bind("input", fn) : this.trigger("input");
-		},
-		
-		uninput: function(fn) {
-			return this.unbind("input", fn);
 		}
 	});
 }, {

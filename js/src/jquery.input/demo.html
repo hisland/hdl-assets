@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, demo-css, jquery.input, builtin', function(){
+				$('#aaa').input(function(e){
+					$('#result').append('<p>changed: '+ this.value +'</p>');
+				});
+
+				$('#ccc').click(function(e){
+					$('#aaa').val(Math.random(3,90));
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="demo-section">
+		<div class="demo-legend">不管什么情况,只要输入框内容变更就会产生input事件</div>
+		<div class="demo-box">
+			<form action="#">
+				<p>IE下程序修改value属性也会触发, FF不会</p>
+				<p><input id="aaa" class="text1" type="text" name="" value="" /><input id="ccc" type="button" name="" value="点击修改value" /></p>
+				<div id="result"></div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
