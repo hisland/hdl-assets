@@ -1,4 +1,6 @@
 @charset "utf-8";
+
+/* 模拟select */
 .moni-select{display:inline-block;vertical-align:middle;height:15px;line-height:15px;width:104px;padding:1px 15px 1px 3px;border:1px solid #7f9db9;color:#000;background:#fff url('moni-select-img/arr.gif') no-repeat right 0;outline:none;}
 .moni-select:hover{text-decoration:none;border-color:#3771a6;}
 	.moni-select-text{float:left;width:100%;white-space:nowrap;height:15px;overflow:hidden;text-overflow:ellipsis;text-align:left;}

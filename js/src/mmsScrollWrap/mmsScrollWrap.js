@@ -1,3 +1,6 @@
+/**********************************************************************************************
+ * 滚动
+ */
 (function($){
 	function scroll(speed){
 		var h = this.clientHeight, max = this.scrollHeight - h;

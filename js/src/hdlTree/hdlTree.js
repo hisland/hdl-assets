@@ -91,6 +91,8 @@ TODO:
 		walk会遍历hide的item,请检查hide属性并根据需要排除
 		反选功能
 		蹦床功能,避免递归溢出
+	2011-11-14 14:45:42:
+		默认只提供展开折叠的toggle按钮,另外一个小箭头展开折叠当前层级等各种展开需求
 */
 
 KISSY.add('hdlTree', function(S, undef) {

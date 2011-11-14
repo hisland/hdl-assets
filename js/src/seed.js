@@ -937,20 +937,20 @@ build time: Jan 14 13:56
         mix = S.mix,
 
         scriptOnload = doc.createElement('script').readyState ?
-                       function(node, callback) {
-                           var oldCallback = node.onreadystatechange;
-                           node.onreadystatechange = function() {
-                               var rs = node.readyState;
-                               if (rs === 'loaded' || rs === 'complete') {
-                                   node.onreadystatechange = null;
-                                   oldCallback && oldCallback();
-                                   callback.call(this);
-                               }
-                           };
-                       } :
-                       function(node, callback) {
-                           node.addEventListener('load', callback, false);
-                       },
+            function(node, callback) {
+                var oldCallback = node.onreadystatechange;
+                node.onreadystatechange = function() {
+                    var rs = node.readyState;
+                    if (rs === 'loaded' || rs === 'complete') {
+                        node.onreadystatechange = null;
+                        oldCallback && oldCallback();
+                        callback.call(this);
+                    }
+                };
+            } :
+            function(node, callback) {
+                node.addEventListener('load', callback, false);
+            },
 
         RE_CSS = /\.css(?:\?|$)/i,
         loader;
@@ -1002,7 +1002,7 @@ build time: Jan 14 13:56
                 name = config.host || mod.host || name;
                 mod = mods[name] || {};
 
-                // 注意:通过 S.add(name[, fn[, config]]) 注册的代码，无论是页面中的代码，还
+                // 注意：通过 S.add(name[, fn[, config]]) 注册的代码，无论是页面中的代码，还
                 //      是 js 文件里的代码，add 执行时，都意味着该模块已经 LOADED
                 mix(mod, { name: name, status: LOADED });
 
@@ -1280,7 +1280,7 @@ build time: Jan 14 13:56
                 }
             }
             // 已经在加载中，需要添加回调到 script onload 中
-            // 注意:没有考虑 error 情形
+            // 注意：没有考虑 error 情形
             else if (mod.status === LOADING) {
                 scriptOnload(node, _success);
             }
@@ -1294,10 +1294,10 @@ build time: Jan 14 13:56
                 if (mod.status !== ERROR) {
 
                     // 对于动态下载下来的模块，loaded 后，global 上有可能更新 mods 信息，需要同步到 instance 上去
-                    // 注意:要求 mod 对应的文件里，仅修改该 mod 信息
+                    // 注意：要求 mod 对应的文件里，仅修改该 mod 信息
                     if (global) self.__mixMod(self.Env.mods, global.Env.mods, mod.name, global);
 
-                    // 注意:当多个模块依赖同一个下载中的模块A下，模块A仅需 attach 一次
+                    // 注意：当多个模块依赖同一个下载中的模块A下，模块A仅需 attach 一次
                     // 因此要加上下面的 !== 判断，否则会出现重复 attach, 比如编辑器里动态加载时，被依赖的模块会重复
                     if (mod.status !== ATTACHED) mod.status = LOADED;
 
@@ -1443,11 +1443,12 @@ build time: Jan 14 13:56
         /**
          * 一定要正则化，防止出现 ../ 等相对路径
          */
-        if (!startsWith(base, "/") && !startsWith(base, "http://") && !startsWith(base, "https://") && !startsWith(base, "file:///")) {
+        if (!startsWith(base, "/") && !startsWith(base, "http://") && !startsWith(base, "https://")) {
             base = window.location.href.replace(/[^/]*$/, '') + base;
         }
         return base;
     }
+
     function startsWith(str, prefix) {
         return str.lastIndexOf(prefix, 0) == 0;
     }

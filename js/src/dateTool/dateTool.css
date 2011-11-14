@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* 日期控件 */
 .hdt-wrap{display:none;border:1px solid #9bc0e0;background:#fff;width:218px;font-size:12px;position:absolute;}
 	.hdt-ctrl{height:14px;padding:3px;background:#96C2F1;}
 		.hdt-tips{float:left;line-height:14px;color:#fff;}

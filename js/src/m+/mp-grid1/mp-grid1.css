@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* M+的组件 */
 .mp-g1-wrap{padding-left:131px;border:1px solid #c7d7eb;background:#eef5fb;color:#5f5f5f;font-size:12px;line-height:1.5em;font-weight:700;overflow:hidden;zoom:1;position:relative;}
 	.mp-g1-wrap table{border-collapse:collapse;border-spacing:0;}
 	.mp-g1-selected{background:#cee7f8;}

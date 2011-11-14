@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* 本地tab页 */
 .tab-nav{height:22px;padding:5px 0 0 5px;border-bottom:1px solid #a1c6e1;}
 	.tab-nav-wrap li{float:left;margin-right:5px;background:url('tab-nav-img/tabs.gif') no-repeat 0 0;padding-left:10px;}
 		.tab-nav-wrap a{float:left;height:22px;line-height:22px;color:#000;background:url('tab-nav-img/tabs.gif') no-repeat right 0;padding-right:10px;}

@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* 快速选择控件 */
 .fast-select-p{display:none;position:absolute;border:1px solid #7f9db9;background:#fff;z-index:8000;overflow:auto;}
 	.fast-select-loading{display:none;position:absolute;top:0;right:0;padding:0 2px;background:#eff4f8;}
 	.fast-select-is{width:160px;height:100px;overflow:auto;_position:relative;}

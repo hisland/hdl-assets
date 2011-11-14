@@ -22,8 +22,10 @@
  */
 
 KISSY.add('validString', function(S, undef) {
-	//保存每个配置
-	var items = {};
+		//保存每个配置
+	var items = {},
+		//因为以map存,如果属性为length会导致each函数认为是数组,增加前缀避免
+		__prefix = '-valid-';
 
 	//验证函数
 	function validString(name, str){
@@ -32,7 +34,7 @@ KISSY.add('validString', function(S, undef) {
 			return false;
 		}
 
-		var item = items[name], rs = false;
+		var item = items[__prefix + name], rs = false;
 
 		//函数验证
 		if(S.isFunction(item.fn)){
@@ -81,12 +83,12 @@ KISSY.add('validString', function(S, undef) {
 			}
 
 			//提示覆盖情况
-			if(items[name]){
+			if(items[__prefix + name]){
 				S.log('window.validString.add: name already exist, override it!', 'warn');
 			}
 
 			//保存设置
-			items[name] = {
+			items[__prefix + name] = {
 				fn: fn,
 				desc: desc,
 				reverse: reverse
@@ -101,7 +103,7 @@ KISSY.add('validString', function(S, undef) {
 				return this;
 			}
 
-			items[name].desc = str;
+			items[__prefix + name].desc = str;
 
 			return this;
 		},

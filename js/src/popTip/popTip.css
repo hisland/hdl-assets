@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* 弹出提示 */
 .hm-tip1-wrap{position:absolute;padding:5px 0;width:200px;height:100px;}
 	.hm-tip1-h{margin-top:-5px;padding-left:5px;background:url('popTip-img/bg.gif') no-repeat 0 0;}
 	.hm-tip1-h2{padding-right:5px;background:url('popTip-img/bg.gif') no-repeat right 0;}

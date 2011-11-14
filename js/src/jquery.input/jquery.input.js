@@ -1,14 +1,14 @@
 /**********************************************************************************************
- * ����: ��������ݱ仯ʱ�������¼�
- * ����: hisland
- * �ʼ�: hisland@qq.com
- * ʱ��: @TIMESTAMP@
- * �汾: @VERSION@
+ * 名称: 输入框内容变化时触发的事件
+ * 作者: hisland
+ * 邮件: hisland@qq.com
+ * 时间: @TIMESTAMP@
+ * 版本: @VERSION@
  * 
  * NOTICE:
- *		����������ı��ı䷽ʽ�ж���(��������,�Ҽ�����...)
- *		IEʹ��propertychange�¼�
- *		FFʹ��input�¼�
+ *		由于输入框文本改变方式有多种(键盘输入,右键操作...)
+ *		IE使用propertychange事件
+ *		FF使用input事件
  * 
  * API:
  *		$(':text').bind('input', fn);

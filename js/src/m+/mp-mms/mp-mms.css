@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* M+的组件 */
 .mp-mms-wrap{position:relative;padding-left:60px;zoom:1;}
 	.mp-mms-l{border:1px solid #d4c3d5;width:54px;position:absolute;left:0;top:0;}
 		.mp-mms-o{height:12px;padding:5px 1px 3px;background:#d4c3d5;}

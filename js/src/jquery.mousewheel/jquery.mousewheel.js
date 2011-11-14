@@ -7,8 +7,9 @@
  * Version: 3.0.2
  * 
  * Requires: 1.2.2+
+ * 鼠标中键滚动事件处理
+ * 
  */
-
 KISSY.add('jquery.mousewheel', function(S, undef) {
 
 var types = ['DOMMouseScroll', 'mousewheel'];

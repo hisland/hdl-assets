@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* 异步tab */
 .ajax-tab{}
 	.ajax-tab-nav{height:22px;padding:5px 0 0 5px;border-bottom:1px solid #a1c6e1;}
 		.ajax-tab-nav li{float:left;margin-right:5px;background:url('ajax-tab-img/tabs.gif') no-repeat 0 0;padding-left:10px;}

@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* 自定义表格 */
 .hdlgrid-wrap{position:relative;}
 	.hdlgrid-nowrap th, .hdlgrid-nowrap td{white-space:nowrap;}
 

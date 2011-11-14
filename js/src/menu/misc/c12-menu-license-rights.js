@@ -1,174 +1,174 @@
-// 1. ÊµÊ±BOSS²ÎÊıÅäÖÃ
+// 1. å®æ—¶BOSSå‚æ•°é…ç½®
 put(SysConstants.REAL_TIME_BOSS_,
 	license.getBossCheck() == Constants.ACTIVE
 		&& (license.getBossType()== SysInterfaceService.BOSS_TYPE_10
 			|| license.getBossType()==SysInterfaceService.BOSS_TYPE_11
 			|| license.getBossType()==SysInterfaceService.BOSS_TYPE_12) );
 
-// 2. ·ÇÊµÊ±BOSS²ÎÊıÅäÖÃ
+// 2. éå®æ—¶BOSSå‚æ•°é…ç½®
 put(SysConstants.NOT_REAL_TIME_,
 	license.getBossCheck() == Constants.ACTIVE
 		&& (license.getBossType()== SysInterfaceService.BOSS_TYPE_1
 			|| license.getBossType()==SysInterfaceService.BOSS_TYPE_0
 			|| license.getBossType()==SysInterfaceService.BOSS_TYPE_2) );
 
-// 3. ÉóºËÆ½Ì¨½Ó¿Ú²ÎÊıÅäÖÃ
+// 3. å®¡æ ¸å¹³å°æ¥å£å‚æ•°é…ç½®
 put(SysConstants.AUDITING_FLAT_,
 	license.getBossCheck() == Constants.ACTIVE
 		&& license.getMsgRelax()==Constants.ACTIVE 
 		&& (license.getBossType()== SysInterfaceService.BOSS_TYPE_3
 			|| license.getBossType()==SysInterfaceService.BOSS_TYPE_4) );
 
-// 4. Íâ²¿½Ó¿ÚÆ½Ì¨ÕÊ»§¹ÜÀí
+// 4. å¤–éƒ¨æ¥å£å¹³å°å¸æˆ·ç®¡ç†
 put(SysConstants.SYS_INTERFACEUSER_,
 	(license.getComplaints() == Constants.ACTIVE 
 		|| license.getCustomerServiceSys() == Constants.ACTIVE) );
 
-// 5. ÓÃ»§ÈºFTP½Ó¿ÚÅäÖÃ
+// 5. ç”¨æˆ·ç¾¤FTPæ¥å£é…ç½®
 put(SysConstants.USRGRP_FTP_CFG_,
 	license.getUserGroup()==Constants.ACTIVE
 		&& (license.getGroupCfg().get(0).getUserGroupInter()==Constants.ACTIVE
 			|| license.getGroupCfg().get(1).getUserGroupInter()==Constants.ACTIVE) );
 
-// 6. »ÒÃûµ¥½Ó¿Ú¹ÜÀí
+// 6. ç°åå•æ¥å£ç®¡ç†
 put(SysConstants.GRAY_INTERFACE_CFG_,
 	license.getGrayCheck() == Constants.ACTIVE );
 
-// 7. ¸´ÖÆ¿¨¼à¿Ø²ÎÊıÅäÖÃ
+// 7. å¤åˆ¶å¡ç›‘æ§å‚æ•°é…ç½®
 put(SysConstants.SYS_MM5_,
 	license.getStrategyCfg().get(11).getModelActive() == Constants.ACTIVE );
 
-// 8. »º´æ¶ÌĞÅ²ÎÊıÅäÖÃ
+// 8. ç¼“å­˜çŸ­ä¿¡å‚æ•°é…ç½®
 put(SysConstants.CACHE_PARAMS_,
 	license.getRealtime() == Constants.REAL_TIME
 		&& license.getMsgRelax()==Constants.ACTIVE );
 
-// 9. ÓÃ»§Èº¹ÜÀí
+// 9. ç”¨æˆ·ç¾¤ç®¡ç†
 put(SysConstants.GROUPS_,
 	license.getUserGroup()==Constants.ACTIVE );
 
-// 10. ÓÃ»§ÈºÃûµ¥¹ÜÀí
+// 10. ç”¨æˆ·ç¾¤åå•ç®¡ç†
 put(SysConstants.USER_GROUP_,
 	license.getUserGroup() == Constants.ACTIVE );
 
-// 11. »ÒÃûµ¥¹ÜÀí
+// 11. ç°åå•ç®¡ç†
 put(SysConstants.GRAY_LISTS_,
 	license.getGrayCheck() == Constants.ACTIVE );
 
-// 12. ÌØÊâºÅÂë¹ÜÀí
+// 12. ç‰¹æ®Šå·ç ç®¡ç†
 put(SysConstants.SPECIAL_NUMBER_,
 	license.getSpecialNumber() == Constants.ACTIVE );
 
-// 13. ±¾Ê¡ºÅ¶Î¹ÜÀí
+// 13. æœ¬çœå·æ®µç®¡ç†
 put(SysConstants.LOCAL_PHONE_,
 	license.getStrategyCfg().get(5).getModelActive()  == Constants.ACTIVE );
 
-// 14. MO_MSC_ID¹ÜÀí
+// 14. MO_MSC_IDç®¡ç†
 put(SysConstants.SYS_MO_MSC_,
 	license.getStrategyCfg().get(11).getModelActive()  == Constants.ACTIVE );
 
-// 15. Æ·ÅÆ¹ÜÀí
+// 15. å“ç‰Œç®¡ç†
 put(SysConstants.SIGN_BRAND_,
 	license.getAreaCheck() == Constants.ACTIVE );
 
-// 16. ¹éÊôºÅÊ×¹ÜÀí
+// 16. å½’å±å·é¦–ç®¡ç†
 put(SysConstants.SIGN_AREANUM_,
 	license.getAreaCheck() == Constants.ACTIVE );
 
-// 17. ÌáÈ¡µç»°ºÅÂë¹ÜÀí
+// 17. æå–ç”µè¯å·ç ç®¡ç†
 put(SysConstants.SYS_GET_PHONE_,
 	license.getPhoneCheck() == Constants.ACTIVE );
 
-// 18. SP½ÓÈëºÅÅäÖÃ¹ÜÀí
+// 18. SPæ¥å…¥å·é…ç½®ç®¡ç†
 put(SysConstants.SP_NUMBER_ ,
 	license.getRealtime() == Constants.REAL_TIME
 		&& license.getSpMonitor() == Constants.ACTIVE );
 
-// 19. ÉæÏÓÎ¥¹æSP¹ÜÀí
+// 19. æ¶‰å«Œè¿è§„SPç®¡ç†
 put(SysConstants.ALARM_SUSPECT_SP_ ,
 	license.getSuspectSp() == Constants.ACTIVE );
 
-// 20. ±»½Ğ°×Ãûµ¥¹ÜÀí
+// 20. è¢«å«ç™½åå•ç®¡ç†
 put(SysConstants.WHITE_LISTSR_,
 	license.getReceiptorCheck() == Constants.ACTIVE );
 
-// 21. ±»½ĞºÚÃûµ¥¹ÜÀí
+// 21. è¢«å«é»‘åå•ç®¡ç†
 put(SysConstants.BLK_LISTSR_,
 	license.getBlklistR() == Constants.ACTIVE );
 
-// 22. ¹Ø¼ü×Ö²ÎÊıÉèÖÃ
+// 22. å…³é”®å­—å‚æ•°è®¾ç½®
 put(SysConstants.KEY_PARAM_,
 	license.getKeyauto() == Constants.ACTIVE );
 
-// 23. ¹Ø¼ü×Ö·Ö¸ô·û¹ÜÀí
+// 23. å…³é”®å­—åˆ†éš”ç¬¦ç®¡ç†
 put(SysConstants.KEY_CHAR_,
 	license.getKeychar() != Constants.IN_ACTIVE );
 
-// 24. ÏÓÒÉ¶ÌĞÅ¹ÜÀí
+// 24. å«Œç–‘çŸ­ä¿¡ç®¡ç†
 put(SysConstants.KEY_POOL_,
 	license.getKeypool() == Constants.ACTIVE );
 
-// 25. ¹Ø¼ü×Ö×Ô¶¯µ¼Èë²ÎÊı
+// 25. å…³é”®å­—è‡ªåŠ¨å¯¼å…¥å‚æ•°
 put(SysConstants.KEY_AUTO_INPUT_,
 	license.getKeywordsAutoInput() == Constants.ACTIVE );
 
-// 26. Ìá½»ÉóºËÍ³¼Æ
+// 26. æäº¤å®¡æ ¸ç»Ÿè®¡
 put(SysConstants.STA_BOSSQ_,
 	license.getBossCheck() == Constants.ACTIVE );
 
-// 27. Ìá½»ÉóºË°´ÈÕÍ³¼Æ
+// 27. æäº¤å®¡æ ¸æŒ‰æ—¥ç»Ÿè®¡
 put(SysConstants.REP_DATE_BLACKLISTQ_,
 	license.getBossCheck() == Constants.ACTIVE );
 
-// 28. ºÚÃûµ¥Í³¼Æ
+// 28. é»‘åå•ç»Ÿè®¡
 put(SysConstants.DATA_BLKLISTSQ_,
 	license.getRealtime() == Constants.REAL_TIME );
 
-// 29. ÓÃ»§ÈºÎ¥¹æÍ³¼Æ
+// 29. ç”¨æˆ·ç¾¤è¿è§„ç»Ÿè®¡
 put(SysConstants.SUM_USERGROUPQ_,
 	license.getUserGroup()==Constants.ACTIVE );
 
-// 30. ¹Ø¼ü×ÖÀ¹½ØĞ§ÂÊÍ³¼Æ
+// 30. å…³é”®å­—æ‹¦æˆªæ•ˆç‡ç»Ÿè®¡
 put(SysConstants.KEYWORDSRATEQ_,
 	license.getKeyrateCheck() == Constants.ACTIVE );
 
-// 31. ¹Ø¼ü×ÖÀ¹½ØÍ³¼ÆºÚÃûµ¥À¹½ØÍ³¼Æ
+// 31. å…³é”®å­—æ‹¦æˆªç»Ÿè®¡é»‘åå•æ‹¦æˆªç»Ÿè®¡
 put(SysConstants.REPKEYWORDSSTOPQ_,
 	license.getRealtime() == Constants.REAL_TIME);
 
-// 32. Ö÷½ĞÆµ´ÎÍ³¼Æ
+// 32. ä¸»å«é¢‘æ¬¡ç»Ÿè®¡
 put(SysConstants.SUM_SENDERQ_,
 	license.getRealtime() == Constants.NOT_REAL_TIME
 		&& license.getSumsender() == Constants.ACTIVE );
 
-// 33. ¶ÌĞÅ»º´æÍ³¼ÆÏµÍ³´¦Àí·åÖµÍ³¼ÆÏµÍ³ÔËĞĞÍ³¼Æ
+// 33. çŸ­ä¿¡ç¼“å­˜ç»Ÿè®¡ç³»ç»Ÿå¤„ç†å³°å€¼ç»Ÿè®¡ç³»ç»Ÿè¿è¡Œç»Ÿè®¡
 put(SysConstants.REPCACHEQ_,
 	license.getRealtime() == Constants.REAL_TIME );
 
-// 34. ¶ÌĞÅ»º´æÍ³¼ÆÏµÍ³´¦Àí·åÖµÍ³¼Æ
+// 34. çŸ­ä¿¡ç¼“å­˜ç»Ÿè®¡ç³»ç»Ÿå¤„ç†å³°å€¼ç»Ÿè®¡
 put(SysConstants.REPCACHEQ_,
 	license.getMsgRelax() == Constants.ACTIVE );
 
-// 35. ÏµÍ³ÔËĞĞÍ³¼Æ
+// 35. ç³»ç»Ÿè¿è¡Œç»Ÿè®¡
 put(SysConstants.REP_SYSTEMRUN_COUNTQ_,
 	license.getRunReport() == Constants.ACTIVE );
 
-// 36. ÌáÈ¡ºÅÂë¶ÌÏûÏ¢²éÑ¯
+// 36. æå–å·ç çŸ­æ¶ˆæ¯æŸ¥è¯¢
 put(SysConstants.DATA_SM_PHONEQ_,
 	license.getPhoneCheck() == Constants.ACTIVE );
 
-// 37. Ìá½»ÉóºË¼ÇÂ¼²éÑ¯
+// 37. æäº¤å®¡æ ¸è®°å½•æŸ¥è¯¢
 put(SysConstants.BOSS_TOLISTQ_,
 	license.getBossCheck() == Constants.ACTIVE );
 
-// 38. ÉóºË½á¹û¼ÇÂ¼²éÑ¯
+// 38. å®¡æ ¸ç»“æœè®°å½•æŸ¥è¯¢
 put(SysConstants.BOSS_BACK_LISTQ_,
 	license.getBossCheck() == Constants.ACTIVE );
 
-// 39.·ÉĞÅÆ½Ì¨½Ó¿Ú¹ÜÀí
+// 39.é£ä¿¡å¹³å°æ¥å£ç®¡ç†
 put(SysConstants.SYS_CLIENT_INFO_,
 	license.getKeywordsOuterSoap() == Constants.ACTIVE ); 
 
-// 40. °´ÕËºÅÍ³¼Æ
+// 40. æŒ‰è´¦å·ç»Ÿè®¡
 put(SysConstants.REP_BY_USERQ_,
 	license.getByUserCount() == Constants.ACTIVE );

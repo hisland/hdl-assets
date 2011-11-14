@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* 省市联动 */
 .province-city{float:left;width:170px;height:300px;overflow:auto;padding-bottom:10px;border:1px solid #C7D2D7;}
 	.province-city a{display:block;padding:2px 0 0;color:#4E4E4E;text-align:center;text-decoration:none;outline:none;}
 	.province-city a:hover{background:#e2edfc;}

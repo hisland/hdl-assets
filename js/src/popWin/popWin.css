@@ -1,3 +1,6 @@
+@charset "utf-8";
+
+/* 弹出层样式 */
 .win1-wrap{background-color:#fff;border:1px solid #92b1dc;overflow:hidden;padding:1px;position:absolute;}
 
 	.win1-title-wrap{background:url('popWin-img/bg1.gif') repeat-x 0 0;padding:0 20px 0 10px;position:relative;}
