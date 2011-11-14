@@ -12,7 +12,7 @@ then
 	exit 1
 fi
 
-cp -r mod-template $1
+cp -r ../misc/mod-template $1
 cd $1
 
 mkdir misc $1-img
