@@ -44,11 +44,12 @@ KISSY.add('weekTool', function(S, undef) {
 	var msg_please_check = '请选择',
 		msg_ok = '确定',
 		msg_close_title = '双击选择并关闭';
+	
 	//JS国际化信息覆盖
 	if(window.JS_I18N){
-		msg_please_check = JS_I18N['js.common.provinceCity.msg_please_check'];
-		msg_ok = JS_I18N['js.common.provinceCity.msg_ok'];
-		msg_close_title = JS_I18N['js.common.provinceCity.msg_close_title'];
+		msg_please_check = JS_I18N['js.common.weekTool.msg_please_check'];
+		msg_ok = JS_I18N['js.common.weekTool.msg_ok'];
+		msg_close_title = JS_I18N['js.common.weekTool.msg_close_title'];
 	}
 
 	var $ = jQuery,

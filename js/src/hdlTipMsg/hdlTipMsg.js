@@ -22,16 +22,26 @@
 
 KISSY.add('hdlTipMsg', function(S, undef) {
 	var $ = jQuery,
-
 		msg_alert = '提示',
 		msg_error = '错误',
 		msg_notice = '警告',
 		msg_confirm = '确认',
 		msg_defalt = '默认信息',
 		msg_ok = '确定',
-		msg_cancle = '取消',
+		msg_cancle = '取消';
 
-		html_string = '<div class="tipmsg-wrap"><div class="tipmsg-h1"><div class="tipmsg-h2"><div class="tipmsg-h3"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div></div></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg-b1"><div class="tipmsg-b2"><div class="tipmsg-b3"><input type="button" value="'+msg_ok+'" /></div></div></div></div>',
+	//JS国际化信息的覆盖
+	if(window.JS_I18N){
+		msg_alert = JS_I18N['js.common.hdlTipMsg.msg_alert'];
+		msg_error = JS_I18N['js.common.hdlTipMsg.msg_error'];
+		msg_notice = JS_I18N['js.common.hdlTipMsg.msg_notice'];
+		msg_confirm = JS_I18N['js.common.hdlTipMsg.msg_confirm'];
+		msg_defalt = JS_I18N['js.common.hdlTipMsg.msg_defalt'];
+		msg_ok = JS_I18N['js.common.hdlTipMsg.msg_ok'];
+		msg_cancle = JS_I18N['js.common.hdlTipMsg.msg_cancle'];
+	}
+	
+	var html_string = '<div class="tipmsg-wrap"><div class="tipmsg-h1"><div class="tipmsg-h2"><div class="tipmsg-h3"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div></div></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg-b1"><div class="tipmsg-b2"><div class="tipmsg-b3"><input type="button" value="'+msg_ok+'" /></div></div></div></div>',
 		html_css3 = '<div class="tipmsg-wrap"><div class="tipmsg2-h1"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg2-b1"><input type="button" value="'+msg_ok+'" /></div></div>',
 		pre_setting = {
 			message: msg_defalt,

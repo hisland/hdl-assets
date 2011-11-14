@@ -14,7 +14,7 @@
  * 
  */
 
-KISSY.add('hdlGrid', function(S, undef) {
+KISSY.add('DBC-SBC', function(S, undef) {
 	jQuery.extend({
 		//全角转半角(Single-Byte Character)
 		toSBC: function(str){

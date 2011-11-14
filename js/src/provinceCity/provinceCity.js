@@ -16,6 +16,7 @@ KISSY.add('provinceCity', function(S, undef) {
 		msg_ok = '确定',
 		msg_all_all = '全部-全部',
 		msg_close_title = '双击选择并关闭';
+	
 	//JS国际化信息覆盖
 	if(window.JS_I18N){
 		msg_please_check = JS_I18N['js.common.provinceCity.msg_please_check'];

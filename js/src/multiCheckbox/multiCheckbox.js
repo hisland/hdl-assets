@@ -19,9 +19,18 @@ KISSY.add('multiCheckbox', function(S, undef) {
 		msg_select_all = '全选',
 		msg_select_rev = '反选',
 		msg_select_no = '不选',
-		msg_ok = '确定',
+		msg_ok = '确定';
 
-		pop = $.popWin.init(),
+	//JS国际化信息的覆盖
+	if(window.JS_I18N){
+		msg_please_check = JS_I18N['js.common.multiCheckbox.msg_please_check'];
+		msg_select_all = JS_I18N['js.common.multiCheckbox.msg_select_all'];
+		msg_select_rev = JS_I18N['js.common.multiCheckbox.msg_select_rev'];
+		msg_select_no = JS_I18N['js.common.multiCheckbox.msg_select_no'];
+		msg_ok = JS_I18N['js.common.multiCheckbox.msg_ok'];
+	}
+	
+	var pop = $.popWin.init(),
 
 		$ctrl = $('<p style="padding:0 0 5px;"><input type="button" class="button" value="' + msg_select_all + '" />&nbsp;&nbsp;<input type="button" class="button" value="' + msg_select_rev + '" />&nbsp;&nbsp;<input type="button" class="button" value="' + msg_select_no + '" /></p>'),
 		$select_all = $ctrl.find('input:first'),
