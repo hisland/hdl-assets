@@ -161,13 +161,112 @@
  */
 
 KISSY.add('hdlValidator', function(S, undef) {
-	var __prefix = '-hdl-validator-';
+	var $ = jQuery,
+		__prefix = '-hdl-validator-',
+		EMPTY = '';
+
+	function itemSetting(){
+		
+	}
+	S.augment(itemSetting, {
+		__init: function(){
+			this._group = 1;
+			return this;
+		},
+		__group: function(){
+			return this['group' + this._group];
+		},
+		group: function(n){
+			if(!S.isNumber(n)){
+				
+			}
+			this._group = n;
+		},
+		charlen: function(n, m){
+			if(m > n){
+				S.log('$().hdlValidator().charlen(n, m): n must <= m!', 'warn');
+				return ;
+			}
+			if(this.__group()[__prefix + 'charlen']){
+				S.log('$().hdlValidator().charlen(n, m): charlen has been set!', 'warn');
+				return ;
+			}
+
+			this.__group()[__prefix + 'charlen'] = function(str){
+				var len = (EMPTY + str).length;
+				if(len >= n && len <= m){
+					this.valid = true;
+				}else{
+					this.valid = false;
+				}
+			}
+
+			return this;
+		},
+		valid: function(){
+			var ok = true;
+			//外面的组都是且关系,全部通过才验证成功
+			S.each(this.__group(), function(v, i, o){
+				//为数组时,表示或关系,只要有一个通过该组就通过
+				if(S.isArray(v)){
+					var ok2 = false;
+					S.each(v, function(v, i, o){
+						if(v.valid){
+							ok2 = true;
+							return false;//break;
+						}
+					});
+					if(!ok2){
+						ok = false;
+						return false;//break;
+					}
+				}else if(!v.valid){
+					ok = false;
+					return false;//break;
+				}
+			});
+			return ok;
+		}
+	});
 
 
-	//执行生成uid, native与dom都通过id进行交流
-	//使用kissy的guid
-	S.guid(__prefix);
+	function formSubmit(e){
+		if(this.allValid){
+			
+		}else{
+			e.preventDefault();
+		}
+	}
 
+	function iptFocus(e){
+		
+	}
+	function iptInput(e){
+		
+	}
+	function iptBlur(e){
+		
+	}
+
+	$.fn.extend({
+		hdlValidator: function(setting){
+			if(S.isFunction(setting)){
+				setting = {callback: setting};
+			}else if(S.isPlainObject(setting)){
+				
+			}else if(S.isString(setting)){
+				
+			}
+
+			this.each(function(i, v){
+				if($(this).data('--valid-setting')){
+					$(this).data('--valid-setting', {});
+				}
+			});
+
+			return this.data('--valid-setting');
+		}
+	});
 }, {
-	requires: ['jquery-1.4.2', 'adjustElement', 'validString']
+	requires: ['jquery-1.4.2', 'adjustElement', 'validString', 'jquery.input']
 });
