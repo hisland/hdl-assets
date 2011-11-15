@@ -19,5 +19,5 @@
 		.auto-comp-a:hover{text-decoration:none;background:#eff4f8;}
 		.auto-comp-as .hover{background:#d9e4ed;}
 	.auto-comp-page{margin:0 3px;height:18px;padding:2px;border-top:1px solid #dbe4ec;_position:relative;}
-		.auto-comp-prev{margin-right:5px;visibility:hidden;}
-		.auto-comp-next{margin-right:5px;visibility:hidden;}
+		.auto-comp-prev{margin-right:5px;;}
+		.auto-comp-next{margin-right:5px;}

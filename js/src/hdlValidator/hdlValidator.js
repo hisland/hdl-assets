@@ -166,7 +166,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 		EMPTY = '';
 
 	function itemSetting(){
-		
+		this.__init();
 	}
 	S.augment(itemSetting, {
 		__init: function(){
@@ -174,16 +174,21 @@ KISSY.add('hdlValidator', function(S, undef) {
 			return this;
 		},
 		__group: function(){
+			if(!this['group' + this._group]){
+				this['group' + this._group] = {};
+			}
 			return this['group' + this._group];
 		},
 		group: function(n){
-			if(!S.isNumber(n)){
-				
+			if(S.isNumber(n)){
+				this._group = n;
+			}else{
+				S.log('$().hdlValidator().group(n): n must be a number!', 'warn');
 			}
-			this._group = n;
+			return this;
 		},
 		charlen: function(n, m){
-			if(m > n){
+			if(n > m){
 				S.log('$().hdlValidator().charlen(n, m): n must <= m!', 'warn');
 				return ;
 			}
@@ -192,18 +197,34 @@ KISSY.add('hdlValidator', function(S, undef) {
 				return ;
 			}
 
-			this.__group()[__prefix + 'charlen'] = function(str){
-				var len = (EMPTY + str).length;
-				if(len >= n && len <= m){
-					this.valid = true;
-				}else{
-					this.valid = false;
+			this.__group()[__prefix + 'charlen'] = {
+				fn: function(str){
+					var len = (EMPTY + str).length;
+					if(len >= n && len <= m){
+						this.valid = true;
+					}else{
+						this.valid = false;
+					}
 				}
-			}
+			};
 
 			return this;
 		},
-		valid: function(){
+		valid: function(str){
+			//外面的组都是且关系,全部通过才验证成功
+			S.each(this.__group(), function(v, i, o){
+				//为数组时,表示或关系,只要有一个通过该组就通过
+				if(S.isArray(v)){
+					S.each(v, function(v, i, o){
+						v.fn(str);
+					});
+				}else{
+					v.fn(str);
+				}
+			});
+			return this;
+		},
+		isValid: function(){
 			var ok = true;
 			//外面的组都是且关系,全部通过才验证成功
 			S.each(this.__group(), function(v, i, o){
@@ -229,7 +250,6 @@ KISSY.add('hdlValidator', function(S, undef) {
 		}
 	});
 
-
 	function formSubmit(e){
 		if(this.allValid){
 			
@@ -242,7 +262,7 @@ KISSY.add('hdlValidator', function(S, undef) {
 		
 	}
 	function iptInput(e){
-		
+		$(this).data('--valid-setting').valid(this.value);
 	}
 	function iptBlur(e){
 		
@@ -259,8 +279,10 @@ KISSY.add('hdlValidator', function(S, undef) {
 			}
 
 			this.each(function(i, v){
-				if($(this).data('--valid-setting')){
-					$(this).data('--valid-setting', {});
+				//只初始化一次
+				if(!$(this).data('--valid-setting')){
+					$(this).data('--valid-setting', new itemSetting());
+					$(this).focus(iptFocus).input(iptInput).blur(iptBlur);
 				}
 			});
 

@@ -33,9 +33,9 @@ EOD;
 $str2 = <<<EOD
 {
 	"perPageNum": 15,
-	"currPage": 1,
-	"beginNum": 1,
-	"endNum": 15,
+	"currPage": 2,
+	"beginNum": 16,
+	"endNum": 30,
 	"totals": 48,
 	"currRecordNum": 15,
 	"allPage": 5,

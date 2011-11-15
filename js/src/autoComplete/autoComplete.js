@@ -34,7 +34,7 @@ KISSY.add('autoComplete', function(S, undef) {
 		msg_loading = '加载中...',
 		msg_prev = '上一页',
 		msg_next = '下一页',
-		msg_count = '${from}-${to}/${totals}条',
+		msg_count = '{beginNum}-{endNum}/{totals}条',
 		pager_ajax = $.pagerAjax(),
 		target_ipt, target_setting;
 
@@ -52,27 +52,43 @@ KISSY.add('autoComplete', function(S, undef) {
 
 	//加载中各状态
 	pager_ajax.setLoading(function(){
+		div_list.css('opacity', 0.3);
 		div_loading.show();
+		a_next.add(a_prev).css('visibility', 'hidden');
+		span_state.hide();
 	}).setLoaded(function(){
+		div_list.css('opacity', 1);
 		div_loading.hide();
+
+		if(this.currPage < this.allPage){
+			a_next.css('visibility', '');
+		}else{
+			a_next.css('visibility', 'hidden');
+		}
+		if(this.currPage > 1){
+			a_prev.css('visibility', '');
+		}else{
+			a_prev.css('visibility', 'hidden');
+		}
+
+		span_state.show().html(S.substitute(msg_count, this));
 	});
 
 	//按键延迟过滤
 	function delayPress(val){
 		if(target_setting.prev_val !== val){
-			div_list.fadeTo('fast', 0.1);
 			clearTimeout(delay_handler);
 			delay_handler = setTimeout(function(){
 				changeText(val);
 			}, delay);
 		}else{
-			div_list.fadeTo('fast', 1);
+			clearTimeout(delay_handler);
 		}
 	}
 
 	//此会保存prev_val值
 	function changeText(val){
-		pager_ajax.setCallback(function(rs){
+		pager_ajax.setParam("keycontent="+val).setCallback(function(rs){
 			target_setting.prev_val = val;
 			makeList(rs.rows);
 		}).getPage(1);
@@ -80,14 +96,21 @@ KISSY.add('autoComplete', function(S, undef) {
 
 	//点击展开所有
 	function spanClick(e){
-		pager_ajax.setCallback(function(rs){
-			makeList(rs.rows);
-		}).getPage(1);
+		//禁用时直接退出
+		if($(this).parent().is('.auto-comp-disabled')){
+			return ;
+		}
+		div_pop.adjustElement($(this).parent()).show();
+		$(document).mousedown(docClose);
+		target_ipt = $(this).prev()[0];
+		target_setting = $(target_ipt).data('--auto-comp-setting');
+		pager_ajax.setUrl(target_setting.url);
+		changeText('');
 	}
 
 	//选择某个选项
 	function userSelect(dt){
-		
+		$(target_ipt).val(dt.text());
 	}
 
 	//生成下拉列表
@@ -106,51 +129,6 @@ KISSY.add('autoComplete', function(S, undef) {
 		}
 	}
 
-	//上下选择及匹配操作
-	function iptKeyPress(e){
-		var a = div_list.find('.hover'), key_code = e.keyCode || e.charCode, tmp;
-
-		if(!div_opened){
-			target = $(this);
-			popShow();
-		}else if(key_code === 13){
-			a.click();
-			popHide();
-		}
-
-		//向上
-		if(key_code === 38){
-			tmp = a.prev();
-			if(a.length && tmp.length){
-				tmp.addClass('hover');
-				a.removeClass('hover');
-			}else{
-				div_list.find('a:last').addClass('hover');
-			}
-		}
-		//向下
-		else if(key_code === 40){
-			tmp = a.next();
-			if(a.length && tmp.length){
-				tmp.addClass('hover');
-				a.removeClass('hover');
-			}else{
-				div_list.find('a:first').addClass('hover');
-			}
-		}
-		//下面这些情况,重新进行匹配
-		else if((key_code >= 48 && key_code <= 90)//[0-9a-z]
-					|| key_code == 32//空格
-					|| key_code == 8//backspace
-					|| key_code == 46//delete
-					|| (key_code >= 96 && key_code <= 111)//小键盘0-9+-*/.
-					|| (key_code >= 186 && key_code <= 192)//<>,./?~` ie:+=-_
-					|| (key_code >= 219 && key_code <= 222)){//{}[]\|'"
-
-			delayPress(this.value);
-		}
-	}
-
 	//全局监听关闭
 	function docClose(e){
 		if(!$(e.target).closest('.auto-comp-pop, .auto-comp').length){
@@ -159,17 +137,19 @@ KISSY.add('autoComplete', function(S, undef) {
 	}
 	//获得焦点的时候初始化
 	function iptFocus(e){
-		div_pop.adjustElement($(this).parent());
+		div_pop.adjustElement($(this).parent()).show();
 		$(document).mousedown(docClose);
 		target_ipt = this;
-		target_setting = this.auto_comp;
+		target_setting = $(target_ipt).data('--auto-comp-setting');
+		pager_ajax.setUrl(target_setting.url);
+		changeText(this.value);
 	}
 	//失去焦点需要最后执行一次,因为有可能速度非常快
 	function iptBlur(e){
 		changeText(this.value);
 	}
 	//采用input事件.当内容有变化时执行,不管是怎么变化的(键盘,右键还是其它的...)
-	function input(e){
+	function iptInput(e){
 		delayPress(this.value);
 	}
 	function popHide(){
@@ -189,17 +169,9 @@ KISSY.add('autoComplete', function(S, undef) {
 		}
 	});
 	a_prev = div_pop.find('a.auto-comp-prev').html(msg_prev).click(function(e){
-		a_next.show();
-		if(pager_ajax.currPage === 2){
-			$(this).hide();
-		}
 		pager_ajax.prev();
 	});
 	a_next = a_prev.next().html(msg_next).click(function(e){
-		a_prev.show();
-		if(pager_ajax.currPage+1 === pager_ajax.allPage){
-			$(this).hide();
-		}
 		pager_ajax.next();
 	});
 	span_state = a_next.next();
@@ -208,13 +180,18 @@ KISSY.add('autoComplete', function(S, undef) {
 
 	//初始化函数
 	function autoComplete(setting){
+		if(setting === 'disabled'){
+			setting = {disabled: true};
+		}else if(setting === 'enable'){
+			setting = {disabled: false};
+		}
+
 		return this.filter(':text').each(function(i, v){
 			if(!$(this).data('--auto-comp-setting')){
+				$(this).data('--auto-comp-setting', S.mix(setting, default_setting, false));
 				$(this).wrap('<span class="auto-comp"></span>').after('<span></span>')
-					.focus(iptFocus).keypress(iptKeyPress).keydown(iptKeyDown)
-					.next();//.mousedown(elmClick);
-
-				$(this).data('--auto-comp-setting', S.mix(setting, default_setting));
+					.focus(iptFocus).keydown(iptKeyDown).input(iptInput)
+					.next().mousedown(spanClick);
 			}else{
 				S.mix($(this).data('--auto-comp-setting'), setting);
 			}
@@ -234,5 +211,5 @@ KISSY.add('autoComplete', function(S, undef) {
 		autoComplete: autoComplete
 	});
 }, {
-	requires: ['jquery-1.4.2', 'adjustElement', 'pager']
+	requires: ['jquery-1.4.2', 'adjustElement', 'pager', 'jquery.input']
 });

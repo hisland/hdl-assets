@@ -146,9 +146,12 @@ KISSY.add('pager', function(S, undef) {
 				//TODO:param为String, Array, Object的时候的统一处理
 				if(S.isString(param)){
 					param = S.unparam(param);
+					param[this.var_page] = page;
 				}
-				param = $.param(param);
-				param = (param ? param + '&' : '') + this.var_page + '=' + page;
+				if(S.isArray(param)){
+					//数组方式的参数
+				}
+				param = S.param(param);
 
 				//已经在加载中,取消上次
 				if(this.loading){
@@ -160,8 +163,8 @@ KISSY.add('pager', function(S, undef) {
 
 				this.__req = $.post(this.__url, param, function(rs){
 					me.loading = false;
-					me.__loaded();
 					S.mix(me, rs);
+					me.__loaded();
 					me.__callback(me);
 				}, 'json');
 			}else{
