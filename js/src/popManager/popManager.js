@@ -29,14 +29,26 @@
  * 			ESC隐藏控制
  * 
  */
-
+/**
+ * @module popManager
+ * @author hedingliang
+ */
 KISSY.add('popManager', function(S, undef) {
 	var $ = jQuery,
 		html_string = '<div class="pop-manager-wrap" style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;"></div>',
 		mask_string = '<div class="pop-manager-mask" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>',
+		/**
+		 * 弹出层管理命名空间
+		 * @namespace popManager
+		 */
 		popManager = {};
 
-	//清除所有的弹出层包含块
+	/**
+	 * 清除所有的弹出层包含块
+	 * @param {boolean} force 为true时强制删除所有,其它不会删除带not-remove的class的层
+	 * @return popManager
+	 * @memberof popManager
+	 */
 	popManager.clean = function(force){
 		if(force === true){
 			$('div.pop-manager-wrap').remove();
@@ -46,7 +58,11 @@ KISSY.add('popManager', function(S, undef) {
 		return this;
 	}
 
-	//初始化一个弹出层包含块
+	/**
+	 * 初始化一个弹出层包含块
+	 * @instance
+	 * @memberof popManager
+	 */
 	popManager.init = function(){
 		return new init();
 	}
@@ -57,28 +73,42 @@ KISSY.add('popManager', function(S, undef) {
 		this.mask().front();
 	}
 	S.augment(init, {
-		//放到最前
+		/**
+		 * 增加z-index放到最前
+		 * @return this
+		 */
 		front: function() {
 			this.$div.css('z-index', S.guid());
 			return this;
 		},
-
+		/**
+		 * 从DOM中删除, 无参数
+		 * @return this
+		 */
 		remove: function() {
 			this.$div.remove();
 			return this;
 		},
-
+		/**
+		 * 显示出来,如果需要提高层级请先调用 front方法
+		 * @return this
+		 */
 		show: function() {
 			this.$div.show();
 			return this;
 		},
-
+		/**
+		 * 隐藏
+		 * @return this
+		 */
 		hide: function() {
 			this.$div.hide();
 			return this;
 		},
-
-		//显示遮罩, css3使用半透明背景, 否则使用半透明层
+		/**
+		 * 显示遮罩, css3使用半透明背景, 否则使用半透明层
+		 * @return this
+		 */
 		mask: function() {
 			if($.browser.msie){
 				this.$mask.show();
@@ -87,8 +117,10 @@ KISSY.add('popManager', function(S, undef) {
 			}
 			return this;
 		},
-
-		//隐藏遮罩
+		/**
+		 * 隐藏遮罩
+		 * @return this
+		 */
 		demask: function() {
 			if($.browser.msie){
 				this.$mask.hide();
@@ -97,8 +129,10 @@ KISSY.add('popManager', function(S, undef) {
 			}
 			return this;
 		},
-
-		//显示loading层
+		/**
+		 * 显示loading状态
+		 * @return this
+		 */
 		loading: function(){
 			this.mask();
 			if($.browser.msie){
@@ -108,8 +142,10 @@ KISSY.add('popManager', function(S, undef) {
 			}
 			return this;
 		},
-
-		//隐藏loading层
+		/**
+		 * 隐藏loading状态
+		 * @return this
+		 */
 		loaded: function(){
 			this.demask();
 			if($.browser.msie){
@@ -119,8 +155,11 @@ KISSY.add('popManager', function(S, undef) {
 			}
 			return this;
 		},
-
-		//初始化遮罩
+		/**
+		 * 初始化遮罩
+		 * @return this
+		 * @private
+		 */
 		__init_mask: function() {
 			if($.browser.msie){
 				this.$mask = $(mask_string);
@@ -128,8 +167,11 @@ KISSY.add('popManager', function(S, undef) {
 			}
 			return this;
 		},
-		
-		//ie6下初始iframe垫层
+		/**
+		 * 初始化ie6下初始iframe垫层
+		 * @return this
+		 * @private
+		 */
 		__init_ie6Iframe: function(){
 			if(/*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent) && !/msie [78].0/i.test(navigator.userAgent)){
 				this.$div.append('<iframe style="position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;filter:alpha(opacity=0);" frameborder="no" scrolling="no"></iframe>');
