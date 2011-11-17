@@ -396,6 +396,7 @@
 			<path path="attr/i18n" />
 			<path path="attr/text" />
 			<path path="attr/textWidth" />
+			<path path="attr/required" />
 			
 			<path path="attr/valueStart" />
 			<path path="attr/valueEnd" />
