@@ -1,13 +1,22 @@
 #!/bin/bash
 
+function useage(){
+	echo '-------------------------------------------------'
+	echo 'useage: ./new-mod.sh modName'
+	echo 'modName must specify and can not be an exist one!'
+	echo '-------------------------------------------------'
+	echo 
+}
 if [ -z $1 ]
 then
+	useage
 	echo 'please enter a mod name!'
 	exit 1
 fi
 
 if [ -e $1 ]
 then
+	useage
 	echo "[ $1 ] has already exist!"
 	exit 1
 fi
