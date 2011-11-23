@@ -8,10 +8,7 @@
 		KISSY.ready(function(S){
 			S.use('reset-css, common-css, demo-css, condition-list-css, provinceCity+css', function(){
 				$('#area').provinceCity();
-				$('#qq').provinceCity({
-					pid: 22,
-					cid: 2201
-				});
+				$('#qq').provinceCity();
 			});
 		});
 	</script>
@@ -33,8 +30,8 @@
 					<div class="ls1-text">默认四川-成都:</div>
 					<div class="ls1-ipts">
 						<input class="text1" type="text" id="qq" readonly="readonly" />
-						<input type="hidden" name="province" value="" />
-						<input type="hidden" name="city" value="" />
+						<input type="hidden" name="province" value="22" />
+						<input type="hidden" name="city" value="2201" />
 					</div>
 				</div>
 			</div>
