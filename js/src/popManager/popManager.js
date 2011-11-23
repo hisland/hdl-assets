@@ -1,4 +1,4 @@
-/**********************************************************************************************
+/**
  * 名称: 弹出层管理工具 - 统一控制层级,遮罩
  * 作者: hisland
  * 邮件: hisland@qq.com
@@ -28,8 +28,6 @@
  * 		2011-09-16 18:56:51:
  * 			ESC隐藏控制
  * 
- */
-/**
  * @module popManager
  * @author hedingliang
  */
@@ -130,29 +128,19 @@ KISSY.add('popManager', function(S, undef) {
 			return this;
 		},
 		/**
-		 * 显示loading状态
+		 * 显示loading状态, 同时会打开mask
 		 * @return this
 		 */
 		loading: function(){
-			this.mask();
-			if($.browser.msie){
-				this.$mask.addClass('loading');
-			}else{
-				this.$div.addClass('loading');
-			}
+			this.mask().$div.addClass('loading');
 			return this;
 		},
 		/**
-		 * 隐藏loading状态
+		 * 隐藏loading状态, 同时会关闭mask
 		 * @return this
 		 */
 		loaded: function(){
-			this.demask();
-			if($.browser.msie){
-				this.$mask.removeClass('loading');
-			}else{
-				this.$div.removeClass('loading');
-			}
+			this.demask().$div.removeClass('loading');
 			return this;
 		},
 		/**

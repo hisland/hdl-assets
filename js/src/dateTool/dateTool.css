@@ -10,6 +10,7 @@
 
 	.hdt-ipt-list{padding:4px 3px;height:16px;position:relative;z-index:1;cursor:default;}
 		.hdt-ipt-list input{font-size:12px;height:14px;width:23px;border:1px solid #bbe1f1;text-align:center;margin:0 1px;-moz-border-radius:3px;border-radius:3px;ime-mode:disabled;}
+		.hdt-wrap .hdt-ipt-list input{padding:0;background:#fff;color:#000;}
 		.hdt-ipt-list input:focus{border-color:#92b0dd;}
 		.hdt-ipt-list input.disabled{border-color:#ccc;color:#ccc;background:#fcfcfc;}
 		.hdt-ipt-list input.hdt-hour{margin-left:13px;}

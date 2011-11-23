@@ -6,193 +6,38 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, hdlGrid+css', function(){
-				var setting = {
-								url: 'data2.js',
-								colModel: [{
-									display: '接口名称',
-									name: 'interName',
-									width: '12%',
-									sortable: true,
-									align: 'center'
-								},
-								{
-									display: '接口类型',
-									name: 'interComType',
-									width: '25%',
-									sortable: true,
-									align: 'center'
-								},
-								{
-									display: '端口',
-									name: 'remoteFtpPort',
-									width: '6%',
-									sortable: true,
-									align: 'center'
-								},
-								{
-									display: '用户名',
-									name: 'remoteFtpUser',
-									width: '10%',
-									sortable: true,
-									align: 'center'
-								},
-								{
-									display: '被动方式',
-									name: 'remoteFtpPasv',
-									width: '8%',
-									sortable: true,
-									align: 'center',
-									hide: true
-								},
-								{
-									display: '版本',
-									name: 'interVerType',
-									width: '10%',
-									sortable: true,
-									align: 'center'
-								},
-								{
-									display: 'IP地址',
-									name: 'remoteFtpIp',
-									width: '10%',
-									sortable: true,
-									align: 'center'
-								},
-								{
-									display: '是否启用',
-									name: 'active',
-									width: '6%',
-									sortable: true,
-									align: 'center'
-								},
-								{
-									display: '数据库名称',
-									name: 'dbName',
-									width: 80,
-									sortable: true,
-									align: 'center',
-									hide: true
-								},
-								{
-									display: '数据库类型',
-									name: 'dbType',
-									width: 80,
-									sortable: true,
-									align: 'center',
-									hide: true
-								},
-								{
-									display: '上传文件目录',
-									name: 'remoteFtpUpPath',
-									width: 80,
-									sortable: true,
-									align: 'center',
-									hide: true
-								},
-								{
-									display: '上传备份目录',
-									name: 'rftpUpPathBak',
-									width: 80,
-									sortable: true,
-									align: 'center',
-									hide: true
-								},
-								{
-									display: '上传文件前缀',
-									name: 'rftpUpPrefix',
-									width: 80,
-									sortable: true,
-									align: 'center',
-									hide: true
-								},
-								{
-									display: '上传文件时间片',
-									name: 'rftpUpTime',
-									width: 80,
-									sortable: true,
-									align: 'center',
-									hide: true
-								},
-								{
-									display: '上传文件序列号',
-									name: 'rftpUpSeqence',
-									width: 80,
-									sortable: true,
-									align: 'center',
-									hide: true
-								},
-								{
-									display: '删除备份时间片',
-									name: 'backupKeepDays',
-									width: 80,
-									sortable: true,
-									align: 'center',
-									hide: true
-								},
-								{
-									display: '备注',
-									name: 'remarks',
-									width: 80,
-									sortable: true,
-									align: 'center',
-									hide: true
-								},
-								{
-									display: '承载业务类型',
-									name: 'serviceType',
-									width: '18%',
-									sortable: true,
-									align: 'center'
-								}],
-								usepager: true,
-								perPageNum: 15,
-								showTableToggleBtn: false,
-								width: 'auto',
-								height: 390,
-								resizable: false,
-								singleSelect: true
-							}
-
+			S.use('reset-css, common-css, hdlGrid+css', function(){
 				var grid = $.hdlGrid({
-						url: 'data.js',
-						col_model : [
-							{display: '统计区间', name : 'countSegent', width : '27%', enable_sort : true, align: 'center'},
-							{display: '缓存用户数', name : 'cacheUserNum', width : '12%', enable_sort : true, align: 'center'},
-							{display: '缓存消息数', name : 'cacheNum', width : '12%', enable_sort : true, align: 'center'},
-							{display: '审核平台放通用户数', name : 'personCheckuserNum', width : '12%', enable_sort : true, align: 'center'},
-							{display: '审核平台拦截用户数', name : 'personCheckuserstopNum', width : '12%', enable_sort : true, align: 'center'},
-							{display: '拦截准确率', name : 'stopExactRate', width : '9%', enable_sort : true, align: 'center'},
-							{display: '统计时间', name : 'writeTime', width : '14%', enable_sort : true, align: 'center'}
-							], 
-						enable_pager: true,
-						num_per_page: 15
-						});
-				
-				grid.fillInto('.wrap');
-
-				setTimeout(function(){
-					$('col').each(function(i, v){
-						$('#tt').append('<p>'+$(v).width()+'</p>');
+						url: 'data.php',
+						colModel : [
+							{display: '名称', name : 'mobileName', width : '14%', sortable : true, align: 'center'},
+							{display: '是否启用', name : 'status', width : '8%', sortable : true, align: 'center'},
+							{display: '是否SP', name : 'isSp', width : '8%', sortable : true, align: 'center'},
+							{display: '是否USSD', name : 'isUSSD', width : '8%', sortable : true, align: 'center'},
+							{display: '父业务类型', name : 'fsmTypeId', width : '14%', sortable : true, align: 'center'},
+							{display: '是否送BI', name : 'isBi', width : '8%', sortable : true, align: 'center'},
+							{display: '送BI文件名', name : 'biContent', width : '10%', sortable : true, align: 'center'},
+							{display: '送BI目录', name : 'biDirectory', width : '10%', sortable : true, align: 'center'},
+							{display: '备注', name : 'remarks', width : '20%', sortable : true, align: 'center'}
+							],
+						usepager: true,
+						perPageNum: 15,
+						showTableToggleBtn: false,
+						width: 'auto',
+						height: 390 , 
+						resizable : false ,
+						singleSelect : true
 					});
-					$('#tt').append('<p>------------------------------------</p>');
-					$('.hdlgrid-body-in tbody tr:eq(0) td').each(function(i, v){
-						$('#tt').append('<p>'+$(v).outerWidth()+'</p>');
-					});
-				}, 1000);
-
-				window.aaa = grid;
+				grid.fillInto('#wrap');
 			});
 		});
 	</script>
 	<style type="text/css">
-		.wrap{width:500px;height:300px;border:1px solid #ccc;margin-bottom:20px;}
+		#wrap{width:500px;height:300px;border:1px solid #ccc;margin:100px;}
 	</style>
 </head>
 
-<body style="padding:50px;">
-	<div class="wrap"></div>
-
-	<div id="tt"></div>
+<body>
+	<div id="wrap"></div>
 </body>
 </html>

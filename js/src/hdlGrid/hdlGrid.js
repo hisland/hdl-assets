@@ -76,8 +76,8 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 			min_width: 150,				//最小宽度
 			min_height: 100,			//最小高度
-			max_width: 1500,			//最大宽度
-			max_height: 1000,			//最大高度
+			max_width: 450,				//最大宽度
+			max_height: 300,			//最大高度
 			auto_size: true,			//初始化时,自动调整宽度
 
 			enable_page: true,			//是否使用分页
@@ -100,7 +100,9 @@ KISSY.add('hdlGrid', function(S, undef) {
 			msg_empty: '暂无数据,根据内容填充后的大小居中显示',	//无数据时显示的内容
 			msg_proc: '正在加载,请稍等...',	//加载时显示的内容
 
-			row_colors: ['#fff', '#f00']		 //间隔色设置
+			row_bgs: ['#fff', '#f00'],		 //间隔背景色设置
+
+			preProcess: null		 //对响应结果进行预处理
 		};
 
 	//列预设置,需要修改时可参考
@@ -113,7 +115,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 			align_head: 'center',			//表头对齐方式
 			enable_sort: true,				//可否排序
 			enable_hide: true,				//可否隐藏
-			colProcess: null	//列单元格处理, function(cell){}
+			process: null	//列单元格处理, function(cell){}
 		};
 
 	//行预设置,需要修改时可参考
@@ -196,6 +198,12 @@ KISSY.add('hdlGrid', function(S, undef) {
 			b.push('</tr>');
 			this.$div.tbody.html(b.join(''));
 			return this;
+		},
+
+		//获得当前行的背景色
+		__getRowBg: function(n){
+			var len = this.row_bgs.length;
+			return this.row_bgs[n % len];
 		},
 
 		//添加一列数据
@@ -362,7 +370,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 		//刷新显示
 		refresh: function(){
-			
+			//
 		},
 
 		//加载中
@@ -385,6 +393,16 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 		//转到某页
 		goPage: function(n){
+			return this;
+		},
+
+		//合并单元格, 默认合并col,如果指定row则合并row
+		merge: function(type){
+			if(type === 'row'){
+				
+			}else{
+				
+			}
 			return this;
 		},
 

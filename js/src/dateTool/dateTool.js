@@ -572,7 +572,7 @@ KISSY.add('dateTool', function(S, undef) {
 
 
 	//初始化DOM结构, 各个节点的引用
-	$div_wrap = $('<div class="hdt-wrap"><div class="hdt-ctrl"><div class="hdt-tips"></div><div class="hdt-btns"><a href="#" class="hdt-clear"></a><a href="#" class="hdt-now"></a><a href="#" class="hdt-complete"></a></div></div><div class="hdt-ipt-list"><input type="text" class="hdt-year" />-<input type="text" class="hdt-month" />-<input type="text" class="hdt-date" /><input type="text" class="hdt-hour" />:<input type="text" class="hdt-minute" />:<input type="text" class="hdt-second" /></div><div class="hdt-week-list"></div><div class="hdt-date-list"></div><div class="hdt-drop-list-wrap"><div class="hdt-drop-list"></div><p class="hdt-drop-list-ctrl"><a href="#"></a><a href="#"></a><a href="#"></a></p></div></div>');
+	$div_wrap = $('<div class="hdt-wrap"><div class="hdt-ctrl"><div class="hdt-tips"></div><div class="hdt-btns"><a href="#" class="hdt-clear"></a><a href="#" class="hdt-now"></a><a href="#" class="hdt-complete"></a></div></div><div class="hdt-ipt-list"><input type="text" readonly="readonly" class="hdt-year" />-<input type="text" readonly="readonly" class="hdt-month" />-<input type="text" readonly="readonly" class="hdt-date" /><input type="text" readonly="readonly" class="hdt-hour" />:<input type="text" readonly="readonly" class="hdt-minute" />:<input type="text" readonly="readonly" class="hdt-second" /></div><div class="hdt-week-list"></div><div class="hdt-date-list"></div><div class="hdt-drop-list-wrap"><div class="hdt-drop-list"></div><p class="hdt-drop-list-ctrl"><a href="#"></a><a href="#"></a><a href="#"></a></p></div></div>');
 
 	$btn_clear = $div_wrap.find('a.hdt-clear');
 	$btn_now = $btn_clear.next();

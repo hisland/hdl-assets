@@ -73,6 +73,7 @@ KISSY.add('moni-select', function(S, undef) {
 		list.css({
 			width: 'auto',
 			height: 'auto',
+			'overflow-x': 'auto',
 			visibility: 'hidden'
 		}).show();
 
@@ -84,7 +85,8 @@ KISSY.add('moni-select', function(S, undef) {
 		//修正宽度
 		var tw = target.outerWidth(), lw = list[0].scrollWidth;
 		if(lw > 300){
-			list.width(300);
+			list.width(300).css('overflow-x', 'scroll');
+			list.children().width(lw);
 		}else if(lw <= tw-2) {
 			list.width(tw-2);
 		}
