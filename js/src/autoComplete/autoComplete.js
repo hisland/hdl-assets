@@ -137,7 +137,7 @@ KISSY.add('autoComplete', function(S, undef) {
 	}
 	//获得焦点的时候初始化
 	function iptFocus(e){
-		div_pop.adjustElement($(this).parent()).show();
+		div_pop.css('z-index', S.guid()).adjustElement($(this).parent()).show();
 		$(document).mousedown(docClose);
 		target_ipt = this;
 		target_setting = $(target_ipt).data('--auto-comp-setting');
@@ -180,6 +180,7 @@ KISSY.add('autoComplete', function(S, undef) {
 
 	//初始化函数
 	function autoComplete(setting){
+		setting = setting || {};
 		if(setting === 'disabled'){
 			setting = {disabled: true};
 		}else if(setting === 'enable'){
