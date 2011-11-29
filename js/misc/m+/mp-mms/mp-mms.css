@@ -43,7 +43,7 @@
 			.mp-mms-vbh{display:none;}
 			.mp-mms-vd{position:absolute;top:-13px;right:0;line-height:1em;height:1em;padding-left:9px;padding-bottom:2px;background:url('mp-mms-img/sprite3.gif') no-repeat 0 3px;}
 				.mp-mms-btn{display:block;width:49px;height:24px;margin:0 auto;cursor:pointer;overflow:hidden;background:url('mp-mms-img/upload.gif') no-repeat 0 0;}
-					.mp-mms-btnfile{width:40px;height:30px;margin:-5px 0 0 -15px;opacity:0;filter:alpha(opacity=0);}
+					.mp-mms-btnfile{width:40px;height:30px;margin:-5px 0 0 -15px;}
 				.mp-mms-vbf{display:none;width:100%;height:100%;}
 					.mp-mms-vb1w{height:100%;text-align:center;}
 						.mp-mms-vb1w img{max-height:100%;max-width:100%;}
