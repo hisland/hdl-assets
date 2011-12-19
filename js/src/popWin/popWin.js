@@ -74,7 +74,8 @@ KISSY.add('popWin', function(S, undef) {
 		//拖动初始化
 		this.$div.hdlDrag({
 			trigger_filter: function(e){
-				if($(e.target).closest('.win1-content, .win1-close').length){
+				//在IE下,内部有disabled的input时,点击input文本会导致e.target.parentNode为undefined, 前一个规则值为false,所以需要||单独处理
+				if($(e.target).closest('.win1-content, .win1-close').length || !e.target.parentNode){
 					return false;
 				}
 			}
