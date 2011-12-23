@@ -15,8 +15,6 @@
 	.hdlgrid-body{border-left:1px solid #d7e6f5;border-right:1px solid #d7e6f5;background:#fff;color:#000;overflow:auto;}
 		.hdlgrid-body-in{zoom:1;}
 		.hdlgrid-body table{}
-		.hdlgrid-body tr:nth-child(2n){background:#eef5fd;}
-		.hdlgrid-body tr.even{background:#eef5fd;}
 		.hdlgrid-body td{border-right:1px solid #d7e6f5;border-bottom:1px solid #d7e6f5;padding:3px;overflow:hidden;text-overflow:ellipsis;}
 
 	.hdlgrid-pager{height:20px;border:1px solid #d7e6f5;border-top:none;background:#c7e0fd;}

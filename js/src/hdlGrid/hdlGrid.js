@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 名称: 表格插件
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-2-21 15:32:38
- * 版本: v1
- * 
+/**
+ * @fileOverview
+ * @module popManager
+ * @author hisland hisland@qq.com
+ * @description 表格插件
+ * <pre><code>
  * API:
  * 		var g = $.hdlGrid(setting); - 生成一个表格对象并传入预设置
  * 		g.setting(setting); - 修改设置
@@ -55,8 +54,8 @@
 2011-10-09 11:15:48:
 	双击拖动自动适应宽度
 
+ * </code></pre>
  */
-
 KISSY.add('hdlGrid', function(S, undef) {
 	var $ = jQuery,
 		$EMPTY = $('');
@@ -125,7 +124,10 @@ KISSY.add('hdlGrid', function(S, undef) {
 			enable_select: true
 		};
 
-	//内部类
+	/**
+	 * @class
+	 * @name hdlGrid
+	 */
 	function Grid(setting){
 		//更改为构造方式
 		if(!(this instanceof Grid)){
@@ -147,82 +149,113 @@ KISSY.add('hdlGrid', function(S, undef) {
 		}
 
 		//生成表头
-		$.each(grid.setting.col_model, function(i, v){
+		$.each(grid.setting.colModel, function(i, v){
 			grid.addCol(v);
 		});
 
 		return grid;
 	}
 
-	//设置原型方法
+	/**
+	 * @lends hdlGrid#
+	 */
 	S.augment(Grid, {
-		//初始化table基本结构,并设置引用
+		/**
+		 * 初始化table基本结构,并设置引用
+		 * @private
+		 */
 		__initDOM: function(){
 			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><colgroup></colgroup><tbody></tbody></table></div></div><div class="hdlgrid-pager"></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
 
-			div.whead = div.find('div.hdlgrid-head');
-			div.wbody = div.whead.next();
-			div.wpager = div.wbody.next();
+			div.$whead = div.find('div.hdlgrid-head');
+			div.$wbody = div.$whead.next();
+			div.$wpager = div.$wbody.next();
 
-			div.thead = div.whead.find('thead:eq(0)');
-			div.tbody = div.wbody.find('tbody:eq(0)');
-			div.colgroup = div.tbody.prev();
+			div.$thead = div.$whead.find('thead:eq(0)');
+			div.$tbody = div.$wbody.find('tbody:eq(0)');
 
-			div.head = div.thead.parent();
-			div.body = div.tbody.parent();
+			div.$chead = div.$thead.prev();
+			div.$cbody = div.$tbody.prev();
 
-			div.mask = div.find('div.hdlgrid-mask');
-			div.nodata = div.mask.next();
-			div.loading = div.nodata.next();
+			div.$head = div.$thead.parent();
+			div.$body = div.$tbody.parent();
+
+			div.$mask = div.find('div.hdlgrid-mask');
+			div.$nodata = div.$mask.next();
+			div.$loading = div.$nodata.next();
 
 			this.$div = div;
 
 			return this;
 		},
-		//初始化各事件
+		/**
+		 * 初始化各事件
+		 * @private
+		 */
 		__initEvent: function(){
 			//body滚动同步head
-			this.$div.wbody.scroll(function(e){
+			this.$div.$wbody.scroll(function(e){
 				$(this).prev().find('table').css('left', -this.scrollLeft);
 			});
-			//
 			return this;
 		},
-
-		//无数据时填充空白行,使水平滚动条显示出来
+		/**
+		 * 无数据时填充空白行,使水平滚动条显示出来
+		 * @private
+		 */
 		__blankLine: function(){
 			var b = ['<tr>'];
-			this.$div.colgroup.find('col').each(function(i, v){
+			this.$div.$colgroup.find('col').each(function(i, v){
 				b.push('<td></td>');
 			});
 			b.push('</tr>');
-			this.$div.tbody.html(b.join(''));
+			this.$div.$tbody.html(b.join(''));
 			return this;
 		},
-
-		//获得当前行的背景色
+		/**
+		 * 获得当前行的背景色
+		 * @private
+		 */
 		__getRowBg: function(n){
 			var len = this.row_bgs.length;
 			return this.row_bgs[n % len];
 		},
-
-		//添加一列数据
-		addCol: function(col_setting){
-			//不覆盖相同的设置,只copy不存在的设置
-			S.mix(col_setting, pre_col_model, false);
-
-			this.$div.thead.find('tr').append('<th>'+ col_setting.display+'</th>');
-			this.$div.colgroup.append('<col />');
+		/**
+		 * 更新拖动条位置
+		 * @private
+		 */
+		__fixDragPos: function(){
+			
 			return this;
 		},
+		/**
+		 * 生成/更新拖动条
+		 */
+		setDrag: function(){
+			
+			return this;
+		},
+		/**
+		 * 添加一列数据
+		 */
+		addCol: function(col_setting){
+			//不覆盖相同的设置,只copy不存在的设置
+			S.mix(col_setting, pre_colModel, false);
 
-		//修改一列数据
+			this.$div.$thead.find('tr').append('<th>'+ col_setting.display+'</th>');
+			this.$div.$colgroup.append('<col />');
+			return this;
+		},
+		/**
+		 * 修改一列数据
+		 */
 		setCol: function(n, fn){
 			
 			return this;
 		},
-
-		//交换两个索引指向的列,从0开始计数
+		/**
+		 * 交换两个索引指向的列,从0开始计数
+		 */
 		swapCol: function(n1, n2){
 			//n1小, n2大
 			var tmp = [n1, n2].sort();
@@ -230,11 +263,11 @@ KISSY.add('hdlGrid', function(S, undef) {
 			n2 = tmp[1];
 			tmp = n2-n1-1;//标记是否相邻,相邻为0为false
 
-			var head = this.$div.thead,
+			var head = this.$div.$thead,
 				ths = head.find('th'),
 				th1 = ths.filter('th:eq('+n1+')'),
 				th2 = ths.filter('th:eq('+n2+')'),
-				trs = this.$div.tbody.find('tr');
+				trs = this.$div.$tbody.find('tr');
 
 			//需要交换的两列都存在才做操作
 			if(th1.length && th2.length){
@@ -249,63 +282,72 @@ KISSY.add('hdlGrid', function(S, undef) {
 				});
 			}
 			//todo:
-			//同时修改col_model里面的位置
+			//同时修改colModel里面的位置
 
 			return this;
 		},
-
-		//添加一行数据
+		/**
+		 * 添加一行数据
+		 */
 		addRow: function(row_data){
 			
 			return this;
 		},
-
-		//修改一行数据
+		/**
+		 * 修改一行数据
+		 */
 		setRow: function(n, fn){
 			
 			return this;
 		},
-
-		//交换两个索引指向的行,从0开始计数
+		/**
+		 * 交换两个索引指向的行,从0开始计数
+		 */
 		swapRow: function(n1, n2){
 			return this;
 		},
-
-		//遍历表头
-		//fn: this->grid, (th, idx)
+		/**
+		 * 遍历表头
+		 * fn: this->grid, (th, idx)
+		 */
 		walkHead: function(fn){
 			
 			return this;
 		},
-
-		//遍历某行的单元格
-		//fn: this->grid, (td, idx)
+		/**
+		 * 遍历某行的单元格
+		 * fn: this->grid, (td, idx)
+		 */
 		walkCell: function(row_n, fn){
 			
 			return this;
 		},
-
-		//遍历列
-		//fn: this->grid, (th, td, idx)
+		/**
+		 * 遍历列
+		 * fn: this->grid, (th, td, idx)
+		 */
 		walkCol: function(col_n, fn){
 			
 			return this;
 		},
-
-		//遍历行
-		//fn: this->grid, (tr, idx)
+		/**
+		 * 遍历行
+		 * fn: this->grid, (tr, idx)
+		 */
 		walkRow: function(fn){
 			
 			return this;
 		},
-
-		//修改设置
+		/**
+		 * 修改设置
+		 */
 		setSetting: function(setting){
 			
 			return this;
 		},
-
-		//修改数据
+		/**
+		 * 修改数据
+		 */
 		setData: function(data){
 			if(S.isArray(data)){
 				$.each(data, function(i, v){
@@ -316,24 +358,13 @@ KISSY.add('hdlGrid', function(S, undef) {
 			}
 			return this;
 		},
-
-		//生成/更新拖动条
-		setDrag: function(){
-			
-			return this;
-		},
-
-		//更新拖动条位置
-		fixDragPos: function(){
-			
-			return this;
-		},
-
-		//更新宽高
+		/**
+		 * 更新宽高
+		 */
 		fixSize: function(){
-			var ths = this.$div.thead.find('th'),
-				tds = this.$div.tbody.find('tr:eq(0)').find('td'),
-				headnbody = this.$div.head.add(this.$div.body),
+			var ths = this.$div.$thead.find('th'),
+				tds = this.$div.$tbody.find('tr:eq(0)').find('td'),
+				headnbody = this.$div.$head.add(this.$div.$body),
 				w_head_sum = 0, w_body_sum = 0;
 
 			ths.each(function(i, v){
@@ -355,48 +386,54 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 			headnbody.css('table-layout', 'fixed');
 
-			this.$div.wbody.height(this.$div.parent().outerHeight() - this.$div.whead.outerHeight() - this.$div.wpager.outerHeight())
+			this.$div.$wbody.height(this.$div.parent().outerHeight() - this.$div.$whead.outerHeight() - this.$div.$wpager.outerHeight())
 
 			return this;
 		},
-
-		//获得显示的列名称,以标准键值对返回
+		/**
+		 * 获得显示的列名称,以标准键值对返回
+		 */
 		getDisplayColNames: function(var_name){
 			var_name = var_name || 'colName';
 
 			var param = [];
 			return param;
 		},
-
-		//刷新显示
+		/**
+		 * 刷新显示
+		 */
 		refresh: function(){
-			//
 		},
-
-		//加载中
+		/**
+		 * 加载中
+		 */
 		loading: function(){
-			this.$div.mask.add(this.$div.loading).show();
+			this.$div.$mask.add(this.$div.$loading).show();
 			return this;
 		},
-
-		//加载完成
+		/**
+		 * 加载完成
+		 */
 		loaded: function(){
-			this.$div.mask.add(this.$div.loading).hide();
+			this.$div.$mask.add(this.$div.$loading).hide();
 			return this;
 		},
-
-		//无数据显示文本
+		/**
+		 * 无数据显示文本
+		 */
 		noData: function(str){
-			this.$div.nodata.html(str || this.msg_empty);
+			this.$div.$nodata.html(str || this.msg_empty);
 			return this;
 		},
-
-		//转到某页
+		/**
+		 * 转到某页
+		 */
 		goPage: function(n){
 			return this;
 		},
-
-		//合并单元格, 默认合并col,如果指定row则合并row
+		/**
+		 * 合并单元格, 默认合并col,如果指定row则合并row
+		 */
 		merge: function(type){
 			if(type === 'row'){
 				
@@ -405,8 +442,9 @@ KISSY.add('hdlGrid', function(S, undef) {
 			}
 			return this;
 		},
-
-		//刷新显示
+		/**
+		 * 刷新显示
+		 */
 		ajaxLoad: function(fn){
 			var grid = this;
 
@@ -416,38 +454,19 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 				$.each(data.rows, function(i, v){
 					b.push('<tr>');
-					$.each(grid.setting.col_model, function(i1, v1){
+					$.each(grid.setting.colModel, function(i1, v1){
 						b.push('<td>', v[v1.name], '</td>');
 					});
 					b.push('</tr>');
 				});
 
-				grid.$div.tbody.html(b.join(''));
+				grid.$div.$tbody.html(b.join(''));
 				grid._data = data;
 
 				$.isFunction(fn) && fn.call(grid);
 
 				grid.loaded();
 			});
-		},
-
-		//将表格放入selector的位置
-		fillInto: function(selector){
-			var elm = $(selector).eq(0),
-				grid = this,
-				width = elm.width(),
-				height = elm.height(),
-				div = grid.$div;
-
-			elm.empty().append(div);
-
-			//异步加载数据
-			if(grid.setting.url && grid.setting.auto_load){
-				grid.ajaxLoad(function(){
-					this.fixSize();
-				});
-			}
-			return this;
 		}
 	});
 

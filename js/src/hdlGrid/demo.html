@@ -7,7 +7,7 @@
 	<script type="text/javascript">
 		KISSY.ready(function(S){
 			S.use('reset-css, common-css, hdlGrid+css', function(){
-				var grid = $.hdlGrid({
+				var grid = $('#wrap').hdlGrid({
 						url: 'data.php',
 						colModel : [
 							{display: '名称', name : 'mobileName', width : '14%', sortable : true, align: 'center'},
@@ -19,7 +19,7 @@
 							{display: '送BI文件名', name : 'biContent', width : '10%', sortable : true, align: 'center'},
 							{display: '送BI目录', name : 'biDirectory', width : '10%', sortable : true, align: 'center'},
 							{display: '备注', name : 'remarks', width : '20%', sortable : true, align: 'center'}
-							],
+						],
 						usepager: true,
 						perPageNum: 15,
 						showTableToggleBtn: false,
@@ -28,12 +28,11 @@
 						resizable : false ,
 						singleSelect : true
 					});
-				grid.fillInto('#wrap');
 			});
 		});
 	</script>
 	<style type="text/css">
-		#wrap{width:500px;height:300px;border:1px solid #ccc;margin:100px;}
+		#wrap{width:500px;height:300px;border:1px solid #D7E6F5;margin:100px;}
 	</style>
 </head>
 

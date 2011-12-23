@@ -1,10 +1,9 @@
 /**
- * 名称: 弹出层管理工具 - 统一控制层级,遮罩
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+ * @fileOverview
+ * @module popManager
+ * @author hisland hisland@qq.com
+ * @description 弹出层管理工具 - 统一控制层级,遮罩
+ * <pre><code>
  * API:
  * 		$.popManager.clean(true) 清除所有的弹出层包含块, 包括.not-remove的div
  * 		$.popManager.clean() 清除所有的弹出层包含块, 不会清除含.not-remove的div
@@ -27,9 +26,8 @@
  * 			IE6的内存泄露问题
  * 		2011-09-16 18:56:51:
  * 			ESC隐藏控制
+ * </code></pre>
  * 
- * @module popManager
- * @author hedingliang
  */
 KISSY.add('popManager', function(S, undef) {
 	var $ = jQuery,
@@ -43,9 +41,8 @@ KISSY.add('popManager', function(S, undef) {
 
 	/**
 	 * 清除所有的弹出层包含块
-	 * @param {boolean} force 为true时强制删除所有,其它不会删除带not-remove的class的层
+	 * @param {boolean} force 为true时强制删除所有,其它值不会删除.not-remove的层
 	 * @return popManager
-	 * @memberof popManager
 	 */
 	popManager.clean = function(force){
 		if(force === true){
@@ -58,8 +55,6 @@ KISSY.add('popManager', function(S, undef) {
 
 	/**
 	 * 初始化一个弹出层包含块
-	 * @instance
-	 * @memberof popManager
 	 */
 	popManager.init = function(){
 		return new init();
@@ -70,6 +65,10 @@ KISSY.add('popManager', function(S, undef) {
 		this.__init_mask().__init_ie6Iframe();
 		this.mask().front();
 	}
+
+	/**
+	 * @lends popManager#
+	 */
 	S.augment(init, {
 		/**
 		 * 增加z-index放到最前
@@ -80,7 +79,7 @@ KISSY.add('popManager', function(S, undef) {
 			return this;
 		},
 		/**
-		 * 从DOM中删除, 无参数
+		 * 从DOM中删除
 		 * @return this
 		 */
 		remove: function() {
@@ -88,7 +87,7 @@ KISSY.add('popManager', function(S, undef) {
 			return this;
 		},
 		/**
-		 * 显示出来,如果需要提高层级请先调用 front方法
+		 * 显示最外层,如果需要提高层级请先调用 front方法
 		 * @return this
 		 */
 		show: function() {
@@ -96,7 +95,7 @@ KISSY.add('popManager', function(S, undef) {
 			return this;
 		},
 		/**
-		 * 隐藏
+		 * 隐藏最外层
 		 * @return this
 		 */
 		hide: function() {

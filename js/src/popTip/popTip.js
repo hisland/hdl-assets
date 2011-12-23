@@ -5,12 +5,11 @@
  * 时间: 2011-2-21 12:36:50
  * 版本: v1
  *
- *
- * 使用方法:
- *			var o = $.popTip();
- *			o.content 是弹出层的内容块
- *			o.div 是整个弹出层的外层
- *			o.manager 是弹出层管理对象
+ * API:
+ *		var o = $.popTip();
+ *		o.content 是弹出层的内容块
+ *		o.div 是整个弹出层的外层
+ *		o.manager 是弹出层管理对象
  */
 
 KISSY.add('popTip', function(S, undef) {

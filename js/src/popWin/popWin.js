@@ -1,9 +1,9 @@
-/**********************************************************************************************
- * 名称: 弹出窗口
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-2-17 16:28:10
- * 
+/**
+ * @fileOverview
+ * @module popManager
+ * @author hisland hisland@qq.com
+ * @description 弹出窗口
+ * <pre><code>
  * API:
  * 		$.popWin.clean() 清除所有的弹出层
  * 
@@ -20,23 +20,32 @@
  * 		p.$title 标题层
  * 		p.$content 内容层
  * 		p.manager 弹出管理对象
+ * </code></pre>
  * 
  */
-
 KISSY.add('popWin', function(S, undef) {
 	var $ = jQuery,
 		$EMPTY = $(''),
 		html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title">title</span><a class="win1-close" href="#"></a></div><div class="win1-content-wrap"><div class="win1-content"></div></div></div>',
+		/**
+		 * 弹出窗口命名空间
+		 * @namespace popWin
+		 */
 		popWin = {},
 		default_width = 400;
 	
-	//清除所有的popWin
+	/**
+	 * 清除所有的popWin
+	 * @return popWin
+	 */
 	popWin.clean = function(){
 		$('div.win1-wrap').parent().remove();
 		return this;
 	}
 
-	//初始化一个popWin
+	/**
+	 * 初始化一个popWin
+	 */
 	popWin.init = function(){
 		return new init();
 	}
@@ -81,7 +90,15 @@ KISSY.add('popWin', function(S, undef) {
 			}
 		});
 	}
+
+	/**
+	 * @lends popWin#
+	 */
 	S.augment(init, {
+		/**
+		 * 增加z-index放到最前
+		 * @return this
+		 */
 		front: function(){
 			this.manager.front();
 			return this;
@@ -104,6 +121,10 @@ KISSY.add('popWin', function(S, undef) {
 			this.manager.loaded();
 			return this;
 		},
+		/**
+		 * 显示, 会同时强制manager显示
+		 * @return this
+		 */
 		show: function(){
 			this.manager.show();
 			//某些IE会先显示出来然后再定位调整,会有闪烁的感觉, 定位完成后再显示出来
@@ -114,12 +135,20 @@ KISSY.add('popWin', function(S, undef) {
 			});
 			return this;
 		},
+		/**
+		 * 隐藏最外层
+		 * @return this
+		 */
 		hide: function(){
 			if(this.__close_able){
 				this.manager.hide();
 			}
 			return this;
 		},
+		/**
+		 * 从DOM中删除
+		 * @return this
+		 */
 		remove: function(){
 			this.manager.remove();
 			return this;
