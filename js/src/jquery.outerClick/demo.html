@@ -9,9 +9,13 @@
 			S.use('reset-css, demo-css, jquery.outerClick', function(){
 				$('div.box1').outerClick(function(e){
 					$(this).html('outerClick').hide().fadeIn('slow');
+				}).click(function(e){
+					$(this).html('click');
 				});
 				$('div.box3').outerClick(function(e){
 					$(this).html('outerClick').hide().fadeIn('slow');
+				}).click(function(e){
+					$(this).html('click');
 				});
 			});
 		});
