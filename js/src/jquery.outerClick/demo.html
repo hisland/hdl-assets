@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> jquery.outerClick </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" charset="utf-8" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, demo-css, jquery.outerClick', function(){
+				$('div.box1').outerClick(function(e){
+					$(this).html('outerClick').hide().fadeIn('slow');
+				});
+				$('div.box3').outerClick(function(e){
+					$(this).html('outerClick').hide().fadeIn('slow');
+				});
+			});
+		});
+	</script>
+	<style type="text/css">
+		div{float:left;margin:10px;}
+		.box1{width:100px;height:100px;}
+		.box2{width:200px;height:200px;}
+		.box3{width:300px;height:300px;}
+		.bgr{background:red;}
+		.bgg{background:green;}
+	</style>
+</head>
+<body>
+<div class="box1 bgr"></div>
+<div class="box2 bgr">
+	<div class="bgg box1"></div>
+</div>
+<div class="box3 bgg">
+	<div class="bgr box2"></div>
+</div>
+</body>
+</html>
