@@ -1,15 +1,15 @@
-/**********************************************************************************************
- * 名称: 弹出提示,带方向箭头
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-2-21 12:36:50
- * 版本: v1
- *
+/**
+ * @fileOverview
+ * @module popTip
+ * @author hisland hisland@qq.com
+ * @description 弹出提示,带方向箭头
+ * <pre><code>
  * API:
  *		var o = $.popTip();
  *		o.content 是弹出层的内容块
  *		o.div 是整个弹出层的外层
  *		o.manager 是弹出层管理对象
+ * </code></pre>
  */
 
 KISSY.add('popTip', function(S, undef) {

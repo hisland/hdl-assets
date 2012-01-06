@@ -31,6 +31,7 @@ sup { vertical-align: text-top; } /* 重置，减少对行高的影响 */
 sub { vertical-align: text-bottom; }
 
 /** 重置表单元素 **/
+legend { color: #000; } /* for ie6 */
 img { border: 0; } /* img 搭车：让链接里的 img 无边框 */
 button, input, select, textarea { font-size: 100%; line-height: 1em; } /* 使得表单元素在 ie 下能继承字体大小 */
 /* 注：optgroup 无法扶正 */
@@ -40,3 +41,12 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 /* ie 图片使用平滑缩放 */
 img { -ms-interpolation-mode: bicubic\9; }
+
+/* 重置 HTML5 元素 */
+article, aside, details, figcaption, figure, footer,header, hgroup, menu, nav, section,
+summary, time, mark, audio, video {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+mark { background: #ff0; }

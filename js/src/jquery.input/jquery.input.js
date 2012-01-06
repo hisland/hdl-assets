@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 名称: 输入框内容变化时触发的事件
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module jquery.input
+ * @author hisland hisland@qq.com
+ * @description 输入框内容变化时触发的事件
+ * <pre><code>
  * NOTICE:
  *		由于输入框文本改变方式有多种(键盘输入,右键操作...)
  *		IE使用propertychange事件
@@ -17,7 +16,7 @@
  *		$(':text').input(fn);	//绑定一个输入事件
  *		$(':text').unbind('input', fn);	//取消绑定一个输入事件
  *		$(':text').unbind('input');	//取消绑定所有输入事件
- * 
+ * </code></pre>
  */
 
 KISSY.add('jquery.input', function(S, undef) {

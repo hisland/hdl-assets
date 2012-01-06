@@ -105,6 +105,25 @@
 			return this.dateString()+' '+this.timeString();
 		}
 	};
+	Date.prototype.getMonthStart = function(){
+		//创建副本
+		var rs = new Date(+this);
+		rs.setDate(1);
+		rs.timeString('00:00:00');
+		return rs;
+	};
+	Date.prototype.getMonthEnd = function(){
+		//创建副本
+		var rs = new Date(+this),
+			year = rs.getFullYear(),
+			month_days_list = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+		month_days_list[1] = year%400==0 || (year%4==0 && year%100!=0) ? 29 : 28;
+
+		rs.setDate(month_days_list[rs.getMonth()]);
+		rs.timeString('23:59:59');
+		return rs;
+	};
 	Date.prototype.isValid = function(){
 		if(/^NaN$|^Invalid Date$/.test(this.toString())){
 			return false;

@@ -8,13 +8,13 @@
  */
 
 KISSY.add('menu', function(S, undef) {
-	var  $ = jQuery
-		,$EMPTY = $('')
-		,ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent)
-		,menu_ul, menu_wrap, view_wrap
-		,timer_handle, show_delay = 300, default_width = 170
-		,welcome_page = 'welcome.jsp'
-		,in_menu = false;
+	var $ = jQuery,
+		$EMPTY = $(''),
+		ie6 = /*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent),
+		menu_ul, menu_wrap, view_wrap,
+		timer_handle, show_delay = 300, default_width = 170,
+		welcome_page = 'welcome.jsp',
+		in_menu = false;
 
 	//菜单内部点击代理
 	function menuClick(e){
@@ -89,9 +89,9 @@ KISSY.add('menu', function(S, undef) {
 		if(!in_menu){
 			return false;
 		}
-		var  wrap = menu_wrap[0]
-			,h = wrap.scrollHeight>wrap.clientHeight ? 17 : 0
-			,w;
+		var wrap = menu_wrap[0],
+			h = wrap.scrollHeight>wrap.clientHeight ? 17 : 0,
+			w;
 
 		view_wrap.width(default_width);
 		w = wrap.scrollWidth;

@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 名称: 表单验证控件
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-07-07 11:45:42
- * 版本: v2
- * 
+/**
+ * @fileOverview
+ * @module hdlValidator
+ * @author hisland hisland@qq.com
+ * @description 表单验证控件
+ * <pre><code>
  * NOTICE:
 	触发事件:
 			focus	显示验证信息
@@ -158,8 +157,8 @@
 		setMsg('charlen', '长度为${from}-${to}');				//设置某种验证的说明信息
 	2011-11-14 14:28:18:
 		对于某些提示里面可以出现变量的情况,使用${xxx}方式进行提供,如 ${from}, ${to}, ${length}, ...
+ * </code></pre>
  */
-
 KISSY.add('hdlValidator', function(S, undef) {
 	var $ = jQuery,
 		__prefix = '-hdl-validator-',

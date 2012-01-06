@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 名称: 预定义字符串验证
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP[2011-09-24 16:45:53]@
- * 版本: @VERSION[1]@
- * 
+/**
+ * @fileOverview
+ * @module validString
+ * @author hisland hisland@qq.com
+ * @description 预定义字符串验证
+ * <pre><code>
  * NOTICE:
  *		此模块为前hdlReg, hdlTest的合并,统一api
  *		检测返回值为true表示成功, 其它值表示失败,字符串为检测提示信息
@@ -16,9 +15,9 @@
  *		validString.add('bb', function(str){}, 'bb', true);	添加一个函数规则,取反向值
  * 
  *		validString.setDesc('bb', 'cc');	修改bb的默认提示信息
- * 
  *		validString('ipv4', '192.168.0.1');	使用ipv4规则检测后面的字符串,此例子返回true
  * 
+ * </code></pre>
  */
 
 KISSY.add('validString', function(S, undef) {

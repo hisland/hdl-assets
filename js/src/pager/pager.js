@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 名称: 分页纯逻辑处理
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-05-30 10:20:41
- * 版本: v1
- * 
+/**
+ * @fileOverview
+ * @module pager
+ * @author hisland hisland@qq.com
+ * @description 分页纯逻辑处理
+ * <pre><code>
  * API:
  *		var lp = $.pagerLocal();	//得到一个分页对象
  *		var lp = $.pagerLocal([1,2,3,4]);	//得到一个分页对象,并传入需要分页的数据
@@ -18,16 +17,16 @@
  *		var ap = $.pagerAjax('ns/data.js');	//得到一个分页对象,设置取数据url
  *		var ap = $.pagerAjax('ns/data.js', 'param=33');	//得到一个分页对象,设置取数据url与参数
  *		ap.setNumPerPage(5);		//设置每页数量
- *		ap.prev();		//取上一页数据
- *		ap.next();		//取下一页数据
+ *		ap.prev();			//取上一页数据
+ *		ap.next();			//取下一页数据
  *		ap.getPage(3);		//取下3页数据
- *		ap.setVarPage();		//设置服务器接收的第N页的变量,默认是'currPage'
+ *		ap.setVarPage();	//设置服务器接收的第N页的变量,默认是'currPage'
  *		ap.setUrl();		//重新设置url
  *		ap.setParam();		//重新设置参数,为函数
- *		ap.setLoading();		//加载前函数
+ *		ap.setLoading();	//加载前函数
  *		ap.setLoaded();		//加载完成函数
- *		ap.setCallback();		//完成后的函数
- * 
+ *		ap.setCallback();	//完成后的函数
+ * </code></pre>
  */
 
 KISSY.add('pager', function(S, undef) {

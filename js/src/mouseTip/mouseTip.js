@@ -20,8 +20,8 @@ KISSY.add('mouseTip', function(S, undef) {
 		var body = document.documentElement,
 			scroll_left = body.scrollLeft,
 			scroll_top = body.scrollTop,
-			max_width = body.clientWidth + scroll_left - 20,
-			max_height = body.clientHeight + scroll_top - 20,
+			max_width = body.clientWidth + scroll_left - 10,
+			max_height = body.clientHeight + scroll_top - 10,
 			pos_x, pos_y, elm_width, elm_height;
 
 		//修正鼠标相对文档位置
@@ -41,7 +41,7 @@ KISSY.add('mouseTip', function(S, undef) {
 		if(max_width > pos_x + elm_width){
 			$div.css('left', pos_x + 12);
 		}else{
-			$div.css('left', pos_x - elm_width);
+			$div.css('left', pos_x - elm_width - 5);
 		}
 
 		//设置垂直对齐

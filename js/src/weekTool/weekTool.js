@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 名称: 周选择控件
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module weekTool
+ * @author hisland hisland@qq.com
+ * @description 周选择控件
+ * <pre><code>
  * API:
  *		$.week();	//获得对象,默认使用当前时间
  *		$.week(2001);, $.week('2001');	//获得对象,使用2001年和第1周
@@ -37,7 +36,7 @@
  * 
  *		2011-09-15 18:07:38:
  *			各方法的边界检测
- * 
+ * </code></pre>
  */
 
 KISSY.add('weekTool', function(S, undef) {

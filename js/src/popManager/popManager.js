@@ -27,7 +27,6 @@
  * 		2011-09-16 18:56:51:
  * 			ESC隐藏控制
  * </code></pre>
- * 
  */
 KISSY.add('popManager', function(S, undef) {
 	var $ = jQuery,

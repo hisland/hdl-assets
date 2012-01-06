@@ -1,14 +1,11 @@
-/**********************************************************************************************
- * 名称: mod-template
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 描述
+ * <pre><code>
  * 
- * NOTICE:
- * 
- * API:
- * 
+ * </code></pre>
  */
 
 KISSY.add('mod-template', function(S, undef) {

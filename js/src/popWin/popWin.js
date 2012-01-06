@@ -21,7 +21,6 @@
  * 		p.$content 内容层
  * 		p.manager 弹出管理对象
  * </code></pre>
- * 
  */
 KISSY.add('popWin', function(S, undef) {
 	var $ = jQuery,

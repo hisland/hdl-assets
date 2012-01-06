@@ -1,12 +1,10 @@
-/**********************************************************************************************
- * 名称: 工具集
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-07-06 11:30:39
- * 版本: v1
- * 
- * API:
- *		
+/**
+ * @fileOverview
+ * @module Tools
+ * @author hisland hisland@qq.com
+ * @description 工具集
+ * <pre><code>
+ * </code></pre>
  */
 
 KISSY.add('Tools', function(S, undef) {

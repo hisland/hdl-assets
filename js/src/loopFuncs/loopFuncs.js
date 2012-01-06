@@ -1,29 +1,26 @@
-/**********************************************************************************************
- * 名称: 循环函数列表
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
- * 获得一个函数, 运行可执行里面的函数列表
- * 函数列表可增加,删除
- * 可自动循环执行,停止,并设置循环间隔
- *
- * 不使用 S.isFunction 方法,则内部代码可随意copy到其它地方仍然可用,降低耦合
- *
- *
+/**
+ * @fileOverview
+ * @module loopFuncs
+ * @author hisland hisland@qq.com
+ * @description 循环函数列表
+ * <pre><code>
+ * NOTICE:
+ * 		获得一个函数, 运行可执行里面的函数列表
+ * 		函数列表可增加,删除
+ * 		可自动循环执行,停止,并设置循环间隔
  * API:
- *	o = getLoopFuncs() 获得一个实例
- *	o = getLoopFuncs(fn) 获得一个实例并传入第一个函数
- *	o() 运行函数列表里面的每个函数
- *	o(fn) 运行函数列表里面的每个函数,并完成后回调fn
- *	o.add(fn) 同 o.add(fn, true) 添加函数并立即执行一次
- *	o.add(fn, false) 添加函数不立即执行
- *	o.remove(fn) 删除指定函数
- *	o.remove() 删除所有函数
- *	o.start() 开始自动运行
- *	o.stop() 停止自动运行
- *	o.interval(num) 设置间隔, 单位毫秒(ms)
+ *		o = getLoopFuncs() 获得一个实例
+ *		o = getLoopFuncs(fn) 获得一个实例并传入第一个函数
+ *		o() 运行函数列表里面的每个函数
+ *		o(fn) 运行函数列表里面的每个函数,并完成后回调fn
+ *		o.add(fn) 同 o.add(fn, true) 添加函数并立即执行一次
+ *		o.add(fn, false) 添加函数不立即执行
+ *		o.remove(fn) 删除指定函数
+ *		o.remove() 删除所有函数
+ *		o.start() 开始自动运行
+ *		o.stop() 停止自动运行
+ *		o.interval(num) 设置间隔, 单位毫秒(ms)
+ * </code></pre>
  */
 
 KISSY.add('loopFuncs', function(S, undef) {

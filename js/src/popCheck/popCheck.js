@@ -1,14 +1,10 @@
-/**********************************************************************************************
- * 名称: popCheck
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
- * NOTICE:
- * 
- * API:
- * 
+/**
+ * @fileOverview
+ * @module popCheck
+ * @author hisland hisland@qq.com
+ * @description 弹出选择框
+ * <pre><code>
+ * </code></pre>
  */
 
 KISSY.add('popCheck', function(S, undef) {

@@ -147,9 +147,9 @@ KISSY.add('moni-select', function(S, undef) {
 				
 				//修正禁用状态
 				if (disabled) {
-					me.parent().attr('disabled', true).addClass('moni-select-disabled');
+					me.parent('a').attr('disabled', true).addClass('moni-select-disabled');
 				}else {
-					me.parent().attr('disabled', false).removeClass('moni-select-disabled');
+					me.parent('a').attr('disabled', false).removeClass('moni-select-disabled');
 				}
 				
 				//修正显示文本

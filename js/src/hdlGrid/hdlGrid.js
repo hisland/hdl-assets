@@ -60,64 +60,109 @@ KISSY.add('hdlGrid', function(S, undef) {
 	var $ = jQuery,
 		$EMPTY = $('');
 
-	//表格预设置,需要修改时可参考
+	/**
+	 * 表格预设置,需要修改时可参考
+	 */
 	var pre_setting = {
-			enable_checkbox: true,		//是否启用左侧的checkbox
-			var_checkbox: 'ckb-name',	//checkbox的name, 对应后台接收
+			/** 是否启用左侧的checkbox */
+			enable_checkbox: true,
+			/** checkbox的name, 对应后台接收 */
+			var_checkbox: 'ckb-name',
 
-			enable_drag: true,			//是否启用列拖动
-			enable_sort: true,			//是否启用列排序
-			enable_toggle: true,		//是否启用列切换显示
-			enable_edit: true,			//是否可编辑
-			enable_col_resize: true,	//是否可改变列宽度
+			/** 是否启用列拖动 */
+			enable_drag: true,
+			/** 是否启用列排序 */
+			enable_sort: true,
+			/** 是否启用列切换显示 */
+			enable_toggle: true,
+			/** 是否可编辑 */
+			enable_edit: true,
+			/** 是否可改变列宽度 */
+			enable_col_resize: true,
 
-			enable_pop_detail: true,	//是否显示弹出的详细信息
+			/** 是否显示弹出的详细信息 */
+			enable_pop_detail: true,
 
-			min_width: 150,				//最小宽度
-			min_height: 100,			//最小高度
-			max_width: 450,				//最大宽度
-			max_height: 300,			//最大高度
-			auto_size: true,			//初始化时,自动调整宽度
+			/** 最小宽度 */
+			min_width: 150,
+			/** 最小高度 */
+			min_height: 100,
+			/** 最大宽度 */
+			max_width: 450,
+			/** 最大高度 */
+			max_height: 300,
+			/** 初始化时,自动调整宽度 */
+			auto_size: true,
 
-			enable_page: true,			//是否使用分页
-			page_curr: 0,				//当前页
-			var_page: 'page',			//page_curr的name, 对应后台接收
-			var_num_per_page: 'perPageNum',	//每页显示数量的name, 对应后台接收
-			page_total: 0,				//总页数
-			num_per_page: [2, [5, 10, 15, 20]],//[0]为[1]的索引, [1]为可选择的页数量值
+			/** 是否使用分页 */
+			enable_page: true,
+			/** 当前页 */
+			page_curr: 0,
+			/** page_curr的name, 对应后台接收 */
+			var_page: 'page',
+			/** 每页显示数量的name, 对应后台接收 */
+			var_num_per_page: 'perPageNum',
+			/** 总页数 */
+			page_total: 0,
+			/** [0]为[1]的索引, [1]为可选择的页数量值 */
+			num_per_page: [2, [5, 10, 15, 20]],
 
-			url: '',					//获取数据的地址
-			param: '',					//传递的额外参数, 可为函数, 函数命名空间[暂不支持]
-			last_param: '',				//上次请求时的参数列表, 不含var_page, var_num_per_page
-			auto_load: true,			//是否自动加载
+			/** 获取数据的地址 */
+			url: '',
+			/** 传递的额外参数, 可为函数, 函数命名空间[暂不支持] */
+			param: '',
+			/** 上次请求时的参数列表, 不含var_page, var_num_per_page */
+			last_param: '',
+			/** 是否自动加载 */
+			auto_load: true,
 
-			nowrap: true,			//文本强制在一行
+			/** 文本强制在一行 */
+			nowrap: true,
 
-			single_check: false,		//单行选中checkbox, 无全选
-			single_select: true,		//单行选择
+			/** 单行选中checkbox, 无全选 */
+			single_check: false,
+			/** 单行选择 */
+			single_select: true,
 
-			msg_empty: '暂无数据,根据内容填充后的大小居中显示',	//无数据时显示的内容
-			msg_proc: '正在加载,请稍等...',	//加载时显示的内容
+			/** 无数据时显示的内容 */
+			msg_empty: '暂无数据,根据内容填充后的大小居中显示',
+			/** 加载时显示的内容 */
+			msg_proc: '正在加载,请稍等...',
 
-			row_bgs: ['#fff', '#f00'],		 //间隔背景色设置
+			/** 间隔背景色设置 */
+			row_bgs: ['#fff', '#f00'],
 
-			preProcess: null		 //对响应结果进行预处理
+			/** 对响应结果进行预处理 */
+			preProcess: null
 		};
 
-	//列预设置,需要修改时可参考
+	/**
+	 * 列预设置,需要修改时可参考
+	 */
 	var pre_col_model = {
-			display: '列名',				//显示名称
-			name: '',						//对应的键名
-			hide: false,					//显示与否
-			width: '50',					//列宽度,数字或 百分比('50%')
-			align: 'left',					//对齐方式
-			align_head: 'center',			//表头对齐方式
-			enable_sort: true,				//可否排序
-			enable_hide: true,				//可否隐藏
-			process: null	//列单元格处理, function(cell){}
+			/** 显示名称 */
+			display: '列名',
+			/** 对应的键名 */
+			name: '',
+			/** 显示与否 */
+			hide: false,
+			/** 列宽度,数字或 百分比('50%') */
+			width: '50',
+			/** 对齐方式 */
+			align: 'left',
+			/** 表头对齐方式 */
+			align_head: 'center',
+			/** 可否排序 */
+			enable_sort: true,
+			/** 可否隐藏 */
+			enable_hide: true,
+			/** 列单元格处理, function(cell){} */
+			process: null
 		};
 
-	//行预设置,需要修改时可参考
+	/**
+	 * 行预设置,需要修改时可参考
+	 */
 	var pre_row = {
 			enable_edit: true,
 			enable_delete: true,
@@ -135,7 +180,10 @@ KISSY.add('hdlGrid', function(S, undef) {
 		}
 		var grid = this;
 
-		grid.setting = S.mix(setting, pre_setting, false);//不覆盖相同的设置,只copy不存在的设置
+		setting = setting || {};
+
+		//不覆盖相同的设置,只copy不存在的设置
+		grid.setting = S.mix(setting, pre_setting, false);
 
 		//初始化DOM结构
 		grid.__initDOM();
@@ -470,8 +518,31 @@ KISSY.add('hdlGrid', function(S, undef) {
 		}
 	});
 
-	$.extend({
-		hdlGrid: Grid
+	$.fn.extend({
+		hdlGrid: function(setting){
+			var elm = this.eq(0),
+				width = elm.width(),
+				height = elm.height(),
+				grid = elm.data('hdlGrid');
+
+			//没有就初始化一个
+			if(!grid){
+				grid = Grid();
+				S.mix(grid.setting, setting);
+				elm.empty().append(grid.$div);
+
+				//异步加载数据
+				if(grid.setting.url && grid.setting.auto_load){
+					grid.ajaxLoad(function(){
+						this.fixSize();
+					});
+				}
+			}else{
+				S.mix(grid.setting, setting);
+			}
+
+			return grid;
+		}
 	});
 }, {
 	requires: ['jquery-1.4.2']

@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 名称: 拖动
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-09-14 15:17:59
- * 版本: v2
- *
+/**
+ * @fileOverview
+ * @module hdlDrag
+ * @author hisland hisland@qq.com
+ * @description 拖动
+ * <pre><code>
  * API:
  *		$(selector).hdlDrag(); //初始化,拖动自己
  *		$(selector).hdlDrag(setting); //初始化,并传入设置, 或者修改设置
@@ -24,7 +23,7 @@
  * 2011-10-01 11:31:29:
  *		多数操作都需要对等函数,如show,hide, mask,demask...
  *		启用停用
- * 
+ * </code></pre>
  */
 
 KISSY.add('hdlDrag', function(S, undef) {

@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 名称: 树控件
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-07-19 17:27:28
- * 版本: v1
- *
+/**
+ * @fileOverview
+ * @module hdlTree
+ * @author hisland hisland@qq.com
+ * @description 树控件
+ * <pre><code>
  * API:
  *
 tree:{
@@ -93,7 +92,8 @@ TODO:
 		蹦床功能,避免递归溢出
 	2011-11-14 14:45:42:
 		默认只提供展开折叠的toggle按钮,另外一个小箭头展开折叠当前层级等各种展开需求
-*/
+ * </code></pre>
+ */
 
 KISSY.add('hdlTree', function(S, undef) {
 	var $ = jQuery,

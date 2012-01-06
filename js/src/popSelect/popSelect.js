@@ -1,12 +1,11 @@
-/**********************************************************************************************
- * 名称: 弹出选择框
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-2-21 12:36:50
- * 版本: v1
- *
- * API:
- *		
+/**
+ * @fileOverview
+ * @module popSelect
+ * @author hisland hisland@qq.com
+ * @description 弹出选择框
+ * <pre><code>
+ * 
+ * </code></pre>
  */
 
 KISSY.add('popSelect', function(S, undef) {

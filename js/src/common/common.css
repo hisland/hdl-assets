@@ -52,4 +52,4 @@ input.button3{width:150px;height:22px;line-height:22px;border:none;background:ur
 
 input[type=password][readonly], input[type=text][readonly], textarea[readonly]{background:#e1dfd4;color:#666;border:1px solid #7f9db9;padding:1px;}
 input[type=password][disabled], input[type=text][disabled], textarea[disabled]{background:#f5f4ea;color:#aca899;text-shadow:#fff 1px 1px;border:1px solid #c9c7ba;padding:1px;cursor:default;}
-/* ie6的样式在ie.css里面定义 */
+/* ie6的样式在ie6模块里面定义 */

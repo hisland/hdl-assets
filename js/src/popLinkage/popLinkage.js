@@ -1,19 +1,51 @@
-/**********************************************************************************************
- * 名称: popLinkage
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
+/**
+ * @fileOverview
+ * @module popLinkage
+ * @author hisland hisland@qq.com
+ * @description 弹出层里操作联动
+ * <pre><code>
  * 
- * NOTICE:
- * 
- * API:
- * 
+ * </code></pre>
  */
 
 KISSY.add('popLinkage', function(S, undef) {
-	var $ = jQuery;
+	var $ = jQuery,
+		$EMPTY = $('');
 
+	/**
+	 * @class
+	 * @name linkage
+	 */
+	function linkage(){
+		
+	}
+
+	/**
+	 * @lends linkage#
+	 */
+	S.augment(linkage, {
+		setData: function(data){
+			
+		},
+		bbq: function(){
+			
+		},
+		bbq: function(){
+			
+		},
+		bbq: function(){
+			
+		},
+		bbq: function(){
+			
+		}
+	});
+
+	$.extend({
+		popLinkage: function(){
+			
+		}
+	});
 }, {
 	requires: ['jquery-1.4.2']
 });

@@ -1,13 +1,9 @@
-/**********************************************************************************************
- * 名称: 日期控件
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
- * NOTICE:
- *		
- * 
+/**
+ * @fileOverview
+ * @module dateTool
+ * @author hisland hisland@qq.com
+ * @description 日期控件
+ * <pre><code>
  * API:
  *		$('input').dateTool();	//初始化, 返回值为date_setting
  *		$('input').dateTool('year2011');	//初始化,固定住年为2011
@@ -25,9 +21,8 @@
  * 
  * 2011-10-06 11:10:30:
  *		超出时间范围由用户决定继续填充,并加个开关是否允许
- * 
+ * </code></pre>
  */
-
 KISSY.add('dateTool', function(S, undef) {
 	var $ = jQuery,
 		$EMPTY = $(''),

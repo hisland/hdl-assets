@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 层模拟的提示信息插件
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2010-9-25 14:52:5
- * 版本: v3
- * 
+/**
+ * @fileOverview
+ * @module hdlTipMsg
+ * @author hisland hisland@qq.com
+ * @description 层模拟的提示信息插件
+ * <pre><code>
  * TODO:
  * 		confirm点击是或否应该有 returnValue
  * 		2010-8-19 14:5:35
@@ -17,7 +16,12 @@
  * 			确定和X不能拖动
  * 		2011-06-01 13:15:55
  * 			Y/N快捷键支持
- * 
+ * API:
+ * 		$.alert('msg');
+ * 		$.notice('msg');
+ * 		$.errorTip('msg');
+ * 		$.confirm('msg', function(){});
+ * </code></pre>
  */
 
 KISSY.add('hdlTipMsg', function(S, undef) {

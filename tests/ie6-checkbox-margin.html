@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, demo-css, common-css, jquery-1.4.2', function(){
+				var box = $('p:even').find('input').attr('disabled', false);
+				$('#toggle').click(function(e){
+					if(!this.is_on){
+						box.attr('disabled', true);
+					}else{
+						box.attr('disabled', false);
+					}
+
+					this.is_on = !this.is_on;
+				});
+			});
+		});
+	</script>
+</head>
+<body style="margin:30px;">
+	<div class="demo-section">
+		<div class="demo-legend">说明</div>
+		<div class="demo-box">
+			<p>IE6,7的checkbox始终有4px的边距,需要使用负边距解决</p>
+			<p>切换disable状态的时候不会有问题</p>
+			<input id="toggle" type="button" name="" value="切换" />
+		</div>
+		<div class="demo-box">
+			<p><input type="checkbox" name="" value="" /></p>
+			<p><input type="checkbox" name="" value="" disabled="disabled" /></p>
+
+			<p><input type="checkbox" class="checkbox1" name="" value=""  /></p>
+			<p><input type="checkbox" class="checkbox1" name="" value="" disabled="disabled" /></p>
+
+			<p><input type="checkbox" class="checkbox2" name="" value=""  /></p>
+			<p><input type="checkbox" class="checkbox2" name="" value="" disabled="disabled" /></p>
+
+			<p><input type="checkbox" class="checkbox3" name="" value=""  /></p>
+			<p><input type="checkbox" class="checkbox3" name="" value="" disabled="disabled" /></p>
+		</div>
+	</div>
+</body>
+</html>

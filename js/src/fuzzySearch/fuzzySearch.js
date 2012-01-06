@@ -1,13 +1,12 @@
-/**********************************************************************************************
- * 名称: fuzzySearch
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module fuzzySearch
+ * @author hisland hisland@qq.com
+ * @description 模糊查询复选框操作
+ * <pre><code>
  * API:
  *		无特殊api,只需要给相应的checkbox加上data-fuzzy-ids="#id1, #id2"即可
- * 
+ * </code></pre>
  */
 
 KISSY.add('fuzzySearch', function(S, undef) {

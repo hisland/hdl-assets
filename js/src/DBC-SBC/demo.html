@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> 半角/全角 字符互转 </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, demo-css, DBC-SBC, jquery.input', function(){
+				$('#sbc').input(function(e){
+					$('#dbc').val($.toDBC(this.value));
+				});
+				$('#dbc').input(function(e){
+					$('#sbc').val($.toSBC(this.value));
+				});
+			});
+		});
+	</script>
+	<style type="text/css">
+		input{width:200px;}
+	</style>
+</head>
+
+<body>
+	<div class="demo-section">
+		<div class="demo-legend">半角/全角 字符互转</div>
+		<div class="demo-box">
+			<p>在下面输入框中输入会对应转到另外的框框中</p>
+			单字节:<input type="text" value="" id="sbc" /><br />
+			双字节:<input type="text" value="" id="dbc" />
+		</div>
+	</div>
+</body>
+</html>
