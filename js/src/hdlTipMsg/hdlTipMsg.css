@@ -20,8 +20,9 @@
 	.tipmsg2-b1{height:30px;text-align:center;border:1px solid #afcdea;border-top:none;background:#fff;
 				border-radius:0 0 5px 5px;-moz-border-radius:0 0 5px 5px;}
 	.tipmsg2-b1 input[type=button]{
-		padding:2px 15px;
 		border-width:2px;
+		width:72px;
+		height:22px;
 		border-left-colors:#b6d3ef #ecf5ff;
 		-moz-border-left-colors:#b6d3ef #ecf5ff;
 		border-top-colors:#b6d3ef #ecf5ff;
@@ -47,8 +48,9 @@
 	.tipmsg-alert,
 	.tipmsg-notice,
 	.tipmsg-confirm,
-	.tipmsg-error{position:absolute;width:27px;height:27px;top:50%;left:20px;margin-top:-10px;overflow:hidden;}
-		.tipmsg-alert{background:url('hdlTipMsg-img/tipmsg-icons.gif') no-repeat 0 0;}
-		.tipmsg-notice{background:url('hdlTipMsg-img/tipmsg-icons.gif') no-repeat -40px 0;}
-		.tipmsg-confirm{background:url('hdlTipMsg-img/tipmsg-icons.gif') no-repeat -80px 0;}
-		.tipmsg-error{background:url('hdlTipMsg-img/tipmsg-icons.gif') no-repeat -120px 0;}
+	.tipmsg-errorTip{position:absolute;width:27px;height:27px;top:50%;left:20px;margin-top:-10px;overflow:hidden;}
+
+	.tipmsg-alert{background:url('hdlTipMsg-img/tipmsg-icons.gif') no-repeat 0 0;}
+	.tipmsg-notice{background:url('hdlTipMsg-img/tipmsg-icons.gif') no-repeat -40px 0;}
+	.tipmsg-confirm{background:url('hdlTipMsg-img/tipmsg-icons.gif') no-repeat -80px 0;}
+	.tipmsg-errorTip{background:url('hdlTipMsg-img/tipmsg-icons.gif') no-repeat -120px 0;}

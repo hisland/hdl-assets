@@ -1,17 +1,16 @@
-/**********************************************************************************************
- * 名称: jQuery元素对齐某元素
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-2-17 15:7:59
- * 版本: v2
- * 
+/**
+ * @fileOverview
+ * @module hdlDrag
+ * @author hisland hisland@qq.com
+ * @description jQuery元素对齐某元素
+ * <pre><code>
  * 2011-4-12 15:3:54:
  *		元素设置data-offset="x, y", 默认[0, 0], 属性使对齐可以加一定的偏移
  *		元素设置data-adjust-type="force", 默认[view], 属性使强制左/右/上/下对齐[force]或者以显示完全为主要对齐[view](某些情况强制对齐一边浮动元素都不能显示全)
- *
  * API:
  *		$('').adjustElement(target);
  *		$('').adjustElement(target, callback);
+ * </code></pre>
  */
 
 KISSY.add('adjustElement', function(S, undef) {

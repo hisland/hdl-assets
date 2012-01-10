@@ -29,7 +29,7 @@ KISSY.add('validString', function(S, undef) {
 	//验证函数
 	function validString(name, str){
 		if(!S.isString(name) || !str){
-			S.log('window.validString: must have name[String] and str!', 'warn');
+			S.log('window.validString: must have name[String] and str[String,Number]!', 'warn');
 			return false;
 		}
 
@@ -116,17 +116,17 @@ KISSY.add('validString', function(S, undef) {
 	//expose
 	window.validString = validString;
 
-
-	//add some default
-
 	//默认正则都可为空,不能为空请加上must规则
 	validString.add('must', /^.+$/, '此项必填');
 
+	//不带前置0的ipv4, 如: 10.2.100.11
 	validString.add(
 		'ipv4',
 		/^$|^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$/,
 		'IPv4,点分十进制共四位,每个数字不能超过255'
 	);
+
+	//可带前置0的ipv4, 如: 010.002.100.011
 	validString.add(
 		'ipv4-prefix0',
 		/^$|^(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)$/,

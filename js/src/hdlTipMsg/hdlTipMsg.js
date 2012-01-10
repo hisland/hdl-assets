@@ -82,25 +82,151 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		}
 	}
 
-	//内部功能函数 - 关闭
-	function close(div, setting){
-		//关闭之前的操作
-		if(S.isFunction(setting.onHide)){
-			setting.onHide(div);
-		}
-
-		//消失,删除,并取消注册的事件
-		if(setting.slide){
-			div.fadeOut(function(){
-				div.manager.remove();
-			});
-		}else{
-			div.manager.remove();
-		}
+	function init(setting){
+		S.mix(this, {
+			dragable: true,
+			slide: false,
+			closeable: true
+		});
+		return this.__init();
 	}
+	S.augment(init, {
+		/**
+		 * 内部初始化
+		 */
+		__init: function(){
+			var div;
+			
+			//根据不同浏览器使用css3或者图片
+			if($.browser.msie){
+				div = $(html_string);
+			}else{
+				div = $(html_css3);
+			}
+
+			//jquery元素的快捷方式
+			S.mix(this, {
+				$div: div,
+				$close: div.find('a.tipmsg-close'),
+				$cancle: div.find('input'),
+				$ok: div.find('input'),
+				$content: div.find('div.tipmsg-content'),
+				$icon: div.find('div.tipmsg-alert'),
+				$title: div.find('span.tipmsg-title')
+			});
+
+			//纳入pop管理
+			this.manager = $.popManager.init();
+			this.manager.$div.append(this.$div);
+
+			return this;
+		},
+		/**
+		 * 显示出来
+		 */
+		show: function(){
+			this.manager.show();
+			//居中显示
+			this.$div.css('visibility', 'hidden').show().css({
+				top: (document.documentElement.clientHeight - this.$div.height())/2,
+				left:(document.documentElement.clientWidth - this.$div.width())/2,
+				visibility: ''
+			});
+			return this;
+		},
+		/**
+		 * 隐藏
+		 */
+		hide: function(){
+			if(this.closeable){
+				this.manager.hide();
+			}
+			return this;
+		},
+		/**
+		 * 从dom中删除
+		 */
+		remove: function(){
+			this.manager.remove();
+			return this;
+		},
+		/**
+		 * 设置提示类型
+		 */
+		setType: function(type){
+			switch(type){
+				case 'errorTip':
+					this.$icon.attr('class', 'tipmsg-errorTip');
+					break;
+				case 'notice':
+					this.$icon.attr('class', 'tipmsg-notice');
+					break;
+				case 'confirm':
+					this.$icon.attr('class', 'tipmsg-confirm');
+					break;
+				case 'alert':
+					this.$icon.attr('class', 'tipmsg-alert');
+					break;
+				default:
+					S.log('hdlTipMsg: setType(type), type invalid!', 'warn');
+					break;
+			}
+			return this;
+		},
+		/**
+		 * 设置标题
+		 */
+		setTitle: function(title){
+			this.$title.html(title);
+			return this;
+		},
+		/**
+		 * 设置内容
+		 */
+		setContent: function(content){
+			this.$content.html(content);
+			return this;
+		},
+		/**
+		 * 设置回调函数
+		 */
+		setCallback: function(callback){
+			if(S.isFunction(callback)){
+				this.callback = callback;
+			}
+			return this;
+		},
+		/**
+		 * 设置可否拖动
+		 */
+		setCloseable: function(able){
+			if(S.isBoolean(able)){
+				this.closeable = able;
+			}
+			return this;
+		},
+		/**
+		 * 设置可否拖动
+		 */
+		setDraggable: function(able){
+			if(S.isBoolean(able)){
+				this.draggable = able;
+			}
+			return this;
+		},
+		/**
+		 * 设置是否淡入淡出
+		 */
+		setSlide: function(state){
+			if(S.isBoolean(state)){
+				this.state = state;
+			}
+			return this;
+		}
+	});
 
 	//内部功能函数 - 初始化
-	function init(setting){
+	function bbq(setting){
 		var div = $(html_string);
 
 		if($.browser.msie){
@@ -117,7 +243,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 
 		switch(setting.type){
 			case 'errorTip':
-				div.icon.attr('class', 'tipmsg-error');
+				div.icon.attr('class', 'tipmsg-errorTip');
 				break;
 			case 'notice':
 				div.icon.attr('class', 'tipmsg-notice');
@@ -209,60 +335,54 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		return div;
 	}
 
+	//代理4种提示的初始化
+	function wrap(message, title, callback, type){
+		var tip = new init();
+
+		//第2个参数为回调函数的时候,更正参数顺序
+		if(S.isFunction(title)){
+			callback = title;
+			title = msg_confirm;
+		}
+
+		//无title时修改为默认值
+		if(!title){
+			title = msg_confirm;
+		}
+
+		//修正设置
+		tip.setType(type);
+		tip.setTitle(title);
+		tip.setContent(message);
+		tip.setCallback(callback);
+
+		return tip;
+	}
+
 	$.extend({
-		 //提示
-		 alert: function(str, title){
-			var setting = {};
-			if(typeof str === 'object'){
-				$.extend(true, setting, pre_setting, str, {type:'alert'});
-			}else{
-				title = title || msg_alert;
-				$.extend(true, setting, pre_setting, {type:'alert', title:title, message:str});
-			}
-			return init(setting);
+		/**
+		 * 一般提示
+		 */
+		alert: function(message, title, callback){
+			return wrap(message, title, callback, 'alert');
 		},
-
-		//错误
-		errorTip: function(str, title){
-			var setting = {};
-			if(typeof str === 'object'){
-				$.extend(true, setting, pre_setting, str, {type:'errorTip'});
-			}else{
-				title = title || msg_error;
-				$.extend(true, setting, pre_setting, {type:'errorTip', title:title, message:str});
-			}
-			return init(setting);
+		/**
+		 * 错误提示
+		 */
+		errorTip: function(message, title, callback){
+			return wrap(message, title, callback, 'errorTip');
 		},
-
-		//警告
-		notice: function(str, title){
-			var setting = {};
-			if(typeof str === 'object'){
-				$.extend(true, setting, pre_setting, str, {type:'notice'});
-			}else{
-				title = title || msg_notice;
-				$.extend(true, setting, pre_setting, {type:'notice', title:title, message:str});
-			}
-			return init(setting);
+		/**
+		 * 警告提示
+		 */
+		notice: function(message, title, callback){
+			return wrap(message, title, callback, 'notice');
 		},
-
-		//确认
-		confirm: function(str, title, callback){
-			var setting = {};
-			if(typeof str === 'object'){
-				$.extend(true, setting, pre_setting, str, {type:'confirm'});
-			}else{
-				//第2个参数为函数的时候,更正参数顺序
-				if(typeof title == 'function'){
-					callback = title;
-					title = msg_confirm;
-				}
-				if(!title){
-					title = msg_confirm;
-				}
-				$.extend(true, setting, pre_setting, {type:'confirm', title:title, message:str, callback:callback});
-			}
-			return init(setting);
+		/**
+		 * 确认提示
+		 */
+		confirm: function(message, title, callback){
+			return wrap(message, title, callback, 'confirm');
 		}
 	});
 }, {
