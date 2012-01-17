@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 增加字符串对象方法
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 增加字符串对象方法
+ * <pre><code>
  * API:
  *		var d = '2011-09-20'.getDate();		//从日期字符串获得Date对象
  *		var d = '2011/09/20'.getDate();		//从日期字符串获得Date对象
@@ -24,7 +23,7 @@
  * 
  *		var rs = '  jj  '.entityHTML();			//对字符串进行实体编码|编号转换
  *		var rs = '  jj  '.unentityHTML();			//上一函数的反向操作
- * 
+ * </code></pre>
  */
 
 (function(){

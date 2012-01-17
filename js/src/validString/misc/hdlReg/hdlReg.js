@@ -13,7 +13,7 @@
  *		hdlReg.test('regName1', 'test-string'); 使用验证
  *		hdlReg.item('regName1').test('test-string'); 使用验证,此方式为正则自己的test方法,不能使用到相反值
  * 
- * 2011-06-10 14:30:10:
+ * 2011-06-10 14:30:10
  * 		默认都可为空,如果验证非空,请加入must, 或者在自定义函数里面检测为空的情况
  */
 

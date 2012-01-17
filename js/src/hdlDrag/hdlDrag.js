@@ -13,14 +13,14 @@
  *		ie嵌套注册时会有问题
  *		支持嵌套定位内部的移动,会计算offsetParent的top,left值
  * 
- * 2011-09-14 17:03:18:
+ * 2011-09-14 17:03:18
  *		ie6,7,8需要setCapture
  * 
- * 2011-09-15 10:22:44:
+ * 2011-09-15 10:22:44
  *		ie使用losecapture 检测焦点丢失时取消注册, ie的window.blur会在焦点失去再得到时触发,故不用它
  *		ff使用window.blur 检测焦点丢失时取消注册
  * 
- * 2011-10-01 11:31:29:
+ * 2011-10-01 11:31:29
  *		多数操作都需要对等函数,如show,hide, mask,demask...
  *		启用停用
  * </code></pre>
@@ -133,7 +133,9 @@ KISSY.add('hdlDrag', function(S, undef) {
 		trigger = target = null;
 	}
 
-	//初始化或修改设置
+	/**
+	 * @memberOf $
+	 */
 	function hdlDrag(setting){
 		var target;
 		//setting为target选择器

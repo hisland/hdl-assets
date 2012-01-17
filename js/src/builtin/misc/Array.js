@@ -1,16 +1,17 @@
-/**********************************************************************************************
- * 数组对象方法
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 数组对象方法
+ * <pre><code>
  * API:
  *		var rs = [1,1,3].unique();	//rs为 [1,3]
- * 
+ * </code></pre>
  */
 
-//剔除数组里面的重复项
+/**
+ * 剔除数组里面的重复项
+*/
 Array.prototype.unique = function(){
 	this.sort();
 	for(var i=1; i<this.length ; ){

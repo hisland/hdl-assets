@@ -17,7 +17,7 @@
  * 		$.loadURL(url, callback)
  * 		$.loadURL(url, param, callback)
  * 
- * 2011-06-01 19:53:34:
+ * 2011-06-01 19:53:34
  *		loadURL同时多个请求时,取消前面的请求
  * 
  */

@@ -1,16 +1,15 @@
-/**********************************************************************************************
- * 增强Math对象方法
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 增强Math对象方法
+ * <pre><code>
  * API:
  *		var num = Math.random();		//得到原始的随机数
  *		var num = Math.random(100);		//得到0-100的随机数
  *		var num = Math.random(5, 100);	//得到5-100的随机数
  *		var num = Math.random(100, 5);	//得到5-100的随机数
- * 
+ * </code></pre>
  */
 
 (function(){

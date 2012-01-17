@@ -22,6 +22,7 @@
  * 		p.manager 弹出管理对象
  * </code></pre>
  */
+
 KISSY.add('popWin', function(S, undef) {
 	var $ = jQuery,
 		$EMPTY = $(''),
@@ -74,7 +75,7 @@ KISSY.add('popWin', function(S, undef) {
 
 		//代理取消按钮
 		this.$div.click(function(e){
-			if($(e.target).is('.win1-btn-cancle')){
+			if($(e.target).is('.win1-btn-cancel')){
 				$(this).parent().hide();
 			}
 		});
@@ -156,9 +157,9 @@ KISSY.add('popWin', function(S, undef) {
 			if(S.isBoolean(status)){
 				this.__close_able = status;
 				if(status){
-					this.$close.add(this.$div.find('.win1-btn-cancle')).show();
+					this.$close.add(this.$div.find('.win1-btn-cancel')).show();
 				}else{
-					this.$close.add(this.$div.find('.win1-btn-cancle')).hide();
+					this.$close.add(this.$div.find('.win1-btn-cancel')).hide();
 				}
 			}else{
 				S.log('popWin.setCloseable: status must be true or false!');

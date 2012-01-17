@@ -9,7 +9,7 @@
  * 		$('select').moniSelect(); //初始化, 有标记,不会重复初始化
  * 		$('select').refreshSelect(); //更新select的状态到moni-select,包括[显示文件,disabled状态]
  * 
- * 2011-09-09 17:17:02:
+ * 2011-09-09 17:17:02
  * 		ie[6,7,8,9],修改select的值后, 紧接着触发click会同时触发change事件
  *			修改后再改回去,[不会]同时触发change事件
  *			解决: 加标记位,如果已改变且没有change, 触发change事件

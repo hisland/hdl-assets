@@ -1,10 +1,9 @@
-/**********************************************************************************************
- * 名称: 颜色类
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: 2011-09-16 15:43:43
- * 版本: v2
- * 
+/**
+ * @fileOverview
+ * @module Color
+ * @author hisland hisland@qq.com
+ * @description 颜色类
+ * <pre><code>
  * API:
  *		var c = Color('#ccff00');	//以hex方式创建
  *		var c = Color('#f00');	//以hex缩写方式创建
@@ -12,13 +11,13 @@
  *		var c = Color('red');	//以颜色名方式创建,仅提供有限的几个
  *		var c = Color(233, 20, 255);	//以rgb数字方式创建
  * 
- *		c.toHex();	//取hex值
- *		c.toRgb();	//取rgb值
+ *		c.getHex();	//取hex值
+ *		c.getRgb();	//取rgb值
  * 
  *		c.r;	//当前r值
  *		c.g;	//当前g值
  *		c.b;	//当前b值
- * 
+ * </code></pre>
  */
 
 KISSY.add('Color', function(S, undef) {
@@ -107,7 +106,7 @@ KISSY.add('Color', function(S, undef) {
 
 	S.augment(Color, {
 		//转换成HEX字符串#ff00cc
-		toHex: function(){
+		getHex: function(){
 			var sr, sg, sb;
 			sr = this.r.toString(16);
 			sg = this.g.toString(16);
@@ -119,7 +118,7 @@ KISSY.add('Color', function(S, undef) {
 		},
 
 		//转换成RGB字符串rgb(254,33,58)
-		toRgb: function(){
+		getRgb: function(){
 			return 'rgb(' + this.r + ', ' + this.g + ', ' + this.b + ')';
 		},
 

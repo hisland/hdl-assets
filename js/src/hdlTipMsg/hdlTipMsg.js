@@ -2,10 +2,9 @@
  * @fileOverview
  * @module hdlTipMsg
  * @author hisland hisland@qq.com
- * @description 层模拟的提示信息插件
+ * @description 模拟的提示框
  * <pre><code>
  * TODO:
- * 		confirm点击是或否应该有 returnValue
  * 		2010-8-19 14:5:35
  * 			需要一个机制来控制不能关闭此层
  * 		2010-10-12 10:33:29
@@ -16,23 +15,37 @@
  * 			确定和X不能拖动
  * 		2011-06-01 13:15:55
  * 			Y/N快捷键支持
+ * 		2012-01-16 11:13:20
+ * 			每个都有回调,confirm的回调接收第一个参数为true,false
  * API:
  * 		$.alert('msg');
+ * 		$.alert('msg', 'this is title');
+ * 		$.alert('msg', function(){//do more});
+ * 		$.alert('msg', 'this is title', function(){//do more});
+ * 
  * 		$.notice('msg');
+ * 		$.notice('msg', 'this is title');
+ * 		$.notice('msg', function(){//do more});
+ * 		$.notice('msg', 'this is title', function(){//do more});
+ * 
  * 		$.errorTip('msg');
- * 		$.confirm('msg', function(){});
+ * 		$.errorTip('msg', 'this is title');
+ * 		$.errorTip('msg', function(){//do more});
+ * 		$.errorTip('msg', 'this is title', function(){//do more});
+ * 
+ * 		$.confirm('msg', function(rs){//rs is true or false});
+ * 		$.confirm('msg', 'this is title', function(rs){//rs is true or false});
  * </code></pre>
  */
-
 KISSY.add('hdlTipMsg', function(S, undef) {
 	var $ = jQuery,
 		msg_alert = '提示',
 		msg_error = '错误',
 		msg_notice = '警告',
 		msg_confirm = '确认',
-		msg_defalt = '默认信息',
+		msg_defalt = '未设置信息',
 		msg_ok = '确定',
-		msg_cancle = '取消';
+		msg_cancel = '取消';
 
 	//JS国际化信息的覆盖
 	if(window.JS_I18N){
@@ -42,57 +55,40 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		msg_confirm = JS_I18N['js.common.hdlTipMsg.msg_confirm'];
 		msg_defalt = JS_I18N['js.common.hdlTipMsg.msg_defalt'];
 		msg_ok = JS_I18N['js.common.hdlTipMsg.msg_ok'];
-		msg_cancle = JS_I18N['js.common.hdlTipMsg.msg_cancle'];
+		msg_cancel = JS_I18N['js.common.hdlTipMsg.msg_cancel'];
 	}
 	
 	var html_string = '<div class="tipmsg-wrap"><div class="tipmsg-h1"><div class="tipmsg-h2"><div class="tipmsg-h3"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div></div></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg-b1"><div class="tipmsg-b2"><div class="tipmsg-b3"><input type="button" value="'+msg_ok+'" /></div></div></div></div>',
 		html_css3 = '<div class="tipmsg-wrap"><div class="tipmsg2-h1"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg2-b1"><input type="button" value="'+msg_ok+'" /></div></div>',
-		pre_setting = {
-			message: msg_defalt,
-			type: 'alert',
-			title: msg_alert,
-			//自动隐藏,为数字,0表示不自动,大于0的整数表示多少秒后隐藏
-			auto_hide: 0,
-			//针对confirm的回调函数
-			callback: 0,
-			//在层打开之前的操作
-			beforeShow: 0,
-			//显示层时的操作
-			onShow: 0,
-			//在层关闭之前的操作
-			beforeHide: 0,
-			//关闭层时的操作
-			onHide: 0,
-			//是否可拖动
-			dragable: 1,
-			//是否淡入淡出
-			slide: 0,
-			//默认焦点在yes上
-			focus_yes: 1
-		};
+		html_button = '<input type="button" />';
 
-	//提示打开时,不能用tab把焦点切换到遮罩后面, 仅在提示层上循环切换
-	function documentKeydown(e){
-		if(e.keyCode == 9){
-			tabs.eq(tabi++).focus();
-			if(tabi >= tabs.length){
-				tabi = 0;
-			}
-			return false;
+	/**
+	 * @class
+	 * @name hdlTipMsg
+	 * @param setting
+	 * <pre><code>
+		{
+			slide: false,
+			dragable: true,
+			closeable: true
 		}
-	}
-
+	 * </code></pre>
+	 */
 	function init(setting){
 		S.mix(this, {
-			dragable: true,
 			slide: false,
+			dragable: true,
 			closeable: true
 		});
 		return this.__init();
 	}
+	/**
+	 * @lends hdlTipMsg#
+	 */
 	S.augment(init, {
 		/**
 		 * 内部初始化
+		 * @private
 		 */
 		__init: function(){
 			var div;
@@ -108,7 +104,6 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 			S.mix(this, {
 				$div: div,
 				$close: div.find('a.tipmsg-close'),
-				$cancle: div.find('input'),
 				$ok: div.find('input'),
 				$content: div.find('div.tipmsg-content'),
 				$icon: div.find('div.tipmsg-alert'),
@@ -119,27 +114,87 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 			this.manager = $.popManager.init();
 			this.manager.$div.append(this.$div);
 
+			//初始化拖动
+			this.$div.hdlDrag({
+				trigger_filter: function(e){
+					if($(e.target).closest(':button, .tipmsg-content, .tipmsg-close').length){
+						return false;
+					}
+				}
+			});
+
+			//右上角关闭事件
+			this.$close.bind('click', this, function(e){
+				e.data.hide();
+				e.preventDefault();
+			})
+			//不能拖拽
+			.bind('dragstart', function(e){
+				e.preventDefault();
+			});
+
+			//点击确定按钮的处理
+			this.$ok.bind('click', this, function(e){
+				//点击确定的回调,会传入true
+				if(S.isFunction(e.data.callback)){
+					e.data.callback(true);
+				}
+				e.data.hide();
+			});
+
 			return this;
 		},
 		/**
 		 * 显示出来
 		 */
 		show: function(){
-			this.manager.show();
-			//居中显示
-			this.$div.css('visibility', 'hidden').show().css({
-				top: (document.documentElement.clientHeight - this.$div.height())/2,
-				left:(document.documentElement.clientWidth - this.$div.width())/2,
-				visibility: ''
-			});
+			if(this.slide){
+				this.manager.show();
+				//居中显示
+				this.$div.hide().fadeIn().css({
+					top: (document.documentElement.clientHeight - this.$div.height())/2,
+					left:(document.documentElement.clientWidth - this.$div.width())/2
+				});
+			}else{
+				this.manager.show();
+				//居中显示
+				this.$div.css('visibility', 'hidden').show().css({
+					top: (document.documentElement.clientHeight - this.$div.height())/2,
+					left:(document.documentElement.clientWidth - this.$div.width())/2,
+					visibility: ''
+				});
+			}
+
+			//确定按钮获得焦点
+			this.$ok.focus();
+
+			//显示时的回调
+			if(S.isFunction(this.onShow)){
+				this.onShow();
+			}
+
 			return this;
 		},
 		/**
 		 * 隐藏
 		 */
 		hide: function(){
+			var tip = this;
 			if(this.closeable){
-				this.manager.hide();
+				if(this.slide){
+					this.$div.fadeOut(function(){
+						tip.manager.hide();
+					});
+				}else{
+					this.manager.hide();
+				}
+
+				//隐藏时的回调
+				if(S.isFunction(this.onHide)){
+					this.onHide();
+				}
+			}else{
+				S.log('cant\'t close!');
 			}
 			return this;
 		},
@@ -152,6 +207,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		},
 		/**
 		 * 设置提示类型
+		 * @param type 值为alert|notice|errorTip|confirm之一, 其它值无效果并产生一个警告
 		 */
 		setType: function(type){
 			switch(type){
@@ -175,6 +231,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		},
 		/**
 		 * 设置标题
+		 * @param type 值为字符串或者DOM元素及jquery元素
 		 */
 		setTitle: function(title){
 			this.$title.html(title);
@@ -182,6 +239,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		},
 		/**
 		 * 设置内容
+		 * @param content 值为字符串或者DOM元素及jquery元素
 		 */
 		setContent: function(content){
 			this.$content.html(content);
@@ -189,6 +247,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		},
 		/**
 		 * 设置回调函数
+		 * @param callback 值为函数
 		 */
 		setCallback: function(callback){
 			if(S.isFunction(callback)){
@@ -197,7 +256,8 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 			return this;
 		},
 		/**
-		 * 设置可否拖动
+		 * 设置可否关闭
+		 * @param able 值为true|false
 		 */
 		setCloseable: function(able){
 			if(S.isBoolean(able)){
@@ -207,133 +267,115 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		},
 		/**
 		 * 设置可否拖动
+		 * @param able 值为true|false 可选
 		 */
 		setDraggable: function(able){
 			if(S.isBoolean(able)){
 				this.draggable = able;
 			}
+
+			//更新拖动可用状态
+			this.$div.hdlDrag({
+				enable: this.draggable
+			});
+
+			return this;
+		},
+		/**
+		 * 设置或取消自动关闭
+		 * @param time 值为大于0的数字表示自动关闭时长,单位秒, 为false表示不自动关闭,并且取消正在进行的计时
+		 */
+		setAutoClose: function(time){
+			//取消自动关闭
+			if(time === false){
+				this.$ok.val(msg_ok);
+				this._auto_close.cancel();
+				this._auto_close_count.cancel();
+				this._auto_close = false;
+			}
+
+			//设置自动关闭
+			if(time > 0){
+				//已存在计时先清除
+				if(this._auto_close){
+					this._auto_close.cancel();
+					this._auto_close_count.cancel();
+				}
+
+				this._auto_close = S.later(function(){
+					this.hide();
+					this.$ok.val(msg_ok);
+					this._auto_close = false;
+					this._auto_close_count.cancel();
+				}, time*1000, false, this);
+
+				//步长为1S的倒计时
+				this.$ok.val(msg_ok + '(' + time + ')');
+				this._auto_close_count = S.later(function(){
+					time--;
+					this.$ok.val(msg_ok + '(' + time + ')');
+				}, 1000, true, this);
+			}
+
 			return this;
 		},
 		/**
 		 * 设置是否淡入淡出
+		 * @param slide 值为true|false
 		 */
-		setSlide: function(state){
-			if(S.isBoolean(state)){
-				this.state = state;
+		setSlide: function(slide){
+			if(S.isBoolean(slide)){
+				this.slide = slide;
 			}
+			return this;
+		},
+		/**
+		 * 设置宽度
+		 * @param width 值为大于等于200的整数
+		 */
+		setWidth: function(width){
+			if(S.isNumber(width) && width >= 200){
+				this.$div.width(width);
+			}
+			return this;
+		},
+		/**
+		 * 添加一个按钮
+		 * @param setting 按钮设置
+		 * <pre><code>
+			{
+				click: function(e){
+					//e.data is tip
+				},
+				text: '按钮文字'
+			}
+		 * </code></pre>
+		 */
+		addButton: function(setting){
+			if(S.isPlainObject(setting)){
+				$(html_button).bind('click', this, setting.click).val(setting.text).appendTo(this.$ok.parent());
+			}else{
+				S.log('setting must be a object!', 'error');
+			}
+			return this;
+		},
+		/**
+		 * 设置显示回调
+		 * @param fn 显示时的回调
+		 */
+		setOnShow: function(fn){
+			this.onShow = fn;
+			return this;
+		},
+		/**
+		 * 设置关闭回调
+		 * @param fn 关闭时的回调
+		 */
+		setOnHide: function(fn){
+			this.onHide = fn;
 			return this;
 		}
 	});
-
-	//内部功能函数 - 初始化
-	function bbq(setting){
-		var div = $(html_string);
-
-		if($.browser.msie){
-			div = $(html_string);
-		}else{
-			div = $(html_css3);
-		}
-
-		div.close = div.find('a.tipmsg-close');
-		div.btn_cancle = div.btn_ok = div.find('input');
-		div.content = div.find('div.tipmsg-content');
-		div.icon = div.find('div.tipmsg-alert');
-		div.title = div.find('span.tipmsg-title');
-
-		switch(setting.type){
-			case 'errorTip':
-				div.icon.attr('class', 'tipmsg-errorTip');
-				break;
-			case 'notice':
-				div.icon.attr('class', 'tipmsg-notice');
-				break;
-			case 'confirm':
-				div.icon.attr('class', 'tipmsg-confirm');
-				div.btn_ok = $('<input type="button" value='+msg_ok+' />').click(function(){
-						if($.isFunction(setting.callback)){
-							setting.callback(div);
-						}
-						close(div, setting);
-					});
-				div.btn_cancle.val(msg_cancle).before(div.btn_ok);
-				break;
-		}
-
-		//设置关闭事件
-		div.close.add(div.btn_cancle).click(function(e){
-			close(div, setting);
-			e.preventDefault();
-		})
-		//不能拖拽
-		.bind('dragstart', function(e){
-			e.preventDefault();
-		});
-
-		//设置标题
-		div.title.html(setting.title);
-
-		//放入内容
-		div.content.html(setting.message);
-
-		//设置弹出管理
-		div.manager = $.popManager.init();
-		div.appendTo(div.manager.$div);
-		div.manager.show();
-		div.remove = function(){
-			this.manager.remove();
-		};
-
-		//居中
-		div.css({
-			top: (document.documentElement.clientHeight - div.height())/2,
-			left:(document.documentElement.clientWidth - div.width())/2
-		});
-
-		//如果有显示之前的操作
-		if($.isFunction(setting.beforeShow)){
-			setting.beforeShow(div);
-		}
-
-		if(setting.slide){
-			div.fadeIn();
-		}else{
-			div.show();
-		}
-
-		//确认按钮获得焦点
-		if(setting.focus_yes){
-			div.btn_ok.focus();
-		}else{
-			div.btn_cancle.focus();
-		}
-
-		//如果有显示之时的操作
-		if($.isFunction(setting.onShow)){
-			setting.onShow(div);
-		}
-
-		//拖动与否
-		if(setting.dragable){
-			div.hdlDrag({
-				trigger_filter: function(e){
-					if($(e.target).closest(':button, .tipmsg-content, .tipmsg-close').length){
-						return false;
-					}
-				}
-			});
-		}
-
-		//是否自动关闭
-		if(setting.auto_hide > 0){
-			setTimeout(function(){
-				div.close.click();
-			}, setting.auto_hide*1000);
-		}
-		div.show();
-
-		return div;
-	}
 
 	//代理4种提示的初始化
 	function wrap(message, title, callback, type){
@@ -356,33 +398,63 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		tip.setContent(message);
 		tip.setCallback(callback);
 
+		//生成即显示出来
+		tip.show();
+
 		return tip;
 	}
 
+	/**
+	 * @lends $
+	 */
 	$.extend({
 		/**
 		 * 一般提示
+		 * @param message 值为字符串或者dom元素及jquery元素
+		 * @param title 值为字符串或者dom元素及jquery元素, 可选
+		 * @param callback 值为函数
 		 */
 		alert: function(message, title, callback){
 			return wrap(message, title, callback, 'alert');
 		},
 		/**
 		 * 错误提示
+		 * @param message 值为字符串或者dom元素及jquery元素
+		 * @param title 值为字符串或者dom元素及jquery元素, 可选
+		 * @param callback 值为函数
 		 */
 		errorTip: function(message, title, callback){
 			return wrap(message, title, callback, 'errorTip');
 		},
 		/**
 		 * 警告提示
+		 * @param message 值为字符串或者dom元素及jquery元素
+		 * @param title 值为字符串或者dom元素及jquery元素, 可选
+		 * @param callback 值为函数
 		 */
 		notice: function(message, title, callback){
 			return wrap(message, title, callback, 'notice');
 		},
 		/**
 		 * 确认提示
+		 * @param message 值为字符串或者dom元素及jquery元素
+		 * @param title 值为字符串或者dom元素及jquery元素, 可选
+		 * @param callback 值为函数
 		 */
 		confirm: function(message, title, callback){
-			return wrap(message, title, callback, 'confirm');
+			var tip = wrap(message, title, callback, 'confirm');
+			//增加一个取消按钮
+			tip.addButton({
+				click: function(e){
+					//点击取消的回调,会传入false
+					if(S.isFunction(e.data.callback)){
+						e.data.callback(false);
+					}
+					e.data.hide();
+				},
+				text: msg_cancel
+			});
+			return tip;
 		}
 	});
 }, {

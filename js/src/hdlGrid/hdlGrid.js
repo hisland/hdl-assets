@@ -32,7 +32,7 @@
 		4.修改设置[grid, col, row]
 		5.嵌入html要注意html实体的转义,除非特殊指明使用原始数据
 
-2011-06-20 16:43:51:
+2011-06-20 16:43:51
 	single_check, chekckbox只能选择一个, 没有全选checkbox, 也就是一次只能操作1行数据
 	动态改变列
 	动态改变行
@@ -41,17 +41,17 @@
 	scrollbar_width
 	合并单元格
 
-2011-07-21 11:02:27:
+2011-07-21 11:02:27
 	按住shift键选择范围
 
-2011-09-02 14:17:37:
+2011-09-02 14:17:37
 	动态增加删除列
 	动态隐藏显示列
 
-2011-09-22 20:15:08:
+2011-09-22 20:15:08
 	反选操作
 
-2011-10-09 11:15:48:
+2011-10-09 11:15:48
 	双击拖动自动适应宽度
 
  * </code></pre>
@@ -79,6 +79,11 @@ KISSY.add('hdlGrid', function(S, undef) {
 			enable_edit: true,
 			/** 是否可改变列宽度 */
 			enable_col_resize: true,
+
+			/** 是否启用表头 */
+			enable_title: true,
+			/** 是否启用控制按钮 */
+			enable_button: true,
 
 			/** 是否显示弹出的详细信息 */
 			enable_pop_detail: true,
@@ -178,30 +183,27 @@ KISSY.add('hdlGrid', function(S, undef) {
 		if(!(this instanceof Grid)){
 			return new Grid(setting);
 		}
-		var grid = this;
 
-		setting = setting || {};
-
-		//不覆盖相同的设置,只copy不存在的设置
-		grid.setting = S.mix(setting, pre_setting, false);
+		this.setting = {};
+		S.mix(this.setting, pre_setting);
+		//初始化参数配置
+		this.setSetting(setting);
 
 		//初始化DOM结构
-		grid.__initDOM();
+		this.__initDOM();
 
 		//初始化事件
-		grid.__initEvent();
+		this.__initEvent();
 
 		//文本强制在一行
-		if(grid.setting.nowrap){
-			grid.$div.addClass('hdlgrid-nowrap');
+		if(this.setting.nowrap){
+			this.$div.addClass('hdlgrid-nowrap');
 		}
 
-		//生成表头
-		$.each(grid.setting.colModel, function(i, v){
-			grid.addCol(v);
-		});
+		//初始化事件
+		this.__initHead();
 
-		return grid;
+		return this;
 	}
 
 	/**
@@ -234,6 +236,17 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 			this.$div = div;
 
+			return this;
+		},
+		/**
+		 * 初始化表头
+		 * @private
+		 */
+		__initHead: function(){
+			var grid = this;
+			S.each(this.setting.colModel, function(v, i, o){
+				grid.addCol(v);
+			});
 			return this;
 		},
 		/**
@@ -274,6 +287,16 @@ KISSY.add('hdlGrid', function(S, undef) {
 		 */
 		__fixDragPos: function(){
 			
+			return this;
+		},
+		/**
+		 * 设置配置
+		 */
+		setSetting: function(setting){
+			if(S.isPlainObject(setting)){
+				console.log(setting);
+				 S.mix(grid.setting, setting);
+			}
 			return this;
 		},
 		/**
@@ -518,6 +541,10 @@ KISSY.add('hdlGrid', function(S, undef) {
 		}
 	});
 
+	$.extend({
+		Grid: Grid
+	});
+
 	$.fn.extend({
 		hdlGrid: function(setting){
 			var elm = this.eq(0),
@@ -527,18 +554,15 @@ KISSY.add('hdlGrid', function(S, undef) {
 
 			//没有就初始化一个
 			if(!grid){
-				grid = Grid();
-				S.mix(grid.setting, setting);
+				grid = Grid(setting);
 				elm.empty().append(grid.$div);
 
 				//异步加载数据
 				if(grid.setting.url && grid.setting.auto_load){
-					grid.ajaxLoad(function(){
-						this.fixSize();
-					});
+					grid.ajaxLoad();
 				}
 			}else{
-				S.mix(grid.setting, setting);
+				grid.setSetting(setting);
 			}
 
 			return grid;

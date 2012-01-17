@@ -26,7 +26,10 @@ KISSY.add('validString', function(S, undef) {
 		//因为以map存,如果属性为length会导致each函数认为是数组,增加前缀避免
 		__prefix = '-valid-';
 
-	//验证函数
+	/**
+	 * 全局静态函数
+	 * @class
+	 */
 	function validString(name, str){
 		if(!S.isString(name) || !str){
 			S.log('window.validString: must have name[String] and str[String,Number]!', 'warn');
@@ -50,7 +53,10 @@ KISSY.add('validString', function(S, undef) {
 		return rs;
 	}
 
-	//作为它自己的命名空间,保存相关方法
+	/**
+	 * 自己作为命名空间,保存相关方法
+	 * @lends validString
+	 */
 	S.mix(validString, {
 		add: function(name, fn, desc, reverse){
 			//名字必须为字符串
@@ -113,7 +119,7 @@ KISSY.add('validString', function(S, undef) {
 		}
 	});
 
-	//expose
+	/* 导出到全局空间 */
 	window.validString = validString;
 
 	//默认正则都可为空,不能为空请加上must规则

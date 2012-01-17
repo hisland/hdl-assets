@@ -1,10 +1,10 @@
-/**********************************************************************************************
- * 增加正则对象方法
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 增加正则对象方法
+ * <pre><code>
  * 
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+ * </code></pre>
  */
 

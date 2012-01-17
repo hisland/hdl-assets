@@ -1,10 +1,11 @@
-/**********************************************************************************************
- * 查看一个对象的json表示
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 查看一个对象的json表示
+ * <pre><code>
  * 
+ * </code></pre>
  */
 
 (function(){

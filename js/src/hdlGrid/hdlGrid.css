@@ -2,10 +2,16 @@
 
 /* 自定义表格 */
 .hdlgrid-wrap{position:relative;}
+
 	.hdlgrid-nowrap th, .hdlgrid-nowrap td{white-space:nowrap;}
 
 	.hdlgrid-wrap .td-center{text-align:center;}
 	.hdlgrid-wrap .td-right{text-align:right;}
+
+
+	.hdlgrid-title{padding:2px 3px;background:#fff;border:1px solid #d7e6f5;border-bottom:none;margin-bottom:-1px;position:relative;}
+
+	.hdlgrid-button{padding:2px 3px;background:#fff;border:1px solid #d7e6f5;border-bottom:none;}
 
 	.hdlgrid-head{border:1px solid #d7e6f5;border-bottom:none;background:#c7e0fd;}
 		.hdlgrid-head-in{zoom:1;position:relative;overflow:hidden;}

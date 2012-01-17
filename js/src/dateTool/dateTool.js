@@ -5,21 +5,21 @@
  * @description 日期控件
  * <pre><code>
  * API:
- *		$('input').dateTool();	//初始化, 返回值为date_setting
- *		$('input').dateTool('year2011');	//初始化,固定住年为2011
- *		$('input').dateTool('year2011, month9');	//初始化,固定住年为2011,固定住月为9月
- *		$('input').dateTool({btn_clear_enable: true});	//初始化,可以使用清除按钮
- *		$('input').dateTool().setWeekStart(7);	//设置周开始为周日
- *		$('input').dateTool().setWeekStart(1);	//设置周开始为周一
+ *		$(':text').dateTool();	//初始化, 返回值为date_setting
+ *		$(':text').dateTool('year2011');	//初始化,固定住年为2011
+ *		$(':text').dateTool('year2011, month9');	//初始化,固定住年为2011,固定住月为9月
+ *		$(':text').dateTool({btn_clear_enable: true});	//初始化,可以使用清除按钮
+ *		$(':text').dateTool().setWeekStart(7);	//设置周开始为周日
+ *		$(':text').dateTool().setWeekStart(1);	//设置周开始为周一
  * 
- * 2011-09-28 10:56:16:
+ * 2011-09-28 10:56:16
  *		各种功能都有开关
  *		最大最小时间限制填充,不限制选择,方便实现, 开关确定是否填充
  *		周开始时间设置
  *		不同月份日期可能变化,e为有效最大值, 其它值不合法时设置为合法值,否则不变
  *		S.guid()控制层级
  * 
- * 2011-10-06 11:10:30:
+ * 2011-10-06 11:10:30
  *		超出时间范围由用户决定继续填充,并加个开关是否允许
  * </code></pre>
  */

@@ -31,10 +31,10 @@
  *		$(':text.start').weekTool('on');	//启用
  * 
  * TODO:
- *		2011-08-08 10:25:49:
+ *		2011-08-08 10:25:49
  *			增加next(n), prev(n)方法进行周的移动
  * 
- *		2011-09-15 18:07:38:
+ *		2011-09-15 18:07:38
  *			各方法的边界检测
  * </code></pre>
  */
@@ -347,6 +347,8 @@ KISSY.add('weekTool', function(S, undef) {
 
 	//注册事件
 	function weekTool(setting){
+		
+		//将
 		if(!S.isPlainObject(setting)){
 			if(S.isUndefined(setting)){
 				setting = {};

@@ -6,26 +6,13 @@
 	<script type="text/javascript" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, jquery-1.4.2, popTip+css', init);
+			S.use('reset-css, jquery-1.4.2, popTip+css, adjustElement', function(S, undef){
+				var tip = $.popTip();
 
-			function init(){
 				$('#aa').click(function(e){
-					var tip = this.tip;
-					if(!tip){
-						tip = $.popTip();
-						this.tip = tip;
-					}
-
-					tip.div.show();
+					tip.adjustElement(this).show();
 				});
-
-				$(document).click(function(e){
-					var t = e.target, dt = $(t);
-					if(!dt.is('#aa')){
-						$('#aa')[0].tip.div.hide();
-					}
-				});
-			}
+			});
 		});
 	</script>
 </head>

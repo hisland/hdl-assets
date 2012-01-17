@@ -1,10 +1,11 @@
-/**********************************************************************************************
- * 查看一个对象的json表示
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 查看一个对象的json表示
+ * <pre><code>
  * 
+ * </code></pre>
  */
 
 (function(){
@@ -109,13 +110,12 @@
 
 })();
 
-/**********************************************************************************************
- * 增加日期对象方法
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 增加日期对象方法
+ * <pre><code>
  * NOTICE:
  *		设置时,前置0都可省略
  * 
@@ -137,7 +137,7 @@
  *		d.add(123); d.add('1234'); d.add(-123) 增加或减少毫秒数,参数为可转化成数字的变量
  *		d.add('year'); d.add('month')  指定部分加1,参数为[year|month|date|hour|minute|second]
  *		d.add('year', 123); d.add('month', '1234')  增加或减少指定部分[year|month|date|hour|minute|second],参数为可转化成数字的变量其余的忽略
- * 
+ * </code></pre>
  */
 
 (function(){
@@ -216,6 +216,25 @@
 			return this.dateString()+' '+this.timeString();
 		}
 	};
+	Date.prototype.getMonthStart = function(){
+		//创建副本
+		var rs = new Date(+this);
+		rs.setDate(1);
+		rs.timeString('00:00:00');
+		return rs;
+	};
+	Date.prototype.getMonthEnd = function(){
+		//创建副本
+		var rs = new Date(+this),
+			year = rs.getFullYear(),
+			month_days_list = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+		month_days_list[1] = year%400==0 || (year%4==0 && year%100!=0) ? 29 : 28;
+
+		rs.setDate(month_days_list[rs.getMonth()]);
+		rs.timeString('23:59:59');
+		return rs;
+	};
 	Date.prototype.isValid = function(){
 		if(/^NaN$|^Invalid Date$/.test(this.toString())){
 			return false;
@@ -245,13 +264,12 @@
 	};
 })();
 
-/**********************************************************************************************
- * 增加字符串对象方法
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 增加字符串对象方法
+ * <pre><code>
  * API:
  *		var d = '2011-09-20'.getDate();		//从日期字符串获得Date对象
  *		var d = '2011/09/20'.getDate();		//从日期字符串获得Date对象
@@ -271,7 +289,7 @@
  * 
  *		var rs = '  jj  '.entityHTML();			//对字符串进行实体编码|编号转换
  *		var rs = '  jj  '.unentityHTML();			//上一函数的反向操作
- * 
+ * </code></pre>
  */
 
 (function(){
@@ -334,19 +352,20 @@
 	}
 })();
 
-/**********************************************************************************************
- * 数组对象方法
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 数组对象方法
+ * <pre><code>
  * API:
  *		var rs = [1,1,3].unique();	//rs为 [1,3]
- * 
+ * </code></pre>
  */
 
-//剔除数组里面的重复项
+/**
+ * 剔除数组里面的重复项
+*/
 Array.prototype.unique = function(){
 	this.sort();
 	for(var i=1; i<this.length ; ){
@@ -359,19 +378,18 @@ Array.prototype.unique = function(){
 	return this;
 };
 
-/**********************************************************************************************
- * 增强Math对象方法
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 增强Math对象方法
+ * <pre><code>
  * API:
  *		var num = Math.random();		//得到原始的随机数
  *		var num = Math.random(100);		//得到0-100的随机数
  *		var num = Math.random(5, 100);	//得到5-100的随机数
  *		var num = Math.random(100, 5);	//得到5-100的随机数
- * 
+ * </code></pre>
  */
 
 (function(){
@@ -412,16 +430,15 @@ Array.prototype.unique = function(){
 	};
 })();
 
-/**********************************************************************************************
- * 增加数字对象方法
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 增加数字对象方法
+ * <pre><code>
  * API:
  *		5.doTimes(fn);	//执行fn5次, fn的第1个参数为n
- * 
+ * </code></pre>
  */
 
 Number.prototype.doTimes = function(fn){
@@ -430,13 +447,13 @@ Number.prototype.doTimes = function(fn){
 	}
 }
 
-/**********************************************************************************************
- * 增加正则对象方法
+/**
+ * @fileOverview
+ * @module mod-template
+ * @author hisland hisland@qq.com
+ * @description 增加正则对象方法
+ * <pre><code>
  * 
- * 作者: hisland
- * 邮件: hisland@qq.com
- * 时间: @TIMESTAMP@
- * 版本: @VERSION@
- * 
+ * </code></pre>
  */
 
