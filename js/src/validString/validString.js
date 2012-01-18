@@ -28,6 +28,8 @@ KISSY.add('validString', function(S, undef) {
 
 	/**
 	 * 全局静态函数
+	 * @param name 字符串, 规则名字
+	 * @param str 要验证的字符串
 	 * @class
 	 */
 	function validString(name, str){
@@ -58,6 +60,13 @@ KISSY.add('validString', function(S, undef) {
 	 * @lends validString
 	 */
 	S.mix(validString, {
+		/**
+		 * 添加一个验证规则
+		 * @param name 字符串, 规则名字
+		 * @param fn 函数或正则, 具体的验证处理
+		 * @param desc 字符串, 规则描述
+		 * @param reverse true|false, 是否使用验证的相反值, 默认为false
+		 */
 		add: function(name, fn, desc, reverse){
 			//名字必须为字符串
 			if(!S.isString(name)){
@@ -100,8 +109,11 @@ KISSY.add('validString', function(S, undef) {
 			};
 			return this;
 		},
-
-		//修改默认的描述信息
+		/**
+		 * 修改默认的描述信息
+		 * @param name 字符串, 规则名字
+		 * @param str 描述字符串
+		 */
 		setDesc: function(name, str){
 			if(!S.isString(name) || !S.isString(str)){
 				S.log('window.validString.setDesc: must have name[String] and str[String]!', 'warn');
@@ -112,15 +124,28 @@ KISSY.add('validString', function(S, undef) {
 
 			return this;
 		},
-		
-		//获得当前已经有的验证规则
+		/**
+		 * 取得默认的描述信息
+		 * @param name 字符串, 规则名字
+		 */
+		getDesc: function(name){
+			if(!S.isString(name)){
+				S.log('window.validString.setDesc: must have name[String]', 'warn');
+				return this;
+			}
+			return items[__prefix + name].desc;
+		},
+		/**
+		 * 获得当前已经有的验证规则列表
+		 */
 		getitems: function(){
 			return items;
 		}
 	});
 
-	/* 导出到全局空间 */
+	//导出为全局函数
 	window.validString = validString;
+
 
 	//默认正则都可为空,不能为空请加上must规则
 	validString.add('must', /^.+$/, '此项必填');
@@ -140,7 +165,8 @@ KISSY.add('validString', function(S, undef) {
 	);
 
 
-	//此段保留在最底部,JS国际化信息的覆盖
+	//此段保留在最底部,如果有JS国际化信息将进行覆盖
+	//国际化key命名规则为: js.common.validString.规则名, 如: js.common.validString.ipv4
 	if(window.JS_I18N){
 		S.each(items, function(v, i, o){
 			validString.setDesc(i, JS_I18N['js.common.validString.' + i]);
