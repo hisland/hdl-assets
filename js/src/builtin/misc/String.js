@@ -1,7 +1,4 @@
 /**
- * @fileOverview
- * @module mod-template
- * @author hisland hisland@qq.com
  * @description 增加字符串对象方法
  * <pre><code>
  * API:
@@ -27,7 +24,9 @@
  */
 
 (function(){
-	//根据字符串获取时间,不能转换返回null
+	/**
+	 * 根据字符串获取时间,不能转换返回null
+	 */
 	String.prototype.getDate = function(){
 		var val = this.replace(/-/g,'/'), date = new Date(val);
 		if(date.isValid()){
@@ -37,26 +36,41 @@
 		}
 	};
 
-	//否可以返回正确时间
+	/**
+	 * 否可以返回正确时间
+	 */
 	String.prototype.isValidDate = function(){return this.getDate() === null ? false : true};
 
-	//把 !'()*-._~ 这些不会编码的一起使用%XXX的形式编码
+	/**
+	 * 把 !'()*-._~ 这些不会编码的一起使用%XXX的形式编码
+	 */
 	String.prototype.encodeAll = function(){
 		return encodeURIComponent(this).replace(/[!'()*-._~]/g,function(a){return "%"+a.charCodeAt(0).toString(16).toUpperCase()});
 	};
-	//把 *+-./@_ 这些不会编码的一起使用%XXX的形式编码
+	/**
+	 * 把 *+-./@_ 这些不会编码的一起使用%XXX的形式编码
+	 */
 	String.prototype.escapeAll = function(){
 		return escape(this).replace(/[*+-.\/@_]/g,function(a){return "%"+a.charCodeAt(0).toString(16).toUpperCase()});
 	};
 
-	//给String类加上trim函数 (\u3000为中文空格-IE下的\s不包含它,FF包含)
-	String.prototype.lTrim = function(){return this.replace(/^[\s\u3000]*/,'')};	//左空白字符
-	String.prototype.rTrim = function(){return this.replace(/[\s\u3000]*$/,'')};	//右空白字符
-	String.prototype.trim = function(){return this.replace(/^[\s\u3000]*|[\s\u3000]*$/g,'')};	//左右空白字符
-	String.prototype.trimAll = function(){return this.replace(/[\s\u3000]*/g,'')};	//全部(包括中间)空白字符
+	/**
+	 * Trim左空白字符
+	 */
+	String.prototype.lTrim = function(){return this.replace(/^[\s\u3000]*/,'')};
+	/**
+	 * Trim右空白字符
+	 */
+	String.prototype.rTrim = function(){return this.replace(/[\s\u3000]*$/,'')};
+	/**
+	 * Trim左右空白字符
+	 */
+	String.prototype.trim = function(){return this.replace(/^[\s\u3000]*|[\s\u3000]*$/g,'')};
+	/**
+	 * Trim全部(包括中间)空白字符
+	 */
+	String.prototype.trimAll = function(){return this.replace(/[\s\u3000]*/g,'')};
 
-	//note:实测FF对于"'的处理是不编码直接显示(在firebug中查看html,实际源码还是实体)
-	//note:IE不支持'转换成&apos; ,故使用实体编号&#39;
 	var entityHTML_reg = /[&<>'"]/g;
 	var entityHTML_obj = {
 		'&': '&amp;',
@@ -65,6 +79,13 @@
 		'\'': '&#39;',
 		'"': '&quot;'
 	};
+	/**
+	 * 将含正常字符串换成实体的字符串转
+	 * <p>
+	 * 实测FF对于"'的处理是不编码直接显示(在firebug中查看html,实际源码还是实体)
+	 * IE不支持'转换成&apos; ,故使用实体编号&#39;
+	 * </p>
+	 */
 	String.prototype.entityHTML = function(){
 		return this.replace(entityHTML_reg, function(v){
 			return entityHTML_obj[v];
@@ -79,6 +100,9 @@
 		'&quot;': '"',
 		'&#34;': '"'
 	};
+	/**
+	 * 将含实体的字符串转换成正常字符串
+	 */
 	String.prototype.unentityHTML = function(){
 		return this.replace(unentityHTML_reg, function(v){
 			return unentityHTML_obj[v];

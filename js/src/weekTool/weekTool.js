@@ -72,7 +72,12 @@ KISSY.add('weekTool', function(S, undef) {
 		enable: true
 	}
 
-	//周对象, 可方便传入年和周
+	/**
+	 * 周对象, 可方便传入年和周
+	 * @memberOf jQuery
+	 * @class
+	 * @name week
+	 */
 	function WeekUtil(year, week){
 		//更改为构造方式
 		if(!(this instanceof WeekUtil)){
@@ -111,8 +116,20 @@ KISSY.add('weekTool', function(S, undef) {
 
 		return this;
 	}
-	//设置原型方法
+	/**
+	 * 设置原型方法
+	 * @lends jQuery.week#
+	 */
 	S.augment(WeekUtil, {
+		/**
+		 * 传y表示设置, 不传y表示取值
+		 * <pre><code>
+		 * var w = $.week();
+		 * w.year();   返回年数字
+		 * w.year(2011);   设置为2011年, 返回this
+		 * w.year('2011');   设置为2011年, 返回this
+		 * </code></pre>
+		 */
 		year: function(y){
 			if(y !== undefined){
 				this.__year = y-0;
@@ -122,6 +139,15 @@ KISSY.add('weekTool', function(S, undef) {
 				return this.__year;
 			}
 		},
+		/**
+		 * 传n表示设置, 不传n表示取值
+		 * <pre><code>
+		 * var w = $.week();
+		 * w.week();   返回周数字
+		 * w.week(3);   设置为第3周, 返回this
+		 * w.week('3');   设置为第3周, 返回this
+		 * </code></pre>
+		 */
 		week: function(n){
 			if(n !== undefined){
 				this.__week = n-0;
@@ -130,6 +156,9 @@ KISSY.add('weekTool', function(S, undef) {
 				return this.__week;
 			}
 		},
+		/**
+		 * 取得当年最大周
+		 */
 		maxWeek: function(){
 			var bak = this.week(), max;
 			//一年正常有53周,最多有54周,从52周开始增加,直到停止
@@ -141,14 +170,43 @@ KISSY.add('weekTool', function(S, undef) {
 			this.week(bak);
 			return max;
 		},
+		/**
+		 * 将对象的内部值后移n(默认1)周
+		 * <pre><code>
+		 * var w = $.week();
+		 * w.week(3);   设置为第3周
+		 * w.next();   后移一周
+		 * w.week();   返回4
+		 * w.next(5);   后移5周
+		 * w.week();   返回9
+		 * </code></pre>
+		 */
 		next: function(n){
 			n = n<1 || 1;
 			return this.week(this.__week + n);
 		},
+		/**
+		 * 将对象的内部值前移n(默认1)周
+		 * <pre><code>
+		 * var w = $.week();
+		 * w.week(10);   设置为第3周
+		 * w.prev();   前移一周
+		 * w.week();   返回9
+		 * w.prev(3);   前移3周
+		 * w.week();   返回6
+		 * </code></pre>
+		 */
 		prev: function(n){
 			n = n<1 || 1;
 			return this.week(this.__week - n);
 		},
+		/**
+		 * 将对象的内部值设置为指定日期对象
+		 * <pre><code>
+		 * var w = $.week();
+		 * w.setDate('2011-01-31');   设置为指定日期
+		 * </code></pre>
+		 */
 		setDate: function(date){
 			//从String转换成Date
 			if(S.isString(date)){
@@ -171,9 +229,15 @@ KISSY.add('weekTool', function(S, undef) {
 			}
 			return this;
 		},
+		/**
+		 * 返回当前周的开始日期对象
+		 */
 		start: function(){
 			return new Date(+this.base_date + (this.__week-1)*7*86400000);
 		},
+		/**
+		 * 返回当前周的结束日期对象
+		 */
 		end: function(){
 			return new Date(+this.base_date + this.__week*7*86400000-1);
 		},
@@ -345,10 +409,10 @@ KISSY.add('weekTool', function(S, undef) {
 		showPop();
 	}
 
-	//注册事件
+	/**
+	 * @memberOf jQuery#
+	 */
 	function weekTool(setting){
-		
-		//将
 		if(!S.isPlainObject(setting)){
 			if(S.isUndefined(setting)){
 				setting = {};

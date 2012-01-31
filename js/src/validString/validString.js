@@ -1,22 +1,11 @@
 /**
  * @fileOverview
- * @module validString
  * @author hisland hisland@qq.com
  * @description 预定义字符串验证
  * <pre><code>
  * NOTICE:
  *		此模块为前hdlReg, hdlTest的合并,统一api
  *		检测返回值为true表示成功, 其它值表示失败,字符串为检测提示信息
- * 
- * API:
- *		validString.add('xx', /xx/, 'xx');	添加一个正则规则
- *		validString.add('xx', /xx/, 'xx', true);	添加一个正则规则,取反向值
- *		validString.add('bb', function(str){}, 'bb');	添加一个函数规则
- *		validString.add('bb', function(str){}, 'bb', true);	添加一个函数规则,取反向值
- * 
- *		validString.setDesc('bb', 'cc');	修改bb的默认提示信息
- *		validString('ipv4', '192.168.0.1');	使用ipv4规则检测后面的字符串,此例子返回true
- * 
  * </code></pre>
  */
 
@@ -25,12 +14,15 @@ KISSY.add('validString', function(S, undef) {
 	var items = {},
 		//因为以map存,如果属性为length会导致each函数认为是数组,增加前缀避免
 		__prefix = '-valid-';
-
 	/**
 	 * 全局静态函数
+	 * <pre><code>
+	 * validString('ipv4', '192.168.0.1');	使用ipv4规则检测后面的字符串,此例子返回true
+	 * </code></pre>
 	 * @param name 字符串, 规则名字
 	 * @param str 要验证的字符串
 	 * @class
+	 * @name validString
 	 */
 	function validString(name, str){
 		if(!S.isString(name) || !str){
@@ -56,12 +48,17 @@ KISSY.add('validString', function(S, undef) {
 	}
 
 	/**
-	 * 自己作为命名空间,保存相关方法
 	 * @lends validString
 	 */
 	S.mix(validString, {
 		/**
 		 * 添加一个验证规则
+		 * <pre><code>
+		 * validString.add('xx', /xx/, 'xx');	添加一个正则规则
+		 * validString.add('xx', /xx/, 'xx', true);	添加一个正则规则,取反向值
+		 * validString.add('bb', function(str){}, 'bb');	添加一个函数规则
+		 * validString.add('bb', function(str){}, 'bb', true);	添加一个函数规则,取反向值
+		 * </code></pre>
 		 * @param name 字符串, 规则名字
 		 * @param fn 函数或正则, 具体的验证处理
 		 * @param desc 字符串, 规则描述
@@ -111,6 +108,9 @@ KISSY.add('validString', function(S, undef) {
 		},
 		/**
 		 * 修改默认的描述信息
+		 * <pre><code>
+		 * validString.setDesc('bb', 'cc');	修改bb的默认提示信息
+		 * </code></pre>
 		 * @param name 字符串, 规则名字
 		 * @param str 描述字符串
 		 */

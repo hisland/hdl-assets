@@ -1,6 +1,5 @@
 /**
  * @fileOverview
- * @module Tools
  * @author hisland hisland@qq.com
  * @description 工具集
  * <pre><code>
@@ -8,19 +7,32 @@
  */
 
 KISSY.add('Tools', function(S, undef) {
+	/**
+	 * 工具集
+	 * @namespace
+	 * @name Tools
+	 */
 	var Tools = window.Tools = {};
 
-	//执行n次
-	Tools.doTimes = function(n ,fn){
+	/**
+	 * 执行n次
+	 * @param fn 需要执行的函数, 参数1接收第几次执行, 从0开始计数
+	 * @param n 大于0的数字, 执行次数
+	 */
+	Tools.doTimes = function(fn, n){
 		for(var i=0; i<n; i++){
 			fn(i);
 		}
 	}
 
-	//延迟执行n次
-	Tools.delayTimes = function(n, fn, delay){
+	/**
+	 * 延迟执行n次, 采用setTimeout保证串行执行
+	 * @param fn 需要执行的函数, 参数1接收第几次执行, 从0开始计数
+	 * @param n 大于0的数字, 执行次数
+	 * @param delay 大于10的数字, 间隔时间,单位ms, 默认为10ms
+	 */
+	Tools.delayTimes = function(fn, n, delay){
 		var i = 0;
-		delay -= 0;
 		delay = delay > 10 ? delay : 10;
 		function callback(){
 			if(i < n){
@@ -31,7 +43,69 @@ KISSY.add('Tools', function(S, undef) {
 		callback();
 	}
 
-	//测试fn的执行时间
+
+	/**
+	 * 过一会儿执行函数,且在执行之前可以重新设置函数与延迟并重新开始计时
+	 * @class 
+	 * @param fn 需要执行的函数
+	 * @param delay 大于50的数字, 间隔时间,单位ms, 默认为50ms
+	 * @return laterOne;
+	 */
+	Tools.laterOne = function(fn, delay){
+		return new laterOne(fn, delay);
+	}
+	function laterOne(fn, delay){
+		this.setFn(fn).setDelay(delay);
+	}
+	/**
+	 * @lends Tools.laterOne#
+	 */
+	S.augment(laterOne, {
+		/**
+		 * 开始
+		 */
+		start: function (){
+			if(!this._timer){
+				this._timer = S.later(function(){
+					this.fn();
+				}, this.delay, false, this);
+			}
+			return this;
+		},
+		/**
+		 * 停止
+		 */
+		stop: function (){
+			this._timer.cancle();
+			delete this._timer;
+			return this;
+		},
+		/**
+		 * 设置执行的函数, 停止上一个函数并重新开始计时
+		 * @param fn 需要执行的函数
+		 */
+		setFn: function (fn){
+			this.fn = fn;
+			this.stop().start();
+			return this;
+		},
+		/**
+		 * 设置执行的延迟, 停止并重新开始计时
+		 * @param fn 延迟,正整数,单位ms
+		 */
+		setDelay: function (delay){
+			delay = delay > 50 ? delay : 50;
+			this.delay = delay;
+			this.stop().start();
+			return this;
+		}
+	});
+
+
+	/**
+	 * 测试fn的执行时间v
+	 * @param {Function} fn
+	 */
 	Tools.runTime = function(fn){
 		if(window.console && console.profile){
 			console.profile(fn);
@@ -43,26 +117,11 @@ KISSY.add('Tools', function(S, undef) {
 		}
 	}
 
-	//测试fn的执行时间
-	var t_array_rang = /^(\d+)\.\.(\d+)$/;
-	Tools.array = function(str){
-		if(S.isString(str)){
-			//n..m生成数组n-m,从小到大
-			var tmp = t_array_rang.exec(str);
-			if(tmp){
-				var arr = [], from = tmp[1]-0, to = tmp[2]-0;
-				if(from < to){
-					for(; from<=to; from++){
-						arr.push(from);
-					}
-					return arr;
-				}
-			}
-		}
-	}
-
-	//将扁平的数组生成树状结构
-	//扁平:数据库用id,pid表示上下级关系查询出来的结果
+	/**
+	 * 将扁平的数组生成树状结构
+	 * 扁平:数据库用id,pid表示上下级关系查询出来的结果
+	 * @function
+	 */
 	Tools.dataToTree = (function(){
 		var map, rs, has_root;
 
@@ -127,4 +186,6 @@ KISSY.add('Tools', function(S, undef) {
 			return rs;
 		};
 	})();
+
+	return Tools;
 });

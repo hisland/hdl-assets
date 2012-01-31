@@ -60,6 +60,10 @@
 /**********************************************************************************************
 *设置层上的元素的事件
 */
+	function length1Prefix0(value){
+		value += '';
+		return value.length==1 ? '0'+value : value;
+	}
 
 	//关闭下拉列表,并将目标输入框设置为null
 	function closeDropList(){
@@ -615,35 +619,15 @@
 		this.setting.parent = this;
 
 		this.enable = true;
-
-		//各种事件
-		this.getBindType('beforeShow');
-		this.getBindType('show');
-		this.getBindType('beforeHide');
-		this.getBindType('hide');
-		this.getBindType('beforeDropListShow');
-		this.getBindType('dropListShow');
-		this.getBindType('beforeDropListHide');
-		this.getBindType('dropListHide');
-
-		this.getBindType('dropListClick');
-		this.getBindType('dateListRefresh');
-
-		this.getBindType('dateListClick');
 	}
-	Tool.prototype = new canBind();
 	Tool.prototype.constructor = Tool;
 
 	Tool.prototype.show = function(){
-		this.trigger('beforeShow');
 		openDateTool();
-		this.trigger('show');
 		return this;
 	}
 	Tool.prototype.hide = function(){
-		this.trigger('beforeShow');
 		closeDateTool();
-		this.trigger('show');
 		return this;
 	}
 	Tool.prototype.remove = function(){
@@ -705,7 +689,7 @@
 	Tool.guid = function(){
 		var key;
 		do{
-			key = timestamp()+'';
+			key = KISSY.now()+'';
 		}
 		while(global_dt[key]);
 		return key;

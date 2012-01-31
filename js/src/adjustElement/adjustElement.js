@@ -16,6 +16,9 @@
 KISSY.add('adjustElement', function(S, undef) {
 	var $ = jQuery;
 
+	/**
+	 * @memberOf jQuery#
+	 */
 	function adjustElement(target, callback){
 		var elm = this.eq(0);
 		target = $(target).eq(0);

@@ -4,10 +4,12 @@
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-	<script type="text/javascript" src="../patch.javascript.js"></script>
-	<script type="text/javascript" src="../jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="../jquery.mousewheel.js"></script>
-	<!-- <script type="text/javascript" src="jquery.hdlDateTool.js"></script> -->
+	<script type="text/javascript" charset="utf-8" src="../../../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, jquery-1.4.2');
+		});
+	</script>
 
 	<style type="text/css">
 		#hdlDateTool_div{z-index:3000;position:absolute;font-family:"宋体";font-size:12px;}

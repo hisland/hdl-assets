@@ -1,6 +1,5 @@
 /**
  * @fileOverview
- * @module DBC-SBC
  * @author hisland hisland@qq.com
  * @description 全角半角转换
  * <pre><code>
@@ -13,6 +12,9 @@
  */
 
 KISSY.add('DBC-SBC', function(S, undef) {
+	/**
+	 * @lends jQuery
+	 */
 	jQuery.extend({
 		/**
 		 * 全角转半角(Single-Byte Character)

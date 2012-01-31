@@ -24,6 +24,11 @@
  */
 
 KISSY.add('loopFuncs', function(S, undef) {
+	/**
+	 * @memberOf window
+	 * @class
+	 * @param {Function} fn_first 实例化的时候放入的函数
+	 */
 	function getLoopFuncs(fn_first){
 		var _timer,
 			_stopped = true,
@@ -46,56 +51,80 @@ KISSY.add('loopFuncs', function(S, undef) {
 				}, interval);
 			}
 		}
-		init.add = function(fn, doit){
-			doit = doit === false ? doit : true;
-			var i=0, has=false;
-			if(S.isFunction(fn)){
-				//检查是否重复
-				for(; i < funcs.length; i++){
-					if(funcs[i] === fn){
-						has = true;
-						break;
+		/**
+		 * @lends window.getLoopFuncs#
+		 */
+		S.mix(init, {
+			/**
+			 * 添加一个循环执行的函数
+			 * @param {Function} fn 需要循环执行的函数
+			 * @param {Boolean} doit 默认true 添加的时候立即执行
+			 */
+			add: function(fn, doit){
+				doit = doit === false ? doit : true;
+				var i=0, has=false;
+				if(S.isFunction(fn)){
+					//检查是否重复
+					for(; i < funcs.length; i++){
+						if(funcs[i] === fn){
+							has = true;
+							break;
+						}
 					}
-				}
-				if(!has){
-					funcs.push(fn);
-				}
+					if(!has){
+						funcs.push(fn);
+					}
 
-				//是否立即执行一次
-				if(doit){
-					fn();
-				}
-			}
-		}
-		init.remove = function(fn){
-			var i=0;
-			if(S.isFunction(fn)){
-				for(; i < funcs.length; i++){
-					if(funcs[i] === fn){
-						funcs.splice(i, 1);
+					//是否立即执行一次
+					if(doit){
+						fn();
 					}
 				}
-			}else{
-				funcs.length = 0;
+			},
+			/**
+			 * 删除一个循环执行的函数
+			 * @param {Function} fn 需要循环执行的函数, 函数的引用
+			 */
+			remove: function(fn){
+				var i=0;
+				if(S.isFunction(fn)){
+					for(; i < funcs.length; i++){
+						if(funcs[i] === fn){
+							funcs.splice(i, 1);
+						}
+					}
+				}else{
+					funcs.length = 0;
+				}
+			},
+			/**
+			 * 开始循环执行
+			 */
+			start: function(){
+				if(_stopped){
+					_stopped = false;
+					init(act);
+				}
+			},
+			/**
+			 * 停止循环执行
+			 */
+			stop: function(){
+				if(!_stopped){
+					_stopped = true;
+					clearTimeout(_timer);
+				}
 			}
-		}
-		init.start = function(){
-			if(_stopped){
-				_stopped = false;
-				init(act);
+			/**
+			 * 设置执行间隔
+			 * @param {Number} delay 单位ms
+			 */
+			interval: function(delay){
+				if(!isNaN(delay) && delay > 10){
+					interval = delay-0;
+				}
 			}
-		}
-		init.stop = function(){
-			if(!_stopped){
-				_stopped = true;
-				clearTimeout(_timer);
-			}
-		}
-		init.interval = function(delay){
-			if(!isNaN(delay) && delay > 10){
-				interval = delay-0;
-			}
-		}
+		});
 		return init;
 	}
 

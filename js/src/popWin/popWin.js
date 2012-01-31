@@ -51,14 +51,41 @@ KISSY.add('popWin', function(S, undef) {
 	}
 
 	function init(){
-		this.$div = $(html_string);
-		this.$close = this.$div.find('a.win1-close');
-		this.$title = this.$div.find('span.win1-title');
-		this.$content = this.$div.find('div.win1-content');
+		var div = $(html_string);
 
-		this.manager = $.popManager.init();
-		this.manager.$div.append(this.$div);
-		this.__close_able = true;
+		/**
+		 * @lends popWin#
+		 */
+		S.mix(this, {
+			/**
+			 * popWin的包含层
+			 * @type jQuery
+			 */
+			$div: div,
+			/**
+			 * popWin右上角的关闭X
+			 * @type jQuery
+			 */
+			$close: div.find('a.win1-close'),
+			/**
+			 * popWin的标题层
+			 * @type jQuery
+			 */
+			$title: div.find('span.win1-title'),
+			/**
+			 * popWin的内容层
+			 * @type jQuery
+			 */
+			$content: div.find('div.win1-content'),
+			/**
+			 * popWin所在的popManager实例
+			 * @type popManager
+			 */
+			manager: $.popManager.init(),
+			__close_able: true
+		});
+
+		this.manager.$div.append(div);
 
 		//默认宽高
 		this.setWidth(default_width);
@@ -74,14 +101,14 @@ KISSY.add('popWin', function(S, undef) {
 		});
 
 		//代理取消按钮
-		this.$div.click(function(e){
+		div.click(function(e){
 			if($(e.target).is('.win1-btn-cancel')){
 				$(this).parent().hide();
 			}
 		});
 
 		//拖动初始化
-		this.$div.hdlDrag({
+		div.hdlDrag({
 			trigger_filter: function(e){
 				//在IE下,内部有disabled的input时,点击input文本会导致e.target.parentNode为undefined, 前一个规则值为false,所以需要||单独处理
 				if($(e.target).closest('.win1-content, .win1-close').length || !e.target.parentNode){
@@ -103,19 +130,35 @@ KISSY.add('popWin', function(S, undef) {
 			this.manager.front();
 			return this;
 		},
+		/**
+		 * 显示manager的遮罩层
+		 * @return this
+		 */
 		mask: function(){
 			this.manager.mask();
 			return this;
 		},
+		/**
+		 * 隐藏manager的遮罩层
+		 * @return this
+		 */
 		demask: function(){
 			this.manager.demask();
 			return this;
 		},
+		/**
+		 * 显示loading状态,隐藏内容层
+		 * @return this
+		 */
 		loading: function(){
 			this.$div.hide();
 			this.manager.loading();
 			return this;
 		},
+		/**
+		 * 隐藏loading状态,显示内容层
+		 * @return this
+		 */
 		loaded: function(){
 			this.$div.show();
 			this.manager.loaded();
@@ -153,6 +196,11 @@ KISSY.add('popWin', function(S, undef) {
 			this.manager.remove();
 			return this;
 		},
+		/**
+		 * 是否可被关闭
+		 * @param {boolean} status true|false
+		 * @return this
+		 */
 		setCloseable: function(status){
 			if(S.isBoolean(status)){
 				this.__close_able = status;
@@ -166,6 +214,11 @@ KISSY.add('popWin', function(S, undef) {
 			}
 			return this;
 		},
+		/**
+		 * 是否可被拖动
+		 * @param {boolean} status true|false
+		 * @return this
+		 */
 		setDraggable: function(status){
 			if(S.isBoolean(status)){
 				this.$div.hdlDrag({enable: status});
@@ -174,6 +227,11 @@ KISSY.add('popWin', function(S, undef) {
 			}
 			return this;
 		},
+		/**
+		 * 设置宽度, 会减掉边距, 实际比设置的要小
+		 * @param {number} num
+		 * @return this
+		 */
 		setWidth: function(num){
 			if(S.isNumber(num-0)){
 				this.$title.width(num-35);
@@ -183,6 +241,11 @@ KISSY.add('popWin', function(S, undef) {
 			}
 			return this;
 		},
+		/**
+		 * 设置内容宽度
+		 * @param {number} num
+		 * @return this
+		 */
 		setInnerWidth: function(num){
 			if(S.isNumber(num-0)){
 				this.$title.width(num-17);
@@ -192,6 +255,11 @@ KISSY.add('popWin', function(S, undef) {
 			}
 			return this;
 		},
+		/**
+		 * 设置内容高度
+		 * @param {number} num
+		 * @return this
+		 */
 		setHeight: function(num){
 			if(S.isNumber(num-0)){
 				this.$content.height(num);
@@ -200,6 +268,11 @@ KISSY.add('popWin', function(S, undef) {
 			}
 			return this;
 		},
+		/**
+		 * 设置标题
+		 * @param {string} str
+		 * @return this
+		 */
 		setTitle: function(str){
 			this.$title.html(str);
 			return this;

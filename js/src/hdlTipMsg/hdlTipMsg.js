@@ -405,7 +405,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 	}
 
 	/**
-	 * @lends $
+	 * @lends jQuery
 	 */
 	$.extend({
 		/**

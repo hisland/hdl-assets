@@ -134,7 +134,7 @@ KISSY.add('hdlDrag', function(S, undef) {
 	}
 
 	/**
-	 * @memberOf $
+	 * @memberOf jQuery#
 	 */
 	function hdlDrag(setting){
 		var target;

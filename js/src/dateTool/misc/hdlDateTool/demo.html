@@ -4,10 +4,16 @@
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-	<script type="text/javascript" src="../jquery-1.4.2/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="../jquery.mousewheel/jquery.mousewheel.js"></script>
-	<script type="text/javascript" src="../adjustElement/adjustElement.js"></script>
-	<script type="text/javascript" src="hdlDateTool.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, jquery.mousewheel, adjustElement', function(S, undef){
+				S.getScript('hdlDateTool.js', function(){
+					$('#date1_1').hdlDateTool();
+				});
+			});
+		});
+	</script>
 
 	<style type="text/css">
 		*{padding:0;margin:0;}
@@ -30,11 +36,6 @@
 
 <div class="test">
 	<input id="date1_1" type="text" name="" value="" />
-	<script type="text/javascript">
-		$(function(){
-			$('#date1_1').hdlDateTool();
-		});
-	</script>
 
 	<div>
 	fixed 对应的单词:<br />

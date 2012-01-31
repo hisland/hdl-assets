@@ -78,6 +78,16 @@ KISSY.add('mouseTip', function(S, undef) {
 	//放入DOM
 	$div.appendTo('body');
 
+	/**
+	 * @lends jQuery#
+	 * @description 鼠标移动提示
+	 * <pre><code>
+	 * API:
+	 *		$(selector).mouseTip(msg);		//注册/修改提示,使用固定消息
+	 *		$(selector).mouseTip(fn);		//注册/修改提示,使用函数返回值作为消息
+	 *		$(selector).mouseTip(false);	//关闭鼠标移动提示
+	 * </code></pre>
+	 */
 	$.fn.extend({
 		mouseTip: function(msg){
 			return this.each(function(i, v){

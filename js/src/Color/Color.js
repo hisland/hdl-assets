@@ -42,7 +42,10 @@ KISSY.add('Color', function(S, undef) {
 	};
 
 	
-	//颜色类,包含rgb值
+	/**
+	 * 颜色类,包含rgb值
+	 * @class
+	 */
 	function Color(arg0, arg1, arg2){
 		//更改为构造方式
 		if(!(this instanceof Color)){
@@ -105,7 +108,9 @@ KISSY.add('Color', function(S, undef) {
 	}
 
 	S.augment(Color, {
-		//转换成HEX字符串#ff00cc
+		/**
+		 * 转换成HEX字符串#ff00cc
+		 */
 		getHex: function(){
 			var sr, sg, sb;
 			sr = this.r.toString(16);
@@ -117,7 +122,9 @@ KISSY.add('Color', function(S, undef) {
 			return "#" + sr + sg + sb;
 		},
 
-		//转换成RGB字符串rgb(254,33,58)
+		/**
+		 * 转换成RGB字符串rgb(254,33,58)
+		 */
 		getRgb: function(){
 			return 'rgb(' + this.r + ', ' + this.g + ', ' + this.b + ')';
 		},

@@ -1,11 +1,17 @@
 /**
- * @fileOverview
- * @module mod-template
- * @author hisland hisland@qq.com
  * @description 查看一个对象的json表示
- * <pre><code>
- * 
- * </code></pre>
+ */
+
+/**
+ * 挂载jQuery的命名空间
+ * @class
+ * @name jQuery
+ */
+
+/**
+ * 挂载window的命名空间
+ * @class
+ * @name window
  */
 
 (function(){
@@ -74,37 +80,49 @@
 		return bracket ;
 	}
 
-	//指定查看几层
+	/**
+	 * 指定查看几层
+	 */
 	window.viewJSONlv = function(obj, lvmax){
 		if(lvmax > 0){
 			return __viewJSON(obj, '', lvmax);
 		}else{
-			alert('viewJSONlv: lvmax must be 1,2,3,4...');
+			alert('viewJSONlv: lvmax must be in 1,2,3,4..10');
 		}
 	}
 
-	//递归查看所有,只查看20层,避免循环引用导致无限查看
+	/**
+	 * 递归查看所有,只查看10层,避免循环引用导致无限查看
+	 */
 	window.viewJSON = function(obj){
-		return __viewJSON(obj, '', 20);
+		return __viewJSON(obj, '', 10);
 	}
 
-	//只查看第一级
+	/**
+	 * 只查看第一级
+	 */
 	window.viewJSON1 = function(obj){
 		return __viewJSON(obj, '', 1);
 	}
 
-	//只查看第二级
+	/**
+	 * 只查看第二级
+	 */
 	window.viewJSON2 = function(obj){
 		return __viewJSON(obj, '', 2);
 	}
 
-	//只查看第三级
+	/**
+	 * 只查看第三级
+	 */
 	window.viewJSON3 = function(obj){
 		return __viewJSON(obj, '', 3);
 	}
 
-	//只查看第四级
-	window.viewJSON3 = function(obj){
+	/**
+	 * 只查看第四级
+	 */
+	window.viewJSON4 = function(obj){
 		return __viewJSON(obj, '', 4);
 	}
 

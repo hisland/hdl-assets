@@ -217,24 +217,29 @@ KISSY.add('hdlGrid', function(S, undef) {
 		__initDOM: function(){
 			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><colgroup></colgroup><tbody></tbody></table></div></div><div class="hdlgrid-pager"></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
 
-			div.$whead = div.find('div.hdlgrid-head');
-			div.$wbody = div.$whead.next();
-			div.$wpager = div.$wbody.next();
+			S.mix(this, {
+				$div: div,
 
-			div.$thead = div.$whead.find('thead:eq(0)');
-			div.$tbody = div.$wbody.find('tbody:eq(0)');
+				$divtitle: div.find('div.hdlgrid-title'),
+				$divbutton: div.find('div.hdlgrid-button'),
 
-			div.$chead = div.$thead.prev();
-			div.$cbody = div.$tbody.prev();
+				$divhead: div.find('div.hdlgrid-head'),
+				$divbody: div.find('div.hdlgrid-body'),
+				$divpager: div.find('div.hdlgrid-pager'),
 
-			div.$head = div.$thead.parent();
-			div.$body = div.$tbody.parent();
+				$thead: div.find('div.hdlgrid-head thead'),
+				$tbody: div.find('div.hdlgrid-body tbody'),
 
-			div.$mask = div.find('div.hdlgrid-mask');
-			div.$nodata = div.$mask.next();
-			div.$loading = div.$nodata.next();
+				$colgrouphead: div.find('div.hdlgrid-head colgroup'),
+				$colgroupbody: div.find('div.hdlgrid-body colgroup'),
 
-			this.$div = div;
+				$tablehead: div.find('div.hdlgrid-head table'),
+				$tablebody: div.find('div.hdlgrid-head table'),
+
+				$mask: div.find('div.hdlgrid-mask'),
+				$nodata: div.find('div.hdlgrid-nodata'),
+				$loading: div.find('div.hdlgrid-loading')
+			});
 
 			return this;
 		},
@@ -294,8 +299,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 		 */
 		setSetting: function(setting){
 			if(S.isPlainObject(setting)){
-				console.log(setting);
-				 S.mix(grid.setting, setting);
+				 S.mix(this.setting, setting);
 			}
 			return this;
 		},
@@ -311,7 +315,7 @@ KISSY.add('hdlGrid', function(S, undef) {
 		 */
 		addCol: function(col_setting){
 			//不覆盖相同的设置,只copy不存在的设置
-			S.mix(col_setting, pre_colModel, false);
+			S.mix(col_setting, pre_col_model, false);
 
 			this.$div.$thead.find('tr').append('<th>'+ col_setting.display+'</th>');
 			this.$div.$colgroup.append('<col />');
@@ -406,13 +410,6 @@ KISSY.add('hdlGrid', function(S, undef) {
 		 * fn: this->grid, (tr, idx)
 		 */
 		walkRow: function(fn){
-			
-			return this;
-		},
-		/**
-		 * 修改设置
-		 */
-		setSetting: function(setting){
 			
 			return this;
 		},

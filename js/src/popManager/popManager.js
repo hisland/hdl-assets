@@ -62,6 +62,12 @@ KISSY.add('popManager', function(S, undef) {
 	}
 
 	function init(){
+		/**
+		 * popManager的包含层
+		 * @memberOf popManager#
+		 * @name $div
+		 * @type jQuery
+		 */
 		this.$div = $(html_string).appendTo('body');
 		this.__init_mask().__init_ie6Iframe();
 		this.mask().front();
@@ -88,7 +94,7 @@ KISSY.add('popManager', function(S, undef) {
 			return this;
 		},
 		/**
-		 * 显示最外层,如果需要提高层级请先调用 front方法
+		 * 显示最外层,如果需要提高层级请先调用front方法
 		 * @return this
 		 */
 		show: function() {
@@ -104,7 +110,7 @@ KISSY.add('popManager', function(S, undef) {
 			return this;
 		},
 		/**
-		 * 显示遮罩, css3使用半透明背景, 否则使用半透明层
+		 * 显示遮罩, css3使用半透明背景, 其它使用半透明层
 		 * @return this
 		 */
 		mask: function() {
