@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+/* 文本颜色 */
+.red{color:red;font-weight:400;}
+
+/* 文本对齐 */
+.text-center{text-align:center;}
+.text-left{text-align:left;}
+.text-right{text-align:right;}
+
+/* 清除左右浮动类 */
+.clear-both{display:block;height:1px;overflow:hidden;visibility:hidden;clear:both;font-size:1px;line-height:1px;}
+
+/* 文本框类 */
+input.text1{width:120px;height:14px;line-height:14px;padding:1px;border:1px solid #7f9db9;}
+
+/* 标准浏览器使用resize:none;禁止改变大小 */
+textarea, .ls1-big-box{width:120px;height:70px;line-height:1.2;padding:2px 1px;border:1px solid #7f9db9;background:#fff;resize:none;overflow:auto;}
+
+/* 禁用输入法 */
+.no-ime{ime-mode:disabled;}
+
+/* 下拉框 */
+select.select1{width:124px;}
+select.select2-1{width:64px;}
+select.select2-2{width:64px;}
+
+
+/* 左侧无边距,其它有4px边距 */
+input.checkbox1, input.radio1{margin:3px 3px 3px 0;*margin:-1px 0 0 -4px;vertical-align:middle;}
+/* 和ie相同,默认有4px边距 */
+input.checkbox2, input.radio2{margin:3px;*margin:0;vertical-align:middle;}
+/* 默认没有边距 */
+input.checkbox3, input.radio3{margin:0;*margin:-3px;vertical-align:middle;}
+
+
+/* 不同长度背景的按钮 */
+input.button{width:72px;height:22px;line-height:22px;border:none;background:url('common-img/btn1.gif') no-repeat 0 0;cursor:pointer;}
+input.button2{width:100px;height:22px;line-height:22px;border:none;background:url('common-img/btn2.gif') no-repeat 0 0;cursor:pointer;}
+input.button3{width:150px;height:22px;line-height:22px;border:none;background:url('common-img/btn3.gif') no-repeat 0 0;cursor:pointer;}
+
+.label-1r{display:block;vertical-align:middle;white-space:nowrap;}
+.label{display:inline-block;vertical-align:middle;white-space:nowrap;margin-right:5px;}
+
+
+.ov-hidden{height:100%;overflow:hidden;}
+.ov-auto{height:100%;overflow:auto;}
+
+
+.loading{background:url('common-img/loading.gif') no-repeat 50% 50%;}
+.icon-add{display:inline-block;width:16px;height:16px;background:url('common-img/icon+.gif') no-repeat 0 0;}
+
+input[type=password][readonly], input[type=text][readonly], textarea[readonly]{background:#e1dfd4;color:#666;border:1px solid #7f9db9;padding:1px;}
+input[type=password][disabled], input[type=text][disabled], textarea[disabled]{background:#f5f4ea;color:#aca899;text-shadow:#fff 1px 1px;border:1px solid #c9c7ba;padding:1px;cursor:default;}
+/* ie6的样式在ie6模块里面定义 */
