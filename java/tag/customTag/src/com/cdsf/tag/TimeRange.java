@@ -204,7 +204,7 @@ public class TimeRange extends Item {
 						+ getEnableText()
 						+ "</label>";
 			} else {
-				return "<label class=\"label\"><input class=\"checkbox2\" type=\"checkbox\" name=\"\"+enableName+\"\" value=\""
+				return "<label class=\"label\"><input class=\"checkbox2\" type=\"checkbox\" name=\"" + enableName + "\" value=\""
 						+ enableValue + "\" />" + getEnableText() + "</label>";
 			}
 		} else {

@@ -13,9 +13,8 @@ KISSY.add('validString', function(S, undef) {
 		//保存每个配置
 	var items = {},
 		//因为以map存,如果属性为length会导致each函数认为是数组,增加前缀避免
-		__prefix = '-valid-';
+		__PREFIX = '-valid-';
 	/**
-	 * 全局静态函数
 	 * <pre><code>
 	 * validString('ipv4', '192.168.0.1');	使用ipv4规则检测后面的字符串,此例子返回true
 	 * </code></pre>
@@ -30,7 +29,7 @@ KISSY.add('validString', function(S, undef) {
 			return false;
 		}
 
-		var item = items[__prefix + name], rs = false;
+		var item = items[__PREFIX + name], rs = false;
 
 		//函数验证
 		if(S.isFunction(item.fn)){
@@ -94,12 +93,12 @@ KISSY.add('validString', function(S, undef) {
 			}
 
 			//提示覆盖情况
-			if(items[__prefix + name]){
+			if(items[__PREFIX + name]){
 				S.log('window.validString.add: name already exist, override it!', 'warn');
 			}
 
 			//保存设置
-			items[__prefix + name] = {
+			items[__PREFIX + name] = {
 				fn: fn,
 				desc: desc,
 				reverse: reverse
@@ -120,7 +119,7 @@ KISSY.add('validString', function(S, undef) {
 				return this;
 			}
 
-			items[__prefix + name].desc = str;
+			items[__PREFIX + name].desc = str;
 
 			return this;
 		},
@@ -133,7 +132,7 @@ KISSY.add('validString', function(S, undef) {
 				S.log('window.validString.setDesc: must have name[String]', 'warn');
 				return this;
 			}
-			return items[__prefix + name].desc;
+			return items[__PREFIX + name].desc;
 		},
 		/**
 		 * 获得当前已经有的验证规则列表

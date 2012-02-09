@@ -1,23 +1,7 @@
 /**
  * @fileOverview
- * @module Color
  * @author hisland hisland@qq.com
  * @description 颜色类
- * <pre><code>
- * API:
- *		var c = Color('#ccff00');	//以hex方式创建
- *		var c = Color('#f00');	//以hex缩写方式创建
- *		var c = Color('rgb(200, 100, 50)');	//以rgb字符串方式创建,ff取出的颜色以此字符串返回
- *		var c = Color('red');	//以颜色名方式创建,仅提供有限的几个
- *		var c = Color(233, 20, 255);	//以rgb数字方式创建
- * 
- *		c.getHex();	//取hex值
- *		c.getRgb();	//取rgb值
- * 
- *		c.r;	//当前r值
- *		c.g;	//当前g值
- *		c.b;	//当前b值
- * </code></pre>
  */
 
 KISSY.add('Color', function(S, undef) {
@@ -43,8 +27,37 @@ KISSY.add('Color', function(S, undef) {
 
 	
 	/**
-	 * 颜色类,包含rgb值
-	 * @class
+	 * <pre><code>
+	 *	var c = Color('#ccff00');	//以hex方式创建
+	 *	var c = Color('#f00');	//以hex缩写方式创建
+	 *	var c = Color('rgb(200, 100, 50)');	//以rgb字符串方式创建,firefox取出的颜色以此字符串返回
+	 *	var c = Color('red');	//以颜色名方式创建,仅提供有限的几个
+	 *	var c = Color(233, 20, 255);	//以rgb数字方式创建
+	 *	c.r;	//当前r值
+	 *	c.g;	//当前g值
+	 *	c.b;	//当前b值
+		//颜色名称对照表
+		var name_to_hex = {
+			'red':'#ff0000',
+			'green':'#008000',
+			'blue':'#0000ff',
+			'yellow':'#ffff00',
+			'purple':'#800080',
+			'gray':'#808080',
+			'silver':'#c0c0c0',
+			'pink':'#ffc0cb',
+			'black':'#000000',
+			'white':'#ffffff',
+			'lime':'#00ff00',
+			'aqua':'#00ffff',
+			'fuchsia':'#ff00ff',
+			'teal':'#008080',
+			'maroon':'#800000',
+			'olive':'#808000'
+		};
+	 * </code></pre>
+	 * @class 颜色类,包含rgb值
+	 * @memberOf window
 	 */
 	function Color(arg0, arg1, arg2){
 		//更改为构造方式
@@ -109,7 +122,7 @@ KISSY.add('Color', function(S, undef) {
 
 	S.augment(Color, {
 		/**
-		 * 转换成HEX字符串#ff00cc
+		 * 返回HEX字符串#ff00cc
 		 */
 		getHex: function(){
 			var sr, sg, sb;
@@ -123,7 +136,7 @@ KISSY.add('Color', function(S, undef) {
 		},
 
 		/**
-		 * 转换成RGB字符串rgb(254,33,58)
+		 * 返回RGB字符串rgb(254,33,58)
 		 */
 		getRgb: function(){
 			return 'rgb(' + this.r + ', ' + this.g + ', ' + this.b + ')';

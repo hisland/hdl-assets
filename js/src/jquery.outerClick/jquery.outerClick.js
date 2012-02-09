@@ -1,6 +1,5 @@
 /**
  * @fileOverview
- * @module jquery.outerClick
  * @author hisland hisland@qq.com
  * @description 描述
  * @see http://blog.moocss.com/code-snippets/mootools-code-snippets/773.html
@@ -58,10 +57,23 @@ KISSY.add('jquery.outerClick', function(S, undef) {
 
 	/**
 	 * Event helper outerClick
+	 * <pre><code>
+	 * Usage:
+	 * 		$(selector).bind("outerClick", fn);   // Bind the function fn to the outerClick event on each of the matched elements.
+	 * 		$(selector).outerClick(fn);           // Bind the function fn to the outerClick event on each of the matched elements.
+	 * 		$(selector).trigger("outerClick");    // Trigger the outerClick event on each of the matched elements.
+	 * 		$(selector).outerClick();             // Trigger the outerClick event on each of the matched elements.
+	 * 		$(selector).unbind("outerClick", fn); // Unbind the function fn from the outerClick event on each of the matched elements.
+	 * 		$(selector).unbind("outerClick");     // Unbind all outerClick events from each of the matched elements.
+	 * </code></pre>
 	 * 
 	 * @param  {Function} [fn]  A function to bind to the outerClick event on each of the matched elements.
 	 *                          If fn is omitted the event is triggered.
 	 * @return {jQuery}         Returns the jQuery object.
+	 * @memberOf jQuery#
+	 * @name outerClick
+	 * @see http://blog.moocss.com/code-snippets/mootools-code-snippets/773.html
+	 * @see http://littleroom.se/playground/outerClick/
 	 */
 	$.fn[OUTER_CLICK] = function (fn) {
 		return fn ? this.bind(OUTER_CLICK, fn) : this.trigger(OUTER_CLICK);
