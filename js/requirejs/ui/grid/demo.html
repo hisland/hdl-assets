@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, hdlGrid+css', function(){
+				var grid = $('#wrap').hdlGrid({
+						url: 'data.php',
+						colModel : [
+							{display: '名称', name : 'mobileName', width : '14%', sortable : true, align: 'center'},
+							{display: '是否启用', name : 'status', width : '8%', sortable : true, align: 'center'},
+							{display: '是否SP', name : 'isSp', width : '8%', sortable : true, align: 'center'},
+							{display: '是否USSD', name : 'isUSSD', width : '8%', sortable : true, align: 'center'},
+							{display: '父业务类型', name : 'fsmTypeId', width : '14%', sortable : true, align: 'center'},
+							{display: '是否送BI', name : 'isBi', width : '8%', sortable : true, align: 'center'},
+							{display: '送BI文件名', name : 'biContent', width : '10%', sortable : true, align: 'center'},
+							{display: '送BI目录', name : 'biDirectory', width : '10%', sortable : true, align: 'center'},
+							{display: '备注', name : 'remarks', width : '20%', sortable : true, align: 'center'}
+						],
+						usepager: true,
+						perPageNum: 15,
+						showTableToggleBtn: false,
+						width: 'auto',
+						height: 390 , 
+						resizable : false ,
+						singleSelect : true
+					});
+			});
+		});
+	</script>
+	<style type="text/css">
+		#wrap{width:500px;height:300px;border:1px solid #D7E6F5;margin:100px;}
+	</style>
+</head>
+
+<body>
+	<div id="wrap"></div>
+</body>
+</html>

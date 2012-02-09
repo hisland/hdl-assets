@@ -7,16 +7,19 @@
 define({
 	version: '0.1',
 	reg_css: /\.css$/,
-	load: function(name, req, onLoad, config) {
+	load: function(name, req, onLoad, config){
 		//不是.css结尾的给它加上
 		if(!this.reg_css.test(name)){
 			name += '.css';
 		}
+
+		//生成link节点并放入head
 		var node = document.createElement('link');
 		node.href = req.toUrl(name);
 		node.rel = 'stylesheet';
 		node.charset = 'utf-8';
 		document.getElementsByTagName("head")[0].appendChild(node);
+
 		onLoad();
 	}
 });

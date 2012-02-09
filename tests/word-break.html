@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/src/seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, jquery-1.4.2', function(){
+				
+			});
+		});
+	</script>
+	<style type="text/css">
+		.test{width:100px;height:200px;background:green;word-wrap:break-word;}
+	</style>
+</head>
+<body style="margin:50px;">
+	<p>word-break:break-all;只有ie支持, 将不管什么情况强制把能拆开的单词都拆开来填满剩余空间</p>
+	<p>正常情况下不使用将能使单词超长的截断.其它情况不折断</p>
+	<div class="test">
+		aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+		你好
+		你好
+		你好
+		你好
+		its good hello are you
+	</div>
+</body>
+</html>

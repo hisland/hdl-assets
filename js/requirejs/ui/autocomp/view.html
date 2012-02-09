@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, autoComplete+css');
+		});
+	</script>
+</head>
+
+<body style="padding:50px;">
+	<span class="auto-comp">
+		<input type="text" value="this is text" /><span></span>
+	</span>
+
+	<br /><br />
+
+	<!-- 禁用时加上 auto-comp-disabled -->
+	<span class="auto-comp auto-comp-disabled">
+		<input type="text" value="this is text" disabled="disabled" /><span></span>
+	</span>
+
+	<br /><br />
+
+	<!-- 下拉层样式与结构 -->
+	<div class="auto-comp-pop" style="display:block;">
+		<div class="auto-comp-loading">加载中...</div>
+		<div class="auto-comp-as">
+			<a class="auto-comp-a" href="javascript:;" data-value="1">1<strong>dddddd</strong></a>
+			<a class="auto-comp-a" href="javascript:;" data-value="2">2</a>
+			<a class="auto-comp-a" href="javascript:;" data-value="3">3</a>
+			<a class="auto-comp-a" href="javascript:;" data-value="4">4</a>
+			<a class="auto-comp-a" href="javascript:;" data-value="5">5</a>
+		</div>
+		<div class="auto-comp-page">
+			<a class="auto-comp-prev" href="javascript:;">上一页</a>
+			<a class="auto-comp-next" href="javascript:;">下一页</a>
+			<span class="auto-comp-tip"></span>
+		</div>
+	</div>
+
+</body>
+</html>

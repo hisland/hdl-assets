@@ -96,7 +96,7 @@ define(['jquery'], function($){
 	});
 
 	return {
-		version: 0.1
+		version: 0.1,
 		desc: 'jquery-adjustElement-plugin'
 	};
 });

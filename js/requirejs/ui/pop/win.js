@@ -27,140 +27,260 @@
  * 			弹出层需要禁止焦点跑到层后面去
  * </code></pre>
  */
-define(['jquery', 'kissy'], function($, S){
-	var html_string = '<div class="pop-manager-wrap" style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;"></div>',
-		mask_string = '<div class="pop-manager-mask" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>';
-
+define(['jquery', 'kissy', './manager', 'jquery-plugin', 'css!./win'], function($, S, M){
+	var $EMPTY = $(''),
+		html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title">title</span><a class="win1-close" href="#"></a></div><div class="win1-content-wrap"><div class="win1-content"></div></div></div>',
+		/**
+		 * 弹出窗口命名空间
+		 * @namespace popWin
+		 */
+		popWin = {},
+		default_width = 400;
+	
 	/**
-	 * @constructor
-	 * @name popManager
+	 * 清除所有的popWin
+	 * @return popWin
 	 */
-	function init(){
-		this.$div = $(html_string).appendTo('body');
-		this.__init_mask().__init_ie6Iframe();
-		this.mask().front();
+	popWin.clean = function(){
+		$('div.win1-wrap').parent().remove();
+		return this;
 	}
 
 	/**
-	 * @lends popManager#
+	 * 初始化一个popWin
+	 */
+	popWin.init = function(){
+		return new init();
+	}
+
+	function init(){
+		var div = $(html_string);
+
+		/**
+		 * @lends popWin#
+		 */
+		S.mix(this, {
+			/**
+			 * popWin的包含层
+			 * @type jQuery
+			 */
+			$div: div,
+			/**
+			 * popWin右上角的关闭X
+			 * @type jQuery
+			 */
+			$close: div.find('a.win1-close'),
+			/**
+			 * popWin的标题层
+			 * @type jQuery
+			 */
+			$title: div.find('span.win1-title'),
+			/**
+			 * popWin的内容层
+			 * @type jQuery
+			 */
+			$content: div.find('div.win1-content'),
+			/**
+			 * popWin所在的popManager实例
+			 * @type popManager
+			 */
+			manager: M.init(),
+			__close_able: true
+		});
+
+		this.manager.$div.append(div);
+
+		//默认宽高
+		this.setWidth(default_width);
+
+		//设置关闭按钮
+		this.$close.click(function(e){
+			$(this).closest('.win1-wrap').parent().hide();
+			e.preventDefault();
+		})
+		//不能拖拽
+		.bind('dragstart', function(e){
+			e.preventDefault();
+		});
+
+		//代理取消按钮
+		div.click(function(e){
+			if($(e.target).is('.win1-btn-cancel')){
+				$(this).parent().hide();
+			}
+		});
+
+		//拖动初始化
+		div.hdlDrag({
+			trigger_filter: function(e){
+				//在IE下,内部有disabled的input时,点击input文本会导致e.target.parentNode为undefined, 前一个规则值为false,所以需要||单独处理
+				if($(e.target).closest('.win1-content, .win1-close').length || !e.target.parentNode){
+					return false;
+				}
+			}
+		});
+	}
+
+	/**
+	 * @lends popWin#
 	 */
 	S.augment(init, {
 		/**
 		 * 增加z-index放到最前
 		 * @return this
 		 */
-		front: function() {
-			this.$div.css('z-index', S.guid());
+		front: function(){
+			this.manager.front();
 			return this;
 		},
 		/**
-		 * 从DOM中删除
+		 * 显示manager的遮罩层
 		 * @return this
 		 */
-		remove: function() {
-			this.$div.remove();
+		mask: function(){
+			this.manager.mask();
 			return this;
 		},
 		/**
-		 * 显示最外层,如果需要提高层级请先调用front方法
+		 * 隐藏manager的遮罩层
 		 * @return this
 		 */
-		show: function() {
+		demask: function(){
+			this.manager.demask();
+			return this;
+		},
+		/**
+		 * 显示loading状态,隐藏内容层
+		 * @return this
+		 */
+		loading: function(){
+			this.$div.hide();
+			this.manager.loading();
+			return this;
+		},
+		/**
+		 * 隐藏loading状态,显示内容层
+		 * @return this
+		 */
+		loaded: function(){
 			this.$div.show();
+			this.manager.loaded();
+			return this;
+		},
+		/**
+		 * 显示, 会同时强制manager显示
+		 * @return this
+		 */
+		show: function(){
+			this.manager.show();
+			//某些IE会先显示出来然后再定位调整,会有闪烁的感觉, 定位完成后再显示出来
+			this.$div.css('visibility', 'hidden').show().css({
+				top: (document.documentElement.clientHeight - this.$div.height())/2,
+				left:(document.documentElement.clientWidth - this.$div.width())/2,
+				visibility: ''
+			});
 			return this;
 		},
 		/**
 		 * 隐藏最外层
 		 * @return this
 		 */
-		hide: function() {
-			this.$div.hide();
+		hide: function(){
+			if(this.__close_able){
+				this.manager.hide();
+			}
 			return this;
 		},
 		/**
-		 * 显示遮罩, css3使用半透明背景, 其它使用半透明层
+		 * 从DOM中删除
 		 * @return this
 		 */
-		mask: function() {
-			if($.browser.msie){
-				this.$mask.show();
+		remove: function(){
+			this.manager.remove();
+			return this;
+		},
+		/**
+		 * 是否可被关闭
+		 * @param {boolean} status true|false
+		 * @return this
+		 */
+		setCloseable: function(status){
+			if(S.isBoolean(status)){
+				this.__close_able = status;
+				if(status){
+					this.$close.add(this.$div.find('.win1-btn-cancel')).show();
+				}else{
+					this.$close.add(this.$div.find('.win1-btn-cancel')).hide();
+				}
 			}else{
-				this.$div.css('background-color', 'rgba(0, 0, 0, 0.2)');
+				S.log('popWin.setCloseable: status must be true or false!');
 			}
 			return this;
 		},
 		/**
-		 * 隐藏遮罩
+		 * 是否可被拖动
+		 * @param {boolean} status true|false
 		 * @return this
 		 */
-		demask: function() {
-			if($.browser.msie){
-				this.$mask.hide();
+		setDraggable: function(status){
+			if(S.isBoolean(status)){
+				this.$div.hdlDrag({enable: status});
 			}else{
-				this.$div.css('background-color', '');
+				S.log('popWin.setDraggable: status must be true or false!');
 			}
 			return this;
 		},
 		/**
-		 * 显示loading状态, 同时会打开mask
+		 * 设置宽度, 会减掉边距, 实际比设置的要小
+		 * @param {number} num
 		 * @return this
 		 */
-		loading: function(){
-			this.mask().$div.addClass('loading');
-			return this;
-		},
-		/**
-		 * 隐藏loading状态, 同时会关闭mask
-		 * @return this
-		 */
-		loaded: function(){
-			this.demask().$div.removeClass('loading');
-			return this;
-		},
-		/**
-		 * 初始化遮罩
-		 * @return this
-		 * @private
-		 */
-		__init_mask: function() {
-			if($.browser.msie){
-				this.$mask = $(mask_string);
-				this.$div.prepend(this.$mask);
+		setWidth: function(num){
+			if(S.isNumber(num-0)){
+				this.$title.width(num-35);
+				this.$content.width(num-18);
+			}else{
+				S.log('popWin.setWidth: num must be a valid number!');
 			}
 			return this;
 		},
 		/**
-		 * 初始化ie6下初始iframe垫层
+		 * 设置内容宽度
+		 * @param {number} num
 		 * @return this
-		 * @private
 		 */
-		__init_ie6Iframe: function(){
-			if(/*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent) && !/msie [78].0/i.test(navigator.userAgent)){
-				this.$div.append('<iframe style="position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;filter:alpha(opacity=0);" frameborder="no" scrolling="no"></iframe>');
+		setInnerWidth: function(num){
+			if(S.isNumber(num-0)){
+				this.$title.width(num-17);
+				this.$content.width(num);
+			}else{
+				S.log('popWin.setWidth: num must be a valid number!');
 			}
+			return this;
+		},
+		/**
+		 * 设置内容高度
+		 * @param {number} num
+		 * @return this
+		 */
+		setHeight: function(num){
+			if(S.isNumber(num-0)){
+				this.$content.height(num);
+			}else{
+				S.log('popWin.setHeight: num must be a valid number!');
+			}
+			return this;
+		},
+		/**
+		 * 设置标题
+		 * @param {string} str
+		 * @return this
+		 */
+		setTitle: function(str){
+			this.$title.html(str);
 			return this;
 		}
 	});
 
-	return {
-		/**
-		 * 清除所有的弹出层包含块
-		 * @param {boolean} force 为true时强制删除所有,其它值不会删除.not-remove的层
-		 * @return popManager
-		 */
-		clean: function(force){
-			if(force === true){
-				$('div.pop-manager-wrap').remove();
-			}else{
-				$('div.pop-manager-wrap').not('.not-remove').remove();
-			}
-			return this;
-		},
-		/**
-		 * 初始化一个弹出层包含块
-		 */
-		init: function(){
-			return new init();
-		}
-	};
+	return popWin;
 });

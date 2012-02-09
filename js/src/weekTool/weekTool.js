@@ -43,17 +43,27 @@ KISSY.add('weekTool', function(S, undef) {
 	var msg_please_check = '请选择',
 		msg_ok = '确定',
 		msg_close_title = '双击选择并关闭';
+		msg_start = '第{startWeek}周 {startTime}';
+		msg_end = '第{endWeek}周 {endTime}';
 	
 	//JS国际化信息覆盖
 	if(window.JS_I18N){
 		msg_please_check = JS_I18N['js.common.weekTool.msg_please_check'];
 		msg_ok = JS_I18N['js.common.weekTool.msg_ok'];
 		msg_close_title = JS_I18N['js.common.weekTool.msg_close_title'];
+		msg_start = JS_I18N['js.common.weekTool.msg_start'];
+		msg_end = JS_I18N['js.common.weekTool.msg_end'];
 	}
 
 	var $ = jQuery,
 		$EMPTY = $(''),
 		pop = $.popWin.init(),
+
+		$info = $('<div class="weektool-tip">您选择的时间是:<span class="weektool-range">第8周 2012-02-09 17:11:10</span>到<span class="weektool-range">第8周 2012-02-09 17:11:10</span></div>'),
+		$legend = $('<div class="weektool-legend"><span class="weektool-legend1">年</span><span class="weektool-legend2">周</span><span class="weektool-legend3">时间</span><span class="weektool-legend4">周</span><span class="weektool-legend5">时间</span></div>'),
+
+		$range_start = $info.find('span:first'),
+		$range_end = $info.find('span:eq(1)'),
 
 		$box_left = $('<div class="weektool" style="width:100px;"></div>'),
 		$box_wrap = $('<div class="weektool" style="margin-left:5px;width:340px;"></div>'),
@@ -253,7 +263,7 @@ KISSY.add('weekTool', function(S, undef) {
 	});
 
 	//初始化弹出层结构
-	pop.$content.append($box_left).append($box_wrap).append($btn_wrap);
+	pop.$content.append($info).append($legend).append($box_left).append($box_wrap).append($btn_wrap);
 	pop.setTitle(msg_please_check);
 	pop.setInnerWidth(450);
 	pop.manager.$div.addClass('not-remove');
@@ -333,6 +343,7 @@ KISSY.add('weekTool', function(S, undef) {
 			dt.addClass('hover').siblings('.hover').removeClass('hover');
 			resetRight(dt.index());
 			dt.blur();
+			refreshInfo();
 			e.preventDefault();
 		}
 	});
@@ -345,6 +356,7 @@ KISSY.add('weekTool', function(S, undef) {
 				dt.addClass('hover').siblings('.hover').removeClass('hover');
 			}
 			dt.blur();
+			refreshInfo();
 			e.preventDefault();
 		}
 	}).dblclick(function(e){
@@ -364,6 +376,19 @@ KISSY.add('weekTool', function(S, undef) {
 		pop.hide();
 		$ipt_start = $ipt_end = $EMPTY;
 	});
+
+	function refreshInfo(){
+		var start = $box_mid.find('.hover');
+		var end = $box_right.find('.hover');
+		var rs = {
+			startWeek: start.find('strong').text(),
+			startTime: start.find('span').text(),
+			endWeek: end.find('strong').text(),
+			endTime: end.find('span').text()
+		};
+		$range_start.html(S.substitute(msg_start, rs));
+		$range_end.html(S.substitute(msg_end, rs));
+	}
 
 	function showPop(){
 		var date_start, date_end, week;

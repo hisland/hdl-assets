@@ -26,7 +26,7 @@
  * </code></pre>
  */
 
-define(['jquery'], function($){
+define(['jquery', 'kissy'], function($, S){
 	var need_capture = /*@cc_on!@*/!1 && /msie [678].0/i.test(navigator.userAgent),
 		trigger, target;
 
@@ -195,7 +195,7 @@ define(['jquery'], function($){
 	});
 
 	return {
-		version: 0.1
+		version: 0.1,
 		desc: 'jquery-dragmove-plugin'
 	};
 });

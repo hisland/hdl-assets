@@ -1,7 +1,18 @@
 @charset "utf-8";
 
+.weektool-tip{border:1px solid #ade2fe;background:#deedfd;height:24px;line-height:25px;text-align:center;}
+	.weektool-range{color:#0b45af;margin:0 5px;}
+
+.weektool-legend{height:25px;margin-bottom:-15px;}
+	.weektool-legend span{position:absolute;display:block;padding:2px 3px;background:#fff;}
+	.weektool-legend1{left:30px;}
+	.weektool-legend2{left:120px;}
+	.weektool-legend3{left:190px;}
+	.weektool-legend4{left:280px;}
+	.weektool-legend5{left:355px;}
+
 /* 周选择控件 */
-.weektool{float:left;height:300px;overflow:auto;padding-bottom:10px;border:1px solid #C7D2D7;}
+.weektool{float:left;height:300px;padding:10px 0;overflow:auto;border:1px solid #C7D2D7;}
 	.weektool a{display:block;padding:2px 0 0;color:#4E4E4E;text-align:center;text-decoration:none;outline:none;}
 	.weektool a:hover{background:#e2edfc;}
 	.weektool a.hover{background:#B3D0FF;}

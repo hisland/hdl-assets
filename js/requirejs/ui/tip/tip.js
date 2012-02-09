@@ -1,45 +1,9 @@
 /**
- * @fileOverview
- * @module hdlTipMsg
- * @author hisland hisland@qq.com
- * @description 模拟的提示框
- * <pre><code>
- * TODO:
- * 		2010-8-19 14:5:35
- * 			需要一个机制来控制不能关闭此层
- * 		2010-10-12 10:33:29
- * 			defaultFocus
- * 		2011-4-6 15:33:11
- * 			显示之后,焦点不能跑到后面去
- * 		2011-4-15 14:41:55
- * 			确定和X不能拖动
- * 		2011-06-01 13:15:55
- * 			Y/N快捷键支持
- * 		2012-01-16 11:13:20
- * 			每个都有回调,confirm的回调接收第一个参数为true,false
- * API:
- * 		$.alert('msg');
- * 		$.alert('msg', 'this is title');
- * 		$.alert('msg', function(){//do more});
- * 		$.alert('msg', 'this is title', function(){//do more});
- * 
- * 		$.notice('msg');
- * 		$.notice('msg', 'this is title');
- * 		$.notice('msg', function(){//do more});
- * 		$.notice('msg', 'this is title', function(){//do more});
- * 
- * 		$.errorTip('msg');
- * 		$.errorTip('msg', 'this is title');
- * 		$.errorTip('msg', function(){//do more});
- * 		$.errorTip('msg', 'this is title', function(){//do more});
- * 
- * 		$.confirm('msg', function(rs){//rs is true or false});
- * 		$.confirm('msg', 'this is title', function(rs){//rs is true or false});
- * </code></pre>
+ * tip类
  */
-KISSY.add('hdlTipMsg', function(S, undef) {
-	var $ = jQuery,
-		msg_alert = '提示',
+
+define(['jquery', 'kissy', '../pop/manager', 'css!./tip'], function($, S, M){
+	var msg_alert = '提示',
 		msg_error = '错误',
 		msg_notice = '警告',
 		msg_confirm = '确认',
@@ -57,14 +21,14 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		msg_ok = JS_I18N['js.common.hdlTipMsg.msg_ok'];
 		msg_cancel = JS_I18N['js.common.hdlTipMsg.msg_cancel'];
 	}
-	
+
 	var html_string = '<div class="tipmsg-wrap"><div class="tipmsg-h1"><div class="tipmsg-h2"><div class="tipmsg-h3"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div></div></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg-b1"><div class="tipmsg-b2"><div class="tipmsg-b3"><input type="button" value="'+msg_ok+'" /></div></div></div></div>',
 		html_css3 = '<div class="tipmsg-wrap"><div class="tipmsg2-h1"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg2-b1"><input type="button" value="'+msg_ok+'" /></div></div>',
 		html_button = '<input type="button" />';
 
 	/**
 	 * @class
-	 * @name hdlTipMsg
+	 * @name ui.tip
 	 * @param setting
 	 * <pre><code>
 		{
@@ -83,7 +47,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		return this.__init();
 	}
 	/**
-	 * @lends hdlTipMsg#
+	 * @lends ui.tip#
 	 */
 	S.augment(init, {
 		/**
@@ -111,7 +75,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 			});
 
 			//纳入pop管理
-			this.manager = $.popManager.init();
+			this.manager = M.init();
 			this.manager.$div.append(this.$div);
 
 			//初始化拖动
@@ -150,14 +114,12 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		show: function(){
 			if(this.slide){
 				this.manager.show();
-				//居中显示
 				this.$div.hide().fadeIn().css({
 					top: (document.documentElement.clientHeight - this.$div.height())/2,
 					left:(document.documentElement.clientWidth - this.$div.width())/2
 				});
 			}else{
 				this.manager.show();
-				//居中显示
 				this.$div.css('visibility', 'hidden').show().css({
 					top: (document.documentElement.clientHeight - this.$div.height())/2,
 					left:(document.documentElement.clientWidth - this.$div.width())/2,
@@ -193,8 +155,6 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 				if(S.isFunction(this.onHide)){
 					this.onHide();
 				}
-			}else{
-				S.log('cant\'t close!');
 			}
 			return this;
 		},
@@ -207,7 +167,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		},
 		/**
 		 * 设置提示类型
-		 * @param type 值为alert|notice|errorTip|confirm之一, 其它值无效果并产生一个警告
+		 * @param String type alert|notice|errorTip|confirm之一
 		 */
 		setType: function(type){
 			switch(type){
@@ -223,23 +183,20 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 				case 'alert':
 					this.$icon.attr('class', 'tipmsg-alert');
 					break;
-				default:
-					S.log('hdlTipMsg: setType(type), type invalid!', 'warn');
-					break;
 			}
 			return this;
 		},
 		/**
 		 * 设置标题
-		 * @param type 值为字符串或者DOM元素及jquery元素
+		 * @param String|DOM|jQuery title
 		 */
 		setTitle: function(title){
-			this.$title.html(title);
+			this.$title.html(title || msg_alert);
 			return this;
 		},
 		/**
 		 * 设置内容
-		 * @param content 值为字符串或者DOM元素及jquery元素
+		 * @param String|DOM|jQuery content
 		 */
 		setContent: function(content){
 			this.$content.html(content);
@@ -331,7 +288,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		},
 		/**
 		 * 设置宽度
-		 * @param width 值为大于等于200的整数
+		 * @param Number width 值为大于等于200的整数
 		 */
 		setWidth: function(width){
 			if(S.isNumber(width) && width >= 200){
@@ -341,7 +298,7 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		},
 		/**
 		 * 添加一个按钮
-		 * @param setting 按钮设置
+		 * @param Object setting 按钮设置
 		 * <pre><code>
 			{
 				click: function(e){
@@ -354,8 +311,6 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		addButton: function(setting){
 			if(S.isPlainObject(setting)){
 				$(html_button).bind('click', this, setting.click).val(setting.text).appendTo(this.$ok.parent());
-			}else{
-				S.log('setting must be a object!', 'error');
 			}
 			return this;
 		},
@@ -364,7 +319,9 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		 * @param fn 显示时的回调
 		 */
 		setOnShow: function(fn){
-			this.onShow = fn;
+			if(S.isFunction(fn)){
+				this.onShow = fn;
+			}
 			return this;
 		},
 		/**
@@ -372,91 +329,12 @@ KISSY.add('hdlTipMsg', function(S, undef) {
 		 * @param fn 关闭时的回调
 		 */
 		setOnHide: function(fn){
-			this.onHide = fn;
+			if(S.isFunction(fn)){
+				this.onHide = fn;
+			}
 			return this;
 		}
 	});
 
-	//代理4种提示的初始化
-	function wrap(message, title, callback, type){
-		var tip = new init();
-
-		//第2个参数为回调函数的时候,更正参数顺序
-		if(S.isFunction(title)){
-			callback = title;
-			title = msg_confirm;
-		}
-
-		//无title时修改为默认值
-		if(!title){
-			title = msg_confirm;
-		}
-
-		//修正设置
-		tip.setType(type);
-		tip.setTitle(title);
-		tip.setContent(message);
-		tip.setCallback(callback);
-
-		//生成即显示出来
-		tip.show();
-
-		return tip;
-	}
-
-	/**
-	 * @lends jQuery
-	 */
-	$.extend({
-		/**
-		 * 一般提示
-		 * @param message 值为字符串或者dom元素及jquery元素
-		 * @param title 值为字符串或者dom元素及jquery元素, 可选
-		 * @param callback 值为函数
-		 */
-		alert: function(message, title, callback){
-			return wrap(message, title, callback, 'alert');
-		},
-		/**
-		 * 错误提示
-		 * @param message 值为字符串或者dom元素及jquery元素
-		 * @param title 值为字符串或者dom元素及jquery元素, 可选
-		 * @param callback 值为函数
-		 */
-		errorTip: function(message, title, callback){
-			return wrap(message, title, callback, 'errorTip');
-		},
-		/**
-		 * 警告提示
-		 * @param message 值为字符串或者dom元素及jquery元素
-		 * @param title 值为字符串或者dom元素及jquery元素, 可选
-		 * @param callback 值为函数
-		 */
-		notice: function(message, title, callback){
-			return wrap(message, title, callback, 'notice');
-		},
-		/**
-		 * 确认提示
-		 * @param message 值为字符串或者dom元素及jquery元素
-		 * @param title 值为字符串或者dom元素及jquery元素, 可选
-		 * @param callback 值为函数
-		 */
-		confirm: function(message, title, callback){
-			var tip = wrap(message, title, callback, 'confirm');
-			//增加一个取消按钮
-			tip.addButton({
-				click: function(e){
-					//点击取消的回调,会传入false
-					if(S.isFunction(e.data.callback)){
-						e.data.callback(false);
-					}
-					e.data.hide();
-				},
-				text: msg_cancel
-			});
-			return tip;
-		}
-	});
-}, {
-	requires: ['jquery-1.4.2', 'popManager', 'hdlDrag']
+	return init;
 });
