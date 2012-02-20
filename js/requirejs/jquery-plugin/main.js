@@ -1,9 +1,9 @@
 /**
  * 合并为一个package
  */
-define(['./adjust', './dragmove'], function(){
+define(['./adjust', './dragmove', './hashchange', './mousetip', './otherclick'], function(){
 	return {
-		version: '0.1',
+		version: '0.2',
 		desc: 'load jquery-plugin as package'
 	};
 });

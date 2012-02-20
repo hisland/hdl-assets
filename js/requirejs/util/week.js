@@ -30,7 +30,6 @@
 define(['kissy'], function(S){
 	/**
 	 * 周对象, 可方便传入年和周
-	 * @memberOf jQuery
 	 * @class
 	 * @name week
 	 */
@@ -85,6 +84,8 @@ define(['kissy'], function(S){
 		 * w.year(2011);   设置为2011年, 返回this
 		 * w.year('2011');   设置为2011年, 返回this
 		 * </code></pre>
+		 * @param Number y 需要设置的年
+		 * @return Number|week
 		 */
 		year: function(y){
 			if(y !== undefined){
@@ -103,6 +104,8 @@ define(['kissy'], function(S){
 		 * w.week(3);   设置为第3周, 返回this
 		 * w.week('3');   设置为第3周, 返回this
 		 * </code></pre>
+		 * @param Number n 需要设置的周
+		 * @return Number|week
 		 */
 		week: function(n){
 			if(n !== undefined){
@@ -114,6 +117,7 @@ define(['kissy'], function(S){
 		},
 		/**
 		 * 取得当年最大周
+		 * @return Number
 		 */
 		maxWeek: function(){
 			var bak = this.week(), max;
@@ -136,6 +140,8 @@ define(['kissy'], function(S){
 		 * w.next(5);   后移5周
 		 * w.week();   返回9
 		 * </code></pre>
+		 * @param Number n 向前移n周
+		 * @return week
 		 */
 		next: function(n){
 			n = n<1 || 1;
@@ -151,6 +157,8 @@ define(['kissy'], function(S){
 		 * w.prev(3);   前移3周
 		 * w.week();   返回6
 		 * </code></pre>
+		 * @param Number n 向后移n周
+		 * @return week
 		 */
 		prev: function(n){
 			n = n<1 || 1;
@@ -162,6 +170,8 @@ define(['kissy'], function(S){
 		 * var w = week();
 		 * w.setDate('2011-01-31');   设置为指定日期
 		 * </code></pre>
+		 * @param Date date 设置时间对象
+		 * @return week
 		 */
 		setDate: function(date){
 			//从String转换成Date
@@ -187,16 +197,23 @@ define(['kissy'], function(S){
 		},
 		/**
 		 * 返回当前周的开始日期对象
+		 * @return Date
 		 */
 		start: function(){
 			return new Date(+this.base_date + (this.__week-1)*7*86400000);
 		},
 		/**
 		 * 返回当前周的结束日期对象
+		 * @return Date
 		 */
 		end: function(){
 			return new Date(+this.base_date + this.__week*7*86400000-1);
 		},
+		/**
+		 * 修正月第一天对应的星期
+		 * @private
+		 * @return week
+		 */
 		__baseDate: function(){
 			var base_date = new Date(this.__year+'/1/1'),
 				first_day = base_date.getDay() || 7,

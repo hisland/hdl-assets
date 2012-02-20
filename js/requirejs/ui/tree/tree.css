@@ -1,124 +1,113 @@
 @charset "utf-8";
 
-/* 自定义树控件 */
 /* all icon size: 16*16 */
-.hdl-tree{line-height:16px;}
-	.hdl-tree ul{}
-	.hdl-tree ul.close{display:none;}
-	.hdl-tree div{white-space:nowrap;line-height:16px;}
+.hdl-tree{line-height:16px;font-size:12px;}
+	.hdl-tree div{white-space:nowrap;}
 	.hdl-tree div.selected{background:#d9e8fb;}
 	.hdl-tree div:hover{background:#eee;}
 	.hdl-tree span,/* for text & span-wrap */
-	.hdl-tree strong,/* for checkbox */
-	.hdl-tree small,/* for icon */
-	.hdl-tree em,/* for arrow */
-	.hdl-tree b{display:inline-block;width:16px;height:16px;overflow:hidden;vertical-align:middle;}/* for blan & line */
+		.hdl-tree strong,/* for checkbox */
+		.hdl-tree small,/* for icon */
+		.hdl-tree em,/* for arrow */
+		.hdl-tree b{/* for blan & line */
+			display:inline-block;width:16px;height:16px;overflow:hidden;vertical-align:middle;background:url('tree-img/default.gif') no-repeat 0 0;}
 	.hdl-tree em{cursor:pointer;}
-	.hdl-tree span.indent{width:auto;}
-	.hdl-tree span.text{width:auto;}
+	.hdl-tree span.indent,
+		.hdl-tree span.text{width:auto;background:none;}
 	.hdl-tree b.blank{background:none;}
 
-	/* no checkbox */
-	.no-checkbox strong{display:none;}
+/* no checkbox */
+.no-checkbox strong{display:none;}
+/* no icon */
+.no-icon small{display:none;}
 
-	/* no icon */
-	.no-icon small{display:none;}
+/* theme default */
+/* arrow state */
+.hdl-tree em.arrow,
+.hdl-tree em.arrow-end{background-position:0 0;}
+.hdl-tree em.arrow:hover,
+.hdl-tree em.arrow-end:hover{background-position:-40px 0;}
+.hdl-tree em.arrow-open,
+.hdl-tree em.arrow-open-end{background-position:-20px 0;}
+.hdl-tree em.arrow-open:hover,
+.hdl-tree em.arrow-open-end:hover{background-position:-60px 0;}
 
-/* default theme */
-	/* arrow state */
-	.hdl-tree em.arrow,
-	.hdl-tree em.arrow-end{background:url('tree-img/theme-default.gif') no-repeat 0 0;}
+/* line state */
+.hdl-tree b.line,
+.hdl-tree b.line-elbow,
+.hdl-tree b.line-elbow-end{background:none;}
 
-	.hdl-tree em.arrow:hover,
-	.hdl-tree em.arrow-end:hover{background:url('tree-img/theme-default.gif') no-repeat -40px 0;}
+/* icon state */
+.hdl-tree small.leaf{background-position:0 -60px;}
+.hdl-tree small.branch{background-position:-20px -60px;}
+.hdl-tree small.branch-open{background-position:-40px -60px;}
 
-	.hdl-tree em.arrow-open,
-	.hdl-tree em.arrow-end-open{background:url('tree-img/theme-default.gif') no-repeat -20px 0;}
+/* loading state */
+.hdl-tree small.loading{background:url('tree-img/loading.gif') no-repeat 0 0;}
 
-	.hdl-tree em.arrow-open:hover,
-	.hdl-tree em.arrow-end-open:hover{background:url('tree-img/theme-default.gif') no-repeat -60px 0;}
+/* checkbox state */
+.hdl-tree strong.unchecked{background-position:0 -80px;}
+.hdl-tree strong.partial{background-position:-20px -80px;}
+.hdl-tree strong.checked{background-position:-40px -80px;}
 
-	/* line state */
-	.hdl-tree b.line,
-	.hdl-tree b.line-elbow,
-	.hdl-tree b.line-elbow-end{background:none;}
-
-	/* icon state */
-	.hdl-tree small.branch{background:url('tree-img/theme-default.gif') no-repeat -20px -20px;}
-	.hdl-tree small.branch-open{background:url('tree-img/theme-default.gif') no-repeat -40px -20px;}
-	.hdl-tree small.leaf{background:url('tree-img/theme-default.gif') no-repeat 0 -20px;}
-
-	/* loading state */
-	.hdl-tree small.loading{background:url('tree-img/loading.gif') no-repeat 0 0;}/* animate keep single file */
-
-	/* checkbox state */
-	.hdl-tree strong.unchecked{background:url('tree-img/theme-default.gif') no-repeat 0 -80px;}
-	.hdl-tree strong.partial{background:url('tree-img/theme-default.gif') no-repeat -20px -80px;}
-	.hdl-tree strong.checked{background:url('tree-img/theme-default.gif') no-repeat -40px -80px;}
 
 /* theme line */
-	.theme-line em.arrow,
-	.theme-line em.arrow:hover{background:url('tree-img/theme-default.gif') no-repeat -20px -40px;}
+	.tree-line span,/* for text & span-wrap */
+		.tree-line strong,/* for checkbox */
+		.tree-line small,/* for icon */
+		.tree-line em,/* for arrow */
+		.tree-line b{/* for blan & line */
+			background-image:url('tree-img/line.gif');}
+/* arrow state */
+.tree-line em.arrow,
+.tree-line em.arrow:hover{background-position:0 0;}
+.tree-line em.arrow-end,
+.tree-line em.arrow-end:hover{background-position:0 -20px;}
+.tree-line em.arrow-open,
+.tree-line em.arrow-open:hover{background-position:-20px 0;}
+.tree-line em.arrow-open-end,
+.tree-line em.arrow-open-end:hover{background-position:-20px -20px;}
 
-	.theme-line em.arrow-end,
-	.theme-line em.arrow-end:hover{background:url('tree-img/theme-default.gif') no-repeat -40px -40px;}
-
-	.theme-line em.arrow-open,
-	.theme-line em.arrow-open:hover{background:url('tree-img/theme-default.gif') no-repeat -20px -60px;}
-
-	.theme-line em.arrow-end-open,
-	.theme-line em.arrow-end-open:hover{background:url('tree-img/theme-default.gif') no-repeat -40px -60px;}
-
-	.theme-line b.line{background:url('tree-img/theme-default.gif') no-repeat 0 -100px;}
-	.theme-line b.line-elbow{background:url('tree-img/theme-default.gif') no-repeat -20px -100px;}
-	.theme-line b.line-elbow-end{background:url('tree-img/theme-default.gif') no-repeat -40px -100px;}
+/* line state */
+.tree-line b.line{background:url('tree-img/line.gif') no-repeat 0 -40px;}
+.tree-line b.line-elbow{background:url('tree-img/line.gif') no-repeat -20px -40px;}
+.tree-line b.line-elbow-end{background:url('tree-img/line.gif') no-repeat -40px -40px;}
 
 
-/* theme plus & minus */
-	.theme-pnm em.arrow,
-	.theme-pnm em.arrow:hover,
+/* theme no-line */
+	.tree-no-line span,/* for text & span-wrap */
+		.tree-no-line strong,/* for checkbox */
+		.tree-no-line small,/* for icon */
+		.tree-no-line em,/* for arrow */
+		.tree-no-line b{/* for blan & line */
+			background-image:url('tree-img/no-line.gif');}
+/* arrow state */
+.tree-no-line em.arrow,
+.tree-no-line em.arrow:hover{background-position:0 0;}
+.tree-no-line em.arrow-end,
+.tree-no-line em.arrow-end:hover{background-position:0 -20px;}
+.tree-no-line em.arrow-open,
+.tree-no-line em.arrow-open:hover{background-position:-20px 0;}
+.tree-no-line em.arrow-open-end,
+.tree-no-line em.arrow-open-end:hover{background-position:-20px -20px;}
 
-	.theme-pnm em.arrow-end,
-	.theme-pnm em.arrow-end:hover{background:url('tree-img/theme-default.gif') no-repeat 0 -40px;}
-
-	.theme-pnm em.arrow-open,
-	.theme-pnm em.arrow-open:hover,
-
-	.theme-pnm em.arrow-end-open,
-	.theme-pnm em.arrow-end-open:hover{background:url('tree-img/theme-default.gif') no-repeat 0 -60px;}
 
 
 /* theme blue */
-	.theme-blue em.arrow,
-	.theme-blue em.arrow:hover,
-
-	.theme-blue em.arrow-end,
-	.theme-blue em.arrow-end:hover{background:url('tree-img/theme-blue.gif') no-repeat 0 0;}
-
-	.theme-blue em.arrow-open,
-	.theme-blue em.arrow-open:hover,
-
-	.theme-blue em.arrow-end-open,
-	.theme-blue em.arrow-end-open:hover{background:url('tree-img/theme-blue.gif') no-repeat -20px 0;}
-
-	.theme-blue strong.unchecked{background:url('tree-img/theme-blue.gif') no-repeat 0 -20px;}
-	.theme-blue strong.partial{background:url('tree-img/theme-blue.gif') no-repeat -20px -20px;}
-	.theme-blue strong.checked{background:url('tree-img/theme-blue.gif') no-repeat -40px -20px;}
-
-
-/* theme gray */
-	.theme-gray em.arrow,
-	.theme-gray em.arrow:hover,
-
-	.theme-gray em.arrow-end,
-	.theme-gray em.arrow-end:hover{background:url('tree-img/theme-gray.gif') no-repeat 0 0;}
-
-	.theme-gray em.arrow-open,
-	.theme-gray em.arrow-open:hover,
-
-	.theme-gray em.arrow-end-open,
-	.theme-gray em.arrow-end-open:hover{background:url('tree-img/theme-gray.gif') no-repeat -20px 0;}
-
-	.theme-gray strong.unchecked{background:url('tree-img/theme-gray.gif') no-repeat 0 -20px;}
-	.theme-gray strong.partial{background:url('tree-img/theme-gray.gif') no-repeat -20px -20px;}
-	.theme-gray strong.checked{background:url('tree-img/theme-gray.gif') no-repeat -40px -20px;}
+	.tree-blue span,/* for text & span-wrap */
+		.tree-blue strong,/* for checkbox */
+		.tree-blue small,/* for icon */
+		.tree-blue em,/* for arrow */
+		.tree-blue b{/* for blan & line */
+			background-image:url('tree-img/blue.gif');}
+/* no icon */
+.tree-blue small{display:none;}
+/* arrow state */
+.tree-blue em.arrow,
+.tree-blue em.arrow:hover,
+.tree-blue em.arrow-end,
+.tree-blue em.arrow-end:hover{background-position:0 0;}
+.tree-blue em.arrow-open,
+.tree-blue em.arrow-open:hover,
+.tree-blue em.arrow-open-end,
+.tree-blue em.arrow-open-end:hover{background-position:-20px 0;}

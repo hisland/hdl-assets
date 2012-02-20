@@ -94,7 +94,7 @@ define(['jquery', 'kissy'], function($, S){
 		$(document).mousemove(mouseMove).mouseup(end).bind('dragstart', noDrag);
 
 		//不能选中内容
-		$('body').add(trigger).css('-moz-user-select', 'none');
+		$(trigger).css('-moz-user-select', 'none');
 		$(document).bind('selectstart', noDrag);
 
 		//检测窗口失去[焦点|捕获]时,取消注册
@@ -116,7 +116,7 @@ define(['jquery', 'kissy'], function($, S){
 	function end(){
 		$(document).unbind('mousemove', mouseMove).unbind('mouseup', end).unbind('dragstart', noDrag);
 
-		$('body').add(trigger).css('-moz-user-select', '');
+		$(trigger).css('-moz-user-select', '');
 		$(document).unbind('selectstart', noDrag);
 
 		//取消检测

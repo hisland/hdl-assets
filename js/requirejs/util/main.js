@@ -1,7 +1,7 @@
 /**
  * 工具集
  */
-define(['kissy', './date', './later-fn', './math', './sbc-dbc',
+define(['kissy', './color', './date', './later-fn', './math', './sbc-dbc',
 		'./string', './test', './times', './view-json', './week'], function(S){
 
 	var args = S.makeArray(arguments);

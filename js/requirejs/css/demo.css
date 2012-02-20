@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* demo样式 */
-body{padding:50px;}
+body{padding:20px;}
 
 .demo-section{border:1px solid #666;padding:10px 5px 2px;margin:20px 0 10px;zoom:1;}
 	.demo-legend{float:left;position:relative;border:1px solid #666;background:#ccc;height:16px;padding:1px 3px;margin:-20px 0 5px 0;}

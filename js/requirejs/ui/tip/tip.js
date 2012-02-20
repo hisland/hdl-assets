@@ -2,7 +2,7 @@
  * tip类
  */
 
-define(['jquery', 'kissy', '../pop/manager', 'css!./tip'], function($, S, M){
+define(['jquery', 'kissy', '../pop-manager', 'css!./tip'], function($, S, M){
 	var msg_alert = '提示',
 		msg_error = '错误',
 		msg_notice = '警告',

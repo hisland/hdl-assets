@@ -39,7 +39,7 @@
 
 	/* common */
 	.tipmsg-title{display:block;overflow:hidden;color:#373737;font-weight:700;white-space:nowrap;text-overflow:ellipsis;}
-	.tipmsg-close{position:absolute;top:6px;right:6px;width:13px;height:13px;background:url('tip-img/icons.gif') no-repeat 0 -40px;overflow:hidden;}
+	.tipmsg-close{position:absolute;top:6px;right:6px;width:13px;height:13px;background:url('tip-img/icons.gif') no-repeat 0 -40px;overflow:hidden;outline:none;}
 	.tipmsg-close:hover{background-position:0px -60px;}
 
 	.tipmsg-c1{padding:30px 20px 20px 60px;border-left:1px solid #afcdea;border-right:1px solid #afcdea;background:#fff;}
