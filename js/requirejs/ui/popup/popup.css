@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+/* 使用css3 */
+.popup-css3{display:none;position:absolute;padding:5px;background:#fff;border:1px solid #92B0DD;-moz-border-radius:5px;-webkit-border-radius:5px;}
+	.popup-css3>div:first-child{position:absolute;width:7px;height:7px;border:1px solid #92B0DD;border-width:0 0 1px 1px;background:#fff;}
+
+	.popup-arr-u{left:10px;top:-5px;-moz-transform:rotate(135deg);-webkit-transform:rotate(135deg);}
+	.popup-arr-r{top:10px;right:-5px;-moz-transform:rotate(-135deg);-webkit-transform:rotate(-135deg);}
+	.popup-arr-d{left:10px;bottom:-5px;-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);}
+	.popup-arr-l{top:10px;left:-5px;-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);}
+
+.popup-content{position:relative;overflow:auto;width:200px;height:100px;}
+
+/* 蓝色线条样式 */
+.popup-theme-blue, .popup-theme-blue>div:first-child{border-color:#A9C9E2;}
+
+
+/* 使用背景图片 */
+.popup-img{position:absolute;display:none;width:212px;height:112px;}
+	.popup-img .popup-arr-u{position:absolute;left:10px;top:-4px;width:9px;height:5px;background:url('popup-img/bg.gif') no-repeat -10px -20px;}
+	.popup-img .popup-arr-r{position:absolute;top:10px;right:-4px;width:5px;height:9px;background:url('popup-img/bg.gif') no-repeat -20px -20px;}
+	.popup-img .popup-arr-d{position:absolute;left:10px;bottom:-4px;width:9px;height:5px;background:url('popup-img/bg.gif') no-repeat -30px -20px;}
+	.popup-img .popup-arr-l{position:absolute;top:10px;left:-4px;width:5px;height:9px;background:url('popup-img/bg.gif') no-repeat 0 -20px;}
+
+	.popup-img-hl{padding-left:5px;background:url('popup-img/bg.gif') no-repeat 0 0;}
+	.popup-img-hr{padding-right:5px;background:url('popup-img/bg.gif') no-repeat right 0;}
+	.popup-img-ht{border-top:1px solid #92b0dd;background:#fff;height:4px;}
+
+	.popup-content-wrap{border:1px solid #92b0dd;border-width:0 1px;padding:0 4px;}
+
+	.popup-img-bl{padding-left:5px;background:url('popup-img/bg.gif') no-repeat 0 -10px;}
+	.popup-img-br{padding-right:5px;background:url('popup-img/bg.gif') no-repeat right -10px;}
+	.popup-img-bb{border-bottom:1px solid #92b0dd;background:#fff;height:4px;}
+
+/* 使用线条拼凑 */

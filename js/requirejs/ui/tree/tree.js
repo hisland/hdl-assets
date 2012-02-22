@@ -5,8 +5,8 @@
 define(['jquery', 'kissy', 'css!./tree'], function($, S){
 	//各元素对应的标签
 	var arrow = '<em class="arrow"></em>',
-		arrow_end = '<em class="arrow-end"></em>',
 		arrow_open = '<em class="arrow arrow-open"></em>',
+		arrow_end = '<em class="arrow-end"></em>',
 		arrow_open_end = '<em class="arrow-end arrow-open-end"></em>',
 
 		loading = '<small class="loading"></small>',
@@ -39,9 +39,10 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		 * @private
 		 */
 		__init: function(setting){
-			var html = [];
-
 			this.var_children = 'children';
+			this.edit_able = true;
+			this.opened = true;
+
 			this.__indent = '0';
 			this.__path = S.guid('hdltree');
 			this.__end = true;
@@ -59,7 +60,10 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 			//checkbox点击代理
 			this.$div.on('click', 'strong', this, function(e){
 				var tree = e.data, div = $(this).parent('div'), node = tree.getNode(div.attr('id'));
-				tree.toggleCheckbox(node);
+				
+				if(tree.edit_able){
+					tree.toggleCheckbox(node);
+				}
 			});
 
 			//arrow点击代理
@@ -73,10 +77,17 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 				}
 			});
 
+			//按住alt双击可全部折叠/展开
+			this.$div.on('dblclick', this, function(e){
+				if(e.altKey){
+					e.data.toggleOpenAll();
+				}
+			});
+
 			return this;
 		},
 		/**
-		 * 遍历下级节点,包括当前节点
+		 * 遍历下级节点,含当前节点
 		 */
 		walkDescendants: function(node, func){
 			var rs = func.call(this, node);

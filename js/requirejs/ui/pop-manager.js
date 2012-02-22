@@ -2,17 +2,17 @@
  * 弹出层管理工具 - 统一控制层级,遮罩
  * <pre><code>
  * API:
- * 		$.popManager.clean(true) 清除所有的弹出层包含块, 包括.not-remove的div
- * 		$.popManager.clean() 清除所有的弹出层包含块, 不会清除含.not-remove的div
+ * 		popManager.clean(true) 清除所有的弹出层包含块, 包括.not-remove的div
+ * 		popManager.clean() 清除所有的弹出层包含块, 不会清除含.not-remove的div
  * 
- * 		p = $.popManager.init() 初始化一个弹出层包含块
+ * 		p = popManager.init() 初始化一个弹出层包含块
  * 		p.front() 将此层放到最前面
  * 		p.show() 显示
  * 		p.hide() 隐藏
- * 		p.mask() 使用遮罩
- * 		p.demask() 去除遮罩
+ * 		p.mask() 显示遮罩
+ * 		p.demask() 隐藏遮罩
  * 		p.loading() 显示loading状态
- * 		p.loaded() 去除loading状态
+ * 		p.loaded() 隐藏loading状态
  * 		p.remove() 删除此层
  * 
  * 		p.$div 最外层元素
@@ -29,13 +29,42 @@
  */
 define(['jquery', 'kissy'], function($, S){
 	var html_string = '<div class="pop-manager-wrap" style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;"></div>',
-		mask_string = '<div class="pop-manager-mask" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>';
+		mask_string = '<div class="pop-manager-mask" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>',
+		pop_list = [];
+
+	function checkFocus(e){
+		if(!pop_list.length){
+			return ;
+		}
+		var m = pop_list[pop_list.length - 1];
+
+		//检测焦点位置并调整到当前层的第一个元素上
+		if(!S.inArray(m.$div[0], $(document.activeElement).parents().andSelf().get())){
+			m.$div.find('a, input, textarea').first().focus();
+		}
+
+		//ESC执行关闭动作
+//		if(e && e.keyCode === 27){
+//			m.hide();
+//		}
+	}
+	function push(m){
+		if(!pop_list.length){
+			$(document).keyup(checkFocus);
+		}
+		pop_list.push(m);
+	}
+	function pop(){
+		pop_list.pop();
+		if(!pop_list.length){
+			$(document).unbind('keyup', checkFocus);
+		}
+	}
 
 	/**
-	 * @constructor
-	 * @name popManager
+	 * @class
 	 */
-	function init(){
+	function popManager(){
 		this.$div = $(html_string).appendTo('body');
 		this.__init_mask().__init_ie6Iframe();
 		this.mask().front();
@@ -44,7 +73,7 @@ define(['jquery', 'kissy'], function($, S){
 	/**
 	 * @lends popManager#
 	 */
-	S.augment(init, {
+	S.augment(popManager, {
 		/**
 		 * 增加z-index放到最前
 		 * @return this
@@ -59,6 +88,8 @@ define(['jquery', 'kissy'], function($, S){
 		 */
 		remove: function() {
 			this.$div.remove();
+			pop();
+			checkFocus();
 			return this;
 		},
 		/**
@@ -67,6 +98,8 @@ define(['jquery', 'kissy'], function($, S){
 		 */
 		show: function() {
 			this.$div.show();
+			push(this);
+			checkFocus();
 			return this;
 		},
 		/**
@@ -75,6 +108,8 @@ define(['jquery', 'kissy'], function($, S){
 		 */
 		hide: function() {
 			this.$div.hide();
+			pop();
+			checkFocus();
 			return this;
 		},
 		/**
@@ -160,7 +195,7 @@ define(['jquery', 'kissy'], function($, S){
 		 * 初始化一个弹出层包含块
 		 */
 		init: function(){
-			return new init();
+			return new popManager();
 		}
 	};
 });

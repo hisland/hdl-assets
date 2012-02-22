@@ -12,9 +12,9 @@
 		});
 
 		require(['ui/tree', 'util', 'css'], function(T, tool) {
-			$('.hdl-tree-ctrl').html(tool.trimBlank($('.hdl-tree-ctrl').html()));
-			$('.hdl-tree:eq(0)').html(tool.trimBlank($('.hdl-tree:eq(0)').html()));
-			$('.tree-line').html(tool.trimBlank($('.tree-line').html()));
+			$('.hdl-tree-ctrl, .hdl-tree:eq(0), .tree-line').each(function(i, v){
+				$(v).html(tool.trimBlank($(v).html()));
+			});
 		});
 	</script>
 </head>

@@ -105,13 +105,13 @@ KISSY.add('autoComplete', function(S, undef) {
 	//点击展开所有
 	function spanClick(e){
 		//禁用时直接退出
-		if($(this).parent().is('.auto-comp-disabled')){
+		if($(this).parent().is('.autocomp-disabled')){
 			return ;
 		}
 		div_pop.adjustElement($(this).parent()).show();
 		$(document).mousedown(docClose);
 		target_ipt = $(this).prev()[0];
-		target_setting = $(target_ipt).data('--auto-comp-setting');
+		target_setting = $(target_ipt).data('--autocomp-setting');
 		pager_ajax.setUrl(target_setting.url);
 		changeText('');
 	}
@@ -125,7 +125,7 @@ KISSY.add('autoComplete', function(S, undef) {
 	function makeList(rows){
 		var b = [];
 		S.each(rows, function(v, k, o){
-			b.push('<a class="auto-comp-a" href="javascript:;">', v, '</a>');
+			b.push('<a class="autocomp-a" href="javascript:;">', v, '</a>');
 		});
 		div_list.html(b.join('')).fadeTo('fast', 1);
 	}
@@ -139,7 +139,7 @@ KISSY.add('autoComplete', function(S, undef) {
 
 	//全局监听关闭
 	function docClose(e){
-		if(!$(e.target).closest('.auto-comp-pop, .auto-comp').length){
+		if(!$(e.target).closest('.autocomp-pop, .autocomp').length){
 			popHide();
 		}
 	}
@@ -148,7 +148,7 @@ KISSY.add('autoComplete', function(S, undef) {
 		div_pop.css('z-index', S.guid()).adjustElement($(this).parent()).show();
 		$(document).mousedown(docClose);
 		target_ipt = this;
-		target_setting = $(target_ipt).data('--auto-comp-setting');
+		target_setting = $(target_ipt).data('--autocomp-setting');
 		pager_ajax.setUrl(target_setting.url);
 		changeText(this.value);
 	}
@@ -166,9 +166,9 @@ KISSY.add('autoComplete', function(S, undef) {
 	}
 
 	//生成下拉层
-	div_pop = $('<div class="auto-comp-pop"><div class="auto-comp-loading"></div><div class="auto-comp-as"></div><div class="auto-comp-page"><a class="auto-comp-prev" href="#"></a><a class="auto-comp-next" href="#"></a><span class="auto-comp-tip"></span></div></div>');
+	div_pop = $('<div class="autocomp-pop"><div class="autocomp-loading"></div><div class="autocomp-as"></div><div class="autocomp-page"><a class="autocomp-prev" href="#"></a><a class="autocomp-next" href="#"></a><span class="autocomp-tip"></span></div></div>');
 	//内部变量的引用
-	div_loading = div_pop.find('div.auto-comp-loading').html(msg_loading);
+	div_loading = div_pop.find('div.autocomp-loading').html(msg_loading);
 	div_list = div_loading.next().click(function(e){
 		var dt = $(e.target).closest('a', this);
 		//点中a标签时处理
@@ -176,7 +176,7 @@ KISSY.add('autoComplete', function(S, undef) {
 			userSelect(dt);
 		}
 	});
-	a_prev = div_pop.find('a.auto-comp-prev').html(msg_prev).click(function(e){
+	a_prev = div_pop.find('a.autocomp-prev').html(msg_prev).click(function(e){
 		pager_ajax.prev();
 	});
 	a_next = a_prev.next().html(msg_next).click(function(e){
@@ -196,22 +196,22 @@ KISSY.add('autoComplete', function(S, undef) {
 		}
 
 		return this.filter(':text').each(function(i, v){
-			if(!$(this).data('--auto-comp-setting')){
-				$(this).data('--auto-comp-setting', S.mix(setting, default_setting, false));
-				$(this).wrap('<span class="auto-comp"></span>').after('<span></span>')
+			if(!$(this).data('--autocomp-setting')){
+				$(this).data('--autocomp-setting', S.mix(setting, default_setting, false));
+				$(this).wrap('<span class="autocomp"></span>').after('<span></span>')
 					.focus(iptFocus).keydown(iptKeyDown).input(iptInput)
 					.next().mousedown(spanClick);
 			}else{
-				S.mix($(this).data('--auto-comp-setting'), setting);
+				S.mix($(this).data('--autocomp-setting'), setting);
 			}
 
-			setting = $(this).data('--auto-comp-setting');
+			setting = $(this).data('--autocomp-setting');
 
 			//禁用状态
 			if(setting.disabled){
-				$(this).attr('disabled', true).parent().addClass('auto-comp-disabled');
+				$(this).attr('disabled', true).parent().addClass('autocomp-disabled');
 			}else{
-				$(this).attr('disabled', false).parent().removeClass('auto-comp-disabled');
+				$(this).attr('disabled', false).parent().removeClass('autocomp-disabled');
 			}
 		});
 	}

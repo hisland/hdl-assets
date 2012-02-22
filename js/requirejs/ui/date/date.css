@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+/* 日期控件 */
+.hdt-wrap{display:none;border:1px solid #9bc0e0;background:#fff;width:218px;font-size:12px;position:absolute;}
+	.hdt-ctrl{height:14px;padding:3px;background:#96C2F1;}
+		.hdt-tips{float:left;line-height:14px;color:#fff;}
+		.hdt-btns{float:right;line-height:14px;}
+			.hdt-btns a{float:left;color:#000;text-decoration:none;margin-left:8px;outline:none;}
+			.hdt-btns a:hover{color:#666;}
+
+	.hdt-ipt-list{padding:4px 3px;height:16px;position:relative;z-index:1;cursor:default;}
+		.hdt-ipt-list input{font-size:12px;height:14px;width:23px;border:1px solid #bbe1f1;text-align:center;margin:0 1px;-moz-border-radius:3px;border-radius:3px;ime-mode:disabled;}
+		.hdt-wrap .hdt-ipt-list input{padding:0;background:#fff;color:#000;}
+		.hdt-ipt-list input:focus{border-color:#92b0dd;}
+		.hdt-ipt-list input.disabled{border-color:#ccc;color:#ccc;background:#fcfcfc;}
+		.hdt-ipt-list input.hdt-hour{margin-left:13px;}
+		.hdt-ipt-list input.hdt-year{width:35px;}
+
+	.hdt-week-list{height:18px;padding:3px 0;}
+		.hdt-week-list span{float:left;width:21px;height:18px;line-height:18px;padding:0 5px;cursor:default;text-align:center;color:#444444;}
+		.hdt-week-list span.hdt-weekend{color:red;}
+
+	.hdt-date-list{width:218px;overflow:hidden;padding:1px 0 5px;}
+		.hdt-date-list a{float:left;width:21px;height:18px;line-height:18px;margin:0 5px;text-align:center;color:#004499;outline:none;}
+		.hdt-date-list span{float:left;width:21px;height:18px;margin:0 5px;cursor:default;}
+		.hdt-date-list strong{float:left;width:21px;height:18px;line-height:18px;margin:0 5px;text-align:center;font-weight:400;color:#ccc;cursor:default;}
+		.hdt-date-list a:hover{background:#ebf4fc;text-decoration:none;}
+		.hdt-date-list a.hdt-date-now{color:#ff6600;font-weight:700;}
+
+	.hdt-drop-list-wrap{display:none;position:absolute;top:45px;left:5px;width:206px;border:1px solid #9bc0e0;background:#f0f5fb;}
+		.hdt-drop-list{position:relative;z-index:1;width:200px;height:90px;padding:2px 0;margin:0 3px;overflow:hidden;}
+		.hdt-drop-list-l{overflow-y:scroll;}
+			.hdt-drop-list strong{float:left;width:31px;height:18px;line-height:18px;margin:0 4px;text-align:center;font-weight:400;color:#ccc;cursor:default;}
+			.hdt-drop-list-l strong{width:28px;}
+			.hdt-drop-list a{float:left;width:31px;height:18px;line-height:18px;margin:0 4px;text-align:center;color:#004499;outline:none;}
+			.hdt-drop-list a:hover{color:#ff6600;text-decoration:none;}
+			.hdt-drop-list-l a{width:28px;}
+			.hdt-drop-list a.hdt-drop-now{color:#ff6600;font-weight:700;}
+		.hdt-drop-list-ctrl{text-align:right;margin:0 3px;padding:0 5px;border-top:1px solid #9bc0e0;}
+			.hdt-drop-list-ctrl a{margin-left:8px;outline:none;}
+			.hdt-drop-list-ctrl a:hover{color:#999;text-decoration:none;}
+		.hdt-drop-arr{position:absolute;left:13px;top:-5px;width:9px;height:5px;background:url('dateTool-img/arr.gif') no-repeat;}
+		.hdt-drop-arr2{position:absolute;left:13px;top:-4px;width:7px;height:7px;border-left:1px solid #9bc0e0;border-bottom:1px solid #9bc0e0;background:#f0f5fb;-moz-transform:rotate(135deg);-webkit-transform:rotate(135deg);}
+		.hdt-drop-arr-year{left:13px;}
+		.hdt-drop-arr-month{left:52px;}
+		.hdt-drop-arr-date{left:85px;}
+		.hdt-drop-arr-hour{left:123px;}
+		.hdt-drop-arr-minute{left:156px;}
+		.hdt-drop-arr-second{left:189px;}

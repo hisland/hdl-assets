@@ -1,3 +1,6 @@
+/**
+ * @lends util
+ */
 define({
 	/**
 	 * 测试fn的执行时间

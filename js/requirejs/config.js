@@ -5,5 +5,5 @@ require.config({
 	},
 	packages: ['css', 'util', 'color', 'jquery-plugin', 'validate',
 				'ui/autocomp', 'ui/button', 'ui/date', 'ui/grid', 'ui/popwin', 'ui/select',
-				'ui/tabs', 'ui/tip', 'ui/tree', 'ui/week']
+				'ui/tabs', 'ui/tip', 'ui/tree', 'ui/week', 'ui/popup']
 });

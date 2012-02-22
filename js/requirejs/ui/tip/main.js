@@ -38,7 +38,7 @@
  * </code></pre>
  */
 
-define(['kissy', './tip', 'jquery-plugin'], function(S, T){
+define(['kissy', './tip'], function(S, T){
 	//代理4种提示的初始化
 	function wrap(message, title, callback, type){
 		var tip = new T();

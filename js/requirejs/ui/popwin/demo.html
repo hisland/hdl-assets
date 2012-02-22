@@ -3,44 +3,48 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
 	<script type="text/javascript">
-		KISSY.ready(function(S){
-			S.use('reset-css, common-css, popWin+css', function(){
-				window.p = $.popWin.init();
-				p.$content.append($('#tb').show());
-				p.show();
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
 
-				$('#add').click(function(e){
-					$.popWin.init().show();
-				});
-				$('#del').click(function(e){
-					$.popWin.clean();
-				});
-				
-				var drag = true;
-				$('#no-drag').click(function(e){
-					if(drag){
-						p.setDraggable(false);
-						$(this).val('能拖动');
-					}else{
-						p.setDraggable(true);
-						$(this).val('不能拖动');
-					}
-					drag = !drag;
-				});
-				
-				var close = true;
-				$('#no-close').click(function(e){
-					if(close){
-						p.setCloseable(false);
-						$(this).val('能关闭');
-					}else{
-						p.setCloseable(true);
-						$(this).val('不能关闭');
-					}
-					close = !close;
-				});
+		require(['ui/popwin', 'util', 'css'], function(win, tool) {
+			window.p = win.init();
+			p.$content.append($('#tb').show());
+			p.show();
+
+			$('#add').click(function(e){
+				win.init().show().$content.html('<a href="#">aaa</a>');
+			});
+			$('#del').click(function(e){
+				win.clean();
+			});
+			
+			var drag = true;
+			$('#no-drag').click(function(e){
+				if(drag){
+					p.setDraggable(false);
+					$(this).val('能拖动');
+				}else{
+					p.setDraggable(true);
+					$(this).val('不能拖动');
+				}
+				drag = !drag;
+			});
+			
+			var close = true;
+			$('#no-close').click(function(e){
+				if(close){
+					p.setCloseable(false);
+					$(this).val('能关闭');
+				}else{
+					p.setCloseable(true);
+					$(this).val('不能关闭');
+				}
+				close = !close;
 			});
 		});
 	</script>
@@ -58,10 +62,6 @@
 		<input type="text" name="" value="333" disabled="disabled"  />
 		<table>
 			<tr><td>在IE下,内部有disabled的input时,点击input文本会导致e.target.parentNode为undefined, 前一个规则值为false,所以需要||单独处理</td></tr>
-			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>
-			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>
-			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>
-			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>
 			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>
 			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>
 			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/popup', 'css'], function(Popup) {
+			var pop = Popup.init();
+			$('#aa').click(function(e){
+				pop.adjust(this).show();
+			});
+			$('#bb').click(function(e){
+				pop.adjust(this, 'right', function(){
+					this.$div.css('top', '-=5');
+				}).show();
+			});
+			$('#cc').click(function(e){
+				pop.adjust(this, 'up').show();
+			});
+			$('#dd').click(function(e){
+				pop.adjust(this, 'left', function(){
+					this.$div.css('top', '-=5');
+				}).show();
+			});
+			$('#dd').mouseTip(function(e){
+				return KISSY.guid();
+			});
+		});
+	</script>
+</head>
+<body style="padding:70px;">
+	<input id="aa" type="text" name="" value="靠下" readonly="readonly"  />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input id="bb" type="text" name="" value="靠右" readonly="readonly"  />
+	<br /><br /><br /><br /><br /><br /><br /><br />
+	<input id="cc" type="text" name="" value="靠上" readonly="readonly"  />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input id="dd" type="text" name="" value="靠左" readonly="readonly"  />
+</body>
+</html>

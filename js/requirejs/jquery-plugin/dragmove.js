@@ -133,7 +133,7 @@ define(['jquery', 'kissy'], function($, S){
 	}
 
 	/**
-	 * @memberOf jQuery#
+	 * @lends jQuery#
 	 */
 	$.fn.extend({
 		hdlDrag: function(setting){
@@ -193,9 +193,4 @@ define(['jquery', 'kissy'], function($, S){
 			});
 		}
 	});
-
-	return {
-		version: 0.1,
-		desc: 'jquery-dragmove-plugin'
-	};
 });

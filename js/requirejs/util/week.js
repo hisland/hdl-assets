@@ -31,12 +31,12 @@ define(['kissy'], function(S){
 	/**
 	 * 周对象, 可方便传入年和周
 	 * @class
-	 * @name week
+	 * @memberOf util
 	 */
-	function WeekUtil(year, week){
+	function Week(year, week){
 		//更改为构造方式
-		if(!(this instanceof WeekUtil)){
-			return new WeekUtil(year, week);
+		if(!(this instanceof Week)){
+			return new Week(year, week);
 		}
 
 		//从字符串预处理
@@ -72,10 +72,9 @@ define(['kissy'], function(S){
 		return this;
 	}
 	/**
-	 * 设置原型方法
-	 * @lends jQuery.week#
+	 * @lends util.Week#
 	 */
-	S.augment(WeekUtil, {
+	S.augment(Week, {
 		/**
 		 * 传y表示设置, 不传y表示取值
 		 * <pre><code>
@@ -225,5 +224,5 @@ define(['kissy'], function(S){
 		}
 	});
 
-	return WeekUtil;
+	return Week;
 });

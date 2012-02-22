@@ -15,16 +15,16 @@ define(['kissy'], function(S){
 		__PREFIX = '-valid-';
 	/**
 	 * <pre><code>
-	 * validString('ipv4', '192.168.0.1');	使用ipv4规则检测后面的字符串,此例子返回true
+	 * Rule('ipv4', '192.168.0.1');	使用ipv4规则检测后面的字符串,此例子返回true
 	 * </code></pre>
 	 * @param name 字符串, 规则名字
 	 * @param str 要验证的字符串
 	 * @class
-	 * @name validString
+	 * @name Rule
 	 */
-	function validString(name, str){
+	function Rule(name, str){
 		if(!S.isString(name) || !str){
-			S.log('window.validString: must have name[String] and str[String,Number]!', 'warn');
+			S.log('window.Rule: must have name[String] and str[String,Number]!', 'warn');
 			return false;
 		}
 
@@ -46,16 +46,16 @@ define(['kissy'], function(S){
 	}
 
 	/**
-	 * @lends validString
+	 * @lends Rule
 	 */
-	S.mix(validString, {
+	S.mix(Rule, {
 		/**
 		 * 添加一个验证规则
 		 * <pre><code>
-		 * validString.add('xx', /xx/, 'xx');	添加一个正则规则
-		 * validString.add('xx', /xx/, 'xx', true);	添加一个正则规则,取反向值
-		 * validString.add('bb', function(str){}, 'bb');	添加一个函数规则
-		 * validString.add('bb', function(str){}, 'bb', true);	添加一个函数规则,取反向值
+		 * Rule.add('xx', /xx/, 'xx');	添加一个正则规则
+		 * Rule.add('xx', /xx/, 'xx', true);	添加一个正则规则,取反向值
+		 * Rule.add('bb', function(str){}, 'bb');	添加一个函数规则
+		 * Rule.add('bb', function(str){}, 'bb', true);	添加一个函数规则,取反向值
 		 * </code></pre>
 		 * @param name 字符串, 规则名字
 		 * @param fn 函数或正则, 具体的验证处理
@@ -65,19 +65,19 @@ define(['kissy'], function(S){
 		add: function(name, fn, desc, reverse){
 			//名字必须为字符串
 			if(!S.isString(name)){
-				S.log('window.validString.add: name must be String!', 'warn');
+				S.log('window.Rule.add: name must be String!', 'warn');
 				return this;
 			}
 
 			//验证方法必须为函数或者正则
 			if(!S.isFunction(fn) && !S.isRegExp(fn)){
-				S.log('window.validString.add: fn must be a function or RegExp!', 'warn');
+				S.log('window.Rule.add: fn must be a function or RegExp!', 'warn');
 				return this;
 			}
 
 			//必须要有验证说明且为字符串
 			if(!S.isString(desc)){
-				S.log('window.validString.add: desc must be String!', 'warn');
+				S.log('window.Rule.add: desc must be String!', 'warn');
 				return this;
 			}
 
@@ -87,13 +87,13 @@ define(['kissy'], function(S){
 			}else if(S.isBoolean(reverse)){
 				//do nothing
 			}else{
-				S.log('window.validString.add: reverse must be undefind or a boolean value!', 'warn');
+				S.log('window.Rule.add: reverse must be undefind or a boolean value!', 'warn');
 				return this;
 			}
 
 			//提示覆盖情况
 			if(items[__PREFIX + name]){
-				S.log('window.validString.add: name already exist, override it!', 'warn');
+				S.log('window.Rule.add: name already exist, override it!', 'warn');
 			}
 
 			//保存设置
@@ -107,14 +107,14 @@ define(['kissy'], function(S){
 		/**
 		 * 修改默认的描述信息
 		 * <pre><code>
-		 * validString.setDesc('bb', 'cc');	修改bb的默认提示信息
+		 * Rule.setDesc('bb', 'cc');	修改bb的默认提示信息
 		 * </code></pre>
 		 * @param name 字符串, 规则名字
 		 * @param str 描述字符串
 		 */
 		setDesc: function(name, str){
 			if(!S.isString(name) || !S.isString(str)){
-				S.log('window.validString.setDesc: must have name[String] and str[String]!', 'warn');
+				S.log('window.Rule.setDesc: must have name[String] and str[String]!', 'warn');
 				return this;
 			}
 
@@ -128,7 +128,7 @@ define(['kissy'], function(S){
 		 */
 		getDesc: function(name){
 			if(!S.isString(name)){
-				S.log('window.validString.setDesc: must have name[String]', 'warn');
+				S.log('window.Rule.setDesc: must have name[String]', 'warn');
 				return this;
 			}
 			return items[__PREFIX + name].desc;
@@ -142,17 +142,17 @@ define(['kissy'], function(S){
 	});
 
 	//默认正则都可为空,不能为空请加上must规则
-	validString.add('must', /^.+$/, '此项必填');
+	Rule.add('must', /^.+$/, '此项必填');
 
 	//不带前置0的ipv4, 如: 10.2.100.11
-	validString.add(
+	Rule.add(
 		'ipv4',
 		/^$|^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$/,
 		'IPv4,点分十进制共四位,每个数字不能超过255'
 	);
 
 	//可带前置0的ipv4, 如: 010.002.100.011
-	validString.add(
+	Rule.add(
 		'ipv4-prefix0',
 		/^$|^(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)\.(25[0-5]|2[0-4]\d|[01]\d{2}|\d?\d)$/,
 		'IPv4,点分十进制,共四位,每个数字不能超过255,可有前置0'
@@ -160,12 +160,12 @@ define(['kissy'], function(S){
 
 
 	//此段保留在最底部,如果有JS国际化信息将进行覆盖
-	//国际化key命名规则为: js.common.validString.规则名, 如: js.common.validString.ipv4
+	//国际化key命名规则为: js.common.Rule.规则名, 如: js.common.Rule.ipv4
 	if(window.JS_I18N){
 		S.each(items, function(v, i, o){
-			validString.setDesc(i, JS_I18N['js.common.validString.' + i]);
+			Rule.setDesc(i, JS_I18N['js.common.Rule.' + i]);
 		});
 	}
 
-	return validString;
+	return Rule;
 });

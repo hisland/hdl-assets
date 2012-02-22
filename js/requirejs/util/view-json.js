@@ -68,6 +68,9 @@ define(function(){
 		return bracket ;
 	}
 
+	/**
+	 * @lends util
+	 */
 	return {
 		/**
 		 * 指定查看几层

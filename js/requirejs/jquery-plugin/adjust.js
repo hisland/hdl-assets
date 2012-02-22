@@ -1,35 +1,43 @@
 /**
- * @fileOverview
- * @module hdlDrag
- * @author hisland hisland@qq.com
- * @description jQuery元素对齐某元素
+ * jQuery元素对齐某元素
  * <pre><code>
- * 2011-4-12 15:3:54:
- *		元素设置data-offset="x, y", 默认[0, 0], 属性使对齐可以加一定的偏移
- *		元素设置data-adjust-type="force", 默认[view], 属性使强制左/右/上/下对齐[force]或者以显示完全为主要对齐[view](某些情况强制对齐一边浮动元素都不能显示全)
  * API:
  *		$('').adjustElement(target);
  *		$('').adjustElement(target, callback);
+ *		$('').adjustElement({
+							target: 'elm',
+							position: 'up',
+							offset: [0, 0],
+							callback: fn(elm, position)
+						});
  * </code></pre>
  */
 
-define(['jquery'], function($){
+define(['jquery', 'kissy'], function($, S){
 	/**
 	 * @memberOf jQuery#
 	 */
-	function adjustElement(target, callback){
-		var elm = this.eq(0);
-		target = $(target).eq(0);
+	$.fn.adjustElement = function(target, callback){
+		var elm = this.eq(0), offset = [0, 0], position = 'down', tmp;
 
+		//预处理参数设置
+		//target参数为配置对象时
+		if(S.isPlainObject(target) && !target.jquery){
+			tmp = target;
+			target = tmp.target;
+			position = tmp.position || position;
+			offset = tmp.offset || offset;
+			callback = tmp.callback || null;
+		}
+		target = $(target).eq(0);
 		if(!target.length){
-			alert('adjustElement: must have target');
+			S.error('adjustElement: must have target');
 			return elm;
 		}
 
+		//初始化位置与尺寸
 		var me_width = elm.outerWidth(),
 			me_height = elm.outerHeight(),
-			offset = [0, 0],
-			tmp,
 
 			t_width = target.outerWidth(),
 			t_height = target.outerHeight(),
@@ -39,64 +47,71 @@ define(['jquery'], function($){
 			p_width = doc_elm.clientWidth + doc_elm.scrollLeft,
 			p_height = doc_elm.clientHeight + doc_elm.scrollTop;
 
-		//得到偏移
-		$.each((elm.attr('data-offset')+'').split(/[,\s]+/), function(i, v){
-			v -= 0;
-			if(!isNaN(v)){
-				offset[i] = v;
-			}
-		});
-
-		//强制左/右/上/下对齐
-		if(elm.attr('data-adjust-type') == 'force'){
-			//设置水平位置
-			if(t_offset.left + offset[0] + me_width > p_width){
-				elm.css('left', p_width - me_width - 5);//窗口右边线对齐
-			}else{
-				elm.css('left', t_offset.left + offset[0]);//target左对齐
-			}
-
-			//设置垂直位置
+		//根据优先位置计算合适位置
+		if(position === 'down'){
+			//下面容纳不下
 			if(me_height + offset[1] + t_offset.top + t_height > p_height){
-				elm.css('top', t_offset.top - me_height -1);//target顶边对齐
-			}else{
-				elm.css('top', t_offset.top + offset[1] + t_height + 1);//target底边对齐
+				//上面可以容纳
+				if(me_height + offset[1] < t_offset.top){
+					position = 'top';
+				}
 			}
-		
-		//以显示完全为主要
-		}else{
-			//设置水平位置
-			if(me_width > p_width){
-				elm.css('left', 0);//窗口左边线对齐
-			}else if(t_offset.left + offset[0] + me_width > p_width){
-				elm.css('left', p_width - me_width - 5);//窗口右边线对齐
-			}else{
-				elm.css('left', t_offset.left + offset[0]);//target左对齐
+		}else if(position === 'left'){
+			//左侧容纳不下
+			if(me_width + offset[0] > t_offset.left){
+				//右侧可以容纳
+				if(me_width + offset[1] + t_offset.left + t_width < p_width){
+					position = 'right';
+				}
 			}
-
-			//设置垂直位置
-			if(me_height > p_height){
-				elm.css('top', 0);//窗口顶边线对齐
-			}else if(me_height + offset[1] + t_offset.top + t_height > p_height){
-				elm.css('top', p_height - me_height -1);//窗口底边线对齐
-			}else{
-				elm.css('top', t_offset.top + offset[1] + t_height + 1);//target底边对齐
+		}else if(position === 'up'){
+			//上面容纳不下
+			if(me_height + offset[1] > t_offset.top){
+				//下面可以容纳
+				if(me_height + offset[1] + t_offset.top + t_height < p_height){
+					position = 'down';
+				}
+			}
+		}else if(position === 'right'){
+			//右侧容纳不下
+			if(me_width + offset[1] + t_offset.left + t_width > p_width){
+				//左侧可以容纳
+				if(me_width + offset[0] < t_offset.left){
+					position = 'left';
+				}
 			}
 		}
 
-		//有回调的回调
-		$.isFunction(callback) && callback.call(elm);
+		switch(position){
+			case 'down':
+				elm.css({
+					top: t_offset.top + t_height + 1 + offset[1],
+					left: t_offset.left + offset[0]
+				});
+				break;
+			case 'left':
+				elm.css({
+					top: t_offset.top + offset[1],
+					left: t_offset.left - me_width + offset[0]
+				});
+				break;
+			case 'up':
+				elm.css({
+					top: t_offset.top - me_height - 1 + offset[1],
+					left: t_offset.left + offset[0]
+				});
+				break;
+			case 'right':
+				elm.css({
+					top: t_offset.top + offset[1],
+					left: t_offset.left + t_width + offset[0]
+				});
+				break;
+		}
+
+		//回调处理
+		S.isFunction(callback) && callback(position);
 
 		return elm;
 	}
-
-	//注册到jq原型上
-	$.fn.extend({
-		adjustElement: adjustElement
-	});
-
-	return {
-		version: 0.1,
-		desc: 'jquery-adjustElement-plugin'
-	};
 });

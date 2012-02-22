@@ -27,33 +27,15 @@
  * 			弹出层需要禁止焦点跑到层后面去
  * </code></pre>
  */
-define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./win'], function($, S, M){
+define(['jquery', 'kissy', 'ui/pop-manager', 'jquery-plugin', 'css!./popwin'], function($, S, M){
 	var $EMPTY = $(''),
-		html_string = '<div class="win1-wrap"><div class="win1-title-wrap"><span class="win1-title">title</span><a class="win1-close" href="#"></a></div><div class="win1-content-wrap"><div class="win1-content"></div></div></div>',
-		/**
-		 * 弹出窗口命名空间
-		 * @namespace popWin
-		 */
-		popWin = {},
+		html_string = '<div class="popwin-wrap"><div class="popwin-title-wrap"><span class="popwin-title">title</span><a class="popwin-close" href="#"></a></div><div class="popwin-content-wrap"><div class="popwin-content"></div></div></div>',
 		default_width = 400;
-	
-	/**
-	 * 清除所有的popWin
-	 * @return popWin
-	 */
-	popWin.clean = function(){
-		$('div.win1-wrap').parent().remove();
-		return this;
-	}
 
 	/**
-	 * 初始化一个popWin
+	 * @class
 	 */
-	popWin.init = function(){
-		return new init();
-	}
-
-	function init(){
+	function popWin(){
 		var div = $(html_string);
 
 		/**
@@ -69,17 +51,17 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./win'], func
 			 * popWin右上角的关闭X
 			 * @type jQuery
 			 */
-			$close: div.find('a.win1-close'),
+			$close: div.find('a.popwin-close'),
 			/**
 			 * popWin的标题层
 			 * @type jQuery
 			 */
-			$title: div.find('span.win1-title'),
+			$title: div.find('span.popwin-title'),
 			/**
 			 * popWin的内容层
 			 * @type jQuery
 			 */
-			$content: div.find('div.win1-content'),
+			$content: div.find('div.popwin-content'),
 			/**
 			 * popWin所在的popManager实例
 			 * @type popManager
@@ -94,8 +76,8 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./win'], func
 		this.setWidth(default_width);
 
 		//设置关闭按钮
-		this.$close.click(function(e){
-			$(this).closest('.win1-wrap').parent().hide();
+		this.$close.on('click', this, function(e){
+			e.data.manager.hide();
 			e.preventDefault();
 		})
 		//不能拖拽
@@ -104,17 +86,15 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./win'], func
 		});
 
 		//代理取消按钮
-		div.click(function(e){
-			if($(e.target).is('.win1-btn-cancel')){
-				$(this).parent().hide();
-			}
+		div.on('click', '.popwin-btn-cancel', this, function(e){
+			e.data.manager.hide();
 		});
 
 		//拖动初始化
 		div.hdlDrag({
 			trigger_filter: function(e){
 				//在IE下,内部有disabled的input时,点击input文本会导致e.target.parentNode为undefined, 前一个规则值为false,所以需要||单独处理
-				if($(e.target).closest('.win1-content, .win1-close').length || !e.target.parentNode){
+				if($(e.target).closest('.popwin-content, .popwin-close').length || !e.target.parentNode){
 					return false;
 				}
 			}
@@ -124,7 +104,7 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./win'], func
 	/**
 	 * @lends popWin#
 	 */
-	S.augment(init, {
+	S.augment(popWin, {
 		/**
 		 * 增加z-index放到最前
 		 * @return this
@@ -208,9 +188,9 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./win'], func
 			if(S.isBoolean(status)){
 				this.__close_able = status;
 				if(status){
-					this.$close.add(this.$div.find('.win1-btn-cancel')).show();
+					this.$close.add(this.$div.find('.popwin-btn-cancel')).show();
 				}else{
-					this.$close.add(this.$div.find('.win1-btn-cancel')).hide();
+					this.$close.add(this.$div.find('.popwin-btn-cancel')).hide();
 				}
 			}else{
 				S.log('popWin.setCloseable: status must be true or false!');
@@ -282,5 +262,20 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./win'], func
 		}
 	});
 
-	return popWin;
+	return {
+		/**
+		 * 清除所有的popWin
+		 * @return popWin
+		 */
+		clean: function(){
+			$('div.popwin-wrap').parent().remove();
+			return this;
+		},
+		/**
+		 * 初始化一个popWin
+		 */
+		init: function(){
+			return new popWin();
+		}
+	};
 });

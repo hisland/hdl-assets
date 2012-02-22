@@ -1,7 +1,6 @@
 /**
  * string有用的工具
  */
-
 define(function(){
 	var entityHTML_reg = /[&<>'"]/g,
 		entityHTML_obj = {
@@ -20,7 +19,10 @@ define(function(){
 			'&quot;': '"',
 			'&#34;': '"'
 		};
-	
+
+	/**
+	 * @lends util
+	 */
 	return {
 		/**
 		 * trim左空白字符

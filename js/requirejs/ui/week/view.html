@@ -1,167 +1,55 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title> new document </title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript" src="../seed.js"></script>
+	<title>@name 周选择控件样式页面 - V3 @nameANT</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=gb2312" />
+	<script type="text/javascript" charset="utf-8" src="../seed.js"></script>
 	<script type="text/javascript">
 		KISSY.ready(function(S){
-			S.use('reset-css, hdlTree+css');
+			S.use('reset-css, common-css, demo-css, condition-list-css, weekTool+css', function(){
+				
+			});
 		});
 	</script>
-	<style type="text/css">
-		body{padding:50px;}
-		.aa{margin-top:10px;border:1px solid green;}
-	</style>
 </head>
 
 <body>
-<div class="hdl-tree-ctrl">
-	<span>展开全部</span>
-	<span>展开下级</span>
-	<span>反选</span>
-</div>
-<div class="aa hdl-tree">
-	<ul>
-		<li>
-			<div>
-				<b class="blank"></b>
-				<small class="leaf"></small>
-				<strong class="unchecked"></strong>
-				<span class="text">节点文字</span>
-			</div>
-		</li>
-		<li>
-			<div>
-				<em class="arrow"></em>
-				<small class="branch"></small>
-				<strong class="unchecked"></strong>
-				<span class="text">树支文字</span>
-			</div>
-			<ul>
-				<li>
-					<div>
-						<span class="indent">
-							<b class="blank"></b>
-						</span>
-						<b class="blank"></b>
-						<small class="leaf"></small>
-						<strong class="unchecked"></strong>
-						<span class="text">节点文字</span>
-					</div>
-				</li>
-				<li>
-					<div>
-						<span class="indent">
-							<b class="blank"></b>
-						</span>
-						<b class="blank"></b>
-						<small class="leaf"></small>
-						<strong class="unchecked"></strong>
-						<span class="text">节点文字</span>
-					</div>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<div>
-				<em class="arrow"></em>
-				<span class="branch-open"></span>
-				<strong class="unchecked"></strong>
-				<span class="text">树支文字</span>
-			</div>
-			<ul>
-				<li>
-					<div>
-						<span class="indent">
-							<b class="blank"></b>
-						</span>
-						<em class="arrow"></em>
-						<small class="branch"></small>
-						<strong class="unchecked"></strong>
-						<span class="text">节点文字</span>
-					</div>
-					<ul>
-						<li>
-							<div>
-								<span class="indent">
-									<b class="blank"></b>
-									<b class="blank"></b>
-								</span>
-								<b class="blank"></b>
-								<small class="leaf"></small>
-								<strong class="unchecked"></strong>
-								<span class="text">节点文字</span>
-							</div>
-						</li>
-						<li>
-							<div>
-								<span class="indent">
-									<b class="blank"></b>
-									<b class="blank"></b>
-								</span>
-								<b class="blank"></b>
-								<small class="leaf"></small>
-								<strong class="unchecked"></strong>
-								<span class="text">节点文字</span>
-							</div>
-							<li>
-								<div>
-									<span class="indent">
-										<b class="blank"></b>
-										<b class="blank"></b>
-									</span>
-									<em class="arrow-open"></em>
-									<small class="branch"></small>
-									<strong class="unchecked"></strong>
-									<span class="text">节点文字</span>
-								</div>
-								<ul>
-									<li>
-										<div>
-											<span class="indent">
-												<b class="blank"></b>
-												<b class="blank"></b>
-											<b class="blank"></b>
-											</span>
-											<b class="blank"></b>
-											<small class="leaf"></small>
-											<strong class="unchecked"></strong>
-											<span class="text">节点文字</span>
-										</div>
-									</li>
-									<li>
-										<div>
-											<span class="indent">
-												<b class="blank"></b>
-												<b class="blank"></b>
-											<b class="blank"></b>
-											</span>
-											<b class="blank"></b>
-											<small class="leaf"></small>
-											<strong class="unchecked"></strong>
-											<span class="text">节点文字</span>
-										</div>
-									</li>
-								</ul>
-							</li>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<div>
-						<span class="indent">
-							<b class="blank"></b>
-						</span>
-						<b class="blank"></b>
-						<small class="leaf"></small>
-						<strong class="unchecked"></strong>
-						<span class="text">节点文字</span>
-					</div>
-				</li>
-			</ul>
-		</li>
-	</ul>
-</div>
+	<div class="weektool-tip">您选择的时间是
+		<span class="weektool-range">第8周 2012-02-09 17:11:10</span>到
+		<span class="weektool-range">第8周 2012-02-09 17:11:10</span>
+	</div>
+	<div class="weektool-legend">
+		<span class="weektool-legend1">年</span>
+		<span class="weektool-legend2">周</span>
+		<span class="weektool-legend3">时间</span>
+		<span class="weektool-legend4">周</span>
+		<span class="weektool-legend5">时间</span>
+	</div>
+	<div class="weektool">
+		<a href="#" class="hover" data-id="33">2009</a>
+		<a href="#">2009</a>
+		<a href="#">2009</a>
+		<a href="#">2009</a>
+		<a href="#">2009</a>
+		<a href="#">2009</a>
+	</div>
+	<div class="weektool">
+		<a href="#" class="hover" data-id="33"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+	</div>
+	<div class="weektool">
+		<a href="#" class="hover" data-id="33"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#" class="disabled"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+	</div>
 </body>
 </html>

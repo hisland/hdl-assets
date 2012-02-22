@@ -2,7 +2,7 @@
  * 鼠标移动提示
  */
 
-define(['jquery'], function($){
+define(['jquery', 'kissy'], function($, S){
 	var $div = $('<div style="display:none;position:absolute;width:100px;height:50px;padding:3px;border:1px solid #afcdea;background:#f0f5fb;"></div>');
 
 	//鼠标移动时调整位置
@@ -76,6 +76,7 @@ define(['jquery'], function($){
 	 *		$(selector).mouseTip(fn);		//注册/修改提示,使用函数返回值作为消息
 	 *		$(selector).mouseTip(false);	//关闭鼠标移动提示
 	 * </code></pre>
+	 * @lends jQuery#
 	 */
 	$.fn.extend({
 		mouseTip: function(msg){

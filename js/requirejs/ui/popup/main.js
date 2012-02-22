@@ -2,10 +2,10 @@
  * 
  */
 
-define(['./select'], function(S){
+define(['./popup'], function(P){
 	return {
 		init: function(){
-			return new S();
+			return new P();
 		}
 	};
 });

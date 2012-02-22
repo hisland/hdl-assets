@@ -55,6 +55,7 @@ define(['kissy'], function(S){
 	 *	c.b;	//当前b值
 	 * </code></pre>
 	 * @class 颜色类,包含rgb值
+	 * @memberOf util
 	 */
 	function Color(arg0, arg1, arg2){
 		//更改为构造方式

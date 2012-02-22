@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/popup', 'util', 'css'], function(T, tool) {
+			$('.popup-img, .popup-css3').each(function(i, v){
+				$(v).html(tool.trimBlank($(v).html()));
+			});
+		});
+	</script>
+	<style type="text/css">
+		body .popup-img{display:block;top:50px;left:100px;}
+		body .popup-css3:nth-child(2){display:block;top:200px;left:100px;}
+		body .popup-css3:nth-child(3){display:block;top:200px;left:350px;}
+		body .popup-css3:nth-child(4){display:block;top:350px;left:100px;}
+		body .popup-css3:nth-child(5){display:block;top:350px;left:350px;}
+	</style>
+</head>
+<body style="padding:50px;">
+	<div class="popup-img">
+		<div class="popup-arr-u"></div>
+		<div class="popup-img-hl">
+			<div class="popup-img-hr">
+				<div class="popup-img-ht">
+					
+				</div>
+			</div>
+		</div>
+		<div class="popup-content-wrap">
+			<div class="popup-content">
+				使用背景图片
+			</div>
+		</div>
+		<div class="popup-img-bl">
+			<div class="popup-img-br">
+				<div class="popup-img-bb">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="popup-css3">
+		<div class="popup-arr-u"></div>
+		<div class="popup-content">使用css3</div>
+	</div>
+
+	<div class="popup-css3">
+		<div class="popup-arr-r"></div>
+		<div class="popup-content">使用css3</div>
+	</div>
+
+	<div class="popup-css3">
+		<div class="popup-arr-d"></div>
+		<div class="popup-content">使用css3</div>
+	</div>
+
+	<div class="popup-css3">
+		<div class="popup-arr-l"></div>
+		<div class="popup-content">使用css3</div>
+	</div>
+</body>
+</html>

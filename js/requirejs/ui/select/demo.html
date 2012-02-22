@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, demo-css, hdlValidator+css', function(){
+				window.getName2 = function(){
+					return 'name2=god3';
+				}
+				alert($.browser.msie + '--' + $.browser.version);
+				$('form').hdlValidator();
+			});
+		});
+	</script>
+</head>
+<body style="padding:20px 50px;">
+	<div class="section">
+		<div class="legend">说明</div>
+		<div class="box">
+			<p>2011-3-21 11:36:16
+			<br />统一验证写法为 data-valid-type="pattern, pattern, pattern"
+			<br />减少记忆难度
+			<br />减少代码复杂度
+			</p>
+			<p>pattern请查看源代码注释</p>
+		</div>
+	</div>
+</body>
+</html>

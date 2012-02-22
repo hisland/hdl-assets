@@ -3,7 +3,7 @@
  */
 define(['kissy'], function(S){
 	//将长度为1的字符串前置0
-	function __length1Prefix0(value){
+	function __prefix0(value){
 		return value.length == 1 ? '0' + value : value;
 	}
 	//add具体的type
@@ -26,6 +26,9 @@ define(['kissy'], function(S){
 		return this;
 	}
 
+	/**
+	 * @lends util
+	 */
 	return {
 		/**
 		 * 根据输入参数获取时间,不能转换返回null
@@ -107,8 +110,8 @@ define(['kissy'], function(S){
 				return date;
 			}else{
 				var y = date.getFullYear(),
-					m = __length1Prefix0(date.getMonth()+1),
-					d = __length1Prefix0(date.getDate());
+					m = __prefix0(date.getMonth()+1),
+					d = __prefix0(date.getDate());
 				return y + '-' + m + '-' + d;
 			}
 		},
@@ -126,9 +129,9 @@ define(['kissy'], function(S){
 				date.setSeconds(arr[3]);
 				return date;
 			}else{
-				var h = __length1Prefix0(date.getHours()),
-					m = __length1Prefix0(date.getMinutes()),
-					s = __length1Prefix0(date.getSeconds());
+				var h = __prefix0(date.getHours()),
+					m = __prefix0(date.getMinutes()),
+					s = __prefix0(date.getSeconds());
 				return h + ':' + m + ':' + s;
 			}
 		},

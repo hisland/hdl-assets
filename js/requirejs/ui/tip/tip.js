@@ -2,7 +2,7 @@
  * tip类
  */
 
-define(['jquery', 'kissy', '../pop-manager', 'css!./tip'], function($, S, M){
+define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], function($, S, M){
 	var msg_alert = '提示',
 		msg_error = '错误',
 		msg_notice = '警告',
@@ -28,7 +28,7 @@ define(['jquery', 'kissy', '../pop-manager', 'css!./tip'], function($, S, M){
 
 	/**
 	 * @class
-	 * @name ui.tip
+	 * @memberOf ui
 	 * @param setting
 	 * <pre><code>
 		{
@@ -38,7 +38,7 @@ define(['jquery', 'kissy', '../pop-manager', 'css!./tip'], function($, S, M){
 		}
 	 * </code></pre>
 	 */
-	function init(setting){
+	function Tip(setting){
 		S.mix(this, {
 			slide: false,
 			dragable: true,
@@ -47,9 +47,9 @@ define(['jquery', 'kissy', '../pop-manager', 'css!./tip'], function($, S, M){
 		return this.__init();
 	}
 	/**
-	 * @lends ui.tip#
+	 * @lends ui.Tip#
 	 */
-	S.augment(init, {
+	S.augment(Tip, {
 		/**
 		 * 内部初始化
 		 * @private
@@ -336,5 +336,5 @@ define(['jquery', 'kissy', '../pop-manager', 'css!./tip'], function($, S, M){
 		}
 	});
 
-	return init;
+	return Tip;
 });

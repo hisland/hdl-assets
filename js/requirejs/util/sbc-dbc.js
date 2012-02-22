@@ -7,6 +7,7 @@
  *		toSBC(str);	//全角转半角
  *		toDBC(str);	//半角转全角
  * </code></pre>
+ * @lends util
  */
 define({
 	/**

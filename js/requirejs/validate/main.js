@@ -1,7 +1,7 @@
 /**
  * 工具集
  */
-define(['./check'], function(C){
+define(['./rule'], function(Rule){
 	return {
 	};
 });

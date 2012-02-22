@@ -53,6 +53,9 @@ define(['jquery'], function($){
 		}
 	};
 
+	/**
+	 * @lends jQuery#
+	 */
 	$.fn.extend({
 		input: function(fn) {
 			return fn ? this.bind("input", fn) : this.trigger("input");

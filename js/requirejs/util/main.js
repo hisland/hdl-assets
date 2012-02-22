@@ -1,5 +1,6 @@
 /**
  * 工具集
+ * @namespace util
  */
 define(['kissy', './color', './date', './later-fn', './math', './sbc-dbc',
 		'./string', './test', './times', './view-json', './week'], function(S){

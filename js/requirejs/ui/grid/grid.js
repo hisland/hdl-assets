@@ -56,7 +56,6 @@
 
  * </code></pre>
  */
-
 define(['jquery', 'kissy'], function($, S){
 	var $EMPTY = $('');
 
