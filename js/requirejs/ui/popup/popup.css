@@ -9,7 +9,7 @@
 	.popup-arr-d{left:10px;bottom:-5px;-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);}
 	.popup-arr-l{top:10px;left:-5px;-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);}
 
-.popup-content{position:relative;overflow:auto;width:200px;height:100px;}
+.popup-content{position:relative;overflow:auto;width:200px;height:100px;overflow:auto;}
 
 /* 蓝色线条样式 */
 .popup-theme-blue, .popup-theme-blue>div:first-child{border-color:#A9C9E2;}

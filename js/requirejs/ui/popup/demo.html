@@ -14,23 +14,20 @@
 		require(['ui/popup', 'css'], function(Popup) {
 			var pop = Popup.init();
 			$('#aa').click(function(e){
-				pop.adjust(this).show();
+				pop.align(this).show();
 			});
 			$('#bb').click(function(e){
-				pop.adjust(this, 'right', function(){
+				pop.align(this, 'right', function(){
 					this.$div.css('top', '-=5');
 				}).show();
 			});
 			$('#cc').click(function(e){
-				pop.adjust(this, 'up').show();
+				pop.align(this, 'up').show();
 			});
 			$('#dd').click(function(e){
-				pop.adjust(this, 'left', function(){
+				pop.align(this, 'left', function(){
 					this.$div.css('top', '-=5');
 				}).show();
-			});
-			$('#dd').mouseTip(function(e){
-				return KISSY.guid();
 			});
 		});
 	</script>

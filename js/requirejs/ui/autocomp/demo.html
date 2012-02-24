@@ -3,59 +3,34 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
 	<script type="text/javascript">
-		KISSY.ready(function(S){
-			var data = {
-					"perPageNum": 15,
-					"currPage": 1,
-					"beginNum": 1,
-					"endNum": 15,
-					"totals": 18,
-					"currRecordNum": 15,
-					"allPage": 5,
-					"rows": [
-						"''||\" \"",
-						"''||''4",
-						"sd",
-						"77sd1",
-						"87sd6543214",
-						"asdsdsd3",
-						"asdsdsds3",
-						"asdsdsds3",
-						"asdsdsde3",
-						"dfd&sdfssddf1",
-						"ewsdr",
-						"ffsdsd",
-						"fgpdepde'0tdssqe'pfd_7843920",
-						"fgpdepde'0tdssqe'pf_88884",
-						"fgpdepde'0tgaojing",
-						"iujyhgfdsxb",
-						"sdfa56fasdsf+as65df65a6d5f6dsa5f6dsa5f6ds5f6dsa4f6ds4f5d6s4f6d5s4f6ds54f6ads45f6sd54f6ds54f5d6f4d65sf4d65s4fd65sf4d6sf43",
-						"trew"
-					]
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/autocomp'], function(Autocomp, tool) {
+			$('#use-php').autoComplete({
+				url: 'data.php',
+			});
+
+			$('#use-remote').autoComplete({
+				url: 'data.js',
+			});
+
+			var enabled = true;
+			$('#test-disabled-ctrl').click(function(e){
+				if(enabled){
+					$('#use-remote').autoComplete('disabled');
+					$(this).val('启用');
+					enabled = false;
+				}else{
+					$('#use-remote').autoComplete('enable');
+					$(this).val('禁用');
+					enabled = true;
 				}
-			S.use('reset-css, common-css, demo-css, autoComplete+css', function(){
-				$('#use-php').autoComplete({
-					url: 'data.php',
-				});
-
-				$('#use-remote').autoComplete({
-					url: 'data.js',
-				});
-
-				var enabled = true;
-				$('#test-disabled-ctrl').click(function(e){
-					if(enabled){
-						$('#use-remote').autoComplete('disabled');
-						$(this).val('启用');
-						enabled = false;
-					}else{
-						$('#use-remote').autoComplete('enable');
-						$(this).val('禁用');
-						enabled = true;
-					}
-				});
 			});
 		});
 	</script>

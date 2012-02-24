@@ -2,10 +2,10 @@
  * 
  */
 
-define(['./select'], function(S){
+define(['./select'], function(Select){
 	return {
 		init: function(){
-			return new S();
+			return new Select();
 		}
 	};
 });

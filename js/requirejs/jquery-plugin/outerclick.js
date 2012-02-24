@@ -3,7 +3,7 @@
  */
 
 define(['jquery', 'kissy'], function($, S){
-	var OUTER_CLICK = 'outerClick',
+	var OUTER_CLICK = 'outerclick',
 		elements = [];
 
 	/**

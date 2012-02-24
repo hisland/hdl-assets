@@ -2,9 +2,9 @@
  * jQuery元素对齐某元素
  * <pre><code>
  * API:
- *		$('').adjustElement(target);
- *		$('').adjustElement(target, callback);
- *		$('').adjustElement({
+ *		$('').align(target);
+ *		$('').align(target, callback);
+ *		$('').align({
 							target: 'elm',
 							position: 'up',
 							offset: [0, 0],
@@ -17,7 +17,7 @@ define(['jquery', 'kissy'], function($, S){
 	/**
 	 * @memberOf jQuery#
 	 */
-	$.fn.adjustElement = function(target, callback){
+	$.fn.align = function(target, callback){
 		var elm = this.eq(0), offset = [0, 0], position = 'down', tmp;
 
 		//预处理参数设置
@@ -31,7 +31,7 @@ define(['jquery', 'kissy'], function($, S){
 		}
 		target = $(target).eq(0);
 		if(!target.length){
-			S.error('adjustElement: must have target');
+			S.error('align: must have target');
 			return elm;
 		}
 
@@ -53,7 +53,7 @@ define(['jquery', 'kissy'], function($, S){
 			if(me_height + offset[1] + t_offset.top + t_height > p_height){
 				//上面可以容纳
 				if(me_height + offset[1] < t_offset.top){
-					position = 'top';
+					position = 'up';
 				}
 			}
 		}else if(position === 'left'){

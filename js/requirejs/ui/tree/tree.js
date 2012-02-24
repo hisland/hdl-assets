@@ -395,7 +395,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		 * 将树挂到指定位置
 		 */
 		appendTo: function(target){
-			$(target).append(this.$div);
+			this.$div.appendTo(target);
 			return this;
 		},
 		/**

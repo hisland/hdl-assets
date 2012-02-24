@@ -1,13 +1,15 @@
 @charset "utf-8";
 
-/* 模拟select */
-a.ui-select{display:inline-block;vertical-align:middle;height:15px;line-height:15px;width:104px;padding:1px 15px 1px 3px;border:1px solid #7f9db9;color:#000;background:#fff url('select-img/arr.gif') no-repeat right 0;outline:none;}
-	.ui-select-text{float:left;width:100%;white-space:nowrap;height:15px;overflow:hidden;text-overflow:ellipsis;text-align:left;}
-	.ui-select select{display:none;float:left;}
-a.ui-select-disabled{border-color:#ccc;cursor:default;background-position:right -40px;}
-	a.ui-select-disabled .ui-select-text{color:#ccc;}
+a.ui-select{display:inline-block;vertical-align:middle;width:104px;height:15px;line-height:15px;overflow:hidden;padding:1px 15px 1px 3px;border:1px solid #7f9db9;color:#000;background:#fff url('select-img/arr.gif') no-repeat right 0;outline:none;cursor:pointer;}
+a.ui-select:hover{text-decoration:none;}
+	span.ui-select-text{display:inline-block;width:104px;height:15px;overflow:hidden;text-align:left;white-space:nowrap;text-overflow:ellipsis;}
+a.ui-select-disabled{border-color:#ccc;cursor:default;background-position:right -20px;}
+	a.ui-select-disabled span.ui-select-text{color:#ccc;}
 
-div.ui-select{position:absolute;border:1px solid #7f9db9;background:#fff;max-height:200px;overflow:auto;z-index:7000;}
-	a.ui-select-item{display:block;white-space:nowrap;color:#000;padding:1px 2px;outline:none;}
+/* select下拉样式 */
+div.ui-select{position:absolute;width:120px;padding:1px;border:1px solid #7f9db9;background:#fff;}
+	a.ui-select-item{display:block;width:120px;height:18px;line-height:18px;overflow:hidden;color:#000;outline:none;white-space:nowrap;text-overflow:ellipsis;}
 	a.ui-select-item:hover{text-decoration:none;background:#d9e4ed;}
-	a.ui-select-selected{text-decoration:none;background:#abd0f5;}
+	a.ui-selected{text-decoration:none;background:#abd0f5;}
+div.ui-select-long{height:200px;width:120px;overflow-y:scroll;overflow-x:hidden;}
+	div.ui-select-long a.ui-select-item{width:103px;}

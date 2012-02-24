@@ -2,7 +2,7 @@
  * 
  */
 
-define(['./date', 'css!./date'], function(Date){
+define(['./date'], function(Date){
 	return {
 		init: function(){
 			return new Date();

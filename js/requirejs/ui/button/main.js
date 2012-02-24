@@ -7,15 +7,17 @@
 
 define(['jquery', 'kissy', 'css!./button'], function($, S){
 	function Button(setting){
-		this.$div = $('<a href="#" class="ui-button">button</a>');
+		this.$div = $('<a href="javascript:;" class="ui-button">button</a>');
 	}
 
 	S.augment(Button, {
 		appendTo: function(target){
-			$(target).append(this.$div);
+			this.$div.appendTo(target);
+			return this;
 		},
-		onClick: function(fn){
+		click: function(fn){
 			this.$div.click(fn);
+			return this;
 		}
 	});
 

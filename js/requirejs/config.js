@@ -3,7 +3,8 @@ require.config({
 	paths: {
 		jquery: 'jquery-1.7.1'
 	},
-	packages: ['css', 'util', 'color', 'jquery-plugin', 'validate',
+	packages: ['css', 'util', 'color', 'jquery-plugin', 'valid',
 				'ui/autocomp', 'ui/button', 'ui/date', 'ui/grid', 'ui/popwin', 'ui/select',
-				'ui/tabs', 'ui/tip', 'ui/tree', 'ui/week', 'ui/popup']
+				'ui/tabs', 'ui/tip', 'ui/tree', 'ui/week', 'ui/popup',
+				'sf/page', 'demo']
 });

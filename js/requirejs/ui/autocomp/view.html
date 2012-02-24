@@ -3,37 +3,52 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
 	<script type="text/javascript">
-		KISSY.ready(function(S){
-			S.use('reset-css, common-css, autoComplete+css');
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/autocomp', 'util'], function(Select, tool) {
+			$('span.autocomp, div.autocomp-pop').each(function(i, v){
+				$(v).html(tool.trimBlank($(v).html()));
+			});
+
+			$('div.autocomp-pop').eq(1).css('left', 300).find('.autocomp-loading').css('display', 'block');
 		});
 	</script>
+	<style type="text/css">
+		body .autocomp-pop{display:block;}
+	</style>
 </head>
 
 <body style="padding:50px;">
 	<span class="autocomp">
-		<input type="text" value="this is text" /><span></span>
+		<input type="text" value="this is text" />
+		<span></span>
 	</span>
 
 	<br /><br />
 
 	<!-- 禁用时加上 autocomp-disabled -->
 	<span class="autocomp autocomp-disabled">
-		<input type="text" value="this is text" disabled="disabled" /><span></span>
+		<input type="text" value="this is text" disabled="disabled" />
+		<span></span>
 	</span>
 
 	<br /><br />
 
 	<!-- 下拉层样式与结构 -->
-	<div class="autocomp-pop" style="display:block;">
+	<div class="autocomp-pop">
 		<div class="autocomp-loading">加载中...</div>
 		<div class="autocomp-as">
-			<a class="autocomp-a" href="javascript:;" data-value="1">1<strong>dddddd</strong></a>
-			<a class="autocomp-a" href="javascript:;" data-value="2">2</a>
-			<a class="autocomp-a" href="javascript:;" data-value="3">3</a>
-			<a class="autocomp-a" href="javascript:;" data-value="4">4</a>
-			<a class="autocomp-a" href="javascript:;" data-value="5">5</a>
+			<a class="autocomp-a" href="javascript:;" data-value="1" title="1">1<strong>dddddd</strong></a>
+			<a class="autocomp-a" href="javascript:;" data-value="上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页" title="上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页">上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页</a>
+			<a class="autocomp-a" href="javascript:;" data-value="在要枯在要枯在要枯在要枯在要枯" title="在要枯在要枯在要枯在要枯在要枯">在要枯在要枯在要枯在要枯在要枯</a>
+			<a class="autocomp-a" href="javascript:;" data-value="4" title="4">4</a>
+			<a class="autocomp-a" href="javascript:;" data-value="5" title="5">5</a>
 		</div>
 		<div class="autocomp-page">
 			<a class="autocomp-prev" href="javascript:;">上一页</a>
@@ -42,5 +57,33 @@
 		</div>
 	</div>
 
+	<!-- 下拉层样式与结构 -->
+	<div class="autocomp-pop autocomp-pop-long">
+		<div class="autocomp-loading">加载中...</div>
+		<div class="autocomp-as">
+			<a class="autocomp-a" href="javascript:;" data-value="1" title="1dddddd">1<strong>dddddd</strong></a>
+			<a class="autocomp-a" href="javascript:;" data-value="2" title="上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页">上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页</a>
+			<a class="autocomp-a" href="javascript:;" data-value="3" title="3">3</a>
+			<a class="autocomp-a" href="javascript:;" data-value="4" title="4">4</a>
+			<a class="autocomp-a" href="javascript:;" data-value="5" title="5">5</a>
+			<a class="autocomp-a" href="javascript:;" data-value="在要枯在要枯在要枯在要枯在要枯" title="在要枯在要枯在要枯在要枯在要枯">在要枯在要枯在要枯在要枯在要枯</a>
+			<a class="autocomp-a" href="javascript:;" data-value="在要枯在要枯在要枯在要枯在要枯" title="在要枯在要枯在要枯在要枯在要枯">在要枯在要枯在要枯在要枯在要枯</a>
+			<a class="autocomp-a" href="javascript:;" data-value="5" title="5">5</a>
+			<a class="autocomp-a" href="javascript:;" data-value="5" title="5">5</a>
+			<a class="autocomp-a" href="javascript:;" data-value="在要枯在要枯在要枯在要枯在要枯" title="在要枯在要枯在要枯在要枯在要枯">在要枯在要枯在要枯在要枯在要枯</a>
+			<a class="autocomp-a" href="javascript:;" data-value="在要枯在要枯在要枯在要枯在要枯" title="在要枯在要枯在要枯在要枯在要枯">在要枯在要枯在要枯在要枯在要枯</a>
+			<a class="autocomp-a" href="javascript:;" data-value="5" title="5">5</a>
+			<a class="autocomp-a" href="javascript:;" data-value="5" title="5">5</a>
+			<a class="autocomp-a" href="javascript:;" data-value="在要枯在要枯在要枯在要枯在要枯" title="在要枯在要枯在要枯在要枯在要枯">在要枯在要枯在要枯在要枯在要枯</a>
+			<a class="autocomp-a" href="javascript:;" data-value="在要枯在要枯在要枯在要枯在要枯" title="在要枯在要枯在要枯在要枯在要枯">在要枯在要枯在要枯在要枯在要枯</a>
+			<a class="autocomp-a" href="javascript:;" data-value="5" title="5">5</a>
+			<a class="autocomp-a" href="javascript:;" data-value="5" title="5">5</a>
+		</div>
+		<div class="autocomp-page">
+			<a class="autocomp-prev" href="javascript:;">上一页</a>
+			<a class="autocomp-next" href="javascript:;">下一页</a>
+			<span class="autocomp-tip"></span>
+		</div>
+	</div>
 </body>
 </html>

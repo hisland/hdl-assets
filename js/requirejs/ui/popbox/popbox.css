@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+/* 弹出层样式 */
+.popbox-wrap{background-color:#fff;border:1px solid #92b1dc;overflow:hidden;padding:1px;position:absolute;}
+
+	.popbox-title-wrap{background:url('popbox-img/bg1.gif') repeat-x 0 0;padding:0 20px 0 10px;position:relative;}
+		.popbox-title{display:inline-block;height:23px;line-height:23px;font-weight:700;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+		.popbox-close{position:absolute;top:5px;right:5px;background:url('popbox-img/x.gif') no-repeat 0 0;width:13px;height:13px;overflow:hidden;}
+		.popbox-close:hover{background-position: 0px -20px;text-decoration:none;}
+
+	.popbox-content-wrap{border-top:1px solid #92b1dc;margin:1px -1px -1px;padding:8px;background:#f8fbff;}
+		.popbox-content{cursor:default;background:#fff;position:relative;overflow:auto;padding-bottom:28px;}
+
+	.popbox-btns{text-align:right;position:absolute;left:0;bottom:0;width:100%;}
+		.popbox-btns input{width:72px;height:22px;line-height:22px;margin-left:8px;background:url('popbox-img/btn1.gif') no-repeat 0 0;border:none;cursor:pointer;}

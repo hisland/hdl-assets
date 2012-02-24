@@ -55,7 +55,7 @@ define(['jquery', 'kissy'], function($, S){
 		}
 
 		//显示
-		$div.show();
+		$div.css('z-index', S.guid()).show();
 		$(document).mousemove(mouseMove);
 	}
 

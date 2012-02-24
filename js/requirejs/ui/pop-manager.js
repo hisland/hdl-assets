@@ -33,20 +33,20 @@ define(['jquery', 'kissy'], function($, S){
 		pop_list = [];
 
 	function checkFocus(e){
-		if(!pop_list.length){
-			return ;
-		}
-		var m = pop_list[pop_list.length - 1];
+		//按下的是tab键且有pop_list时才执行操作
+		if(e && e.keyCode === 9 && pop_list.length){
+			var m = pop_list[pop_list.length - 1];
 
-		//检测焦点位置并调整到当前层的第一个元素上
-		if(!S.inArray(m.$div[0], $(document.activeElement).parents().andSelf().get())){
-			m.$div.find('a, input, textarea').first().focus();
-		}
+			//检测焦点位置并调整到当前层的第一个元素上
+			if(!S.inArray(m.$div[0], $(document.activeElement).parents().andSelf().get())){
+				m.$div.find('a, input, textarea').first().focus();
+			}
 
-		//ESC执行关闭动作
-//		if(e && e.keyCode === 27){
-//			m.hide();
-//		}
+			//ESC执行关闭动作
+			//if(e && e.keyCode === 27){
+			//	m.hide();
+			//}
+		}
 	}
 	function push(m){
 		if(!pop_list.length){
@@ -89,7 +89,6 @@ define(['jquery', 'kissy'], function($, S){
 		remove: function() {
 			this.$div.remove();
 			pop();
-			checkFocus();
 			return this;
 		},
 		/**
@@ -99,7 +98,6 @@ define(['jquery', 'kissy'], function($, S){
 		show: function() {
 			this.$div.show();
 			push(this);
-			checkFocus();
 			return this;
 		},
 		/**
@@ -109,7 +107,6 @@ define(['jquery', 'kissy'], function($, S){
 		hide: function() {
 			this.$div.hide();
 			pop();
-			checkFocus();
 			return this;
 		},
 		/**

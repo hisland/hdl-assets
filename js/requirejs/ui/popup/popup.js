@@ -30,7 +30,8 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 			S.mix(this, {
 				$div: div,
 				$content: div.find('.popup-content'),
-				$arr: div.find('.popup-arr-u')
+				$arr: div.find('.popup-arr-u'),
+				dir: 'up'
 			});
 
 			div.appendTo('body');
@@ -48,9 +49,16 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		/**
 		 * 设置箭头方向
 		 * @param up|right|down|left dir
+		 * @param Number|String num 将调用moveArrow方法进行初始偏移
 		 */
-		setArrow: function(dir){
-			this.$arr.show();
+		setArrow: function(dir, num){
+			this.dir = dir;
+			this.$arr.css({
+				display: 'block',
+				left: '',
+				top: ''
+			});
+
 			switch(dir){
 				case 'up':
 					this.$arr.attr('class', 'popup-arr-u');
@@ -65,7 +73,29 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 					this.$arr.attr('class', 'popup-arr-l');
 					break;
 				default:
-					this.$arr.hide();
+					this.dir = null;
+					this.$arr.css('display', 'none');
+			}
+
+			this.moveArrow(num);
+			return this;
+		},
+		/**
+		 * 移动箭头
+		 * 为数字时: 设置为指定位置
+		 * 为字符串时: 设置偏移如 '-=10' '+=20'
+		 * @param Number|String num
+		 */
+		moveArrow: function(num){
+			switch(this.dir){
+				case 'up':
+				case 'down':
+					this.$arr.css('left',  num);
+					break;
+				case 'right':
+				case 'left':
+					this.$arr.css('top', num);
+					break;
 			}
 			return this;
 		},
@@ -74,7 +104,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		 * @param color-string color
 		 */
 		setColor: function(color){
-			this.$div.add(this.$arr).attr('border-color', '#A9C9E2');
+			this.$div.add(this.$arr).attr('border-color', color);
 			return this;
 		},
 		/**
@@ -122,7 +152,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		 * @param jQuery|DOM|string target
 		 * @param up|right|down|left position
 		 */
-		adjust: function(target, position, callback){
+		align: function(target, position, callback){
 			var me = this;
 
 			//修正参数
@@ -133,7 +163,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 			position = position || 'down';
 
 			//对齐后设置箭头方向
-			this.$div.adjustElement({
+			this.$div.align({
 				target: target,
 				position: position,
 				callback: function(position){
@@ -157,7 +187,21 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 				}
 			});
 
-			return this.$div;
+			return this;
+		},
+		/**
+		 * 显示
+		 */
+		show: function(){
+			this.$div.css('z-index', S.guid()).show();
+			return this;
+		},
+		/**
+		 * 隐藏
+		 */
+		hide: function(){
+			this.$div.hide();
+			return this;
 		}
 	});
 

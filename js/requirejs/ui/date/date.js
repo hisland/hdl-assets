@@ -2,7 +2,7 @@
  * 
  */
 
-define(['jquery', 'kissy'], function($, S){
+define(['jquery', 'kissy', 'css!./date'], function($, S){
 	/**
 	 * @class
 	 */

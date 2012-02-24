@@ -18,7 +18,6 @@ define(function(){
 	//预加载公共样式
 	load('css/reset.css', require);
 	load('css/common.css', require);
-	load('css/demo.css', require);
 
 	return {
 		version: '0.1',
