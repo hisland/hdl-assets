@@ -2,16 +2,11 @@
  * 
  */
 
-define(['jquery', 'kissy', 'util'], function($, S, T){
+define(['jquery', 'kissy', 'util'], function($, S, U){
 	/**
 	 * @class
 	 */
 	function Setting(){
-		//更改为构造方式
-		if(!(this instanceof Setting)){
-			return new Setting();
-		}
-
 		//固定字符串
 		this.fixed = '';
 
@@ -92,17 +87,29 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 		getMonthFirstDay: function(){
 			return first_day = new Date(this.real('year')+'/'+this.real('month')+'/1').getDay();
 		},
+		/**
+		 * 月第一行的空白
+		 * @return 0-6
+		 */
 		__getBlank: function(){
 			//月第一行的空白 = monthfirstday - (weekstart - 7)
 			var blank = this.getMonthFirstDay() - (this.__week_start - 7);
 			//取值为0-6
 			return blank % 7;
 		},
+		/**
+		 * 修正2月的最大天数
+		 * @return this
+		 */
 		__repairMonth2: function(){
 			var year = this.real('year');
 			this.days_list[2] = year%400==0 || (year%4==0 && year%100!=0) ? 29 : 28;
 			return this;
 		},
+		/**
+		 * 设置日期对象, 用于初始化日期值
+		 * @return 0-6
+		 */
 		setDate: function(date){
 			if(date instanceof Date){
 				this.item('year', date.getFullYear());
@@ -115,9 +122,17 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			}
 			return this;
 		},
+		/**
+		 * 获得日期对象
+		 * @return Date
+		 */
 		getDate: function(){
 			return this.__date;
 		},
+		/**
+		 * 刷新固定住的条目
+		 * @return this
+		 */
 		refreshFixed: function(){
 			var i, v, o = {}, $ipt_list = $ipt_year.parent();
 			this.fixed.replace(Setting.reg_fixed, function(a, b, c){
@@ -142,6 +157,10 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			}
 			return this;
 		},
+		/**
+		 * 月第一行的空白
+		 * @return 0-6
+		 */
 		refreshDataList: function(){
 			var str = [], i,
 				days = this.getMonthDays(),
@@ -174,6 +193,10 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			$div_date_list.html(str.join(''));
 			return this;
 		},
+		/**
+		 * 月第一行的空白
+		 * @return 0-6
+		 */
 		makeDropList: function(from, to, now){
 			var str = [];
 
@@ -203,6 +226,10 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			$div_drop_list.html(str.join(''));
 			return this;
 		},
+		/**
+		 * 月第一行的空白
+		 * @return 0-6
+		 */
 		refreshDropList: function(type){
 			var str = [], from, to, now = this.real(type);
 
@@ -239,6 +266,10 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			this.makeDropList(from, to, now);
 			return this;
 		},
+		/**
+		 * 月第一行的空白
+		 * @return 0-6
+		 */
 		refreshIpts: function(type){
 			//refresh specify type
 			if(type === 'year'){
@@ -269,6 +300,10 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			}
 			return this;
 		},
+		/**
+		 * 月第一行的空白
+		 * @return 0-6
+		 */
 		fillTarget: function(){
 			//从input取值,因为item的设置可能不正确
 			var str, arr=[], ipts = $div_ipt_list.find('input'), me = this;
@@ -293,15 +328,23 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			$target_fill.val(str);
 			return this;
 		},
+		/**
+		 * 设置周的第一天为星期几
+		 * @param n 1-7
+		 * @return this
+		 */
 		setWeekStart: function(n){
 			n = parseInt(n);
 			if(n > 0 && n < 8){
 				this.__week_start = n;
-			}else{
-				S.log('$.dateTool.setWeekStart: n must in 1-7!');
 			}
 			return this;
 		},
+		/**
+		 * 设置周的第一天为星期几
+		 * @param n 1-7
+		 * @return this
+		 */
 		refreshWeekList: function(){
 			var n = this.__week_start, b = [];
 			do{
@@ -319,6 +362,11 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			$div_week_list.html(b.join(''));
 			return this;
 		},
+		/**
+		 * 设置周的第一天为星期几
+		 * @param n 1-7
+		 * @return this
+		 */
 		setMinTime: function(time){
 			if(time instanceof Date){
 				this.min_time = time;
@@ -330,6 +378,11 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			}
 			return this;
 		},
+		/**
+		 * 设置周的第一天为星期几
+		 * @param n 1-7
+		 * @return this
+		 */
 		setMaxTime: function(time){
 			if(time instanceof Date){
 				this.max_time = time;
@@ -341,6 +394,11 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			}
 			return this;
 		},
+		/**
+		 * 设置周的第一天为星期几
+		 * @param n 1-7
+		 * @return this
+		 */
 		setTimeOffset: function(offset){
 			if(S.isNumber(offset)){
 				this.offset = offset;
@@ -349,6 +407,11 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 			}
 			return this;
 		},
+		/**
+		 * 设置周的第一天为星期几
+		 * @param n 1-7
+		 * @return this
+		 */
 		open: function(){
 			//清除按钮可用与否
 			if(this.btn_clear_enable){
@@ -366,5 +429,5 @@ define(['jquery', 'kissy', 'util'], function($, S, T){
 		}
 	});
 
-	return Date;
+	return Setting;
 });

@@ -11,12 +11,12 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/date', 'util', 'css'], function(Date) {
-			$('#aa').dateTool();
-			$('#bb').dateTool('year2010, month05, date03');
-			$('#cc').dateTool('datee, hour, minute, second');
-			$('#dd').dateTool().setWeekStart(7);
-			$('#ee').dateTool().setWeekStart(2);
+		require(['ui/date', 'util', 'demo'], function(Calc, Util) {
+			window.aa = Calc.init().attach('#aa');
+			window.bb = Calc.init().attach('#bb').setFixed('year2010, month05, date03');
+			window.cc = Calc.init().attach('#cc').setFixed('datee, hour, minute, second');
+			window.dd = Calc.init().attach('#dd').setWeekStart(7);
+			window.ee = Calc.init().attach('#ee').setWeekStart(2);
 		});
 	</script>
 </head>

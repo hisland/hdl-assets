@@ -56,6 +56,9 @@ define(['jquery', 'kissy', 'css!./autocomp'], function($, S){
 		},
 		itemProcess: function(item){
 			return item;
+		},
+		change: function(item){
+			return item;
 		}
 	});
 

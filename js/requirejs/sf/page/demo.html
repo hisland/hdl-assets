@@ -11,41 +11,21 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/select'], function(Select) {
-			window.aaa = Select.init().appendTo('.box:first');
-			window.bbb = Select.init().appendTo('.box:eq(1)');
-			Select.init().appendTo('.box:eq(2)').setData({
-				aa: 'aa',
-				bb: 'bb',
-				cc: 'cc',
-				xx: 'xx',
-				dd: 'dd',
-				ee: 'ee',
-				gg: 'gg'
-			});
-
-			aaa.$div.add(bbb.$div).on('outerClick', function(e){
-				console.log(e.data);
-			})
+		require(['sf/page'], function(Page) {
+			window.aa = Page;
 		});
 	</script>
 </head>
-<body style="padding:20px 50px;">
-	<div class="section">
-		<div class="legend">select示例</div>
-		<div class="box">
+<body>
+	<div class="main-wrap">
+		<div class="head-bar">
+			
 		</div>
-	</div>
-	<br /><br />
-	<div class="section">
-		<div class="legend">select示例</div>
-		<div class="box">
+		<div class="menu-bar">
+			
 		</div>
-	</div>
-	<br /><br />
-	<div class="section">
-		<div class="legend">select示例</div>
-		<div class="box">
+		<div class="main">
+			
 		</div>
 	</div>
 </body>

@@ -181,9 +181,9 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 			this.walkDescendants(this, function(node){
 				//需要选中
 				if(map[node[key]]){
-					this.checkNode(node, true);
+					this.toggleCheckbox(node, true);
 				}else{
-					this.checkNode(node, false);
+					this.toggleCheckbox(node, false);
 				}
 			});
 			return this;
@@ -305,7 +305,6 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 					//如果自己是选中的,因为是取消选择,所以父节点肯定要-1
 					if(parent.checked){
 						parent.__parent.__checked_len--;
-						parent.checked = false;
 					}
 
 					//下面每个步骤都有提前退出,提高速度
@@ -325,10 +324,11 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 							parent.__partial = true;
 							document.getElementById(parent.__path).getElementsByTagName('strong')[0].className = 'partial';
 						}else{
-							if(!parent.__partial){
+							if(!parent.__partial && !parent.checked){
 								break;
 							}
 							parent.__partial = false;
+							parent.checked = false;
 							document.getElementById(parent.__path).getElementsByTagName('strong')[0].className = 'unchecked';
 						}
 					}else{
@@ -336,6 +336,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 							break;
 						}
 						parent.__partial = true;
+						parent.checked = false;
 						document.getElementById(parent.__path).getElementsByTagName('strong')[0].className = 'partial';
 					}
 
@@ -487,6 +488,14 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 				arr.push('</span>');
 			}
 			return this;
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		reset: function(){
+			
 		}
 	});
 

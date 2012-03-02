@@ -1,39 +1,51 @@
 /**
  * 
  */
-define(['jquery', 'kissy', 'jquery-plugin'], function($, S){
+define(['jquery', 'kissy', './rule'], function($, S, Rule){
 	/**
 	 * @class
 	 */
-	function Item(name, str){
-		this.attached = false;
-		this.selector = null;
-		this.rules = [];
+	function Item(rule){
+		
 	}
 
 	/**
 	 * @lends Item#
 	 */
 	S.augment(Item, {
-		attach: function(selector){
-			this.selector = selector || this.selector;
-			this.attached = true;
-			$(this.selector).on('input', this, this.__input);
+		valid: function(){
+			var rs = true, str = $(this.selector).val();
+			if(this.attached){
+				S.each(this.rules, function(v, i, o){
+					if(Rule.test(v)){
+						
+					}
+				});
+			}
+			return rs;
 		},
-		detach: function(){
-			$(this.selector).off('input', this.__input);
-			this.attached = false;
-			this.selector = null;
-		},
-		add: function(rule){
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		check: function(){
 			
 		},
-		valid: function(){
-			if(!this.attached){
-				return true;
-			}
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		onCheck: function(rs){
+			
 		},
-		__input: function(e){
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		setMessage: function(msg){
 			
 		}
 	});

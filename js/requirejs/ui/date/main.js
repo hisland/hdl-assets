@@ -2,10 +2,10 @@
  * 
  */
 
-define(['./date'], function(Date){
+define(['./calc'], function(Calc){
 	return {
 		init: function(){
-			return new Date();
+			return new Calc();
 		}
 	};
 });

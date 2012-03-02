@@ -5,6 +5,10 @@
  * </code></pre>
  */
 
-define(['jquery', 'kissy'], function($, S){
-	
+define(['./week'], function(Week){
+	return {
+		init: function(setting){
+			return new Week(setting);
+		}
+	};
 });

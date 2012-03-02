@@ -2,7 +2,6 @@
  * 验证工具主模块
  */
 define(['kissy', './rule', './item'], function(S, Rule, Item){
-
 	/**
 	 * 
 	 */
@@ -14,6 +13,14 @@ define(['kissy', './rule', './item'], function(S, Rule, Item){
 	 * 
 	 */
 	S.augment(Validator, {
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		__init: function(){
+			
+		},
 		attach: function(selector){
 			this.selector = selector || this.selector;
 			this.attached = true;
@@ -24,13 +31,29 @@ define(['kissy', './rule', './item'], function(S, Rule, Item){
 			this.attached = false;
 			this.selector = null;
 		},
-		add: function(item){
+		add: function(rule){
 			
 		},
-		valid: function(){
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		get: function(index){
+			
+		},
+		check: function(){
 			if(!this.attached){
 				return true;
 			}
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		onCheck: function(fn){
+			fn ? $(this).on('check', fn) : $(this).trigger('check', [false]);
 		}
 	});
 

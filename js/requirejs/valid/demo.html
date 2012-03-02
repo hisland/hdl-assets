@@ -11,12 +11,61 @@
 			baseUrl: '../'
 		});
 
-		require(['valid', 'util', 'demo'], function(Valid, tool) {
-			
+		require(['valid', 'valid/group', 'demo'], function(Valid, Group) {
+
+			Valid.init({
+				selector: '',
+				groups: {
+					'group1': {
+						selector: '',
+						items: {
+							'ipv4': {
+								rule: 'ipv4',
+								onCheck: function(rs){
+									
+								}
+							},
+							'max-value': {
+								rule: 'must',
+								message: '这个东东必须填'
+							}
+						}
+					}
+				},
+				onCheck: function(rs){
+					
+				},
+				onError: function(){
+					
+				},
+				onValid: function(){
+					
+				},
+				errorFocus: true
+			});
+
+			new Group().rule('ipv4').attach('#bb1');
 		});
 	</script>
 </head>
 <body>
-	
+	<div class="demo-section">
+		<div class="demo-legend">包围在form中</div>
+		<div class="demo-box">
+			<form id="aa">
+				<input id="aa1" type="text" name="" value="" />
+				<br /><br />
+				<input id="aa2" type="text" name="" value="" />
+			</form>
+		</div>
+	</div>
+	<div class="demo-section">
+		<div class="demo-legend">单独</div>
+		<div class="demo-box">
+			<input id="bb1" type="text" name="" value="" />
+			<br /><br />
+			<input id="bb2" type="text" name="" value="" />
+		</div>
+	</div>
 </body>
 </html>

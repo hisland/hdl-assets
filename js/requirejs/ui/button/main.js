@@ -6,7 +6,7 @@
  */
 
 define(['jquery', 'kissy', 'css!./button'], function($, S){
-	function Button(setting){
+	function Button(){
 		this.$div = $('<a href="javascript:;" class="ui-button">button</a>');
 	}
 
@@ -16,14 +16,14 @@ define(['jquery', 'kissy', 'css!./button'], function($, S){
 			return this;
 		},
 		click: function(fn){
-			this.$div.click(fn);
+			fn ? $(this).on('click', fn) : $(this).trigger('click');
 			return this;
 		}
 	});
 
 	return {
-		init: function(setting){
-			return new Button(setting);
+		init: function(){
+			return new Button();
 		}
 	};
 });

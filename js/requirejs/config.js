@@ -5,6 +5,10 @@ require.config({
 	},
 	packages: ['css', 'util', 'color', 'jquery-plugin', 'valid',
 				'ui/autocomp', 'ui/button', 'ui/date', 'ui/grid', 'ui/popwin', 'ui/select',
-				'ui/tabs', 'ui/tip', 'ui/tree', 'ui/week', 'ui/popup',
-				'sf/page', 'demo']
+				'ui/tab', 'ui/tip', 'ui/tree', 'ui/week', 'ui/popup']
+});
+
+require.config({
+	packages: ['sf/condition', 'sf/config', 'sf/menu', 'sf/page', 'sf/top',
+				'demo']
 });

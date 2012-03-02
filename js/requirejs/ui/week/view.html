@@ -2,54 +2,85 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>@name 周选择控件样式页面 - V3 @nameANT</title>
-	<meta http-equiv="Content-Type" content="text/html;charset=gb2312" />
-	<script type="text/javascript" charset="utf-8" src="../seed.js"></script>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
 	<script type="text/javascript">
-		KISSY.ready(function(S){
-			S.use('reset-css, common-css, demo-css, condition-list-css, weekTool+css', function(){
-				
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/week', 'util', 'demo'], function(Week, Util) {
+			$('.week-wrap').each(function(i, v){
+				$(v).html(Util.trimBlank($(v).html()));
 			});
 		});
 	</script>
 </head>
 
 <body>
-	<div class="weektool-tip">您选择的时间是
-		<span class="weektool-range">第8周 2012-02-09 17:11:10</span>到
-		<span class="weektool-range">第8周 2012-02-09 17:11:10</span>
-	</div>
-	<div class="weektool-legend">
-		<span class="weektool-legend1">年</span>
-		<span class="weektool-legend2">周</span>
-		<span class="weektool-legend3">时间</span>
-		<span class="weektool-legend4">周</span>
-		<span class="weektool-legend5">时间</span>
-	</div>
-	<div class="weektool">
-		<a href="#" class="hover" data-id="33">2009</a>
-		<a href="#">2009</a>
-		<a href="#">2009</a>
-		<a href="#">2009</a>
-		<a href="#">2009</a>
-		<a href="#">2009</a>
-	</div>
-	<div class="weektool">
-		<a href="#" class="hover" data-id="33"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-	</div>
-	<div class="weektool">
-		<a href="#" class="hover" data-id="33"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#" class="disabled"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
-		<a href="#"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+	<div class="week-wrap">
+		<div class="week-legend">
+			<span class="week-legend1">年</span>
+			<span class="week-legend2">周</span>
+			<span class="week-legend3">开始时间</span>
+			<span class="week-legend4">周</span>
+			<span class="week-legend5">结束时间</span>
+		</div>
+		<div class="week-box-out">
+			<div class="week-box">
+				<a href="javascript:;">2009</a>
+				<a href="javascript:;">2009</a>
+				<a href="javascript:;" class="hover">2009</a>
+				<a href="javascript:;">2009</a>
+				<a href="javascript:;">2009</a>
+				<a href="javascript:;">2009</a>
+			</div>
+		</div>
+		<div class="week-box-out">
+			<div class="week-box2">
+				<div class="week-time">
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;" class="hover"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+				</div>
+				<div class="week-time">
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;" class="disabled"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;" class="hover"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+					<a href="javascript:;"><strong>1</strong><span>2011-11-10 11:31:21</span></a>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -9,7 +9,8 @@ define(['kissy'], function(S){
 	 * @param delay 大于50的数字, 间隔时间,单位ms, 默认为50ms
 	 */
 	function laterOne(fn, delay){
-		this.setFn(fn).setDelay(delay);
+		this.fn = fn;
+		this.delay = delay;
 	}
 	/**
 	 * @lends laterOne#
@@ -48,7 +49,7 @@ define(['kissy'], function(S){
 		 * @param fn 延迟,正整数,单位ms
 		 */
 		setDelay: function (delay){
-			delay = delay > 50 ? delay : 50;
+			delay = delay > 30 ? delay : 30;
 			this.delay = delay;
 			this.stop().start();
 			return this;

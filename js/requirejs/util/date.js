@@ -4,7 +4,7 @@
 define(['kissy'], function(S){
 	//将长度为1的字符串前置0
 	function __prefix0(value){
-		return value.length == 1 ? '0' + value : value;
+		return (value + '').length == 1 ? '0' + value : value;
 	}
 	//add具体的type
 	function __add(type, value){

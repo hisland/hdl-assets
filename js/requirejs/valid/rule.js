@@ -102,6 +102,14 @@ define(['kissy'], function(S){
 				arr.push(i.replace(__PREFIX, ''));
 			});
 			return arr;
+		},
+		/**
+		 * 获得指定的验证, 可用于检测是否存在指定的验证
+		 * @param String name 规则名字
+		 * @return Object|undefined
+		 */
+		getItem: function(name){
+			return items[__PREFIX + name];
 		}
 	};
 });

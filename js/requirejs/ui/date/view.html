@@ -11,9 +11,9 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/date', 'util', 'css'], function(T, tool) {
+		require(['ui/date', 'util', 'css'], function(T, Util) {
 			$('.hdt-wrap').each(function(i, v){
-				$(v).html(tool.trimBlank($(v).html()));
+				$(v).html(Util.trimBlank($(v).html()));
 			});
 		});
 	</script>

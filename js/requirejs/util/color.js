@@ -127,9 +127,15 @@ define(['kissy'], function(S){
 			sr = this.r.toString(16);
 			sg = this.g.toString(16);
 			sb = this.b.toString(16);
-			if(sr.length==1){sr="0" + sr};
-			if(sg.length==1){sg="0" + sg};
-			if(sb.length==1){sb="0" + sb};
+			if(sr.length === 1){
+				sr = "0" + sr;
+			}
+			if(sg.length === 1){
+				sg = "0" + sg;
+			}
+			if(sb.length === 1){
+				sb = "0" + sb;
+			}
 			return "#" + sr + sg + sb;
 		},
 

@@ -3,11 +3,18 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
 	<script type="text/javascript">
-		KISSY.ready(function(S){
-			S.use('reset-css, common-css, demo-css, condition-list-css, weekTool+css', function(){
-				$('#week1, #week2').weekTool();
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/week', 'util', 'demo'], function(Week, Util) {
+			window.aa = Week.init({
+				start: '',
+				end: ''
 			});
 		});
 	</script>

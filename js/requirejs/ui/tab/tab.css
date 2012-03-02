@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+.ui-tab{}
+	.ui-tab-nav{height:22px;padding:5px 0 0 5px;border-bottom:1px solid #a1c6e1;}
+		.ui-tab-nav li{float:left;margin-right:5px;background:url('tab-img/nav.gif') no-repeat 0 0;padding-left:10px;cursor:pointer;}
+			.ui-tab-nav a{float:left;height:22px;line-height:22px;color:#000;background:url('tab-img/nav.gif') no-repeat right 0;padding-right:10px;outline:none;}
+			.ui-tab-nav a:hover{text-decoration:none;color:#666;}
+			.ui-tab-nav span{float:left;height:22px;line-height:22px;cursor:pointer;background:url('tab-img/nav.gif') repeat-x 0 -50px;}
+		.ui-tab-nav li.ui-tab-hover{height:23px;font-weight:700;background:url('tab-img/nav.gif') no-repeat 0 -25px;margin-bottom:-1px;position:relative;}
+			.ui-tab-nav li.ui-tab-hover a{height:23px;font-weight:700;background:url('tab-img/nav.gif') no-repeat right -25px;}
+			.ui-tab-nav li.ui-tab-hover span{height:23px;background-position:0 -75px;}
+
+	.ui-tab div.ui-tab-con{overflow:auto;}
