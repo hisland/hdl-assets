@@ -2,10 +2,10 @@
  * 
  */
 
-define(['./menu'], function(P){
+define(['./menu'], function(Menu){
 	return {
 		init: function(){
-			return new P();
+			return new Menu();
 		}
 	};
 });

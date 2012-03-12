@@ -11,12 +11,57 @@
 			baseUrl: '../../'
 		});
 
-		require(['', 'demo'], function() {
-			
+		require(['sf/menu', 'util', 'demo'], function(Menu, Util) {
+			$('.menu-now, .menu-search, .menu-wrap').each(function(i, v){
+				$(v).html(Util.trimBlank($(v).html()));
+			});
 		});
 	</script>
 </head>
 <body>
-	
+
+	<div class="menu-now">
+		<p>
+			系统通信告警
+		</p>
+	</div>
+	<div class="menu-search">
+		<p>
+			<input type="text" name="" value="" placeholder="搜索" />
+		</p>
+	</div>
+	<div class="menu-wrap">
+		<div class="menu-lv1">
+			<p class="menu-lv1-icon1">
+				常用菜单
+			</p>
+		</div>
+		<div class="menu-lv1">
+			<p class="menu-lv1-icon2">
+				用户管理
+			</p>
+		</div>
+		<div class="menu-lv1">
+			<p class="menu-lv1-icon3">
+				系统管理
+			</p>
+		</div>
+		<div class="menu-sub-wrap">
+			<div class="menu-lv2">
+				<a href="" hidefocus="true">运行状态管理</a>
+			</div>
+			<div class="menu-lv2">
+				<a class="hover" href="" hidefocus="true">系统通信告警</a>
+			</div>
+			<div class="menu-lv2">
+				<a href="" hidefocus="true">接口配置管理</a>
+			</div>
+		</div>
+		<div class="menu-lv1">
+			<p class="menu-lv1-icon4">
+				业务管理
+			</p>
+		</div>
+	</div>
 </body>
 </html>

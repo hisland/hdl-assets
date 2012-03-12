@@ -11,8 +11,15 @@
 			baseUrl: '../../'
 		});
 
-		require(['', 'demo'], function() {
-			
+		require(['sf/menu', 'util', 'demo'], function(Menu) {
+			//初始化菜单包含层及对象
+			var m = Menu.init();
+			m.$div.appendTo('body');
+
+			//加载菜单数据
+			$.getJSON('data.js', function(rs){
+				m.setData(rs);
+			});
 		});
 	</script>
 </head>
