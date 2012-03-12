@@ -1,0 +1,12 @@
+[{
+	"text":"DEMO",
+	"children":[{
+			"text":"查询页面",
+			"url":"#demo/search.html"
+		},{
+			"text":"配置页面",
+			"url":"#demo/config.html"
+		}
+	]
+}
+]

@@ -2,10 +2,20 @@
 
 html{height:100%;overflow:auto;}
 body{height:100%;}
-.main-wrap{height:100%;position:relative;min-width:800px;max-width:1100px;margin:0 auto;}
 
-	.head-bar{height:25px;background:red;}
+.header-bg{position:absolute;height:25px;width:100%;background:#b9b9b9;border-bottom:1px solid #9f9f9f;}
 
-	.menu-bar{float:left;width:200px;background:green;}
+.main-wrap{height:100%;position:relative;min-width:800px;max-width:1100px;margin:0 auto;background:#ededed;}
 
-	.main{padding-left:200px;background:purple;}
+	.header{height:26px;border-bottom:1px solid #fafafa;}
+		.header-in{height:25px;background:#b9b9b9;border-bottom:1px solid #9f9f9f;}
+
+		.header-buttons{float:right;padding-top:5px;}
+			.header-buttons a{display:inline-block;padding:0 5px;color:#565656;}
+			.header-buttons a:hover{text-decoration:none;}
+
+	.aside{float:left;width:200px;background:#e8e9e9;}
+		.logo{width:200px;text-align:center;padding:5px 0;height:45px;}
+
+	.main{margin:4px 0 0 200px;border-left:1px solid #ccc;border-top:1px solid #ccc;border-radius:5px 0 0 0;}
+		.main-in{border-left:1px solid #fff;border-top:1px solid #fff;border-radius:5px 0 0 0;background:#e5e5e3;}

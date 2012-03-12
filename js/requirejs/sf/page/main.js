@@ -27,10 +27,13 @@ define(['jquery', 'kissy', 'css!./page'], function($, S){
 		//修正高度,最小高度为500,因为顶部是25,所以为475
 		docHeight = document.documentElement.clientHeight;
 		if(docHeight < minHeight){
-			$('.menu-bar, .main').height(wrapHeight = minHeight - 25);
+			$('.aside, .main-in').height(wrapHeight = minHeight - 35);
 		}else{
-			$('.menu-bar, .main').height(wrapHeight = docHeight - 25);
+			$('.aside, .main-in').height(wrapHeight = docHeight - 35);
 		}
+
+		//修正菜单高度
+		$('.menu-wrap').height(wrapHeight - 120);
 	}).resize();
 
 	return {
@@ -52,8 +55,13 @@ define(['jquery', 'kissy', 'css!./page'], function($, S){
 			var me = this, html,
 				timeOk, reqOk;
 
+			//处理url
+			if(url.charAt(0) === '#'){
+				url = url.substr(1);
+			}
+
 			me.beforeLoad();
-			me.$con.html('加载中...');
+			$('.main-in').html('加载中...');
 
 			//每次都需要重新计时
 			if(me.__timer){
@@ -78,8 +86,8 @@ define(['jquery', 'kissy', 'css!./page'], function($, S){
 
 			function insert(){
 				if(timeOk && reqOk){
-					me.$con.html(html);
-					fn();
+					$('.main-in').html(html);
+					fn && fn();
 					me.afterLoad();
 				}
 			}
@@ -91,7 +99,7 @@ define(['jquery', 'kissy', 'css!./page'], function($, S){
 		 * @return 
 		 */
 		menuWidth: function(width){
-			$('.menu-bar').width(width);
+			$('.aside').width(width);
 			$('.main').css('padding-left', width);
 			return this;
 		},
@@ -134,7 +142,7 @@ define(['jquery', 'kissy', 'css!./page'], function($, S){
 		 * @return this
 		 */
 		beforeLoad: function(fn){
-			fn ? $(this).on('beforeLoad', fn) : $(this).trigger('beforeLoad');
+			fn ? $(this).on('onBeforeLoad', fn) : $(this).trigger('onBeforeLoad');
 			return this;
 		},
 		/**
@@ -143,7 +151,7 @@ define(['jquery', 'kissy', 'css!./page'], function($, S){
 		 * @return this
 		 */
 		afterLoad: function(fn){
-			fn ? $(this).on('afterLoad', fn) : $(this).trigger('afterLoad');
+			fn ? $(this).on('onAfterLoad', fn) : $(this).trigger('onAfterLoad');
 			return this;
 		}
 	};
