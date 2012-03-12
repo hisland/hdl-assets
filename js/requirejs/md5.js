@@ -257,11 +257,11 @@ function binl2b64(binarray)
 }
 
 return {
-	hex_md5: hex_md5,
-	b64_md5: b64_md5,
-	str_md5: str_md5,
-	hex_hmac_md5: hex_hmac_md5,
-	b64_hmac_md5: b64_hmac_md5,
-	str_hmac_md5: str_hmac_md5
+	hex: hex_md5,
+	b64: b64_md5,
+	str: str_md5,
+	hex_hmac: hex_hmac_md5,
+	b64_hmac: b64_hmac_md5,
+	str_hmac: str_hmac_md5
 };
 });
