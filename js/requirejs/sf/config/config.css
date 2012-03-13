@@ -1,34 +1,16 @@
 @charset "utf-8";
 
-/* 配置条件表格 */
-.config-wrap{position:relative;height:100%;overflow:hidden;}
-	.config-tables{height:100%;overflow:auto;position:relative;}
-		.config-tables-in{padding:32px 10px 10px;width:90%;}
+.config{padding:10px;}
 
-		.config-col1-1{width:25%;}
-		.config-col1-2{width:75%;}
-		.config-col2-1{width:20%;}
-		.config-col2-2{width:30%;}
+.config-wrap{overflow:auto;background:#fafafa;}
+	.config-wrap-in{padding:10px 0;overflow:hidden;}
+	.config-item{height:30px;width:500px;margin:0 0 5px;}
+		.config-text{float:left;height:30px;line-height:30px;width:145px;padding-right:5px;text-align:right;white-space:nowrap;}
+		.config-ipts{float:left;height:28px;width:348px;border:1px solid #dfdfdf;background:#fff;white-space:nowrap;}
+			.config-ipts input{display:block;padding:3px;height:22px;width:342px;border:none;background:none;}
+			.config-ipts input.config-time{float:left;width:120px;}
+			.config-ipts .config-dash{float:left;padding:3px;height:22px;line-height:22px;}
+			.config-ipts select{display:block;padding:6px;height:28px;width:348px;border:none;background:none;}
 
-		.config-table{width:100%;position:relative;}
-			/* default */
-			.config-table th{border:1px solid #dee7ee;padding:3px 10px 3px 5px;background:#f3f8fc;text-align:right;font-weight:400;}
-			.config-table td{border:1px solid #dee7ee;padding:3px 5px 3px 5px;}
-
-			/* text-align set on th,td */
-			.config-table .text-left{text-align:left;}
-			.config-table .text-center{text-align:center;}
-			.config-table .text-right{text-align:right;}
-
-			/* text-align set on tr */
-			.config-table tr.text-left th
-				,.config-table tr.text-left td{text-align:left;}
-			.config-table tr.text-center th
-				,.config-table tr.text-center td{text-align:center;}
-			.config-table tr.text-right th
-				,.config-table tr.text-right td{text-align:right;}
-
-			.row_title th{padding: 3px 3px 3px 20px;background:#E1EEF8;color:#3A3A3A;text-align:left;font-weight:700;}
-
-
-	.config-btns{position:absolute;top:0;left:0;width:90%;text-align:center;padding:5px;background:#fff;}
+.config-btns{padding:10px 10px 10px 150px;}
+	.config-btns input{margin-right:10px;}

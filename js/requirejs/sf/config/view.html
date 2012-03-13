@@ -15,105 +15,55 @@
 			
 		});
 	</script>
+	<style type="text/css">
+		html, body{height:100%;}
+		.config{border:1px solid #ccc;height:70%;}
+	</style>
 </head>
 <body>
-<div class="config-wrap">
-	<div class="config-tables">
-		<div class="config-tables-in">
-			<table class="config-table">
-				<col class="config-col2-1" />
-				<col class="config-col2-2" />
-				<col class="config-col2-1" />
-				<col class="config-col2-2" />
-				<tbody>
-					<tr>
-						<th>单选示例</th>
-						<td>
-							<label class="label1"><input type="radio" name="add1" value="1" />是</label>
-							<label class="label1"><input type="radio" name="add1" value="2" />否</label>
-						</td>
-						<th>单选示例</th>
-						<td>
-							<label class="label1"><input type="checkbox" name="add1" value="1" />值1</label>
-							<label class="label1"><input type="checkbox" name="add1" value="2" />值2</label>
-						</td>
-					</tr>
-					<tr>
-						<th>单选示例</th>
-						<td>
-							<label class="label1"><input type="radio" name="add1" value="1" />是</label>
-							<label class="label1"><input type="radio" name="add1" value="2" />否</label>
-						</td>
-						<th>单选示例</th>
-						<td>
-							<label class="label1"><input type="checkbox" name="add1" value="1" />值1</label>
-							<label class="label1"><input type="checkbox" name="add1" value="2" />值2</label>
-						</td>
-					</tr>
-					<tr>
-						<th>下拉示例</th>
-						<td>
-							<select name="" class="select1">
-								<option value="1">值1</option>
-								<option value="2">值2</option>
-								<option value="3">值3</option>
-								<option value="4">值4</option>
-								<option value="5">值5</option>
-							</select>
-						</td>
-						<th>输入示例</th>
-						<td><input class="text1" type="text" name="" /></td>
-					</tr>
-					<tr class="row_title">
-						<th colspan="4">小表头</th>
-					</tr>
-					<tr>
-						<th>单选示例</th>
-						<td>
-							<label class="label1"><input type="radio" name="add1" value="1" />是</label>
-							<label class="label1"><input type="radio" name="add1" value="2" />否</label>
-						</td>
-						<th>单选示例</th>
-						<td>
-							<label class="label1"><input type="checkbox" name="add1" value="1" />值1</label>
-							<label class="label1"><input type="checkbox" name="add1" value="2" />值2</label>
-						</td>
-					</tr>
-					<tr>
-						<th>单选示例</th>
-						<td>
-							<label class="label1"><input type="radio" name="add1" value="1" />是</label>
-							<label class="label1"><input type="radio" name="add1" value="2" />否</label>
-						</td>
-						<th>单选示例</th>
-						<td>
-							<label class="label1"><input type="checkbox" name="add1" value="1" />值1</label>
-							<label class="label1"><input type="checkbox" name="add1" value="2" />值2</label>
-						</td>
-					</tr>
-					<tr>
-						<th>下拉示例</th>
-						<td>
-							<select name="" class="select1">
-								<option value="1">值1</option>
-								<option value="2">值2</option>
-								<option value="3">值3</option>
-								<option value="4">值4</option>
-								<option value="5">值5</option>
-							</select>
-						</td>
-						<th>输入示例</th>
-						<td><input class="text1" type="text" name="" /></td>
-					</tr>
-				</tbody>
-			</table>
+<div class="config">
+	<div class="config-wrap">
+		<div class="config-wrap-in">
+			<div class="config-item">
+				<div class="config-text">策略名称</div>
+				<div class="config-ipts">
+					<input type="text" name="" value="" />
+				</div>
+			</div>
+
+			<div class="config-item">
+				<div class="config-text">时间段</div>
+				<div class="config-ipts">
+					<input class="config-time" type="text" name="" value="2012-03-13 00:00:00" />
+					<span class="config-dash">-</span>
+					<input class="config-time" type="text" name="" value="2012-03-13 23:59:59" />
+				</div>
+			</div>
+
+			<div class="config-item">
+				<div class="config-text">策略状态</div>
+				<div class="config-ipts">
+					<select>
+						<option value="">策略策略策略</option>
+						<option value="">策略策略策略</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="config-item">
+				<div class="config-text">启用状态</div>
+				<div class="config-ipts">
+					<select>
+						<option value="">启用</option>
+						<option value="">停用</option>
+					</select>
+				</div>
+			</div>
 		</div>
 	</div>
-
-	<!-- 使用max-height 可做到固定在下面 -->
 	<div class="config-btns">
-		<input class="button" type="button" value="确定" />
-		<input class="button" type="button" value="重置" />
+		<input class="button4" type="button" value="确定" />
+		<input class="button4" type="button" value="重置" />
 	</div>
 </div>
 </body>

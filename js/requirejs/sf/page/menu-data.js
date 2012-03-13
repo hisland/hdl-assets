@@ -6,6 +6,9 @@
 		},{
 			"text":"配置页面",
 			"url":"#demo/config.html"
+		},{
+			"text":"配置页面-很多条件",
+			"url":"#demo/config-more.html"
 		}
 	]
 }

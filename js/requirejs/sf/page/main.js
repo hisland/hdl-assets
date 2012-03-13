@@ -7,7 +7,7 @@ define(['jquery', 'kissy', 'css!./page'], function($, S){
 		docWidth, docHeight, wrapWidth, wrapHeight,
 		minWidth = 800,
 		maxWidth = 1100,
-		minHeight = 500;
+		minHeight = 300;
 
 	//窗口变动修正尺寸
 	$(window).resize(function(e){
@@ -90,7 +90,7 @@ define(['jquery', 'kissy', 'css!./page'], function($, S){
 					fn && fn();
 					me.afterLoad();
 
-					//出发修正高度的操作
+					//触发修正高度的操作
 					$(window).resize();
 				}
 			}
