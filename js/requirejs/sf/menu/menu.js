@@ -37,14 +37,14 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 			return this;
 		},
 		/**
-		 * 
+		 * 设置菜单数据
 		 * @param data Array
 		 * @return this
 		 */
 		setData: function(data){
 			var buff = [], menu = this;
 			
-			//生成dom结构
+			//生成1级结构
 			S.each(data, function(v, i, o){
 				buff.push('<div class="menu-lv1">');
 				buff.push('<p class="menu-lv1-icon', i+1, '">');
@@ -52,7 +52,7 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 				buff.push('</p>');
 				buff.push('</div>');
 				buff.push('<div class="menu-sub-wrap">');
-				buff.push(menu.makeSubMenu(buff, v.children));
+				menu.makeSubMenu(buff, v.children);
 				buff.push('</div>');
 			});
 			this.$div.filter('.menu-wrap').html(buff.join(''));
@@ -65,9 +65,10 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 			return this;
 		},
 		/**
-		 * 
-		 * @param 
-		 * @return 
+		 * 生成2级以下结构, 用于递归
+		 * @param buff Array
+		 * @param data Array
+		 * @return this
 		 */
 		makeSubMenu: function(buff, data){
 			var menu = this;
@@ -89,21 +90,23 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 					buff.push('</div>');
 				}
 			});
+			return this;
 		},
 		/**
-		 * @param str
+		 * @param str String
 		 * @return Array
 		 */
 		search: function(str){
 			return [];
 		},
 		/**
-		 * 
-		 * @param 
-		 * @return 
+		 * 设置当前菜单的文字
+		 * @param str String
+		 * @return this
 		 */
 		setNow: function(str){
 			this.$div.filter('.menu-now').find('p').html(str);
+			return this;
 		}
 	});
 

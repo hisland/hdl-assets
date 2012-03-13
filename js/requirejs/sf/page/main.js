@@ -89,6 +89,9 @@ define(['jquery', 'kissy', 'css!./page'], function($, S){
 					$('.main-in').html(html);
 					fn && fn();
 					me.afterLoad();
+
+					//出发修正高度的操作
+					$(window).resize();
 				}
 			}
 			return this;
