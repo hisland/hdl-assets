@@ -1,7 +1,7 @@
 /**
  * string有用的工具
  */
-define(function(){
+define(['jquery'], function($){
 	var entityHTML_reg = /[&<>'"]/g,
 		entityHTML_obj = {
 			'&': '&amp;',
@@ -19,6 +19,11 @@ define(function(){
 			'&quot;': '"',
 			'&#34;': '"'
 		};
+	
+	var div = $('<div style="visibility:hidden;position:absolute;top:-20px;left:0;"></div>');
+	$(function(){
+		div.appendTo('body');
+	});
 
 	/**
 	 * @lends util
@@ -127,6 +132,16 @@ define(function(){
 				}
 			}
 			return len;
+		},
+		/**
+		 * 返回一个字符串的可见宽度
+		 * @param str String
+		 * @return Int
+		 */
+		viewWidth: function(str){
+			str = div.html(str).width();
+			div.empty();
+			return str;
 		}
 	};
 });

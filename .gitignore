@@ -1,5 +1,5 @@
 *.class
-js/src/.project
+.project
 js/src/.settings
 java/tag/build
 java/tag/customTag/WebRoot/assets

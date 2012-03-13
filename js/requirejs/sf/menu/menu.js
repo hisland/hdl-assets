@@ -14,7 +14,7 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 		 * @return 
 		 */
 		__init: function(){
-			var div = $('<div class="menu-now"><p>系统通信告警</p></div><div class="menu-search"><p><input type="text" name="" value="" placeholder="搜索" /></p></div><div class="menu-wrap"><div class="menu-lv1"><p class="menu-lv1-icon1">常用菜单</p></div><div class="menu-lv1"><p class="menu-lv1-icon2">用户管理</p></div><div class="menu-lv1"><p class="menu-lv1-icon3">系统管理</p></div><div class="menu-sub-wrap"><div class="menu-lv2"><a href="" hidefocus="true">运行状态管理</a></div><div class="menu-lv2"><a class="hover" href="" hidefocus="true">系统通信告警</a></div><div class="menu-lv2"><a href="" hidefocus="true">接口配置管理</a></div></div><div class="menu-lv1"><p class="menu-lv1-icon4">业务管理</p></div></div>');
+			var div = $('<div class="menu-now"><p>系统通信告警</p></div><div class="menu-search"><p><input type="text" name="" value="" placeholder="搜索" /></p></div><div class="menu-wrap"></div>');
 			this.$div = div;
 			return this;
 		},
@@ -26,12 +26,13 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 		__initEvent: function(){
 			//菜单折叠
 			this.$div.on('click', '.menu-lv1>p', function(e){
-				$(this).parent().next().toggle();;
+				$(this).parent().next().toggle();
 			});
 
 			//菜单点击, 加载页面
-			this.$div.on('click', 'a', function(e){
-				Page.loadUrl;
+			this.$div.on('click', 'a', this, function(e){
+				Page.loadUrl($(this).attr('href'));
+				e.data.setNow($(this).text());
 			});
 			return this;
 		},
@@ -95,6 +96,14 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 		 */
 		search: function(str){
 			return [];
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		setNow: function(str){
+			this.$div.filter('.menu-now').find('p').html(str);
 		}
 	});
 

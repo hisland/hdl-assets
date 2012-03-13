@@ -10,5 +10,5 @@ require.config({
 
 require.config({
 	packages: ['sf/condition', 'sf/config', 'sf/menu', 'sf/page', 'sf/top',
-				'demo']
+				'demo', 'sf/menu']
 });
