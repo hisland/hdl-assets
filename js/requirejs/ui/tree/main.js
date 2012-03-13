@@ -2,10 +2,10 @@
  * 
  */
 
-define(['./tree'], function(T){
+define(['./tree'], function(Tree){
 	return {
 		init: function(data){
-			return new T(data);
+			return new Tree(data);
 		}
 	};
 });

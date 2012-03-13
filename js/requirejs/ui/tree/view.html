@@ -11,9 +11,9 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/tree', 'util', 'css'], function(T, tool) {
+		require(['ui/tree', 'util', 'css'], function(T, Util) {
 			$('.hdl-tree-ctrl, .hdl-tree:eq(0), .tree-line').each(function(i, v){
-				$(v).html(tool.trimBlank($(v).html()));
+				$(v).html(Util.trimBlank($(v).html()));
 			});
 		});
 	</script>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/grid', 'util'], function(Grid, Util) {
+			window.grid = Grid.init({
+					url: 'data.php',
+					colModel : [
+						{display: '名称', name: 'mobileName', width: 90},
+						{display: '是否启用', width: 60, process: function(row, col){
+							if(row.status == 0){
+								return '否';
+							}else{
+								return '是';
+							}
+						}},
+						{display: '是否SP', width: 70, name: 'isSp', align: 'right', align_head: 'right'},
+						{display: '是否USSD', width: 60, name: 'isUSSD'},
+						{display: '父业务类型', width: 70, name: 'fsmTypeId'},
+						{display: '是否送BI', width: 60, name: 'isBi'},
+						{display: '送BI文件名', width: 70, name: 'biContent'},
+						{display: '送BI目录', width: 60, name: 'biDirectory'},
+						{display: '备注', width: 60, name: 'remarks'}
+					],
+					single_select: true,
+					enable_checkbox: true
+				});
+			grid.$div.appendTo('#wrap');
+			grid.ajaxLoad();
+
+			window.grid2 = Grid.init({
+					url: 'data.php',
+					colModel : [
+						{display: '名称', name: 'mobileName', width: 90},
+						{display: '是否启用', width: 60, process: function(row, col){
+							if(row.status == 0){
+								return '否';
+							}else{
+								return '是';
+							}
+						}},
+						{display: '是否SP', width: 70, name: 'isSp', align: 'right', align_head: 'right'},
+						{display: '是否USSD', width: 60, name: 'isUSSD'},
+						{display: '父业务类型', width: 70, name: 'fsmTypeId'},
+						{display: '是否送BI', width: 60, name: 'isBi'},
+						{display: '送BI文件名', width: 70, name: 'biContent'},
+						{display: '送BI目录', width: 60, name: 'biDirectory'},
+						{display: '备注', width: 60, name: 'remarks'}
+					],
+					single_select: true
+				});
+			grid2.$div.appendTo('#wrap2');
+			grid2.ajaxLoad();
+		});
+	</script>
+	<style type="text/css">
+		#wrap{width:500px;height:300px;border:1px solid #D7E6F5;margin:20px;}
+		#wrap2{width:700px;height:400px;border:1px solid #D7E6F5;margin:20px;}
+	</style>
+</head>
+
+<body>
+	<div id="wrap"></div>
+	<div id="wrap2"></div>
+</body>
+</html>

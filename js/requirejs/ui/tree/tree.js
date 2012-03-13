@@ -116,7 +116,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 			return this;
 		},
 		/**
-		 * 根据path获得指定js对象
+		 * 根据path(实际是div的id属性)获得指定js对象
 		 */
 		getNode: function(path){
 			var node = this, i = 0;
@@ -128,7 +128,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 			return node;
 		},
 		/**
-		 * 根据node/path获得指定的DOM对象
+		 * 根据node/path获得指定的DIV
 		 */
 		getDOM: function(path){
 			if(S.isObject(path)){

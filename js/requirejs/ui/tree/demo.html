@@ -272,11 +272,11 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/tree', 'css'], function(Tree) {
+		require(['ui/tree', 'kissy'], function(Tree, S) {
 			Tree.init().setData(data3).setTheme('no-line').appendTo('#a');
 			window.kkk = Tree.init().setData(data1).setTheme('line').appendTo('#b');
 			Tree.init().setData(data2).setTheme('blue').appendTo('#d');
-			Tree.init().setData(data2).appendTo('#c');
+			Tree.init().setData(S.clone(data2)).appendTo('#c');
 		});
 	</script>
 	<style type="text/css">
