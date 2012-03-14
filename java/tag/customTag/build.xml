@@ -1,7 +1,7 @@
 <project name="java.tag" default="jar">
 	<property name="encoding" value="UTF-8"/>
 	<property name="version" value="1.0"/>
-	<property name="dir.dest" value="build"/>
+	<property name="dir.dest" value="."/>
 
 	<tstamp>
 		<format property="build.time" pattern="yyyy-MM-dd HH:mm:ss" offset="8" unit="hour" />
@@ -10,10 +10,10 @@
 
 	<target name="jar">
 		<mkdir dir="${dir.dest}/tmp/META-INF" />
-		<copy todir="${dir.dest}/tmp/META-INF" file="customTag/WebRoot/WEB-INF/antispam2850.tld" />
-		<javac encoding="${encoding}" srcdir="customTag/src" destdir="${dir.dest}/tmp" includeantruntime="true">
+		<copy todir="${dir.dest}/tmp/META-INF" file="WebRoot/WEB-INF/antispam2850.tld" />
+		<javac encoding="${encoding}" srcdir="src" destdir="${dir.dest}/tmp" includeantruntime="true">
 			<classpath>
-				<fileset dir="customTag/WebRoot/WEB-INF/lib" includes="*.jar" />
+				<fileset dir="WebRoot/WEB-INF/lib" includes="*.jar" />
 			</classpath>
 		</javac>
 		<jar destfile="${dir.dest}/cdsf-tag-${version}-${build.ts}.jar" basedir="${dir.dest}/tmp"/>
@@ -22,13 +22,13 @@
 
 	<target name="jar-src">
 		<mkdir dir="${dir.dest}/tmp/META-INF" />
-		<copy todir="${dir.dest}/tmp/META-INF" file="customTag/WebRoot/WEB-INF/antispam2850.tld" />
+		<copy todir="${dir.dest}/tmp/META-INF" file="WebRoot/WEB-INF/antispam2850.tld" />
 		<copy todir="${dir.dest}/tmp/">
-			<fileset dir="customTag/src" includes="**/*.java" />
+			<fileset dir="src" includes="**/*.java" />
 		</copy>
-		<javac encoding="${encoding}" srcdir="customTag/src" destdir="${dir.dest}/tmp" includeantruntime="true">
+		<javac encoding="${encoding}" srcdir="src" destdir="${dir.dest}/tmp" includeantruntime="true">
 			<classpath>
-				<fileset dir="customTag/WebRoot/WEB-INF/lib" includes="*.jar" />
+				<fileset dir="WebRoot/WEB-INF/lib" includes="*.jar" />
 			</classpath>
 		</javac>
 		<jar destfile="${dir.dest}/cdsf-tag-${version}-${build.ts}-src.jar" basedir="${dir.dest}/tmp"/>
