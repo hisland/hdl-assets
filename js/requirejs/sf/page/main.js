@@ -2,11 +2,11 @@
  * 
  */
 
-define(['jquery', 'kissy', 'css!./page'], function($, S){
+define(['jquery', 'kissy', 'ui/pop-manager', 'css!./page'], function($, S, PM){
 	var ie = /*@cc_on!@*/!1, ie6 = ie && /msie 6.0/i.test(navigator.userAgent) && !/msie [78].0/i.test(navigator.userAgent),
 		docWidth, docHeight, wrapWidth, wrapHeight,
 		minWidth = 800,
-		maxWidth = 1100,
+		maxWidth = 1000,
 		minHeight = 300;
 
 	//窗口变动修正尺寸
@@ -62,6 +62,9 @@ define(['jquery', 'kissy', 'css!./page'], function($, S){
 
 			me.beforeLoad();
 			$('.main-in').html('加载中...');
+
+			//清除以前的弹出层
+			PM.clean();
 
 			//每次都需要重新计时
 			if(me.__timer){

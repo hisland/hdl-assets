@@ -1,0 +1,69 @@
+<div class="search-condition">
+	<div class="search-ls1 search-ls1-auto">
+
+		<div class="ls1-item">
+			<div class="ls1-text"><strong class="red">*</strong>输入文字</div>
+			<div class="ls1-ipts">
+				<input class="text1" type="text" name="" value="" />
+			</div>
+		</div>
+
+		<div class="ls1-item">
+			<div class="ls1-text"><strong class="red">*</strong>输入文字</div>
+			<div class="ls1-ipts">
+				<input class="text1" type="text" name="" value="" />
+			</div>
+		</div>
+
+	</div>
+	<div class="search-condition-submit">
+		<input class="button4" type="button" value="查询" />
+	</div>
+</div>
+<div class="search-result" id="result">
+	
+</div>
+<script type="text/javascript">
+	require(['ui/grid'], function(Grid){
+		var grid = Grid.init({
+				url: '../../ui/grid/data.php',
+				colModel : [
+					{display: '名称', name: 'mobileName', width: 100},
+					{display: '是否启用', width: 60, process: function(row, col){
+						if(row.status == 0){
+							return '否';
+						}else{
+							return '是';
+						}
+					}},
+					{display: '是否SP', width: 70, name: 'isSp', align: 'right', align_head: 'right'},
+					{display: '是否USSD', width: 60, name: 'isUSSD'},
+					{display: '父业务类型', width: 70, name: 'fsmTypeId'},
+					{display: '是否送BI', width: 60, name: 'isBi'},
+					{display: '送BI文件名', width: 120, name: 'biContent'},
+					{display: '送BI目录', width: 120, name: 'biDirectory'},
+					{display: '备注', width: 70, name: 'remarks'}
+				],
+				single_select: true,
+				enable_checkbox: true
+			});
+		grid.$div.appendTo('#result');
+		grid.ajaxLoad();
+		grid.addButton({
+			type: 'add',
+			click: function(e){
+				alert('add clicked!');
+			}
+		}).addButton({
+			type: 'edit',
+			click: function(e){
+				alert('edit button!');
+			}
+		}).addButton({
+			type: 'del',
+			click: function(e){
+				alert('other button!');
+			}
+		});
+	});
+</script>

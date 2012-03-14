@@ -1,8 +1,17 @@
 [{
 	"text":"DEMO",
 	"children":[{
-			"text":"查询页面",
-			"url":"#demo/search.html"
+			"text":"查询页面-1个条件",
+			"url":"#demo/search-1.html"
+		},{
+			"text":"查询页面-2个条件",
+			"url":"#demo/search-2.html"
+		},{
+			"text":"查询页面-3个条件",
+			"url":"#demo/search-3.html"
+		},{
+			"text":"查询页面-4个及以上条件",
+			"url":"#demo/search-4.html"
 		},{
 			"text":"配置页面",
 			"url":"#demo/config.html"

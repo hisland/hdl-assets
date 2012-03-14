@@ -1,0 +1,94 @@
+<div class="search-condition">
+	<!-- 条件少时加上 search-ls1-auto 这个class让查询按钮往左靠-->
+	<div class="search-ls1 search-ls1-auto">
+
+		<div class="ls1-item">
+			<div class="ls1-text"><strong class="red">*</strong>输入文字</div>
+			<div class="ls1-ipts">
+				<input class="text1" type="text" name="" value="" />
+			</div>
+		</div>
+
+	</div>
+	<div class="search-condition-submit">
+		<input class="button4" type="button" value="查询" />
+	</div>
+</div>
+<div class="search-result" id="result"></div>
+
+<script type="text/javascript">
+	require(['ui/grid', 'ui/popwin'], function(Grid, Popwin){
+		//生成一个实例,后续都是对它的操作,不需要重复生成
+		var pop = Popwin.init();
+
+		//初始化表格
+		var grid = Grid.init({
+				url: '../../ui/grid/data.php',
+				colModel : [
+					{display: '名称', name: 'mobileName', width: 100},
+					{display: '是否启用', width: 60, process: function(row, col){
+						if(row.status == 0){
+							return '否';
+						}else{
+							return '是';
+						}
+					}},
+					{display: '是否SP', width: 70, name: 'isSp', align: 'right', align_head: 'right'},
+					{display: '是否USSD', width: 60, name: 'isUSSD'},
+					{display: '父业务类型', width: 70, name: 'fsmTypeId'},
+					{display: '是否送BI', width: 60, name: 'isBi'},
+					{display: '送BI文件名', width: 120, name: 'biContent'},
+					{display: '送BI目录', width: 120, name: 'biDirectory'},
+					{display: '备注', width: 70, name: 'remarks'}
+				],
+				single_select: true,
+				enable_checkbox: true
+			});
+		
+		//放到指定位置
+		grid.$div.appendTo('#result');
+
+		//添加按钮
+		grid.addButton({
+			type: 'add',
+			click: function(e, checkedItems){
+				//checkedItems 包含了选中行所对应的rawData原始数据数组
+				//可以对其处理后发送请求
+
+				$.get('demo/add.html', function(rs){
+					//填充取得的内容
+					pop.$content.html(rs);
+					
+					//将弹出层引用放到form上
+					pop.$content.find('>form').data('popwin', pop);
+
+					//显示弹出层
+					pop.show();
+				});
+			}
+		});
+
+		//修改按钮
+		grid.addButton({
+			type: 'edit',
+			click: function(e, checkedItems){
+				//checkedItems 包含了选中行所对应的rawData原始数据数组
+				//可以对其处理后发送请求
+				alert('edit button!');
+			}
+		});
+
+		//删除按钮
+		grid.addButton({
+			type: 'del',
+			click: function(e, checkedItems){
+				//checkedItems 包含了选中行所对应的rawData原始数据数组
+				//可以对其处理后发送请求
+				alert('other button!');
+			}
+		});
+
+		//加载表格数据
+		grid.ajaxLoad();
+	});
+</script>
