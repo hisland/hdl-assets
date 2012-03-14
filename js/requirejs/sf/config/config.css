@@ -1,9 +1,12 @@
 @charset "utf-8";
 
-.config{padding:10px;}
+.config{padding:5px;}
 
 .config-wrap{overflow:auto;background:#fafafa;}
-	.config-wrap-in{padding:10px 0;overflow:hidden;}
+	.config-wrap-in{padding:10px;overflow:hidden;}
+	.config-line{border-bottom:1px solid #bdc0c2;margin:20px 0 10px;}
+		.config-line span{margin-left:150px;font-weight:700;color:#3e3e3e;}
+
 	.config-item{height:30px;width:500px;margin:0 0 5px;}
 		.config-text{float:left;height:30px;line-height:30px;width:145px;padding-right:5px;text-align:right;white-space:nowrap;}
 		.config-ipts{float:left;height:28px;width:348px;border:1px solid #dfdfdf;background:#fff;white-space:nowrap;}

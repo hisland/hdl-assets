@@ -11,7 +11,7 @@ define(['jquery', 'css!./config'], function($){
 				height_in = me.children('div:first').height();
 
 			//去掉按钮区域高度及padding
-			height -= $(this).next().outerHeight() + 20;
+			height -= $(this).next().outerHeight() + 10;
 
 			//此情况需要高度自适应
 			if(height_in < height){
