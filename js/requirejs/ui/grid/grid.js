@@ -134,7 +134,7 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 			msg_proc: '正在加载,请稍等...',
 
 			/** 间隔背景色设置 */
-			row_bgs: ['#fff', '#f2f8ff'],
+			row_bgs: ['#fff', '#f3f3f3'],
 
 			/** 对响应结果进行预处理 */
 			preProcess: null
@@ -591,7 +591,27 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 		 * @return 
 		 */
 		addButton: function(setting){
-			var button = $('<input class="button4" type="button" name="" value="' + setting.text + '" />');
+			var button = $('<input type="button" />');
+
+			//按钮文字
+			button.val(setting.text || '');
+
+			//按钮样式
+			switch(setting.type){
+				case 'add':
+					button.addClass('btn-add');
+					break;
+				case 'edit':
+					button.addClass('btn-edit');
+					break;
+				case 'del':
+					button.addClass('btn-del');
+					break;
+				default:
+					button.addClass('button4');
+			}
+
+			//点击事件
 			button.click(setting.click);
 
 			this.$button.append(button).css('display', 'block');
