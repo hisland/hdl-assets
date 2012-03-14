@@ -54,17 +54,37 @@
 						{display: '是否送BI', width: 60, name: 'isBi'},
 						{display: '送BI文件名', width: 70, name: 'biContent'},
 						{display: '送BI目录', width: 60, name: 'biDirectory'},
-						{display: '备注', width: 60, name: 'remarks'}
+						{display: '备注', width: 60, name: 'remarks'},
+						{display: '操作', width: 60, align: 'center', process: function(row, col){
+							return '<a href="javascript:;">修改</a><br /><a href="javascript:;">复制</a>';
+						}}
 					],
 					single_select: true
 				});
 			grid2.$div.appendTo('#wrap2');
 			grid2.ajaxLoad();
+
+			grid2.addButton({
+				text: '添加',
+				click: function(e){
+					alert('add clicked!');
+				}
+			}).addButton({
+				text: '修改',
+				click: function(e){
+					alert('edit button!');
+				}
+			}).addButton({
+				text: '其它',
+				click: function(e){
+					alert('other button!');
+				}
+			});
 		});
 	</script>
 	<style type="text/css">
-		#wrap{width:500px;height:300px;border:1px solid #D7E6F5;margin:20px;}
-		#wrap2{width:700px;height:400px;border:1px solid #D7E6F5;margin:20px;}
+		#wrap{width:500px;height:300px;margin:20px;}
+		#wrap2{width:700px;height:200px;margin:20px;}
 	</style>
 </head>
 

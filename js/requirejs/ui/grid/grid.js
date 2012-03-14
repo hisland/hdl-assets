@@ -204,7 +204,7 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 		 * @private
 		 */
 		__init: function(){
-			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><colgroup></colgroup><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><colgroup></colgroup><tbody></tbody></table></div></div><div class="hdlgrid-pager"></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
+			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-button"></div><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><colgroup></colgroup><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><colgroup></colgroup><tbody></tbody></table></div></div><div class="hdlgrid-pager"></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
 
 			S.mix(this, {
 				$div: div,
@@ -575,15 +575,27 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 		 */
 		ajaxLoad: function(fn){
 			var grid = this, param = grid.param;
-
-			param.push();
-
 			grid.loading();
 			$.post(grid.url, param, function(data){
 				grid.setData(data);
 				S.isFunction(fn) && fn.call(grid);
 				grid.loaded();
+
+				//触发修正高度操作
+				$(window).resize();
 			}, 'json');
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		addButton: function(setting){
+			var button = $('<input class="button4" type="button" name="" value="' + setting.text + '" />');
+			button.click(setting.click);
+
+			this.$button.append(button).css('display', 'block');
+			return this;
 		}
 	});
 
