@@ -292,12 +292,20 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 		 * @private
 		 */
 		__blankLine: function(){
-			var b = ['<tr>'];
-			this.$colgroup.find('col').each(function(i, v){
-				b.push('<td></td>');
-			});
-			b.push('</tr>');
-			this.$tbody.html(b.join(''));
+			var str = '<tr style="visibility:hidden;">';
+
+			//checkbox需要占一列
+			if(this.enable_checkbox){
+				str += '<td></td>';
+			}
+
+			//根据colModel计算需要多少列
+			str += S.map(this.colModel, function(v, i, o){
+				return '<td></td>';
+			}).join('');
+			str += '</tr>';
+
+			this.$tbody.html(str);
 			return this;
 		},
 		/**
@@ -432,6 +440,14 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 		setData: function(data){
 			var grid = this;
 
+			//清空原有数据
+			grid.$tbody.empty();
+
+			//没有数据时填充空行使滚动条出现并返回
+			if(!data.rows.length){
+				return this.__blankLine();
+			}
+
 			//对数据进行预处理
 			if(grid.preProcess){
 				data = grid.preProcess(data);
@@ -441,7 +457,6 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 			grid.data = data;
 
 			//生成表格填充到tbody
-			grid.$tbody.empty();
 			S.each(data.rows, function(row, i){
 				//bg是对行的背景色处理
 				var bg = grid.__getRowBg(i), tr = $('<tr style="background:' + bg + ';"></tr>');
@@ -623,6 +638,14 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 			return this.$tbody.find('.check-one:checked').parent().parent().map(function(i, v){
 				return this.rawData;
 			});
+		},
+		/**
+		 * 刷新按钮的禁用状态
+		 * @return this
+		 */
+		refreshButtons: function(){
+			this.$button.children()
+			return this;
 		}
 	});
 
