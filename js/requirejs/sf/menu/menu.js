@@ -33,6 +33,9 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 			this.$div.on('click', 'a', this, function(e){
 				Page.loadUrl($(this).attr('href'));
 				e.data.setNow($(this).text());
+
+				e.data.$div.find('.hover').removeClass('hover');
+				$(this).addClass('hover');
 			});
 			return this;
 		},
