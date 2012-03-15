@@ -2,32 +2,28 @@
  * 
  */
 
-define(['jquery', 'kissy', 'css!./date', 'jquery-plugin'], function($, S){
-	var msg_week = ['', '一', '二', '三', '四', '五', '六', '日'],
-		msg_clear = '清除',
-		msg_now = '现在',
-		msg_complete = '完成',
-		msg_page_up = '上页',
-		msg_page_down = '下页',
-		msg_close = '关闭';
-
-	//DateSetting类
-	function DateSetting(){
-		this.__init();
+define(['jquery', 'kissy', './msg', './datearray', 'css!./calendar', 'jquery-plugin'], function($, S, MSG, DateArray){
+	var reg_fixed = /(year|month|date|hour|minute|second)(e|\d*)/g;
+	function isFixedString(str){
+		return this.reg_fixed.test(str);
 	}
-	S.mix(DateSetting, {
-		reg_fixed: /(year|month|date|hour|minute|second)(e|\d*)/g,
-		isFixedString: function(str){
-			return this.reg_fixed.test(str);
-		}
-	});
-	S.augment(DateSetting, {
+
+	/**
+	 * @class
+	 * @memberOf ui
+	 */
+	function Calendar(){
+		this.__init().__initEvent();
+	}
+	/**
+	 * @lends ui.Calendar#
+	 */
+	S.augment(Calendar, {
 		/**
-		 * 
-		 * @param 
-		 * @return 
+		 * 初始化基本信息
+		 * @return this
 		 */
-		__init: function()
+		__init: function(){
 			this.$div = $('<div class="hdt-wrap"><div class="hdt-ctrl"><div class="hdt-tips"></div><div class="hdt-btns"><a href="javascript:;" class="hdt-clear"></a><a href="javascript:;" class="hdt-now"></a><a href="javascript:;" class="hdt-complete"></a></div></div><div class="hdt-ipt-list"><input type="text" readonly="readonly" class="hdt-year" />-<input type="text" readonly="readonly" class="hdt-month" />-<input type="text" readonly="readonly" class="hdt-date" /><input type="text" readonly="readonly" class="hdt-hour" />:<input type="text" readonly="readonly" class="hdt-minute" />:<input type="text" readonly="readonly" class="hdt-second" /></div><div class="hdt-week-list"></div><div class="hdt-date-list"></div></div>');
 
 			this.$dateList = this.$div.find('.hdt-date-list');
@@ -70,68 +66,12 @@ define(['jquery', 'kissy', 'css!./date', 'jquery-plugin'], function($, S){
 			this.over_fill = false;
 			return this;
 		},
-		days_list: [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
 		/**
-		 * 设置显示的值
-		 * @param type 'year|month....'
-		 * @param value Int|'any'|'e'
-		 * @return this|Int|'any'|'e'
+		 * 初始化基本事件
+		 * @return this
 		 */
-		item: function(type, value){
-			if(arguments.length == 2){
-				value = length1Prefix0(value);
-				if(this[type] == 'any'){
-					this.real(type, value);
-				}else if(this[type] == 'e'){
-					this.real(type, this.getMonthDays());
-				}else{
-					this[type] = value;
-					this.real(type, value);
-				}
-				return this;
-			}else if(arguments.length == 1){
-				return this[type];
-			}
-		},
-		/**
-		 * 设置真实值
-		 * @param type 'year|month....'
-		 * @param value Int
-		 * @return this|Int
-		 */
-		real: function(type, value){
-			var m;
-			if(arguments.length == 2){
-				value -= 0;
-				this['real_'+type] = value;
-				if(type === 'year'){
-					this.__repairMonth2();
-				}
-				//修正日期大于真实值的情况
-				m = this.real('month');
-				if(type === 'month' || (type === 'year' && m === 2)){
-					if(this.real('date') > this.days_list[m]){
-						this.item('date', this.days_list[m]);
-					}
-				}
-				return this;
-			}else if(arguments.length == 1){
-				return this['real_'+type];
-			}
-		},
-		/**
-		 * 获得月天数
-		 * @return Int
-		 */
-		getMonthDays: function(){
-			return this.days_list[this.real('month')];
-		},
-		/**
-		 * 获得月第一天的星期
-		 * @return Int
-		 */
-		getMonthFirstDay: function(){
-			return first_day = new Date(this.real('year')+'/'+this.real('month')+'/1').getDay();
+		__initEvent: function(){
+			
 		},
 		/**
 		 * 获得空白个数
@@ -144,29 +84,11 @@ define(['jquery', 'kissy', 'css!./date', 'jquery-plugin'], function($, S){
 			return blank % 7;
 		},
 		/**
-		 * 修正2月总天数
-		 * @return this
-		 */
-		__repairMonth2: function(){
-			var year = this.real('year');
-			this.days_list[2] = year%400==0 || (year%4==0 && year%100!=0) ? 29 : 28;
-			return this;
-		},
-		/**
 		 * 设置日期值
 		 * @param date Date
 		 * @return this
 		 */
 		setDate: function(date){
-			if(date instanceof Date){
-				this.item('year', date.getFullYear());
-				this.item('month', date.getMonth()+1);
-				this.item('date', date.getDate());
-				this.item('hour', date.getHours());
-				this.item('minute', date.getMinutes());
-				this.item('second', date.getSeconds());
-				this.__date = date;
-			}
 			return this;
 		},
 		/**
@@ -174,7 +96,7 @@ define(['jquery', 'kissy', 'css!./date', 'jquery-plugin'], function($, S){
 		 * @return Date
 		 */
 		getDate: function(){
-			return this.__date;
+			
 		},
 		/**
 		 * 设置日期值
@@ -182,8 +104,10 @@ define(['jquery', 'kissy', 'css!./date', 'jquery-plugin'], function($, S){
 		 * @return this
 		 */
 		refreshFixed: function(){
-			var i, v, o = {}, this.$dateList = this.$year.parent();
-			this.fixed.replace(DateSetting.reg_fixed, function(a, b, c){
+			var i, v, o = {};
+			
+			this.$dateList = this.$year.parent();
+			this.fixed.replace(Calendar.reg_fixed, function(a, b, c){
 				if(b && !o[b]){
 					o[b] = c;
 				}
@@ -353,35 +277,6 @@ define(['jquery', 'kissy', 'css!./date', 'jquery-plugin'], function($, S){
 			return this;
 		},
 		/**
-		 * 设置日期值
-		 * @param date Date
-		 * @return this
-		 */
-		fillTarget: function(){
-			//从input取值,因为item的设置可能不正确
-			var str, arr=[], ipts = $div_ipt_list.find('input'), me = this;
-			ipts.filter(':lt(3)').each(function(i, v){
-				if(this.value !== 'any'){
-					arr.push(this.value);
-				}
-			});
-			str = arr.join('-');
-			arr.length = 0;
-
-			ipts.filter(':gt(2)').each(function(i, v){
-				if(this.value !== 'any'){
-					arr.push(this.value);
-				}
-			});
-
-			if(arr.length){
-				str += ' '+arr.join(':');
-			}
-
-			$target_fill.val(str);
-			return this;
-		},
-		/**
 		 * 设置周开始于几
 		 * @param n Int
 		 * @return this
@@ -419,52 +314,7 @@ define(['jquery', 'kissy', 'css!./date', 'jquery-plugin'], function($, S){
 		 * @param date Date
 		 * @return this
 		 */
-		setMinTime: function(time){
-			if(time instanceof Date){
-				this.min_time = time;
-			}else if(S.isString(time) && time.isValidDate()){
-				time = time.getDate();
-				this.min_time = time;
-			}else{
-				S.log('$.dateTool.setMinTime: time must be a time-string or date-object!');
-			}
-			return this;
-		},
-		/**
-		 * 设置日期值
-		 * @param date Date
-		 * @return this
-		 */
-		setMaxTime: function(time){
-			if(time instanceof Date){
-				this.max_time = time;
-			}else if(S.isString(time) && time.isValidDate()){
-				time = time.getDate();
-				this.max_time = time;
-			}else{
-				S.log('$.dateTool.setMaxTime: time must be a time-string or date-object!');
-			}
-			return this;
-		},
-		/**
-		 * 设置日期值
-		 * @param date Date
-		 * @return this
-		 */
-		setTimeOffset: function(offset){
-			if(S.isNumber(offset)){
-				this.offset = offset;
-			}else{
-				S.log('$.dateTool.setTimeOffset: offset must be a number in ms!');
-			}
-			return this;
-		},
-		/**
-		 * 设置日期值
-		 * @param date Date
-		 * @return this
-		 */
-		open: function(){
+		show: function(){
 			//清除按钮可用与否
 			if(this.btn_clear_enable){
 				$btn_clear.show();
@@ -478,8 +328,15 @@ define(['jquery', 'kissy', 'css!./date', 'jquery-plugin'], function($, S){
 				$btn_now.hide();
 			}
 			return this.refreshFixed().refreshIpts().refreshWeekList().refreshDataList();
+		},
+		/**
+		 * 隐藏日期控件
+		 * @return this
+		 */
+		hide: function(){
+			
 		}
 	});
 
-	return DateSetting;
+	return Calendar;
 });
