@@ -2,49 +2,17 @@
  * tip类
  */
 
-define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], function($, S, M){
-	var msg_alert = '提示',
-		msg_error = '错误',
-		msg_notice = '警告',
-		msg_confirm = '确认',
-		msg_defalt = '未设置信息',
-		msg_ok = '确定',
-		msg_cancel = '取消';
-
-	//JS国际化信息的覆盖
-	if(window.JS_I18N){
-		msg_alert = JS_I18N['js.common.hdlTipMsg.msg_alert'];
-		msg_error = JS_I18N['js.common.hdlTipMsg.msg_error'];
-		msg_notice = JS_I18N['js.common.hdlTipMsg.msg_notice'];
-		msg_confirm = JS_I18N['js.common.hdlTipMsg.msg_confirm'];
-		msg_defalt = JS_I18N['js.common.hdlTipMsg.msg_defalt'];
-		msg_ok = JS_I18N['js.common.hdlTipMsg.msg_ok'];
-		msg_cancel = JS_I18N['js.common.hdlTipMsg.msg_cancel'];
-	}
-
-	var html_string = '<div class="tipmsg-wrap"><div class="tipmsg-h1"><div class="tipmsg-h2"><div class="tipmsg-h3"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div></div></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg-b1"><div class="tipmsg-b2"><div class="tipmsg-b3"><input type="button" value="'+msg_ok+'" /></div></div></div></div>',
-		html_css3 = '<div class="tipmsg-wrap"><div class="tipmsg2-h1"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg2-b1"><input type="button" value="'+msg_ok+'" /></div></div>',
+define(['jquery', 'kissy', '../pop-manager', './msg', 'jquery-plugin', 'css!./tip'], function($, S, M, MSG){
+	var html_string = '<div class="tipmsg-wrap"><div class="tipmsg-h1"><div class="tipmsg-h2"><div class="tipmsg-h3"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div></div></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg-b1"><div class="tipmsg-b2"><div class="tipmsg-b3"><input type="button" value="'+MSG.ok+'" /></div></div></div></div>',
+		html_css3 = '<div class="tipmsg-wrap"><div class="tipmsg2-h1"><span class="tipmsg-title"></span><a href="#" class="tipmsg-close"></a></div><div class="tipmsg-alert"></div><div class="tipmsg-c1"><div class="tipmsg-content"></div></div><div class="tipmsg2-b1"><input type="button" value="'+MSG.ok+'" /></div></div>',
 		html_button = '<input type="button" />';
 
 	/**
 	 * @class
 	 * @memberOf ui
-	 * @param setting
-	 * <pre><code>
-		{
-			slide: false,
-			dragable: true,
-			closeable: true
-		}
-	 * </code></pre>
 	 */
-	function Tip(setting){
-		S.mix(this, {
-			slide: false,
-			dragable: true,
-			closeable: true
-		});
-		return this.__init();
+	function Tip(){
+		this.__init();
 	}
 	/**
 	 * @lends ui.Tip#
@@ -53,6 +21,7 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		/**
 		 * 内部初始化
 		 * @private
+		 * @return this
 		 */
 		__init: function(){
 			var div;
@@ -72,6 +41,13 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 				$content: div.find('div.tipmsg-content'),
 				$icon: div.find('div.tipmsg-alert'),
 				$title: div.find('span.tipmsg-title')
+			});
+
+			//额外属性
+			S.mix(this, {
+				slide: false,
+				dragable: true,
+				closeable: true
 			});
 
 			//纳入pop管理
@@ -109,7 +85,8 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 			return this;
 		},
 		/**
-		 * 显示出来
+		 * 显示
+		 * @return this
 		 */
 		show: function(){
 			if(this.slide){
@@ -139,6 +116,7 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		},
 		/**
 		 * 隐藏
+		 * @return this
 		 */
 		hide: function(){
 			var tip = this;
@@ -160,6 +138,7 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		},
 		/**
 		 * 从dom中删除
+		 * @return this
 		 */
 		remove: function(){
 			this.manager.remove();
@@ -167,12 +146,13 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		},
 		/**
 		 * 设置提示类型
-		 * @param String type alert|notice|errorTip|confirm之一
+		 * @param String type alert|notice|error|confirm之一
+		 * @return this
 		 */
 		setType: function(type){
 			switch(type){
-				case 'errorTip':
-					this.$icon.attr('class', 'tipmsg-errorTip');
+				case 'error':
+					this.$icon.attr('class', 'tipmsg-error');
 					break;
 				case 'notice':
 					this.$icon.attr('class', 'tipmsg-notice');
@@ -189,14 +169,16 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		/**
 		 * 设置标题
 		 * @param String|DOM|jQuery title
+		 * @return this
 		 */
 		setTitle: function(title){
-			this.$title.html(title || msg_alert);
+			this.$title.html(title);
 			return this;
 		},
 		/**
 		 * 设置内容
 		 * @param String|DOM|jQuery content
+		 * @return this
 		 */
 		setContent: function(content){
 			this.$content.html(content);
@@ -205,6 +187,7 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		/**
 		 * 设置回调函数
 		 * @param callback 值为函数
+		 * @return this
 		 */
 		setCallback: function(callback){
 			if(S.isFunction(callback)){
@@ -215,6 +198,7 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		/**
 		 * 设置可否关闭
 		 * @param able 值为true|false
+		 * @return this
 		 */
 		setCloseable: function(able){
 			if(S.isBoolean(able)){
@@ -225,6 +209,7 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		/**
 		 * 设置可否拖动
 		 * @param able 值为true|false 可选
+		 * @return this
 		 */
 		setDraggable: function(able){
 			if(S.isBoolean(able)){
@@ -241,36 +226,35 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		/**
 		 * 设置或取消自动关闭
 		 * @param time 值为大于0的数字表示自动关闭时长,单位秒, 为false表示不自动关闭,并且取消正在进行的计时
+		 * @return this
 		 */
 		setAutoClose: function(time){
-			//取消自动关闭
-			if(time === false){
-				this.$ok.val(msg_ok);
+			//已存在计时先清除
+			if(this._auto_close){
 				this._auto_close.cancel();
 				this._auto_close_count.cancel();
-				this._auto_close = false;
+				this._auto_close = this._auto_close_count = null;
 			}
 
+			//取消自动关闭
+			if(time === false){
+				this.$ok.val(MSG.ok);
+			}
 			//设置自动关闭
-			if(time > 0){
-				//已存在计时先清除
-				if(this._auto_close){
-					this._auto_close.cancel();
-					this._auto_close_count.cancel();
-				}
+			else if(time > 0){
 
 				this._auto_close = S.later(function(){
 					this.hide();
-					this.$ok.val(msg_ok);
-					this._auto_close = false;
+					this.$ok.val(MSG.ok);
 					this._auto_close_count.cancel();
+					this._auto_close = this._auto_close_count = null;
 				}, time*1000, false, this);
 
 				//步长为1S的倒计时
-				this.$ok.val(msg_ok + '(' + time + ')');
+				this.$ok.val(MSG.ok + '(' + time + ')');
 				this._auto_close_count = S.later(function(){
 					time--;
-					this.$ok.val(msg_ok + '(' + time + ')');
+					this.$ok.val(MSG.ok + '(' + time + ')');
 				}, 1000, true, this);
 			}
 
@@ -279,6 +263,7 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		/**
 		 * 设置是否淡入淡出
 		 * @param slide 值为true|false
+		 * @return this
 		 */
 		setSlide: function(slide){
 			if(S.isBoolean(slide)){
@@ -288,7 +273,8 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		},
 		/**
 		 * 设置宽度
-		 * @param Number width 值为大于等于200的整数
+		 * @param Int width 值为大于等于200的整数
+		 * @return this
 		 */
 		setWidth: function(width){
 			if(S.isNumber(width) && width >= 200){
@@ -307,6 +293,7 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 				text: '按钮文字'
 			}
 		 * </code></pre>
+		 * @return this
 		 */
 		addButton: function(setting){
 			if(S.isPlainObject(setting)){
@@ -317,6 +304,7 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		/**
 		 * 设置显示回调
 		 * @param fn 显示时的回调
+		 * @return this
 		 */
 		setOnShow: function(fn){
 			if(S.isFunction(fn)){
@@ -327,11 +315,19 @@ define(['jquery', 'kissy', '../pop-manager', 'jquery-plugin', 'css!./tip'], func
 		/**
 		 * 设置关闭回调
 		 * @param fn 关闭时的回调
+		 * @return this
 		 */
 		setOnHide: function(fn){
 			if(S.isFunction(fn)){
 				this.onHide = fn;
 			}
+			return this;
+		},
+		/**
+		 * 使窗口振动
+		 * @return this
+		 */
+		shake: function(){
 			return this;
 		}
 	});

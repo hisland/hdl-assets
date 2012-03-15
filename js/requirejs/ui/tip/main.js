@@ -1,8 +1,5 @@
 /**
- * @fileOverview
- * @module hdlTipMsg
- * @author hisland hisland@qq.com
- * @description 模拟的提示框
+ * 模拟的提示框
  * <pre><code>
  * TODO:
  * 		2010-8-19 14:5:35
@@ -17,28 +14,10 @@
  * 			Y/N快捷键支持
  * 		2012-01-16 11:13:20
  * 			每个都有回调,confirm的回调接收第一个参数为true,false
- * API:
- * 		alert('msg');
- * 		alert('msg', 'this is title');
- * 		alert('msg', function(){//do more});
- * 		alert('msg', 'this is title', function(){//do more});
- * 
- * 		notice('msg');
- * 		notice('msg', 'this is title');
- * 		notice('msg', function(){//do more});
- * 		notice('msg', 'this is title', function(){//do more});
- * 
- * 		errorTip('msg');
- * 		errorTip('msg', 'this is title');
- * 		errorTip('msg', function(){//do more});
- * 		errorTip('msg', 'this is title', function(){//do more});
- * 
- * 		confirm('msg', function(rs){//rs is true or false});
- * 		confirm('msg', 'this is title', function(rs){//rs is true or false});
  * </code></pre>
  */
 
-define(['kissy', './tip'], function(S, T){
+define(['kissy', './tip', './msg'], function(S, T, MSG){
 	//代理4种提示的初始化
 	function wrap(message, title, callback, type){
 		var tip = new T();
@@ -50,10 +29,10 @@ define(['kissy', './tip'], function(S, T){
 		}
 
 		//修正设置
-		tip.setType(type);
-		tip.setTitle(title);
-		tip.setContent(message);
-		tip.setCallback(callback);
+		tip.setType(type)
+			.setTitle(title)
+			.setContent(message)
+			.setCallback(callback);
 
 		//生成即显示出来
 		tip.show();
@@ -61,44 +40,50 @@ define(['kissy', './tip'], function(S, T){
 		return tip;
 	}
 
+	/**
+	 * @lends ui.Tip
+	 */
 	return {
 		/**
 		 * 一般提示
-		 * @param message 值为字符串或者dom元素及jquery元素
-		 * @param title 值为字符串或者dom元素及jquery元素, 可选
+		 * @param message String|DOM|jQuery
+		 * @param title String|DOM|jQuery, 可选
 		 * @param callback 值为函数
+		 * @param callback 值为函数
+		 * @return ui.Tip
 		 */
 		alert: function(message, title, callback){
-			return wrap(message, title, callback, 'alert');
+			return wrap(message, title || MSG.alert, callback, 'alert');
 		},
 		/**
 		 * 错误提示
-		 * @param message 值为字符串或者dom元素及jquery元素
-		 * @param title 值为字符串或者dom元素及jquery元素, 可选
+		 * @param message String|DOM|jQuery
+		 * @param title String|DOM|jQuery, 可选
 		 * @param callback 值为函数
+		 * @return ui.Tip
 		 */
-		errorTip: function(message, title, callback){
-			return wrap(message, title, callback, 'errorTip');
+		error: function(message, title, callback){
+			return wrap(message, title || MSG.error, callback, 'error');
 		},
 		/**
 		 * 警告提示
-		 * @param message 值为字符串或者dom元素及jquery元素
-		 * @param title 值为字符串或者dom元素及jquery元素, 可选
+		 * @param message String|DOM|jQuery
+		 * @param title String|DOM|jQuery, 可选
 		 * @param callback 值为函数
+		 * @return ui.Tip
 		 */
 		notice: function(message, title, callback){
-			return wrap(message, title, callback, 'notice');
+			return wrap(message, title || MSG.notice, callback, 'notice');
 		},
 		/**
 		 * 确认提示
-		 * @param message 值为字符串或者dom元素及jquery元素
-		 * @param title 值为字符串或者dom元素及jquery元素, 可选
+		 * @param message String|DOM|jQuery
+		 * @param title String|DOM|jQuery, 可选
 		 * @param callback 值为函数
+		 * @return ui.Tip
 		 */
 		confirm: function(message, title, callback){
-			var tip = wrap(message, title, callback, 'confirm');
-			//增加一个取消按钮
-			tip.addButton({
+			return wrap(message, title || MSG.confirm, callback, 'confirm').addButton({
 				click: function(e){
 					//点击取消的回调,会传入false
 					if(S.isFunction(e.data.callback)){
@@ -106,9 +91,8 @@ define(['kissy', './tip'], function(S, T){
 					}
 					e.data.hide();
 				},
-				text: msg_cancel
+				text: MSG.cancel
 			});
-			return tip;
 		}
 	};
 });

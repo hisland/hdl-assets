@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@name 日期控件样式页面 @nameANT</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/tip', 'util', 'demo'], function(Tip, Util) {
+			$('.hdt-wrap').each(function(i, v){
+				$(v).html(Util.trimBlank($(v).html()));
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<p>下面是使用图片的形式:</p>
+	<div class="tipmsg-wrap">
+		<div class="tipmsg-h1">
+			<div class="tipmsg-h2">
+				<div class="tipmsg-h3">
+					<span class="tipmsg-title">这是标题这是标题这是标题这是标题这是标题这是标题</span>
+					<a href="#" class="tipmsg-close">&nbsp;</a>
+				</div>
+			</div>
+		</div>
+		<div class="tipmsg-notice"></div>
+		<div class="tipmsg-c1">
+			<div class="tipmsg-content"></div>
+		</div>
+		<div class="tipmsg-b1">
+			<div class="tipmsg-b2">
+				<div class="tipmsg-b3">
+					<input type="button" value="确定" />
+				</div>
+			</div>
+		</div>
+	</div>
+<br />
+<br />
+	<p>下面是使用css3的形式:</p>
+	<div class="tipmsg-wrap">
+		<div class="tipmsg2-h1">
+			<span class="tipmsg-title">这是标题这是标题这是标题这是标题这是标题这是标题</span>
+			<a href="#" class="tipmsg-close">&nbsp;</a>
+		</div>
+		<div class="tipmsg-alert"></div>
+		<div class="tipmsg-c1">
+			<div class="tipmsg-content"></div>
+		</div>
+		<div class="tipmsg2-b1">
+			<input type="button" value="确定" />
+		</div>
+	</div>
+</body>
+</html>
