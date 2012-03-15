@@ -11,16 +11,16 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/autocomp', 'util'], function(Select, tool) {
+		require(['ui/autocomp', 'util'], function(Select, Util) {
 			$('span.autocomp, div.autocomp-pop').each(function(i, v){
-				$(v).html(tool.trimBlank($(v).html()));
+				$(v).html(Util.trimBlank($(v).html()));
 			});
 
 			$('div.autocomp-pop').eq(1).css('left', 300).find('.autocomp-loading').css('display', 'block');
 		});
 	</script>
 	<style type="text/css">
-		body .autocomp-pop{display:block;}
+		body .autocomp-pop{border:1px solid #7f9db9;}
 	</style>
 </head>
 
@@ -28,6 +28,7 @@
 	<span class="autocomp">
 		<input type="text" value="this is text" />
 		<span></span>
+		<input type="hidden" name="" value="" />
 	</span>
 
 	<br /><br />
@@ -36,6 +37,7 @@
 	<span class="autocomp autocomp-disabled">
 		<input type="text" value="this is text" disabled="disabled" />
 		<span></span>
+		<input type="hidden" name="" value="" disabled="disabled" />
 	</span>
 
 	<br /><br />

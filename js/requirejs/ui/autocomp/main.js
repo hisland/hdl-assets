@@ -23,5 +23,9 @@
  */
 
 define(['jquery', 'kissy', './autocomp'], function($, S, Autocomp){
-	
+	return {
+		init: function(setting){
+			return new Autocomp(setting);
+		}
+	};
 });

@@ -11,26 +11,10 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/autocomp'], function(Autocomp, tool) {
-			$('#use-php').autoComplete({
+		require(['ui/autocomp', 'demo'], function(Autocomp) {
+			window.kkk = Autocomp.init({
 				url: 'data.php',
-			});
-
-			$('#use-remote').autoComplete({
-				url: 'data.js',
-			});
-
-			var enabled = true;
-			$('#test-disabled-ctrl').click(function(e){
-				if(enabled){
-					$('#use-remote').autoComplete('disabled');
-					$(this).val('启用');
-					enabled = false;
-				}else{
-					$('#use-remote').autoComplete('enable');
-					$(this).val('禁用');
-					enabled = true;
-				}
+				target: '#use-php'
 			});
 		});
 	</script>
@@ -40,26 +24,11 @@
 	<div class="demo-section">
 		<div class="demo-legend">使用PHP脚本</div>
 		<div class="demo-box">
-			<input id="use-php" name="keyword" type="text" value="this is text" />
-		</div>
-	</div>
-	<div class="demo-section">
-		<div class="demo-legend">使用服务器js</div>
-		<div class="demo-box">
-			<input id="test-disabled-ctrl" type="button" name="" value="禁用" /><br />
-			<input id="use-remote" name="keyword" type="text" value="this is text" />
-		</div>
-	</div>
-	<div class="demo-section">
-		<div class="demo-legend">使用服务器php(需要apache服务器-模拟加载等待)</div>
-		<div class="demo-box">
-			<input id="use-remote2" type="text" value="this is text" />
-		</div>
-	</div>
-	<div class="demo-section">
-		<div class="demo-legend">使用本地数据</div>
-		<div class="demo-box">
-			<input id="test-disabled" type="text" value="this is text" />
+			<span class="autocomp" id="use-php">
+				<input type="text" value="this is text" />
+				<span></span>
+				<input type="hidden" name="" value="" />
+			</span>
 		</div>
 	</div>
 </body>

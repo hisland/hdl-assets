@@ -11,7 +11,7 @@
 		.autocomp-disabled span{border-color:#ccc;cursor:default;background-position:0 bottom;}
 
 /* 下拉样式 */
-.autocomp-pop{display:none;position:absolute;width:200px;border:1px solid #7f9db9;background:#fff;overflow:hidden;}
+.autocomp-pop{position:relative;width:200px;background:#fff;overflow:hidden;}
 	.autocomp-loading{display:none;position:absolute;top:0;left:0;padding:0 2px;background:#eff4f8;}
 	.autocomp-as{height:176px;width:196px;padding:2px;overflow-x:hidden;overflow-y:auto;}
 		.autocomp-a{display:block;width:192px;height:18px;line-height:18px;padding:0 2px;overflow:hidden;color:#000;outline:none;white-space:nowrap;text-overflow:ellipsis;}

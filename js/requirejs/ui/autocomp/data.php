@@ -10,7 +10,7 @@ $str1 = <<<EOD
 	"endNum": 15,
 	"totals": 48,
 	"currRecordNum": 15,
-	"allPage": 5,
+	"allPage": 2,
 	"rows": [
 		"''||\" \"",
 		"''||''4",
@@ -38,7 +38,7 @@ $str2 = <<<EOD
 	"endNum": 30,
 	"totals": 48,
 	"currRecordNum": 15,
-	"allPage": 5,
+	"allPage": 2,
 	"rows": [
 		"if u'r say1",
 		"if u'r say2",
