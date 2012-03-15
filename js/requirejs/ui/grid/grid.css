@@ -16,13 +16,25 @@
 	.hdlgrid-wrap .td-right{text-align:right;}
 
 
-
+	/* 表title */
 	.hdlgrid-title{padding:2px 3px;background:#fff;border:1px solid #c8c8c8;border-bottom:none;position:relative;display:none;}
 
-	.hdlgrid-button{height:28px;padding:5px 0 0 8px;background:url('grid-img/btn-bg.gif') repeat-x 0 0;border:1px solid #c8c8c8;border-bottom:none;display:none;}
-		.hdlgrid-button .btn-add{display:inline-block;border:none;width:60px;height:24px;margin-right:10px;background:url('grid-img/add.gif') no-repeat 0 0;}
-		.hdlgrid-button .btn-edit{display:inline-block;border:none;width:60px;height:24px;margin-right:10px;background:url('grid-img/edit.gif') no-repeat 0 0;}
-		.hdlgrid-button .btn-del{display:inline-block;border:none;width:60px;height:24px;margin-right:10px;background:url('grid-img/del.gif') no-repeat 0 0;}
+	/* 表头上的按钮 */
+	.hdlgrid-button{height:28px;padding:5px 0 0 5px;background:url('grid-img/btn-bg.gif') repeat-x 0 0;border:1px solid #c8c8c8;border-bottom:none;display:none;}
+		.hdlgrid-button .hdlgrid-btn{float:left;height:24px;padding-left:10px;margin-right:5px;background:url('grid-img/icon-bg.gif') no-repeat 0 0;}
+		.hdlgrid-button .hdlgrid-btn .hdlgrid-btn2{float:left;height:24px;padding-right:10px;background:url('grid-img/icon-bg.gif') no-repeat right bottom;}
+		.hdlgrid-button .hdlgrid-btn:hover{background-image:url('grid-img/icon-bg-1.gif');}
+		.hdlgrid-button .hdlgrid-btn:hover .hdlgrid-btn2{background-image:url('grid-img/icon-bg-1.gif');}
+		.hdlgrid-button .hdlgrid-btn-dis{cursor:default;color:#cbcbcb;}
+		.hdlgrid-button .hdlgrid-btn-dis:hover{background-image:url('grid-img/icon-bg.gif');}
+		.hdlgrid-button .hdlgrid-btn-dis:hover .hdlgrid-btn2{background-image:url('grid-img/icon-bg.gif');}
+
+		.hdlgrid-button .hdlgrid-add{float:left;height:24px;line-height:24px;padding-left:20px;background:url('grid-img/add.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-add{background-image:url('grid-img/add-1.gif');}
+		.hdlgrid-button .hdlgrid-edit{float:left;height:24px;line-height:24px;padding-left:20px;background:url('grid-img/edit.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-edit{background-image:url('grid-img/edit-1.gif');}
+		.hdlgrid-button .hdlgrid-del{float:left;height:24px;line-height:24px;padding-left:20px;background:url('grid-img/del.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-del{background-image:url('grid-img/del-1.gif');}
 
 
 	/* 表头 */
@@ -43,10 +55,12 @@
 	.hdlgrid-pager{height:20px;border:1px solid #c8c8c8;border-top:none;background:#c7e0fd;display:none;}
 
 
+	/* 修改列宽度的 */
 	.hdlgrid-resizer{display:none;position:absolute;top:0;left:0;height:100%;}
 		.hdlgrid-resizer-i{height:100%;width:1px;background:red;}
 
 
+	/* 切换列显示 */
 	.hdlgrid-toggle-div{display:none;position:absolute;top:0;left:0;}
 	.hdlgrid-toggle-btn{display:none;position:absolute;top:0;left:0;}
 

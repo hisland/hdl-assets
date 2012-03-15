@@ -31,8 +31,7 @@
 						{display: '送BI目录', width: 60, name: 'biDirectory'},
 						{display: '备注', width: 60, name: 'remarks'}
 					],
-					single_select: true,
-					enable_checkbox: true
+					single_select: true
 				});
 			grid.$div.appendTo('#wrap');
 			grid.ajaxLoad();
@@ -48,7 +47,7 @@
 								return '是';
 							}
 						}},
-						{display: '是否SP', width: 70, name: 'isSp', align: 'right', align_head: 'right'},
+						{display: '是否SP', width: 50, name: 'isSp', align: 'right', align_head: 'right'},
 						{display: '是否USSD', width: 60, name: 'isUSSD'},
 						{display: '父业务类型', width: 70, name: 'fsmTypeId'},
 						{display: '是否送BI', width: 60, name: 'isBi'},
@@ -59,23 +58,27 @@
 							return '<a href="javascript:;">修改</a><br /><a href="javascript:;">复制</a>';
 						}}
 					],
-					single_select: true
+					single_select: true,
+					enable_checkbox: true
 				});
 			grid2.$div.appendTo('#wrap2');
 			grid2.ajaxLoad();
 
 			grid2.addButton({
-				type: 'add',
+				icon: 'add',
+				text: '添加',
 				click: function(e){
 					alert('add clicked!');
 				}
 			}).addButton({
-				type: 'edit',
+				icon: 'edit',
+				text: '修改',
 				click: function(e){
 					alert('edit button!');
 				}
 			}).addButton({
-				type: 'del',
+				icon: 'del',
+				text: '删除',
 				click: function(e){
 					alert('other button!');
 				}

@@ -591,31 +591,38 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 		 * @return 
 		 */
 		addButton: function(setting){
-			var button = $('<input type="button" />');
+			var button = $('<a href="javascript:;" class="hdlgrid-btn"><span class="hdlgrid-btn2"><span></span></span></a>');
 
 			//按钮文字
-			button.val(setting.text || '');
+			button.find('>span>span').html(setting.text || '');
 
 			//按钮样式
-			switch(setting.type){
+			switch(setting.icon){
 				case 'add':
-					button.addClass('btn-add');
-					break;
 				case 'edit':
-					button.addClass('btn-edit');
-					break;
 				case 'del':
-					button.addClass('btn-del');
-					break;
-				default:
-					button.addClass('button4');
+					button.find('>span>span').addClass('hdlgrid-' + setting.icon);
 			}
 
 			//点击事件
-			button.click(setting.click);
+			button.click(this, function(e){
+				//非禁用状态下点击才执行回调
+				if(!$(this).is('.hdlgrid-btn-dis')){
+					setting.click.call(this, e, e.data.getChecked());
+				}
+			});
 
 			this.$button.append(button).css('display', 'block');
 			return this;
+		},
+		/**
+		 * 获得选中checkbox对应行的rawData
+		 * @return Array
+		 */
+		getChecked: function(){
+			return this.$tbody.find('.check-one:checked').parent().parent().map(function(i, v){
+				return this.rawData;
+			});
 		}
 	});
 
