@@ -11,3 +11,18 @@
 			.ui-tab-nav li.ui-tab-hover span{height:23px;background-position:0 -75px;}
 
 	.ui-tab div.ui-tab-con{overflow:auto;}
+
+
+.ui-tab-sf .ui-tab-nav{height:27px;background:url('tab-img/tab-bg.gif') repeat-x 0 bottom;border:none;}
+.ui-tab-sf li{background:url('tab-img/off.gif') no-repeat 0 0;padding-left:25px;margin-right:-13px;height:27px;}
+	.ui-tab-sf a{background:url('tab-img/off.gif') no-repeat right bottom;padding-right:25px;height:26px;}
+	.ui-tab-sf span{background:none;color:#5b5b5b;height:27px;line-height:27px;}
+
+.ui-tab-sf li.ui-tab-hover{background:url('tab-img/on.gif') no-repeat 0 0;position:relative;height:27px;}
+	.ui-tab-sf li.ui-tab-hover a{background:url('tab-img/on.gif') no-repeat right bottom;font-weight:400;height:26px;}
+	.ui-tab-sf li.ui-tab-hover span{background:none;}
+
+.ui-tab-sf li.ui-tab-hover{}
+	.ui-tab-sf li.ui-tab-hover a{}
+	.ui-tab-sf li.ui-tab-hover span{}
+
