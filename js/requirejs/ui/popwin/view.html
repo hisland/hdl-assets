@@ -3,15 +3,24 @@
 <head>
 	<title> new document </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript" src="../seed.js"></script>
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
 	<script type="text/javascript">
-		KISSY.ready(function(S){
-			S.use('reset-css, popWin+css');
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/popwin', 'util', 'demo'], function(Popwin, Util) {
+			
 		});
 	</script>
+	<style type="text/css">
+		.popwin-content{width:300px;height:200px;}
+	</style>
 </head>
 
-<body style="padding:50px;">
+<body>
 <div class="popwin-wrap">
 	<div class="popwin-title-wrap">
 		<span class="popwin-title">title</span>
@@ -19,7 +28,10 @@
 	</div>
 	<div class="popwin-content-wrap">
 		<div class="popwin-content">
-			hello
+			<div class="popwin-btns">
+				<input type="button" name="" value="确定" />
+				<input class="popwin-btn-cancel" type="button" name="" value="取消" />
+			</div>
 		</div>
 	</div>
 </div>
