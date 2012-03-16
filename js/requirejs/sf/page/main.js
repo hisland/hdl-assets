@@ -60,6 +60,13 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'css!./page'], function($, S, PM){
 				url = url.substr(1);
 			}
 
+			//清除选择内容, 避免选中内容后切换导致加载出来是选中状态
+			if($.browser.msie){
+				document.selection.empty();
+			}else{
+				window.getSelection().removeAllRanges();
+			}
+
 			me.beforeLoad();
 			$('.main-in').html('加载中...');
 

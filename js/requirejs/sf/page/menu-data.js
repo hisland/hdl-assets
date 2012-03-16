@@ -16,8 +16,14 @@
 			"text":"配置页面",
 			"url":"#demo/config.html"
 		},{
-			"text":"配置页面-很多条件",
+			"text":"配置页面-很多",
 			"url":"#demo/config-more.html"
+		},{
+			"text":"配置页面-分块条件",
+			"url":"#demo/config-more2.html"
+		},{
+			"text":"配置页面-分块提交",
+			"url":"#demo/config-sub.html"
 		}
 	]
 }

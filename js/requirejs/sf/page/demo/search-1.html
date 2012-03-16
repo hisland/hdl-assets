@@ -1,4 +1,4 @@
-<div class="search-condition">
+<form id="query-form" class="search-condition" action="#">
 	<!-- 条件少时加上 search-ls1-auto 这个class让查询按钮往左靠-->
 	<div class="search-ls1 search-ls1-auto">
 
@@ -11,9 +11,9 @@
 
 	</div>
 	<div class="search-condition-submit">
-		<input class="button4" type="button" value="查询" />
+		<input class="button4" type="submit" value="查询" />
 	</div>
-</div>
+</form>
 <div class="search-result" id="result"></div>
 
 <script type="text/javascript">
@@ -50,7 +50,7 @@
 
 		//添加按钮
 		grid.addButton({
-			type: 'add',
+			icon: 'add',
 			click: function(e, checkedItems){
 				//checkedItems 包含了选中行所对应的rawData原始数据数组
 				//可以对其处理后发送请求
@@ -70,7 +70,7 @@
 
 		//修改按钮
 		grid.addButton({
-			type: 'edit',
+			icon: 'edit',
 			click: function(e, checkedItems){
 				//checkedItems 包含了选中行所对应的rawData原始数据数组
 				//可以对其处理后发送请求
@@ -80,7 +80,7 @@
 
 		//删除按钮
 		grid.addButton({
-			type: 'del',
+			icon: 'del',
 			click: function(e, checkedItems){
 				//checkedItems 包含了选中行所对应的rawData原始数据数组
 				//可以对其处理后发送请求
@@ -88,7 +88,20 @@
 			}
 		});
 
-		//加载表格数据
-		grid.ajaxLoad();
+		//初始化查询
+		$('#query-form').submit(function(e){
+			//参数以jquery标准的参数数组进行处理
+			//[{name: 'param-name', 'value': 'param-value'}, {name: 'param-name', 'value': 'param-value'}]
+			var dt = $(this).serializeArray();
+
+			//每次查询重新设置参数
+			grid.setParam(dt);
+
+			//让表格自己加载数据
+			grid.ajaxLoad();
+		});
+
+		//如果进入页面需要查询,触发一下上面form的提交
+		//$('#query-form').submit();
 	});
 </script>

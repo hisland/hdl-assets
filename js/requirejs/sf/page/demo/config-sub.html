@@ -1,26 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title> new document </title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript" src="../../require.js"></script>
-	<script type="text/javascript" src="../../config.js"></script>
-	<script type="text/javascript">
-		//使用data-main时会自动设置baseUrl为main文件的路径
-		require.config({
-			baseUrl: '../../'
-		});
 
-		require(['sf/config', 'demo'], function() {
-			
-		});
-	</script>
-	<style type="text/css">
-		html, body{height:100%;}
-		.config{border:1px solid #ccc;}
-	</style>
-</head>
-<body>
 <div class="config">
 	<div class="config-wrap">
 		<div class="config-wrap-in">
@@ -70,21 +48,44 @@
 			<div class="config-line">
 				<span>基本信息</span>
 			</div>
-			<div class="config-item">
-				<div class="config-label">策略状态</div>
-				<div class="config-ipts">
-					<input class="config-text" type="text" name="" value="" />
+			<form>
+				<div class="config-item">
+					<div class="config-label">策略名称</div>
+					<div class="config-ipts">
+						<input class="config-text" type="text" name="" value="" />
+					</div>
 				</div>
-				<div class="config-other">
-					<input class="button4" type="button" name="" value="保存" />
+				<div class="config-item">
+					<div class="config-label">时间段</div>
+					<div class="config-ipts">
+						<input class="config-time" type="text" name="" value="2012-03-13 00:00:00" />
+						<span class="config-dash">-</span>
+						<input class="config-time" type="text" name="" value="2012-03-13 23:59:59" />
+					</div>
 				</div>
-			</div>
+				<div class="config-item">
+					<div class="config-label">策略状态</div>
+					<div class="config-ipts">
+						<select class="config-select">
+							<option value="">策略策略策略</option>
+							<option value="">策略策略策略</option>
+						</select>
+					</div>
+				</div>
+				<div class="config-item">
+					<div class="config-label">启用状态</div>
+					<div class="config-ipts">
+						<select class="config-select">
+							<option value="">启用</option>
+							<option value="">停用</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="config-in-btns">
+					<input class="button4" type="button" value="确定" />
+				</div>
+			</form>
 		</div>
 	</div>
-	<div class="config-btns">
-		<input class="button4" type="button" value="确定" />
-		<input class="button4" type="button" value="重置" />
-	</div>
 </div>
-</body>
-</html>
