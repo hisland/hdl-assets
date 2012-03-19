@@ -11,8 +11,52 @@
 			baseUrl: '../../'
 		});
 
-		require(['', 'demo'], function() {
-			
+		require(['sf/compare', 'ui/popwin', 'ui/grid', 'demo'], function(Compare, Popwin, Grid) {
+			var a = {};
+			var b = {};
+			window.comp = Compare.init(a, b);
+			window.pop = Popwin.init();
+			window.grid = Grid.init({
+					url: '../../ui/grid/data.php',
+					colModel : [
+						{display: '名称', name: 'mobileName', width: 90},
+						{display: '是否启用', width: 60, process: function(row, col){
+							if(row.status == 0){
+								return '否';
+							}else{
+								return '是';
+							}
+						}},
+						{display: '是否SP', width: 50, name: 'isSp', align: 'right', align_head: 'right'},
+						{display: '是否USSD', width: 60, name: 'isUSSD'},
+						{display: '父业务类型', width: 70, name: 'fsmTypeId'},
+						{display: '是否送BI', width: 60, name: 'isBi'},
+						{display: '送BI文件名', width: 70, name: 'biContent'},
+						{display: '送BI目录', width: 60, name: 'biDirectory'},
+						{display: '备注', width: 60, name: 'remarks'},
+						{display: '操作', width: 60, align: 'center', process: function(row, col){
+							return '<a href="javascript:;">修改</a><br /><a href="javascript:;">复制</a>';
+						}}
+					],
+					single_select: true,
+					enable_checkbox: true
+				});
+			grid.$div.appendTo('#wrap2');
+			grid.ajaxLoad();
+
+			grid.addButton({
+				icon: 'compare',
+				text: '对比',
+				click: function(e, items){
+					comp.setData(items[0], items[1]);
+					pop.show();
+				}
+			});
+
+			pop.setWidth(500).setHeight(280);
+			comp.$div.appendTo(pop.$content);
+
+			grid.$div.appendTo('body');
 		});
 	</script>
 </head>

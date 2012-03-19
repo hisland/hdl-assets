@@ -2,10 +2,10 @@
  * 
  */
 
-define(['./compare'], function(P){
+define(['./compare'], function(Compare){
 	return {
-		init: function(){
-			return new P();
+		init: function(a, b){
+			return new Compare(a, b);
 		}
 	};
 });
