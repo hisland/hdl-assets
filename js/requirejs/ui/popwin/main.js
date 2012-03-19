@@ -85,9 +85,14 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'jquery-plugin', 'css!./popwin'], f
 			e.preventDefault();
 		});
 
-		//代理取消按钮
-		div.on('click', '.popwin-btn-cancel', this, function(e){
+		//代理取消按钮, 关闭层
+		div.on('click', '.popwin-cancel', this, function(e){
 			e.data.manager.hide();
+		});
+
+		//代理确定按钮, 触发内容form的submit事件
+		div.on('click', '.popwin-ok', this, function(e){
+			e.data.$content.submit();
 		});
 
 		//拖动初始化
@@ -217,8 +222,8 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'jquery-plugin', 'css!./popwin'], f
 		 */
 		setWidth: function(num){
 			if(S.isNumber(num-0)){
-				this.$title.width(num-35);
-				this.$content.width(num-18);
+				this.$title.width(num-30);
+				this.$content.width(num-2);
 			}else{
 				S.log('popWin.setWidth: num must be a valid number!');
 			}
@@ -231,7 +236,7 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'jquery-plugin', 'css!./popwin'], f
 		 */
 		setInnerWidth: function(num){
 			if(S.isNumber(num-0)){
-				this.$title.width(num-17);
+				this.$title.width(num-28);
 				this.$content.width(num);
 			}else{
 				S.log('popWin.setWidth: num must be a valid number!');
