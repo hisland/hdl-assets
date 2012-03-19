@@ -16,6 +16,9 @@
 			"text":"配置页面",
 			"url":"#demo/config.html"
 		},{
+			"text":"配置-带折叠",
+			"url":"#demo/config-tree.html"
+		},{
 			"text":"配置页面-很多",
 			"url":"#demo/config-more.html"
 		},{
@@ -24,6 +27,9 @@
 		},{
 			"text":"配置页面-分块提交",
 			"url":"#demo/config-sub.html"
+		},{
+			"text":"配置页面-弹出",
+			"url":"#demo/config-pop.html"
 		}
 	]
 }

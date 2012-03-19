@@ -2,28 +2,28 @@
 	<div class="search-ls1">
 
 		<div class="ls1-item">
-			<div class="ls1-text"><strong class="red">*</strong>输入文字</div>
+			<div class="ls1-label"><strong class="red">*</strong>输入文字</div>
 			<div class="ls1-ipts">
 				<input class="text1" type="text" name="" value="" />
 			</div>
 		</div>
 
 		<div class="ls1-item">
-			<div class="ls1-text"><strong class="red">*</strong>输入文字</div>
+			<div class="ls1-label"><strong class="red">*</strong>输入文字</div>
 			<div class="ls1-ipts">
 				<input class="text1" type="text" name="" value="" />
 			</div>
 		</div>
 
 		<div class="ls1-item">
-			<div class="ls1-text"><strong class="red">*</strong>输入文字</div>
+			<div class="ls1-label"><strong class="red">*</strong>输入文字</div>
 			<div class="ls1-ipts">
 				<input class="text1" type="text" name="" value="" />
 			</div>
 		</div>
 
 		<div class="ls1-item">
-			<div class="ls1-text"><strong class="red">*</strong>输入文字</div>
+			<div class="ls1-label"><strong class="red">*</strong>输入文字</div>
 			<div class="ls1-ipts">
 				<input class="text1" type="text" name="" value="" />
 			</div>
@@ -64,17 +64,20 @@
 		grid.$div.appendTo('#result');
 		grid.ajaxLoad();
 		grid.addButton({
-			type: 'add',
+			icon: 'add',
+			text: '添加',
 			click: function(e){
 				alert('add clicked!');
 			}
 		}).addButton({
-			type: 'edit',
+			icon: 'edit',
+			text: '修改',
 			click: function(e){
 				alert('edit button!');
 			}
 		}).addButton({
-			type: 'del',
+			icon: 'del',
+			text: '删除',
 			click: function(e){
 				alert('other button!');
 			}

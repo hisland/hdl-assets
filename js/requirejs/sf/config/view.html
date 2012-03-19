@@ -25,7 +25,73 @@
 	<div class="config-wrap">
 		<div class="config-wrap-in">
 			<div class="config-line">
-				<span>基本信息</span>
+				<span class="config-line-label">基本信息</span>
+			</div>
+			<form>
+				<div class="config-item">
+					<div class="config-label">策略名称</div>
+					<div class="config-ipts">
+						<input class="config-text" type="text" name="" value="" />
+					</div>
+					<div class="config-other">
+						其它信息
+					</div>
+				</div>
+				<div class="config-item2">
+					<div class="config-label">时间段</div>
+					<div class="config-ipts">
+						<input class="config-time" type="text" name="" value="2012-03-13 00:00:00" />
+						<span class="config-dash">-</span>
+						<input class="config-time" type="text" name="" value="2012-03-13 23:59:59" />
+					</div>
+				</div>
+				<div class="config-item">
+					<div class="config-label">策略状态</div>
+					<div class="config-ipts">
+						<select class="config-select">
+							<option value="">策略策略策略</option>
+							<option value="">策略策略策略</option>
+						</select>
+					</div>
+				</div>
+				<div class="config-item">
+					<div class="config-label">启用状态</div>
+					<div class="config-ipts">
+						<select class="config-select">
+							<option value="">启用</option>
+							<option value="">停用</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="config-item3">
+					<div class="config-label">备注</div>
+					<div class="config-ipts">
+						<textarea class="config-text"></textarea>
+					</div>
+				</div>
+
+				<div class="config-in-btns">
+					<input class="button4" type="button" value="确定" />
+				</div>
+			</form>
+
+
+			<div class="config-line">
+				<span class="config-line-label">基本信息</span>
+			</div>
+			<div class="config-item">
+				<div class="config-label">策略状态</div>
+				<div class="config-ipts">
+					<input class="config-text" type="text" name="" value="" />
+				</div>
+				<div class="config-other">
+					<input class="button4" type="button" name="" value="保存" />
+				</div>
+			</div>
+
+			<div class="config-line-toggle">
+				<span class="config-line-label"><span class="config-minus"></span>基本信息</span>
 			</div>
 			<form>
 				<div class="config-item">
@@ -34,7 +100,7 @@
 						<input class="config-text" type="text" name="" value="" />
 					</div>
 				</div>
-				<div class="config-item">
+				<div class="config-item2">
 					<div class="config-label">时间段</div>
 					<div class="config-ipts">
 						<input class="config-time" type="text" name="" value="2012-03-13 00:00:00" />
@@ -66,19 +132,50 @@
 				</div>
 			</form>
 
-
 			<div class="config-line">
-				<span>基本信息</span>
+				<span class="config-line-label"><span></span>阈值与处理</span>
 			</div>
-			<div class="config-item">
-				<div class="config-label">策略状态</div>
-				<div class="config-ipts">
-					<input class="config-text" type="text" name="" value="" />
+			<form>
+				<div class="config-item4">
+					<div class="config-item4-col">
+						<span class="config-label">阈值1</span>
+						<input class="config-text" type="text" name="" value="" />
+					</div>
+					<div class="config-item4-col">
+						<span class="config-label">处理方式1</span>
+						<select class="config-select">
+							<option value="">启用</option>
+							<option value="">停用</option>
+						</select>
+					</div>
 				</div>
-				<div class="config-other">
-					<input class="button4" type="button" name="" value="保存" />
+				<div class="config-item4">
+					<div class="config-item4-col">
+						<span class="config-label">阈值2</span>
+						<input class="config-text" type="text" name="" value="" />
+					</div>
+					<div class="config-item4-col">
+						<span class="config-label">处理方式2</span>
+						<select class="config-select">
+							<option value="">启用</option>
+							<option value="">停用</option>
+						</select>
+					</div>
 				</div>
-			</div>
+				<div class="config-item4">
+					<div class="config-item4-col">
+						<span class="config-label">阈值3</span>
+						<input class="config-text" type="text" name="" value="" />
+					</div>
+					<div class="config-item4-col">
+						<span class="config-label">处理方式3</span>
+						<select class="config-select">
+							<option value="">启用</option>
+							<option value="">停用</option>
+						</select>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 	<div class="config-btns">

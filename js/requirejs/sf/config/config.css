@@ -4,19 +4,49 @@
 
 .config-wrap{overflow:auto;background:#fafafa;}
 	.config-wrap-in{padding:10px;overflow:hidden;}
-	.config-line{border-bottom:1px solid #bdc0c2;margin:20px 0 10px;padding-bottom:5px;}
-		.config-line span{display:block;width:145px;text-align:right;font-weight:700;color:#3e3e3e;}
 
+	/* 分割线 */
+	.config-line{border-bottom:1px solid #bdc0c2;margin:20px 0 10px;padding-bottom:5px;overflow:hidden;}
+		.config-line .config-line-label{float:left;width:145px;text-align:right;font-weight:700;color:#3e3e3e;}
+
+	/* 分割线-折叠功能 */
+	.config-line-toggle{border-bottom:1px solid #bdc0c2;margin:20px 0 10px;padding:0 0 5px 90px;cursor:pointer;overflow:hidden;}
+		.config-line-toggle .config-line-label{font-weight:700;color:#3e3e3e;}
+
+	/* item */
 	.config-item{height:30px;margin:0 0 5px;}
-		.config-label{float:left;height:30px;line-height:30px;width:145px;padding-right:5px;text-align:right;white-space:nowrap;}
-		.config-ipts{float:left;height:28px;width:348px;border:1px solid #dfdfdf;background:#fff;white-space:nowrap;}
-			.config-ipts .config-text{display:block;padding:3px;height:22px;width:342px;border:none;background:none;}
-			.config-ipts .config-time{float:left;padding:3px;height:22px;width:120px;border:none;background:none;}
-			.config-ipts .config-dash{float:left;padding:3px;height:22px;line-height:22px;}
-			.config-ipts .config-select{display:block;padding:6px;height:28px;width:348px;border:none;background:none;}
-		.config-other{float:left;height:30px;padding:2px 0 0 10px;}
+		.config-item .config-label{float:left;height:30px;line-height:30px;width:145px;padding-right:5px;text-align:right;white-space:nowrap;}
+		.config-item .config-ipts{float:left;height:30px;}
+			.config-item .config-text{float:left;padding:2px;height:24px;width:340px;border:1px solid #dfdfdf;background:#fff;}
+			.config-item .config-select{float:left;padding:6px;height:30px;width:346px;border:1px solid #dfdfdf;background:#fff;}
+		.config-item .config-other{float:left;height:30px;line-height:30px;padding-left:5px;}
 
+	/* 时间范围 */
+	.config-item2{height:30px;margin:0 0 5px;}
+		.config-item2 .config-label{float:left;height:30px;line-height:30px;width:145px;padding-right:5px;text-align:right;white-space:nowrap;}
+		.config-item2 .config-ipts{float:left;height:28px;width:344px;border:1px solid #dfdfdf;background:#fff;}
+			.config-item2 .config-time{float:left;padding:3px;height:22px;width:120px;border:none;background:none;}
+			.config-item2 .config-dash{float:left;padding:3px;height:22px;line-height:22px;}
+
+	/* textarea */
+	.config-item3{height:60px;margin:0 0 5px;}
+		.config-item3 .config-label{float:left;height:60px;line-height:60px;width:145px;padding-right:5px;text-align:right;white-space:nowrap;}
+		.config-item3 .config-ipts{float:left;height:60px;}
+			.config-item3 .config-text{float:left;padding:2px;height:54px;width:340px;border:1px solid #dfdfdf;background:#fff;resize:none;}
+
+	/* 短的item */
+	.config-item4{height:30px;margin:0 0 5px;padding-left:120px;}
+		.config-item4-col{float:left;margin-right:20px;}
+		.config-item4-col .config-label{float:left;height:28px;line-height:28px;padding-right:5px;}
+		.config-item4-col .config-text{float:left;height:28px;width:100px;border:1px solid #dfdfdf;background:#fff;white-space:nowrap;}
+		.config-item4-col .config-select{float:left;height:28px;width:100px;padding:6px;border:1px solid #dfdfdf;background:#fff;white-space:nowrap;}
+
+	/* 分割线内部的button */
 	.config-in-btns{padding:5px 0 5px 150px;}
 
+	/* 底部button */
 .config-btns{padding:10px 0 10px 160px;}
 	.config-btns input{margin-right:10px;}
+
+.config-plus{display:inline-block;width:9px;height:9px;margin-right:5px;overflow:hidden;background:url('config-img/plus.gif') no-repeat 0 0;cursor:pointer;}
+.config-minus{display:inline-block;width:9px;height:9px;margin-right:5px;overflow:hidden;background:url('config-img/minus.gif') no-repeat 0 0;cursor:pointer;}

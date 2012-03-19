@@ -55,9 +55,9 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'css!./page'], function($, S, PM){
 			var me = this, html,
 				timeOk, reqOk;
 
-			//处理url
-			if(url.charAt(0) === '#'){
-				url = url.substr(1);
+			//如果含#号取hash值
+			if(url.indexOf('#') !== -1){
+				url = url.match(/.*#(.*)/)[1];
 			}
 
 			//清除选择内容, 避免选中内容后切换导致加载出来是选中状态
