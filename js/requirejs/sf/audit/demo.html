@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['sf/audit', 'demo'], function(Audit) {
+			window.kkk = Audit.init({
+				grid: {
+					colModel : [
+						{display: '基本信息', width: 200},
+						{display: '消息内容', name: 'state', width: 200}
+					]
+				},
+				refreshUrl: 'data.php',
+				postUrl: '',
+				numPerPage: [30, 50, 100],
+				delays: [50, 100, 150],
+				types: [
+					[1, '涉黄'],
+					[2, '涉黑'],
+					[3, '无聊'],
+					[4, '嫌疑']
+				]
+			});
+			kkk.grid.$div.appendTo('#wrap');
+			kkk.refresh();
+		});
+	</script>
+	<style type="text/css">
+		#wrap{width:800px;}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		
+	</div>
+</body>
+</html>

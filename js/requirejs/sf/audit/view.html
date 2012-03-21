@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['sf/audit', 'demo'], function(Audit) {
+			
+		});
+	</script>
+</head>
+<body>
+<div class="audit-button-left">
+	<span>
+		提交延迟
+			<select>
+				<option value="50">50</option>
+			</select>
+		秒
+	</span>
+	<span>
+		每页显示
+			<select>
+				<option value="50">50</option>
+			</select>
+		条
+	</span>
+</div>
+<div class="audit-button-right">
+	
+</div>
+
+<a class="audit-dirty" href="javascript:;">垃圾</a>
+<a class="audit-dirty audit-dis" href="javascript:;">垃圾</a>
+<a class="audit-ok" href="javascript:;">非垃圾</a>
+<a class="audit-ok audit-dis" href="javascript:;">非垃圾</a>
+<a class="audit-cancel" href="javascript:;">取消</a>
+
+</body>
+</html>
