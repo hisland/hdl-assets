@@ -41,7 +41,7 @@ define({
 	 * @param sName String
 	 * @return 
 	 */
-	get: (sName){
+	get: function(sName){
 		var sRE = '(?:; )?' + sName + '=([^;]*);?';
 		var oRE = new RegExp(sRE);
 
@@ -58,7 +58,7 @@ define({
 	 * @param sDomain String
 	 * @return 
 	 */
-	del: (sName, sPath, sDomain){
+	del: function(sName, sPath, sDomain){
 		setCookie(sName, '', new Date(0), sPath, sDomain);
 	}
 });
