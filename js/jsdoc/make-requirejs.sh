@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #if exist, clean it
-if [ -d ../docs ]
+if [ -d ../docs-requirejs ]
 then
 	echo 'clean prev docs...'
-	rm -r ../docs/*
+	rm -r ../docs-requirejs/*
 fi
 
-CONF="$PWD/jsdoc.conf"
+CONF="$PWD/requirejs.doc.js"
 
 #use kissy-tools's templates to make docs
 cd ../../../kissy-tools/jsdoc/

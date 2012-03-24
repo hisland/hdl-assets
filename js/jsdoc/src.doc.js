@@ -52,7 +52,7 @@
 	D: {generatedBy: "hisland@qq.com", copyright: "2012"},
 	
 	// use this directory as the output directory
-	d: "/home/hisland/scm/git-root/hdl-assets/js/docs",
+	d: "/home/hisland/scm/git-root/hdl-assets/js/docs-src",
 	
 	// use this template
 	t: "/home/hisland/scm/git-root/kissy-tools/jsdoc/templates/kissy"
