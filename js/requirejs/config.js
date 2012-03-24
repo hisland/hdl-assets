@@ -3,12 +3,39 @@ require.config({
 	paths: {
 		jquery: 'jquery-1.7.1'
 	},
-	packages: ['css', 'util', 'color', 'jquery-plugin', 'valid',
-				'ui/autocomp', 'ui/button', 'ui/date', 'ui/grid', 'ui/popwin', 'ui/select',
-				'ui/tab', 'ui/tip', 'ui/tree', 'ui/week', 'ui/popup']
+	packages: ['css',
+				'demo',
+				'jquery-plugin',
+				'util',
+				'valid']
 });
 
 require.config({
-	packages: ['sf/condition', 'sf/config', 'sf/menu', 'sf/page', 'sf/top',
-				'demo', 'sf/menu', 'sf/flow']
+	packages: ['ui/ajax-tab',
+				'ui/autocomp',
+				'ui/button',
+				'ui/calendar',
+				'ui/drag-sort',
+				'ui/grid',
+				'ui/highcharts',
+				'ui/popbox',
+				'ui/pop-manager',
+				'ui/popup',
+				'ui/popwin',
+				'ui/select',
+				'ui/tab',
+				'ui/tip',
+				'ui/tree',
+				'ui/week']
+});
+
+require.config({
+	packages: ['sf/audit',
+				'sf/compare',
+				'sf/condition',
+				'sf/config',
+				'sf/login',
+				'sf/menu',
+				'sf/page',
+				'sf/top']
 });

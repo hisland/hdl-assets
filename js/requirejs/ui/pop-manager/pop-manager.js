@@ -1,43 +1,19 @@
 /**
- * 弹出层管理工具 - 统一控制层级,遮罩
- * <pre><code>
- * API:
- * 		popManager.clean(true) 清除所有的弹出层包含块, 包括.not-remove的div
- * 		popManager.clean() 清除所有的弹出层包含块, 不会清除含.not-remove的div
  * 
- * 		p = popManager.init() 初始化一个弹出层包含块
- * 		p.front() 将此层放到最前面
- * 		p.show() 显示
- * 		p.hide() 隐藏
- * 		p.mask() 显示遮罩
- * 		p.demask() 隐藏遮罩
- * 		p.loading() 显示loading状态
- * 		p.loaded() 隐藏loading状态
- * 		p.remove() 删除此层
- * 
- * 		p.$div 最外层元素
- * 		p.$mask 遮罩元素 - css3使用的半透明背景,无此属性
- * 
- * TODO:
- * 		2011-08-09 09:15:49
- * 			IE6的内存泄露问题
- * 		2011-09-16 18:56:51
- * 			ESC隐藏控制
- * 		2012-01-16 11:18:21
- * 			弹出层需要禁止焦点跑到层后面去
- * </code></pre>
  */
-define(['jquery', 'kissy'], function($, S){
-	var html_string = '<div class="pop-manager-wrap" style="position:absolute;top:0;left:0;width:100%;height:100%;display:none;"></div>',
-		mask_string = '<div class="pop-manager-mask" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;filter:alpha(opacity=20);"></div>',
+
+define(['jquery', 'kissy', 'css!./pop-manager'], function($, S){
+	var html_string = '<div class="pop-manager-wrap"></div>',
+		mask_string = '<div class="pop-manager-mask"></div>',
 		pop_list = [];
 
+	//检查弹出层的焦点
 	function checkFocus(e){
 		//按下的是tab键且有pop_list时才执行操作
 		if(e && e.keyCode === 9 && pop_list.length){
 			var m = pop_list[pop_list.length - 1];
 
-			//检测焦点位置并调整到当前层的第一个元素上
+			//焦点不在当前层上, 调整到当前层的第一个元素上
 			if(!S.inArray(m.$div[0], $(document.activeElement).parents().andSelf().get())){
 				m.$div.find('a, input, textarea').first().focus();
 			}
@@ -48,13 +24,13 @@ define(['jquery', 'kissy'], function($, S){
 			//}
 		}
 	}
-	function push(m){
+	function put(m){
 		if(!pop_list.length){
 			$(document).keyup(checkFocus);
 		}
 		pop_list.push(m);
 	}
-	function pop(){
+	function remove(){
 		pop_list.pop();
 		if(!pop_list.length){
 			$(document).unbind('keyup', checkFocus);
@@ -62,7 +38,9 @@ define(['jquery', 'kissy'], function($, S){
 	}
 
 	/**
+	 * 弹出层管理, 包括控制焦点, 遮罩
 	 * @class
+	 * @memberOf ui
 	 */
 	function popManager(){
 		this.$div = $(html_string).appendTo('body');
@@ -71,7 +49,7 @@ define(['jquery', 'kissy'], function($, S){
 	}
 
 	/**
-	 * @lends popManager#
+	 * @lends ui.popManager#
 	 */
 	S.augment(popManager, {
 		/**
@@ -88,7 +66,7 @@ define(['jquery', 'kissy'], function($, S){
 		 */
 		remove: function() {
 			this.$div.remove();
-			pop();
+			remove();
 			return this;
 		},
 		/**
@@ -97,7 +75,7 @@ define(['jquery', 'kissy'], function($, S){
 		 */
 		show: function() {
 			this.$div.show();
-			push(this);
+			put(this);
 			return this;
 		},
 		/**
@@ -106,7 +84,7 @@ define(['jquery', 'kissy'], function($, S){
 		 */
 		hide: function() {
 			this.$div.hide();
-			pop();
+			remove();
 			return this;
 		},
 		/**
@@ -174,25 +152,5 @@ define(['jquery', 'kissy'], function($, S){
 		}
 	});
 
-	return {
-		/**
-		 * 清除所有的弹出层包含块
-		 * @param {boolean} force 为true时强制删除所有,其它值不会删除.not-remove的层
-		 * @return popManager
-		 */
-		clean: function(force){
-			if(force === true){
-				$('div.pop-manager-wrap').remove();
-			}else{
-				$('div.pop-manager-wrap').not('.not-remove').remove();
-			}
-			return this;
-		},
-		/**
-		 * 初始化一个弹出层包含块
-		 */
-		init: function(){
-			return new popManager();
-		}
-	};
+	return popManager;
 });
