@@ -133,7 +133,7 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', 'css!./audit'], function($
 							//点击取消
 							cancel.click(function(e){
 								CD.remove(f);
-								count = null;
+								count = undefined;
 								$(this).parent().prev().find('a, select').attr('disabled', false).removeClass('audit-dis').show();
 								$(this).parent().html('无操作');
 							});

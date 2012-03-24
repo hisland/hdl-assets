@@ -6,6 +6,7 @@ define(['jquery', 'kissy'], function($, S){
 	return {
 		/**
 		 * 函数列表
+		 * @type Array
 		 */
 		fns: [],
 		/**
@@ -34,12 +35,14 @@ define(['jquery', 'kissy'], function($, S){
 		 * @return this
 		 */
 		start: function(){
-			//1秒的定时器
-			this.timer = S.later(function(){
-				S.each(this.fns, function(v, i, o){
-					v && v();
-				});
-			}, 1000, true, this);
+			if(!this.timer){
+				//1秒的定时器
+				this.timer = S.later(function(){
+					S.each(this.fns, function(v, i, o){
+						v && v();
+					});
+				}, 1000, true, this);
+			}
 			return this;
 		},
 		/**
@@ -47,8 +50,10 @@ define(['jquery', 'kissy'], function($, S){
 		 * @return this
 		 */
 		stop: function(){
-			this.timer.cancel();
-			this.timer = null;
+			if(this.timer){
+				this.timer.cancel();
+				this.timer = null;
+			}
 			return this;
 		}
 	};
