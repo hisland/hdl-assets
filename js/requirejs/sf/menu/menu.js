@@ -14,7 +14,7 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 		 * @return 
 		 */
 		__init: function(){
-			var div = $('<div class="menu-now"><p>系统通信告警</p></div><div class="menu-search"><p><input type="text" name="" value="" placeholder="搜索" /></p></div><div class="menu-wrap"></div>');
+			var div = $('<div class="menu-now"><p>系统通信告警</p></div><div class="menu-search"><p><input class="menu-search-input" type="text" name="" value="" placeholder="搜索菜单" /></p></div><div class="menu-wrap"></div>');
 			this.$div = div;
 			return this;
 		},
@@ -37,7 +37,29 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 				e.data.$div.find('.hover').removeClass('hover');
 				$(this).addClass('hover');
 			});
+
+			//查询菜单
+			this.$div.on('input', '.menu-search-input', this, function(e){
+				var list = [], val = $.trim(this.value);
+				if(val){
+					list = S.map(e.data.search(val), function(v, i, o){
+						return '<div class="menu-lv2"><a hidefocus="true" href="' + v.url + '">' + v.text + '</a></div>';
+					});
+				}
+				e.data.$div.find('.menu-search-hole').html(list.join('')).parent()[0].scrollTop = 0;
+			});
 			return this;
+		},
+		/**
+		 * 从指定url加载菜单
+		 * @param 
+		 * @return 
+		 */
+		load: function(url){
+			var m = this;
+			$.getJSON(url, function(rs){
+				m.setData(rs);
+			});
 		},
 		/**
 		 * 设置菜单数据
@@ -45,7 +67,7 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 		 * @return this
 		 */
 		setData: function(data){
-			var buff = [], menu = this;
+			var buff = ['<div class="menu-search-hole"></div>'], menu = this;
 			
 			//生成1级结构
 			S.each(data, function(v, i, o){
@@ -65,6 +87,12 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 
 			//保存菜单数据
 			this.data = data;
+
+			//加载已存在的菜单
+			try{
+				this.$div.filter('.menu-wrap').find('a[href="' + location.hash + '"], a[href="' + location.href + '"]').first().click();
+			}catch(e){}
+			
 			return this;
 		},
 		/**
@@ -83,7 +111,7 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 					buff.push('</a>');
 					buff.push('</div>');
 					buff.push('<div class="menu-sub-wrap">');
-					buff.push(menu.makeSubMenu(buff, v.children));
+					menu.makeSubMenu(buff, v.children);
 					buff.push('</div>');
 				}else{
 					buff.push('<div class="menu-lv2">');
@@ -100,7 +128,20 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 		 * @return Array
 		 */
 		search: function(str){
-			return [];
+			var rs = [];
+			function loop(arr){
+				S.each(arr, function(v, i, o){
+					if(v.children){
+						loop(v.children);
+					}else{
+						if(v.text.toUpperCase().indexOf(str.toUpperCase()) !== -1){
+							rs.push(v);
+						}
+					}
+				});
+			}
+			loop(this.data);
+			return rs;
 		},
 		/**
 		 * 设置当前菜单的文字
@@ -109,6 +150,15 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 		 */
 		setNow: function(str){
 			this.$div.filter('.menu-now').find('p').html(str);
+			return this;
+		},
+		/**
+		 * 菜单切换时触发的事件, 只执行一次
+		 * @param fn Function
+		 * @return this
+		 */
+		onChange: function(fn){
+			fn ? this.$div.one('change', fn) : this.$div.trigger('change');
 			return this;
 		}
 	});

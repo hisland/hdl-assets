@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 .menu-now{width:200px;height:30px;background:url('menu-img/now.gif') no-repeat 0 0;}
-	.menu-now p{color:#fff;font-weight:700;padding: 7px 0 0 10px;height:18px;width:170px;overflow:hidden;text-overflow:ellipsis;}
+	.menu-now p{color:#fff;font-weight:700;padding: 7px 0 0 10px;height:18px;width:170px;overflow:hidden;text-overflow:ellipsis;text-align:center;}
 	
 .menu-search{width:200px;height:35px;background:url('menu-img/search.gif') no-repeat 0 0;overflow:hidden;}
 	.menu-search p{padding:7px 0 0 35px;height:18px;width:150px;}
@@ -17,6 +17,8 @@
 		.menu-lv2 a:hover{color:#404040;}
 		.menu-lv2 a.hover{color:#404040;}
 
+	.menu-search-hole{padding-left:15px;background:#f6f6f6;}
+		.menu-search-hole a{color:#ff8604;}
 	.menu-sub-wrap{padding-left:15px;background:#f6f6f6;}
 
 	.menu-lv1 .menu-lv1-icon1{background-image:url('menu-img/icon1.gif');}
@@ -29,3 +31,4 @@
 	.menu-lv1 .menu-lv1-icon8{background-image:url('menu-img/icon8.gif');}
 
 .menu-wrap a{text-decoration:none;outline:none;}
+
