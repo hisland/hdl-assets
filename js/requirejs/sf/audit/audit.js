@@ -2,7 +2,7 @@
  * 
  */
 
-define(['jquery', 'kissy', 'ui/grid', './count-down', 'css!./audit'], function($, S, Grid, CD){
+define(['jquery', 'kissy', 'ui/grid', './count-down', './fns', 'css!./audit'], function($, S, Grid, CD, FNS){
 	/**
 	 * 组合ui.grid模块,修改一些实现
 	 * @class
@@ -28,6 +28,7 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', 'css!./audit'], function($
 			me.numPerPage = 50;
 			me.refreshUrl = setting.refreshUrl;
 			me.postUrl = setting.postUrl;
+			me.makeParam = setting.makeParam;
 
 			var $left = $('<div class="audit-button-left"><span>提交延迟<select></select>秒</span><span>每页显示<select></select>条</span></div>'),
 				$right = $('<div class="audit-button-right"></div>'),
@@ -66,12 +67,13 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', 'css!./audit'], function($
 					width: 100,
 					align: 'center',
 					process: function(row, col){
-						//生成选择框与按钮
-						var div = $('<select style="width:80px;border:1px solid #dbdada;"></select>').append(S.map(setting.types, function(v, i, o){
+						//生成选择框
+						var select = $('<select style="width:80px;border:1px solid #dbdada;"></select>').append(S.map(setting.types, function(v, i, o){
 								return '<option value="' + v[0] + '">' + v[1] + '</option>';
-							}).join('')),
-							a1 = $('<a class="audit-dirty" href="javascript:;" dirty="true">垃圾</a>'),
-							a2 = $('<a class="audit-ok" href="javascript:;">非垃圾</a>');
+							}).join(''));
+
+						//作用域应该在这里
+						var count;
 
 						//去掉10秒的延迟
 						row.timeout -= 10;
@@ -86,14 +88,13 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', 'css!./audit'], function($
 									}
 								}else{
 									//过期倒计时
-									if(row.timeout){
-										a1.parent().next().html('<span style="color:#ff8604;">' + row.timeout + '秒后过期</span>');
+									if(row.timeout > 0){
+										select.parent().next().html('<span style="color:#ff8604;">' + row.timeout + '秒后过期</span>');
 									}
 									//过期进行提示
 									else{
-										a1.parent().next().html('<span style="color:#ff8604;">已过期</span>');
-										//a1.add(a2).attr('disabled', true).addClass('audit-dis').siblings('select').attr('disabled', true);
-										a1.add(a2).add(div).remove();
+										select.parent().next().html('<span style="color:#ff8604;">已过期</span>');
+										select.remove();
 										CD.remove(checkTimeout);
 									}
 								}
@@ -101,19 +102,12 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', 'css!./audit'], function($
 						}
 						CD.put(checkTimeout);
 
-						//作用域应该在这里
-						var count;
-
-						a1.add(a2).click(function(e){
-							if($(this).attr('disabled')){
-								return ;
-							}
-
+						select.change(function(e){
 							count = me.delay;
 
 							var span = $('<span style="color:#green;">' + count + '秒后提交</span>'),
 								cancel = $('<a class="audit-cancel" href="javascript:;">取消</a>'),
-								dirty = $(this).attr('dirty'),
+								dt = me.makeParam(row, this.value),
 								f = function(){
 									//不为0修正倒计时
 									if(count-- > 0){
@@ -121,37 +115,36 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', 'css!./audit'], function($
 									}
 									//计时为0时提交
 									else{
-										$.post(me.postUrl);
-										cancel.parent().html('已提交');
-										CD.remove(f);
-										CD.remove(checkTimeout);
+										post();
 									}
+								},
+								post = function(){
+									$.post(me.postUrl, dt);
+									cancel.parent().html('已提交');
+									CD.remove(f);
+									CD.remove(checkTimeout);
+									FNS.remove(post);
 								};
 
 							CD.put(f);
+							FNS.put(post);
 
 							//点击取消
 							cancel.click(function(e){
 								CD.remove(f);
+								FNS.remove(post);
 								count = undefined;
-								$(this).parent().prev().find('a, select').attr('disabled', false).removeClass('audit-dis').show();
+								select.attr('disabled', false);
 								$(this).parent().html('无操作');
 							});
 
 							//修改状态栏
 							$(this).parent().next().empty().append(span, cancel);
 
-							//调整显示状态
-							if(dirty){
-								$(this).attr('disabled', true).addClass('audit-dis').siblings('a').hide().siblings('select').attr('disabled', true);
-							}else{
-								$(this).attr('disabled', true).addClass('audit-dis').siblings('a, select').hide();
-							}
+							select.attr('disabled', true);
 						});
 
-						div = div.add(a1).add(a2);
-
-						return div;
+						return select;
 					}
 				},{
 					display: '状态',
@@ -165,6 +158,8 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', 'css!./audit'], function($
 
 			//表格可以换行
 			setting.grid.nowrap = false;
+			//表格可以换行
+			setting.grid.enable_page = false;
 
 			//初始化表格并放入按钮等内容
 			this.grid = Grid.init(setting.grid);
@@ -241,13 +236,26 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', 'css!./audit'], function($
 		 * @return 
 		 */
 		refresh: function(){
-			var grid = this.grid;
+			var grid = this.grid,
+				dt = this.param || [],
+				len;
 			grid.clean();
-			grid.loading();
-			$.getJSON(this.refreshUrl, function(rs){
-				grid.addData(rs);
-				grid.loaded();
-			});
+
+			len = grid.$tbody.children().length;
+
+			if(len < this.numPerPage){
+				//指定获取多少条
+				dt.push({
+					name: 'perPageNum',
+					value: this.numPerPage - len
+				});
+				
+				grid.loading();
+				$.getJSON(this.refreshUrl, dt, function(rs){
+					grid.addData(rs);
+					grid.loaded();
+				});
+			}
 			return this;
 		},
 		/**
@@ -256,7 +264,16 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', 'css!./audit'], function($
 		 * @return 
 		 */
 		postAll: function(){
-			
+			FNS.run();
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		setParam: function(param){
+			this.param = param;
+			return this;
 		}
 	});
 

@@ -115,7 +115,11 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 					buff.push('</div>');
 				}else{
 					buff.push('<div class="menu-lv2">');
-					buff.push('<a href="', v.url, '" hidefocus="true">');
+					buff.push('<a href="', v.url, '"');
+					if (v.id) {
+						buff.push(' id="', v.id, '"');
+					}
+					buff.push(' hidefocus="true">');
 					buff.push(v.text);
 					buff.push('</a>');
 					buff.push('</div>');

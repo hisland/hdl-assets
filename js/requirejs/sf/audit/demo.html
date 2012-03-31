@@ -21,6 +21,15 @@
 				},
 				refreshUrl: 'data.php',
 				postUrl: '',
+				makeParam: function(row, type){
+					return [{
+						name: 'aa',
+						value: row.recordId
+					},{
+						name: 'bb',
+						value: type
+					}];
+				},
 				numPerPage: [30, 50, 100],
 				delays: [50, 100, 150],
 				types: [

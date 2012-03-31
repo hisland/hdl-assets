@@ -11,8 +11,8 @@
 			baseUrl: '../../'
 		});
 
-		require(['sf/config', 'demo'], function() {
-			
+		require(['sf/config', 'ui/drag-sort', 'demo'], function(Config, DS) {
+			DS.init('#config-dir');
 		});
 	</script>
 	<style type="text/css">
@@ -27,7 +27,7 @@
 			<div class="config-line">
 				<span class="config-line-label">基本信息</span>
 			</div>
-			<form>
+			<div>
 				<div class="config-item">
 					<div class="config-label">策略名称</div>
 					<div class="config-ipts">
@@ -74,7 +74,7 @@
 				<div class="config-in-btns">
 					<input class="button4" type="button" value="确定" />
 				</div>
-			</form>
+			</div>
 
 
 			<div class="config-line">
@@ -93,7 +93,7 @@
 			<div class="config-line-toggle">
 				<span class="config-line-label"><span class="config-minus"></span>基本信息</span>
 			</div>
-			<form>
+			<div>
 				<div class="config-item">
 					<div class="config-label">策略名称</div>
 					<div class="config-ipts">
@@ -130,12 +130,12 @@
 				<div class="config-in-btns">
 					<input class="button4" type="button" value="确定" />
 				</div>
-			</form>
+			</div>
 
 			<div class="config-line">
 				<span class="config-line-label"><span></span>阈值与处理</span>
 			</div>
-			<form>
+			<div>
 				<div class="config-item4">
 					<div class="config-item4-col">
 						<span class="config-label">阈值1</span>
@@ -175,7 +175,80 @@
 						</select>
 					</div>
 				</div>
-			</form>
+			</div>
+
+			<div class="config-line">
+				<span class="config-line-label"><span></span>处理</span>
+			</div>
+			<div>
+				<div class="config-item5">
+					<div class="config-label">处理方式</div>
+					<div class="config-ipts">
+						<label><input type="radio" name="aa" value="" />值1</label>
+						<label><input type="radio" name="aa" value="" />值1</label>
+						<label><input type="radio" name="aa" value="" />值1</label>
+						<label><input type="radio" name="aa" value="" />值1</label>
+					</div>
+				</div>
+				<div class="config-item5">
+					<div class="config-label">处理方式</div>
+					<div class="config-ipts">
+						<label><input type="radio" name="bb" value="" />值2</label>
+						<label><input type="radio" name="bb" value="" />值2</label>
+						<label><input type="radio" name="bb" value="" />值2</label>
+						<label><input type="radio" name="bb" value="" />值2</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="config-line">
+				<span class="config-line-label"><span></span>主叫用户群</span>
+				<span><a href="#">选择</a></span>
+			</div>
+			<div>
+				<div class="config-item6">
+					<div class="config-text">用户群1</div>
+					<div class="config-text">信息1</div>
+					<div class="config-text">信息2</div>
+					<div class="config-text">信息3</div>
+					<a href="#">修改</a>
+					<a href="#">删除</a>
+				</div>
+				<div class="config-item6">
+					<div class="config-text">用户群1</div>
+					<div class="config-text">信息1</div>
+					<div class="config-text">信息2</div>
+					<div class="config-text">信息3</div>
+					<a href="#">修改</a>
+					<a href="#">删除</a>
+				</div>
+				<div class="config-item6">
+					<div class="config-text">用户群1</div>
+					<div class="config-text">信息1</div>
+					<div class="config-text">信息2</div>
+					<div class="config-text">信息3</div>
+					<a href="#">修改</a>
+					<a href="#">删除</a>
+				</div>
+			</div>
+
+			<div class="config-line">
+				<span class="config-line-label"><span></span>规则执行顺序</span>
+				<span style="color:#ccc">拖动改变顺序</span>
+			</div>
+			<div>
+				<div class="config-item7">
+					<div class="config-dir" id="config-dir">
+						<p>审核次数规则</p>
+						<p>白名单审核规则</p>
+						<p>内容白名单规则</p>
+						<p>内容相同规则</p>
+						<p>长度规则</p>
+						<p>高风险用户名单规则</p>
+						<p>语言类型规则</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="config-btns">

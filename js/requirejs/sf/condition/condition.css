@@ -2,7 +2,7 @@
 
 .ls1-item{float:left;height:24px;width:230px;margin-bottom:5px;overflow:hidden;}
 .ls1-item-right{float:right;display:inline;}
-	.ls1-text{float:left;height:24px;line-height:24px;width:100px;text-align:right;white-space:nowrap;}
+	.ls1-label{float:left;height:24px;line-height:24px;width:100px;text-align:right;white-space:nowrap;}
 	.ls1-ipts{float:left;padding:3px;height:18px;width:124px;white-space:nowrap;}
 
 .ls1-2c{width:464px;}
@@ -12,12 +12,12 @@
 	.ls1-3c .ls1-ipts{width:592px;}
 
 .ls1-3r{height:80px;}/* 增加一行+28, 减一行-28 */
-	.ls1-3r .ls1-text{height:80px;line-height:80px;}
+	.ls1-3r .ls1-label{height:80px;line-height:80px;}
 	.ls1-3r .ls1-ipts{height:74px;}/* 上面减6 */
 	.ls1-3r .ls1-big-box{height:70px;}/* 增加一行+28, 减一行-28 */
 
 .ls1-4r{height:108px;}
-	.ls1-4r .ls1-text{height:108px;line-height:108px;}
+	.ls1-4r .ls1-label{height:108px;line-height:108px;}
 	.ls1-4r .ls1-ipts{height:102px;}
 	.ls1-4r .ls1-big-box{height:98px;}
 
@@ -26,5 +26,4 @@
 	.search-ls1{float:left;width:690px;}
 	.search-ls1-auto{width:auto;}
 	.search-condition-submit{float:left;padding-left:10px;}
-
 .search-result{padding:0 5px;}

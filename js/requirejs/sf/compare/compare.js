@@ -68,7 +68,7 @@ define(['jquery', 'kissy', 'css!./compare'], function($, S){
 						col2 = $('<div class="compare-col2"><div class="compare-item"><span class="compare-label">' + i + ':</span><span>' + b[i] + '</span></div></div>').appendTo(row);
 					}
 
-					//它们的属性值相同
+					//它们的属性值不同
 					if(a[i] !== b[i]){
 						col1.add(col2).find('span:eq(1)').addClass('compare-orange');
 					}

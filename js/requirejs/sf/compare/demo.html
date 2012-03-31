@@ -12,9 +12,7 @@
 		});
 
 		require(['sf/compare', 'ui/popwin', 'ui/grid', 'demo'], function(Compare, Popwin, Grid) {
-			var a = {};
-			var b = {};
-			window.comp = Compare.init(a, b);
+			window.comp = Compare.init();
 			window.pop = Popwin.init();
 			window.grid = Grid.init({
 					url: '../../ui/grid/data.php',
@@ -47,6 +45,7 @@
 			grid.addButton({
 				icon: 'compare',
 				text: '对比',
+				enable: '=2',
 				click: function(e, items){
 					comp.setData(items[0], items[1]);
 					pop.show();
