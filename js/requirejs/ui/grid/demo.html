@@ -30,8 +30,7 @@
 						{display: '送BI文件名', width: 70, name: 'biContent'},
 						{display: '送BI目录', width: 60, name: 'biDirectory'},
 						{display: '备注', width: 60, name: 'remarks'}
-					],
-					single_select: true
+					]
 				});
 			grid.$div.appendTo('#wrap');
 			grid.ajaxLoad();
@@ -58,7 +57,7 @@
 							return '<a href="javascript:;">修改</a><br /><a href="javascript:;">复制</a>';
 						}}
 					],
-					single_select: true,
+					single_check: true,
 					enable_checkbox: true
 				});
 			grid2.$div.appendTo('#wrap2');
@@ -73,15 +72,58 @@
 			}).addButton({
 				icon: 'edit',
 				text: '修改',
+				enable: '=1',
 				click: function(e){
 					alert('edit button!');
 				}
 			}).addButton({
 				icon: 'del',
 				text: '删除',
+				enable: '>0',
 				click: function(e){
-					alert('other button!');
+					alert('del button!');
 				}
+			}).addButton({
+				icon: 'compare',
+				text: '对比',
+				enable: '=2',
+				click: function(e, items){
+					alert('compare button!');
+				}
+			}).addButton({
+				icon: 'export',
+				text: '导出',
+				click: function(e, items){
+					alert('export button!');
+				}
+			}).addButton({
+				icon: 'prejudge',
+				text: '预审',
+				enable: '>0',
+				click: function(e, items){
+					alert('prejudge button!');
+				}
+			}).addButton({
+				icon: 'refresh',
+				text: '刷新',
+				click: function(e, items){
+					alert('refresh button!');
+				}
+			}).addButton({
+				icon: 'post',
+				text: '提交',
+				click: function(e, items){
+					alert('post button!');
+				}
+			});
+
+			grid2.addImportButton({
+				icon: 'import',
+				text: '导入',
+				max_size: '1024',
+				filter: '*.xls',
+				posturl: 'post.php',
+				upload_name: 'filename'
 			});
 		});
 	</script>

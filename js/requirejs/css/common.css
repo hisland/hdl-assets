@@ -2,6 +2,8 @@
 
 /* 文本颜色 */
 .red{color:red;font-weight:400;}
+.orange{color:#f89801;font-weight:400;}
+.blue{color:blue;font-weight:400;}
 
 /* 文本对齐 */
 .text-center{text-align:center;}
@@ -50,7 +52,6 @@ input.button4{width:72px;height:26px;line-height:26px;border:none;background:url
 .ov-auto{height:100%;overflow:auto;}
 
 
-.loading{background:url('common-img/loading.gif') no-repeat 50% 50%;}
 .icon-add{display:inline-block;width:16px;height:16px;background:url('common-img/icon+.gif') no-repeat 0 0;}
 
 input[type=password][readonly], input[type=text][readonly], textarea[readonly]{background:#e1dfd4;color:#666;border:1px solid #dbdada;padding:1px;}

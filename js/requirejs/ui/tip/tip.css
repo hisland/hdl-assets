@@ -9,30 +9,30 @@
 
 	.tipmsg-b1{background:url('tip-img/bg.gif') no-repeat left bottom;padding-left:10px;}
 	.tipmsg-b2{background:url('tip-img/bg.gif') no-repeat right bottom;padding-right:10px;}
-	.tipmsg-b3{border-bottom:1px solid #b6d3ef;background:#fff;text-align:center;height:28px;}
+	.tipmsg-b3{border-bottom:1px solid #a2a2a2;background:#fff;text-align:center;height:28px;}
 		.tipmsg-b3 input{margin:0 5px;border:none;overflow:hidden;background:url('tip-img/icons.gif') no-repeat -40px -40px;width:72px;height:22px;color:#2a2a2a;cursor:pointer;}
 
 
 	/* use css3 */
-	.tipmsg2-h1{height:23px;line-height:23px;padding:0 20px 0 10px;border:1px solid #afcdea;
+	.tipmsg2-h1{height:23px;line-height:23px;padding:0 20px 0 10px;border:1px solid #a2a2a2;
 				border-radius:5px 5px 0 0;-moz-border-radius:5px 5px 0 0;
-				background:-moz-linear-gradient(top, #fff, #d1e1f4);background:-webkit-linear-gradient( #fff, #d1e1f4);}
-	.tipmsg2-b1{height:30px;text-align:center;border:1px solid #afcdea;border-top:none;background:#fff;
+				background:-moz-linear-gradient(top, #fff, #e3e3e3);background:-webkit-linear-gradient( #fff, #e3e3e3);}
+	.tipmsg2-b1{height:30px;text-align:center;border:1px solid #a2a2a2;border-top:none;background:#fff;
 				border-radius:0 0 5px 5px;-moz-border-radius:0 0 5px 5px;}
 	.tipmsg2-b1 input[type=button]{
 		border-width:2px;
 		width:72px;
 		height:22px;
-		border-left-colors:#b6d3ef #ecf5ff;
-		-moz-border-left-colors:#b6d3ef #ecf5ff;
-		border-top-colors:#b6d3ef #ecf5ff;
-		-moz-border-top-colors:#b6d3ef #ecf5ff;
-		border-right-colors:#b6d3ef #ecf5ff;
-		-moz-border-right-colors:#b6d3ef #ecf5ff;
-		border-bottom-colors:#b6d3ef #ecf5ff;
-		-moz-border-bottom-colors:#b6d3ef #ecf5ff;
-		background:-moz-linear-gradient(top, #deefff, #c3ddfc);
-		background:-webkit-linear-gradient( #deefff, #c3ddfc);
+		border-left-colors:#bcbcbc #fff;
+		-moz-border-left-colors:#bcbcbc #fff;
+		border-top-colors:#bcbcbc #fff;
+		-moz-border-top-colors:#bcbcbc #fff;
+		border-right-colors:#bcbcbc #fff;
+		-moz-border-right-colors:#bcbcbc #fff;
+		border-bottom-colors:#bcbcbc #fff;
+		-moz-border-bottom-colors:#bcbcbc #fff;
+		background:-moz-linear-gradient(top, #f7f7f7, #dcdcdc);
+		background:-webkit-linear-gradient( #f7f7f7, #dcdcdc);
 		cursor:pointer;
 		margin:0 5px;
 		}
@@ -42,7 +42,7 @@
 	.tipmsg-close{position:absolute;top:6px;right:6px;width:13px;height:13px;background:url('tip-img/icons.gif') no-repeat 0 -40px;overflow:hidden;outline:none;}
 	.tipmsg-close:hover{background-position:0px -60px;}
 
-	.tipmsg-c1{padding:30px 20px 20px 60px;border-left:1px solid #afcdea;border-right:1px solid #afcdea;background:#fff;}
+	.tipmsg-c1{padding:30px 20px 20px 60px;border-left:1px solid #a2a2a2;border-right:1px solid #a2a2a2;background:#fff;}
 		.tipmsg-content{cursor:default;line-height:1.2em;}
 
 	.tipmsg-alert,

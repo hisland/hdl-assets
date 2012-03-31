@@ -56,154 +56,39 @@
 
  * </code></pre>
  */
-define(['jquery', 'kissy', 'css!./grid'], function($, S){
-	var $EMPTY = $('');
-
-	/**
-	 * 表格预设置,需要修改时可参考
-	 */
-	var pre_setting = {
-			/** 是否启用左侧的checkbox */
-			enable_checkbox: false,
-			/** checkbox的name, 对应后台接收 */
-			var_checkbox: 'ckb-name',
-
-			/** 是否启用列拖动 */
-			enable_drag: true,
-			/** 是否启用列排序 */
-			enable_sort: true,
-			/** 是否启用列切换显示 */
-			enable_toggle: true,
-			/** 是否可编辑 */
-			enable_edit: true,
-			/** 是否可改变列宽度 */
-			enable_col_resize: true,
-
-			/** 是否启用表头 */
-			enable_title: true,
-			/** 是否启用控制按钮 */
-			enable_button: true,
-
-			/** 是否显示弹出的详细信息 */
-			enable_pop_detail: true,
-
-			/** 最小宽度 */
-			min_width: 150,
-			/** 最小高度 */
-			min_height: 100,
-			/** 最大宽度 */
-			max_width: 450,
-			/** 最大高度 */
-			max_height: 300,
-			/** 初始化时,自动调整宽度 */
-			auto_size: true,
-
-			/** 是否使用分页 */
-			enable_page: false,
-			/** 当前页 */
-			page_curr: 0,
-			/** page_curr的name, 对应后台接收 */
-			var_page: 'page',
-			/** 每页显示数量的name, 对应后台接收 */
-			var_num_per_page: 'perPageNum',
-			/** 总页数 */
-			page_total: 0,
-			/** [0]为[1]的索引, [1]为可选择的页数量值 */
-			num_per_page: [2, [5, 10, 15, 20]],
-
-			/** 获取数据的地址 */
-			url: '',
-			/** 传递的额外参数, 可为函数, 函数命名空间[暂不支持] */
-			param: '',
-			/** 上次请求时的参数列表, 不含var_page, var_num_per_page */
-			last_param: '',
-			/** 是否自动加载 */
-			auto_load: true,
-
-			/** 文本强制在一行 */
-			nowrap: true,
-
-			/** 单行选中checkbox, 无全选 */
-			single_check: false,
-			/** 单行选择 */
-			single_select: true,
-
-			/** 无数据时显示的内容 */
-			msg_empty: '暂无数据,根据内容填充后的大小居中显示',
-			/** 加载时显示的内容 */
-			msg_proc: '正在加载,请稍等...',
-
-			/** 间隔背景色设置 */
-			row_bgs: ['#fff', '#f3f3f3'],
-
-			/** 对响应结果进行预处理 */
-			preProcess: null
-		};
-
-	/**
-	 * 列预设置,需要修改时可参考
-	 */
-	var pre_col_model = {
-			/** 显示名称 */
-			display: '列名',
-			/** 对应的键名 */
-			name: '',
-			/** 显示与否 */
-			hide: false,
-			/** 列宽度,数字或 百分比('50%') */
-			width: '50',
-			/** 对齐方式 */
-			align: 'left',
-			/** 表头对齐方式 */
-			align_head: 'center',
-			/** 可否排序 */
-			enable_sort: true,
-			/** 可否隐藏 */
-			enable_hide: true,
-			/** 列单元格处理, function(cell){} */
-			process: null
-		};
-
-	/**
-	 * 行预设置,需要修改时可参考
-	 */
-	var pre_row = {
-			enable_edit: true,
-			enable_delete: true,
-			enable_select: true
-		};
-
+define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', './button', 'util', './import-button', 'css!./grid'], function($, S, MSG, Setting, Col, Row, Button, Util, importButton){
 	/**
 	 * @class
+	 * @memberOf ui
 	 */
 	function Grid(setting){
-		this.__init().__initEvent();
-		
-		//初始化参数配置
-		if(S.isPlainObject(setting)){
-			S.mix(this, setting);
-		}
+		this.__init(setting).__initEvent();
+
+		//初始化列
+		this.__initCol();
 
 		//文本强制在一行
 		if(this.nowrap){
 			this.$div.addClass('hdlgrid-nowrap');
 		}
 
-		//初始化列
-		this.__initCol();
+		if(this.enable_page){
+			this.$pager.css('display', 'block');
+		}
 
 		return this;
 	}
 
 	/**
-	 * @lends Grid#
+	 * @lends ui.Grid#
 	 */
 	S.augment(Grid, {
 		/**
 		 * 初始化table基本结构,并设置引用
 		 * @private
+		 * @return this
 		 */
-		__init: function(){
+		__init: function(setting){
 			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-button"></div><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><colgroup></colgroup><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><colgroup></colgroup><tbody></tbody></table></div></div><div class="hdlgrid-pager"></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
 
 			S.mix(this, {
@@ -230,13 +115,18 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 				$loading: div.find('div.hdlgrid-loading')
 			});
 
-			S.mix(this, pre_setting);
+			//默认配置
+			S.mix(this, Setting);
+
+			//初始化参数配置
+			S.mix(this, setting);
 
 			return this;
 		},
 		/**
 		 * 初始化事件
 		 * @private
+		 * @return this
 		 */
 		__initEvent: function(){
 			//body滚动同步head
@@ -251,15 +141,31 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 				}else{
 					e.data.$tbody.find('input.check-one').attr('checked', false);
 				}
+				//触发内部事件
+				e.data.onSelect();
 			});
 			//单个checkbox
 			this.$div.on('change', 'input.check-one', this, function(e){
 				var grid = e.data;
-				if(grid.$tbody.find('input.check-one').not(':checked').length){
-					grid.$thead.find('input.check-all').attr('checked', false);
+				//只能单个选择
+				if(grid.single_check){
+					$(this).parent().parent().siblings().find('input:checked').attr('checked', false);
 				}else{
-					grid.$thead.find('input.check-all').attr('checked', true);
+					if(grid.$tbody.find('input.check-one').not(':checked').length){
+						grid.$thead.find('input.check-all').attr('checked', false);
+					}else{
+						grid.$thead.find('input.check-all').attr('checked', true);
+					}
 				}
+				//触发内部事件
+				e.data.onSelect();
+			});
+
+			//点击分页区域
+			this.$pager.on('click', 'a.hdlgrid-item:not(.hdlgrid-hover)', this, function(e){
+				var grid = e.data;
+				grid.data.currPage = $(this).text();
+				grid.ajaxLoad();
 			});
 
 			return this;
@@ -267,6 +173,7 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 		/**
 		 * 初始化表头
 		 * @private
+		 * @return this
 		 */
 		__initCol: function(){
 			var total_width = 0;
@@ -284,12 +191,14 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 				this.addCol(v);
 				total_width += (v.width-0);
 			}, this);
+
 			this.$div.find('table').width(total_width);
 			return this;
 		},
 		/**
 		 * 无数据时填充空白行,使水平滚动条显示出来
 		 * @private
+		 * @return this
 		 */
 		__blankLine: function(){
 			var str = '<tr style="visibility:hidden;">';
@@ -310,132 +219,37 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 		},
 		/**
 		 * 获得当前行的背景色
+		 * @param n Int 当前行数
 		 * @private
+		 * @return String
 		 */
 		__getRowBg: function(n){
-			var len = this.row_bgs.length;
-			return this.row_bgs[n % len];
-		},
-		/**
-		 * 更新拖动条位置
-		 * @private
-		 */
-		__fixDragPos: function(){
-			
-			return this;
-		},
-		/**
-		 * 生成/更新拖动条
-		 */
-		setDrag: function(){
-			
-			return this;
+			return this.row_bgs[n % this.row_bgs.length];
 		},
 		/**
 		 * 添加一列数据
+		 * @return this
 		 */
 		addCol: function(col_setting){
 			//不覆盖相同的设置,只copy不存在的设置
-			S.mix(col_setting, pre_col_model, false);
+			S.mix(col_setting, Col, false);
 
+			//设置表头
 			if(col_setting.align_head !== 'center'){
 				this.$thead.find('tr').append('<th class="td-' + col_setting.align_head + '">'+ col_setting.display+'</th>');
 			}else{
 				this.$thead.find('tr').append('<th>'+ col_setting.display+'</th>');
 			}
 
+			//增加col标签
 			this.$colgrouphead.append('<col style="width:' + col_setting.width + 'px;" />');
 			this.$colgroupbody.append('<col style="width:' + col_setting.width + 'px;" />');
 
 			return this;
 		},
 		/**
-		 * 修改一列数据
-		 */
-		setCol: function(n, fn){
-			fn.call(this, this.$thead.find('th').eq(n));
-			return this;
-		},
-		/**
-		 * 交换两个索引指向的列,从0开始计数
-		 */
-		swapCol: function(n1, n2){
-			//n1小, n2大
-			var tmp = [n1, n2].sort();
-			n1 = tmp[0];
-			n2 = tmp[1];
-			tmp = n2-n1-1;//标记是否相邻,相邻为0为false
-
-			var head = this.$thead,
-				ths = head.find('th'),
-				th1 = ths.filter('th:eq('+n1+')'),
-				th2 = ths.filter('th:eq('+n2+')'),
-				trs = this.$tbody.find('tr');
-
-			//需要交换的两列都存在才做操作
-			if(th1.length && th2.length){
-				th2.after(th1);
-				tmp && head.find('th:eq('+n1+')').before(th2);//相邻不作此操作
-				trs.each(function(i, v){
-					v = $(v);
-					var td1 = v.find('td:eq('+n1+')');
-					var td2 = v.find('td:eq('+n2+')');
-					td2.after(td1);
-					tmp && v.find('td:eq('+n1+')').before(td2);//相邻不作此操作
-				});
-			}
-			//todo:
-			//同时修改colModel里面的位置
-
-			return this;
-		},
-		/**
-		 * 修改一行数据
-		 */
-		setRow: function(n, fn){
-			
-			return this;
-		},
-		/**
-		 * 交换两个索引指向的行,从0开始计数
-		 */
-		swapRow: function(n1, n2){
-			return this;
-		},
-		/**
-		 * 遍历表头
-		 * fn: this->grid, (th, idx)
-		 */
-		walkHead: function(fn){
-			
-			return this;
-		},
-		/**
-		 * 遍历某行的单元格
-		 * fn: this->grid, (td, idx)
-		 */
-		walkCell: function(row_n, fn){
-			
-			return this;
-		},
-		/**
-		 * 遍历列
-		 * fn: this->grid, (th, td, idx)
-		 */
-		walkCol: function(col_n, fn){
-			
-			return this;
-		},
-		/**
-		 * 遍历行
-		 * fn: this->grid, (tr, idx)
-		 */
-		walkRow: function(fn){
-			
-			return this;
-		},
-		/**
-		 * 修改数据
+		 * 设置数据
+		 * @return this
 		 */
 		setData: function(data){
 			var grid = this;
@@ -443,65 +257,90 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 			//清空原有数据
 			grid.$tbody.empty();
 
-			//没有数据时填充空行使滚动条出现并返回
-			if(!data.rows.length){
-				return this.__blankLine();
+			//隐藏无数据提示
+			grid.$nodata.hide();
+
+			//将全选取消
+			grid.$thead.find(':checkbox').attr('checked', false);
+
+			//读取数据出错并返回
+			if(!data.rows){
+				this.noData(MSG.error);
+				return this;
 			}
 
-			//对数据进行预处理
-			if(grid.preProcess){
-				data = grid.preProcess(data);
-			}
+			//没有数据
+			else if(!data.rows.length){
+				this.noData();
+				//填充空行使滚动条出现
+				this.__blankLine();
 
-			//保存数据引用
-			grid.data = data;
-
-			//生成表格填充到tbody
-			S.each(data.rows, function(row, i){
-				//bg是对行的背景色处理
-				var bg = grid.__getRowBg(i), tr = $('<tr style="background:' + bg + ';"></tr>');
-
-				//需要生成checkbox的情况
-				if(grid.enable_checkbox){
-					tr.append('<td><input type="checkbox" class="check-one" value="" /></td>');
+				//保存数据引用
+				grid.data = data;
+			}else{
+				//对数据进行预处理
+				if(grid.preProcess){
+					data = grid.preProcess(data);
 				}
 
-				S.each(grid.colModel, function(col, j){
-					var val;
-					//单元格预处理
-					if(col.process){
-						val = col.process(row, col);
-					}else{
-						val = row[col.name];
+				//保存数据引用
+				grid.data = data;
+
+				//生成表格填充到tbody
+				S.each(data.rows, function(row, i){
+					//bg是对行的背景色处理
+					var bg = grid.__getRowBg(i), tr = $('<tr style="background:' + bg + ';"></tr>');
+
+					//需要生成checkbox的情况
+					if(grid.enable_checkbox){
+						tr.append('<td><input type="checkbox" class="check-one" value="" /></td>');
 					}
 
-					//单元格对齐方式
-					if(col.align !== 'left'){
-						tr.append('<td class="td-' + col.align + '">' + val + '</td>');
-					}else{
-						tr.append('<td>' + val + '</td>');
-					}
+					S.each(grid.colModel, function(col, j){
+						var val;
+						//单元格预处理
+						if(col.process){
+							val = col.process(row, col);
+						}else{
+							val = row[col.name];
+						}
+
+						//单元格对齐方式
+						if(col.align !== 'left'){
+							tr.append($('<td class="td-' + col.align + '"></td>').append(val));
+						}else{
+							tr.append($('<td></td>').append(val));
+						}
+					});
+
+					tr[0].rawData = row;
+					grid.$tbody.append(tr);
 				});
+			}
 
-				tr[0].rawData = row;
-				grid.$tbody.append(tr);
-			});
+			//触发选择事件,修正按钮状态
+			this.onSelect();
+
+			//生成分页数据
+			if(this.enable_page){
+				this.makePager();
+			}
 
 			return this;
 		},
 		/**
-		 * 
-		 * @param 
-		 * @return 
+		 * 设置请求url
+		 * @param url String
+		 * @return this
 		 */
 		setUrl: function(url){
 			this.url = url;
 			return this;
 		},
 		/**
-		 * 
-		 * @param 
-		 * @return 
+		 * 设置请求参数
+		 * @param param Array|String|Object
+		 * @return this
 		 */
 		setParam: function(param){
 			this.param = param;
@@ -509,6 +348,7 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 		},
 		/**
 		 * 更新宽高
+		 * @return this
 		 */
 		refreshSize: function(){
 			var ths = this.$thead.find('th'),
@@ -540,98 +380,157 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 			return this;
 		},
 		/**
-		 * 刷新显示
-		 */
-		refresh: function(){
-		},
-		/**
-		 * 加载中
+		 * 显示遮罩与loading状态
+		 * @return this
 		 */
 		loading: function(){
-			this.$mask.add(this.$loading).show();
+			this.$mask.add(this.$loading).css('display', 'block');
 			return this;
 		},
 		/**
-		 * 加载完成
+		 * 取消遮罩与loading状态
+		 * @return this
 		 */
 		loaded: function(){
-			this.$mask.add(this.$loading).hide();
+			this.$mask.add(this.$loading).css('display', '');
 			return this;
 		},
 		/**
-		 * 无数据显示文本
+		 * 无数据显示文本, 不传使用默认文本
+		 * @param str String|undefined
+		 * @return this
 		 */
 		noData: function(str){
-			this.$nodata.html(str || this.msg_empty);
+			this.$nodata.html(str || MSG.empty).show();
 			return this;
 		},
 		/**
-		 * 转到某页
-		 */
-		goPage: function(n){
-			return this;
-		},
-		/**
-		 * 下一页
-		 * @return 
-		 */
-		next: function(){
-			return this;
-		},
-		/**
-		 * 上一页
-		 * @return 
-		 */
-		prev: function(){
-			return this;
-		},
-		/**
-		 * 加载数据
+		 * 异步加载数据
+		 * @return this
 		 */
 		ajaxLoad: function(fn){
-			var grid = this, param = grid.param;
+			var grid = this, param = S.clone(grid.param) || [];
+
+			//加入分页参数
+			if(grid.data){
+				param.push({
+					name: 'perPageNum',
+					value: grid.data.perPageNum
+				});
+				param.push({
+					name: 'currPage',
+					value: grid.data.currPage
+				});
+			}
+
+			//发送请求
 			grid.loading();
 			$.post(grid.url, param, function(data){
 				grid.setData(data);
+
 				S.isFunction(fn) && fn.call(grid);
 				grid.loaded();
 
 				//触发修正高度操作
 				$(window).resize();
 			}, 'json');
+			return this;
 		},
 		/**
-		 * 
-		 * @param 
-		 * @return 
+		 * 添加一个按钮
+		 * @param setting Object
+		 * @return this
 		 */
 		addButton: function(setting){
-			var button = $('<a href="javascript:;" class="hdlgrid-btn"><span class="hdlgrid-btn2"><span></span></span></a>');
+			var button = new Button(setting), m;
 
-			//按钮文字
-			button.find('>span>span').html(setting.text || '');
-
-			//按钮样式
-			switch(setting.icon){
-				case 'add':
-				case 'edit':
-				case 'del':
-					button.find('>span>span').addClass('hdlgrid-' + setting.icon);
+			//按钮的禁用状态切换
+			if(S.isFunction(setting.enable)){
+				this.onSelect(function(e, items){
+					//返回true表示要禁用按钮
+					button.$div.toggleClass('hdlgrid-btn-dis', !setting.enable(items));
+				});
+			}else if(S.isString(setting.enable)){
+				if(m = setting.enable.match(/([=<>])(\d+)/)){
+					switch(m[1]){
+						case '=':
+							this.onSelect(function(e, items){
+								button.$div.toggleClass('hdlgrid-btn-dis', items.length != m[2]);
+							});
+							break;
+						case '>':
+							this.onSelect(function(e, items){
+								button.$div.toggleClass('hdlgrid-btn-dis', items.length <= m[2]);
+							});
+							break;
+						case '<':
+							this.onSelect(function(e, items){
+								button.$div.toggleClass('hdlgrid-btn-dis', items.length >= m[2]);
+							});
+					}
+				}
 			}
 
 			//点击事件
-			button.click(this, function(e){
+			button.$div.click(this, function(e){
 				//非禁用状态下点击才执行回调
 				if(!$(this).is('.hdlgrid-btn-dis')){
 					setting.click.call(this, e, e.data.getChecked());
 				}
 			});
 
-			this.$button.append(button).css('display', 'block');
+			//按钮区域显示出来
+			this.$button.append(button.$div).css('display', 'block');
 			return this;
 		},
 		/**
-		 * 获得选中checkbox对应行的rawData
+		 * 由于需要使用flash进行上传, 单独写一个方法
+		 * @param setting Object
+		 * @return this
+		 */
+		addImportButton: function(setting){
+			var button, flash_setting;
+
+			//修正个别参数
+			S.mix(setting, {
+				posturl: 'post.php',
+				max_size: '10240',
+				filter: '*'
+			}, false);
+
+			//flash设置
+			flash_setting = {
+				flashid: S.guid('flash-'),
+				flashurl: require.toUrl('ui/swfobject/file-upload.swf'),
+				flashvars: {
+					url: setting.posturl,
+					filter: setting.filter,
+					upload_name: setting.upload_name,
+					max_size: setting.max_size,
+				},
+				attributes: {
+					style: 'opacity:0;filter:alpha(opacity=0);position:absolute;top:0;left:0;'
+				},
+				width: 54,
+				height: 24
+			};
+
+			//按钮
+			button = new Button({
+				icon: 'import',
+				text: setting.text
+			});
+
+			button.$div.css('position', 'relative').append('<span id="' + flash_setting.flashid + '"></span>');
+
+			//按钮区域显示出来
+			this.$button.append(button.$div).css('display', 'block');
+
+			//初始化导入按钮的flash
+			importButton.init(flash_setting);
+		},
+		/**
+		 * 获得选中checkbox对应行的rawData数组
 		 * @return Array
 		 */
 		getChecked: function(){
@@ -640,11 +539,80 @@ define(['jquery', 'kissy', 'css!./grid'], function($, S){
 			});
 		},
 		/**
-		 * 刷新按钮的禁用状态
+		 * checkbox选择状态修改 事件
+		 * @param fn Function
 		 * @return this
 		 */
-		refreshButtons: function(){
-			this.$button.children()
+		onSelect: function(fn){
+			fn ? $(this).on('select', fn) : $(this).trigger('select', [this.getChecked()]) ;
+			return this;
+		},
+		/**
+		 * 生成分页数据
+		 * @return this
+		 */
+		makePager: function(){
+			var grid = this,
+				rs = [],
+				num = [],
+				curr = grid.data.currPage - 0,
+				all = grid.data.allPage - 0;
+
+			//少于10页全部显示出来
+			if(all < 10){
+				Util.run(function(n){
+					n++;
+					if(n !== curr){
+						rs.push('<a class="hdlgrid-item" href="javascript:;">', n, '</a>');
+					}else{
+						rs.push('<a class="hdlgrid-item hdlgrid-hover" href="javascript:;">', n, '</a>');
+					}
+				}, all);
+			}else{
+				//值: 1表示要显示, 2表示为当前页
+
+				//前面3页做标记
+				num[1] = 1;
+				num[2] = 1;
+				num[3] = 1;
+
+				//后面3页做标记
+				num[all - 2] = 1;
+				num[all - 1] = 1;
+				num[all] = 1;
+
+				//当前页做标记, 要在上面2个之后,否则会被覆盖
+				num[curr] = 2;
+
+				//当前页2侧标记
+				if(curr > 2 && curr < (all - 1)){
+					num[curr - 1] = 1;
+					num[curr + 1] = 1;
+				}
+
+				//因为是从1开始, 去掉第0个元素
+				num.shift();
+
+				S.each(num, function(v, i, o){
+					i++;
+					if(!v){
+						//o.last标记是否已经放置了'...'
+						if(!o.last){
+							o.last = true;
+							rs.push('<span class="hdlgrid-item">...</span>');
+						}
+					}else{
+						o.last = false;
+						if(v === 1){
+							rs.push('<a class="hdlgrid-item" href="javascript:;">', i, '</a>');
+						}else if(v === 2){
+							rs.push('<a class="hdlgrid-item hdlgrid-hover" href="javascript:;">', i, '</a>');
+						}
+					}
+				});
+			}
+			this.$pager.html(rs.join(''));
+
 			return this;
 		}
 	});

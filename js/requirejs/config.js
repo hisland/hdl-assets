@@ -18,11 +18,13 @@ require.config({
 				'ui/drag-sort',
 				'ui/grid',
 				'ui/highcharts',
+				'ui/pager',
 				'ui/popbox',
 				'ui/pop-manager',
 				'ui/popup',
 				'ui/popwin',
 				'ui/select',
+				'ui/swfobject',
 				'ui/tab',
 				'ui/tip',
 				'ui/tree',
@@ -37,5 +39,6 @@ require.config({
 				'sf/login',
 				'sf/menu',
 				'sf/page',
+				'sf/report',
 				'sf/top']
 });

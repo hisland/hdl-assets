@@ -12,7 +12,7 @@
 		});
 
 		require(['ui/tab', 'util', 'demo'], function(Tab, Util) {
-			window.aa = Tab.init();
+			window.aa = Tab.ajax();
 			aa.$div.appendTo('body');
 
 			aa.add('订餐', 'delay.php');
@@ -22,10 +22,25 @@
 			aa.add('时间段', 'delay.php');
 
 			aa.load(3);
+
+			Tab.init('#tab');
 		});
 	</script>
 </head>
 <body>
-	
+	<div id="tab" class="ui-tab ui-tab-sf">
+		<ul class="ui-tab-nav">
+			<li><a href="javascript:;"><span>订餐</span></a></li>
+			<li><a href="javascript:;"><span>用户</span></a></li>
+			<li><a href="javascript:;"><span>餐类别</span></a></li>
+			<li class="ui-tab-hover"><a href="javascript:;"><span>开放设置</span></a></li>
+			<li><a href="javascript:;"><span>时间段</span></a></li>
+		</ul>
+		<div class="ui-tab-con">1</div>
+		<div class="ui-tab-con">2</div>
+		<div class="ui-tab-con">3</div>
+		<div class="ui-tab-con">4</div>
+		<div class="ui-tab-con">5</div>
+	</div>
 </body>
 </html>

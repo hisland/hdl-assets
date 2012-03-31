@@ -11,9 +11,9 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/select', 'util', 'css'], function(Select, tool) {
+		require(['ui/select', 'util', 'css'], function(Select, Util) {
 			$('a.ui-select, ul.ui-select').each(function(i, v){
-				$(v).html(tool.trimBlank($(v).html()));
+				$(v).html(Util.trimBlank($(v).html()));
 			});
 		});
 	</script>

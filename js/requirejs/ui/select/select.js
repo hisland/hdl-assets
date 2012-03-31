@@ -105,7 +105,7 @@ define(['jquery', 'kissy', 'ui/popup', 'css!./select'], function($, S, Popup){
 			return this;
 		},
 		change: function(fn){
-			fn ? $(this).on('change', fn) : $(this).trigger('change');
+			fn ? this.$div.on('change', fn) : this.$div.trigger('change');
 			return this;
 		}
 	});

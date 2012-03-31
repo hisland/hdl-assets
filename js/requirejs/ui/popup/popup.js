@@ -7,13 +7,14 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 
 	/**
 	 * @class
+	 * @memberOf ui
 	 */
 	function Popup(){
 		this.__init();
 	}
 
 	/**
-	 * @lends Popup#
+	 * @lends ui.Popup#
 	 */
 	S.augment(Popup, {
 		/**
@@ -40,7 +41,8 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		},
 		/**
 		 * 设置内容
-		 * @param jQuery|DOM|string content
+		 * @param content jQuery|DOM|string
+		 * @return this
 		 */
 		setContent: function(content){
 			this.$content.html(content);
@@ -48,10 +50,11 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		},
 		/**
 		 * 设置箭头方向
-		 * @param up|right|down|left dir
-		 * @param Number|String num 将调用moveArrow方法进行初始偏移
+		 * @param dir up|right|down|left|[Any Other] 设置箭头方向
+		 * @param num Number|String 将调用moveArrow方法进行初始偏移
+		 * @return this
 		 */
-		setArrow: function(dir, num){
+		setDir: function(dir, num){
 			this.dir = dir;
 			this.$arr.css({
 				display: 'block',
@@ -84,7 +87,8 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		 * 移动箭头
 		 * 为数字时: 设置为指定位置
 		 * 为字符串时: 设置偏移如 '-=10' '+=20'
-		 * @param Number|String num
+		 * @param num Number|String
+		 * @return this
 		 */
 		moveArrow: function(num){
 			switch(this.dir){
@@ -100,16 +104,22 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 			return this;
 		},
 		/**
-		 * 设置边线颜色
-		 * @param color-string color
+		 * 设置边线和背景色, 只在标准浏览器下有效果
+		 * @param color color-string
+		 * @param bg color-string
+		 * @return this
 		 */
-		setColor: function(color){
-			this.$div.add(this.$arr).attr('border-color', color);
+		setTheme: function(border, bg){
+			this.$div.add(this.$arr).css({
+				'border-color': border,
+				'background': bg
+			});
 			return this;
 		},
 		/**
 		 * 设置内容宽度
-		 * @param Number width
+		 * @param width Number
+		 * @return this
 		 */
 		setWidth: function(width){
 			if(ie){
@@ -122,7 +132,8 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		},
 		/**
 		 * 设置内容高度
-		 * @param Number height
+		 * @param height Number
+		 * @return this
 		 */
 		setHeight: function(height){
 			if(ie){
@@ -135,8 +146,9 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		},
 		/**
 		 * 设置内容尺寸,含宽高
-		 * @param Number width
-		 * @param Number height
+		 * @param width Number
+		 * @param height Number
+		 * @return this
 		 */
 		setSize: function(width, height){
 			if(ie){
@@ -149,8 +161,10 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		},
 		/**
 		 * 对齐某元素显示
-		 * @param jQuery|DOM|string target
-		 * @param up|right|down|left position
+		 * @param target jQuery|DOM|string
+		 * @param position up|right|down|left
+		 * @param callback Function
+		 * @return this
 		 */
 		align: function(target, position, callback){
 			var me = this;
@@ -169,16 +183,16 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 				callback: function(position){
 					switch(position){
 						case 'up':
-							me.setArrow('down').$div.css('top', '-=5');
+							me.setDir('down').$div.css('top', '-=5');
 							break;
 						case 'right':
-							me.setArrow('left').$div.css('left', '+=5');
+							me.setDir('left').$div.css('left', '+=5');
 							break;
 						case 'down':
-							me.setArrow('up').$div.css('top', '+=5');
+							me.setDir('up').$div.css('top', '+=5');
 							break;
 						case 'left':
-							me.setArrow('right').$div.css('left', '-=5');
+							me.setDir('right').$div.css('left', '-=5');
 							break;
 					}
 
@@ -191,6 +205,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		},
 		/**
 		 * 显示
+		 * @return this
 		 */
 		show: function(){
 			this.$div.css('z-index', S.guid()).show();
@@ -198,6 +213,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 		},
 		/**
 		 * 隐藏
+		 * @return this
 		 */
 		hide: function(){
 			this.$div.hide();

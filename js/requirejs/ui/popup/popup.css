@@ -11,9 +11,6 @@
 
 .popup-content{position:relative;overflow:auto;width:200px;height:100px;overflow:auto;}
 
-/* 蓝色线条样式 */
-.popup-theme-blue, .popup-theme-blue>div:first-child{border-color:#A9C9E2;}
-
 
 /* 使用背景图片 */
 .popup-img{position:absolute;display:none;width:212px;height:112px;}

@@ -20,7 +20,7 @@ define(['jquery'], function($){
 			'&#34;': '"'
 		};
 	
-	var div = $('<div style="visibility:hidden;position:absolute;top:-20px;left:0;"></div>');
+	var div = $('<div class="check-view-length-hole" style="visibility:hidden;position:absolute;top:-20px;left:0;"></div>');
 	$(function(){
 		div.appendTo('body');
 	});

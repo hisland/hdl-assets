@@ -16,7 +16,11 @@ define(['jquery', 'kissy', 'css!./button'], function($, S){
 			return this;
 		},
 		click: function(fn){
-			fn ? $(this).on('click', fn) : $(this).trigger('click');
+			fn ? this.$div.on('click', fn) : this.$div.trigger('click');
+			return this;
+		},
+		disable: function(state){
+			this.$div.attr('disabled', state);
 			return this;
 		}
 	});

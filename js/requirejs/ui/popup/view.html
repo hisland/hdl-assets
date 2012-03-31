@@ -11,9 +11,9 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/popup', 'util', 'css'], function(T, tool) {
+		require(['ui/popup', 'util', 'css'], function(T, Util) {
 			$('.popup-img, .popup-css3').each(function(i, v){
-				$(v).html(tool.trimBlank($(v).html()));
+				$(v).html(Util.trimBlank($(v).html()));
 			});
 		});
 	</script>

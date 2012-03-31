@@ -85,6 +85,17 @@ define(['jquery', 'kissy', '../pop-manager', './msg', 'jquery-plugin', 'css!./ti
 			return this;
 		},
 		/**
+		 * 将弹出层居中
+		 * @return this
+		 */
+		center: function(){
+			this.$div.css({
+				top: (document.documentElement.clientHeight - this.$div.height())/2,
+				left:(document.documentElement.clientWidth - this.$div.width())/2
+			});
+			return this;
+		},
+		/**
 		 * 显示
 		 * @return this
 		 */

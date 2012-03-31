@@ -1,7 +1,3 @@
-/**
- * 颜色类
- */
-
 define(['kissy'], function(S){
 	/**
 	 * 颜色名称对照表
@@ -44,6 +40,7 @@ define(['kissy'], function(S){
 	};
 
 	/**
+	 * 颜色类,包含rgb值
 	 * <pre><code>
 	 *	var c = Color('#ccff00');	//以hex方式创建
 	 *	var c = Color('#f00');	//以hex缩写方式创建
@@ -54,7 +51,7 @@ define(['kissy'], function(S){
 	 *	c.g;	//当前g值
 	 *	c.b;	//当前b值
 	 * </code></pre>
-	 * @class 颜色类,包含rgb值
+	 * @class
 	 * @memberOf util
 	 */
 	function Color(arg0, arg1, arg2){
@@ -98,7 +95,7 @@ define(['kissy'], function(S){
 
 			//其它情况
 			else{
-				console.log('Color: arguments ' + args[0] + ' invalid!');
+				S.log('Color: arguments ' + args[0] + ' invalid!');
 			}
 		}
 
@@ -106,7 +103,7 @@ define(['kissy'], function(S){
 		if(args.length == 3){
 			for(i=0; i<3; i++){
 				if(args[i] > 255 || args[i] < 0){
-					console.log('Color: arguments ' + args[0] + ', ' + args[1] + ', ' + args[2] + 'invalid!');
+					S.log('Color: arguments ' + args[0] + ', ' + args[1] + ', ' + args[2] + 'invalid!');
 					return null;
 				}
 			}

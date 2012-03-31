@@ -1,7 +1,3 @@
-/**
- * 树控件
- */
-
 define(['jquery', 'kissy', 'css!./tree'], function($, S){
 	//各元素对应的标签
 	var arrow = '<em class="arrow"></em>',
@@ -24,19 +20,22 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		line_elbow_end = '<b class="line-elbow-end"></b>';
 
 	/**
+	 * 树控件
 	 * @class
+	 * @memberOf ui
 	 */
 	function Tree(setting){
 		this.__init(setting).__initEvnet();
 	}
 
 	/**
-	 * @lends Tree#
+	 * @lends ui.Tree#
 	 */
 	S.augment(Tree, {
 		/**
 		 * 初始化树
 		 * @private
+		 * @return this
 		 */
 		__init: function(setting){
 			this.var_children = 'children';
@@ -55,6 +54,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		/**
 		 * 初始化事件代理
 		 * @private
+		 * @return this
 		 */
 		__initEvnet: function(){
 			//checkbox点击代理
@@ -88,9 +88,22 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 遍历下级节点,含当前节点
+		 * @param node Object|undefined
+		 * @param func Function(node)
+				this -> tree
+				node -> node
+		 * @return this
 		 */
 		walkDescendants: function(node, func){
-			var rs = func.call(this, node);
+			var rs;
+
+			//修正参数
+			if(S.isFunction(node)){
+				func = node;
+				node = this;
+			}
+
+			rs = func.call(this, node);
 			if(node[this.var_children]){
 				for(var i = 0, child = node[this.var_children][i]; rs !== false && child; ){
 					if(child[this.var_children]){
@@ -105,6 +118,11 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 遍历上级节点,不含当前节点
+		 * @param node Object|undefined
+		 * @param func Function(parent)
+				this -> tree
+				parent -> parent
+		 * @return this
 		 */
 		walkAncestors: function(node, func){
 			var parent = node.__parent, rs = true;
@@ -117,6 +135,8 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 根据path(实际是div的id属性)获得指定js对象
+		 * @param path String
+		 * @return Object
 		 */
 		getNode: function(path){
 			var node = this, i = 0;
@@ -129,6 +149,8 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 根据node/path获得指定的DIV
+		 * @param path Node|String
+		 * @return DOM
 		 */
 		getDOM: function(path){
 			if(S.isObject(path)){
@@ -139,8 +161,12 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		/**
 		 * 不传node直接设置数据
 		 * 传node在node下级设置数据
+		 * @param data Array
+		 * @param node Node
+		 * @return this
 		 */
 		setData: function(data, node){
+			//修正参数
 			if(!node){
 				node = this;
 			}
@@ -160,6 +186,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 设置主题
+		 * @return this
 		 */
 		setTheme: function(theme){
 			if(S.isString(theme)){
@@ -169,6 +196,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 设置树的checkbox的选中状态
+		 * @return this
 		 */
 		setValue: function(value){
 			value = S.isArray(value) ? value : S.isString(value) ? value.split(/[, -]+/) : null;
@@ -190,6 +218,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 切换节点的展开与否
+		 * @return this
 		 */
 		toggleOpen: function(node, state, div, em){
 			if(!node){
@@ -214,6 +243,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		 * 切换节点的展开与否, 递归所有下级节点
 		 * 不传node直接折叠整个树
 		 * 不传state为切换展开折叠状态
+		 * @return this
 		 */
 		toggleOpenAll: function(node, state){
 			if(!node){
@@ -231,6 +261,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 设置当前节点选中状态,并遍历上下级节点
+		 * @return this
 		 */
 		toggleCheckbox: function(node, checked){
 			var i, chks, parent = node.__parent, has_partial = false;
@@ -347,6 +378,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 切换可否编辑
+		 * @return this
 		 */
 		toggleEditAble: function(state){
 			this.edit_able = S.isBoolean(state) ? state : !this.edit_able;
@@ -354,6 +386,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 切换icon的显示与否
+		 * @return this
 		 */
 		toggleUseIcon: function(state){
 			this.use_icon = S.isBoolean(state) ? state : !this.use_icon;
@@ -366,6 +399,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 切换checkbox的显示与否
+		 * @return this
 		 */
 		toggleUseCheckbox: function(state){
 			this.use_checkbox = S.isBoolean(state) ? state : !this.use_checkbox;
@@ -378,6 +412,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 切换node的显示与否
+		 * @return this
 		 */
 		toggleHide: function(node, state){
 			if(!node || node == this){
@@ -394,6 +429,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 将树挂到指定位置
+		 * @return this
 		 */
 		appendTo: function(target){
 			this.$div.appendTo(target);
@@ -401,6 +437,9 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 递归生成ul及下级
+		 * @param arr Array
+		 * @param parent Node
+		 * @return this
 		 */
 		makeUl: function(arr, parent){
 			var child, i = 0, len = parent[this.var_children].length;
@@ -421,6 +460,10 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 递归生成li及下级
+		 * @param arr Array
+		 * @param child Node
+		 * @param parent Node
+		 * @return this
 		 */
 		makeLi: function(arr, child, parent){
 			arr.push('<li>');
@@ -457,7 +500,13 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 				arr.push(unchecked);
 			}
 
-			arr.push('<span class="text">', child.text, '</span>');
+			//如果当前节点需要特殊处理使用其自定义函数
+			if(S.isFunction(child.process)){
+				arr.push('<span class="text">', child.process(), '</span>');
+			}else{
+				arr.push('<span class="text">', child.text, '</span>');
+			}
+
 			arr.push('</div>');
 
 			//是否立即添加子节点
@@ -474,6 +523,9 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		},
 		/**
 		 * 生成缩进
+		 * @param arr Array
+		 * @param indent String
+		 * @return this
 		 */
 		makeIndent: function(arr, indent){
 			//下面2句不可以用substr(4)代替,因为空字符串split会得到[''],而不是空数组
@@ -490,9 +542,8 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 			return this;
 		},
 		/**
-		 * 
-		 * @param 
-		 * @return 
+		 * 重置树
+		 * @return this
 		 */
 		reset: function(){
 			

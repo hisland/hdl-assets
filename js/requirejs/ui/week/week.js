@@ -1,8 +1,5 @@
 /**
- * 自定义按钮对象
- * <pre><code>
- * 
- * </code></pre>
+ * 周对象
  */
 
 define(['jquery', 'kissy', 'css!./week'], function($, S){
@@ -10,7 +7,7 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 	 * 周对象, 可方便传入年和周
 	 * @class
 	 */
-	function WeekUtil(year, week){
+	function Week(year, week){
 		//从字符串预处理
 		if(S.isString(year)){
 			//可转换成日期对象
@@ -45,9 +42,9 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 	}
 	/**
 	 * 设置原型方法
-	 * @lends WeekUtil#
+	 * @lends Week#
 	 */
-	S.augment(WeekUtil, {
+	S.augment(Week, {
 		/**
 		 * 传y表示设置, 不传y表示取值
 		 * <pre><code>
@@ -56,6 +53,8 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 		 * w.year(2011);   设置为2011年, 返回this
 		 * w.year('2011');   设置为2011年, 返回this
 		 * </code></pre>
+		 * @param n Int
+		 * @return this|Int
 		 */
 		year: function(y){
 			if(y !== undefined){
@@ -74,6 +73,8 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 		 * w.week(3);   设置为第3周, 返回this
 		 * w.week('3');   设置为第3周, 返回this
 		 * </code></pre>
+		 * @param n Int
+		 * @return this|Int
 		 */
 		week: function(n){
 			if(n !== undefined){
@@ -85,6 +86,7 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 		},
 		/**
 		 * 取得当年最大周
+		 * @return Int
 		 */
 		maxWeek: function(){
 			var bak = this.week(), max;
@@ -107,6 +109,8 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 		 * w.next(5);   后移5周
 		 * w.week();   返回9
 		 * </code></pre>
+		 * @param n Int
+		 * @return this
 		 */
 		next: function(n){
 			n = n<1 || 1;
@@ -122,6 +126,8 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 		 * w.prev(3);   前移3周
 		 * w.week();   返回6
 		 * </code></pre>
+		 * @param n Int
+		 * @return this
 		 */
 		prev: function(n){
 			n = n<1 || 1;
@@ -129,10 +135,8 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 		},
 		/**
 		 * 将对象的内部值设置为指定日期对象
-		 * <pre><code>
-		 * var w = $.week();
-		 * w.setDate('2011-01-31');   设置为指定日期
-		 * </code></pre>
+		 * @param date Date
+		 * @return this
 		 */
 		setDate: function(date){
 			//从String转换成Date
@@ -158,16 +162,22 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 		},
 		/**
 		 * 返回当前周的开始日期对象
+		 * @return Date
 		 */
 		start: function(){
 			return new Date(+this.base_date + (this.__week-1)*7*86400000);
 		},
 		/**
 		 * 返回当前周的结束日期对象
+		 * @return Date
 		 */
 		end: function(){
 			return new Date(+this.base_date + this.__week*7*86400000-1);
 		},
+		/**
+		 * 修正某年1月1日所处的星期
+		 * @return this
+		 */
 		__baseDate: function(){
 			var base_date = new Date(this.__year+'/1/1'),
 				first_day = base_date.getDay() || 7,
@@ -179,5 +189,5 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 		}
 	});
 
-	return WeekUtil;
+	return Week;
 });

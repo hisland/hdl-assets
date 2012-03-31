@@ -25,16 +25,28 @@
 		.hdlgrid-button .hdlgrid-btn .hdlgrid-btn2{float:left;height:24px;padding-right:10px;background:url('grid-img/icon-bg.gif') no-repeat right bottom;}
 		.hdlgrid-button .hdlgrid-btn:hover{background-image:url('grid-img/icon-bg-1.gif');}
 		.hdlgrid-button .hdlgrid-btn:hover .hdlgrid-btn2{background-image:url('grid-img/icon-bg-1.gif');}
-		.hdlgrid-button .hdlgrid-btn-dis{cursor:default;color:#cbcbcb;}
+		.hdlgrid-button .hdlgrid-btn-dis{cursor:default;color:#cbcbcb;outline:none;}
 		.hdlgrid-button .hdlgrid-btn-dis:hover{background-image:url('grid-img/icon-bg.gif');}
 		.hdlgrid-button .hdlgrid-btn-dis:hover .hdlgrid-btn2{background-image:url('grid-img/icon-bg.gif');}
 
-		.hdlgrid-button .hdlgrid-add{float:left;height:24px;line-height:24px;padding-left:20px;background:url('grid-img/add.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-btn2 span{float:left;height:24px;line-height:24px;}
+
+		.hdlgrid-button .hdlgrid-add{padding-left:20px;background:url('grid-img/add.gif') no-repeat 0 50%;}
 		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-add{background-image:url('grid-img/add-1.gif');}
-		.hdlgrid-button .hdlgrid-edit{float:left;height:24px;line-height:24px;padding-left:20px;background:url('grid-img/edit.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-edit{padding-left:20px;background:url('grid-img/edit.gif') no-repeat 0 50%;}
 		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-edit{background-image:url('grid-img/edit-1.gif');}
-		.hdlgrid-button .hdlgrid-del{float:left;height:24px;line-height:24px;padding-left:20px;background:url('grid-img/del.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-del{padding-left:20px;background:url('grid-img/del.gif') no-repeat 0 50%;}
 		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-del{background-image:url('grid-img/del-1.gif');}
+		.hdlgrid-button .hdlgrid-compare{padding-left:20px;background:url('grid-img/compare.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-compare{background-image:url('grid-img/compare-1.gif');}
+		.hdlgrid-button .hdlgrid-export{padding-left:20px;background:url('grid-img/export.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-export{background-image:url('grid-img/export-1.gif');}
+		.hdlgrid-button .hdlgrid-prejudge{padding-left:20px;background:url('grid-img/prejudge.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-prejudge{background-image:url('grid-img/prejudge-1.gif');}
+		.hdlgrid-button .hdlgrid-refresh{padding-left:20px;background:url('grid-img/refresh.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-refresh{background-image:url('grid-img/refresh-1.gif');}
+		.hdlgrid-button .hdlgrid-post{padding-left:20px;background:url('grid-img/post.gif') no-repeat 0 50%;}
+		.hdlgrid-button .hdlgrid-btn-dis .hdlgrid-post{background-image:url('grid-img/post-1.gif');}
 
 
 	/* 表头 */
@@ -52,7 +64,11 @@
 
 
 	/* 分页区域 */
-	.hdlgrid-pager{height:20px;border:1px solid #c8c8c8;border-top:none;background:#c7e0fd;display:none;}
+	.hdlgrid-pager{height:18px;border:1px solid #c8c8c8;border-top:none;text-align:right;padding:5px;display:none;}
+		.hdlgrid-pager a:hover{text-decoration:none;}
+		.hdlgrid-pager a.hdlgrid-item{display:inline-block;border:1px solid #cacaca;background:#fff;padding:1px 5px;margin:0 1px;}
+		.hdlgrid-pager a.hdlgrid-hover{background:#dedede;}
+		.hdlgrid-pager span.hdlgrid-item{}
 
 
 	/* 修改列宽度的 */

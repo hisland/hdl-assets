@@ -5,11 +5,18 @@
 define(function(){
 	//转义\"2个字符
 	function __escapeDashQuote(str){
-		return str.replace(/[\\"]/, function(m){
-			if(m == '\\'){
-				return '\\\\';
-			}else{
-				return '\\"';
+		return str.replace(/[\\"]|\r\n|\r|\n/g, function(m){
+			switch(m){
+				case '\\':
+					return '\\\\';
+				case '"':
+					return '\\"';
+				case '\n':
+					return '\\\n';
+				case '\r\n':
+					return '\\\r\n';
+				case '\r':
+					return '\\\r';
 			}
 		});
 	}
