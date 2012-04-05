@@ -19,7 +19,9 @@ define(['jquery', 'kissy', 'css!./compare'], function($, S){
 		 * @return this
 		 */
 		__init: function(){
-			this.$div = $('<div class="compare-wrap"><div class="compare-wrap-in"></div></div>');
+			this.$div = $('<div class="compare-wrap"><div class="compare-mid-line"></div><div class="compare-wrap-in"></div></div>');
+			this.$mid = this.$div.children(':first');
+			this.$wrap = this.$mid.next();
 			return this;
 		},
 		/**
@@ -38,7 +40,7 @@ define(['jquery', 'kissy', 'css!./compare'], function($, S){
 			//点击+号展开
 			this.$div.on('click', 'div.compare-sub-plus', this, function(e){
 				//修正符号状态
-				$(this).parent().siblings().find('.compare-sub-minus').add(this).attr('class', 'compare-sub-minus');
+				$(this).parent().siblings().find('.compare-sub-plus').add(this).attr('class', 'compare-sub-minus');
 				//显示下级
 				$(this).parent().parent().next().show();
 			});
@@ -51,32 +53,47 @@ define(['jquery', 'kissy', 'css!./compare'], function($, S){
 		 * @param b Object
 		 * @return 
 		 */
-		setData: function(a, b){
+		setData: function(data){
+			var legend = data[0],
+				a = data[1],
+				b = data[2];
+
 			//采用递归进行对比
-			function recursion(a, b, div){
-				var row, col1, col2, used = {};
-
-				for(var i in a){
-					used[i] = true;
-
-					row = $('<div class="compare-row"></div>').appendTo(div);
-
-					col1 = $('<div class="compare-col1"><div class="compare-item"><span class="compare-label">' + i + ':</span><span>' + a[i] + '</span></div></div>').appendTo(row);
-
-					//b有相同的属性
-					if(b.hasOwnProperty(i)){
-						col2 = $('<div class="compare-col2"><div class="compare-item"><span class="compare-label">' + i + ':</span><span>' + b[i] + '</span></div></div>').appendTo(row);
+			function recursion(legend, a, b, div){
+				S.each(legend, function(v, i, o){
+					var wrap;
+					if(S.isArray(v)){
+						i = v.shift();
+						makeTitle(i, div);
+						wrap = $('<div class="compare-sub-wrap"></div>').appendTo(div);
+						S.each(v, function(r, j, o){
+							recursion(r, a[i][j], b[i][j], wrap);
+						});
+					}else{
+						makeRow(v, a[v], b[v], div);
 					}
+				});
+			}
 
-					//它们的属性值不同
-					if(a[i] !== b[i]){
-						col1.add(col2).find('span:eq(1)').addClass('compare-orange');
-					}
+			function makeRow(key, val1, val2, div){
+				var col1, col2, row;
+				row = $('<div class="compare-row"></div>').appendTo(div);
+				col1 = $('<div class="compare-col1"><div class="compare-item"><span class="compare-label">' + key + ':</span><span>' + val1 + '</span></div></div>').appendTo(row);
+				col2 = $('<div class="compare-col2"><div class="compare-item"><span class="compare-label">' + key + ':</span><span>' + val2 + '</span></div></div>').appendTo(row);
+				//它们的属性值不同
+				if(val1 !== val2){
+					col1.add(col2).find('span:eq(1)').addClass('compare-orange');
 				}
+			}
+			function makeTitle(key, div){
+				var row;
+				row = $('<div class="compare-row"></div>').appendTo(div);
+				$('<div class="compare-col1"><div class="compare-sub-minus">' + key + '</div></div>').appendTo(row);
+				$('<div class="compare-col2"><div class="compare-sub-minus">' + key + '</div></div>').appendTo(row);
 			}
 
 			//递归前将数据清空
-			recursion(a, b, this.$div.children().empty());
+			recursion(legend, a, b, this.$wrap.empty());
 			return this;
 		},
 		/**

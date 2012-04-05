@@ -12,8 +12,6 @@
 		});
 
 		require(['sf/compare', 'ui/popwin', 'ui/grid', 'demo'], function(Compare, Popwin, Grid) {
-			window.comp = Compare.init();
-			window.pop = Popwin.init();
 			window.grid = Grid.init({
 					url: '../../ui/grid/data.php',
 					colModel : [
@@ -47,13 +45,15 @@
 				text: '对比',
 				enable: '=2',
 				click: function(e, items){
-					comp.setData(items[0], items[1]);
-					pop.show();
+					Compare.init({
+						title: '对比',
+						url: 'data.php',
+						param: 'id=1&id=2',
+						width: 500,
+						height: 300
+					});
 				}
 			});
-
-			pop.setWidth(500).setHeight(280);
-			comp.$div.appendTo(pop.$content);
 
 			grid.$div.appendTo('body');
 		});
