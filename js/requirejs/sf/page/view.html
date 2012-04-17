@@ -14,34 +14,32 @@
 		require(['sf/page', 'sf/menu', 'sf/condition', 'sf/config'], function(Page, Menu) {
 			//初始化菜单包含层及对象
 			var m = Menu.init();
-			m.$div.appendTo('.aside');
+			m.$div.appendTo('#menu-wrap');
 
-			//加载菜单数据
-			$.getJSON('menu-data.js', function(rs){
-				m.setData(rs);
-			});
+			//加载菜单
+			m.load('menu-data.js');
 		});
 	</script>
 </head>
 
 <body>
 	<div class="header-bg"></div>
-	<div class="main-wrap">
+	<div class="main-wrap" id="main-wrap">
 		<div class="arrow-line"></div>
 		<div class="header">
 			<div class="header-in">
 				<div class="header-buttons">
-					<a href="javascript:;" id="message">消息<span class="top-bubble">9</span></a>
+					<a href="javascript:;" id="message">消息<span id="message-count" class="orange">9</span></a>
 					<a href="javascript:;" id="help">帮助</a>
 					<a href="javascript:;" id="logout">退出</a>
 				</div>
 			</div>
 		</div>
 		<div class="aside" id="menu-wrap">
-			<div class="logo"><img src="page-img/logo.gif" alt="" /></div>
+			<div class="logo"><img src="page-img/logo.png" alt="" /></div>
 		</div>
 		<div class="main">
-			<div class="main-in" id="main-wrap">
+			<div class="main-in" id="main-in">
 				
 			</div>
 		</div>

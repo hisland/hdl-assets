@@ -5,68 +5,216 @@
 define(['jquery', './page', './skin', './topmsg'], function($, Page){
 	var ie = /*@cc_on!@*/!1,
 		ie6 = ie && /msie 6.0/i.test(navigator.userAgent) && !/msie [78].0/i.test(navigator.userAgent),
-		docWidth, docHeight, wrapWidth, wrapHeight,
-		minWidth = 800,
+		docWidth, docHeight, wrapWidth, wrapHeight, mainHeight,
+		minWidth = 1000,
 		maxWidth = 1000,
 		minHeight = 300;
 
 	//窗口变动修正尺寸
 	$(window).resize(function(e){
-		//ie6修正最大/小宽度
-		if(ie6){
-			docWidth = document.documentElement.clientWidth;
-			//最小宽度
-			if(docWidth < minWidth){
-				$('.main-wrap').width(wrapWidth = minWidth);
-			}
-			//最大宽度
-			else if(docWidth > maxWidth){
-				$('.main-wrap').width(wrapWidth = maxWidth);
-			}
-			//自适应
-			else{
-				$('.main-wrap').width('auto');
-				wrapWidth = docWidth;
-			}
+		//修正最大/小宽度
+		docWidth = document.documentElement.clientWidth;
+		//最小宽度
+		if(docWidth < minWidth){
+			wrapWidth = minWidth;
 		}
+		//最大宽度
+		else if(docWidth > maxWidth){
+			wrapWidth = maxWidth;
+		}
+		//自适应
+		else{
+			wrapWidth = docWidth;
+		}
+		$('#main-wrap').width(wrapWidth);
 
 		//修正高度
 		docHeight = document.documentElement.clientHeight;
 		if(docHeight < minHeight){
-			$('#menu-wrap, #main-wrap').height(wrapHeight = minHeight - 40);
+			wrapHeight = minHeight - 25;
+			$('#main-wrap').height(minHeight);
+			$('body').css('overflow-y', 'scroll');
 		}else{
-			$('#menu-wrap, #main-wrap').height(wrapHeight = docHeight - 40);
+			wrapHeight = docHeight - 25;
+			$('#main-wrap').height(docHeight);
+			$('body').css('overflow-y', 'hidden');
 		}
 
 		//修正菜单高度
-		$('#menu-wrap div.menu-wrap').height(wrapHeight - 135);
+		$('#menu-wrap>div.menu-wrap').height(wrapHeight - 165);
 
-		//窗口变化时,修正tbody的高度
-		$('div.hdlgrid-body').each(function(i, v){
-			var me = $(this), height = me.parent().parent().height();
-			
-			//去掉分页区域高度
-			if($(this).next().is(':visible')){
-				height -= $(this).next().outerHeight();
-			}
-			
-			//去掉表头区域高度
-			if($(this).prev().is(':visible')){
-				height -= $(this).prev().outerHeight();
-			}
-			
-			//去掉按钮区域高度
-			if($(this).prev().prev().is(':visible')){
-				height -= $(this).prev().prev().outerHeight();
-			}
+		//修正内容高度
+		$('#main-in').height(mainHeight = wrapHeight - 17);
 
-			//避免每次都修改
-			if(me.data('prev-height') !== height){
-				me.height(height);
-				me.data('prev-height', height);
+		//单个查询结果高度
+		$('#main-in>div.search-result').each(function(i, v){
+			//去掉查询条件高度
+			var height = mainHeight - $(this).prev().outerHeight();
+
+			$(this).find('div.hdlgrid-body').each(function(i, v){
+				var me = $(this);
+				
+				//去掉分页区域高度
+				if(me.next().is(':visible')){
+					height -= me.next().outerHeight();
+				}
+				
+				//去掉表头区域高度
+				if(me.prev().is(':visible')){
+					height -= me.prev().outerHeight();
+				}
+				
+				//去掉按钮区域高度
+				if(me.prev().prev().is(':visible')){
+					height -= me.prev().prev().outerHeight();
+				}
+
+				//减掉自身的边框高度
+				me.height(height - 6);
+			});
+		});
+
+		//用户组带树高度
+		$('#main-in>div.reheight2').each(function(i, v){
+			var height = mainHeight - 10;
+
+			$(this).height(height);
+
+			$(this).find('div.hdl-tree-wrap').height(height - 17);
+
+			$(this).find('div.hdlgrid-body').each(function(i, v){
+				var me = $(this);
+				
+				//去掉分页区域高度
+				if(me.next().is(':visible')){
+					height -= me.next().outerHeight();
+				}
+				
+				//去掉表头区域高度
+				if(me.prev().is(':visible')){
+					height -= me.prev().outerHeight();
+				}
+				
+				//去掉按钮区域高度
+				if(me.prev().prev().is(':visible')){
+					height -= me.prev().prev().outerHeight();
+				}
+
+				//减掉自身的边框高度
+				me.height(height + 1);
+			});
+		});
+
+		//用户带树高度
+		$('#main-in>div.reheight3').each(function(i, v){
+			var height = mainHeight - $(this).prev().outerHeight() - 10;
+
+			$(this).height(height);
+
+			$(this).find('div.hdl-tree-wrap').height(height - 17);
+
+			$(this).find('div.hdlgrid-body').each(function(i, v){
+				var me = $(this);
+				
+				//去掉分页区域高度
+				if(me.next().is(':visible')){
+					height -= me.next().outerHeight();
+				}
+				
+				//去掉表头区域高度
+				if(me.prev().is(':visible')){
+					height -= me.prev().outerHeight();
+				}
+				
+				//去掉按钮区域高度
+				if(me.prev().prev().is(':visible')){
+					height -= me.prev().prev().outerHeight();
+				}
+
+				//减掉自身的边框高度
+				me.height(height + 1);
+			});
+		});
+
+		//配置页面如果button一直保持在底部,需要动态计算高度
+		$('#main-in div.config-wrap').each(function(i, v){
+			var need_height = mainHeight,
+				real_height = this.scrollHeight;
+
+			//去掉外层padding
+			need_height -= 10;
+			//去掉自己的padding
+			need_height -= 15;
+			//去掉button区域高度
+			need_height -= $(this).next().outerHeight();
+
+			if(need_height < real_height){
+				$(this).height(need_height);
+			}else{
+				$(this).height('auto');
 			}
 		});
+
+		//导入导出页面,需要动态计算高度
+		$('#main-in>.import-page').each(function(i, v){
+			var height = mainHeight;
+
+			//从上往下依次去掉固定高度
+			height -= 5;
+			height -= 25;
+			height -= 34;
+			height -= 22;
+			height -= 29;
+			height -= 10;
+
+			$(this).find('div.hdlgrid-body').height(height);
+		});
+
+		//单独的表格,需要动态计算高度
+		$('#main-in>.only-grid').each(function(i, v){
+			var height = mainHeight;
+
+			//从上往下依次去掉固定高度
+			height -= 5;
+			height -= 34;
+			height -= 22;
+			height -= 8;
+
+			$(this).find('div.hdlgrid-body').height(height);
+		});
+
+		//单独的表格带分页,需要动态计算高度
+		$('#main-in>.only-grid-page').each(function(i, v){
+			var height = mainHeight;
+
+			//从上往下依次去掉固定高度
+			height -= 5;
+			height -= 34;
+			height -= 22;
+			height -= 29;
+			height -= 8;
+
+			$(this).find('div.hdlgrid-body').height(height);
+		});
+
+		//tab的统计页面,需要动态计算高度
+		$('#main-in .tab-report').each(function(i, v){
+			var height = mainHeight - $(this).prev().outerHeight();
+
+			//从上往下依次去掉固定高度
+			height -= 25;
+			height -= 22;
+			height -= 29;
+			height -= 8;
+
+			$(this).find('div.hdlgrid-body').height(height);
+		});
 	}).resize();
+
+	//各添加策略选择后的删除
+	$(document).on('click', '.del.blue', function(e){
+		$(this).parent().remove();
+	});
 
 	return Page;
 });

@@ -9,19 +9,17 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 
 	S.augment(Menu, {
 		/**
-		 * 
-		 * @param 
+		 * 初始化div
 		 * @return 
 		 */
 		__init: function(){
-			var div = $('<div class="menu-now"><p>系统通信告警</p></div><div class="menu-search"><p><input class="menu-search-input" type="text" name="" value="" placeholder="搜索菜单" /></p></div><div class="menu-wrap"></div>');
+			var div = $('<div class="menu-now"><p></p></div><div class="menu-search"><p><input class="menu-search-input" type="text" name="" value="" placeholder="搜索菜单" /></p></div><div class="menu-wrap"></div>');
 			this.$div = div;
 			return this;
 		},
 		/**
-		 * 
-		 * @param 
-		 * @return 
+		 * 初始化事件
+		 * @return this
 		 */
 		__initEvent: function(){
 			//菜单折叠
@@ -52,14 +50,17 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 		},
 		/**
 		 * 从指定url加载菜单
-		 * @param 
-		 * @return 
+		 * @param url String
+		 * @param fn Function
+		 * @return this
 		 */
-		load: function(url){
+		load: function(url, fn){
 			var m = this;
 			$.getJSON(url, function(rs){
 				m.setData(rs);
+				fn && fn();
 			});
+			return this;
 		},
 		/**
 		 * 设置菜单数据
@@ -162,7 +163,7 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 		 * @return this
 		 */
 		onChange: function(fn){
-			fn ? this.$div.one('change', fn) : this.$div.trigger('change');
+			$(this).on('change', fn);
 			return this;
 		}
 	});

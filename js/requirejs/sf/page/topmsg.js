@@ -1,82 +1,222 @@
+define(['jquery', 'kissy', 'ui/popup', 'ui/popwin', 'ui/grid', 'sf/compare'], function($, S, Popup, Popwin, Grid, Compare) {
+	var pop = Popup.init();
 
-define([ 'jquery', 'kissy', 'ui/popup' ], function($, S, Popup) {
-	window.pop = Popup.init();
-
+	pop.setSize(200, 100);
 	pop.setTheme('#e8bf30', '#fff5d4');
-	pop.$div.css('box-shadow', '3px 3px 6px #999');
+	pop.$div.css('box-shadow', '0 3px 10px #999');
 
-	pop.$div.outerclick(function(e, reale) {
-		if (!$(reale.target).closest('#message').length) {
-			pop.hide();
-		}
-	});
+	var opened = false;
+	var map = {
+		1: '策略集修改',
+		2: '策略集删除',
+		3: '策略集增加'
+	};
+	var ColSetting = [ {
+		display : '策略集ID',
+		name : 'scId',
+		width : 110,
+		align : 'center'
+	}, {
+		display : '策略集名称',
+		name : 'scName',
+		width : 140,
+		align : 'center'
+	}, {
+		display : '策略集状态',
+		name : 'scStatusName',
+		width : 90,
+		align : 'center'
+	}, {
+		display : '生效时间',
+		name : 'bgnTime',
+		width : 130,
+		align : 'center'
+	}, {
+		display : '失效时间',
+		name : 'endTime',
+		width : 130,
+		align : 'center'
+	}, {
+		display : '是否启用',
+		name : 'flagName',
+		width : 60,
+		align : 'center'
+	}, {
+		display : '修改人',
+		name : 'modifyOptName',
+		width : 90,
+		align : 'center'
+	}, {
+		display : '修改时间',
+		name : 'modTime',
+		width : 130,
+		align : 'center'
+	}, {
+		display : '创建人',
+		name : 'crtOptName',
+		width : 90,
+		align : 'center'
+	}, {
+		display : '创建时间',
+		name : 'crtOptTime',
+		width : 130,
+		align : 'center'
+	}, {
+		display : '操作来源',
+		name : 'optSourceName',
+		width : 60,
+		align : 'center'
+	}, {
+		display : '策略集类型',
+		name : 'scTypeName',
+		width : 90,
+		align : 'center'
+	} ];
 
-	$('#message').click(function(e) {
+	var popwin = Popwin.init();
+	popwin.notremove(true);
+	popwin.setWidth(700);
+
+	function viewPolicyModify() {
+		var col = S.clone(ColSetting);
+		col.unshift({
+			display : '操作',
+			width : 90,
+			align : 'center',
+			process: function(row){
+				var a = $('<a href="javascript:;" class="blue">对比</a>');
+				a.click(function(e){
+					Compare.init( {
+						title : '策略集历史对比',
+						url : 'msgNotify/messageNotify!compare.do',
+						param : 'scIds=' + row.scId + '&scIds=' + row.scId + '&alterNumber=' + row.alterNumber,
+						width : 600,
+						height : 350
+					});
+				});
+				return a;
+			}
+		});
+		var grid = Grid.init({
+			url: 'msgNotify/messageNotify!find.do?msgQueryForm.msgType=1',
+			colModel: col,
+			auto_load: true
+		});
+		popwin.$content.empty().append(grid.$div);
+		popwin.setTitle('查看修改的策略集');
+		popwin.front().show();
+		pop.hide();
+	}
+
+	function viewPolicyDel() {
+		var col = S.clone(ColSetting);
+		col.unshift({
+			display : '操作',
+			width : 30,
+			align : 'center',
+			process: function(row){
+				var a = $('<a href="javascript:;" class="blue">查看</a>');
+				a.click(function(e){
+					Compare.init( {
+						title : '策略集信息',
+						url : 'msgNotify/messageNotify!queryDelStrategyInfo.do',
+						param : 'scIds=' + row.scId + '&scIds=' + row.scId + '&alterNumber=' + row.alterNumber,
+						width : 600,
+						height : 350
+					});
+				});
+				return a;
+			}
+		});
+		var grid = Grid.init({
+			url: 'msgNotify/messageNotify!find.do?msgQueryForm.msgType=2',
+			colModel: col,
+			auto_load: true
+		});
+		popwin.$content.empty().append(grid.$div);
+		popwin.setTitle('查看删除的策略集');
+		popwin.front().show();
+		pop.hide();
+	}
+
+	function viewPolicyAdd() {
+		var col = S.clone(ColSetting);
+		col.unshift({
+			display : '操作',
+			width : 30,
+			align : 'center',
+			process: function(row){
+				var a = $('<a href="javascript:;" class="blue">查看</a>');
+				a.click(function(e){
+					Compare.init( {
+						title : '策略集信息',
+						url : 'msgNotify/messageNotify!queryAddStrategyInfo.do',
+						param : 'scIds=' + row.scId + '&scIds=' + row.scId + '&alterNumber=' + row.alterNumber,
+						width : 600,
+						height : 350
+					});
+				});
+				return a;
+			}
+		});
+		var grid = Grid.init({
+			url: 'msgNotify/messageNotify!find.do?msgQueryForm.msgType=3',
+			colModel: col,
+			auto_load: true
+		});
+		popwin.$content.empty().append(grid.$div);
+		popwin.setTitle('查看增加的策略集');
+		popwin.front().show();
+		pop.hide();
+	}
+
+	//挂在document上,与outerclick同级,否则会导致此函数先执行而看不到效果
+	$(document).on('click', '#message', function(e) {
 		pop.align('#message');
-		pop.$div.css('left', '-=100');
+		pop.$div.css('left', '-=90');
 		pop.$arr.css('left', '+=100');
 		pop.show();
-		$('#message span').show();
-	});
-	
-	//定时闪烁
-	function doNotification() {
-		
-		//用户没有点击消息进行查看处理或消息大于0条，就闪烁
-		if(pop.$content.is(":hidden") && $('#message span').text() > 0){
-			$('#message span').toggle($('#message span').is(":hidden"));
-		}
-		setTimeout(doNotification, 500);
-	}
-	var timer_handler = null;
-	//定时刷新消息
-	function doMessageFlush() {
-		
-		//用户没有点击消息进行查看处理，就5秒刷消息
-		if(pop.$content.is(":hidden") || pop.$content.text()==''){
-			$.getJSON("notify/messageNotify!obtainNoticeMsgDetail.do", function(
-					data) {
-				
-				$(".top-bubble").html(data.notifyInfoAmount);
-	
-				pop.$content.empty();
-				var a, p;
-				
-				//待审数据显示
-				S.each(data.auditAmountMsgNotices, function(v, i, o){
-					a = $('<a href="javascript:;" class="orange">' + v.auditAmount + '</a>');
-					p = $('<p></p>');
-					a.click(function(e){
-						$('#' + v.menuId).click();
-					});
-					pop.$content.append(p.append('<span>' + v.audit + '数据<span>', a, '<span>条</span>'));
-				});
-				
-				//稽核数据显示
-				S.each(data.rearbMsgNotices, function(v, i, o){
-					a =  $('<a href="javascript:;" class="orange">' + v.rearbSender + '</a>');
-					p = $('<p></p>');
-					
-					a.click(function(){
-						//将服务缓存消息移除
-						$.post("notify/messageNotify!disposeMessageNotice.do",[{'name':'recordName','value':v.noticId}], function(data){
-							clearTimeout(timer_handler);
-							//立即刷新页面通知消息
-							doMessageFlush();						
-						});
-						
-						//跳转到仲裁结果查询页面
-						$('#' + v.menuId).click();
-					});
-					
-					pop.$content.append(p.append('<span>' + v.rearbUserName + '稽核用户'+v.audit+'主叫号码',a,'</span>'));
-				});
-				
+		$('#message-count').show();
+
+		//取得消息分类数目
+		$.getJSON('msgNotify/messageNotify!countNotifyByType.do', function(rs) {
+			pop.$content.empty();
+			var p;
+			S.each(
+			rs, function(v, i, o) {
+				p = $('<p>' + map[v[0]] + '<span class="orange">' + v[1] + '</span>条</p>');
+				pop.$content.append(p);
+				switch (v[0]) {
+				case 1:
+					p.append($('<a class="blue" href="javascript:;">查看</a>').click(viewPolicyModify));
+					break;
+				case 2:
+					p.append($('<a class="blue" href="javascript:;">查看</a>').click(viewPolicyDel));
+					break;
+				case 3:
+					p.append($('<a class="blue" href="javascript:;">查看</a>').click(viewPolicyAdd));
+					break;
+				}
 			});
-		}
-		timer_handler = setTimeout(doMessageFlush, 6000);
-	}
-	
-	doNotification();
-	doMessageFlush();
+		});
+		opened = true;
+
+		pop.$div.one('outerclick', function(e, reale) {
+			pop.hide();
+			opened = false;
+		});
+	});
+
+	//定时取得消息总数
+//	var timer_handler = setInterval(function() {
+//		if (!opened) {
+//			$.get('msgNotify/messageNotify!countNotifyNum.do', function(rs){
+//				if(rs !== '0'){
+//					$('#message-count').html(rs);
+//				}else{
+//					$('#message-count').empty();
+//				}
+//			});
+//		}
+//	}, 3000);
 });

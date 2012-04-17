@@ -5,13 +5,6 @@
 define(['jquery', 'kissy', 'ui/pop-manager', 'css!./page'], function($, S, PM){
 	return {
 		/**
-		 * 加载菜单
-		 * @return this
-		 */
-		loadMenu: function(){
-			return this;
-		},
-		/**
 		 * 在右侧加载url, 网速慢多次使用只会加载最后一个
 		 * @param url String
 		 * @param param Param
@@ -79,8 +72,8 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'css!./page'], function($, S, PM){
 		 * @return 
 		 */
 		menuWidth: function(width){
-			$('.aside').width(width);
-			$('.main').css('padding-left', width);
+			$('#menu-wrap').width(width);
+			$('#main-in').parent().css('padding-left', width);
 			return this;
 		},
 		/**
@@ -90,7 +83,7 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'css!./page'], function($, S, PM){
 		 */
 		maxWidth: function(width){
 			maxWidth = width;
-			$('.main-wrap').css('max-width', width);
+			$('#main-wrap').css('max-width', width);
 			$(window).resize();
 			return this;
 		},
@@ -101,7 +94,7 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'css!./page'], function($, S, PM){
 		 */
 		minWidth: function(width){
 			minWidth = width;
-			$('.main-wrap').css('min-width', width);
+			$('#main-wrap').css('min-width', width);
 			$(window).resize();
 			return this;
 		},
@@ -112,7 +105,7 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'css!./page'], function($, S, PM){
 		 */
 		minHeight: function(height){
 			minHeight = height;
-			$('.main-wrap').css('min-height', height);
+			$('#main-wrap').css('min-height', height);
 			$(window).resize();
 			return this;
 		},

@@ -1,0 +1,35 @@
+
+<div class="config" id="config">
+	<div class="config-line">
+		<span class="config-line-label">基本信息</span>
+	</div>
+	<div>
+		<div class="config-item">
+			<div class="config-label">策略名称</div>
+			<div class="config-ipts">
+				<input class="config-text" type="text" name="" value="" />
+			</div>
+		</div>
+	</div>
+	<div class="config-line">
+		<span class="config-line-label">阈值与处理</span>
+	</div>
+	<div>
+		<div class="config-item">
+			<div class="config-label">阈值1</div>
+			<div class="config-ipts">
+				<input class="config-text" type="text" name="" value="" />
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	require(['ui/grid', 'ui/popwin'], function(Grid, Popwin){
+		var pop = Popwin.init();
+		pop.setWidth(700).setHeight(500);
+		pop.setTitle('添加行为规则');
+		pop.show();
+
+		pop.$content.append($('#config'));
+	});
+</script>

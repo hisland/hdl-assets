@@ -64,32 +64,41 @@ define(['jquery', 'kissy', 'css!./compare'], function($, S){
 					var wrap;
 					if(S.isArray(v)){
 						i = v.shift();
-						makeTitle(i, div);
+						makeTitle(i, a && a[i] && a[i][v[0][0]], b && b[i] && b[i][v[0][0]], div);
 						wrap = $('<div class="compare-sub-wrap"></div>').appendTo(div);
 						S.each(v, function(r, j, o){
-							recursion(r, a[i][j], b[i][j], wrap);
+							makeTitle(r[0], a && a[i] && a[i][r[0]], b && b[i] && b[i][r[0]], wrap);
+							recursion(r[1], a && a[i] && a[i][r[0]], b && b[i] && b[i][r[0]], $('<div class="compare-sub-wrap"></div>').appendTo(wrap));
 						});
 					}else{
-						makeRow(v, a[v], b[v], div);
+						makeRow(v, a && a[v], b && b[v], div);
 					}
 				});
 			}
 
 			function makeRow(key, val1, val2, div){
-				var col1, col2, row;
+				var col1 = $(''), col2 = $(''), row;
 				row = $('<div class="compare-row"></div>').appendTo(div);
-				col1 = $('<div class="compare-col1"><div class="compare-item"><span class="compare-label">' + key + ':</span><span>' + val1 + '</span></div></div>').appendTo(row);
-				col2 = $('<div class="compare-col2"><div class="compare-item"><span class="compare-label">' + key + ':</span><span>' + val2 + '</span></div></div>').appendTo(row);
+				if(val1){
+					col1 = $('<div class="compare-col1"><div class="compare-item"><span class="compare-label">' + key + ':</span><span>' + val1 + '</span></div></div>').appendTo(row);
+				}
+				if(val2){
+					col2 = $('<div class="compare-col2"><div class="compare-item"><span class="compare-label">' + key + ':</span><span>' + val2 + '</span></div></div>').appendTo(row);
+				}
 				//它们的属性值不同
 				if(val1 !== val2){
 					col1.add(col2).find('span:eq(1)').addClass('compare-orange');
 				}
 			}
-			function makeTitle(key, div){
+			function makeTitle(key, a, b, div){
 				var row;
 				row = $('<div class="compare-row"></div>').appendTo(div);
-				$('<div class="compare-col1"><div class="compare-sub-minus">' + key + '</div></div>').appendTo(row);
-				$('<div class="compare-col2"><div class="compare-sub-minus">' + key + '</div></div>').appendTo(row);
+				if(a){
+					$('<div class="compare-col1"><div class="compare-sub-minus">' + key + '</div></div>').appendTo(row);
+				}
+				if(b){
+					$('<div class="compare-col2"><div class="compare-sub-minus">' + key + '</div></div>').appendTo(row);
+				}
 			}
 
 			//递归前将数据清空

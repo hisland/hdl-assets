@@ -2,8 +2,7 @@
 
 .config{padding:5px;}
 
-.config-wrap{overflow:auto;background:#fafafa;}
-	.config-wrap-in{padding:10px;overflow:hidden;}
+.config-wrap{overflow:auto;background:#fafafa;padding:0 15px 15px;}
 
 	/* 分割线 */
 	.config-line{border-bottom:1px solid #bdc0c2;margin:20px 0 10px;padding-bottom:5px;overflow:hidden;}
@@ -48,7 +47,7 @@
 		.config-item5 .config-ipts label{margin-left:10px;}
 
 	/* 列表 */
-	.config-item6{height:20px;line-height:20px;padding-left:150px;background:url('config-img/dot.gif') no-repeat 140px center;}
+	.config-item6{padding-left:150px;background:url('config-img/dot.gif') no-repeat 140px center;}
 		.config-item6 .config-text{float:left;margin-right:10px;}
 
 	/* 列表 */

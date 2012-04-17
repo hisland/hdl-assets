@@ -1,29 +1,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title> new document </title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript" src="../../require.js"></script>
-	<script type="text/javascript" src="../../config.js"></script>
-	<script type="text/javascript">
-		//使用data-main时会自动设置baseUrl为main文件的路径
-		require.config({
-			baseUrl: '../../'
-		});
+<title>new document</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script type="text/javascript" src="../../require.js"></script>
+<script type="text/javascript" src="../../config.js"></script>
+<script type="text/javascript">
+	//使用data-main时会自动设置baseUrl为main文件的路径
+	require.config({
+		baseUrl : '../../'
+	});
 
-		require(['sf/config', 'ui/drag-sort', 'demo'], function(Config, DS) {
-			DS.init('#config-dir');
-		});
-	</script>
-	<style type="text/css">
-		html, body{height:100%;}
-		.config{border:1px solid #ccc;}
-	</style>
+	require([ 'sf/config', 'ui/drag-sort', 'demo' ], function(Config, DS) {
+		DS.init('#config-dir');
+	});
+</script>
+<style type="text/css">
+html,body {
+	height: 100%;
+}
+
+.config {
+	border: 1px solid #ccc;
+}
+</style>
 </head>
 <body>
-<div class="config">
-	<div class="config-wrap">
-		<div class="config-wrap-in">
+	<div class="config">
+		<div class="config-wrap">
 			<div class="config-line">
 				<span class="config-line-label">基本信息</span>
 			</div>
@@ -33,16 +37,15 @@
 					<div class="config-ipts">
 						<input class="config-text" type="text" name="" value="" />
 					</div>
-					<div class="config-other">
-						其它信息
-					</div>
+					<div class="config-other">其它信息</div>
 				</div>
 				<div class="config-item2">
 					<div class="config-label">时间段</div>
 					<div class="config-ipts">
-						<input class="config-time" type="text" name="" value="2012-03-13 00:00:00" />
-						<span class="config-dash">-</span>
-						<input class="config-time" type="text" name="" value="2012-03-13 23:59:59" />
+						<input class="config-time" type="text" name=""
+							value="2012-03-13 00:00:00" /> <span class="config-dash">-</span>
+						<input class="config-time" type="text" name=""
+							value="2012-03-13 23:59:59" />
 					</div>
 				</div>
 				<div class="config-item">
@@ -103,9 +106,10 @@
 				<div class="config-item2">
 					<div class="config-label">时间段</div>
 					<div class="config-ipts">
-						<input class="config-time" type="text" name="" value="2012-03-13 00:00:00" />
-						<span class="config-dash">-</span>
-						<input class="config-time" type="text" name="" value="2012-03-13 23:59:59" />
+						<input class="config-time" type="text" name=""
+							value="2012-03-13 00:00:00" /> <span class="config-dash">-</span>
+						<input class="config-time" type="text" name=""
+							value="2012-03-13 23:59:59" />
 					</div>
 				</div>
 				<div class="config-item">
@@ -138,12 +142,12 @@
 			<div>
 				<div class="config-item4">
 					<div class="config-item4-col">
-						<span class="config-label">阈值1</span>
-						<input class="config-text" type="text" name="" value="" />
+						<span class="config-label">阈值1</span> <input class="config-text"
+							type="text" name="" value="" />
 					</div>
 					<div class="config-item4-col">
-						<span class="config-label">处理方式1</span>
-						<select class="config-select">
+						<span class="config-label">处理方式1</span> <select
+							class="config-select">
 							<option value="">启用</option>
 							<option value="">停用</option>
 						</select>
@@ -151,12 +155,12 @@
 				</div>
 				<div class="config-item4">
 					<div class="config-item4-col">
-						<span class="config-label">阈值2</span>
-						<input class="config-text" type="text" name="" value="" />
+						<span class="config-label">阈值2</span> <input class="config-text"
+							type="text" name="" value="" />
 					</div>
 					<div class="config-item4-col">
-						<span class="config-label">处理方式2</span>
-						<select class="config-select">
+						<span class="config-label">处理方式2</span> <select
+							class="config-select">
 							<option value="">启用</option>
 							<option value="">停用</option>
 						</select>
@@ -164,12 +168,12 @@
 				</div>
 				<div class="config-item4">
 					<div class="config-item4-col">
-						<span class="config-label">阈值3</span>
-						<input class="config-text" type="text" name="" value="" />
+						<span class="config-label">阈值3</span> <input class="config-text"
+							type="text" name="" value="" />
 					</div>
 					<div class="config-item4-col">
-						<span class="config-label">处理方式3</span>
-						<select class="config-select">
+						<span class="config-label">处理方式3</span> <select
+							class="config-select">
 							<option value="">启用</option>
 							<option value="">停用</option>
 						</select>
@@ -184,26 +188,26 @@
 				<div class="config-item5">
 					<div class="config-label">处理方式</div>
 					<div class="config-ipts">
-						<label><input type="radio" name="aa" value="" />值1</label>
-						<label><input type="radio" name="aa" value="" />值1</label>
-						<label><input type="radio" name="aa" value="" />值1</label>
-						<label><input type="radio" name="aa" value="" />值1</label>
+						<label><input type="radio" name="aa" value="" />值1</label> <label><input
+							type="radio" name="aa" value="" />值1</label> <label><input
+							type="radio" name="aa" value="" />值1</label> <label><input
+							type="radio" name="aa" value="" />值1</label>
 					</div>
 				</div>
 				<div class="config-item5">
 					<div class="config-label">处理方式</div>
 					<div class="config-ipts">
-						<label><input type="radio" name="bb" value="" />值2</label>
-						<label><input type="radio" name="bb" value="" />值2</label>
-						<label><input type="radio" name="bb" value="" />值2</label>
-						<label><input type="radio" name="bb" value="" />值2</label>
+						<label><input type="radio" name="bb" value="" />值2</label> <label><input
+							type="radio" name="bb" value="" />值2</label> <label><input
+							type="radio" name="bb" value="" />值2</label> <label><input
+							type="radio" name="bb" value="" />值2</label>
 					</div>
 				</div>
 			</div>
 
 			<div class="config-line">
-				<span class="config-line-label"><span></span>主叫用户群</span>
-				<span><a href="#">选择</a></span>
+				<span class="config-line-label"><span></span>主叫用户群</span> <span><a
+					href="#">选择</a></span>
 			</div>
 			<div>
 				<div class="config-item6">
@@ -211,30 +215,27 @@
 					<div class="config-text">信息1</div>
 					<div class="config-text">信息2</div>
 					<div class="config-text">信息3</div>
-					<a href="#">修改</a>
-					<a href="#">删除</a>
+					<a href="#">修改</a> <a href="#">删除</a>
 				</div>
 				<div class="config-item6">
 					<div class="config-text">用户群1</div>
 					<div class="config-text">信息1</div>
 					<div class="config-text">信息2</div>
 					<div class="config-text">信息3</div>
-					<a href="#">修改</a>
-					<a href="#">删除</a>
+					<a href="#">修改</a> <a href="#">删除</a>
 				</div>
 				<div class="config-item6">
 					<div class="config-text">用户群1</div>
 					<div class="config-text">信息1</div>
 					<div class="config-text">信息2</div>
 					<div class="config-text">信息3</div>
-					<a href="#">修改</a>
-					<a href="#">删除</a>
+					<a href="#">修改</a> <a href="#">删除</a>
 				</div>
 			</div>
 
 			<div class="config-line">
-				<span class="config-line-label"><span></span>规则执行顺序</span>
-				<span style="color:#ccc">拖动改变顺序</span>
+				<span class="config-line-label"><span></span>规则执行顺序</span> <span
+					style="color: #ccc">拖动改变顺序</span>
 			</div>
 			<div>
 				<div class="config-item7">
@@ -250,11 +251,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="config-btns">
+			<input class="button4" type="button" value="确定" />
+		</div>
 	</div>
-	<div class="config-btns">
-		<input class="button4" type="button" value="确定" />
-		<input class="button4" type="button" value="重置" />
-	</div>
-</div>
 </body>
 </html>

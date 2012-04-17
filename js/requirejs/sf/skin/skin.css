@@ -1,3 +1,9 @@
 @charset "utf-8";
 
+#skin{padding-left:14px;margin-right:5px;background:url('skin-img/icon.gif') no-repeat 0 0;}
 
+.skin-item{border-top:1px dashed #ccc;color:#9d9d9d;padding:3px 6px;margin:2px;cursor:pointer;}
+	.skin-item span{display:inline-block;height:14px;line-height:14px;vertical-align:middle;}
+	.skin-item .skin-gray{width:14px;margin-right:5px;background:#dcdcdc;}
+	.skin-item .skin-blue{width:14px;margin-right:5px;background:#087cd1;}
+	.skin-item .skin-red{width:14px;margin-right:5px;background:#ac2525;}

@@ -2,10 +2,6 @@
  * 
  */
 
-define(['./skin'], function(P){
-	return {
-		init: function(){
-			return new P();
-		}
-	};
+define(['./skin'], function(Skin){
+	return Skin;
 });

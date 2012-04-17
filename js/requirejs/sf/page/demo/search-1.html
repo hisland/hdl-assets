@@ -1,14 +1,11 @@
 <form id="query-form" class="search-condition" action="#">
-	<!-- 条件少时加上 search-ls1-auto 这个class让查询按钮往左靠-->
 	<div class="search-ls1 search-ls1-auto">
-
 		<div class="ls1-item">
 			<div class="ls1-label"><strong class="red">*</strong>输入文字</div>
 			<div class="ls1-ipts">
 				<input class="text1" type="text" name="" value="" />
 			</div>
 		</div>
-
 	</div>
 	<div class="search-condition-submit">
 		<input class="button4" type="submit" value="查询" />
@@ -18,10 +15,7 @@
 <div class="search-result" id="result"></div>
 
 <script type="text/javascript">
-	require(['ui/grid', 'ui/popwin'], function(Grid, Popwin){
-		//生成一个实例,后续都是对它的操作,不需要重复生成
-		var pop = Popwin.init();
-
+	require(['ui/grid', 'sf/popwin'], function(Grid, POP, Common){
 		//初始化表格
 		var grid = Grid.init({
 				url: '../../ui/grid/data.php',
@@ -55,17 +49,13 @@
 			text: '添加',
 			click: function(e, checkedItems){
 				//checkedItems 包含了选中行所对应的rawData原始数据数组
-				//可以对其处理后发送请求
-
-				$.get('demo/add.html', function(rs){
-					//填充取得的内容
-					pop.$content.html(rs);
-					
-					//将弹出层引用放到form上
-					pop.$content.find('>form').data('popwin', pop);
-
-					//显示弹出层
-					pop.show();
+				POP.init({
+					url: 'demo/add.html',
+					param: '',
+					title: '添加某某东西',
+					onHide: function(){
+						grid.ajaxLoad();
+					}
 				});
 			}
 		});
@@ -89,6 +79,12 @@
 				//checkedItems 包含了选中行所对应的rawData原始数据数组
 				//可以对其处理后发送请求
 				alert('other button!');
+				Common.del({
+					url: '',
+					del_name: '',
+					del_key: '',
+					checkedItems: checkedItems
+				});
 			}
 		});
 
@@ -106,6 +102,6 @@
 		});
 
 		//如果进入页面需要查询,触发一下上面form的提交
-		//$('#query-form').submit();
+		$('#query-form').submit();
 	});
 </script>

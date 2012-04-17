@@ -30,11 +30,11 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', './fns', 'css!./audit'], f
 			me.postUrl = setting.postUrl;
 			me.makeParam = setting.makeParam;
 
-			var $left = $('<div class="audit-button-left"><span>提交延迟<select></select>秒</span><span>每页显示<select></select>条</span></div>'),
+			var $left = $('<div class="audit-button-left"><span>提交延迟<select></select>秒</span><span style="line-height:20px;">抽样比例 <strong></strong></span></div>'),
 				$right = $('<div class="audit-button-right"></div>'),
 				$delay = $left.find('select').eq(0),
-				$numPerPage = $left.find('select').eq(1),
-				$button_refresh = $('<a href="javascript:;" class="hdlgrid-btn"><span class="hdlgrid-btn2"><span class="hdlgrid-refresh">刷新</span></span></a>'),
+				$numPerPage = $delay.parent().next().find('strong'),
+				$button_refresh = $(''),
 				$button_post = $('<a href="javascript:;" class="hdlgrid-btn"><span class="hdlgrid-btn2"><span class="hdlgrid-post">全部提交</span></span></a>');
 
 			//提交延迟
@@ -43,13 +43,8 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', './fns', 'css!./audit'], f
 			}).join('')).change(function(){
 				me.delay = this.value;
 			});
-
-			//分页条数
-			$numPerPage.append(S.map(setting.delays, function(v, i, o){
-				return '<option value="' + v + '">' + v + '</option>';
-			}).join('')).change(function(){
-				me.numPerPage = this.value;
-			});
+			
+			me.$numPerPage = $numPerPage;
 
 			//刷新按钮点击
 			$button_refresh.click(S.bind(this.refresh, this));
@@ -77,6 +72,9 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', './fns', 'css!./audit'], f
 
 						//去掉10秒的延迟
 						row.timeout -= 10;
+						if(row.timeout < 0){
+							select.attr('disabled', true);
+						}
 						//检查消息超时
 						function checkTimeout(){
 							//超时时间小于20秒时进行提示
@@ -87,13 +85,13 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', './fns', 'css!./audit'], f
 										count = row.timeout;
 									}
 								}else{
-									//过期倒计时
+									//稽核倒计时
 									if(row.timeout > 0){
-										select.parent().next().html('<span style="color:#ff8604;">' + row.timeout + '秒后过期</span>');
+										select.parent().next().html('<span style="color:#ff8604;">' + row.timeout + '秒后稽核</span>');
 									}
-									//过期进行提示
+									//稽核进行提示
 									else{
-										select.parent().next().html('<span style="color:#ff8604;">已过期</span>');
+										select.parent().next().html('<span style="color:#ff8604;">已稽核</span>');
 										select.remove();
 										CD.remove(checkTimeout);
 									}
@@ -225,7 +223,7 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', './fns', 'css!./audit'], f
 			this.grid.clean = function(){
 				this.$tbody.find('tr').each(function(i, v){
 					var text = $(v).find('td:last').text();
-					if(text === '已过期' || text === '已提交'){
+					if(text === '已稽核' || text === '已提交'){
 						$(v).remove();
 					}
 				});
@@ -241,6 +239,7 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', './fns', 'css!./audit'], f
 		 */
 		refresh: function(){
 			var grid = this.grid,
+				me = this,
 				dt = S.clone(this.param) || [];
 			grid.clean();
 
@@ -252,6 +251,7 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', './fns', 'css!./audit'], f
 			grid.loading();
 			$.post(this.refreshUrl, dt, function(rs){
 				grid.setData(rs);
+				me.$numPerPage.html(rs.percent);
 				grid.loaded();
 			}, 'json');
 			return this;

@@ -3,24 +3,32 @@
 html{height:100%;overflow:auto;}
 body{height:100%;}
 
-.header-bg{position:absolute;height:25px;width:100%;background:url('page-img/bg.png') repeat-x 0 0;}
+.header-bg{position:absolute;top:0;left:0;height:25px;width:100%;background:url('page-img/bg.png') repeat-x 0 0;}
 
-.main-wrap{height:100%;position:relative;min-width:800px;max-width:1000px;margin:0 auto;background:url('page-img/bg2.png') repeat-x 0 25px;}
+.main-wrap{position:relative;margin:0 auto;background:url('page-img/bg2.png') repeat-x 0 25px;}
 	.arrow-line{position:absolute;width:1px;height:40px;top:98px;left:200px;background:url('page-img/line.png') no-repeat 0 0;}
 
 	.header{height:25px;}
 		.header-in{height:25px;}
 
 		.header-buttons{float:right;padding-top:7px;}
-			.header-buttons a{display:inline-block;padding:0 5px;color:#565656;outline:none;}
+			.header-buttons a{display:inline-block;padding:0 5px;color:#575757;outline:none;}
 			.header-buttons a:hover{text-decoration:none;}
 			
-			#message{position:relative;margin-right:10px;}
-				.top-bubble{display:block;position:absolute;top:-9px;right:-13px;width:24px;height:20px;line-height:20px;text-align:center;font-size:10px;color:#FF8604;}
+			#message{background:url('page-img/message.png') no-repeat 0 0;padding-left:14px;}
+			#help{background:url('page-img/help.png') no-repeat 0 0;padding-left:14px;}
+			#logout{background:url('page-img/logout.png') no-repeat 0 0;padding-left:14px;}
 
 
 	.aside{float:left;width:200px;}
-		.logo{width:200px;text-align:center;padding:10px 0 5px;}
+		.logo{width:200px;height:60px;text-align:center;padding:10px 0 5px;background:url('page-img/logo.png') no-repeat 50% 50%;}
 
 	.main{margin:15px 0 0 200px;border-left:1px solid #9ea0a2;border-top:1px solid #9ea0a2;border-radius:5px 0 0 0;}
 		.main-in{border-left:1px solid #fff;border-top:1px solid #fff;border-radius:5px 0 0 0;background:#fff;}
+
+
+.theme-blue{background-image:url('page-img/bg2-blue.png');}
+	.theme-blue .logo{background-image:url('page-img/logo-blue.png');}
+
+.theme-red{background-image:url('page-img/bg2-red.png');}
+	.theme-red .logo{background-image:url('page-img/logo-red.png');}

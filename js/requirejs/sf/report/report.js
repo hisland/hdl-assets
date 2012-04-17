@@ -80,6 +80,8 @@ define(['jquery', 'kissy', 'ui/grid/grid'], function($, S, Grid){
 				this.makePager();
 			}
 
+			$(window).resize();
+
 			return this;
 		}
 	});
