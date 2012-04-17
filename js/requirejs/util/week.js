@@ -140,7 +140,7 @@ define(['kissy'], function(S){
 		 * w.week();   返回9
 		 * </code></pre>
 		 * @param Number n 向前移n周
-		 * @return week
+		 * @return this
 		 */
 		next: function(n){
 			n = n<1 || 1;
@@ -157,7 +157,7 @@ define(['kissy'], function(S){
 		 * w.week();   返回6
 		 * </code></pre>
 		 * @param Number n 向后移n周
-		 * @return week
+		 * @return this
 		 */
 		prev: function(n){
 			n = n<1 || 1;
@@ -170,7 +170,7 @@ define(['kissy'], function(S){
 		 * w.setDate('2011-01-31');   设置为指定日期
 		 * </code></pre>
 		 * @param Date date 设置时间对象
-		 * @return week
+		 * @return this
 		 */
 		setDate: function(date){
 			//从String转换成Date
@@ -211,7 +211,7 @@ define(['kissy'], function(S){
 		/**
 		 * 修正月第一天对应的星期
 		 * @private
-		 * @return week
+		 * @return this
 		 */
 		__baseDate: function(){
 			var base_date = new Date(this.__year+'/1/1'),

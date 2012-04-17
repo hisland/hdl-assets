@@ -25,7 +25,7 @@ define(['kissy', './tip', './msg'], function(S, T, MSG){
 		//第2个参数为回调函数的时候,更正参数顺序
 		if(S.isFunction(title)){
 			callback = title;
-			title = null;
+			title = MSG[type];
 		}
 
 		//修正设置
@@ -53,7 +53,7 @@ define(['kissy', './tip', './msg'], function(S, T, MSG){
 		 * @return ui.Tip
 		 */
 		alert: function(message, title, callback){
-			return wrap(message, title || MSG.alert, callback, 'alert');
+			return wrap(message, title, callback, 'alert');
 		},
 		/**
 		 * 错误提示
@@ -63,7 +63,7 @@ define(['kissy', './tip', './msg'], function(S, T, MSG){
 		 * @return ui.Tip
 		 */
 		error: function(message, title, callback){
-			return wrap(message, title || MSG.error, callback, 'error');
+			return wrap(message, title, callback, 'error');
 		},
 		/**
 		 * 警告提示
@@ -73,7 +73,7 @@ define(['kissy', './tip', './msg'], function(S, T, MSG){
 		 * @return ui.Tip
 		 */
 		notice: function(message, title, callback){
-			return wrap(message, title || MSG.notice, callback, 'notice');
+			return wrap(message, title, callback, 'notice');
 		},
 		/**
 		 * 确认提示
@@ -83,7 +83,7 @@ define(['kissy', './tip', './msg'], function(S, T, MSG){
 		 * @return ui.Tip
 		 */
 		confirm: function(message, title, callback){
-			return wrap(message, title || MSG.confirm, callback, 'confirm').addButton({
+			return wrap(message, title, callback, 'confirm').addButton({
 				click: function(e){
 					//点击取消的回调,会传入false
 					if(S.isFunction(e.data.callback)){

@@ -1,4 +1,4 @@
-define(['jquery', 'kissy', 'css!./tree'], function($, S){
+define(['jquery', 'kissy', 'jquery-plugin', 'css!./tree'], function($, S){
 	//各元素对应的标签
 	var arrow = '<em class="arrow"></em>',
 		arrow_open = '<em class="arrow arrow-open"></em>',
@@ -47,7 +47,11 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 			this.__end = true;
 			this.__parent = this;
 
-			this.$div = $('<div id="' + this.__path + '" class="hdl-tree"></div>');
+			this.$div = $('<div class="hdl-tree"><span class="hdl-tree-help"></span><div class="hdl-tree-title"></div><div class="hdl-tree-wrap"></div></div>');
+			this.$help = this.$div.children(':first');
+			this.$title = this.$help.next();
+			this.$wrap = this.$title.next();
+			this.$wrap.attr('id', this.__path);
 
 			return this;
 		},
@@ -58,8 +62,10 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		 */
 		__initEvnet: function(){
 			//checkbox点击代理
-			this.$div.on('click', 'strong', this, function(e){
-				var tree = e.data, div = $(this).parent('div'), node = tree.getNode(div.attr('id'));
+			this.$wrap.on('click', 'strong', this, function(e){
+				var tree = e.data,
+					div = $(this).parent('div'),
+					node = tree.getNode(div.attr('id'));
 				
 				if(tree.edit_able){
 					tree.toggleCheckbox(node);
@@ -67,8 +73,11 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 			});
 
 			//arrow点击代理
-			this.$div.on('click', 'em', this, function(e){
-				var tree = e.data, div = $(this).parent('div'), node = tree.getNode(div.attr('id'));
+			this.$wrap.on('click', 'em', this, function(e){
+				var tree = e.data,
+					div = $(this).parent('div'),
+					node = tree.getNode(div.attr('id'));
+
 				//按住ctrl可折叠/展开所有
 				if(e.ctrlKey){
 					tree.toggleOpenAll(node);
@@ -78,11 +87,14 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 			});
 
 			//按住alt双击可全部折叠/展开
-			this.$div.on('dblclick', this, function(e){
+			this.$wrap.on('dblclick', this, function(e){
 				if(e.altKey){
 					e.data.toggleOpenAll();
 				}
 			});
+
+			//按住alt双击可全部折叠/展开
+			this.$help.mouseTip('alt+双击树: 折叠/展开全部<br />ctrl+箭头: 折叠/展开下级');
 
 			return this;
 		},
@@ -178,9 +190,9 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 			this.makeUl(arr, node);
 
 			if(node === this){
-				this.$div.html(arr.join(''));
+				this.$wrap.html(arr.join(''));
 			}else{
-				this.$div.find('#' + node.__path).after(arr.join(''));
+				this.$wrap.find('#' + node.__path).after(arr.join(''));
 			}
 			return this;
 		},
@@ -190,7 +202,7 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		 */
 		setTheme: function(theme){
 			if(S.isString(theme)){
-				this.$div.attr('class', 'hdl-tree tree-' + theme);
+				this.$wrap.attr('class', 'hdl-tree-wrap tree-' + theme);
 			}
 			return this;
 		},
@@ -391,9 +403,9 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		toggleUseIcon: function(state){
 			this.use_icon = S.isBoolean(state) ? state : !this.use_icon;
 			if(this.use_icon){
-				this.$div.removeClass('no-icon');
+				this.$wrap.removeClass('no-icon');
 			}else{
-				this.$div.addClass('no-icon');
+				this.$wrap.addClass('no-icon');
 			}
 			return this;
 		},
@@ -404,9 +416,9 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		toggleUseCheckbox: function(state){
 			this.use_checkbox = S.isBoolean(state) ? state : !this.use_checkbox;
 			if(this.use_checkbox){
-				this.$div.removeClass('no-checkbox');
+				this.$wrap.removeClass('no-checkbox');
 			}else{
-				this.$div.addClass('no-checkbox');
+				this.$wrap.addClass('no-checkbox');
 			}
 			return this;
 		},
@@ -547,6 +559,15 @@ define(['jquery', 'kissy', 'css!./tree'], function($, S){
 		 */
 		reset: function(){
 			
+		},
+		/**
+		 * 设置树的title
+		 * @param 
+		 * @return 
+		 */
+		setTitle: function(str){
+			this.$title.html(str);
+			return this;
 		}
 	});
 

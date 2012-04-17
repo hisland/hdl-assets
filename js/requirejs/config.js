@@ -39,6 +39,9 @@ require.config({
 				'sf/login',
 				'sf/menu',
 				'sf/page',
+				'sf/popwin',
+				'sf/rearb',
 				'sf/report',
+				'sf/skin',
 				'sf/top']
 });

@@ -211,25 +211,11 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'jquery-plugin', 'css!./popbox'], f
 			return this;
 		},
 		/**
-		 * 设置宽度, 会减掉边距, 实际比设置的要小
-		 * @param {number} num
-		 * @return this
-		 */
-		setWidth: function(num){
-			if(S.isNumber(num-0)){
-				this.$title.width(num-35);
-				this.$content.width(num-18);
-			}else{
-				S.log('popbox.setWidth: num must be a valid number!');
-			}
-			return this;
-		},
-		/**
 		 * 设置内容宽度
 		 * @param {number} num
 		 * @return this
 		 */
-		setInnerWidth: function(num){
+		setWidth: function(num){
 			if(S.isNumber(num-0)){
 				this.$title.width(num-17);
 				this.$content.width(num);

@@ -53,7 +53,7 @@ define(['kissy', './rule', './item'], function(S, Rule, Item){
 		 * @return 
 		 */
 		onCheck: function(fn){
-			fn ? $(this).on('check', fn) : $(this).trigger('check', [false]);
+			fn ? $(this).on('oncheck', fn) : $(this).trigger('oncheck', [false]);
 		}
 	});
 

@@ -134,7 +134,7 @@
             augment:function (r, s1) {
                 var args = S.makeArray(arguments),
                     len = args.length - 2,
-                    i = 1;
+                    i = 1, ov, wl;
 
                 r = args[0];
                 ov = args[len];

@@ -3,7 +3,7 @@
  */
 
 define(['jquery', 'kissy'], function($, S){
-	var $div = $('<div style="display:none;position:absolute;max-width:300px;padding:3px;border:1px solid #afcdea;background:#f0f5fb;"></div>');
+	var $div = $('<div class="mouse-tip" style="display:none;position:absolute;max-width:300px;padding:3px;border:1px solid #afcdea;background:#f0f5fb;"></div>');
 
 	//鼠标移动时调整位置
 	function mouseMove(e){

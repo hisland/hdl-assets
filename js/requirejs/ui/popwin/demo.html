@@ -11,25 +11,25 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/popwin', 'util', 'css'], function(win, Util) {
-			window.p = win.init();
-			p.$content.append($('#tb'));
-			p.show();
+		require(['ui/popwin', 'util', 'css'], function(Popwin, Util) {
+			window.kkk = Popwin.init();
+			kkk.$content.append($('#tb'));
+			kkk.show();
 
 			$('#add').click(function(e){
-				win.init().show().$content.html('<a href="#">aaa</a>');
+				Popwin.init().show().$content.html('<a href="javascript:;">aaa</a>');
 			});
-			$('#del').click(function(e){
-				win.clean();
+			$('#clean').click(function(e){
+				Popwin.clean();
 			});
 			
 			var drag = true;
 			$('#no-drag').click(function(e){
 				if(drag){
-					p.setDraggable(false);
+					kkk.setDraggable(false);
 					$(this).val('能拖动');
 				}else{
-					p.setDraggable(true);
+					kkk.setDraggable(true);
 					$(this).val('不能拖动');
 				}
 				drag = !drag;
@@ -38,10 +38,10 @@
 			var close = true;
 			$('#no-close').click(function(e){
 				if(close){
-					p.setCloseable(false);
+					kkk.setCloseable(false);
 					$(this).val('能关闭');
 				}else{
-					p.setCloseable(true);
+					kkk.setCloseable(true);
 					$(this).val('不能关闭');
 				}
 				close = !close;
@@ -55,7 +55,7 @@
 
 <body>
 	<input style="position:relative;z-index:2000;" type="button" id="add" value="增加" />
-	<input style="position:relative;z-index:2000;" type="button" id="del" value="清除" />
+	<input style="position:relative;z-index:2000;" type="button" id="clean" value="清除" />
 	<input style="position:relative;z-index:2000;" type="button" id="no-drag" value="不能拖动" />
 	<input style="position:relative;z-index:2000;" type="button" id="no-close" value="不能关闭" />
 	<div id="tb">

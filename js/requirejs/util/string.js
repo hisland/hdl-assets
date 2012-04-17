@@ -8,16 +8,18 @@ define(['jquery'], function($){
 			'<': '&lt;',
 			'>': '&gt;',
 			'\'': '&#39;',
-			'"': '&quot;'
+			'"': '&quot;',
+			'`': '&#60;'
 		},
-		unentityHTML_reg = /&amp;|&lt;|&gt;|&#39;|&quot;|&#34;/g,
+		unentityHTML_reg = /&amp;|&lt;|&gt;|&#39;|&quot;|&#34;|&#60;/g,
 		unentityHTML_obj = {
 			'&amp;': '&',
 			'&lt;': '<',
 			'&gt;': '>',
 			'&#39;': '\'',
 			'&quot;': '"',
-			'&#34;': '"'
+			'&#34;': '"',
+			'&#60;': '`'
 		};
 	
 	var div = $('<div class="check-view-length-hole" style="visibility:hidden;position:absolute;top:-20px;left:0;"></div>');

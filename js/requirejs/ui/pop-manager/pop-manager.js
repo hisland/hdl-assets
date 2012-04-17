@@ -2,40 +2,9 @@
  * 
  */
 
-define(['jquery', 'kissy', 'css!./pop-manager'], function($, S){
+define(['jquery', 'kissy', './focus-check', 'css!./pop-manager'], function($, S, CF){
 	var html_string = '<div class="pop-manager-wrap"></div>',
-		mask_string = '<div class="pop-manager-mask"></div>',
-		pop_list = [];
-
-	//检查弹出层的焦点
-	function checkFocus(e){
-		//按下的是tab键且有pop_list时才执行操作
-		if(e && e.keyCode === 9 && pop_list.length){
-			var m = pop_list[pop_list.length - 1];
-
-			//焦点不在当前层上, 调整到当前层的第一个元素上
-			if(!S.inArray(m.$div[0], $(document.activeElement).parents().andSelf().get())){
-				m.$div.find('a, input, textarea').first().focus();
-			}
-
-			//ESC执行关闭动作
-			//if(e && e.keyCode === 27){
-			//	m.hide();
-			//}
-		}
-	}
-	function put(m){
-		if(!pop_list.length){
-			$(document).keyup(checkFocus);
-		}
-		pop_list.push(m);
-	}
-	function remove(){
-		pop_list.pop();
-		if(!pop_list.length){
-			$(document).unbind('keyup', checkFocus);
-		}
-	}
+		mask_string = '<div class="pop-manager-mask"></div>';
 
 	/**
 	 * 弹出层管理, 包括控制焦点, 遮罩
@@ -66,7 +35,7 @@ define(['jquery', 'kissy', 'css!./pop-manager'], function($, S){
 		 */
 		remove: function() {
 			this.$div.remove();
-			remove();
+			CF.remove();
 			return this;
 		},
 		/**
@@ -74,8 +43,8 @@ define(['jquery', 'kissy', 'css!./pop-manager'], function($, S){
 		 * @return this
 		 */
 		show: function() {
-			this.$div.show();
-			put(this);
+			this.$div.css('display', 'block');
+			CF.put(this);
 			return this;
 		},
 		/**
@@ -83,8 +52,8 @@ define(['jquery', 'kissy', 'css!./pop-manager'], function($, S){
 		 * @return this
 		 */
 		hide: function() {
-			this.$div.hide();
-			remove();
+			this.$div.css('display', 'none');
+			CF.remove();
 			return this;
 		},
 		/**
@@ -93,7 +62,7 @@ define(['jquery', 'kissy', 'css!./pop-manager'], function($, S){
 		 */
 		mask: function() {
 			if($.browser.msie){
-				this.$mask.show();
+				this.$mask.css('display', 'block');
 			}else{
 				this.$div.css('background-color', 'rgba(0, 0, 0, 0.2)');
 			}
@@ -105,27 +74,35 @@ define(['jquery', 'kissy', 'css!./pop-manager'], function($, S){
 		 */
 		demask: function() {
 			if($.browser.msie){
-				this.$mask.hide();
+				this.$mask.css('display', 'none');
 			}else{
 				this.$div.css('background-color', '');
 			}
 			return this;
 		},
 		/**
-		 * 显示loading状态, 同时会打开mask
+		 * 显示loading状态
 		 * @return this
 		 */
 		loading: function(){
-			this.mask().$div.addClass('loading');
+			this.$div.addClass('loading');
 			return this;
 		},
 		/**
-		 * 隐藏loading状态, 同时会关闭mask
+		 * 隐藏loading状态
 		 * @return this
 		 */
 		loaded: function(){
-			this.demask().$div.removeClass('loading');
+			this.$div.removeClass('loading');
 			return this;
+		},
+		/**
+		 * 设置此实例会不会被clean清除
+		 * @param 
+		 * @return 
+		 */
+		notremove: function(state){
+			this.$div.toggleClass('not-remove', state);
 		},
 		/**
 		 * 初始化遮罩

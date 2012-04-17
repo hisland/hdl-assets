@@ -8,7 +8,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 	function Group(){
 		this.attached = false;
 		this.selector = null;
-		this.items = {};
+		this.items = [];
 	}
 
 	/**
@@ -28,9 +28,12 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 * @param 
 		 * @return 
 		 */
-		attach: function(){
+		attach: function(selector){
+			this.detach();
 			this.attached = true;
+			this.selector = selector;
 			$(this.selector).on('input', this, this.__input);
+			return this;
 		},
 		/**
 		 * 
@@ -40,27 +43,22 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		detach: function(){
 			$(this.selector).off('input', this.__input);
 			this.attached = false;
-		},
-		/**
-		 * 
-		 * @param 
-		 * @return 
-		 */
-		setSelecotr: function(selector){
-			this.selector = selector;
+			return this;
 		},
 		rule: function(name, msg){
 			if(Rule.getItem(name)){
 				
 			}
+			return this;
 		},
 		/**
 		 * 字符长度
 		 * @param len Number
 		 * @return this
 		 */
-		charlen: function(len, msg){
+		len: function(len, msg){
 			
+			return this;
 		},
 		/**
 		 * 字符UTF8长度
@@ -69,6 +67,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		utf8len: function(len, msg){
 			
+			return this;
 		},
 		/**
 		 * 
@@ -78,6 +77,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		intRange: function(from, to, msg){
 			
+			return this;
 		},
 		/**
 		 * 
@@ -88,6 +88,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		numberRange: function(from, to, digit, msg){
 			
+			return this;
 		},
 		/**
 		 * 
@@ -96,6 +97,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		reg: function(reg, msg){
 			
+			return this;
 		},
 		/**
 		 * 
@@ -104,6 +106,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		fn: function(fn, msg){
 			
+			return this;
 		},
 		/**
 		 * 
@@ -112,6 +115,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		trimBefore: function(state, msg){
 			
+			return this;
 		},
 		/**
 		 * 
@@ -120,6 +124,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		required: function(state, msg){
 			
+			return this;
 		},
 		/**
 		 * 
@@ -128,6 +133,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		gt: function(selector, trigger){
 			
+			return this;
 		},
 		/**
 		 * 
@@ -136,6 +142,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		lt: function(selector, trigger){
 			
+			return this;
 		},
 		/**
 		 * 
@@ -144,6 +151,7 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		eq: function(selector){
 			
+			return this;
 		},
 		/**
 		 * 
@@ -152,8 +160,9 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 		 */
 		neq: function(selector){
 			
+			return this;
 		},
-		check: function(){
+		check: function(str){
 			var rs = true;
 			if(this.attached){
 				S.each(this.items, function(v, i, o){
@@ -164,10 +173,31 @@ define(['jquery', 'kissy', './rule'], function($, S, Rule){
 			}
 			return rs;
 		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		get: function(idx){
+			return this.items[idx];
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		del: function(idx){
+			this.items.splice(idx, 1);
+			return this;
+		},
 		__input: function(e){
-			var group = e.data, str = this.value;
+			e.data.check(this.value);
 		}
 	});
+
+	Group.init = function(selector){
+		return (new Group()).attach(selector);
+	}
 
 	return Group;
 });

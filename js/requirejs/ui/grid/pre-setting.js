@@ -123,13 +123,6 @@ define([ './msg' ], function(MSG) {
 		 */
 		param : '',
 		/**
-		 * 上次请求时的参数列表, 不含currPage, perPageNum
-		 * 
-		 * @default undefined
-		 * @type Array|undefined
-		 */
-		last_param : '',
-		/**
 		 * 自动加载
 		 * 
 		 * @default false
@@ -169,6 +162,13 @@ define([ './msg' ], function(MSG) {
 		 * @type Array
 		 */
 		row_bgs : [ '#fff', '#f3f3f3' ],
+		/**
+		 * 选中行的背景色
+		 * 
+		 * @default '#d7dce3'
+		 * @type String
+		 */
+		select_bg : '#d7dce3',
 		/**
 		 * 对响应结果进行预处理 function(rs){}
 		 * 

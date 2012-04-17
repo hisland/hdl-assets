@@ -6,5 +6,6 @@ java/tag/customTag/WebRoot/assets
 java/tag/simpleTag/WebRoot/assets
 java/SolarLunar/bin
 js/tests
-js/docs
+js/docs-*
 js/requirejs/from-anti
+js/requirejs/main-manual.js

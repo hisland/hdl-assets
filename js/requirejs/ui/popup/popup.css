@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* 使用css3 */
-.popup-css3{display:none;position:absolute;padding:5px;background:#fff;border:1px solid #92B0DD;-moz-border-radius:5px;-webkit-border-radius:5px;}
+.popup-css3{display:none;position:absolute;padding:5px;background:#fff;border:1px solid #92B0DD;-moz-border-radius:3px;-webkit-border-radius:3px;}
 	.popup-css3>div:first-child{position:absolute;width:7px;height:7px;border:1px solid #92B0DD;border-width:0 0 1px 1px;background:#fff;}
 
 	.popup-arr-u{left:10px;top:-5px;-moz-transform:rotate(135deg);-webkit-transform:rotate(135deg);}
@@ -9,7 +9,7 @@
 	.popup-arr-d{left:10px;bottom:-5px;-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);}
 	.popup-arr-l{top:10px;left:-5px;-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);}
 
-.popup-content{position:relative;overflow:auto;width:200px;height:100px;overflow:auto;}
+.popup-content{position:relative;overflow:auto;overflow:auto;}
 
 
 /* 使用背景图片 */

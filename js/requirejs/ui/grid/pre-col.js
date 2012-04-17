@@ -39,10 +39,10 @@ define([ './msg' ], function(MSG) {
 		/**
 		 * 内容体对齐方式
 		 * 
-		 * @default left
+		 * @default center
 		 * @type String
 		 */
-		align : 'left',
+		align : 'center',
 		/**
 		 * 表头对齐方式
 		 * 
@@ -64,6 +64,13 @@ define([ './msg' ], function(MSG) {
 		 * @type Boolean
 		 */
 		enable_hide : false,
+		/**
+		 * 是否加上title属性,用于可能有长字符串的地方
+		 * 
+		 * @default false
+		 * @type Boolean
+		 */
+		enable_title : false,
 		/**
 		 * 列单元格处理, function(row, col, grid){return 'text or jquery in cell';}
 		 * 

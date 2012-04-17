@@ -13,23 +13,23 @@ define([ './msg' ], function(MSG) {
 		/**
 		 * 可否修改
 		 * 
-		 * @default false
+		 * @default true
 		 * @type Boolean
 		 */
-		enable_edit : false,
+		enable_edit : true,
 		/**
 		 * 可否删除
 		 * 
-		 * @default false
+		 * @default true
 		 * @type Boolean
 		 */
-		enable_delete : false,
+		enable_delete : true,
 		/**
 		 * 可否选择
 		 * 
-		 * @default false
+		 * @default true
 		 * @type Boolean
 		 */
-		enable_select : false
+		enable_check : true
 	};
 });

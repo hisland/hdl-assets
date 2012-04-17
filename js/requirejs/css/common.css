@@ -3,7 +3,7 @@
 /* 文本颜色 */
 .red{color:red;font-weight:400;}
 .orange{color:#f89801;font-weight:400;}
-.blue{color:blue;font-weight:400;}
+.blue{color:#2872d8;font-weight:400;}
 
 /* 文本对齐 */
 .text-center{text-align:center;}
@@ -23,7 +23,7 @@ textarea, .ls1-big-box{width:120px;height:70px;line-height:1.2;padding:2px 1px;b
 .no-ime{ime-mode:disabled;}
 
 /* 下拉框 */
-select.select1{width:124px;}
+select.select1{width:124px;border:1px solid #dbdada;}
 select.select2-1{width:64px;}
 select.select2-2{width:64px;}
 

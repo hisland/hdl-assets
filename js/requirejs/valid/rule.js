@@ -1,7 +1,7 @@
 /**
- * 验证规则工具
+ * @namespace Rule
+ * @memberOf valid
  */
-
 define(['kissy'], function(S){
 		//干净对象保存配置列表
 	var items = {},
@@ -9,7 +9,7 @@ define(['kissy'], function(S){
 		__PREFIX = '-valid-';
 
 	/**
-	 * @lends Rule
+	 * @lends valid.Rule
 	 */
 	return {
 		/**

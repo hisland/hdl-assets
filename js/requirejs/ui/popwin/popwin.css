@@ -8,8 +8,29 @@
 		.popwin-close{position:absolute;top:7px;right:7px;background:url('popwin-img/x.gif') no-repeat 0 0;width:12px;height:12px;overflow:hidden;}
 		.popwin-close:hover{background-position: 0px -20px;text-decoration:none;}
 
-	.popwin-content-wrap{border:1px solid #fff;border-top:1px solid #d7d5d5;}
+	.popwin-content-wrap{border:1px solid #fff;border-top:1px solid #d7d5d5;padding:5px;}
 		.popwin-content{cursor:default;background:#fff;overflow:auto;}
 
-	.popwin-form{overflow:hidden;padding-top:15px;}
+	.popwin-form{overflow:hidden;padding:10px 0;}
 	.popwin-btns{background:#f0f0f0;padding:6px 0;text-align:center;}
+	.popwin-btns input[type=button], .popwin-btns input[type=submit]{
+		border-width:2px;
+		width:72px;
+		height:22px;
+		border-left-colors:#bcbcbc #fff;
+		-moz-border-left-colors:#bcbcbc #fff;
+		-webkit-border-left-colors:#bcbcbc #fff;
+		border-top-colors:#bcbcbc #fff;
+		-moz-border-top-colors:#bcbcbc #fff;
+		-webkit-border-top-colors:#bcbcbc #fff;
+		border-right-colors:#bcbcbc #fff;
+		-moz-border-right-colors:#bcbcbc #fff;
+		-webkit-border-right-colors:#bcbcbc #fff;
+		border-bottom-colors:#bcbcbc #fff;
+		-moz-border-bottom-colors:#bcbcbc #fff;
+		-webkit-border-bottom-colors:#bcbcbc #fff;
+		background:-moz-linear-gradient(top, #f7f7f7, #dcdcdc);
+		background:-webkit-linear-gradient( #f7f7f7, #dcdcdc);
+		cursor:pointer;
+		margin:0 5px;
+	}

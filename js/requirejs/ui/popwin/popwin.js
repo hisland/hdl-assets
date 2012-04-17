@@ -2,8 +2,8 @@
  * 弹出层管理工具 - 统一控制层级,遮罩
  * <pre><code>
  * API:
- * 		$.popManager.clean(true) 清除所有的弹出层包含块, 包括.not-remove的div
- * 		$.popManager.clean() 清除所有的弹出层包含块, 不会清除含.not-remove的div
+ * 		Popwin.clean(true) 清除所有的弹出层包含块, 包括.not-remove的div
+ * 		Popwin.clean() 清除所有的弹出层包含块, 不会清除含.not-remove的div
  * 
  * 		p = $.popManager.init() 初始化一个弹出层包含块
  * 		p.front() 将此层放到最前面
@@ -78,10 +78,10 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 			__close_able: true,
 			/**
 			 * 右上角x的作用是关闭还是移除
-			 * @default close
-			 * @type String close|remove
+			 * @default hide
+			 * @type String hide|remove
 			 */
-			close_action: 'close',
+			hide_action: 'hide',
 			/**
 			 * 默认是否初始化下面的按钮
 			 * @type Boolean
@@ -96,7 +96,7 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 
 		//设置关闭按钮
 		this.$close.on('click', this, function(e){
-			e.data.manager.hide();
+			e.data.hide();
 			e.preventDefault();
 		})
 		//不能拖拽
@@ -107,11 +107,6 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 		//代理取消按钮, 关闭层
 		div.on('click', '.popwin-cancel', this, function(e){
 			e.data.manager.hide();
-		});
-
-		//代理确定按钮, 触发内容form的submit事件
-		div.on('click', '.popwin-ok', this, function(e){
-			e.data.$content.submit();
 		});
 
 		//拖动初始化
@@ -158,7 +153,7 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 		 * @return this
 		 */
 		loading: function(){
-			this.$div.hide();
+			this.$div.css('display', 'none');
 			this.manager.loading();
 			return this;
 		},
@@ -167,8 +162,19 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 		 * @return this
 		 */
 		loaded: function(){
-			this.$div.show();
+			this.$div.css('display', 'block');
 			this.manager.loaded();
+			return this;
+		},
+		/**
+		 * 将弹出层居中
+		 * @return this
+		 */
+		center: function(){
+			this.$div.css({
+				top: (document.documentElement.clientHeight - this.$div.height())/2,
+				left:(document.documentElement.clientWidth - this.$div.width())/2
+			});
 			return this;
 		},
 		/**
@@ -178,9 +184,9 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 		show: function(){
 			this.manager.show();
 			//某些IE会先显示出来然后再定位调整,会有闪烁的感觉, 定位完成后再显示出来
-			this.$div.css('visibility', 'hidden').show().css({
+			this.$div.css('visibility', 'hidden').css('display', 'block').css({
 				top: (document.documentElement.clientHeight - this.$div.height())/2,
-				left:(document.documentElement.clientWidth - this.$div.width())/2,
+				left: (document.documentElement.clientWidth - this.$div.width())/2,
 				visibility: ''
 			});
 			return this;
@@ -191,7 +197,11 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 		 */
 		hide: function(){
 			if(this.__close_able){
-				this.manager.hide();
+				if(this.hide_action === 'hide'){
+					this.manager.hide();
+				}else{
+					this.remove();
+				}
 			}
 			return this;
 		},
@@ -212,9 +222,9 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 			if(S.isBoolean(status)){
 				this.__close_able = status;
 				if(status){
-					this.$close.add(this.$div.find('.popwin-btn-cancel')).show();
+					this.$close.add(this.$div.find('.popwin-btn-cancel')).css('display', '');
 				}else{
-					this.$close.add(this.$div.find('.popwin-btn-cancel')).hide();
+					this.$close.add(this.$div.find('.popwin-btn-cancel')).css('display', 'none');
 				}
 			}
 			return this;
@@ -231,27 +241,13 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 			return this;
 		},
 		/**
-		 * 设置宽度, 会减掉边距, 实际比设置的要小
-		 * @param num Int
-		 * @return this
-		 */
-		setWidth: function(num){
-			if(S.isNumber(num-0)){
-				this.$title.width(num-30);
-				this.$content.width(num-2);
-			}
-			return this;
-		},
-		/**
 		 * 设置内容宽度
 		 * @param num Int
 		 * @return this
 		 */
-		setInnerWidth: function(num){
-			if(S.isNumber(num-0)){
-				this.$title.width(num-28);
-				this.$content.width(num);
-			}
+		setWidth: function(num){
+			this.$title.width(num-28);
+			this.$content.width(num);
 			return this;
 		},
 		/**
@@ -260,10 +256,17 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 		 * @return this
 		 */
 		setHeight: function(num){
-			if(S.isNumber(num-0)){
-				this.$content.height(num);
-			}
+			this.$content.height(num);
 			return this;
+		},
+		/**
+		 * 设置内容宽高
+		 * @param width Int
+		 * @param height Int
+		 * @return this
+		 */
+		setSize: function(width, height){
+			return this.setWidth(width).setHeight(height);
 		},
 		/**
 		 * 设置标题
@@ -273,6 +276,14 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 		setTitle: function(str){
 			this.$title.html(str);
 			return this;
+		},
+		/**
+		 * 设置此实例会不会被clean清除
+		 * @param 
+		 * @return 
+		 */
+		notremove: function(state){
+			this.manager.notremove(state);
 		},
 		/**
 		 * 增加按钮

@@ -7,6 +7,10 @@ define([ 'jquery', 'kissy' ], function($, S) {
 		this.__init(target).__initEvent();
 	}
 
+	function nodrag(e){
+		e.preventDefault();
+	}
+
 	/**
 	 * @lends sf.DragSort#
 	 */
@@ -37,6 +41,7 @@ define([ 'jquery', 'kissy' ], function($, S) {
 		 */
 		start : function(e) {
 			this.$div.children().mousemove(this.move);
+			this.$div.on('selectstart', nodrag);
 			$(document).mouseup(this.end);
 			this.__target = $(e.target).addClass('drag-move');
 			this.__lastY = 0;
@@ -60,8 +65,9 @@ define([ 'jquery', 'kissy' ], function($, S) {
 		 * @private
 		 */
 		end : function(e) {
-			this.$div.children().unbind('mousemove', this.move);
-			$(document).unbind('mouseup', this.end);
+			this.$div.children().off('mousemove', this.move);
+			this.$div.off('selectstart', nodrag);
+			$(document).off('mouseup', this.end);
 			this.__target.removeClass('drag-move');
 
 			// 触发排序事件

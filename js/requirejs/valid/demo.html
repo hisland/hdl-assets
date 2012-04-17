@@ -12,39 +12,14 @@
 		});
 
 		require(['valid', 'valid/group', 'demo'], function(Valid, Group) {
-
 			Valid.init({
-				selector: '',
-				groups: {
-					'group1': {
-						selector: '',
-						items: {
-							'ipv4': {
-								rule: 'ipv4',
-								onCheck: function(rs){
-									
-								}
-							},
-							'max-value': {
-								rule: 'must',
-								message: '这个东东必须填'
-							}
-						}
-					}
-				},
 				onCheck: function(rs){
-					
-				},
-				onError: function(){
-					
-				},
-				onValid: function(){
 					
 				},
 				errorFocus: true
 			});
 
-			new Group().rule('ipv4').attach('#bb1');
+			Group.init('#aa2').rule('ipv4');
 		});
 	</script>
 </head>

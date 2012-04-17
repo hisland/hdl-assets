@@ -18,11 +18,12 @@ function($, S, SWFObject22, SWFObject15, Tip) {
 			}, false);
 
 			// 2种浏览器使用不同的wmode属性
-			if ($.browser.msie) {
-				setting.params.wmode = 'transparent';
-			} else {
-				delete setting.params.wmode;
-			}
+			setting.params.wmode = 'transparent';
+//			if ($.browser.msie) {
+//				setting.params.wmode = 'transparent';
+//			} else {
+//				delete setting.params.wmode;
+//			}
 
 			// 生成flash
 			SWFObject22.embedSWF(setting.flashurl, setting.flashid,

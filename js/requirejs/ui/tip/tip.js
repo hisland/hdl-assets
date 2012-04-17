@@ -91,7 +91,7 @@ define(['jquery', 'kissy', '../pop-manager', './msg', 'jquery-plugin', 'css!./ti
 		center: function(){
 			this.$div.css({
 				top: (document.documentElement.clientHeight - this.$div.height())/2,
-				left:(document.documentElement.clientWidth - this.$div.width())/2
+				left: (document.documentElement.clientWidth - this.$div.width())/2
 			});
 			return this;
 		},
@@ -288,7 +288,7 @@ define(['jquery', 'kissy', '../pop-manager', './msg', 'jquery-plugin', 'css!./ti
 		 * @return this
 		 */
 		setWidth: function(width){
-			if(S.isNumber(width) && width >= 200){
+			if(S.isNumber(width)){
 				this.$div.width(width);
 			}
 			return this;
@@ -339,6 +339,20 @@ define(['jquery', 'kissy', '../pop-manager', './msg', 'jquery-plugin', 'css!./ti
 		 * @return this
 		 */
 		shake: function(){
+			this.$div.animate({
+				left: '-=10',
+				top: '-=10'
+			}, 30).animate({
+				top: '+=20'
+			}, 30).animate({
+				left: '+=20',
+				top: '-=20'
+			}, 30).animate({
+				top: '+=20'
+			}, 30).animate({
+				left: '-=10',
+				top: '-=10'
+			}, 30);
 			return this;
 		}
 	});

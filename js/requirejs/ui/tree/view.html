@@ -11,210 +11,176 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/tree', 'util', 'css'], function(T, Util) {
-			$('.hdl-tree-ctrl, .hdl-tree:eq(0), .tree-line').each(function(i, v){
+		require(['ui/tree', 'util', 'demo'], function(T, Util) {
+			$('.hdl-tree').each(function(i, v){
 				$(v).html(Util.trimBlank($(v).html()));
 			});
 		});
 	</script>
+	<style type="text/css">
+		.hdl-tree{border:1px solid #ccc;width:300px;}
+		.hdl-tree-help{display:block;}
+	</style>
 </head>
 
 <body>
-<div class="hdl-tree-ctrl">
-	<span>展开全部</span>
-	<span>展开下级</span>
-	<span>反选</span>
-</div>
 <div class="hdl-tree">
-	<ul>
-		<li>
-			<div>
-				<b class="blank"></b>
-				<small class="leaf"></small>
-				<strong class="unchecked"></strong>
-				<span class="text">节点文字</span>
-			</div>
-		</li>
-		<li>
-			<div>
-				<em class="arrow"></em>
-				<small class="branch"></small>
-				<strong class="checked"></strong>
-				<span class="text">树支文字</span>
-			</div>
-			<ul>
-				<li>
-					<div>
-						<span class="indent">
-							<b class="blank"></b>
-						</span>
-						<b class="blank"></b>
-						<small class="leaf"></small>
-						<strong class="partial"></strong>
-						<span class="text">节点文字</span>
-					</div>
-				</li>
-				<li>
-					<div>
-						<span class="indent">
-							<b class="blank"></b>
-						</span>
-						<b class="blank"></b>
-						<small class="leaf"></small>
-						<strong class="unchecked"></strong>
-						<span class="text">节点文字</span>
-					</div>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<div>
-				<em class="arrow"></em>
-				<small class="branch-open"></small>
-				<strong class="unchecked"></strong>
-				<span class="text">树支文字</span>
-			</div>
-			<ul>
-				<li>
-					<div>
-						<span class="indent">
-							<b class="blank"></b>
-						</span>
-						<em class="arrow"></em>
-						<small class="branch"></small>
-						<strong class="unchecked"></strong>
-						<span class="text">节点文字</span>
-					</div>
-					<ul>
-						<li>
-							<div>
-								<span class="indent">
-									<b class="blank"></b>
-									<b class="blank"></b>
-								</span>
+	<span class="hdl-tree-help"></span>
+	<div class="hdl-tree-title">树的名字</div>
+	<div class="hdl-tree-wrap">
+		<ul>
+			<li>
+				<div>
+					<b class="blank"></b>
+					<small class="leaf"></small>
+					<strong class="unchecked"></strong>
+					<span class="text">节点文字</span>
+				</div>
+			</li>
+			<li>
+				<div>
+					<em class="arrow"></em>
+					<small class="branch"></small>
+					<strong class="checked"></strong>
+					<span class="text">树支文字</span>
+				</div>
+				<ul>
+					<li>
+						<div>
+							<span class="indent">
 								<b class="blank"></b>
-								<small class="leaf"></small>
-								<strong class="unchecked"></strong>
-								<span class="text">节点文字</span>
-							</div>
-						</li>
-						<li>
-							<div>
-								<span class="indent">
-									<b class="blank"></b>
-									<b class="blank"></b>
-								</span>
+							</span>
+							<b class="blank"></b>
+							<small class="leaf"></small>
+							<strong class="partial"></strong>
+							<span class="text">节点文字</span>
+						</div>
+					</li>
+					<li>
+						<div>
+							<span class="indent">
 								<b class="blank"></b>
-								<small class="leaf"></small>
-								<strong class="unchecked"></strong>
-								<span class="text">节点文字</span>
-							</div>
+							</span>
+							<b class="blank"></b>
+							<small class="leaf"></small>
+							<strong class="unchecked"></strong>
+							<span class="text">节点文字</span>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div>
+					<em class="arrow"></em>
+					<small class="branch-open"></small>
+					<strong class="unchecked"></strong>
+					<span class="text">树支文字</span>
+				</div>
+				<ul>
+					<li>
+						<div>
+							<span class="indent">
+								<b class="blank"></b>
+							</span>
+							<em class="arrow"></em>
+							<small class="branch"></small>
+							<strong class="unchecked"></strong>
+							<span class="text">节点文字</span>
+						</div>
+						<ul>
 							<li>
 								<div>
 									<span class="indent">
 										<b class="blank"></b>
 										<b class="blank"></b>
 									</span>
-									<em class="arrow-open"></em>
-									<small class="branch"></small>
+									<b class="blank"></b>
+									<small class="leaf"></small>
 									<strong class="unchecked"></strong>
 									<span class="text">节点文字</span>
 								</div>
-								<ul>
-									<li>
-										<div>
-											<span class="indent">
-												<b class="blank"></b>
-												<b class="blank"></b>
-											<b class="blank"></b>
-											</span>
-											<b class="blank"></b>
-											<small class="leaf"></small>
-											<strong class="unchecked"></strong>
-											<span class="text">节点文字</span>
-										</div>
-									</li>
-									<li>
-										<div>
-											<span class="indent">
-												<b class="blank"></b>
-												<b class="blank"></b>
-											<b class="blank"></b>
-											</span>
-											<b class="blank"></b>
-											<small class="leaf"></small>
-											<strong class="unchecked"></strong>
-											<span class="text">节点文字</span>
-										</div>
-									</li>
-								</ul>
 							</li>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<div>
-						<span class="indent">
+							<li>
+								<div>
+									<span class="indent">
+										<b class="blank"></b>
+										<b class="blank"></b>
+									</span>
+									<b class="blank"></b>
+									<small class="leaf"></small>
+									<strong class="unchecked"></strong>
+									<span class="text">节点文字</span>
+								</div>
+								<li>
+									<div>
+										<span class="indent">
+											<b class="blank"></b>
+											<b class="blank"></b>
+										</span>
+										<em class="arrow-open"></em>
+										<small class="branch"></small>
+										<strong class="unchecked"></strong>
+										<span class="text">节点文字</span>
+									</div>
+									<ul>
+										<li>
+											<div>
+												<span class="indent">
+													<b class="blank"></b>
+													<b class="blank"></b>
+												<b class="blank"></b>
+												</span>
+												<b class="blank"></b>
+												<small class="leaf"></small>
+												<strong class="unchecked"></strong>
+												<span class="text">节点文字</span>
+											</div>
+										</li>
+										<li>
+											<div>
+												<span class="indent">
+													<b class="blank"></b>
+													<b class="blank"></b>
+												<b class="blank"></b>
+												</span>
+												<b class="blank"></b>
+												<small class="leaf"></small>
+												<strong class="unchecked"></strong>
+												<span class="text">节点文字</span>
+											</div>
+										</li>
+									</ul>
+								</li>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div>
+							<span class="indent">
+								<b class="blank"></b>
+							</span>
 							<b class="blank"></b>
-						</span>
-						<b class="blank"></b>
-						<small class="leaf"></small>
-						<strong class="unchecked"></strong>
-						<span class="text">节点文字</span>
-					</div>
-				</li>
-			</ul>
-		</li>
-	</ul>
+							<small class="leaf"></small>
+							<strong class="unchecked"></strong>
+							<span class="text">节点文字</span>
+						</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 </div>
-<hr />
-<div class="hdl-tree tree-line">
-<ul>
-	<li>
-		<div id="hdltree101-0">
-			<b class="line-elbow">
-			</b>
-			<small class="leaf">
-			</small>
-			<strong class="unchecked">
-			</strong>
-			<span class="text">
-				显示的文字,必有
-			</span>
-		</div>
-	</li>
-	<li>
-		<div id="hdltree101-1">
-			<b class="line-elbow">
-			</b>
-			<small class="leaf">
-			</small>
-			<strong class="unchecked">
-			</strong>
-			<span class="text">
-				显示的文字,必有
-			</span>
-		</div>
-	</li>
-	<li>
-		<div id="hdltree101-2">
-			<em class="arrow arrow-open">
-			</em>
-			<small class="branch">
-			</small>
-			<strong class="unchecked">
-			</strong>
-			<span class="text">
-				显示的文字,必有
-			</span>
-		</div>
+
+<br />
+<br />
+<br />
+
+<div class="hdl-tree">
+	<span class="hdl-tree-help"></span>
+	<div class="hdl-tree-wrap tree-line">
 		<ul>
 			<li>
-				<div id="hdltree101-2-0">
-					<span class="indent">
-						<b class="line">
-						</b>
-					</span>
+				<div id="hdltree101-0">
 					<b class="line-elbow">
 					</b>
 					<small class="leaf">
@@ -227,11 +193,20 @@
 				</div>
 			</li>
 			<li>
-				<div id="hdltree101-2-1">
-					<span class="indent">
-						<b class="line">
-						</b>
+				<div id="hdltree101-1">
+					<b class="line-elbow">
+					</b>
+					<small class="leaf">
+					</small>
+					<strong class="unchecked">
+					</strong>
+					<span class="text">
+						显示的文字,必有
 					</span>
+				</div>
+			</li>
+			<li>
+				<div id="hdltree101-2">
 					<em class="arrow arrow-open">
 					</em>
 					<small class="branch">
@@ -244,10 +219,8 @@
 				</div>
 				<ul>
 					<li>
-						<div id="hdltree101-2-1-0">
+						<div id="hdltree101-2-0">
 							<span class="indent">
-								<b class="line">
-								</b>
 								<b class="line">
 								</b>
 							</span>
@@ -263,10 +236,103 @@
 						</div>
 					</li>
 					<li>
-						<div id="hdltree101-2-1-1">
+						<div id="hdltree101-2-1">
 							<span class="indent">
 								<b class="line">
 								</b>
+							</span>
+							<em class="arrow arrow-open">
+							</em>
+							<small class="branch">
+							</small>
+							<strong class="unchecked">
+							</strong>
+							<span class="text">
+								显示的文字,必有
+							</span>
+						</div>
+						<ul>
+							<li>
+								<div id="hdltree101-2-1-0">
+									<span class="indent">
+										<b class="line">
+										</b>
+										<b class="line">
+										</b>
+									</span>
+									<b class="line-elbow">
+									</b>
+									<small class="leaf">
+									</small>
+									<strong class="unchecked">
+									</strong>
+									<span class="text">
+										显示的文字,必有
+									</span>
+								</div>
+							</li>
+							<li>
+								<div id="hdltree101-2-1-1">
+									<span class="indent">
+										<b class="line">
+										</b>
+										<b class="line">
+										</b>
+									</span>
+									<b class="line-elbow">
+									</b>
+									<small class="leaf">
+									</small>
+									<strong class="unchecked">
+									</strong>
+									<span class="text">
+										显示的文字,必有
+									</span>
+								</div>
+							</li>
+							<li>
+								<div id="hdltree101-2-1-2">
+									<span class="indent">
+										<b class="line">
+										</b>
+										<b class="line">
+										</b>
+									</span>
+									<b class="line-elbow">
+									</b>
+									<small class="leaf">
+									</small>
+									<strong class="unchecked">
+									</strong>
+									<span class="text">
+										显示的文字,必有
+									</span>
+								</div>
+							</li>
+							<li>
+								<div id="hdltree101-2-1-3">
+									<span class="indent">
+										<b class="line">
+										</b>
+										<b class="line">
+										</b>
+									</span>
+									<b class="line-elbow-end">
+									</b>
+									<small class="leaf">
+									</small>
+									<strong class="unchecked">
+									</strong>
+									<span class="text">
+										显示的文字,必有
+									</span>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div id="hdltree101-2-2">
+							<span class="indent">
 								<b class="line">
 								</b>
 							</span>
@@ -282,29 +348,8 @@
 						</div>
 					</li>
 					<li>
-						<div id="hdltree101-2-1-2">
+						<div id="hdltree101-2-3">
 							<span class="indent">
-								<b class="line">
-								</b>
-								<b class="line">
-								</b>
-							</span>
-							<b class="line-elbow">
-							</b>
-							<small class="leaf">
-							</small>
-							<strong class="unchecked">
-							</strong>
-							<span class="text">
-								显示的文字,必有
-							</span>
-						</div>
-					</li>
-					<li>
-						<div id="hdltree101-2-1-3">
-							<span class="indent">
-								<b class="line">
-								</b>
 								<b class="line">
 								</b>
 							</span>
@@ -322,28 +367,7 @@
 				</ul>
 			</li>
 			<li>
-				<div id="hdltree101-2-2">
-					<span class="indent">
-						<b class="line">
-						</b>
-					</span>
-					<b class="line-elbow">
-					</b>
-					<small class="leaf">
-					</small>
-					<strong class="unchecked">
-					</strong>
-					<span class="text">
-						显示的文字,必有
-					</span>
-				</div>
-			</li>
-			<li>
-				<div id="hdltree101-2-3">
-					<span class="indent">
-						<b class="line">
-						</b>
-					</span>
+				<div id="hdltree101-3">
 					<b class="line-elbow-end">
 					</b>
 					<small class="leaf">
@@ -356,21 +380,7 @@
 				</div>
 			</li>
 		</ul>
-	</li>
-	<li>
-		<div id="hdltree101-3">
-			<b class="line-elbow-end">
-			</b>
-			<small class="leaf">
-			</small>
-			<strong class="unchecked">
-			</strong>
-			<span class="text">
-				显示的文字,必有
-			</span>
-		</div>
-	</li>
-</ul>
+	</div>
 </div>
 </body>
 </html>

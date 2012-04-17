@@ -1,5 +1,5 @@
 <?php
-	sleep(1);
+	usleep(3000);
 
 	if(!isset($_REQUEST['currPage']) || $_REQUEST['currPage'] == '1'){
 		echo <<<EOD
@@ -28,6 +28,7 @@
 			"mobileName":"未知业务",
 			"isSp":"0",
 			"processBoss":1,
+			"enable_check":false,
 			"graylistRate":100
 		},{
 			"recordId":1,

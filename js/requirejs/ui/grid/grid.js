@@ -56,7 +56,7 @@
 
  * </code></pre>
  */
-define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', './button', 'util', './import-button', 'css!./grid'], function($, S, MSG, Setting, Col, Row, Button, Util, importButton){
+define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', './pre-data', './button', 'util', './import-button', 'css!./grid'], function($, S, MSG, Setting, Col, Row, PreData, Button, Util, importButton){
 	/**
 	 * @class
 	 * @memberOf ui
@@ -72,8 +72,14 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			this.$div.addClass('hdlgrid-nowrap');
 		}
 
+		//使用分页
 		if(this.enable_page){
 			this.$pager.css('display', 'block');
+		}
+
+		//自动加载数据
+		if(this.auto_load){
+			this.ajaxLoad();
 		}
 
 		return this;
@@ -117,6 +123,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 			//默认配置
 			S.mix(this, Setting);
+			S.mix(this, {
+				data: S.clone(PreData)
+			});
 
 			//初始化参数配置
 			S.mix(this, setting);
@@ -137,9 +146,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			//全选checkbox
 			this.$div.on('change', 'input.check-all', this, function(e){
 				if(this.checked){
-					e.data.$tbody.find('input.check-one').attr('checked', true);
+					e.data.$tbody.find('input.check-one').attr('checked', true).parent().parent().css('background-color', e.data.select_bg);
 				}else{
-					e.data.$tbody.find('input.check-one').attr('checked', false);
+					e.data.$tbody.find('input.check-one').attr('checked', false).parent().parent().css('background-color', '');
 				}
 				//触发内部事件
 				e.data.onSelect();
@@ -149,12 +158,25 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				var grid = e.data;
 				//只能单个选择
 				if(grid.single_check){
-					$(this).parent().parent().siblings().find('input:checked').attr('checked', false);
+					$(this).parent().parent().siblings().find('input:checked').attr('checked', false).parent().parent().css('background-color', '');
+					//修正背景色
+					if(this.checked){
+						$(this).parent().parent().css('background-color', e.data.select_bg);
+					}else{
+						$(this).parent().parent().css('background-color', '');
+					}
 				}else{
+					//修正全选选中状态
 					if(grid.$tbody.find('input.check-one').not(':checked').length){
 						grid.$thead.find('input.check-all').attr('checked', false);
 					}else{
 						grid.$thead.find('input.check-all').attr('checked', true);
+					}
+					//修正背景色
+					if(this.checked){
+						$(this).parent().parent().css('background-color', e.data.select_bg);
+					}else{
+						$(this).parent().parent().css('background-color', '');
 					}
 				}
 				//触发内部事件
@@ -180,7 +202,11 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 			//需要生成checkbox的情况
 			if(this.enable_checkbox){
-				this.$thead.find('tr').append('<th class="td-left"><input type="checkbox" class="check-all" value="" /></th>');
+				if(!this.single_check){
+					this.$thead.find('tr').append('<th class="td-center"><input type="checkbox" class="check-all" value="" /></th>');
+				}else{
+					this.$thead.find('tr').append('<th class="td-center"></th>');
+				}
 				this.$colgrouphead.append('<col style="width:24px;" />');
 				this.$colgroupbody.append('<col style="width:24px;" />');
 
@@ -262,11 +288,18 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 			//将全选取消
 			grid.$thead.find(':checkbox').attr('checked', false);
+			
+			//对数据进行预处理
+			if(grid.preProcess){
+				grid.preProcess(data);
+			}
 
 			//读取数据出错并返回
 			if(!data.rows){
 				this.noData(MSG.error);
-				return this;
+				//填充空行使滚动条出现
+				this.__blankLine();
+				S.log(['error, grid.setData: ', data]);
 			}
 
 			//没有数据
@@ -278,10 +311,6 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				//保存数据引用
 				grid.data = data;
 			}else{
-				//对数据进行预处理
-				if(grid.preProcess){
-					data = grid.preProcess(data);
-				}
 
 				//保存数据引用
 				grid.data = data;
@@ -289,27 +318,45 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				//生成表格填充到tbody
 				S.each(data.rows, function(row, i){
 					//bg是对行的背景色处理
-					var bg = grid.__getRowBg(i), tr = $('<tr style="background:' + bg + ';"></tr>');
+					var bg = grid.__getRowBg(i),
+						tr = $('<tr style="background:' + bg + ';"></tr>');
 
-					//需要生成checkbox的情况
+					//使用checkbox列
 					if(grid.enable_checkbox){
-						tr.append('<td><input type="checkbox" class="check-one" value="" /></td>');
+						//行上禁用checkbox
+						if(row.enable_check !== false){
+							tr.append('<td class="td-center"><input type="checkbox" class="check-one" value="" /></td>');
+						}else{
+							tr.append('<td class="td-center"></td>');
+						}
 					}
 
 					S.each(grid.colModel, function(col, j){
-						var val;
-						//单元格预处理
-						if(col.process){
-							val = col.process(row, col);
-						}else{
-							val = row[col.name];
-						}
+						var val, td;
 
 						//单元格对齐方式
 						if(col.align !== 'left'){
-							tr.append($('<td class="td-' + col.align + '"></td>').append(val));
+							td = $('<td class="td-' + col.align + '"></td>');
 						}else{
-							tr.append($('<td></td>').append(val));
+							td = $('<td></td>');
+						}
+
+						//单元格预处理
+						if(col.process){
+							val = col.process(row, col, td, tr);
+						}else{
+							val = row[col.name];
+							//string转实体
+							if(S.isString(val)){
+								val = Util.entityHTML(val);
+							}
+						}
+
+						//NOTICE:此与process偶尔会冲突,请自行解决,比如返回的内容包在另外一个标签内自己加title
+						if(col.enable_title){
+							tr.append(td.attr('title', val).html(val));
+						}else{
+							tr.append(td.html(val));
 						}
 					});
 
@@ -325,6 +372,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			if(this.enable_page){
 				this.makePager();
 			}
+
+			//触发修正高度操作
+			$(window).resize();
 
 			return this;
 		},
@@ -344,39 +394,6 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 */
 		setParam: function(param){
 			this.param = param;
-			return this;
-		},
-		/**
-		 * 更新宽高
-		 * @return this
-		 */
-		refreshSize: function(){
-			var ths = this.$thead.find('th'),
-				tds = this.$tbody.find('tr:eq(0)').find('td'),
-				headnbody = this.$head.add(this.$body),
-				w_head_sum = 0, w_body_sum = 0;
-
-			ths.each(function(i, v){
-				v = $(v);
-				var td = tds.eq(i), w1 = v.outerWidth(), w2 = td.outerWidth();
-				w_head_sum += w1;
-				w_body_sum += w2;
-				if(w1 > w2){
-					v.add(td).width(w1);
-				}else{
-					v.add(td).width(w2);
-				}
-			});
-			if(w_head_sum > w_body_sum){
-				headnbody.width(w_head_sum);
-			}else{
-				headnbody.width(w_body_sum);
-			}
-
-			headnbody.css('table-layout', 'fixed');
-
-			this.$body.height(this.$div.parent().outerHeight() - this.$head.outerHeight() - this.$pager.outerHeight())
-
 			return this;
 		},
 		/**
@@ -430,9 +447,6 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 				S.isFunction(fn) && fn.call(grid);
 				grid.loaded();
-
-				//触发修正高度操作
-				$(window).resize();
 			}, 'json');
 			return this;
 		},
@@ -448,7 +462,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			if(S.isFunction(setting.enable)){
 				this.onSelect(function(e, items){
 					//返回true表示要禁用按钮
-					button.$div.toggleClass('hdlgrid-btn-dis', !setting.enable(items));
+					button.$div.toggleClass('hdlgrid-btn-dis', !setting.enable(items, button.$div));
 				});
 			}else if(S.isString(setting.enable)){
 				if(m = setting.enable.match(/([=<>])(\d+)/)){
@@ -503,7 +517,8 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				flashid: S.guid('flash-'),
 				flashurl: require.toUrl('ui/swfobject/file-upload.swf'),
 				flashvars: {
-					url: setting.posturl,
+					//参数要转实体再传入flash
+					url: escape(setting.posturl),
 					filter: setting.filter,
 					upload_name: setting.upload_name,
 					max_size: setting.max_size,
@@ -511,7 +526,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				attributes: {
 					style: 'opacity:0;filter:alpha(opacity=0);position:absolute;top:0;left:0;'
 				},
-				width: 54,
+				width: 64,
 				height: 24
 			};
 
@@ -527,7 +542,10 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			this.$button.append(button.$div).css('display', 'block');
 
 			//初始化导入按钮的flash
-			importButton.init(flash_setting);
+			//TODO
+			setTimeout(function(){
+				importButton.init(flash_setting);
+			}, 100);
 		},
 		/**
 		 * 获得选中checkbox对应行的rawData数组
