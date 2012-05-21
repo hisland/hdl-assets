@@ -97,8 +97,10 @@
 
 
 	/* 切换列显示 */
-	.hdlgrid-toggle-div{display:none;position:absolute;top:0;left:0;}
-	.hdlgrid-toggle-btn{display:none;position:absolute;top:0;left:0;}
+	.hdlgrid-toggle-div{display:none;position:absolute;top:20px;left:0;background:#fff;}
+		.hdlgrid-toggle-item{display:block;background:#ccc;}
+		.hdlgrid-toggle-item:hover{text-decoration:none;background:green;}
+	.hdlgrid-toggle-btn{display:none;position:absolute;top:0;left:0;width:20px;height:20px;background:red;}
 
 
 	/* 遮罩loading区域及无数据提示 */

@@ -13,7 +13,7 @@
 
 		require(['ui/week', 'util', 'demo'], function(Week, Util) {
 			$('.week-wrap').each(function(i, v){
-				$(v).html(Util.trimBlank($(v).html()));
+				Util.trimBlank(v);
 			});
 		});
 	</script>

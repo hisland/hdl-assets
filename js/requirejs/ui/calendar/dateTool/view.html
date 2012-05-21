@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>@name 日期控件样式页面 @nameANT</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" charset="utf-8" src="../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, dateTool+css');
+		});
+	</script>
+	<style type="text/css">
+		body .hdt-wrap{display:block;}
+	</style>
+</head>
+
+<body style="padding:50px">
+
+<div class="hdt-wrap">
+	<div class="hdt-ctrl">
+		<div class="hdt-tips"></div>
+		<div class="hdt-btns">
+			<a href="#" class="hdt-clear">清除</a>
+			<a href="#" class="hdt-now">现在</a>
+			<a href="#" class="hdt-complete">完成</a>
+		</div>
+	</div>
+	<div class="hdt-ipt-list"><input type="text" readonly="readonly" class="hdt-year" />-<input type="text" readonly="readonly" class="hdt-month" />-<input type="text" readonly="readonly" class="hdt-date" /><input type="text" readonly="readonly" class="hdt-hour" />:<input type="text" readonly="readonly" class="hdt-minute" />:<input type="text" readonly="readonly" class="hdt-second" /></div>
+	<div class="hdt-week-list">
+		<span>一</span>
+		<span>二</span>
+		<span>三</span>
+		<span>四</span>
+		<span>五</span>
+		<span>六</span>
+		<span>日</span>
+	</div>
+	<div class="hdt-date-list">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<a href="#">1</a>
+		<a href="#">2</a>
+		<a href="#">3</a>
+		<a href="#">4</a>
+		<a href="#">5</a>
+		<a href="#" class="hdt-date-now">6</a>
+		<a href="#">7</a>
+		<a href="#">8</a>
+		<a href="#">9</a>
+		<a href="#">10</a>
+		<a href="#">11</a>
+		<a href="#">12</a>
+		<a href="#">13</a>
+		<a href="#">14</a>
+		<a href="#">15</a>
+		<a href="#">16</a>
+		<a href="#">17</a>
+		<a href="#">18</a>
+		<a href="#">19</a>
+		<a href="#">20</a>
+		<a href="#">21</a>
+		<a href="#">22</a>
+		<a href="#">23</a>
+		<a href="#">24</a>
+		<a href="#">25</a>
+		<a href="#">26</a>
+		<a href="#">27</a>
+		<a href="#">28</a>
+		<strong>29</strong>
+		<strong>30</strong>
+		<strong>31</strong>
+	</div>
+	<div class="hdt-drop-list-wrap">
+		<div class="hdt-drop-list">
+			<strong>1223</strong>
+			<a href="#">1223</a>
+			<a href="#">1223</a>
+			<a href="#" class="hdt-drop-now">11</a>
+			<a href="#">1223</a>
+			<a href="#">1223</a>
+			<a href="#">1223</a>
+			<a href="#">14</a>
+			<a href="#">01</a>
+			<a href="#">47</a>
+			<a href="#">10</a>
+			<a href="#">40</a>
+			<a href="#">14</a>
+			<a href="#">01</a>
+			<a href="#">47</a>
+			<a href="#">10</a>
+			<a href="#">40</a>
+			<a href="#">14</a>
+			<a href="#">01</a>
+			<a href="#">47</a>
+		</div>
+		<p class="hdt-drop-list-ctrl">
+			<a href="#">上页</a>
+			<a href="#">下页</a>
+			<a href="#">关闭</a>
+		</p>
+
+		<!-- for standard browsers -->
+		<!-- <span class="hdt-drop-arr2 hdt-drop-arr-year"></span>
+		<span class="hdt-drop-arr2 hdt-drop-arr-month"></span>
+		<span class="hdt-drop-arr2 hdt-drop-arr-date"></span>
+		<span class="hdt-drop-arr2 hdt-drop-arr-hour"></span>
+		<span class="hdt-drop-arr2 hdt-drop-arr-minute"></span>
+		<span class="hdt-drop-arr2 hdt-drop-arr-second"></span> -->
+
+		<!-- for ie browsers -->
+		<span class="hdt-drop-arr hdt-drop-arr-year"></span>
+		<span class="hdt-drop-arr hdt-drop-arr-month"></span>
+		<span class="hdt-drop-arr hdt-drop-arr-date"></span>
+		<span class="hdt-drop-arr hdt-drop-arr-hour"></span>
+		<span class="hdt-drop-arr hdt-drop-arr-minute"></span>
+		<span class="hdt-drop-arr hdt-drop-arr-second"></span>
+	</div>
+</div>
+</body>
+</html>

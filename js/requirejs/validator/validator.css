@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+/* 状态显示 */
+p.valid-ok{padding:2px 0 2px 20px;background:url('img/ok.gif') no-repeat 3px 2px;}
+p.valid-err{padding:2px 0 2px 20px;background:url('img/err.gif') no-repeat 3px 2px;color:red;}
+p.valid-loading{padding:2px 0 2px 20px;background:url('img/loading.gif') no-repeat 2px 1px;color:red;}
+p.valid-caution{padding:2px 0 2px 20px;background:url('img/caution.gif') no-repeat 2px 1px;color:#e7891a;}
+
+/* 输入框错误显示 */
+input.valid-ipt-err,
+	textarea.valid-ipt-err{border-color:red;}

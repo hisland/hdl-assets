@@ -85,6 +85,24 @@ define(['jquery', 'kissy', '../pop-manager', './msg', 'jquery-plugin', 'css!./ti
 			return this;
 		},
 		/**
+		 * 显示loading状态,隐藏内容层
+		 * @return this
+		 */
+		loading: function(){
+			this.$div.css('display', 'none');
+			this.manager.loading();
+			return this;
+		},
+		/**
+		 * 隐藏loading状态,显示内容层
+		 * @return this
+		 */
+		loaded: function(){
+			this.$div.css('display', 'block');
+			this.manager.loaded();
+			return this;
+		},
+		/**
 		 * 将弹出层居中
 		 * @return this
 		 */
@@ -157,7 +175,7 @@ define(['jquery', 'kissy', '../pop-manager', './msg', 'jquery-plugin', 'css!./ti
 		},
 		/**
 		 * 设置提示类型
-		 * @param String type alert|notice|error|confirm之一
+		 * @param String type alert|notice|error|confirm
 		 * @return this
 		 */
 		setType: function(type){

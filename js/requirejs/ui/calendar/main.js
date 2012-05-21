@@ -2,11 +2,53 @@
  * 
  */
 
-define(['./calendar'], function(Calendar){
+define(['./dateTool/dateTool'], function(Calendar){
 	return {
 		init: function(setting){
-			var calendar = new Calendar(setting);
-			return calendar;
+			return {
+				attach: function(selector){
+					this.selector = selector || this.selector;
+					if(!this.isInit){
+						this.isInit = true;
+						$(this.selector).dateTool(setting);
+					}else{
+						$(this.selector).dateTool({
+							disabled: false
+						});
+					}
+					return this;
+				},
+				detach: function(){
+					$(this.selector).dateTool({
+						disabled: true
+					});
+					return this;
+				},
+				setSetting: function(setting){
+					$(this.selector).dateTool(setting);
+					return this;
+				},
+				setFixed: function(setting){
+					$(this.selector).dateTool(setting);
+					return this;
+				},
+				setWeekStart: function(n){
+					$(this.selector).dateTool().setWeekStart(n);
+					return this;
+				},
+				setBtnClearEnable: function(state){
+					$(this.selector).dateTool({
+						btn_clear_enable: !!state
+					});
+					return this;
+				},
+				setBtnNowEnable: function(state){
+					$(this.selector).dateTool({
+						btn_now_enable: !!state
+					});
+					return this;
+				}
+			};
 		},
 		/**
 		 * 初始化一个时间范围选择

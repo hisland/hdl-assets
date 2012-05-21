@@ -22,6 +22,11 @@ define(['kissy', './tip', './msg'], function(S, T, MSG){
 	function wrap(message, title, callback, type){
 		var tip = new T();
 
+		//使用默认title
+		if(title === undefined){
+			title = MSG[type];
+		}
+
 		//第2个参数为回调函数的时候,更正参数顺序
 		if(S.isFunction(title)){
 			callback = title;

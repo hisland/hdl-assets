@@ -91,7 +91,12 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 
 			//加载已存在的菜单
 			try{
-				this.$div.filter('.menu-wrap').find('a[href="' + location.hash + '"], a[href="' + location.href + '"]').first().click();
+				var now_link = this.$div.filter('.menu-wrap').find('a[href="' + location.hash + '"], a[href="' + location.href + '"]').first();
+				if(now_link.length){
+					now_link.click();
+				}else{
+					Page.loadUrl('welcome.jsp');
+				}
 			}catch(e){}
 			
 			return this;

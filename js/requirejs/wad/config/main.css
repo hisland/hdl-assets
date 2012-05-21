@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+.wadconfig-form{padding:5px 10px;width:600px;}
+
+.wadconfig-wrap{border:1px solid #dddedf;margin-top:15px;padding-top:10px;position:relative;background:#fafafa;}
+	.wadconfig-legend{position:absolute;top:-15px;left:50px;padding:5px;background:#fafafa;font-weight:700;}
+	.wadconfig-box{overflow:hidden;padding:5px;}
+	.wadconfig-item{float:left;margin:0 1px 1px 0;}
+		.wadconfig-label{float:left;height:24px;line-height:24px;width:100px;text-align:right;white-space:nowrap;overflow:hidden;background:#f0f1f1;}
+		.wadconfig-ipts{float:left;padding:3px;height:18px;width:124px;white-space:nowrap;overflow:hidden;}
+
+.wadconfig-btns{padding:5px;padding-left:108px;}
+	.wadconfig-btns a span{width:50px;}

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+	<script type="text/javascript" charset="utf-8" src="../../../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, jquery.mousewheel, adjustElement', function(S, undef){
+				S.getScript('hdlDateTool.js', function(){
+					$('#date1_1').hdlDateTool();
+				});
+			});
+		});
+	</script>
+
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		body{font-family:"宋体",serif;font-size:75%;}
+		a img{border:none;}
+		table{border-collapse:collapse;border-spacing:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		a:hover{text-decoration:underline;}
+		
+		body{font-family:'宋体'}
+		.test{padding:30px 20px;}
+			.test div{line-height:2em;}
+		.usage{color:green;}
+		hr{height:2px;border:none;border-top:1px solid #dfeaf8;border-bottom:1px solid #a9c5e6;margin:20px 0;}
+	</style>
+</head>
+
+<body>
+
+<div class="test">
+	<input id="date1_1" type="text" name="" value="" />
+
+	<div>
+	fixed 对应的单词:<br />
+	年 : year<br />
+	月 : month<br />
+	日 : date<br />
+	时 : hour<br />
+	分 : minute<br />
+	秒 : second
+	</div>
+</div>
+</body>
+</html>

@@ -52,7 +52,7 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', './fns', 'css!./audit'], f
 			$button_post.click(S.bind(this.postAll, this));
 
 			//按钮
-			$right.append($button_refresh, $button_post);
+			$right.append($button_post);
 
 			this.types = setting.types;
 
@@ -102,7 +102,7 @@ define(['jquery', 'kissy', 'ui/grid', './count-down', './fns', 'css!./audit'], f
 
 						select.change(function(e){
 							//选择 请选择不做操作
-							if(this.value === -1){
+							if(this.value === '-1'){
 								return ;
 							}
 							count = me.delay;

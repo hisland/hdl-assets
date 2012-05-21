@@ -1,0 +1,34 @@
+@charset "utf-8";
+
+body{}
+
+.main-wrap{position:relative;margin:0 auto;background:url('img/top-bg.png') repeat-x 0 0;}
+
+	.header{height:60px;}
+		.logo{float:left;height:60px;width:54px;background:url('img/1_01.png') no-repeat 0 0;}
+		.logo-text{float:left;height:60px;width:340px;background:url('img/name.png') no-repeat 0 0;}
+
+		.header-buttons{float:right;padding:8px;}
+			.header-buttons a, .header-buttons span{color:#a27841;vertical-align:middle;}
+			.header-buttons a:hover{text-decoration:none;}
+			#user{display:inline-block;background:url('img/1_03.png') no-repeat 0 0;padding:1px 0 1px 18px;height:16px;line-height:16px;}
+			#help{display:inline-block;background:url('img/1_06.png') no-repeat 0 0;padding:1px 0 1px 18px;height:16px;line-height:16px;}
+			#logout{display:inline-block;background:url('img/1_08.png') no-repeat 0 0;padding:1px 0 1px 18px;height:16px;line-height:16px;}
+
+	.aside{overflow:auto;float:left;width:200px;border:1px solid #bababb;border-left:none;border-bottom:none;background:#fff;padding-top:1px;}
+	.menu-toggle{float:left;width:5px;cursor:pointer;background:#dfdfe0;}
+
+	.main{margin:0 0 0 205px;border:1px solid #bababb;border-right:none;border-bottom:none;background:#fff;}
+		.uarehere{border:1px solid #f4f4f4;border-bottom:1px solid #d5d5d5;height:13px;padding:7px;background:url('img/uarehere.png') repeat-x 0 0;}
+
+
+.import-notice{background:#eee;border:1px solid #D1D1D1;padding:0.5em 0.5em 0.5em 2em;text-indent:-1.5em;margin:0 5px;}
+.import-select-type{border:1px solid #d1d1d1;border-top:none;background:#FBFBFB;overflow:hidden;margin:0 5px;padding:5px 0 5px 5px;}
+	.import-select-type li{float:left;width:178px;height:17px;padding:5px;list-style:none;}
+	.import-select-type li span{display:inline-block;width:95px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+	.import-select-type li a{overflow:hidden;display:none;}
+	.import-select-type li.selected{width:176px;height:15px;border:1px solid #D3D2D3;background:#FCF9E1;}
+	.import-select-type li.selected a{display:inline-block;}
+.import-select-button{text-align:right;visibility:hidden;margin:5px 5px;}
+
+.wad-link{color:#006699;}

@@ -1,6 +1,7 @@
 /**
  * 工具集, 包含util目录里面的所有模块的合并
- * @namespace util
+ * @namespace
+ * @name util
  */
 define([
 		'kissy',

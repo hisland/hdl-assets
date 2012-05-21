@@ -1,5 +1,5 @@
-define([ 'jquery', 'kissy', './swfobject2.2', './swfobject1.5', 'ui/tip' ],
-function($, S, SWFObject22, SWFObject15, Tip) {
+define([ 'jquery', 'kissy', './swfobject2.2', './swfobject1.5'],
+function($, S, SWFObject22, SWFObject15) {
 	return {
 		/**
 		 * 使用SWFObject2.2版本
@@ -25,11 +25,17 @@ function($, S, SWFObject22, SWFObject15, Tip) {
 //				delete setting.params.wmode;
 //			}
 
-			// 生成flash
-			SWFObject22.embedSWF(setting.flashurl, setting.flashid,
-					setting.width, setting.height, setting.flashver,
-					setting.flashinstall, setting.flashvars,
-					setting.params, setting.attributes);
+			SWFObject22.embedSWF(
+				setting.flashurl,
+				setting.flashid,
+				setting.width,
+				setting.height,
+				setting.flashver,
+				setting.flashinstall,
+				setting.flashvars,
+				setting.params,
+				setting.attributes
+			);
 		},
 		/**
 		 * 使用SWFObject1.5版本

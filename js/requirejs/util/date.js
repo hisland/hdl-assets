@@ -27,7 +27,7 @@ define(['kissy'], function(S){
 	}
 
 	/**
-	 * @lends util
+	 * @lends util#
 	 */
 	return {
 		/**
@@ -158,7 +158,7 @@ define(['kissy'], function(S){
 		 */
 		getMonthStart: function(date){
 			//创建副本
-			var rs = new Date(+this);
+			var rs = new Date(+date);
 			rs.setDate(1);
 			this.timeString(rs, '00:00:00');
 			return rs;

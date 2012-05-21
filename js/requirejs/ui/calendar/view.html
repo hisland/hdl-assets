@@ -13,7 +13,7 @@
 
 		require(['ui/calendar', 'util', 'css'], function(T, Util) {
 			$('.hdt-wrap').each(function(i, v){
-				$(v).html(Util.trimBlank($(v).html()));
+				Util.trimBlank(v);
 			});
 		});
 	</script>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['wad/menu', 'util', 'demo'], function(Menu, Util) {
+			$('.menu-wrap').each(function(i, v){
+				Util.trimBlank(v);
+			});
+		});
+	</script>
+</head>
+<body>
+
+	<div class="menu-wrap">
+		<div class="menu-lv1 menu-lv1-opened">
+			系统设置
+		</div>
+		<div class="menu-sub-wrap">
+			<div class="menu-lv2">
+				运行状态管理
+			</div>
+			<div class="menu-lv2 menu-lv2-opened">
+				系统通信告警
+			</div>
+			<div class="menu-sub-wrap">
+				<a class="menu-item" href="" hidefocus="true">运行状态管理</a>
+				<a class="menu-item" href="" hidefocus="true">系统通信告警</a>
+				<a class="menu-item menu-item-hover" href="" hidefocus="true">接口配置管理</a>
+			</div>
+			<div class="menu-lv2">
+				接口配置管理
+			</div>
+		</div>
+		<div class="menu-lv1">
+			短信功能
+		</div>
+		<div class="menu-sub-wrap">
+			<a class="menu-item" href="" hidefocus="true">运行状态管理</a>
+			<a class="menu-item" href="" hidefocus="true">系统通信告警</a>
+			<a class="menu-item menu-item-hover" href="" hidefocus="true">接口配置管理</a>
+		</div>
+		<div class="menu-lv1">
+			群发需求管理
+		</div>
+	</div>
+</body>
+</html>

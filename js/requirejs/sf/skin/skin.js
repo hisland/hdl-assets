@@ -38,7 +38,7 @@ define(['jquery', 'kissy', 'ui/popup', 'css!./skin'], function($, S, Popup){
 	});
 
 	//挂在document上,与outerclick同级,否则会导致此函数先执行而看不到效果
-	$(document).on('click', '#skin', function(e){
+	$(window).on('click', '#skin', function(e){
 		pop.align(this);
 		pop.$arr.css('left', '+=5');
 		pop.show();

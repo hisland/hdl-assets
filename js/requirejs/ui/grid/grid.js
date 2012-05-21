@@ -95,7 +95,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 * @return this
 		 */
 		__init: function(setting){
-			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-button"></div><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><colgroup></colgroup><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><colgroup></colgroup><tbody></tbody></table></div></div><div class="hdlgrid-pager"></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"><table><tbody></tbody></table></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
+			var div = $('<div class="hdlgrid-wrap"><div class="hdlgrid-button"></div><div class="hdlgrid-head"><div class="hdlgrid-head-in"><table><colgroup></colgroup><thead><tr></tr></thead></table></div></div><div class="hdlgrid-body"><div class="hdlgrid-body-in"><table><colgroup></colgroup><tbody></tbody></table></div></div><div class="hdlgrid-pager"></div><div class="hdlgrid-resizer"><div class="hdlgrid-resizer-i"></div></div><div class="hdlgrid-toggle-div"></div><div class="hdlgrid-toggle-btn"></div><div class="hdlgrid-mask"></div><div class="hdlgrid-nodata"></div><div class="hdlgrid-loading"></div></div>');
 
 			S.mix(this, {
 				$div: div,
@@ -115,6 +115,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 				$tablehead: div.find('div.hdlgrid-head table'),
 				$tablebody: div.find('div.hdlgrid-head table'),
+
+				$togglebtn: div.find('div.hdlgrid-toggle-btn'),
+				$togglediv: div.find('div.hdlgrid-toggle-div'),
 
 				$mask: div.find('div.hdlgrid-mask'),
 				$nodata: div.find('div.hdlgrid-nodata'),
@@ -190,7 +193,62 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				grid.ajaxLoad();
 			});
 
+			//切换列显示
+//			this.$thead.on('mouseenter', 'th', this, function(e){
+//				var grid = e.data;
+//				var left = $(this).position().left;
+//				var top = $(this).parent().parent().parent().parent().position().top;
+//
+//				grid.$togglebtn.css({
+//					left: left,
+//					top: top
+//				}).show();
+//			}).on('mouseleave', 'th', this, function(e){
+//				var grid = e.data;
+//				grid.$togglebtn.hide();
+//			});
+			$(document).on('click', '.hdlgrid-toggle-btn', this, function(e){
+				var grid = e.data;
+
+				//不是当前表格内部直接返回
+				if(grid.$togglebtn[0] !== this){
+					return ;
+				}
+
+				grid.$togglediv.show();
+				grid.$togglediv.one('outerclick', function(e, reale){
+					grid.$togglediv.hide();
+				});
+			});
+			this.$togglediv.on('click', 'a', this, function(e){
+				var grid = e.data, idx = $(this).attr('data-item-idx');
+				if(grid.enable_checkbox){
+					idx -= -1;
+				}
+
+				if($(this).is('.hdlgrid-toggle-off')){
+//					grid.$colgrouphead.find('col:eq(' + idx + ')').show();
+//					grid.$colgroupbody.find('col:eq(' + idx + ')').show();
+					grid.$thead.find('tr').find('th:eq(' + idx + ')').show();
+					grid.$tbody.find('tr').find('td:eq(' + idx + ')').show();
+				}else{
+//					grid.$colgrouphead.find('col:eq(' + idx + ')').hide();
+//					grid.$colgroupbody.find('col:eq(' + idx + ')').hide();
+					grid.$thead.find('tr').find('th:eq(' + idx + ')').hide();
+					grid.$tbody.find('tr').find('td:eq(' + idx + ')').hide();
+				}
+				$(this).toggleClass('hdlgrid-toggle-off');
+			});
+
 			return this;
+		},
+		/**
+		 * 切换列显示后需要重置col及table的宽度设置
+		 * @param 
+		 * @return 
+		 */
+		resetColWidth: function(){
+			
 		},
 		/**
 		 * 初始化表头
@@ -217,6 +275,12 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				this.addCol(v);
 				total_width += (v.width-0);
 			}, this);
+
+//			if(this.enable_toggle){
+				S.each(this.colModel, function(v, i, o){
+					this.$togglediv.append('<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="' + i + '">' + v.display + '</a>');
+				}, this);
+//			}
 
 			this.$div.find('table').width(total_width);
 			return this;
@@ -354,10 +418,12 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 						//NOTICE:此与process偶尔会冲突,请自行解决,比如返回的内容包在另外一个标签内自己加title
 						if(col.enable_title){
-							tr.append(td.attr('title', val).html(val));
-						}else{
-							tr.append(td.html(val));
+							td.attr('title', val);
 						}
+
+						//NOTICE:不能合并,因为html方法传不传参返回值不一样
+						td.html(val);
+						tr.append(td);
 					});
 
 					tr[0].rawData = row;
@@ -451,6 +517,14 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			return this;
 		},
 		/**
+		 * 添加一条button的分隔线
+		 * @param 
+		 * @return 
+		 */
+		addButtonSep: function(){
+			
+		},
+		/**
 		 * 添加一个按钮
 		 * @param setting Object
 		 * @return this
@@ -509,7 +583,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			S.mix(setting, {
 				posturl: 'post.php',
 				max_size: '10240',
-				filter: '*'
+				filter: '*',
+				width: 64,
+				height: 24
 			}, false);
 
 			//flash设置
@@ -526,8 +602,8 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				attributes: {
 					style: 'opacity:0;filter:alpha(opacity=0);position:absolute;top:0;left:0;'
 				},
-				width: 64,
-				height: 24
+				width: setting.width,
+				height: setting.height
 			};
 
 			//按钮
@@ -632,6 +708,19 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			this.$pager.html(rs.join(''));
 
 			return this;
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		getTableHead: function(postName){
+			return $.map(this.colModel, function(v){
+				return v.excludeHead ? null : {
+					name: postName,
+					value: v.display
+				};
+			});
 		}
 	});
 

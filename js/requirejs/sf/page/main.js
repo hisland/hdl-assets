@@ -213,7 +213,7 @@ define(['jquery', './page', './skin', './topmsg'], function($, Page){
 
 	//各添加策略选择后的删除
 	$(document).on('click', '.del.blue', function(e){
-		$(this).parent().remove();
+		$(this).parent().parent().remove();
 	});
 
 	return Page;

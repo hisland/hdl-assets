@@ -13,7 +13,7 @@
 
 		require(['ui/grid', 'util', 'demo'], function(T, Util) {
 			$('.hdlgrid-wrap').each(function(i, v){
-				$(v).html(Util.trimBlank($(v).html()));
+				Util.trimBlank(v);
 			});
 		});
 	</script>
@@ -161,14 +161,9 @@
 		<div class="hdlgrid-resizer-i"></div>
 	</div>
 	<div class="hdlgrid-toggle-div">
-		<table>
-			<tbody>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>列名列名列名</td>
-				</tr>
-			</tbody>
-		</table>
+		<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="">列名列名列名</a>
+		<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="">列名列名列名</a>
+		<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="">列名列名列名</a>
 	</div>
 	<div class="hdlgrid-toggle-btn"></div>
 	<div class="hdlgrid-mask"></div>

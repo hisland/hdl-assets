@@ -5,6 +5,7 @@ define(['kissy'], function(S){
 	/**
 	 * 过一会儿执行函数,且在执行之前可以重新设置函数与延迟并重新开始计时
 	 * @class 
+	 * @memberOf util
 	 * @param fn 需要执行的函数
 	 * @param delay 大于50的数字, 间隔时间,单位ms, 默认为50ms
 	 */
@@ -13,7 +14,7 @@ define(['kissy'], function(S){
 		this.delay = delay;
 	}
 	/**
-	 * @lends laterOne#
+	 * @lends util.laterOne#
 	 */
 	S.augment(laterOne, {
 		/**

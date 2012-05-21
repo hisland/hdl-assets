@@ -1,6 +1,6 @@
 /**
  * math有用的工具
- * @lends util
+ * @lends util#
  */
 define({
 	/**

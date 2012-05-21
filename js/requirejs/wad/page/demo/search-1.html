@@ -1,0 +1,107 @@
+<form id="query-form" class="search-condition" action="#">
+	<div class="search-ls1 search-ls1-auto">
+		<div class="ls1-item">
+			<div class="ls1-label"><strong class="red">*</strong>输入文字</div>
+			<div class="ls1-ipts">
+				<input class="text1" type="text" name="" value="" />
+			</div>
+		</div>
+	</div>
+	<div class="search-condition-submit">
+		<input class="button4" type="submit" value="查询" />
+	</div>
+</form>
+
+<div class="search-result" id="result"></div>
+
+<script type="text/javascript">
+	require(['ui/grid', 'sf/popwin'], function(Grid, POP, Common){
+		//初始化表格
+		var grid = Grid.init({
+				url: '../../ui/grid/data.php',
+				colModel : [
+					{display: '名称', name: 'mobileName', width: 100},
+					{display: '是否启用', width: 60, process: function(row, col){
+						if(row.status == 0){
+							return '否';
+						}else{
+							return '是';
+						}
+					}},
+					{display: '是否SP', width: 70, name: 'isSp', align: 'right', align_head: 'right'},
+					{display: '是否USSD', width: 60, name: 'isUSSD'},
+					{display: '父业务类型', width: 70, name: 'fsmTypeId'},
+					{display: '是否送BI', width: 60, name: 'isBi'},
+					{display: '送BI文件名', width: 120, name: 'biContent'},
+					{display: '送BI目录', width: 120, name: 'biDirectory'},
+					{display: '备注', width: 70, name: 'remarks'}
+				],
+				single_select: true,
+				enable_checkbox: true
+			});
+		
+		//放到指定位置
+		grid.$div.appendTo('#result');
+
+		//添加按钮
+		grid.addButton({
+			icon: 'add',
+			text: '添加',
+			click: function(e, checkedItems){
+				//checkedItems 包含了选中行所对应的rawData原始数据数组
+				POP.init({
+					url: 'demo/add.html',
+					param: '',
+					title: '添加某某东西',
+					onHide: function(){
+						grid.ajaxLoad();
+					}
+				});
+			}
+		});
+
+		//修改按钮
+		grid.addButton({
+			icon: 'edit',
+			text: '修改',
+			click: function(e, checkedItems){
+				//checkedItems 包含了选中行所对应的rawData原始数据数组
+				//可以对其处理后发送请求
+				alert('edit button!');
+			}
+		});
+
+		//删除按钮
+		grid.addButton({
+			icon: 'del',
+			text: '删除',
+			click: function(e, checkedItems){
+				//checkedItems 包含了选中行所对应的rawData原始数据数组
+				//可以对其处理后发送请求
+				alert('other button!');
+				Common.del({
+					url: '',
+					del_name: '',
+					del_key: '',
+					checkedItems: checkedItems
+				});
+			}
+		});
+
+		//初始化查询
+		$('#query-form').submit(function(e){
+			//参数以jquery标准的参数数组进行处理
+			//[{name: 'param-name', 'value': 'param-value'}, {name: 'param-name', 'value': 'param-value'}]
+			var dt = $(this).serializeArray();
+
+			//每次查询重新设置参数
+			grid.setParam(dt);
+
+			//让表格自己加载数据
+			grid.ajaxLoad();
+		});
+
+		//如果进入页面需要查询,触发一下上面form的提交
+		$('#query-form').submit();
+	});
+</script>

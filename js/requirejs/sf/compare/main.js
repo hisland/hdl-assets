@@ -1,7 +1,7 @@
 /**
  * 
  */
-define(['jquery', 'kissy', 'ui/popwin', './compare', 'util'], function($, S, Popwin, Compare, Util){
+define(['jquery', 'kissy', 'ui/popwin', './compare', 'util', 'ui/tip'], function($, S, Popwin, Compare, Util, Tip){
 	return {
 		init: function(setting){
 			S.mix(setting, {
@@ -26,6 +26,13 @@ define(['jquery', 'kissy', 'ui/popwin', './compare', 'util'], function($, S, Pop
 
 			pop.show().loading();
 			$.getJSON(setting.url, setting.param, function(rs){
+
+				//查询错误返回的是ResultMessage,提示并退出
+				if(rs.succ === false){
+					Tip.error(rs.messageText);
+					return ;
+				}
+
 				comp.setData(rs);
 				pop.loaded();
 				pop.$content.append('<form style="display:none;" action="policy/strategyCom!exportCompareInfo.do" method="post"><textarea name="compareInfo">' + Util.entityHTML('<div class="compare-wrap" style="height: 600px;width:600px;">' + comp.$div.html() + '</div>') + '</textarea></form>');
@@ -65,6 +72,13 @@ define(['jquery', 'kissy', 'ui/popwin', './compare', 'util'], function($, S, Pop
 
 			pop.show().loading();
 			$.getJSON(setting.url, setting.param, function(rs){
+
+				//查询错误返回的是ResultMessage,提示并退出
+				if(rs.succ === false){
+					Tip.error(rs.messageText);
+					return ;
+				}
+
 				comp.setData(rs);
 				pop.loaded();
 			});

@@ -13,7 +13,7 @@
 
 		require(['sf/menu', 'util', 'demo'], function(Menu, Util) {
 			$('.menu-now, .menu-search, .menu-wrap').each(function(i, v){
-				$(v).html(Util.trimBlank($(v).html()));
+				Util.trimBlank(v);
 			});
 		});
 	</script>

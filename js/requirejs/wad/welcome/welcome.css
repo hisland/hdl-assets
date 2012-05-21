@@ -1,0 +1,83 @@
+@charset "utf-8";
+
+.welcome{overflow:hidden;padding:30px 0 0 30px;}
+	.welcome a{float:left;height:170px;width:130px;overflow:auto;text-indent:-20em;margin:10px;padding:10px 5px 10px 55px;background:url('img/icon1.png') no-repeat center;color:#6d6d6d;line-height:35px;font-size:14px;border-radius:3px;}
+	.welcome a:hover{text-decoration:none;background-color:#eaeaea;}
+
+	.welcome-title{height:37px;background:url('img/welcome-title.png')  no-repeat;}
+
+	.welcome .welcome-icon1{background-image:url('img/icon1-1.png');}
+	.welcome .welcome-icon1:hover{background-image:url('img/icon1-2.png');}
+	.welcome .welcome-icon1:active{background-image:url('img/icon1-3.png');}
+
+	.welcome .welcome-icon2{background-image:url('img/icon2-1.png');}
+	.welcome .welcome-icon2:hover{background-image:url('img/icon2-2.png');}
+	.welcome .welcome-icon2:active{background-image:url('img/icon2-3.png');}
+
+	.welcome .welcome-icon3{background-image:url('img/icon3-1.png');}
+	.welcome .welcome-icon3:hover{background-image:url('img/icon3-2.png');}
+	.welcome .welcome-icon3:active{background-image:url('img/icon3-3.png');}
+
+	.welcome .welcome-icon4{background-image:url('img/icon4-1.png');}
+	.welcome .welcome-icon4:hover{background-image:url('img/icon4-2.png');}
+	.welcome .welcome-icon4:active{background-image:url('img/icon4-3.png');}
+
+	.welcome .welcome-icon5{background-image:url('img/icon5-1.png');}
+	.welcome .welcome-icon5:hover{background-image:url('img/icon5-2.png');}
+	.welcome .welcome-icon5:active{background-image:url('img/icon5-3.png');}
+
+	.welcome .welcome-icon6{background-image:url('img/icon6-1.png');}
+	.welcome .welcome-icon6:hover{background-image:url('img/icon6-2.png');}
+	.welcome .welcome-icon6:active{background-image:url('img/icon6-3.png');}
+
+	.welcome .welcome-icon7{background-image:url('img/icon7-1.png');}
+	.welcome .welcome-icon7:hover{background-image:url('img/icon7-2.png');}
+	.welcome .welcome-icon7:active{background-image:url('img/icon7-3.png');}
+
+	.welcome .welcome-icon8{background-image:url('img/icon8-1.png');}
+	.welcome .welcome-icon8:hover{background-image:url('img/icon8-2.png');}
+	.welcome .welcome-icon8:active{background-image:url('img/icon8-3.png');}
+
+	.welcome .welcome-icon9{background-image:url('img/icon9-1.png');}
+	.welcome .welcome-icon9:hover{background-image:url('img/icon9-2.png');}
+	.welcome .welcome-icon9:active{background-image:url('img/icon9-3.png');}
+
+
+
+	.welcome-en .welcome-title{height:20px;background-image:url('img/en/welcome-title.png');}
+
+	.welcome-en .welcome-icon1{background-image:url('img/en/icon1-1.png');}
+	.welcome-en .welcome-icon1:hover{background-image:url('img/en/icon1-2.png');}
+	.welcome-en .welcome-icon1:active{background-image:url('img/en/icon1-3.png');}
+
+	.welcome-en .welcome-icon2{background-image:url('img/en/icon2-1.png');}
+	.welcome-en .welcome-icon2:hover{background-image:url('img/en/icon2-2.png');}
+	.welcome-en .welcome-icon2:active{background-image:url('img/en/icon2-3.png');}
+
+	.welcome-en .welcome-icon3{background-image:url('img/en/icon3-1.png');}
+	.welcome-en .welcome-icon3:hover{background-image:url('img/en/icon3-2.png');}
+	.welcome-en .welcome-icon3:active{background-image:url('img/en/icon3-3.png');}
+
+	.welcome-en .welcome-icon4{background-image:url('img/en/icon4-1.png');}
+	.welcome-en .welcome-icon41:hover{background-image:url('img/en/icon4-2.png');}
+	.welcome-en .welcome-icon4:active{background-image:url('img/en/icon4-3.png');}
+
+	.welcome-en .welcome-icon5{background-image:url('img/en/icon5-1.png');}
+	.welcome-en .welcome-icon5:hover{background-image:url('img/en/icon5-2.png');}
+	.welcome-en .welcome-icon5:active{background-image:url('img/en/icon5-3.png');}
+
+	.welcome-en .welcome-icon6{background-image:url('img/en/icon6-1.png');}
+	.welcome-en .welcome-icon6:hover{background-image:url('img/en/icon6-2.png');}
+	.welcome-en .welcome-icon6:active{background-image:url('img/en/icon6-3.png');}
+
+	.welcome-en .welcome-icon7{background-image:url('img/en/icon7-1.png');}
+	.welcome-en .welcome-icon7:hover{background-image:url('img/en/icon7-2.png');}
+	.welcome-en .welcome-icon7:active{background-image:url('img/en/icon7-3.png');}
+
+	.welcome-en .welcome-icon8{background-image:url('img/en/icon8-1.png');}
+	.welcome-en .welcome-icon8:hover{background-image:url('img/en/icon8-2.png');}
+	.welcome-en .welcome-icon8:active{background-image:url('img/en/icon8-3.png');}
+
+	.welcome-en .welcome-icon9{background-image:url('img/en/icon9-1.png');}
+	.welcome-en .welcome-icon9:hover{background-image:url('img/en/icon9-2.png');}
+	.welcome-en .welcome-icon9:active{background-image:url('img/en/icon9-3.png');}

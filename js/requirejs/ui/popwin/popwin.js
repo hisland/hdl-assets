@@ -91,9 +91,6 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 
 		this.manager.$div.append(div);
 
-		//默认宽高
-		this.setWidth(default_width);
-
 		//设置关闭按钮
 		this.$close.on('click', this, function(e){
 			e.data.hide();
@@ -106,7 +103,7 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 
 		//代理取消按钮, 关闭层
 		div.on('click', '.popwin-cancel', this, function(e){
-			e.data.manager.hide();
+			e.data.hide();
 		});
 
 		//拖动初始化

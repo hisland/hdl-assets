@@ -89,6 +89,7 @@ define(['jquery', 'kissy', './msg', './datearray', 'css!./calendar', 'jquery-plu
 		 * @return this
 		 */
 		setDate: function(date){
+			this.date = date;
 			return this;
 		},
 		/**
@@ -96,7 +97,7 @@ define(['jquery', 'kissy', './msg', './datearray', 'css!./calendar', 'jquery-plu
 		 * @return Date
 		 */
 		getDate: function(){
-			
+			return this.date;
 		},
 		/**
 		 * 设置日期值
@@ -334,6 +335,14 @@ define(['jquery', 'kissy', './msg', './datearray', 'css!./calendar', 'jquery-plu
 		 * @return this
 		 */
 		hide: function(){
+			
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		attach: function(){
 			
 		}
 	});

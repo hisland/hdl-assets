@@ -13,7 +13,7 @@
 
 		require(['ui/tip', 'util', 'demo'], function(Tip, Util) {
 			$('.hdt-wrap').each(function(i, v){
-				$(v).html(Util.trimBlank($(v).html()));
+				Util.trimBlank(v);
 			});
 		});
 	</script>

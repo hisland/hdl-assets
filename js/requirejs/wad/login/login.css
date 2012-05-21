@@ -1,0 +1,22 @@
+@charset "utf-8";
+html{overflow:hidden;height:100%;}
+
+body{background:#f4f4f4;overflow:hidden;height:100%;}
+
+.login-wrap{background:url('img/login-bg.png') no-repeat 0 0;width:1000px;height:423px;text-align:center;margin:-244px 0 0 -485px;position:absolute;top:50%;left:50%;}
+	
+	.login-form{margin:151px 0 0 268px;*margin:131px 0 0 -14px;width:450px;}
+	.with-verify{margin:131px 0 0 268px;*margin:111px 0 0 -14px;}
+		.login-item{height:30px;margin:20px 0 12px;}
+			.item-text{float:left;width:100px;height:30px;line-height:30px;text-align:right;font-size:14px;color:#626569;margin-right:5px;}
+			.item-ipt{float:left;width:273px;height:30px;background:url('img/ipt-bg.gif') no-repeat 0 0;border:0;font-size: 14px;padding-left:5px;line-height:30px;}
+			.ipt-verify{width:162px;background:url('img/verify-bg.gif') no-repeat 0 0;}
+		.login-item img{float:left;margin-top:3px;}
+
+		.login-item-btn{margin:12px 0 0;}
+			.item-btn{width:82px;height:27px;line-height:22px;margin:0 0 0 104px;*margin-left:-160px;}
+				.item-btn a{width:82px;height:27px;background:url('img/login-btn1.png') no-repeat 0 0;display:inline-block;}
+				.item-btn a:hover{background-position:0 -27px;text-decoration: none;}
+				.item-btn a:active{background-position:0 -54px;}
+		
+

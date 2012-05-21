@@ -13,7 +13,7 @@
 
 		require(['ui/autocomp', 'util'], function(Select, Util) {
 			$('span.autocomp, div.autocomp-pop').each(function(i, v){
-				$(v).html(Util.trimBlank($(v).html()));
+				Util.trimBlank(v);
 			});
 
 			$('div.autocomp-pop').eq(1).css('left', 300).find('.autocomp-loading').css('display', 'block');

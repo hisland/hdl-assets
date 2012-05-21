@@ -13,7 +13,7 @@
 
 		require(['ui/popup', 'util', 'css'], function(T, Util) {
 			$('.popup-img, .popup-css3').each(function(i, v){
-				$(v).html(Util.trimBlank($(v).html()));
+				Util.trimBlank(v);
 			});
 		});
 	</script>

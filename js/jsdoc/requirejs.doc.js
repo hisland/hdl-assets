@@ -14,6 +14,7 @@
 	// source files to use
 	// builtin must be the first, it define the jQuery and window
 	_: [
+		'/home/hisland/scm/git-root/hdl-assets/js/requirejs/util',
 		'/home/hisland/scm/git-root/hdl-assets/js/requirejs/ui/main.js',
 		'/home/hisland/scm/git-root/hdl-assets/js/requirejs/ui/grid'
 	],

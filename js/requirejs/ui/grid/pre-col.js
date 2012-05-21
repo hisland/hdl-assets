@@ -77,6 +77,13 @@ define([ './msg' ], function(MSG) {
 		 * @default null
 		 * @type Function|null
 		 */
-		process : null
+		process : null,
+		/**
+		 * 排除在表头外,对于操作列等动态生成内容的可设置为true
+		 * 
+		 * @default false
+		 * @type Boolean
+		 */
+		excludeHead : false
 	};
 });

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+	<script type="text/javascript" charset="utf-8" src="../../../seed.js"></script>
+	<script type="text/javascript">
+		KISSY.ready(function(S){
+			S.use('reset-css, common-css, jquery-1.4.2');
+		});
+	</script>
+
+	<style type="text/css">
+		#hdlDateTool_div{z-index:3000;position:absolute;font-family:"宋体";font-size:12px;}
+		#hdlDateTool_div *{margin:0;padding:0;}
+			#hdlDateTool_div .hdlDateTool_wrap{border:1px solid #92B0DD;background:#fff;width:213px;}
+			#hdlDateTool_div iframe{_position:absolute;_top:0px;_left:0px;_z-index:-1;_width:215px;_height:expression(parentNode.clientHeight+2);}
+
+			#hdlDateTool_div .hdl_ctrl{height:14px;padding:3px;background:#96C2F1;}
+				#hdlDateTool_div .hdl_ctrl .hdl_tips{float:left;line-height:14px;color:#fff;}
+				#hdlDateTool_div .hdl_ctrl .hdl_btns{float:right;line-height:14px;}
+					#hdlDateTool_div .hdl_ctrl .hdl_btns a{float:left;color:#000;text-decoration:none;margin-left:8px;}
+					#hdlDateTool_div .hdl_ctrl .hdl_btns a:hover{color:#666;}
+
+			#hdlDateTool_div .hdl_ipt_list{padding:4px 0 4px 4px;overflow:hidden;}
+				#hdlDateTool_div .hdl_ipt_list label{float:left;padding-right:1px;}
+				#hdlDateTool_div .hdl_ipt_list input{font-family:"宋体";font-size:12px;height:14px;width:20px;border:1px solid #bbe1f1;text-align:center;margin-right:1px;-moz-border-radius:3px;border-radius:3px;ime-mode:disabled;}
+					#hdlDateTool_div .hdl_ipt_list input.disabled{border-color:#999;color:#999;background:#ddd;}
+				#hdlDateTool_div .hdl_ipt_list input.hdl_year{width:28px;}
+				#hdlDateTool_div .hdl_ipt_list label.hdl_hour_label{padding-left:5px;}
+
+			#hdlDateTool_div .hdl_week_list{clear:both;padding-left:5px;overflow:hidden;zoom:1;}
+				#hdlDateTool_div .hdl_week_list span{float:left;width:19px;height:18px;line-height:18px;margin:1px 5px;cursor:default;text-align:center;}
+
+			#hdlDateTool_div .hdl_date_list{padding:0 0 5px 5px;overflow:hidden;cursor:default;zoom:1;}
+				#hdlDateTool_div .hdl_date_list span,
+				#hdlDateTool_div .hdl_date_list a,
+				#hdlDateTool_div .hdl_date_list strong{float:left;width:19px;height:18px;line-height:18px;margin:1px 5px;text-align:center;text-decoration:none;color:#333;-moz-border-radius:3px;border-radius:3px;outline:none;cursor:default;}
+				#hdlDateTool_div .hdl_date_list a:hover{background:#e7f3ff;cursor:pointer;}
+				#hdlDateTool_div .hdl_date_list a.now_date{width:17px;height:16px;line-height:16px;border:1px solid #96c2f1;background:#e7f3ff;}
+				#hdlDateTool_div .hdl_date_list strong.disabled{color:#ccc;font-weight:400;}
+
+			#hdlDateTool_div .hdl_drop_list{position:absolute;border:1px solid #92b0dd;background:#fff;height:100px;top:41px;left:195px;width:3em;overflow-x:hidden;overflow-y:scroll;}
+			#hdlDateTool_div .hdl_drop_list_long{width:4em;}
+				#hdlDateTool_div .hdl_drop_list a{display:block;text-align:center;text-decoration:none;color:#333;padding:1px 4px;}
+				#hdlDateTool_div .hdl_drop_list a:hover, #hdlDateTool_div .hdl_drop_list a.selected{background:#96c2f1;}
+	</style>
+</head>
+
+<body>
+	<input id="datefrom" type="text" name="" disabled="disabled" />
+	<input id="dateto" type="text" name="" />
+
+<div id="hdlDateTool_div">
+	<!--[if lte IE 6]><iframe frameborder="no" scrolling="no"></iframe><![endif]-->
+	<div class="hdlDateTool_wrap">
+		<div class="hdl_ctrl">
+			<div class="hdl_tips">鼠标滚轮选择</div>
+			<div class="hdl_btns">
+				<a href="#" class="hdl_clear">清除</a>
+				<a href="#" class="hdl_today">今天</a>
+				<a href="#" class="hdl_complete">完成</a>
+			</div>
+		</div>
+		<div class="hdl_ipt_list">
+			<label><input type="text" class="hdl_year" value="any" />年</label>
+			<label><input type="text" class="hdl_month" pattern="\d|1[0-2]" />月</label>
+			<label><input type="text" class="hdl_date" />日</label>
+			<label class="hdl_hour_label"><input type="text" class="hdl_hour" />:</label>
+			<label><input type="text" class="hdl_minute" />:</label>
+			<label><input type="text" class="hdl_second" /></label>
+		</div>
+		<div class="hdl_week_list">
+			<span>一</span>
+			<span>二</span>
+			<span>三</span>
+			<span>四</span>
+			<span>五</span>
+			<span>六</span>
+			<span>日</span>
+		</div>
+		<div class="hdl_date_list"><!-- <div class="hdl_date_list date_disabled"> -->
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<a href="#">1</a>
+			<a href="#">2</a>
+			<a href="#">3</a>
+			<a href="#">4</a>
+			<a href="#">5</a>
+			<a href="#" class="now_date">6</a>
+			<a href="#">7</a>
+			<a href="#">8</a>
+			<a href="#">9</a>
+			<a href="#">10</a>
+			<a href="#">11</a>
+			<a href="#">12</a>
+			<a href="#">13</a>
+			<a href="#">14</a>
+			<a href="#">15</a>
+			<a href="#">16</a>
+			<a href="#">17</a>
+			<a href="#">18</a>
+			<a href="#">19</a>
+			<a href="#">20</a>
+			<a href="#">21</a>
+			<a href="#">22</a>
+			<a href="#">23</a>
+			<a href="#">24</a>
+			<a href="#">25</a>
+			<a href="#">26</a>
+			<a href="#">27</a>
+			<a href="#">28</a>
+			<strong class="disabled">29</strong>
+			<strong class="disabled">30</strong>
+			<strong class="disabled">31</strong>
+		</div>
+	</div>
+	<div class="hdl_drop_list hdl_drop_list_long">
+		<a href="#">1223</a>
+		<a href="#">11</a>
+		<a href="#" class="selected">11</a>
+		<a href="#">12</a>
+		<a href="#">12</a>
+		<a href="#">10</a>
+		<a href="#">14</a>
+		<a href="#">01</a>
+		<a href="#">47</a>
+		<a href="#">41</a>
+		<a href="#">10</a>
+		<a href="#">40</a>
+		<a href="#">14</a>
+		<a href="#">01</a>
+		<a href="#">47</a>
+		<a href="#">41</a>
+		<a href="#">10</a>
+		<a href="#">40</a>
+	</div>
+</div>
+</body>
+</html>

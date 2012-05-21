@@ -76,7 +76,7 @@ define(function(){
 	}
 
 	/**
-	 * @lends util
+	 * @lends util#
 	 */
 	return {
 		/**

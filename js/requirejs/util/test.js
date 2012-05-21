@@ -1,5 +1,5 @@
 /**
- * @lends util
+ * @lends util#
  */
 define({
 	/**

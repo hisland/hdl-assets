@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../require.js"></script>
+	<script type="text/javascript" src="../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../'
+		});
+
+		require(['validator', 'validator/group', 'demo'], function(Valid, GroupView) {
+			window.kkk =  Valid.init();
+			kkk.onFail(function(e, rs){
+				alert('还有未通过的验证!');
+			});
+			kkk.add(function(){
+				console.log('this is a fn check, always return true');
+				return true;
+			});
+			kkk.attach('#aa');
+
+			window.aa1 =  GroupView.init();
+			aa1.onCheck(function(e, rs){
+				console.log('input check: ' + rs);
+			});
+			aa1.rule('ipv4');
+			aa1.attach('#aa1');
+
+			kkk.add(aa1);
+
+			window.aa2 = GroupView.init();
+			aa2.len(2, 3);
+			aa2.attach('#aa2');
+
+			window.bb1 = GroupView.init();
+			bb1.fn(function(str){
+				if(str === 'please'){
+					return true;
+				}
+			}, '只能输入please');
+			bb1.attach('#bb1');
+
+			window.bb2 = GroupView.init();
+			bb2.fn(function(str){
+				if(str === 'hello'){
+					return true;
+				}
+			}, '只能输入hello');
+			bb2.len(2, 3);
+			bb2.attach('#bb2');
+		});
+	</script>
+</head>
+<body>
+	<div class="demo-section">
+		<div class="demo-legend">包围在form中</div>
+		<div class="demo-box">
+			<form id="aa">
+				<input id="aa1" type="text" name="" value="" class="text1" />
+				<br /><br />
+				<input id="aa2" type="text" name="" value="" class="text1" />
+				<br /><br />
+				<select id="select1">
+					<option value="">--请选择--</option>
+					<option value="1">值1</option>
+					<option value="2">值2</option>
+					<option value="3">值3</option>
+				</select>
+				<br /><br />
+				<div id="boxgroup1" style="width:150px;">
+					<input type="checkbox" value="1" />值1<br />
+					<input type="checkbox" value="2" />值2<br />
+					<input type="checkbox" value="3" />值3<br />
+					<input type="checkbox" value="4" />值4<br />
+				</div>
+				<br />
+				<input type="submit" value="提交" />
+			</form>
+		</div>
+	</div>
+	<div class="demo-section">
+		<div class="demo-legend">单独</div>
+		<div class="demo-box">
+			<input id="bb1" type="text" name="" value="" class="text1" />
+			<br /><br />
+			<input id="bb2" type="text" name="" value="" class="text1" />
+		</div>
+	</div>
+</body>
+</html>

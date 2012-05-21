@@ -55,6 +55,21 @@
 				}
 			});
 
+			grid.addButton({
+				icon: 'post',
+				text: '详情',
+				enable: '=1',
+				click: function(e, items){
+					Compare.detail({
+						title: '对比',
+						url: 'data2.php',
+						param: 'id=1&id=2',
+						width: 500,
+						height: 400
+					});
+				}
+			});
+
 			grid.$div.appendTo('body');
 		});
 	</script>

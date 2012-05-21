@@ -7,7 +7,7 @@ require.config({
 				'demo',
 				'jquery-plugin',
 				'util',
-				'valid']
+				'validator']
 });
 
 require.config({
@@ -28,6 +28,7 @@ require.config({
 				'ui/tab',
 				'ui/tip',
 				'ui/tree',
+				'ui/table-tree',
 				'ui/week']
 });
 

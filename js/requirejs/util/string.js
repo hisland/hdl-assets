@@ -1,5 +1,5 @@
 /**
- * string有用的工具
+ * string的工具
  */
 define(['jquery'], function($){
 	var entityHTML_reg = /[&<>'"]/g,
@@ -28,7 +28,7 @@ define(['jquery'], function($){
 	});
 
 	/**
-	 * @lends util
+	 * @lends util#
 	 */
 	return {
 		/**
@@ -68,8 +68,9 @@ define(['jquery'], function($){
 		 * @param String str 原始字符串
 		 * @return String
 		 */
-		trimBlank: function(str){
-			return str.replace(/\n\t+|\t+\r|^\t+|\t+$|\r|\n/g, '');
+		trimBlank: function(selector){
+			$(selector).html(($(selector).html() || '').replace(/\n\t+|\t+\r|^\t+|\t+$|\r|\n/g, ''));
+			return this;
 		},
 
 		/**

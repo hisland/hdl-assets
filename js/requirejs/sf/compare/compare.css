@@ -6,12 +6,12 @@
 	.compare-wrap-in{position:relative;height:100%;overflow-x:auto;overflow-y:scroll;}
 	.compare-row{float:left;width:100%;}
 		.compare-col1{float:left;width:50%;padding:3px 0;}
-		.compare-col2{float:left;width:50%;padding:3px 0;}
+		.compare-col2{float:right;width:50%;padding:3px 0;}
 
 			.compare-item{padding-left:15px;background:url('compare-img/dot.gif') no-repeat 5px center;}
 			.compare-label{color:#b3b3b3;}
 
-	.compare-line{clear:left;height:1px;background:#e7e7e7;}
+	.compare-line{clear:both;height:1px;background:#e7e7e7;}
 
 	.compare-sub-title{padding-left:5px;}
 	.compare-sub-minus{padding-left:15px;background:url('compare-img/minus.gif') no-repeat 3px center;}

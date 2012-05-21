@@ -57,3 +57,9 @@ input.button4{width:72px;height:26px;line-height:26px;border:none;background:url
 input[type=password][readonly], input[type=text][readonly], textarea[readonly]{background:#e1dfd4;color:#666;border:1px solid #dbdada;padding:1px;}
 input[type=password][disabled], input[type=text][disabled], textarea[disabled]{background:#f5f4ea;color:#aca899;text-shadow:#fff 1px 1px;border:1px solid #c9c7ba;padding:1px;cursor:default;}
 /* ie6的样式在ie6模块里面定义 */
+
+
+
+.ntable{position:relative;table-layout:fixed;white-space:nowrap;}
+	.ntable th, .ntable td{border:1px solid #d7d7d7;padding:3px;font-weight:400;overflow:hidden;text-overflow:ellipsis;}
+	.ntable th{background:#e9e9e9;}
