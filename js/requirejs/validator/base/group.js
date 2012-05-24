@@ -1,9 +1,7 @@
-/**
- * 
- */
 define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, Rule, Util){
 	/**
 	 * @class
+	 * @memberOf validator
 	 */
 	function Group(config){
 		this.attached = false;
@@ -12,7 +10,7 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 	}
 
 	/**
-	 * @lends Group#
+	 * @lends validator.Group#
 	 */
 	S.augment(Group, {
 		/**

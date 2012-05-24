@@ -1,13 +1,16 @@
 @charset "utf-8";
-.selectradio{width:758px;height:390px;padding:30px 40px;}
-	.srselect{height:19px;}
-		.srselect a{margin:0 9px 0;color:#0A8599;text-decoration:underline;}
-	.srcontent{width:745px;overflow:hidden;background-color:#FFFFFF;border:1px solid #DDDEDF;padding:10px 0 0 10px;}
-		.srcontent-show{width:168px;height:22px;border:1px solid #F0F1F1;margin:0 15px 15px 0;float:left;}
-			.srcontent-show>div{height:22px;line-height:22px;float:left;}
-			.srcontent-text{width:47px;background-color:#F0F1F1;padding-right:12px;text-align:right;}
-			.srcontent-radio{width:109px;}
-				.srcontent-radio label{display: inline-block;vertical-align: middle;white-space: nowrap;margin:0 0 0 7px;width:40px;}
-					.srcontent-radio label input{position: relative;top: 2px;width: auto;margin-right:3px;}
+.multilink-warp{width:475px;padding:13px 10px 0 22px;}
+	.multilink-head{height:16px;line-height:16px;}
+		.multilink-head span{display:inline-block;}
+		.mulhead-name{margin:0 0 0 3px;}
+		.mulhead-link{margin:0 0 0 102px;}
 
-	.srbutton{padding:5px 10px;background-color:#EAF0F0;}
+	.multilink-content{margin:4px 0 3px 0;}
+		.multilink-show{height:18px;margin:0 0 8px 0;}
+			.multilink-show div{float:left;margin:0 5px 0 0;}
+			.multilink-del{height:18px;line-height:18px;display:inline-block;color:#0A8599;}
+				input.name-text{width:123px;}
+				input.link-text{width:301px;}
+
+	.multilink-btn{}
+		.multilink-btn a{text-decoration: none;}

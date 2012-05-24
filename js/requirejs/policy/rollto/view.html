@@ -11,406 +11,2160 @@
 			baseUrl: '../../'
 		});
 
-		require(['policy/select2radio/main'], function(s2r) {
-			s2r.init('#selectradio');
+		require(['policy/rollto/main'], function(Rollto) {
+			Rollto.init('#roll');
 		});
 	</script>
 </head>
-<body>
-	<div class="selectradio" id="selectradio">
-		<div class="srselect">
-			<a href="javascript:;" class="srbtn-allbei">全部报备</a>
-			<a href="javascript:;" class="srbtn-allpi">全部报批</a>
-			<a href="javascript:;" class="srbtn-op">反选</a>
+<body style="margin:3% 0 0 30%;">
+	<div class="rollto-wrap" id="roll">
+		<div class="rollto-title">
+			<div class="rollto-legend">快速配置</div>
+			<div class="rollto-box">
+				<a data-id="province-1" class="rolltoprobtn" href="javascript:;">北京</a>
+				<a data-id="province-2" class="rolltoprobtn" href="javascript:;">天津</a>
+				<a data-id="province-3" class="rolltoprobtn" href="javascript:;">河北</a>
+				<a data-id="province-4" class="rolltoprobtn" href="javascript:;">山西</a>
+				<a data-id="province-5" class="rolltoprobtn" href="javascript:;">内蒙古</a>
+				<a data-id="province-6" class="rolltoprobtn" href="javascript:;">辽宁</a>
+				<a data-id="province-7" class="rolltoprobtn" href="javascript:;">吉林</a>
+				<a data-id="province-8" class="rolltoprobtn" href="javascript:;">黑龙江</a>
+				<a data-id="province-9" class="rolltoprobtn" href="javascript:;">上海</a>
+				<a data-id="province-10" class="rolltoprobtn" href="javascript:;">江苏</a>
+				<a data-id="province-11" class="rolltoprobtn" href="javascript:;">新疆</a>
+				<a data-id="province-12" class="rolltoprobtn" href="javascript:;">浙江</a>
+				<a data-id="province-13" class="rolltoprobtn" href="javascript:;">安徽</a>
+				<a data-id="province-14" class="rolltoprobtn" href="javascript:;">福建</a>
+				<a data-id="province-15" class="rolltoprobtn" href="javascript:;">江西</a>
+				<a data-id="province-16" class="rolltoprobtn" href="javascript:;">山东</a>
+				<a data-id="province-17" class="rolltoprobtn" class="rolltoprobtn" href="javascript:;">河南</a>
+				<a data-id="province-18" class="rolltoprobtn" href="javascript:;">湖北</a>
+				<a data-id="province-19" class="rolltoprobtn" href="javascript:;">湖南</a>
+				<a data-id="province-20" class="rolltoprobtn" href="javascript:;">广东</a>
+				<a data-id="province-21" class="rolltoprobtn" href="javascript:;">广西</a>
+				<a data-id="province-22" class="rolltoprobtn" href="javascript:;">宁夏</a>
+				<a data-id="province-23" class="rolltoprobtn" href="javascript:;">海南</a>
+				<a data-id="province-24" class="rolltoprobtn" href="javascript:;">重庆</a>
+				<a data-id="province-25" class="rolltoprobtn" href="javascript:;">四川</a>
+				<a data-id="province-26" class="rolltoprobtn" href="javascript:;">贵州</a>
+				<a data-id="province-27" class="rolltoprobtn" href="javascript:;">云南</a>
+				<a data-id="province-28" class="rolltoprobtn" href="javascript:;">西藏</a>
+				<a data-id="province-29" class="rolltoprobtn" href="javascript:;">陕西</a>
+				<a data-id="province-30" class="rolltoprobtn" href="javascript:;">甘肃</a>
+				<a data-id="province-31" class="rolltoprobtn" href="javascript:;">青海</a>
+			</div>
 		</div>
-		<div class="srcontent">
+		<div class="rollto-main">
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">内蒙古</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio1">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio1">报批
-					</label>
+			<div class="rollto-item" id="province-1">
+				<div class="rollto-item-title">北京配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio2">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio2">报批
-					</label>
+			<div class="rollto-item" id="province-2">
+				<div class="rollto-item-title">天津配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio3">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio3">报批
-					</label>
+			<div class="rollto-item" id="province-3">
+				<div class="rollto-item-title">河北配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio4">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio4">报批
-					</label>
+			<div class="rollto-item" id="province-4">
+				<div class="rollto-item-title">山西配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio5">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio5">报批
-					</label>
+			<div class="rollto-item" id="province-5">
+				<div class="rollto-item-title">内蒙古配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio6">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio6">报批
-					</label>
+			<div class="rollto-item" id="province-6">
+				<div class="rollto-item-title">辽宁配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio7">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio7">报批
-					</label>
+			<div class="rollto-item" id="province-7">
+				<div class="rollto-item-title">吉林配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio8">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio8">报批
-					</label>
+			<div class="rollto-item" id="province-8">
+				<div class="rollto-item-title">黑龙江配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio9">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio9">报批
-					</label>
+			<div class="rollto-item" id="province-9">
+				<div class="rollto-item-title">上海配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio10">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio10">报批
-					</label>
+			<div class="rollto-item" id="province-10">
+				<div class="rollto-item-title">江苏配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio11">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio11">报批
-					</label>
+			<div class="rollto-item" id="province-11">
+				<div class="rollto-item-title">新疆配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio12">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio12">报批
-					</label>
+			<div class="rollto-item" id="province-12">
+				<div class="rollto-item-title">浙江配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio13">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio13">报批
-					</label>
+			<div class="rollto-item" id="province-13">
+				<div class="rollto-item-title">安徽配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio14">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio14">报批
-					</label>
+			<div class="rollto-item" id="province-14">
+				<div class="rollto-item-title">福建配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio15">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio15">报批
-					</label>
+			<div class="rollto-item" id="province-15">
+				<div class="rollto-item-title">江西配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio16">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio16">报批
-					</label>
+			<div class="rollto-item" id="province-16">
+				<div class="rollto-item-title">山东配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio17">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio17">报批
-					</label>
+			<div class="rollto-item" id="province-17">
+				<div class="rollto-item-title">河南配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio18">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio18">报批
-					</label>
+			<div class="rollto-item" id="province-18">
+				<div class="rollto-item-title">湖北配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio19">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio19">报批
-					</label>
+			<div class="rollto-item" id="province-19">
+				<div class="rollto-item-title">湖南配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio20">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio20">报批
-					</label>
+			<div class="rollto-item" id="province-20">
+				<div class="rollto-item-title">广东配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio21">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio21">报批
-					</label>
+			<div class="rollto-item" id="province-21">
+				<div class="rollto-item-title">广西配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio22">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio22">报批
-					</label>
+			<div class="rollto-item" id="province-22">
+				<div class="rollto-item-title">宁夏配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio23">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio23">报批
-					</label>
+			<div class="rollto-item" id="province-23">
+				<div class="rollto-item-title">海南配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio24">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio24">报批
-					</label>
+			<div class="rollto-item" id="province-24">
+				<div class="rollto-item-title">重庆配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio25">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio25">报批
-					</label>
+			<div class="rollto-item" id="province-25">
+				<div class="rollto-item-title">四川配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio26">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio26">报批
-					</label>
+			<div class="rollto-item" id="province-26">
+				<div class="rollto-item-title">贵州配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio27">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio27">报批
-					</label>
+			<div class="rollto-item" id="province-27">
+				<div class="rollto-item-title">云南配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio28">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio28">报批
-					</label>
+			<div class="rollto-item" id="province-28">
+				<div class="rollto-item-title">西藏配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio29">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio29">报批
-					</label>
+			<div class="rollto-item" id="province-29">
+				<div class="rollto-item-title">陕西配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio30">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio30">报批
-					</label>
+			<div class="rollto-item" id="province-30">
+				<div class="rollto-item-title">甘肃配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+				</div>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio31">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio31">报批
-					</label>
+			<div class="rollto-item" id="province-31">
+				<div class="rollto-item-title">青海配置</div>
+				<div class="rollto-long">
+					<div class="rollto-label">省监控平台IP</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
 				</div>
-			</div>
-
-			<div class="srcontent-show">
-				<div class="srcontent-text">北京</div>
-				<div class="srcontent-radio">
-					<label>
-						<input type="radio" value="0" name="selec2tradio32">报备
-					</label>
-					<label>
-						<input type="radio" value="1" name="selec2tradio32">报批
-					</label>
+				<div class="rollto-short">
+					<div class="rollto-label">下发端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">更新端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">删除端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">预审端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">自有上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">生效上报端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
+					<div class="rollto-label">报批确认端口</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text" type="text" value="8080">
+					</div>
+					<div class="rollto-label">服务名</div>
+					<div class="rollto-ipts">
+						<input class="rollto-text rollto-disabled" type="text" value="ProvincialMonitoringCenterService">
+					</div>
 				</div>
 			</div>
 
 		</div>
-		<div class="srbutton"></div>
 	</div>
 </body>
 </html>

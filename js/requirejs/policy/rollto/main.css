@@ -1,13 +1,24 @@
 @charset "utf-8";
-.selectradio{width:758px;height:390px;padding:30px 40px;}
-	.srselect{height:19px;}
-		.srselect a{margin:0 9px 0;color:#0A8599;text-decoration:underline;}
-	.srcontent{width:745px;overflow:hidden;background-color:#FFFFFF;border:1px solid #DDDEDF;padding:10px 0 0 10px;}
-		.srcontent-show{width:168px;height:22px;border:1px solid #F0F1F1;margin:0 15px 15px 0;float:left;}
-			.srcontent-show>div{height:22px;line-height:22px;float:left;}
-			.srcontent-text{width:47px;background-color:#F0F1F1;padding-right:12px;text-align:right;}
-			.srcontent-radio{width:109px;}
-				.srcontent-radio label{display: inline-block;vertical-align: middle;white-space: nowrap;margin:0 0 0 7px;width:40px;}
-					.srcontent-radio label input{position: relative;top: 2px;width: auto;margin-right:3px;}
+.rollto-wrap{width:738px;padding:5px 10px;}
 
-	.srbutton{padding:5px 10px;background-color:#EAF0F0;}
+	.rollto-title{border:1px solid #DDDEDF;width:706px;height:121px;margin:0 0 10px;position:relative;padding:16px 0 0 30px;}
+		.rollto-title .rollto-legend{position:absolute;font-weight:bold;background-color:#ffffff;width:70px;height:12px;line-height:12px;text-align:center;top:-5px;left:25px;}
+		.rollto-box{}
+			.rollto-box a{display:inline-block;width:94px;height:12px;line-height:12px;margin:0 0 5px;}
+
+	.rollto-main{border:1px solid #DDDEDF;width:736px;height:330px;position:relative;overflow:hidden;overflow-y:auto;}
+		.rollto-item{height:284px;border-top:1px solid #DDDEDF;margin:17px 0 0;position:relative;padding:28px 0 0 42px;}
+		.item-selected{background-color:#ebf6fb;}
+			.item-selected .rollto-item-title{border:1px solid #DDDEDF;}
+			.rollto-item-title{position:absolute;font-weight:bold;background-color:#ffffff;height:12px;line-height:12px;text-align:center;top:-9px;left:25px;padding:3px 7px;color:#6A6A6A;}
+			.rollto-long{height:26px;}
+				.rollto-long div{float:left;margin:0 6px 9px 0;}
+					.rollto-long input{width:519px;}
+			.rollto-short{}
+				.rollto-short div{float:left;margin:0 6px 9px 0;}
+					.rollto-short .rollto-ipts{margin-right:0;}
+					.rollto-short input{width:211px;}
+		
+				.rollto-label{width:89px;height:26px;line-height:26px;text-align:right;margin:0 6px 0 0;}
+					.rollto-text{height:24px;border:1px solid #EAEAEA;}
+					.rollto-disabled{color:#B2B2B2;}

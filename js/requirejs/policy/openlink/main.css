@@ -3,9 +3,12 @@
 .openlink-hover{background-color:#dcf3f6;}
 	.openlink span{display:inline-block;height:23px;line-height:23px;}
 	.openlink-text{margin:0 0 0 9px;width:40px;}
-	.openlink-login{padding:0 7px 0 0;background:url("img/openlink-1.gif") no-repeat scroll 25px 9px transparent;width:25px;margin:0 0 0 -6px;color:#747A7E;}
-	.openlink-modify{margin:0 0 0 9px;color:#0A8599;}
+	.openlink-login{padding:0 7px 0 0;background:url("img/openlink-1.gif") no-repeat scroll 25px 9px transparent;width:25px;margin:0 0 0 -6px;color:#747A7E;cursor:pointer;}
+	.openlink-modify{margin:0 0 0 9px;color:#0A8599;cursor:pointer;}
 
 	.openlink-pop{width:100px;height:100px;border:1px solid #E1E2E2;background-color:#F7F7F7;position:absolute;top:20px;left:60px;z-index:1;}
 		.openlink-pop a{display:inline-block;width:95px;height:20px;line-height:20px;padding:0 0 0 5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 		.openlink-pop a:hover{text-decoration:none;}
+
+
+.openlink-link{display:block;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}

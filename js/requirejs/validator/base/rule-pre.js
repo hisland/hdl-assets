@@ -79,10 +79,9 @@ define(['./rule'], function(Rule){
 	
 
 	// 此段保留在最底部,如果有JS国际化信息将进行覆盖
-	// 国际化key命名规则为: js.common.Rule.规则名, 如: js.common.Rule.ipv4
 	if(window.JS_I18N){
-		S.each(items, function(v, i, o){
-			Rule.setDesc(i, JS_I18N['js.common.Rule.' + i]);
+		S.each(Rule.getNames(), function(v, i, o){
+			Rule.setDesc(v, JS_I18N['js.validator.rule.' + v]);
 		});
 	}
 

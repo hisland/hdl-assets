@@ -4,19 +4,6 @@
  * @author hisland hisland@qq.com
  * @description 表格插件
  * <pre><code>
- * API:
- * 		var g = $.hdlGrid(setting); - 生成一个表格对象并传入预设置
- * 		g.setSetting(setting); - 修改设置
- * 		g.setData(data); - 修改内容
- * 		g.refresh(); - 刷新表格显示
- * 
- *		g.addCol(col_set); - 添加一列
- * 		g.setCol(n, [fn|col_set]); - 修改n列, 传入修改函数或者设置
- * 		g.addRow(data); - 添加一行
- * 		g.setRow(n, fn); - 修改n行, 传入修改函数
- * 
- * 		g.$div - 指向表格的最外层元素,为一个jq对象
- * 
 
 2011-4-23 16:35:4:
 	3步走:
@@ -53,6 +40,9 @@
 
 2011-10-09 11:15:48
 	双击拖动自动适应宽度
+
+2012-05-23 21:48:50
+	按住ctrl键单个选择
 
  * </code></pre>
  */
@@ -193,21 +183,46 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				grid.ajaxLoad();
 			});
 
-			//切换列显示
-//			this.$thead.on('mouseenter', 'th', this, function(e){
-//				var grid = e.data;
-//				var left = $(this).position().left;
-//				var top = $(this).parent().parent().parent().parent().position().top;
-//
-//				grid.$togglebtn.css({
-//					left: left,
-//					top: top
-//				}).show();
-//			}).on('mouseleave', 'th', this, function(e){
-//				var grid = e.data;
-//				grid.$togglebtn.hide();
-//			});
-			$(document).on('click', '.hdlgrid-toggle-btn', this, function(e){
+			//设置 切换列显示按钮 位置
+			this.$thead.on('mouseenter', 'th', this, function(e){
+				var grid = e.data;
+				var width = $(this).outerWidth();
+				var height = $(this).outerHeight();
+				var left = $(this).position().left;
+				var top = $(this).parent().parent().parent().parent().position().top;
+
+				if(grid.enable_checkbox && $(this).index() === 0){
+					grid.$togglebtn.hide();
+					return ;
+				}
+
+				grid.$togglebtn.css({
+					left: left + width - 8,
+					top: top
+				});
+
+				grid.$togglediv.css({
+					left: left + width - 8,
+					top: top + height
+				});
+			});
+
+			//显示/隐藏 切换列显示按钮
+			var grid = this, later;
+			this.$thead.add(this.$togglebtn).on({
+				mouseenter: function(e){
+					clearTimeout(later);
+					grid.$togglebtn.show();
+				},
+				mouseleave: function(e){
+					later = setTimeout(function(){
+						grid.$togglebtn.hide();
+					}, 100);
+				}
+			}, this);
+
+			//展开切换列显示列表
+			$(window).on('click', '.hdlgrid-toggle-btn', this, function(e){
 				var grid = e.data;
 
 				//不是当前表格内部直接返回
@@ -220,6 +235,8 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 					grid.$togglediv.hide();
 				});
 			});
+
+			//切换列显示操作
 			this.$togglediv.on('click', 'a', this, function(e){
 				var grid = e.data, idx = $(this).attr('data-item-idx');
 				if(grid.enable_checkbox){
@@ -227,13 +244,13 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				}
 
 				if($(this).is('.hdlgrid-toggle-off')){
-//					grid.$colgrouphead.find('col:eq(' + idx + ')').show();
-//					grid.$colgroupbody.find('col:eq(' + idx + ')').show();
+					//grid.$colgrouphead.find('col:eq(' + idx + ')').show();
+					//grid.$colgroupbody.find('col:eq(' + idx + ')').show();
 					grid.$thead.find('tr').find('th:eq(' + idx + ')').show();
 					grid.$tbody.find('tr').find('td:eq(' + idx + ')').show();
 				}else{
-//					grid.$colgrouphead.find('col:eq(' + idx + ')').hide();
-//					grid.$colgroupbody.find('col:eq(' + idx + ')').hide();
+					//grid.$colgrouphead.find('col:eq(' + idx + ')').hide();
+					//grid.$colgroupbody.find('col:eq(' + idx + ')').hide();
 					grid.$thead.find('tr').find('th:eq(' + idx + ')').hide();
 					grid.$tbody.find('tr').find('td:eq(' + idx + ')').hide();
 				}

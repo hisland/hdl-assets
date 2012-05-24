@@ -1,9 +1,7 @@
-/**
- * 验证工具主模块
- */
 define(['kissy', './base/rule-pre'], function(S, Rule){
 	/**
-	 * 
+	 * @class
+	 * @memberOf validator
 	 */
 	function Validator(config){
 		this.attached = false;
@@ -12,7 +10,7 @@ define(['kissy', './base/rule-pre'], function(S, Rule){
 	}
 
 	/**
-	 * 
+	 * @lends validator.Validator#
 	 */
 	S.augment(Validator, {
 		attach: function(selector){

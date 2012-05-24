@@ -1,16 +1,16 @@
 define(['jquery', 'kissy', 'css!./main'], function($, S){
 	return {
 		init: function(selector){
-			$(selector).on('click', 'a.srbtn-allbei', function(){
-				$(selector).find(".srcontent-radio").find(":radio:eq(0)").attr("checked",true);
-			});
+			$(selector).on('click', 'a.rolltoprobtn', function(){
+				var seltop = $(selector).find(".rollto-main").scrollTop();
+				var dataid = $(this).attr("data-id");
+				var ptop = $(selector).find("#"+dataid).position().top;
+				
 
-			$(selector).on('click', 'a.srbtn-allpi', function(){
-				$(selector).find(".srcontent-radio").find(":radio:eq(1)").attr("checked",true);
-			});
+				$(selector).find(".rollto-item").removeClass("item-selected");
+				$(selector).find("#"+dataid).addClass("item-selected");
 
-			$(selector).on('click', 'a.srbtn-op', function(){
-				$(selector).find(".srcontent-radio").find("input:checked").parent("label").siblings().children("input").attr("checked",true);
+				$(selector).find(".rollto-main").scrollTop(ptop+seltop);
 			});
 		}
 	};

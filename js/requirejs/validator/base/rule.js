@@ -1,7 +1,7 @@
 /**
- * @namespace
- * @name Rule
+ * @class
  * @memberOf validator
+ * @name Rule
  */
 define(['kissy'], function(S){
 		//干净对象保存配置列表
@@ -10,7 +10,7 @@ define(['kissy'], function(S){
 		__PREFIX = '-rule-';
 
 	/**
-	 * @lends validator.Rule
+	 * @lends validator.Rule#
 	 */
 	return {
 		/**

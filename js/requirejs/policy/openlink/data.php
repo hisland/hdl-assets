@@ -1,0 +1,25 @@
+<?php
+sleep(1);
+echo <<<EOD
+[{
+		"name":"链接名称1",
+		"link":"aaa.php"
+	},{
+		"name":"链接名称2",
+		"link":"bbb.php"
+	},{
+		"name":"链接名称3",
+		"link":"bbb.php"
+	},{
+		"name":"链接名称4",
+		"link":"bbb.php"
+	},{
+		"name":"链接名称5",
+		"link":"bbb.php"
+	},{
+		"name":"链接名称6",
+		"link":"bbb.php"
+	}
+]
+EOD;
+?>

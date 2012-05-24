@@ -10,8 +10,8 @@ define(function(require, exports, module){
 	//页面公共控制实例
 	window.Page = require('./page/main');
 
-	//WAD公共方法
-	//window.PL = S.mix(window.PL || {}, require('./PL/main'));
+	//PL公共方法
+	window.PL = S.mix(window.PL || {}, require('./PL/main'));
 
 	//表格控件
 	window.Grid = require('ui/grid');
