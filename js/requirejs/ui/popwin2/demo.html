@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/popwin', 'util', 'css'], function(Popwin, Util) {
+			window.kkk = Popwin.init();
+			kkk.$content.append($('#tb'));
+			kkk.show();
+
+			$('#add').click(function(e){
+				Popwin.init().show().$content.html('<a href="javascript:;">aaa</a>');
+			});
+			$('#clean').click(function(e){
+				Popwin.clean();
+			});
+			
+			var drag = true;
+			$('#no-drag').click(function(e){
+				if(drag){
+					kkk.setDraggable(false);
+					$(this).val('能拖动');
+				}else{
+					kkk.setDraggable(true);
+					$(this).val('不能拖动');
+				}
+				drag = !drag;
+			});
+			
+			var close = true;
+			$('#no-close').click(function(e){
+				if(close){
+					kkk.setCloseable(false);
+					$(this).val('能关闭');
+				}else{
+					kkk.setCloseable(true);
+					$(this).val('不能关闭');
+				}
+				close = !close;
+			});
+		});
+	</script>
+	<style type="text/css">
+		html,body{height:100%;}
+	</style>
+</head>
+
+<body>
+	<input style="position:relative;z-index:2000;" type="button" id="add" value="增加" />
+	<input style="position:relative;z-index:2000;" type="button" id="clean" value="清除" />
+	<input style="position:relative;z-index:2000;" type="button" id="no-drag" value="不能拖动" />
+	<input style="position:relative;z-index:2000;" type="button" id="no-close" value="不能关闭" />
+	<div id="tb">
+		<input type="text" name="" value="333" disabled="disabled"  />
+		<table>
+			<tr><td>在IE下,内部有disabled的input时,点击input文本会导致e.target.parentNode为undefined, 前一个规则值为false,所以需要||单独处理</td></tr>
+			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>
+			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>
+			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>
+			<tr><td>茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革革茜革</td></tr>
+		</table>
+	</div>
+</body>
+</html>

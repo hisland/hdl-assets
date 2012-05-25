@@ -222,7 +222,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			}, this);
 
 			//展开切换列显示列表
-			$(window).on('click', '.hdlgrid-toggle-btn', this, function(e){
+			$(document).on('click', '.hdlgrid-toggle-btn', this, function(e){
 				var grid = e.data;
 
 				//不是当前表格内部直接返回
@@ -235,7 +235,6 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 					grid.$togglediv.hide();
 				});
 			});
-
 			//切换列显示操作
 			this.$togglediv.on('click', 'a', this, function(e){
 				var grid = e.data, idx = $(this).attr('data-item-idx');
@@ -255,6 +254,42 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 					grid.$tbody.find('tr').find('td:eq(' + idx + ')').hide();
 				}
 				$(this).toggleClass('hdlgrid-toggle-off');
+			});
+
+			//每页条数操作
+			$(document).on('click', '.pager2-num-now', function(e){
+				$(this).next().show().one('outerclick', function(e, reale) {
+					$(this).hide();
+				});
+			});
+			this.$pager.on('click', '.pager2-num-pop a', this, function(e){
+				var grid = e.data;
+				grid.data.perPageNum = $(this).text()-0;
+				grid.ajaxLoad();
+			});
+			this.$pager.on('click', '.pager2-first', this, function(e){
+				e.data.firstPage();
+			});
+			this.$pager.on('click', '.pager2-prev', this, function(e){
+				e.data.prevPage();
+			});
+			this.$pager.on('keyup', '.pager2-now', this, function(e){
+				if(e.keyCode === 13){
+					e.data.goPage(this.value-0);
+				}
+			});
+			this.$pager.on('click', '.pager2-next', this, function(e){
+				e.data.nextPage();
+			});
+			this.$pager.on('click', '.pager2-last', this, function(e){
+				e.data.lastPage();
+			});
+
+			//分页操作
+			this.$pager.on('click', 'a.hdlgrid-item:not(.hdlgrid-hover)', this, function(e){
+				var grid = e.data;
+				grid.data.currPage = $(this).text();
+				grid.ajaxLoad();
 			});
 
 			return this;
@@ -295,7 +330,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 //			if(this.enable_toggle){
 				S.each(this.colModel, function(v, i, o){
-					this.$togglediv.append('<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="' + i + '">' + v.display + '</a>');
+					this.$togglediv.append('<a class="hdlgrid-toggle-item" hidefocus="true" href="javascript:;" data-item-idx="' + i + '" title="' + v.display + '">' + v.display + '</a>');
 				}, this);
 //			}
 
@@ -453,7 +488,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 			//生成分页数据
 			if(this.enable_page){
-				this.makePager();
+				this.makePager2();
 			}
 
 			//触发修正高度操作
@@ -539,7 +574,8 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 * @return 
 		 */
 		addButtonSep: function(){
-			
+			this.$button.append('<span class="hdlgrid-btn-sep"></span>');
+			return this;
 		},
 		/**
 		 * 添加一个按钮
@@ -547,6 +583,11 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 * @return this
 		 */
 		addButton: function(setting){
+			//TODO: 把这个移动具体项目里面
+			if(window.checkPrivilege && !checkPrivilege(setting.suffix)){
+				return ;
+			}
+			
 			var button = new Button(setting), m;
 
 			//按钮的禁用状态切换
@@ -594,6 +635,12 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 * @return this
 		 */
 		addImportButton: function(setting){
+			
+			//TODO: 把这个移动具体项目里面
+			if(window.checkPrivilege && !checkPrivilege(setting.suffix)){
+				return ;
+			}
+			
 			var button, flash_setting;
 
 			//修正个别参数
@@ -614,7 +661,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 					url: escape(setting.posturl),
 					filter: setting.filter,
 					upload_name: setting.upload_name,
-					max_size: setting.max_size,
+					max_size: setting.max_size
 				},
 				attributes: {
 					style: 'opacity:0;filter:alpha(opacity=0);position:absolute;top:0;left:0;'
@@ -634,8 +681,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			//按钮区域显示出来
 			this.$button.append(button.$div).css('display', 'block');
 
-			//初始化导入按钮的flash
-			//TODO
+			//TODO: 初始化导入按钮的flash
 			setTimeout(function(){
 				importButton.init(flash_setting);
 			}, 100);
@@ -731,6 +777,30 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 * @param 
 		 * @return 
 		 */
+		makePager2: function(){
+			var str = '<div class="pager2-left">' 
+				+ MSG.page_info 
+				+ '</div><div class="pager2-right"><span class="pager2-num"><a href="javascript:;" class="pager2-num-now">{perPageNum}</a><div class="pager2-num-pop">' 
+				+ this.__getPerPageStr() 
+				+ '</div></span><a href="javascript:;" class="pager2-first"></a><a href="javascript:;" class="pager2-prev"></a><input class="pager2-now" type="text" name="" value="{currPage}" /><span>/{allPage}</span><a href="javascript:;" class="pager2-next"></a><a href="javascript:;" class="pager2-last"></a></div>';
+			this.$pager.html(S.substitute(str, this.data));
+			return this;
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		__getPerPageStr: function(){
+			return S.map(this.perPageNums, function(v, i, o){
+				return '<a href="javascript:;">' + v + '</a>';
+			}).join('');
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
 		getTableHead: function(postName){
 			return $.map(this.colModel, function(v){
 				return v.excludeHead ? null : {
@@ -738,6 +808,60 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 					value: v.display
 				};
 			});
+		},
+		/**
+		 * 转到某页,会做正确性检查
+		 * @param n Int
+		 * @return this
+		 */
+		goPage: function(n){
+			if(n >= 1 && n <= this.data.allPage){
+				this.data.currPage = n;
+				this.ajaxLoad();
+			}else{
+				alert(MSG.page_error);
+			}
+			return this;
+		},
+		/**
+		 * 跳到首页
+		 * @return this
+		 */
+		firstPage: function(){
+			this.data.currPage = 1;
+			this.ajaxLoad();
+			return this;
+		},
+		/**
+		 * 上一页
+		 * @return this
+		 */
+		prevPage: function(){
+			if(this.data.currPage > 1){
+				this.data.currPage--;
+			}
+			this.ajaxLoad();
+			return this;
+		},
+		/**
+		 * 下一页
+		 * @return this
+		 */
+		nextPage: function(){
+			if(this.data.currPage < this.data.allPage){
+				this.data.currPage++;
+			}
+			this.ajaxLoad();
+			return this;
+		},
+		/**
+		 * 跳到尾页
+		 * @return this
+		 */
+		lastPage: function(){
+			this.data.currPage = this.data.allPage;
+			this.ajaxLoad();
+			return this;
 		}
 	});
 

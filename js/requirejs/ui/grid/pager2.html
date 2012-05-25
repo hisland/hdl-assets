@@ -28,44 +28,6 @@
 <body>
 
 <div class="hdlgrid-wrap theme-gray">
-	<div class="hdlgrid-title">
-		This is Grid title!
-	</div>
-	<div class="hdlgrid-button">
-		<a href="javascript:;" class="hdlgrid-btn">
-			<span class="hdlgrid-btn2">
-				<span class="hdlgrid-add">添加</span>
-			</span>
-		</a>
-		<span class="hdlgrid-btn-sep"></span>
-		<a href="javascript:;" class="hdlgrid-btn hdlgrid-btn-dis">
-			<span class="hdlgrid-btn2">
-				<span class="hdlgrid-add">添加</span>
-			</span>
-		</a>
-
-		<a href="javascript:;" class="hdlgrid-btn">
-			<span class="hdlgrid-btn2">
-				<span class="hdlgrid-edit">修改</span>
-			</span>
-		</a>
-		<a href="javascript:;" class="hdlgrid-btn hdlgrid-btn-dis">
-			<span class="hdlgrid-btn2">
-				<span class="hdlgrid-edit">修改</span>
-			</span>
-		</a>
-
-		<a href="javascript:;" class="hdlgrid-btn">
-			<span class="hdlgrid-btn2">
-				<span class="hdlgrid-del">删除</span>
-			</span>
-		</a>
-		<a href="javascript:;" class="hdlgrid-btn hdlgrid-btn-dis">
-			<span class="hdlgrid-btn2">
-				<span class="hdlgrid-del">删除</span>
-			</span>
-		</a>
-	</div>
 	<div class="hdlgrid-head">
 		<div class="hdlgrid-head-in">
 			<table>
@@ -146,30 +108,27 @@
 		</div>
 	</div>
 	<div class="hdlgrid-pager">
-		<a class="hdlgrid-prev" href="javascript:;">上一页</a>
-		<a class="hdlgrid-item" href="javascript:;">1</a>
-		<a class="hdlgrid-item" href="javascript:;">2</a>
-		<a class="hdlgrid-item hdlgrid-hover" href="javascript:;">3</a>
-		<span class="hdlgrid-item">...</span>
-		<a class="hdlgrid-item" href="javascript:;">18</a>
-		<a class="hdlgrid-item" href="javascript:;">19</a>
-		<a class="hdlgrid-item" href="javascript:;">20</a>
-		<a class="hdlgrid-next" href="javascript:;">下一页</a>
+		<div class="pager2-left">
+			总共:30页 当前为15-25条
+		</div>
+		<div class="pager2-right">
+			<span class="pager2-num">
+				<a href="javascript:;" class="pager2-num-now">15</a>
+				<div class="pager2-num-pop">
+					<a href="javascript:;">15</a>
+					<a href="javascript:;">15</a>
+					<a href="javascript:;">15</a>
+					<a href="javascript:;">15</a>
+				</div>
+			</span>
+			<a href="javascript:;" class="pager2-first"></a>
+			<a href="javascript:;" class="pager2-prev"></a>
+			<input class="pager2-now" type="text" name="" value="" />
+			<span>/15</span>
+			<a href="javascript:;" class="pager2-next"></a>
+			<a href="javascript:;" class="pager2-last"></a>
+		</div>
 	</div>
-	<div class="hdlgrid-resizer">
-		<div class="hdlgrid-resizer-i"></div>
-		<div class="hdlgrid-resizer-i"></div>
-		<div class="hdlgrid-resizer-i"></div>
-	</div>
-	<div class="hdlgrid-toggle-div">
-		<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="">列名列名列名</a>
-		<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="">列名列名列名</a>
-		<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="">列名列名列名</a>
-	</div>
-	<div class="hdlgrid-toggle-btn"></div>
-	<div class="hdlgrid-mask"></div>
-	<div class="hdlgrid-nodata">暂无数据,根据内容填充后的大小居中显示</div>
-	<div class="hdlgrid-loading"></div>
 </div>
 
 </body>

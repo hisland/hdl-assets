@@ -121,6 +121,12 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 					if (v.id) {
 						buff.push(' id="', v.id, '"');
 					}
+					
+					// TODO: 权限前缀放在菜单上
+					if (v.privilegeCodes) {
+						buff.push(' privilegecodes="', v.privilegeCodes, '"');
+					}
+					
 					buff.push(' hidefocus="true">');
 					buff.push(v.text);
 					buff.push('</a>');

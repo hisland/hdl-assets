@@ -11,7 +11,10 @@ define(['kissy'], function(S){
 		btn_export: '导出当前结果',
 		btn_compare: '对选中2条进行比较',
 
-		btn_text: '按钮文字'
+		btn_text: '按钮文字',
+
+		page_error: '请输入正确的页数',
+		page_info: '总共:{totals}页 当前为{beginNum}-{endNum}条'
 	};
 
 	// 此段保留在最底部,如果有JS国际化信息将进行覆盖

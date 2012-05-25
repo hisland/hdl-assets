@@ -102,12 +102,26 @@ define([ './msg' ], function(MSG) {
 		 */
 		enable_page : true,
 		/**
+		 * 分页类型
+		 * 
+		 * @default 'default'
+		 * @type 'default'|'google'
+		 */
+		pageTheme : 'default',
+		/**
 		 * [0]为[1]的索引, [1]为可选择的页数量值
 		 * 
 		 * @default undefined
 		 * @type Array
 		 */
 		num_per_page : [ 2, [ 5, 10, 15, 20 ] ],
+		/**
+		 * 可选的每页条数
+		 * 
+		 * @default [ 5, 10, 15, 20 ]
+		 * @type Array
+		 */
+		perPageNums : [ 5, 10, 15, 20 ],
 		/**
 		 * 获取数据的地址
 		 * 
