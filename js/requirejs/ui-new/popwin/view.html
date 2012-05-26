@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript">
+		var require = {
+				baseUrl: '../../',
+				deps: ['config'],
+				callback: function() {
+					require(['ui-new/popwin/main', 'util', 'demo'], function(Popwin, Util) {
+						
+					});
+				}
+			};
+	</script>
+	<script type="text/javascript" src="../../require.js"></script>
+	<style type="text/css">
+		.theme-gray{top:80px;}
+	</style>
+</head>
+
+<body>
+<div class="popwin-wrap">
+	<div class="popwin-title-wrap">
+		<div class="popwin-title">文字文字文字文字</div>
+		<a class="popwin-close" href="javascript:;" hidefocus="true"></a>
+	</div>
+	<div class="popwin-content-wrap">
+		文字
+	</div>
+</div>
+
+<div class="popwin-wrap theme-gray">
+	<div class="popwin-title-wrap">
+		<div class="popwin-title">文字文字文字文字</div>
+		<a class="popwin-close" href="#"></a>
+	</div>
+	<div class="popwin-content-wrap">
+		文字
+	</div>
+</div>
+</body>
+</html>

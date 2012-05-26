@@ -110,8 +110,8 @@
 
 
 	/* 切换列显示 */
-	.hdlgrid-toggle-div{display:none;position:absolute;top:20px;left:0;padding:2px;width:80px;background:#fff;border:1px solid #acaa9a;}
-		.hdlgrid-toggle-item{display:block;width:80px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;background:#ccc;padding:2px;padding-left:18px;background:url('grid-img/toggle-on.gif') no-repeat 0 0;outline:none;}
+	.hdlgrid-toggle-div{display:none;position:absolute;top:20px;left:0;padding:2px;background:#fff;border:1px solid #acaa9a;}
+		.hdlgrid-toggle-item{display:block;width:72px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;background:#ccc;padding:2px 0 2px 18px;background:url('grid-img/toggle-on.gif') no-repeat 0 0;outline:none;}
 		.hdlgrid-toggle-item:hover{text-decoration:none;}
 		.hdlgrid-toggle-off{background:url('grid-img/toggle-off.gif') no-repeat 0 0;}
 	.hdlgrid-toggle-btn{display:none;position:absolute;top:0;left:0;width:8px;height:20px;background:#fff url('grid-img/ddn.png') no-repeat 0 50%;border-left:1px solid #acaa9a;border-right:1px solid #acaa9a;}

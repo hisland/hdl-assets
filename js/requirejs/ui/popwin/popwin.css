@@ -34,3 +34,13 @@
 		cursor:pointer;
 		margin:0 5px;
 	}
+
+
+	.theme-blue .popwin-wrap{background:none;}
+	.theme-blue .popwin-title-wrap{position:relative;height:31px;padding:0;padding-right:30px;border:none;background:url('theme-blue/bg1.gif') no-repeat right top;}
+		.theme-blue .popwin-title{display:block;height:31px;line-height:31px;padding-left:10px;background:url('theme-blue/bg1.gif') no-repeat 0 -40px;font-weight:700;}
+		.theme-blue .popwin-close{position:absolute;right:10px;top:10px;width:13px;height:13px;background:url('theme-blue/x.gif') no-repeat 0 0;outline:none;}
+		.theme-blue .popwin-close:hover{background-position:0 -20px;}
+	.theme-blue .popwin-content-wrap{border:1px solid #97bdc2;background:#fff;border-top:none;padding:1px;overflow:auto;}
+
+	.theme-blue .popwin-btns{background:#e8f1f1;}

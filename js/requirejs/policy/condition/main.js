@@ -4,7 +4,7 @@
 
 define(['jquery', '../page/page', 'jquery-plugin', 'css!./condition'], function($, Page){
 	//查询按钮, 弹出层确定按钮 点击触发对应form的submit事件
-	$('input.popwin-ok, input.search-condition-ok').live('click', function(){
+	$(document).on('click', '.popwin-ok, .search-condition-ok', function(){
 		$(this).parent().prev().submit();
 	});
 

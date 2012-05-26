@@ -21,6 +21,11 @@ define(function(require, exports, module){
 
 	//弹出层
 	window.Popwin = require('ui/popwin');
+	//修改了样式后,这个也跟着需要修改
+	require('ui/popwin/popwin').prototype.setWidth = function(num){
+		this.$content.width(num);
+		return this;
+	};
 
 	//验证
 	window.ValidForm = require('validator');
@@ -40,6 +45,12 @@ define(function(require, exports, module){
 
 	//时间控件
 	window.Calendar = require('ui/calendar');
+
+	//时间控件
+	window.Compare = require('sf/compare');
+
+	//时间控件
+	window.Cookie = require('util/cookie');
 
 	//模拟下拉框
 	//window.MoliSelect = require('ui/moni-select');

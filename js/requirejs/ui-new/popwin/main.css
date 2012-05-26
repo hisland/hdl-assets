@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+.popwin-wrap{position:absolute;}
+	.popwin-title-wrap{position:relative;height:31px;padding-right:30px;background:url('theme-blue/bg1.gif') no-repeat right top;}
+		.popwin-title{line-height:31px;padding-left:10px;background:url('theme-blue/bg1.gif') no-repeat 0 -40px;font-weight:700;}
+		.popwin-close{position:absolute;right:10px;top:10px;width:13px;height:13px;background:url('theme-blue/x.gif') no-repeat 0 0;outline:none;}
+		.popwin-close:hover{background-position:0 -20px;}
+	.popwin-content-wrap{border:1px solid #97bdc2;background:#fff;border-top:none;padding:3px;overflow:auto;}
+
+
+
+	.theme-gray .popwin-title-wrap{background-image:url('theme-gray/bg1.gif');}
+		.theme-gray .popwin-title{background-image:url('theme-gray/bg1.gif');}
+		.theme-gray .popwin-close{background-image:url('theme-gray/x.gif');}
+	.theme-gray .popwin-content-wrap{border-color:#c1c1c2;}

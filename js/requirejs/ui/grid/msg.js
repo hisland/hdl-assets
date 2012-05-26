@@ -14,7 +14,7 @@ define(['kissy'], function(S){
 		btn_text: '按钮文字',
 
 		page_error: '请输入正确的页数',
-		page_info: '总共:{totals}页 当前为{beginNum}-{endNum}条'
+		page_info: '总共:{totals}条 当前为{beginNum}-{endNum}条'
 	};
 
 	// 此段保留在最底部,如果有JS国际化信息将进行覆盖
