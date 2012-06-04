@@ -16,15 +16,3 @@
 	.search-width-auto .search-condition-submit{float:left;margin:0;}
 
 .search-result{padding:0 3px;}
-
-
-a.wad-btn1{display:inline-block;padding-left:8px;background:url('img/wad-btn1.png') no-repeat 0 0;}
-	a.wad-btn1 span{display:inline-block;text-align:center;height:23px;padding-top:5px;padding-right:8px;background:url('img/wad-btn1.png') no-repeat right bottom;}
-	a.wad-btn1:hover{background-image:url('img/wad-btn1-hover.png');}
-		a.wad-btn1:hover span{background-image:url('img/wad-btn1-hover.png');}
-	a.wad-btn1:active{background-image:url('img/wad-btn1-active.png');}
-		a.wad-btn1:active span{background-image:url('img/wad-btn1-active.png');}
-
-
-a.wad-btn2{display:inline-block;padding-left:8px;background:url('img/wad-btn2.png') no-repeat 0 0;}
-	a.wad-btn2 span{display:inline-block;text-align:center;height:23px;padding-top:5px;padding-right:8px;background:url('img/wad-btn2.png') no-repeat right bottom;}

@@ -1,24 +1,48 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>jQuery+RequireJS Sample Page</title>
-	<script type="text/javascript" src="../../require.js"></script>
-	<script type="text/javascript" src="../../config.js"></script>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<script type="text/javascript">
-		//使用data-main时会自动设置baseUrl为main文件的路径
-		require.config({
-			baseUrl: '../../'
-		});
-
-		require(['ui/button', 'demo'], function(B){
-			
-		});
+		var require = {
+				baseUrl: '../../',
+				deps: ['config'],
+				callback: function() {
+					require(['ui/button/main', 'demo'], function(){
+						
+					});
+				}
+			};
 	</script>
+	<script type="text/javascript" src="../../require.js"></script>
 </head>
 <body>
-	<a href="javascript:;" class="ui-button">button</a>
-	<br /><br />
-	<a href="javascript:;" class="ui-button">button</a>
-	<br /><br />
+	<p>
+	<a class="btn1-white" href="javascript:;"><span>查询</span></a>
+	</p>
+	<br />
+	<p>
+		<a class="btn1-white-dis" href="javascript:;"><span>查询</span></a>
+	</p>
+	<br />
+	<p>
+	<a class="btn1-gray" href="javascript:;"><span>查询</span></a>
+	</p>
+	<br />
+	<p>
+		<a class="btn1-gray-dis" href="javascript:;"><span>查询</span></a>
+	</p>
+	<br />
+	<p style="background:#eaf0f0;padding:3px;">
+		<a class="btn1-blue" href="javascript:;"><span>查询</span></a>
+	</p>
+	<br />
+	<p style="background:#eaf0f0;padding:3px;">
+		<a class="btn1-blue-dis" href="javascript:;"><span>查询</span></a>
+	</p>
+	<br />
+	<p>
+		<a href="javascript:;" class="btn-css3-green">button</a>
+	</p>
 </body>
 </html>

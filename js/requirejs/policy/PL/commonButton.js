@@ -6,6 +6,8 @@ define(['ui/tip'], function(Tip){
 		 * @return 
 		 */
 		addAddButton: function(config){
+			var Common = this;
+			
 			S.mix(config, {
 				grid: null,
 				icon: 'add',
@@ -22,12 +24,12 @@ define(['ui/tip'], function(Tip){
 				text : config.text,
 				enable : config.enable,
 				click : function(e, checkedItems) {
-					PL.showPop({
+					Common.showPop({
 						url : config.url,
 						form_url: config.form_url,
 						title : config.title,
 						grid: config.grid,
-						callback: config.callback
+						onHide: config.callback
 					});
 				}
 			});
@@ -38,6 +40,8 @@ define(['ui/tip'], function(Tip){
 		 * @return 
 		 */
 		addModifyButton: function(config){
+			var Common = this;
+			
 			S.mix(config, {
 				grid: null,
 				icon: 'edit',
@@ -60,11 +64,13 @@ define(['ui/tip'], function(Tip){
 				text : config.text,
 				enable : config.enable,
 				click : function(e, checkedItems) {
-					PL.showPop({
-						url : config.url + '?' + config.postIdKey + '=' + checkedItems[0][config.idKey],
+					Common.showPop({
+						url : config.url,
+						data: config.postIdKey + '=' + checkedItems[0][config.idKey],
 						form_url: config.form_url,
 						title : config.title,
-						grid: config.grid
+						grid: config.grid,
+						onHide: config.callback
 					});
 				}
 			});
@@ -75,6 +81,8 @@ define(['ui/tip'], function(Tip){
 		 * @return 
 		 */
 		addDeleteButton: function(config){
+			var Common = this;
+			
 			S.mix(config, {
 				grid: null,
 				icon: 'del',
@@ -105,10 +113,13 @@ define(['ui/tip'], function(Tip){
 									value : v[config.nameKey]
 								});
 							});
-							$.post(config.url, dt, function(rs) {
-								PL.showMsgWithLevel(rs.messageText, rs.level);
-								config.grid.ajaxLoad();
-							}, 'json');
+							Common.save({
+								url: config.url,
+								data: dt,
+								onComplete: function(){
+									config.grid.ajaxLoad();
+								}
+							});
 						}
 					});
 				}
@@ -120,6 +131,8 @@ define(['ui/tip'], function(Tip){
 		 * @return 
 		 */
 		addExportButton: function(config){
+			var Common = this;
+			
 			S.mix(config, {
 				grid: null,
 				icon: 'export',
@@ -137,9 +150,10 @@ define(['ui/tip'], function(Tip){
 					//需要grid的查询条件加上显示的列数据
 					var dt = S.clone(config.grid.param).concat(config.grid.getTableHead(config.postNameKey));
 					
-					$.post(config.url, dt, function(rs) {
-						PL.showMsgWithLevel(rs.messageText, rs.level);
-					}, 'json');
+					Common.save({
+						url: config.url,
+						data: dt
+					});
 				}
 			});
 		}

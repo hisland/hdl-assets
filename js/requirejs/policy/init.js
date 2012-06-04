@@ -58,6 +58,9 @@ define(function(require, exports, module){
 	//自动完成
 	//window.Autocomplete = require('ui/autocomp');
 
+	require('./addconfig/main');
+	require('ui/button/main');
+
 
 	//从anti过来的包
 	var from_ant_pkg = ["from-anti/builtin",

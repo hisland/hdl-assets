@@ -35,7 +35,7 @@ define(['jquery'], function($){
 		//修正菜单高度
 		$('#menu-wrap').height(wrapHeight);
 		$('#menu-wrap>div').height(wrapHeight-20);
-		$('#menu-toggle').height(wrapHeight);
+		$('#menu-toggle').height(wrapHeight - 30);
 
 		//修正内容高度
 		$('#main').height(wrapHeight);

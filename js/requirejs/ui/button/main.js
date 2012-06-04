@@ -1,11 +1,4 @@
-/**
- * 自定义按钮对象
- * <pre><code>
- * 
- * </code></pre>
- */
-
-define(['jquery', 'kissy', 'css!./button'], function($, S){
+define(['jquery', 'kissy', 'css!./main'], function($, S){
 	function Button(){
 		this.$div = $('<a href="javascript:;" class="ui-button">button</a>');
 	}

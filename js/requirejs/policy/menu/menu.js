@@ -24,9 +24,8 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 		__initEvent: function(){
 			//菜单折叠
 			this.$div.on('click', '.menu-lv1', function(e){
-				var selected = !$(this).is('.menu-lv1-selected');
-				$(this).toggleClass('menu-lv1-selected', selected);
-				$(this).next().toggle(selected);
+				$(this).toggleClass('menu-lv1-selected').next().toggle();
+				$(this).siblings('.menu-lv1-selected').removeClass('menu-lv1-selected').next().hide();
 			});
 
 			//菜单点击, 加载页面

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript">
+		var require = {
+				baseUrl: '../../',
+				deps: ['config'],
+				callback: function() {
+					require(['wad/init'], function(){
+						Menu.makeSubMenu = function(buff, data){
+							var menu = this;
+							S.each(data, function(v, i, o){
+								if(v.children){
+									buff.push('<div class="menu-lv2">');
+									buff.push(v.text);
+									buff.push('</div>');
+									buff.push('<div class="menu-sub-wrap">');
+									menu.makeSubMenu(buff, v.children);
+									buff.push('</div>');
+								}else{
+									buff.push('<a target="mainframe" class="menu-item" href="'+menu.basePath + encodeURI(v.remark) + '.html" hidefocus="true">' + v.text + '</a>')
+								}
+							});
+							return this;
+						}
+						Menu.basePath = 'cn/';
+
+						Menu.load('../menu/menu.json', function(){
+							$('#main-wrap').fadeIn();
+						});
+					});
+				}
+			};
+	</script>
+	<script type="text/javascript" src="../../require.js"></script>
+</head>
+
+<body>
+	<div class="main-wrap" id="main-wrap" style="display:none;">
+		<div class="header">
+			<div class="logo"></div>
+			<div class="logo-text"></div>
+			<div class="header-buttons">
+				<a href="javascript:;" id="user">当前登录用词: 客户服务中心(liangshunmei)</a>
+				<a href="javascript:;" id="help"></a>
+				<a href="javascript:;" id="logout"></a>
+			</div>
+		</div>
+		<div class="aside" id="menu-wrap"></div>
+		<div class="menu-toggle" id="menu-toggle"></div>
+		<div class="main" id="main">
+			<div class="uarehere" id="uarehere">系统管理员>接口管理配置</div>
+			<iframe src="about:blank" style="width:100%;" class="main-in" id="main-in" name="mainframe" frameborder="no" allowtransparency="yes"></iframe>
+		</div>
+	</div>
+</body>
+</html>

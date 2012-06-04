@@ -3,6 +3,27 @@
  */
 
 define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
+	//每次ajax请求都要向后台传送当前所在页面的moduleName, 即菜单名
+	var moduleName;
+	$.ajaxSetup({
+		beforeSend: function(xhr, setting){
+			if(setting.type === 'GET'){
+				if(setting.url.indexOf('?') === -1){
+					setting.url += '?moduleName=' + moduleName;
+				}else{
+					setting.url += '&moduleName=' + moduleName;
+				}
+			}else if(setting.type === 'POST'){
+				if(setting.data){
+					setting.data += '&moduleName=' + moduleName;
+				}else{
+					setting.data = 'moduleName=' + moduleName;
+				}
+			}
+		}
+	});
+
+
 	function Menu(){
 		this.__init().__initEvent();
 	}
@@ -37,6 +58,9 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 
 			//菜单点击, 加载页面
 			this.$div.on('click', 'a', this, function(e){
+
+				//在load之前修改moduleName
+				moduleName = encodeURI($(this).text());
 
 				Page.loadUrl(this.href);
 
@@ -108,7 +132,9 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 				}
 			}else{
 				//加载欢迎页面
-				Page.loadUrl('welcome.jsp');
+				if(this.welcomeUrl){
+					Page.loadUrl(this.welcomeUrl);
+				}
 			}
 			
 			return this;
@@ -130,7 +156,13 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 					menu.makeSubMenu(buff, v.children);
 					buff.push('</div>');
 				}else{
-					buff.push('<a class="menu-item" href="' + v.url + '" hidefocus="true">' + v.text + '</a>')
+					buff.push('<a class="menu-item" href="' + v.url + '" hidefocus="true" ');
+					if(v.prefix){
+						buff.push('id="menu-' + v.prefix + '"');
+					}else{
+						buff.push('id="' + v.id + '"');
+					}
+					buff.push('>' + v.text + '</a>');
 				}
 			});
 			return this;
@@ -143,6 +175,14 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 		onChange: function(fn){
 			$(this).on('change', fn);
 			return this;
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		setWelcomeUrl: function(url){
+			this.welcomeUrl = url;
 		}
 	});
 

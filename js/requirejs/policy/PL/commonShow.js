@@ -5,16 +5,19 @@ define(['jquery', 'kissy', 'ui/popwin'], function($, S, Popwin){
 		 * @param config Object
 		 * config.url String
 		 * config.data postData
-		 * config.fn callback
+		 * config.doQuery true|false
 		 * @return ui/popwin
 		 */
 		showPop: function(config){
 			S.mix(config, {
-				grid: null,
 				url: null,
 				data: null,
+				form_url: null,
 				title: null,
-				callback: null
+				width: null,
+				height: null,
+				onHide: null,
+				onShow: null
 			}, false);
 			
 			var pop = Popwin.init();
@@ -25,15 +28,23 @@ define(['jquery', 'kissy', 'ui/popwin'], function($, S, Popwin){
 				pop.setTitle(config.title);
 				pop.$content.html(rs);
 				
-				pop.center();
+				pop.setSize(config.width, config.height);
+				
 				pop.loaded();
+				pop.center();
 				
 				var $form = pop.$content.find('form');
-				$form.attr('action', config.form_url);
-				$form.data('grid', config.grid);
-				$form.data('pop', pop);
 				
-				config.callback && config.callback();
+				if (config.form_url) {
+					$form.attr('action', config.form_url);
+				}
+				
+				$form.on('callback', function(){
+					pop.hide();
+					config.onHide();
+				});
+				
+				config.onShow && config.onShow();
 			});
 			return pop;
 		}

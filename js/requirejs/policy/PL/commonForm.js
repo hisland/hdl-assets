@@ -3,9 +3,9 @@ define(['jquery', 'kissy'], function($, S){
 		/**
 		 * 底层post方法
 		 * @param config Object
-		 * config.url String
-		 * config.param postData
-		 * config.fn callback
+		 * config.form Selector
+		 * config.grid Gridtru
+		 * config.doQuery true|false
 		 * @return ui/tip
 		 */
 		initQuery: function(config){
@@ -29,60 +29,28 @@ define(['jquery', 'kissy'], function($, S){
 		/**
 		 * 底层post方法
 		 * @param config Object
-		 * config.url String
-		 * config.param postData
-		 * config.fn callback
+		 * config.form Selector
+		 * config.grid Grid
+		 * config.doQuery true|false
 		 * @return ui/tip
 		 */
 		initValid: function(config){
 			S.mix(config, {
 				form: null,
-				callback: null,
+				onSuccess: null,
 				errorFocus: null
 			}, false);
 			
 			var $form = $(config.form);
+			var Common = this;
 
 			$form.submit(function(e){
 				e.preventDefault();
 				
-				var url = $form.attr('action'),
-					data = $form.serializeArray(),
-					callback = $form.data('callback');
-				
-				PL.save({
-					url : url,
-					data : data,
-					callback : callback
-				});
-			});
-		},
-		/**
-		 * 底层post方法
-		 * @param config Object
-		 * config.url String
-		 * config.param postData
-		 * config.fn callback
-		 * @return ui/tip
-		 */
-		initSave: function(config){
-			S.mix(config, {
-				form: null
-			}, false);
-			
-			var $form = $(config.form);
-
-			$form.submit(function(e){
-				e.preventDefault();
-				
-				var url = $form.attr('action'),
-					data = $form.serializeArray(),
-					callback = $form.data('callback');
-				
-				PL.save({
-					url : url,
-					data : data,
-					callback : callback
+				Common.save({
+					url : $form.attr('action'),
+					data : $form.serializeArray(),
+					callback : $form.data('callback')
 				});
 			});
 		}

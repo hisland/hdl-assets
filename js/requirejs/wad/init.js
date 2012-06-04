@@ -21,6 +21,7 @@ define(function(require, exports, module){
 
 	//弹出层
 	window.Popwin = require('ui/popwin');
+	window.Popup = require('ui/popup');
 
 	//验证
 	window.ValidForm = require('validator');
@@ -40,6 +41,12 @@ define(function(require, exports, module){
 
 	//时间控件
 	window.Calendar = require('ui/calendar');
+
+	//循环执行函数
+	window.LoopFuncs = require('util/loopFuncs');
+
+	//加密解密
+	window.Encrypt = require('util/Encrypt');
 
 	//模拟下拉框
 	//window.MoliSelect = require('ui/moni-select');

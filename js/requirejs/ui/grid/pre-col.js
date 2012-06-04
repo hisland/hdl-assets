@@ -37,6 +37,34 @@ define([ './msg' ], function(MSG) {
 		 */
 		width : '50',
 		/**
+		 * 单元格最小宽度
+		 * 
+		 * @default 150
+		 * @type Int
+		 */
+		min_width : 150,
+		/**
+		 * 单元格最小高度
+		 * 
+		 * @default 100
+		 * @type Int
+		 */
+		min_height : 100,
+		/**
+		 * 单元格最大宽度
+		 * 
+		 * @default 450
+		 * @type Int
+		 */
+		max_width : 450,
+		/**
+		 * 单元格最大高度
+		 * 
+		 * @default 300
+		 * @type Int
+		 */
+		max_height : 300,
+		/**
 		 * 内容体对齐方式
 		 * 
 		 * @default center

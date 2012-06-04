@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>new document</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript">
+		var require = {
+				baseUrl: '../../',
+				deps: ['config'],
+				callback: function() {
+					require(['policy/addconfig/main', 'demo'], function(){
+						
+					});
+				}
+			};
+	</script>
+	<script type="text/javascript" src="../../require.js"></script>
+</head>
+<body>
+	<form action="#" method="post">
+		<div class="addconfig-wrap">
+			<div class="addconfig-legend">基本信息</div>
+			<div class="addconfig-box">
+				<div class="addconfig-item">
+					<div class="addconfig-label"><strong class="red">*</strong>输入文字</div>
+					<div class="addconfig-ipts">
+						<input class="text1" type="text" name="" value="" />
+					</div>
+				</div>
+				<div class="addconfig-item">
+					<div class="addconfig-label"><strong class="red">*</strong>输入文字</div>
+					<div class="addconfig-ipts">
+						<input class="text1" type="text" name="" value="" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="addconfig-btns">
+			<a class="addconfig-submit btn1-blue" href="javascript:;"><span>保存</span></a>
+		</div>
+	</form>
+</body>
+</html>

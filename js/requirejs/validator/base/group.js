@@ -166,18 +166,35 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 		 * @return this
 		 */
 		required: function(state, msg){
-			
+			state = !!state;
+			this.required = state;
+			this.items.push({
+				fn: function(str){
+					if(state && !str.length){
+						return false;
+					}else{
+						return true;
+					}
+				},
+				msg: msg || MSG.group.required
+			});
 			return this;
 		},
 		/**
 		 * 大于验证
 		 * @param selector String|jQuery|DOM
 		 * @param msg String
-		 * @param trigger 'single'|'double' 单向或双向触发验证
 		 * @return this
 		 */
-		gt: function(selector, msg, trigger){
-			
+		gt: function(selector, msg){
+			this.items.push({
+				fn: function(str){
+					str -= 0;
+					var str2 = $(selector).val() - 0;
+					return str > str2;
+				},
+				msg: msg
+			});
 			return this;
 		},
 		/**
@@ -185,8 +202,15 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 		 * @param 
 		 * @return 
 		 */
-		lt: function(selector, msg, trigger){
-			
+		lt: function(selector, msg){
+			this.items.push({
+				fn: function(str){
+					str -= 0;
+					var str2 = $(selector).val() - 0;
+					return str < str2;
+				},
+				msg: msg
+			});
 			return this;
 		},
 		/**
@@ -194,8 +218,13 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 		 * @param 
 		 * @return 
 		 */
-		eq: function(selector, msg, trigger){
-			
+		eq: function(selector, msg){
+			this.items.push({
+				fn: function(str){
+					return str === $(selector).val();
+				},
+				msg: msg
+			});
 			return this;
 		},
 		/**
@@ -203,7 +232,30 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 		 * @param 
 		 * @return 
 		 */
-		neq: function(selector, msg, trigger){
+		neq: function(selector, msg){
+			this.items.push({
+				fn: function(str){
+					return str !== $(selector).val();
+				},
+				msg: msg
+			});
+			return this;
+		},
+		/**
+		 * 单向触发验证
+		 * @param 
+		 * @return 
+		 */
+		singleTrigger: function(selector){
+			
+			return this;
+		},
+		/**
+		 * 双向触发验证
+		 * @param 
+		 * @return 
+		 */
+		doubleTrigger: function(selector){
 			
 			return this;
 		},

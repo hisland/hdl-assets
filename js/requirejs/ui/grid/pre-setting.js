@@ -37,7 +37,7 @@ define([ './msg' ], function(MSG) {
 		 * @default false
 		 * @type Boolean
 		 */
-		enable_toggle : false,
+		enable_toggle : true,
 		/**
 		 * 可否改变列宽度
 		 * 
@@ -67,33 +67,19 @@ define([ './msg' ], function(MSG) {
 		 */
 		enable_pop_detail : false,
 		/**
-		 * 单元格最小宽度
+		 * 表格宽度
 		 * 
 		 * @default 150
 		 * @type Int
 		 */
-		min_width : 150,
+		width : 'auto',
 		/**
-		 * 单元格最小高度
+		 * 表格高度
 		 * 
 		 * @default 100
 		 * @type Int
 		 */
-		min_height : 100,
-		/**
-		 * 单元格最大宽度
-		 * 
-		 * @default 450
-		 * @type Int
-		 */
-		max_width : 450,
-		/**
-		 * 单元格最大高度
-		 * 
-		 * @default 300
-		 * @type Int
-		 */
-		max_height : 300,
+		height : 300,
 		/**
 		 * 是否使用分页
 		 * 

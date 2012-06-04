@@ -4,14 +4,10 @@ define(['ui/tip'], function(Tip){
 		 * 定义系统消息级别
 		 */
 		MSG_LEVEL: {
-			//成功信息
-			SUCC: 1,
-			//提示信息/警告
-			HINT: 2,
-			//错误信息
-			FAIL: 3,
-			//验证失败-未做任何db操作
-			NO_OPT: 4
+			SUCC: 1,//成功信息
+			HINT: 2,//提示信息/警告
+			FAIL: 3,//错误信息
+			NO_OPT: 4//验证失败-未做任何db操作
 		},
 		/**
 		 * 消息统一提示

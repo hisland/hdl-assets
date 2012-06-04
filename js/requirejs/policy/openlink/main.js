@@ -1,13 +1,4 @@
 define(['jquery', 'kissy', 'ui/popup', 'util/delay-req', 'css!./main'], function($, S, Popup, delayReq){
-	$('div.openlink-wrap').on({
-		mouseenter: function(e){
-			$(this).addClass('openlink-hover');
-		},
-		mouseleave: function(e){
-			$(this).removeClass('openlink-hover');
-		}
-	}, '.openlink');
-
 	var req = delayReq.init();
 	var pop = Popup.init();
 	pop.setSize(180, 100);
@@ -35,13 +26,26 @@ define(['jquery', 'kissy', 'ui/popup', 'util/delay-req', 'css!./main'], function
 		});
 	});
 
-	$('div.openlink-wrap').on('click', 'span.openlink-modify', function(e){
-		PL.showPop({
-			url: 'provincePolicy/provinceLogin!modifyView.do',
-			data: {
-				'provinceId': $(this).parent().attr('data-id')
-			},
-			title: null
-		});
-	});
+	return {
+		init: function(selector){
+			$(selector).on({
+				mouseenter: function(e){
+					$(this).addClass('openlink-hover');
+				},
+				mouseleave: function(e){
+					$(this).removeClass('openlink-hover');
+				}
+			}, '.openlink');
+
+			$(selector).on('click', 'span.openlink-modify', function(e){
+				PL.showPop({
+					url: 'provincePolicy/provinceLogin!modifyView.do',
+					data: {
+						'provinceId': $(this).parent().attr('data-id')
+					},
+					title: '修改 <span class="red">' + $(this).prev().prev().text() + '</span> 的链接'
+				});
+			});
+		}
+	};
 });

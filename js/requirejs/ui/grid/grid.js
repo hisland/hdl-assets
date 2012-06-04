@@ -123,6 +123,8 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			//初始化参数配置
 			S.mix(this, setting);
 
+			this.setSize(this.width, this.height);
+
 			return this;
 		},
 		/**
@@ -212,7 +214,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			this.$thead.add(this.$togglebtn).on({
 				mouseenter: function(e){
 					clearTimeout(later);
-					grid.$togglebtn.show();
+					if(grid.enable_toggle){
+						grid.$togglebtn.show();
+					}
 				},
 				mouseleave: function(e){
 					later = setTimeout(function(){
@@ -413,6 +417,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			//读取数据出错并返回
 			if(!data.rows){
 				this.noData(MSG.error);
+				this.$nodata.css('top', this.$body.position().top + this.$body.height()/2);
 				//填充空行使滚动条出现
 				this.__blankLine();
 				S.log(['error, grid.setData: ', data]);
@@ -421,6 +426,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			//没有数据
 			else if(!data.rows.length){
 				this.noData();
+				this.$nodata.css('top', this.$body.position().top + this.$body.height()/2);
 				//填充空行使滚动条出现
 				this.__blankLine();
 
@@ -646,10 +652,13 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			//修正个别参数
 			S.mix(setting, {
 				posturl: 'post.php',
+				upload_name: null,
 				max_size: '10240',
 				filter: '*',
 				width: 64,
-				height: 24
+				height: 24,
+				text: null,
+				flashid: null
 			}, false);
 
 			//flash设置
@@ -861,6 +870,16 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		lastPage: function(){
 			this.data.currPage = this.data.allPage;
 			this.ajaxLoad();
+			return this;
+		},
+		/**
+		 * 
+		 * @param 
+		 * @return 
+		 */
+		setSize: function(width, height){
+			this.$body.width(width);
+			this.$body.height(height);
 			return this;
 		}
 	});

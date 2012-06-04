@@ -1,4 +1,0 @@
-@charset "utf-8";
-
-a.ui-button{border:1px solid #7da511; display:inline-block; width:65px; height:22px; line-height:22px; overflow:hidden;  text-align:center;   background:#86c31f; color:#FFF; font-size:12px; -moz-border-radius:3px; -webkit-border-radius:3px; -moz-box-shadow:0 1px 0px #c9e77b inset; -webkit-box-shadow:0 1px 0px #c9e77b inset; background:-moz-linear-gradient(top, #98d10c, #73b633 100%);  background: -webkit-gradient(linear, 0 0, 0 100%, from(#000), color-stop(2.5%, #98d10c ), color-stop(100%, #73b633));outline:none;}
-a.ui-button:hover{text-decoration:none; background:#98d10c; border:1px solid #7da511; -moz-box-shadow:0 1px 0px #c9e77b inset; -webkit-box-shadow:0 1px 0px #c9e77b inset; background:-moz-linear-gradient(top, #98d10c, #90cb15 100%); background: -webkit-gradient(linear, 0 0, 0 100%, from(#a6d4ea), color-stop(2.5%, #98d10c ),color-stop(100%, #90cb15));}

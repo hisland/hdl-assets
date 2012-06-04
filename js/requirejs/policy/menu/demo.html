@@ -17,9 +17,7 @@
 			m.$div.appendTo('body');
 
 			//加载菜单数据
-			$.getJSON('data.js', function(rs){
-				m.setData(rs);
-			});
+			m.load('data.js');
 		});
 	</script>
 </head>

@@ -11,7 +11,7 @@
 	.popwin-content-wrap{border:1px solid #fff;border-top:1px solid #d7d5d5;padding:5px;}
 		.popwin-content{cursor:default;background:#fff;overflow:auto;}
 
-	.popwin-form{overflow:hidden;padding:10px 0;}
+	.popwin-form{overflow:hidden;padding:15px;}
 	.popwin-btns{background:#f0f0f0;padding:6px 0;text-align:center;}
 	.popwin-btns input[type=button], .popwin-btns input[type=submit]{
 		border-width:2px;
@@ -44,3 +44,13 @@
 	.theme-blue .popwin-content-wrap{border:1px solid #97bdc2;background:#fff;border-top:none;padding:1px;overflow:auto;}
 
 	.theme-blue .popwin-btns{background:#e8f1f1;}
+
+
+	.theme-gray .popwin-wrap{background:none;}
+	.theme-gray .popwin-title-wrap{position:relative;height:31px;padding:0;padding-right:30px;border:none;background:url('theme-gray/bg1.gif') no-repeat right top;}
+		.theme-gray .popwin-title{display:block;height:31px;line-height:31px;padding-left:10px;background:url('theme-gray/bg1.gif') no-repeat 0 -40px;font-weight:700;}
+		.theme-gray .popwin-close{position:absolute;right:10px;top:10px;width:13px;height:13px;background:url('theme-gray/x.gif') no-repeat 0 0;outline:none;}
+		.theme-gray .popwin-close:hover{background-position:0 -20px;}
+	.theme-gray .popwin-content-wrap{border:1px solid #97bdc2;background:#fff;border-top:none;padding:1px;overflow:auto;}
+
+	.theme-gray .popwin-btns{background:#f2f0f1;}

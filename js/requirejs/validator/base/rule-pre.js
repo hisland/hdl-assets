@@ -1,7 +1,3 @@
-/**
- * 预定义规则
- */
-
 define(['./rule'], function(Rule){
 
 	//默认正则都可为空,不能为空请加上must规则

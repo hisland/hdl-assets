@@ -119,12 +119,12 @@
 
 	/* 遮罩loading区域及无数据提示 */
 	.hdlgrid-mask{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:#fff;opacity:0.8;filter:alpha(opacity=80);}
-	.hdlgrid-nodata{display:none;position:absolute;top:50%;left:50%;width:100px;height:50px;margin:-25px 0 0 -50px;}
+	.hdlgrid-nodata{display:none;position:absolute;top:50%;left:50%;width:100px;height:50px;margin:-15px 0 0 -50px;text-align:center;}
 	.hdlgrid-loading{display:none;position:absolute;top:50%;left:50%;width:74px;height:91px;margin:-45px 0 0 -37px;background:url('grid-img/loading.gif') no-repeat 0 0;opacity:0.8;filter:alpha(opacity=80);}
 
 
 .theme-gray{}
-	.theme-gray .hdlgrid-button{background:#d3d2d3;height:25px;padding:0;}
+	.theme-gray .hdlgrid-button{background:#d3d2d3;height:25px;padding:0 5px;}
 	.theme-gray .hdlgrid-btn{background:none;}
 	.theme-gray .hdlgrid-btn-sep{float:left;margin:4px 4px 0 0;width:0;height:18px;border-left:1px solid #b4b4b5;border-right:1px solid #e6e5e6;}
 	.theme-gray .hdlgrid-btn .hdlgrid-btn2{background:none;}
@@ -148,8 +148,8 @@
 	.theme-blue .hdlgrid-btn-sep{float:left;margin:4px 4px 0 0;width:0;height:18px;border-left:1px solid #b4b4b5;border-right:1px solid #e6e5e6;}
 	.theme-blue .hdlgrid-btn{background:none;}
 	.theme-blue .hdlgrid-btn .hdlgrid-btn2{background:none;}
-	.theme-blue .hdlgrid-btn:hover{background:url('grid-img/icon-bg-1.gif') no-repeat 0 0;}
-	.theme-blue .hdlgrid-btn:hover .hdlgrid-btn2{background:url('grid-img/icon-bg-1.gif') no-repeat  right bottom;}
+	.theme-blue .hdlgrid-btn:hover{background:url('grid-img/icon-bg-2.gif') no-repeat 0 0;}
+	.theme-blue .hdlgrid-btn:hover .hdlgrid-btn2{background:url('grid-img/icon-bg-2.gif') no-repeat  right bottom;}
 	.theme-blue .hdlgrid-btn-dis{color:#949494;}
 	.theme-blue .hdlgrid-btn-dis:hover{background:none;}
 	.theme-blue .hdlgrid-btn-dis:hover .hdlgrid-btn2{background:none;}

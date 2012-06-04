@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+.addconfig-wrap{border:1px solid #dddedf;margin-top:15px;margin-bottom:10px;padding-top:10px;position:relative;background:#fafafa;}
+	.addconfig-legend{position:absolute;top:-15px;left:50px;padding:5px;background:#fafafa;font-weight:700;}
+	.addconfig-box{overflow:hidden;padding:5px;}
+	.addconfig-item{float:left;margin:0 1px 1px 0;}
+		.addconfig-label{float:left;height:24px;line-height:24px;width:100px;text-align:right;white-space:nowrap;overflow:hidden;background:#f0f1f1;}
+		.addconfig-ipts{float:left;padding:3px;height:18px;width:124px;white-space:nowrap;overflow:hidden;}
+
+.addconfig-btns{padding:5px;text-align:center;background:#eaf0f0;}
+	.addconfig-btns a span{width:50px;}
+
+.addconfig-submit{margin-right:10px;}

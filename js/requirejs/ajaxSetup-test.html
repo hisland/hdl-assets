@@ -9,18 +9,28 @@
 			require(['jquery', 'kissy'], function($, S){
 				$.ajaxSetup({
 					beforeSend: function(xhr, setting){
-						console.log(setting.data);
+						if(setting.type === 'GET'){
+							if(setting.url.indexOf('?') === -1){
+								setting.url += '?moduleName=god';
+							}else{
+								setting.url += '&moduleName=god';
+							}
+						}else if(setting.type === 'POST'){
+							if(setting.data){
+								setting.data += '&moduleName=god';
+							}else{
+								setting.data = 'moduleName=god';
+							}
+						}
+						console.log(setting);
 					},
 					data: {
-						mod: '今天'
+						mod: 'data1'
 					}
 				});
 				$.ajaxSetup({
-					beforeSend: function(xhr, setting){
-						console.log(setting.data);
-					},
 					data: {
-						mod: '今天2'
+						mod2: 'data2'
 					}
 				});
 
@@ -32,6 +42,13 @@
 						a: 'b',
 						c: 'd'
 					});
+					$.get('tt.html', [{
+						name: 'a',
+						value: 'b'
+					},{
+						name: 'c',
+						value: 'd'
+					}]);
 					$.get('tt.html?a=b&c=d', {
 						a: 'b',
 						c: 'd'
@@ -45,6 +62,13 @@
 						a: 'b',
 						c: 'd'
 					});
+					$.post('tt.html', [{
+						name: 'a',
+						value: 'b'
+					},{
+						name: 'c',
+						value: 'd'
+					}]);
 					$.post('tt.html?a=b&c=d', {
 						a: 'b',
 						c: 'd'

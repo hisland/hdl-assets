@@ -575,7 +575,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 					url: escape(setting.posturl),
 					filter: setting.filter,
 					upload_name: setting.upload_name,
-					max_size: setting.max_size,
+					max_size: setting.max_size
 				},
 				attributes: {
 					style: 'opacity:0;filter:alpha(opacity=0);position:absolute;top:0;left:0;'

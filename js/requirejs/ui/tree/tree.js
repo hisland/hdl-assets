@@ -69,6 +69,21 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./tree'], function($, S){
 				
 				if(tree.edit_able){
 					tree.toggleCheckbox(node);
+					
+					//TODO: delete business code
+					if(node.text !== '查询' && node.checked){ //  选择非查询按钮,查询按钮选择
+						tree.walkDescendants(node.__parent, function(node){
+							if(node.text==='查询' && !node.checked){
+								tree.toggleCheckbox(node,true);
+							}					
+						});
+					}else if(node.text === '查询' && !node.checked){ // 取消查询权限,其他权限取消
+						tree.walkDescendants(node.__parent, function(node){
+							tree.toggleCheckbox(node,false);
+						});
+					}
+					
+					
 				}
 			});
 

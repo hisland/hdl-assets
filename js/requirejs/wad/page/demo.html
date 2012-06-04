@@ -12,6 +12,19 @@
 						Menu.load('menu-demo.json', function(){
 							$('#main-wrap').fadeIn();
 						});
+
+						$.ajax({
+							url: 'view.html',
+							success: function(rs){
+								console.log('Success: ', rs);
+							},
+							error: function(rs){
+								console.log('error: ', rs);
+							},
+							complete: function(rs){
+								console.log('Complete: ', rs);
+							}
+						})
 					});
 				}
 			};
