@@ -7,7 +7,7 @@
 		.addconfig-label{float:left;height:24px;line-height:24px;width:100px;text-align:right;white-space:nowrap;overflow:hidden;background:#f0f1f1;}
 		.addconfig-ipts{float:left;padding:3px;height:18px;width:124px;white-space:nowrap;overflow:hidden;}
 
-.addconfig-btns{padding:5px;text-align:center;background:#eaf0f0;}
+.addconfig-btns{padding:3px 0 0;text-align:center;background:#eaf0f0;}
 	.addconfig-btns a span{width:50px;}
 
 .addconfig-submit{margin-right:10px;}

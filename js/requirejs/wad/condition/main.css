@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-.ls1-item{float:left;margin:0 3px 3px 0;}
+.ls1-item{float:left;margin:0 3px 3px 0;width:230px;}
 	.ls1-label{float:left;height:24px;line-height:24px;width:100px;text-align:right;white-space:nowrap;overflow:hidden;}
 	.ls1-ipts{float:left;padding:3px;height:18px;width:124px;white-space:nowrap;overflow:hidden;}
 

@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+.iplists-warp{height:220px;}
+
+	.ipipt{position:relative;}
+		.iptext{border: 1px solid #DBDADA;height: 14px;line-height: 14px;padding: 1px;width: 120px;}
+		.ipadd{width: 16px; height: 16px; position: absolute; top: 1px; right:0; background: url("img/icon.gif") no-repeat scroll 0 0 transparent}
+	.ipcotent{border: 1px solid #DBDADA; background-color:#ffffff; width: 178px; margin: 5px 0 0; height: 104px;overflow: hidden;overflow-y:auto;position: relative;}
+		.ipli{height: 18px;line-height: 18px;position: relative;}
+		.ipli-hover{background-color: #E6F2FD;}
+			.ipnum{margin-left: 2px;}
+			.ipdel{background: url("img/delete.gif") no-repeat scroll center center transparent;width: 15px;height: 15px;position: absolute;right:0;top: 1px;cursor: pointer;}
+			.ipdel-hover{background: url("img/delete-hover.gif") no-repeat scroll center center transparent;}

@@ -24,3 +24,16 @@
 	.ui-tab-sf .ui-tab-nav li.ui-tab-hover span{background:none;height:25px;}
 
 .ui-tab-sf div.ui-tab-con{display:none;padding:5px 5px 0;}
+
+
+.theme-nobg .ui-tab-nav{background:none;border:none;}
+.theme-nobg .ui-tab-nav li{background:none;}
+	.theme-nobg .ui-tab-nav a{background:none;}
+	.theme-nobg .ui-tab-nav a:hover{color:#919191;}
+	.theme-nobg .ui-tab-nav span{background:none;height:25px;line-height:25px;padding:0 10px;}
+
+.theme-nobg .ui-tab-nav li.ui-tab-hover{background:none;}
+	.theme-nobg .ui-tab-nav li.ui-tab-hover a{background:none;}
+	.theme-nobg .ui-tab-nav li.ui-tab-hover span{background:none;height:25px;}
+
+.theme-nobg div.ui-tab-con{padding:5px 5px 0;}

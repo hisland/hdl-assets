@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript">
+		var require = {
+				baseUrl: '../../',
+				deps: ['config'],
+				callback: function() {
+					require(['ui/autocomplete/main', 'demo'], function(Autocomplete){
+						window.kkk = Autocomplete.init({
+							url: 'data.php',
+							data: ''
+						});
+						kkk.attach('#text');
+					});
+				}
+			};
+	</script>
+	<script type="text/javascript" src="../../require.js"></script>
+</head>
+<body>
+	<p>在结果集中加入默认的选项可以在preProcess里面对结果进行预处理</p>
+	<input class="text1" type="text" name="" value="" id="text" />
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 .config{padding:5px;}
 
-.config-wrap{overflow:auto;background:#fafafa;padding:0 15px 15px;}
+.config-wrap{overflow:auto;background:#fafafa;padding:0 15px 15px;position: relative;}
 
 	/* 分割线 */
 	.config-line{border-bottom:1px solid #bdc0c2;margin:20px 0 10px;padding-bottom:5px;overflow:hidden;cb }

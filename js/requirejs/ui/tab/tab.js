@@ -34,8 +34,8 @@ define(['jquery', 'kissy', 'css!./tab'], function($, S){
 				var idx = $(this).index(),
 					href = $(this).find('a').attr('href');
 
-				//当前已经显示了则直接退出
-				if($(this).is('.ui-tab-hover')){
+				//当前已经显示了且没有按住ctrl键则直接退出
+				if($(this).is('.ui-tab-hover') && !e.ctrlKey){
 					return ;
 				}
 

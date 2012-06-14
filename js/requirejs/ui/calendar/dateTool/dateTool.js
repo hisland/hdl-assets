@@ -91,7 +91,7 @@ define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
 
 		//"16:02:26"的形式 == 时:分:秒
 		}else if(arr[3]){
-			date_obj = new Date(date_now.dateString().replace(/-/g,'/')+' '+arr[3]);
+			date_obj = new Date(Util.dateString(date_now).replace(/-/g,'/')+' '+arr[3]);
 
 		//"2010/05"的形式 == 年/月
 		}else if(arr[4]){
@@ -382,7 +382,7 @@ define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
 				str += ' '+arr.join(':');
 			}
 
-			$target_fill.val(str);
+			$target_fill.val($.trim(str));
 			return this;
 		},
 		setWeekStart: function(n){

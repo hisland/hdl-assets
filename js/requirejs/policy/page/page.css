@@ -21,9 +21,12 @@ body{background:#e2e9ef;}
 
 	.aside{overflow:auto;width:200px;background:#fff;position:absolute;top:62px;left:0;}
 
-	.main{margin:0 0 0 201px;background:#fff;position:relative;}
+	.main{margin:0 0 0 200px;border-left:1px solid #adc6d2;background:#fff;position:relative;}
 		.uare-bg{border:1px solid #f4f4f4;border-bottom:1px solid #d5d5d5;height:27px;background:url('img/uare-bg.png') repeat-x 0 0;}
 			.uarehere{float:left;height:13px;width:336px;padding:7px;background:url('img/uarehere.png') no-repeat 0 0;}
 			.uareright{float:right;height:27px;width:380px;background:url('img/uareright.png') no-repeat 0 0;}
 		.menu-toggle{width:4px;position:absolute;top:28px;left:0;cursor:pointer;}
-		.main-in{padding-left:4px;padding-top:3px;background:url('img/fade-bar.png') repeat-y 0 0;overflow:auto;}
+		.main-in{padding-left:4px;padding-top:3px;background:url('img/fade-bar.png') repeat-y 0 0;overflow:auto;position: relative;}
+
+
+body .popwin-btns{padding:3px 0 0;}

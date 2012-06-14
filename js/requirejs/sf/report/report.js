@@ -8,6 +8,8 @@ define(['jquery', 'kissy', 'ui/grid/grid'], function($, S, Grid){
 	 * @memberOf sf
 	 */
 	function Report(setting){
+		//默认关闭切换隐藏列
+		setting.enable_toggle = false;
 		this.__init(setting).__initEvent();
 
 		//初始化列

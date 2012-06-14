@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript">
+		var require = {
+				baseUrl: '../../',
+				deps: ['config'],
+				callback: function() {
+					require(['ui/autocomplete/main', 'demo'], function(){
+						
+					});
+				}
+			};
+	</script>
+	<script type="text/javascript" src="../../require.js"></script>
+</head>
+<body>
+	<div class="autocomp-pop">
+		<div class="autocomp-loading">加载中...</div>
+		<div class="autocomp-as">
+			<a class="autocomp-a" href="javascript:;" data-value="1" title="1">1<strong>dddddd</strong></a>
+			<a class="autocomp-a" href="javascript:;" data-value="上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页" title="上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页">上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页上一页</a>
+			<a class="autocomp-a" href="javascript:;" data-value="在要枯在要枯在要枯在要枯在要枯" title="在要枯在要枯在要枯在要枯在要枯">在要枯在要枯在要枯在要枯在要枯</a>
+			<a class="autocomp-a" href="javascript:;" data-value="4" title="4">4</a>
+			<a class="autocomp-a" href="javascript:;" data-value="5" title="5">5</a>
+		</div>
+		<div class="autocomp-page">
+			<a class="autocomp-prev" href="javascript:;">上一页</a>
+			<a class="autocomp-next" href="javascript:;">下一页</a>
+			<span class="autocomp-tip"></span>
+		</div>
+	</div>
+</body>
+</html>

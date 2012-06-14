@@ -48,6 +48,9 @@ define(function(require, exports, module){
 	//加密解密
 	window.Encrypt = require('util/Encrypt');
 
+	//IPList
+	window.IPList = require('ui/iplists/main');
+
 	//模拟下拉框
 	//window.MoliSelect = require('ui/moni-select');
 

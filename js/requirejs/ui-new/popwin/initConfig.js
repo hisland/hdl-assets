@@ -36,6 +36,7 @@ define(['jquery', 'kissy', 'ui/pop-manager', './msg'], function($, S, PM, MSG){
 
 	return function(o, config){
 		o.config = S.mix(config || {}, Config, false);
+		//每个层单独一个manager
 		o.config.manager = PM.init();
 		return o;
 	};

@@ -90,5 +90,28 @@ define(['jquery'], function($){
 				me.height(height);
 			});
 		});
+
+		//用户/用户组带树高度
+		$('#main-in>div.reheight-sysroles').each(function(i, v){
+			var height = mainHeight - $(this).prev().outerHeight() - 10;
+
+			$(this).find('div.hdl-tree-wrap').height(height - 17);
+
+			$(this).find('div.hdlgrid-body').each(function(i, v){
+				var me = $(this);
+				
+				//去掉分页区域高度
+				height -= me.next().outerHeight();
+				
+				//去掉表头区域高度
+				height -= me.prev().outerHeight();
+				
+				//去掉按钮区域高度
+				height -= me.prev().prev().outerHeight();
+
+				//减掉自身的边框高度
+				me.height(height + 1);
+			});
+		});
 	}).resize();
 });

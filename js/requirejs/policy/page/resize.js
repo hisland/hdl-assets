@@ -69,6 +69,36 @@ define(['jquery'], function($){
 				me.height(height - 6);
 			});
 		});
+		
+		//带切换标签的单个查询结果高度
+		$('#main-in>div.ui-tab div.search-result').each(function(i, v){
+			//去掉查询条件高度和切换标签
+			var height = mainHeight - $(this).prev().outerHeight() - $(this).parent("div").parent("div").find(".ui-tab-nav").outerHeight()-5 - 9;
+
+			$(this).find('div.hdlgrid-body').each(function(i, v){
+				var me = $(this);
+				
+				//去掉分页区域高度
+				if(me.next().is(':visible')){
+					height -= me.next().outerHeight();
+				}
+				
+				//去掉表头区域高度
+				if(me.prev().is(':visible')){
+					height -= me.prev().outerHeight();
+				}
+				
+				//去掉按钮区域高度
+				if(me.prev().prev().is(':visible')){
+					height -= me.prev().prev().outerHeight();
+				}
+
+				//减掉自身的边框高度
+				me.height(height - 6);
+			});
+			
+			$(this).parent().height($(this).prev().outerHeight()+$(this).outerHeight()+3);
+		});
 
 		//用户组带树高度
 		$('#main-in>div.reheight2').each(function(i, v){

@@ -1,6 +1,6 @@
 @charset "utf-8";
-
-body{}
+html{overflow:hidden;}
+body{position:relative;overflow:auto;}
 
 .main-wrap{position:relative;margin:0 auto;background:url('img/top-bg.png') repeat-x 0 0;}
 
@@ -22,8 +22,9 @@ body{}
 			.header-state .header-state-on{color:green;}
 
 	.aside{overflow:auto;float:left;width:200px;border:1px solid #bababb;border-left:none;border-bottom:none;background:#fff;padding-top:1px;}
-	.menu-toggle{float:left;width:4px;cursor:pointer;background:#dfdfe0 url('img/left-arrow.png') no-repeat 0 50%;}
-	.menu-toggle-off{background-image:url('img/right-arrow.png');}
+	.menu-toggle{float:left;width:4px;cursor:pointer;background:#dfdfe0;outline:none;}
+	.menu-toggle:hover{background:#dfdfe0 url('img/left-arrow.png') no-repeat 0 50%;}
+	.menu-toggle-off:hover{background-image:url('img/right-arrow.png');}
 
 	.main{margin:0 0 0 205px;border:1px solid #bababb;border-right:none;border-bottom:none;background:#fff;}
 		.uarehere{border:1px solid #f4f4f4;border-bottom:1px solid #d5d5d5;height:13px;padding:7px;background:url('img/uarehere.png') repeat-x 0 0;}

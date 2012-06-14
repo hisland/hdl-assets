@@ -46,7 +46,9 @@ define(['jquery', 'kissy'], function($, S){
 		 * @return 
 		 */
 		cancel: function(){
-			
+			this.__timer.cancel();
+			this.__req.abort();
+			return this;
 		}
 	};
 	return {
@@ -58,7 +60,7 @@ define(['jquery', 'kissy'], function($, S){
 				__reqOk: false,
 				__timer: null,
 				__req: null
-			});
+			}, false);
 
 			return S.merge(config, o);
 		}
