@@ -51,7 +51,7 @@
 				"id": "",
 				"text": "系统访问超时配置",
 				"remark": "系统访问超时配置",
-				"prefix": "SYS_MONITOR_VALUE_",
+				"prefix": "SYS_SAM_SAFE_",
 				"code": 201003,
 				"url": "#/MBS/commconfig/sessionTimeoutAction!initView.do"
 			}]

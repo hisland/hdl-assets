@@ -28,7 +28,7 @@ body{position:relative;overflow:auto;}
 
 	.main{margin:0 0 0 205px;border:1px solid #bababb;border-right:none;border-bottom:none;background:#fff;}
 		.uarehere{border:1px solid #f4f4f4;border-bottom:1px solid #d5d5d5;height:13px;padding:7px;background:url('img/uarehere.png') repeat-x 0 0;}
-		.main-in{overflow:auto;}
+		.main-in{overflow:auto;position:relative;}
 
 
 .import-notice{background:#eee;border:1px solid #D1D1D1;padding:0.5em 0.5em 0.5em 2em;text-indent:-1.5em;margin:0 5px;}

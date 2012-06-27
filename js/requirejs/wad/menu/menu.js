@@ -123,13 +123,7 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 			//加载已存在的菜单
 			var now_link = this.$div.find('a[href="' + location.hash + '"], a[href="' + location.href + '"]').first();
 			if(now_link.length){
-				now_link.click();
-				var p = now_link.parent();
-
-				while(!p.is('.menu-wrap')){
-					p.prev().click();
-					p = p.parent();
-				}
+				this.clickItem(now_link);
 			}else{
 				//加载欢迎页面
 				if(this.welcomeUrl){
@@ -177,12 +171,36 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 			return this;
 		},
 		/**
-		 * 
-		 * @param 
-		 * @return 
+		 * 设置欢迎菜单的url
+		 * @param url String
+		 * @return this
 		 */
 		setWelcomeUrl: function(url){
 			this.welcomeUrl = url;
+		},
+		/**
+		 * 模拟点击某个菜单,并展开其上层
+		 * @param selector jQuery 菜单项对应的选择器或dom
+		 * @return this
+		 */
+		clickItem: function(selector){
+			var now_link =$(selector);
+			now_link.click();
+
+			location.href = now_link.attr('href');
+
+			var p = now_link.parent();
+			while(!p.is('.menu-wrap')){
+				if(p.prev().is('.menu-lv1')){
+					p.prev().toggleClass('menu-lv1-opened', true);
+					p.show();
+				}else{
+					p.prev().toggleClass('menu-lv2-opened', true);
+					p.show();
+				}
+				p = p.parent();
+			}
+			return this;
 		}
 	});
 

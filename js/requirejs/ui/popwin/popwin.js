@@ -161,6 +161,7 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 		loaded: function(){
 			this.$div.css('display', 'block');
 			this.manager.loaded();
+			this.$title.parent().width(this.$content.width() - 30 + 4);
 			return this;
 		},
 		/**
@@ -186,6 +187,8 @@ define(['jquery', 'kissy', './msg', 'ui/pop-manager', 'jquery-plugin', 'css!./po
 				left: (document.documentElement.clientWidth - this.$div.width())/2,
 				visibility: ''
 			});
+
+			this.$title.parent().width(this.$content.width() - 30 + 4);
 			return this;
 		},
 		/**

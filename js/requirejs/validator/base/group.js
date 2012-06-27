@@ -6,6 +6,7 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 	function Group(config){
 		this.attached = false;
 		this.selector = null;
+		this.config = config;
 		this.items = [];
 	}
 

@@ -7,11 +7,13 @@ define(['jquery'], function($){
 
 	function handler(event) {
 		var args = [].slice.call( arguments, 1 ), delta = 0, returnValue = true;
-		
+
+		event = event || window.event;
+
 		if ( event.wheelDelta ) delta = event.wheelDelta/120;
 		if ( event.detail     ) delta = -event.detail/3;
 		
-		event = $.event.fix(event || window.event);
+		event = $.event.fix(event);
 		event.type = "mousewheel";
 		
 		// Add events and delta to the front of the arguments

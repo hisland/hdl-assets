@@ -55,5 +55,5 @@ define(function(require, exports, module){
 	//window.MoliSelect = require('ui/moni-select');
 
 	//自动完成
-	//window.Autocomplete = require('ui/autocomp');
+	window.Autocomplete = require('ui/autocomplete/main');
 });

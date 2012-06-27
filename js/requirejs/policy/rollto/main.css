@@ -2,12 +2,12 @@
 .rollto-wrap{width:738px;padding:5px 10px;}
 
 	.rollto-title{border:1px solid #DDDEDF;width:706px;margin:15px 10px 5px;position:relative;padding:16px 0 5px 30px;background-color:#ffffff;}
-		.rollto-title .rollto-legend{position:absolute;font-weight:bold;background-color:#ffffff;height:16px;line-height:16px;text-align:center;top:-5px;left:25px;}
+		.rollto-title .rollto-legend{position:absolute;font-weight:bold;background-color:#ffffff;height:16px;line-height:16px;text-align:center;top:-11px;left:25px;padding: 3px 7px;}
 		.rollto-box{}
 			.rollto-box a{display:inline-block;width:94px;height:16px;line-height:16px;margin:0 0 5px;}
 
 	.rollto-main{border:1px solid #DDDEDF;width:736px;height:355px;position:relative;overflow:hidden;overflow-y:auto;margin-left: 10px;background-color: #ffffff;}
-		.rollto-item{border-top:1px solid #DDDEDF;margin:17px 0 0;position:relative;padding:28px 0 0 42px;*height:100%;_height:85%;}
+		.rollto-item{border-top:1px solid #DDDEDF;margin:15px 0 0;position:relative;padding:28px 0 0 42px;*height:100%;_height:85%;}
 		.item-selected{background-color:#F3F7F8;}
 			.item-selected .rollto-item-title{border:1px solid #DDDEDF;}
 			.rollto-item-title{position:absolute;font-weight:bold;background-color:#ffffff;height:12px;line-height:12px;text-align:center;top:-9px;left:25px;padding:3px 7px;color:#6A6A6A;}

@@ -48,7 +48,12 @@ define(['kissy', './base/rule-pre'], function(S, Rule){
 		 * @return this
 		 */
 		del: function(idx){
-			this.items.splice(idx, 1);
+			if(!S.isNumber(idx)){
+				idx = S.indexOf(this.items, idx);
+			}
+			if(idx >= 0){
+				this.items.splice(idx, 1);
+			}
 			return this;
 		},
 		/**

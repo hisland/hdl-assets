@@ -1,4 +1,4 @@
-define(['jquery', 'kissy'], function($, S){
+define(['jquery', 'kissy', 'ui/tip'], function($, S, Tip){
 	return {
 		/**
 		 * 底层post方法
@@ -9,13 +9,16 @@ define(['jquery', 'kissy'], function($, S){
 		 * @return ui/tip
 		 */
 		__save: function(config){
+			var mask = Tip.alert();
+			mask.loading();
 			$.post(config.url, config.data, function(rs){
-				WAD.showMsgWithLevel(rs.messageText, rs.level);
 				if (rs.level === 1) {
 					config.onSuccess && config.onSuccess();
 				} else {
 					config.onFail && config.onFail();
 				}
+				WAD.showMsgWithLevel(rs.messageText, rs.level);
+				mask.remove();
 			}, 'json');
 		},
 		/**
@@ -27,29 +30,6 @@ define(['jquery', 'kissy'], function($, S){
 		 * @return ui/tip
 		 */
 		save: function(config){
-			return this.__save(config);
-		},
-		/**
-		 * 公共删除方法
-		 * @param config Object
-		 * config.url String
-		 * config.param postData
-		 * config.fn callback
-		 * @return ui/tip
-		 */
-		'delete': function(config){
-			return this.__save(config);
-		},
-		/**
-		 * 公共导出方法
-		 * 此处由于require的原因,export需要加引号,否则ie会报错
-		 * @param config Object
-		 * config.url String
-		 * config.param postData
-		 * config.fn callback
-		 * @return ui/tip
-		 */
-		'export': function(config){
 			return this.__save(config);
 		}
 	};

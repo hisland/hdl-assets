@@ -1,4 +1,4 @@
-define(['jquery', 'kissy', 'util/laterFn'], function($, S, LaterFn){
+define(['jquery', 'kissy', 'util'], function($, S, Util){
 	/**
 	 * @lends ui.Popwin#
 	 */
@@ -10,8 +10,33 @@ define(['jquery', 'kissy', 'util/laterFn'], function($, S, LaterFn){
 		 */
 		search: function(str){
 			var me = this;
-			this.delayReq.load(this.config.url, this.config.data, function(rs){
-				me.refreshData($.parseJSON(rs));
+			me.str = str;
+
+			var url = this.config.url;
+			if(S.isFunction(url)){
+				url = url();
+			}
+
+			var dt = this.config.data || {};
+			if(S.isFunction(dt)){
+				dt = dt();
+			}
+			if(S.isArray(dt)){
+				dt = $.param(dt);
+			}
+			if(S.isString(dt)){
+				dt = S.unparam(dt);
+			}
+			dt[this.config.varSearch] = str;
+			dt[this.config.varPage] = me.data[this.config.varPage];
+			dt[this.config.varPagePerNum] = me.data[this.config.varPagePerNum];
+
+			this.delayReq.load(url, dt, function(rs){
+				me.data = $.parseJSON(rs);
+
+				me.config.preProcess && me.config.preProcess(me.data);
+
+				me.refreshData();
 			});
 			return this;
 		},
@@ -20,8 +45,15 @@ define(['jquery', 'kissy', 'util/laterFn'], function($, S, LaterFn){
 		 * @param 
 		 * @return 
 		 */
-		refreshData: function(data){
-			
+		refreshData: function(){
+			this.$content.html(S.map(this.data.rows, function(v, i, o){
+				v = this.config.process ? this.config.process(v) : v;
+				var text2 = S.map(v.split(this.str), function(v, i, o){
+					return Util.entityHTML(v);
+				}).join('<strong>' + Util.entityHTML(this.str) + '</strong>');
+				return '<a class="autocomp-a" href="javascript:;" data-idx="' + i + '" title="' + Util.entityHTML(v) + '">' + text2 + '</a>';
+			}, this).join(''));
+			return this;
 		},
 		/**
 		 * 设置文本
@@ -52,14 +84,18 @@ define(['jquery', 'kissy', 'util/laterFn'], function($, S, LaterFn){
 		 * form的submit事件,阻止提交
 		 */
 		__focus: function(e){
-			var ac = e.data;
-			ac.popup.align(this).show();
+			var ac = e.data,
+				elm = this;
+			ac.popup.align(elm).show();
 
-			setTimeout(function(){
-				ac.popup.$div.one('outerclick', function(){
+			ac.popup.$div.on('outerclick', function(e, reale){
+				if(reale.target !== elm){
 					ac.popup.hide();
-				});
-			}, 100);
+					ac.popup.$div.off('outerclick');
+				}
+			});
+
+			e.data.search(this.value);
 		}
 	};
 

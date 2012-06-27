@@ -31,7 +31,7 @@
 
 
 .config2-item{float:left;margin:0 3px 1px 0;}
-	.config2-label{float:left;height:28px;line-height:28px;width:100px;text-align:right;white-space:nowrap;overflow:hidden;background:#f0f1f1;}
+	.config2-label{float:left;height:28px;line-height:28px;width:98px;text-align:right;white-space:nowrap;overflow:hidden;background:#f0f1f1;padding-right:2px;}
 	.config2-ipts{float:left;padding:3px 3px 3px 8px;height:22px;width:184px;white-space:nowrap;overflow:hidden;}
 		.config2-ipts .text1{height:18px;line-height:18px;width:180px;}
 		.config2-ipts .select1{height:22px;line-height:22px;width:184px;padding:2px;}

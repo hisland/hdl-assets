@@ -13,7 +13,13 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 
 			function show(e){
 				group.check(this.value);
-				pop.align(this).show();
+				if(group.config && group.config.tipAlign === 'right'){
+					pop.align(this, group.config.tipAlign, function(me){
+						this.$div.css('top', '-=5');
+					}).show();
+				}else{
+					pop.align(this).show();
+				}
 			}
 			function hide(e){
 				pop.hide();

@@ -79,7 +79,7 @@ define(['jquery', 'kissy', 'ui/grid/grid'], function($, S, Grid){
 
 			//生成分页数据
 			if(this.enable_page){
-				this.makePager();
+				this.makePager2();
 			}
 
 			$(window).resize();

@@ -22,7 +22,9 @@
 			});
 			kkk.attach('#aa');
 
-			window.aa1 =  GroupView.init();
+			window.aa1 =  GroupView.init({
+				tipAlign: 'right'
+			});
 			aa1.onCheck(function(e, rs){
 				console.log('input check: ' + rs);
 			});

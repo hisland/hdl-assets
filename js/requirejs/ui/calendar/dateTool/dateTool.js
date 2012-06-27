@@ -137,6 +137,7 @@ define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
 	S.mix(DateSetting, {
 		reg_fixed: /(year|month|date|hour|minute|second)(e|\d*)/g,
 		isFixedString: function(str){
+			this.reg_fixed.lastIndex = 0;
 			return this.reg_fixed.test(str);
 		}
 	});
@@ -212,6 +213,7 @@ define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
 		},
 		refreshFixed: function(){
 			var i, v, o = {}, $ipt_list = $ipt_year.parent();
+			DateSetting.reg_fixed.lastIndex = 0;
 			this.fixed.replace(DateSetting.reg_fixed, function(a, b, c){
 				if(b && !o[b]){
 					o[b] = c;

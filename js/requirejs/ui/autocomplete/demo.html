@@ -11,7 +11,10 @@
 					require(['ui/autocomplete/main', 'demo'], function(Autocomplete){
 						window.kkk = Autocomplete.init({
 							url: 'data.php',
-							data: ''
+							data: '',
+							click: function(item){
+								console.log(item);
+							}
 						});
 						kkk.attach('#text');
 					});

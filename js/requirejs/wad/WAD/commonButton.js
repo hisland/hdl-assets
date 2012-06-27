@@ -105,10 +105,13 @@ define(['ui/tip'], function(Tip){
 									value : v[config.nameKey]
 								});
 							});
-							$.post(config.url, dt, function(rs) {
-								WAD.showMsgWithLevel(rs.messageText, rs.level);
-								config.grid.ajaxLoad();
-							}, 'json');
+							WAD.save({
+								url: config.url,
+								data: dt,
+								onSuccess: function(){
+									config.grid.ajaxLoad();
+								}
+							});
 						}
 					});
 				}
@@ -124,7 +127,9 @@ define(['ui/tip'], function(Tip){
 				grid: null,
 				icon: 'export',
 				text: '导出',
-				enable: null,
+				enable: function(rs){
+					return !!rs.grid.data.totals;
+				},
 				url: null,
 				postNameKey: 'exportForm.tableHead'
 			}, false);
@@ -137,9 +142,13 @@ define(['ui/tip'], function(Tip){
 					//需要grid的查询条件加上显示的列数据
 					var dt = S.clone(config.grid.param).concat(config.grid.getTableHead(config.postNameKey));
 					
-					$.post(config.url, dt, function(rs) {
-						WAD.showMsgWithLevel(rs.messageText, rs.level);
-					}, 'json');
+					WAD.save({
+						url: config.url,
+						data: dt,
+						onSuccess: function(){
+							config.grid.ajaxLoad();
+						}
+					});
 				}
 			});
 		}

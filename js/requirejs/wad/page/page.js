@@ -2,7 +2,7 @@
  * 
  */
 
-define(['jquery', 'kissy', 'ui/pop-manager', 'css!./page'], function($, S, PM){
+define(['jquery', 'kissy', 'ui/pop-manager', './msg', 'css!./page'], function($, S, PM, MSG){
 	return {
 		/**
 		 * 在右侧加载url, 网速慢多次使用只会加载最后一个
@@ -28,7 +28,7 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'css!./page'], function($, S, PM){
 			}
 
 			$(me).trigger('onBeforeLoad');
-			$('.main-in').html('加载中...');
+			$('.main-in').html(MSG.loading);
 
 			//清除以前的弹出层
 			PM.clean();

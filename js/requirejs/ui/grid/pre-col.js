@@ -98,7 +98,7 @@ define([ './msg' ], function(MSG) {
 		 * @default false
 		 * @type Boolean
 		 */
-		enable_title : false,
+		enable_title : true,
 		/**
 		 * 列单元格处理, function(row, col, grid){return 'text or jquery in cell';}
 		 * 

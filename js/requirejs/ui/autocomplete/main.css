@@ -4,7 +4,7 @@
 .autocomp-pop{position:relative;width:200px;background:#fff;overflow:hidden;}
 	.autocomp-loading{display:none;position:absolute;top:0;left:0;padding:0 2px;background:#eff4f8;}
 	.autocomp-as{height:176px;width:196px;padding:2px;overflow-x:hidden;overflow-y:auto;}
-		.autocomp-a{display:block;width:192px;height:18px;line-height:18px;padding:0 2px;overflow:hidden;color:#000;outline:none;white-space:nowrap;text-overflow:ellipsis;}
+		.autocomp-a{display:block;height:18px;line-height:18px;padding:0 2px;overflow:hidden;color:#000;outline:none;white-space:nowrap;text-overflow:ellipsis;}
 		.autocomp-a strong{color:#ff6600;font-weight:400;}
 		.autocomp-a:hover{text-decoration:none;background:#d9e4ed;}
 		.autocomp-as .hover{background:#d9e4ed;}

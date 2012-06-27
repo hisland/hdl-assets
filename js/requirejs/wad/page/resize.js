@@ -113,5 +113,10 @@ define(['jquery'], function($){
 				me.height(height + 1);
 			});
 		});
+
+		//单个ajax-tab计算高度
+		$('#main-in>div.reheight-onlytab').each(function(i, v){
+			$(this).find('div.ui-tab-con').height(mainHeight - 35);
+		});
 	}).resize();
 });

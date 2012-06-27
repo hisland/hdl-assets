@@ -3,6 +3,27 @@
  */
 
 define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
+	//每次ajax请求都要向后台传送当前所在页面的moduleName, 即菜单名
+	var moduleName;
+	$.ajaxSetup({
+		beforeSend: function(xhr, setting){
+			if(setting.type === 'GET'){
+				if(setting.url.indexOf('?') === -1){
+					setting.url += '?modelName=' + moduleName;
+				}else{
+					setting.url += '&modelName=' + moduleName;
+				}
+			}else if(setting.type === 'POST'){
+				if(setting.data){
+					setting.data += '&modelName=' + moduleName;
+				}else{
+					setting.data = 'modelName=' + moduleName;
+				}
+			}
+		}
+	});
+
+
 	function Menu(){
 		this.__init().__initEvent();
 	}
@@ -29,6 +50,10 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 
 			//菜单点击, 加载页面
 			this.$div.on('click', 'a', this, function(e){
+
+				//在load之前修改moduleName
+				moduleName = encodeURI($(this).text());
+
 				Page.loadUrl($(this).attr('href'));
 				e.data.setNow($(this).text());
 
@@ -125,6 +150,12 @@ define(['jquery', 'kissy', 'sf/page', 'css!./menu'], function($, S, Page){
 					if (v.id) {
 						buff.push(' id="', v.id, '"');
 					}
+					
+					// 权限前缀放在菜单上
+					if (v.privilegeCodes) {
+						buff.push(' privilegecodes="', v.privilegeCodes, '"');
+					}
+					
 					buff.push(' hidefocus="true">');
 					buff.push(v.text);
 					buff.push('</a>');

@@ -1,4 +1,4 @@
-define(['./rule'], function(Rule){
+define(['./rule', 'kissy'], function(Rule, S){
 
 	//默认正则都可为空,不能为空请加上must规则
 	Rule.add('must', /^.+$/, '此项必填');
@@ -23,6 +23,8 @@ define(['./rule'], function(Rule){
 
 	
 	// 数字验证
+	Rule.add('only-number', /^\d+$/, '只能是纯数字');
+
 	Rule.add('integer', /^-?\d+$/, '整数(含正负)');
 	Rule.add('integer-positive', /^[1-9]\d*$/, '正整数');
 	Rule.add('0-and-integer-positive', /^(\d|[1-9]\d+)$/, '0和正整数');
@@ -40,10 +42,10 @@ define(['./rule'], function(Rule){
 	Rule.add('hex', /^[0-9a-f]{6}$/, '16进制数, 0-9A-E不区分大小写');
 
 	
-	Rule.add('no-enter', /[\r\n]+/, '不能包含回车换行符', true);
-	Rule.add('no-blank', / +/, '不能包含空格', true);
-	Rule.add('no-quotes', /['"]+/, '不能包含单引号和双引号');
-	Rule.add('no-pre-suf-blank', /^[\s\u3000]+|[\s\u3000]+$/, '不能包含前后空格');
+	Rule.add('no-enter', /[\r\n]/, '不能包含回车换行符', true);
+	Rule.add('no-blank', / /, '不能包含空格', true);
+	Rule.add('no-quotes', /['"]/, '不能包含单引号和双引号', true);
+	Rule.add('no-pre-suf-blank', /^[\s\u3000]|[\s\u3000]$/, '不能包含前后空格', true);
 
 	
 	Rule.add('lang-zh', /^[\u4E00-\u9FA5\uF900-\uFA2D]+$/, '仅限中文');
@@ -71,8 +73,6 @@ define(['./rule'], function(Rule){
 	
 	Rule.add('system-username', /[\\/:*?\"<>|.;,]+/, '不能包括\\/:*?\"<>|.;,的任意字符', true);
 	Rule.add('system-password', /^$|^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/, '必须包含数字,大写字母与小写字母');
-
-	
 
 	// 此段保留在最底部,如果有JS国际化信息将进行覆盖
 	if(window.JS_I18N){

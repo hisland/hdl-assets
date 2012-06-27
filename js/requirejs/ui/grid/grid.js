@@ -599,8 +599,12 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			//按钮的禁用状态切换
 			if(S.isFunction(setting.enable)){
 				this.onSelect(function(e, items){
-					//返回true表示要禁用按钮
-					button.$div.toggleClass('hdlgrid-btn-dis', !setting.enable(items, button.$div));
+					//true: 启用, false:禁用
+					button.$div.toggleClass('hdlgrid-btn-dis', !setting.enable({
+						items: items,
+						button: button.$div,
+						grid: this
+					}));
 				});
 			}else if(S.isString(setting.enable)){
 				if(m = setting.enable.match(/([=<>])(\d+)/)){

@@ -2,7 +2,7 @@
  * 
  */
 
-define(['jquery', 'css!./config'], function($){
+define(['jquery', 'css!./main'], function($){
 	//代理折叠功能
 	$('div.config-line-toggle').live('click', function(e){
 		var icon = $(this).find('>span>span:first');
