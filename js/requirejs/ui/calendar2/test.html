@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['ui/grid', 'util', 'demo'], function(T, Util) {
+			$('.hdlgrid-wrap').each(function(i, v){
+				Util.trimBlank(v);
+			});
+		});
+	</script>
+	<style type="text/css">
+		body .hdlgrid-wrap{width:500px;height:400px;}
+		body .hdlgrid-title{display:block;}
+		body .hdlgrid-button{display:block;}
+		body .hdlgrid-pager{display:block;}
+	</style>
+</head>
+
+<body>
+
+<div class="hdlgrid-wrap theme-gray">
+	<div class="hdlgrid-title">
+		This is Grid title!
+	</div>
+	<div class="hdlgrid-button">
+		<a href="javascript:;" class="hdlgrid-btn">
+			<span class="hdlgrid-btn2">
+				<span class="hdlgrid-add">添加</span>
+			</span>
+		</a>
+		<span class="hdlgrid-btn-sep"></span>
+		<a href="javascript:;" class="hdlgrid-btn hdlgrid-btn-dis">
+			<span class="hdlgrid-btn2">
+				<span class="hdlgrid-add">添加</span>
+			</span>
+		</a>
+
+		<a href="javascript:;" class="hdlgrid-btn">
+			<span class="hdlgrid-btn2">
+				<span class="hdlgrid-edit">修改</span>
+			</span>
+		</a>
+		<a href="javascript:;" class="hdlgrid-btn hdlgrid-btn-dis">
+			<span class="hdlgrid-btn2">
+				<span class="hdlgrid-edit">修改</span>
+			</span>
+		</a>
+
+		<a href="javascript:;" class="hdlgrid-btn">
+			<span class="hdlgrid-btn2">
+				<span class="hdlgrid-del">删除</span>
+			</span>
+		</a>
+		<a href="javascript:;" class="hdlgrid-btn hdlgrid-btn-dis">
+			<span class="hdlgrid-btn2">
+				<span class="hdlgrid-del">删除</span>
+			</span>
+		</a>
+	</div>
+	<div class="hdlgrid-head">
+		<div class="hdlgrid-head-in">
+			<table>
+				<colgroup>
+					<col style="width:22px" />
+					<col style="width:100px" />
+					<col style="width:100px" />
+					<col style="width:100px" />
+					<col style="width:50px" />
+					<col style="width:50px" />
+					<col style="width:50px" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th><input type="checkbox" name="" value="" /></th>
+						<th class="td-right">列名4</th>
+						<th>列名5</th>
+						<th class="td-left">列名6</th>
+						<th>列名7</th>
+						<th>列名8</th>
+						<th>列名9</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+	<div class="hdlgrid-body">
+		<div class="hdlgrid-body-in">
+			<table>
+				<colgroup>
+					<col style="width:22px" />
+					<col style="width:100px" />
+					<col style="width:100px" />
+					<col style="width:100px" />
+					<col style="width:50px" />
+					<col style="width:50px" />
+					<col style="width:50px" />
+				</colgroup>
+				<tbody>
+					<tr class="tr-right">
+						<td class="td-center"><input type="checkbox" name="" value="" /></td>
+						<td>内容4</td>
+						<td>内容5</td>
+						<td class="td-left">内容6</td>
+						<td>内容7</td>
+						<td>内容8</td>
+						<td>内容9</td>
+					</tr>
+					<tr class="tr-center">
+						<td class="td-center"><input type="checkbox" name="" value="" /></td>
+						<td>内容4</td>
+						<td>内容5</td>
+						<td>内容6</td>
+						<td>内容7</td>
+						<td>内容8</td>
+						<td>内容9</td>
+					</tr>
+					<tr>
+						<td class="td-center"><input type="checkbox" name="" value="" /></td>
+						<td>内容4</td>
+						<td>内容5</td>
+						<td>内容6</td>
+						<td>内容7</td>
+						<td>内容8</td>
+						<td>内容9</td>
+					</tr>
+					<tr>
+						<td class="td-center"><input type="checkbox" name="" value="" /></td>
+						<td>内容4</td>
+						<td>内容5</td>
+						<td>内容6</td>
+						<td>内容7</td>
+						<td>内容8</td>
+						<td>内容9</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="hdlgrid-pager">
+		<a class="hdlgrid-prev" href="javascript:;">上一页</a>
+		<a class="hdlgrid-item" href="javascript:;">1</a>
+		<a class="hdlgrid-item" href="javascript:;">2</a>
+		<a class="hdlgrid-item hdlgrid-hover" href="javascript:;">3</a>
+		<span class="hdlgrid-item">...</span>
+		<a class="hdlgrid-item" href="javascript:;">18</a>
+		<a class="hdlgrid-item" href="javascript:;">19</a>
+		<a class="hdlgrid-item" href="javascript:;">20</a>
+		<a class="hdlgrid-next" href="javascript:;">下一页</a>
+	</div>
+	<div class="hdlgrid-resizer">
+		<div class="hdlgrid-resizer-i"></div>
+		<div class="hdlgrid-resizer-i"></div>
+		<div class="hdlgrid-resizer-i"></div>
+	</div>
+	<div class="hdlgrid-toggle-div">
+		<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="">列名列名列名</a>
+		<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="">列名列名列名</a>
+		<a class="hdlgrid-toggle-item" href="javascript:;" data-item-idx="">列名列名列名</a>
+	</div>
+	<div class="hdlgrid-toggle-btn"></div>
+	<div class="hdlgrid-mask"></div>
+	<div class="hdlgrid-nodata">暂无数据,根据内容填充后的大小居中显示</div>
+	<div class="hdlgrid-loading"></div>
+</div>
+
+</body>
+</html>
