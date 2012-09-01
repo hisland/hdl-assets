@@ -4,25 +4,17 @@
 
 define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 	//每次ajax请求都要向后台传送当前所在页面的moduleName, 即菜单名
-	var moduleName;
 	$.ajaxSetup({
 		beforeSend: function(xhr, setting){
-			if(setting.type === 'GET'){
+			if(setting.dataType === 'json'){
 				if(setting.url.indexOf('?') === -1){
-					setting.url += '?moduleName=' + moduleName;
+					setting.url += '?resultType=json';
 				}else{
-					setting.url += '&moduleName=' + moduleName;
-				}
-			}else if(setting.type === 'POST'){
-				if(setting.data){
-					setting.data += '&moduleName=' + moduleName;
-				}else{
-					setting.data = 'moduleName=' + moduleName;
+					setting.url += '&resultType=json';
 				}
 			}
 		}
 	});
-
 
 	function Menu(){
 		this.__init().__initEvent();
@@ -58,9 +50,9 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 
 			//菜单点击, 加载页面
 			this.$div.on('click', 'a', this, function(e){
-
-				//在load之前修改moduleName
-				moduleName = encodeURI($(this).text());
+				if($("object#index").length){  //判断系统拓扑flex
+					$("#index")[0] && $("#index")[0].exitApp && $("#index")[0].exitApp(); //注销
+				}
 
 				Page.loadUrl(this.href);
 
@@ -153,6 +145,7 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 					buff.push('<a class="menu-item" href="' + v.url + '" hidefocus="true" ');
 					if(v.prefix){
 						buff.push('id="menu-' + v.prefix + '"');
+						buff.push(' prefix="' + v.prefix + '"');
 					}else{
 						buff.push('id="' + v.id + '"');
 					}
@@ -185,6 +178,12 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 		 */
 		clickItem: function(selector){
 			var now_link =$(selector);
+
+			if(!now_link.length){
+				alert('the menu item: ' + selector + ' does not exist!');
+				return this;
+			}
+
 			now_link.click();
 
 			location.href = now_link.attr('href');

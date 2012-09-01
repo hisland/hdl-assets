@@ -26,6 +26,7 @@ define(['jquery', 'kissy', 'ui/swfobject', 'ui/tip'], function($, S, SWFObject, 
 				this.div.data('mark', mark);
 				this.div.addClass('upload-ok');
 			}
+			this.div.children(':first').css('visibility', 'hidden');
 		},
 		funcError: function(){
 			Tip.error('导入文件选择框已经打开或出现异常，请刷新页面重试！');

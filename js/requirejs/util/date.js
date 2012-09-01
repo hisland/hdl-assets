@@ -57,7 +57,7 @@ define(['kissy'], function(S){
 		 * @return true|false
 		 */
 		isValidDate: function(obj){
-			if(S.isDate(obj) && !/^NaN$|^Invalid Date$/.test(this.toString())){
+			if(S.isDate(obj) && !/^NaN$|^Invalid Date$/i.test(obj.toString())){
 				return true;
 			}else{
 				return false;

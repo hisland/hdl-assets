@@ -46,7 +46,110 @@
 
  * </code></pre>
  */
-define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', './pre-data', './button', 'util', './import-button', 'css!./grid'], function($, S, MSG, Setting, Col, Row, PreData, Button, Util, importButton){
+define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', './pre-data', './button', 'util', './import-button', 'ui/popup', 'ui/tip', 'css!./grid'], function($, S, MSG, Setting, Col, Row, PreData, Button, Util, importButton,Popup, Tip){
+	var pop = Popup.init();
+	//标准浏览器鼠标穿透
+	pop.setWidth(400);
+	/**
+	 * docunment方法写在init外面 避免多次注册
+	 * 
+	 * */
+	//点击提示详细
+	$(document).on('click', this, function(e){
+		if($(e.target).closest("tr").parents(".hdlgrid-body-in").length){
+			var grid = e.data,thistr;
+			
+			if($(e.target).is("a") || $(e.target).is("input") || $(e.target).is("tr")){
+				pop.hide();
+			}else{
+				//生成目标tr
+				if($(e.target).is("tr")){
+					thistr = $(e.target);
+				}else{
+					thistr = $(e.target).parents("tr");
+				}
+				
+				//生成表头列表
+				var thead = thistr.parents(".hdlgrid-body").prev().find("th:visible"),
+					detail = $("<div class='detail_pop_div'></div>"),
+					detinfo ="";
+				$(thead).each(function(){
+					if(!$(this).find("a").length && !$(this).find("input").length){
+						detinfo+='<span class="detail_pop_span"><b class="detail_pop_b">'+$(this).html()+':</b><strong class="detail_pop_strong"></strong></span>';
+					}else{
+						detinfo+='<span class="detail_pop_span" style="display:none;"><b class="detail_pop_b">'+$(this).html()+':</b><strong class="detail_pop_strong"></strong></span>';
+					}
+				});
+				detinfo+= '</div>';
+				detail.html(detinfo);
+				thistr.find("td:visible").each(function(k,v){
+					if(!$(this).find("a").length && !$(this).find("input").length){
+						detail.find("span.detail_pop_span").eq(k).find("strong").html(detinfo=$(this).find("div").html()==""?'&nbsp;':$(this).html());
+					}else{
+						detail.find("span.detail_pop_span").eq(k).hide();
+					}
+				});
+				var visibleflag = false;
+				detail.find(".detail_pop_span").each(function(){
+					if($(this).css("display")!="none"){
+						visibleflag=true;
+					}
+				});
+				if(visibleflag){
+					pop.$content.empty().append(detail);
+					
+					if(thistr.is(grid.poptarget)){
+						if(pop.$div.is(":hidden")){
+							pop.align(thistr, function(me){
+								this.$div.css({'left':e.pageX-13,'top':eval(e.pageY+7)});
+								if(pop.$div.find(".popup-arr-d").length){ //出现了下箭头
+									if(/*@cc_on!@*/!1){ //ie
+										this.$div.css("top",e.pageY-this.$div.height()-4);
+									}else{
+										this.$div.css("top",e.pageY-this.$div.height()-18);
+									}
+								}
+							}).show();
+						}else{
+							pop.hide();
+						}
+					}else{
+						grid.poptarget=thistr;
+						pop.align(thistr, function(me){
+							this.$div.css({'left':e.pageX-13,'top':eval(e.pageY+7)});
+							if(pop.$div.find(".popup-arr-d").length){  //出现了下箭头
+								if(/*@cc_on!@*/!1){ //ie
+									this.$div.css("top",e.pageY-this.$div.height()-4);
+								}else{
+									this.$div.css("top",e.pageY-this.$div.height()-18);
+								}
+							}
+						}).show();
+					}
+				}
+			}
+		}else{
+			pop.hide();
+		}
+	});
+	
+	//每页条数操作
+	$(document).on('click', '.pager2-num-now', function(e){
+//		$(this).next().show().one('outerclick', function(e, reale) {
+//			$(this).hide();
+//		});
+		$(this).next().show();
+	});
+	
+	//每页条数隐藏
+	$(document).on('click', this, function(e){
+		if($(e.target).is("a") && $(e.target).hasClass("pager2-num-now")){
+			
+		}else{
+			$(".pager2-num-pop").hide();
+		}
+	});
+	
 	/**
 	 * @class
 	 * @memberOf ui
@@ -117,6 +220,11 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			//默认配置
 			S.mix(this, Setting);
 			S.mix(this, {
+				togbtnclick : false,
+				hiddentd: [],
+				poptarget : "",
+				savewidth : 0,  //全局table宽度变量
+				widtharray : [],
 				data: S.clone(PreData)
 			});
 
@@ -124,6 +232,10 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			S.mix(this, setting);
 
 			this.setSize(this.width, this.height);
+
+			if(this.enable_button){
+				this.$button.css('display', 'block');
+			}
 
 			return this;
 		},
@@ -141,9 +253,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			//全选checkbox
 			this.$div.on('change', 'input.check-all', this, function(e){
 				if(this.checked){
-					e.data.$tbody.find('input.check-one').attr('checked', true).parent().parent().css('background-color', e.data.select_bg);
+					e.data.$tbody.find('input.check-one').attr('checked', true).parent().parent().addClass(e.data.select_bg);
 				}else{
-					e.data.$tbody.find('input.check-one').attr('checked', false).parent().parent().css('background-color', '');
+					e.data.$tbody.find('input.check-one').attr('checked', false).parent().parent().removeClass(e.data.select_bg);
 				}
 				//触发内部事件
 				e.data.onSelect();
@@ -156,9 +268,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 					$(this).parent().parent().siblings().find('input:checked').attr('checked', false).parent().parent().css('background-color', '');
 					//修正背景色
 					if(this.checked){
-						$(this).parent().parent().css('background-color', e.data.select_bg);
+						$(this).parent().parent().addClass(e.data.select_bg);
 					}else{
-						$(this).parent().parent().css('background-color', '');
+						$(this).parent().parent().removeClass(e.data.select_bg);
 					}
 				}else{
 					//修正全选选中状态
@@ -169,15 +281,35 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 					}
 					//修正背景色
 					if(this.checked){
-						$(this).parent().parent().css('background-color', e.data.select_bg);
+						$(this).parent().parent().addClass(e.data.select_bg);
 					}else{
-						$(this).parent().parent().css('background-color', '');
+						$(this).parent().parent().removeClass(e.data.select_bg);
 					}
 				}
 				//触发内部事件
 				e.data.onSelect();
 			});
 
+			//点击一行tr
+			this.$tbody.on('click', 'tr', this, function(e){
+				var grid = e.data;
+				if(!$(e.target).is("a") && !$(e.target).is("input") && !$(e.target).is("tr")){
+					$(this).siblings().removeClass(grid.tr_select_bg);
+					if($(this).hasClass(grid.tr_select_bg)){
+						$(this).removeClass(grid.tr_select_bg);
+					}else{
+						$(this).addClass(grid.tr_select_bg);
+					}
+				}else{
+					grid.$tbody.find("tr").removeClass(grid.tr_select_bg);
+				}
+			});
+			
+			this.$tbody.on('outerclick', this, function(e){
+				var grid = e.data;
+				$(this).find("tr").removeClass(grid.tr_select_bg);
+			});
+			
 			//点击分页区域
 			this.$pager.on('click', 'a.hdlgrid-item:not(.hdlgrid-hover)', this, function(e){
 				var grid = e.data;
@@ -191,20 +323,40 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				var width = $(this).outerWidth();
 				var height = $(this).outerHeight();
 				var left = $(this).position().left;
+				var scrollleft = grid.$body.scrollLeft();
+				var bodywidth = grid.$body.outerWidth();
+				var btnwidth = grid.$togglebtn.outerWidth();
+				var divwidth = grid.$togglediv.outerWidth();
 				var top = $(this).parent().parent().parent().parent().position().top;
 
 				if(grid.enable_checkbox && $(this).index() === 0){
 					grid.$togglebtn.hide();
 					return ;
 				}
-
+				
+				var btnleft = left + width - scrollleft - 8;
+				var divleft = left + width - scrollleft - 8;
+				
+				if(btnleft+btnwidth >= bodywidth){ //$togglebtn超出边框，重新定位
+					btnleft = bodywidth - btnwidth;
+				}
+				
+				if(divleft+divwidth >= bodywidth){//$togglediv超出边框，重新定位
+					if(btnleft+btnwidth >= bodywidth){
+						divleft = bodywidth - divwidth;
+					}else{
+						divleft -= divwidth - btnwidth;
+					}
+				}
+				
+				
 				grid.$togglebtn.css({
-					left: left + width - 8,
+					left: btnleft,
 					top: top
 				});
 
 				grid.$togglediv.css({
-					left: left + width - 8,
+					left: divleft,
 					top: top + height
 				});
 			});
@@ -214,8 +366,10 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			this.$thead.add(this.$togglebtn).on({
 				mouseenter: function(e){
 					clearTimeout(later);
-					if(grid.enable_toggle){
-						grid.$togglebtn.show();
+					if(grid.enable_toggle && $(e.target).closest("th").length){
+						if((grid.enable_checkbox && $(e.target).closest("th").index() != 0) || !grid.enable_checkbox){
+							grid.$togglebtn.show();
+						}
 					}
 				},
 				mouseleave: function(e){
@@ -235,37 +389,81 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				}
 
 				grid.$togglediv.show();
-				grid.$togglediv.one('outerclick', function(e, reale){
-					grid.$togglediv.hide();
-				});
+				grid.togbtnclick = true;
 			});
+			
+			this.$togglediv.on('outerclick', this, function(e, reale){
+				var grid = e.data;
+				if(grid.togbtnclick){
+					grid.togbtnclick = false;
+				}else{
+					grid.$togglediv.hide();
+				}
+			});
+			
 			//切换列显示操作
 			this.$togglediv.on('click', 'a', this, function(e){
-				var grid = e.data, idx = $(this).attr('data-item-idx');
+				var grid = e.data, idx = $(this).attr('data-item-idx'), count = $(this).parent().find("a[class='hdlgrid-toggle-item']").length, mincol = grid.minColToggle+1;
 				if(grid.enable_checkbox){
 					idx -= -1;
 				}
-
-				if($(this).is('.hdlgrid-toggle-off')){
-					//grid.$colgrouphead.find('col:eq(' + idx + ')').show();
-					//grid.$colgroupbody.find('col:eq(' + idx + ')').show();
+				var colwidth = grid.widtharray[idx];
+				if($(this).is('.hdlgrid-toggle-off')){ //增加行
+					grid.colModel[idx-1].hide = false;
+					grid.$thead.parent("table").css("width",grid.savewidth-0+colwidth+"px");
+					grid.$tbody.parent("table").css("width",grid.savewidth-0+colwidth+"px");
+					grid.savewidth = grid.savewidth-0+colwidth;
+					
+					if(($.browser.msie&&$.browser.version>7)||!$.browser.msie) {
+						grid.$colgrouphead.find('col:eq(' + idx + ')').show();
+						grid.$colgroupbody.find('col:eq(' + idx + ')').show();
+					}else{
+						
+					}
+					
 					grid.$thead.find('tr').find('th:eq(' + idx + ')').show();
 					grid.$tbody.find('tr').find('td:eq(' + idx + ')').show();
-				}else{
-					//grid.$colgrouphead.find('col:eq(' + idx + ')').hide();
-					//grid.$colgroupbody.find('col:eq(' + idx + ')').hide();
-					grid.$thead.find('tr').find('th:eq(' + idx + ')').hide();
-					grid.$tbody.find('tr').find('td:eq(' + idx + ')').hide();
+					$(this).removeClass('hdlgrid-toggle-off');
+					$(this).parent().find("a").removeClass("hdlgrid-toggle-lock");
+					
+					grid.$body.prev().find('table').css('left', -grid.$body.scrollLeft());
+					
+				}else{  //删除行
+					grid.colModel[idx-1].hide = true;
+					if(count>=mincol){	
+						grid.$thead.parent("table").css("width",grid.savewidth-colwidth+"px");
+						grid.$tbody.parent("table").css("width",grid.savewidth-colwidth+"px");
+						grid.savewidth = grid.savewidth-colwidth;
+						
+						if(($.browser.msie&&$.browser.version>7)||!$.browser.msie) {
+							grid.$colgrouphead.find('col:eq(' + idx + ')').hide();
+							grid.$colgroupbody.find('col:eq(' + idx + ')').hide();
+						}else{
+							grid.$colgrouphead.find('col:eq(' + idx + ')').remove();
+							grid.$colgroupbody.find('col:eq(' + idx + ')').remove();
+						}
+						
+						grid.$thead.find('tr').find('th:eq(' + idx + ')').hide();
+						grid.$tbody.find('tr').find('td:eq(' + idx + ')').hide();
+						$(this).addClass('hdlgrid-toggle-off');
+						
+						grid.$body.prev().find('table').css('left', -grid.$body.scrollLeft());
+					}
+					if(count==mincol){
+						$(this).parent().find("a[class='hdlgrid-toggle-item']").addClass("hdlgrid-toggle-lock");
+					}
 				}
-				$(this).toggleClass('hdlgrid-toggle-off');
+				
+				//记录隐藏的td的index
+				grid.hiddentd = [];
+				grid.$tbody.find("tr:eq(0)").find("td").each(function(k,v){
+					if($(this).is(":hidden")){
+						grid.hiddentd.push(k);
+					}
+				});
+				
 			});
 
-			//每页条数操作
-			$(document).on('click', '.pager2-num-now', function(e){
-				$(this).next().show().one('outerclick', function(e, reale) {
-					$(this).hide();
-				});
-			});
 			this.$pager.on('click', '.pager2-num-pop a', this, function(e){
 				var grid = e.data;
 				grid.data.perPageNum = $(this).text()-0;
@@ -323,7 +521,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				}
 				this.$colgrouphead.append('<col style="width:24px;" />');
 				this.$colgroupbody.append('<col style="width:24px;" />');
-
+				this.widtharray.push(24);
 				total_width = 24;
 			}
 
@@ -339,6 +537,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 //			}
 
 			this.$div.find('table').width(total_width);
+			this.savewidth = total_width;
 			return this;
 		},
 		/**
@@ -390,7 +589,8 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			//增加col标签
 			this.$colgrouphead.append('<col style="width:' + col_setting.width + 'px;" />');
 			this.$colgroupbody.append('<col style="width:' + col_setting.width + 'px;" />');
-
+			this.widtharray.push(col_setting.width);
+			
 			return this;
 		},
 		/**
@@ -415,8 +615,12 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			}
 
 			//读取数据出错并返回
-			if(!data.rows){
-				this.noData(MSG.error);
+			if(data.level && data.messageText){
+				if(data.level == 5){
+					this.noData(MSG.error); //读取数据出错
+				}else{
+					this.noData(data.messageText);
+				}
 				this.$nodata.css('top', this.$body.position().top + this.$body.height()/2);
 				//填充空行使滚动条出现
 				this.__blankLine();
@@ -440,8 +644,8 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				//生成表格填充到tbody
 				S.each(data.rows, function(row, i){
 					//bg是对行的背景色处理
-					var bg = grid.__getRowBg(i),
-						tr = $('<tr style="background:' + bg + ';"></tr>');
+					var bgClass = grid.__getRowBg(i),
+						tr = $('<tr class="'+ bgClass +'"></tr>');
 
 					//使用checkbox列
 					if(grid.enable_checkbox){
@@ -454,7 +658,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 					}
 
 					S.each(grid.colModel, function(col, j){
-						var val, td;
+						var val, td, div=$('<div class="td-div"></div>');
 
 						//单元格对齐方式
 						if(col.align !== 'left'){
@@ -462,7 +666,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 						}else{
 							td = $('<td></td>');
 						}
-
+						
 						//单元格预处理
 						if(col.process){
 							val = col.process(row, col, td, tr);
@@ -480,11 +684,19 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 						}
 
 						//NOTICE:不能合并,因为html方法传不传参返回值不一样
-						td.html(val);
+						
+						div.html(val);
+						td.append(div);
 						tr.append(td);
 					});
 
 					tr[0].rawData = row;
+					
+					//隐藏当行的td
+					$(grid.hiddentd).each(function(k,v){
+						tr.find("td").eq(v).hide();
+					});
+					
 					grid.$tbody.append(tr);
 				});
 			}
@@ -494,7 +706,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 			//生成分页数据
 			if(this.enable_page){
-				this.makePager2();
+				this.makePager2(data);
 			}
 
 			//触发修正高度操作
@@ -525,7 +737,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 * @return this
 		 */
 		loading: function(){
-			this.$mask.add(this.$loading).css('display', 'block');
+			if(this.enable_loading_mask){
+				this.$mask.add(this.$loading).css('display', 'block');
+			}
 			return this;
 		},
 		/**
@@ -550,6 +764,8 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 * @return this
 		 */
 		ajaxLoad: function(fn){
+			pop.hide();//ajaxLoad加载数据时隐藏popup
+			
 			var grid = this, param = S.clone(grid.param) || [];
 
 			//加入分页参数
@@ -568,7 +784,6 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			grid.loading();
 			$.post(grid.url, param, function(data){
 				grid.setData(data);
-
 				S.isFunction(fn) && fn.call(grid);
 				grid.loaded();
 			}, 'json');
@@ -632,11 +847,12 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				//非禁用状态下点击才执行回调
 				if(!$(this).is('.hdlgrid-btn-dis')){
 					setting.click.call(this, e, e.data.getChecked());
+					$(this).focus().blur();  //点击后失去焦点，避免点击回车时，再次弹出层
 				}
 			});
 
 			//按钮区域显示出来
-			this.$button.append(button.$div).css('display', 'block');
+			this.$button.append(button.$div);
 			return this;
 		},
 		/**
@@ -692,7 +908,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			button.$div.css('position', 'relative').append('<span id="' + flash_setting.flashid + '"></span>');
 
 			//按钮区域显示出来
-			this.$button.append(button.$div).css('display', 'block');
+			this.$button.append(button.$div);
 
 			//TODO: 初始化导入按钮的flash
 			setTimeout(function(){
@@ -790,12 +1006,35 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 * @param 
 		 * @return 
 		 */
-		makePager2: function(){
+		makePager2: function(data){
+			var pager2_first,pager2_prev,pager2_next,pager2_last;
+			if(data.currPage == data.allPage && data.allPage > 1){ // 有多页且最后一页
+				pager2_first = "pager2-first";
+				pager2_prev = "pager2-prev";
+				pager2_next = "pager2-next-dis";
+				pager2_last = "pager2-last-dis";
+			}else if(data.currPage == 1 && data.allPage > 1){ //有多页且第一页
+				pager2_first = "pager2-first-dis";
+				pager2_prev = "pager2-prev-dis";
+				pager2_next = "pager2-next";
+				pager2_last = "pager2-last";
+			}else if(data.allPage <=1){ //只有一页或者没数据
+				pager2_first = "pager2-first-dis";
+				pager2_prev = "pager2-prev-dis";
+				pager2_next = "pager2-next-dis";
+				pager2_last = "pager2-last-dis";
+			}else{
+				pager2_first = "pager2-first";
+				pager2_prev = "pager2-prev";
+				pager2_next = "pager2-next";
+				pager2_last = "pager2-last";
+			}
+			
 			var str = '<div class="pager2-left">' 
 				+ MSG.page_info 
 				+ '</div><div class="pager2-right"><span class="pager2-num"><a href="javascript:;" class="pager2-num-now">{perPageNum}</a><div class="pager2-num-pop">' 
 				+ this.__getPerPageStr() 
-				+ '</div></span><a href="javascript:;" class="pager2-first"></a><a href="javascript:;" class="pager2-prev"></a><input class="pager2-now" type="text" name="" value="{currPage}" /><span>/{allPage}</span><a href="javascript:;" class="pager2-next"></a><a href="javascript:;" class="pager2-last"></a></div>';
+				+ '</div></span><a href="javascript:;" class="'+pager2_first+'"></a><a href="javascript:;" class="'+pager2_prev+'"></a><input class="pager2-now" type="text" name="" value="{currPage}" /><span>/{allPage}</span><a href="javascript:;" class="'+pager2_next+'"></a><a href="javascript:;" class="'+pager2_last+'"></a></div>';
 			this.$pager.html(S.substitute(str, this.data));
 			return this;
 		},
@@ -816,7 +1055,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 */
 		getTableHead: function(postName){
 			return $.map(this.colModel, function(v){
-				return v.excludeHead ? null : {
+				return v.excludeHead ? null : v.hide ? null : {
 					name: postName,
 					value: v.display
 				};
@@ -832,7 +1071,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				this.data.currPage = n;
 				this.ajaxLoad();
 			}else{
-				alert(MSG.page_error);
+				Tip.error(MSG.page_error);
 			}
 			return this;
 		},

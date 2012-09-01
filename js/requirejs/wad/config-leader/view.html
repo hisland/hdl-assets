@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../../require.js"></script>
+	<script type="text/javascript" src="../../config.js"></script>
+	<script type="text/javascript">
+		//使用data-main时会自动设置baseUrl为main文件的路径
+		require.config({
+			baseUrl: '../../'
+		});
+
+		require(['css!wad/config-leader/main'], function() {
+			
+		});
+	</script>
+</head>
+<body style="margin:100px 0 0 205px;">
+	<div class="config-leader-wrap">
+		<div class="leader-tip">
+			<ul>
+				<li>
+					<span class="unconfig">未配置</span>
+					<span class="isconfig">已配置</span>
+				</li>
+				<li>1、2必须配置， 3、4、5必须按顺序配置， 1、2、3、4、5配置完成后， 才能配置6。</li>
+			</ul>
+		</div>
+		<div class="leader-content">
+			<div class="content-line"></div>
+			<div class="content-block">
+				<div class="block block-1" style="margin-right:26px;">
+					<div class="number-pink">1</div>
+					<div class="title">系统模块管理</div>
+					<div class="message">配置系统管理模块、消息发送模 块、任务处理模块、业务接入模 块和SoapProxy模块</div>
+					<div class="btn">
+						<a href="javascript:;">进入</a>
+						<a href="javascript:;">添加</a>
+					</div>
+				</div>
+				<div class="block block-1" style="margin-right:26px;">
+					<div class="number-green">2</div>
+					<div class="title">模块连接端口配置</div>
+					<div class="message">对系统各子模块通信端口的初始 化配置 </div>
+					<div class="btn">
+						<a href="javascript:;">进入</a>
+						<a href="javascript:;">配置</a>
+					</div>
+				</div>
+				<div class="block block-2">
+					<div class="number-pink">3</div>
+					<div class="title">网元管理</div>
+					<div class="message">配置和管理网元信息</div>
+					<div class="btn">
+						<a href="javascript:;">进入</a>
+						<a href="javascript:;">配置</a>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+		<div class="leader-content">
+			<div class="content-line"></div>
+			<div class="content-block">
+				<div class="block block-1" style="margin-right:26px;">
+					<div class="number-pink">4</div>
+					<div class="title">发送接口管理</div>
+					<div class="message">配置和管理接口信息</div>
+					<div class="btn">
+						<a href="javascript:;">进入</a>
+						<a href="javascript:;">添加</a>
+					</div>
+				</div>
+				<div class="block block-1" style="margin-right:26px;">
+					<div class="number-pink">5</div>
+					<div class="title">消息路由</div>
+					<div class="message">配置和管理接口信息</div>
+					<div class="btn">
+						<a href="javascript:;">进入</a>
+						<a href="javascript:;">添加</a>
+					</div>
+				</div>
+				<div class="block block-3">
+					<div class="number-pink">6</div>
+					<div class="title">任务创建</div>
+					<div class="message">消息群发任务创建功能，通过直 观易用的任务创建页面，提供任 务信息的编辑能力</div>
+					<div class="btn">
+						<a href="javascript:;">创建新任务</a>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -10,6 +10,7 @@ define([
 		'./date',
 		'./later-fn',
 		'./math',
+		'./iframeDownload',
 		'./sbc-dbc',
 		'./string',
 		'./test',

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript">
+		var require = {
+				baseUrl: '../../',
+				deps: ['config'],
+				callback: function() {
+					require(['jquery', 'kissy', 'wad/tool-makeHelpMenu/main'], function($, S, T){
+						window.TT = T;
+						T.readData(function(){
+							S.each(T.mapName2File, function(v, i, o){
+								$(T.menuXML).find('item[remark=' + i + ']').attr('helpUrl', 'bms/hlp/' + v + '.html');
+							});
+							$('#result').val(T.makeMenuXML());
+
+							console.log('没有添加helpUrl的item节点:');
+							console.log($(T.menuXML).find('item').not('[helpUrl]').map(function(i, v){
+								return $(v).attr('remark');
+							}));
+						});
+					});
+				}
+			};
+	</script>
+	<script type="text/javascript" src="../../require.js"></script>
+</head>
+<body>
+	<textarea id="result" style="width:1000px;height:500px;font-size:12px;"></textarea>
+</body>
+</html>

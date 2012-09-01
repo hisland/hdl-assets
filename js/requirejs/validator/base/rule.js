@@ -56,7 +56,7 @@ define(['kissy'], function(S){
 		 * @param str 要验证的字符串
 		 */
 		test: function(name, str){
-			if(S.isString(name) && str){
+			if(S.isString(name) && str !== undefined){
 				var item = items[__PREFIX + name], rs = false;
 
 				if(S.isFunction(item.fn)){

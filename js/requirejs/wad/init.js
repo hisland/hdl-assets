@@ -52,8 +52,11 @@ define(function(require, exports, module){
 	window.IPList = require('ui/iplists/main');
 
 	//模拟下拉框
-	//window.MoliSelect = require('ui/moni-select');
+	window.MoniSelect = require('ui/moniSelect/main');
 
 	//自动完成
 	window.Autocomplete = require('ui/autocomplete/main');
+	
+	//模糊查询匹配
+	window.FuzzySearch = require('ui/fuzzySearch/main');
 });

@@ -1,6 +1,6 @@
-define(['jquery', 'kissy'], function($, S){
+define(['jquery', 'kissy', './config'], function($, S, Config){
 	function Calendar(config){
-		
+		this.config = S.mix(config, Config);
 	}
 
 	S.augment(Calendar, {
@@ -18,28 +18,9 @@ define(['jquery', 'kissy'], function($, S){
 		__initEvent: function(){
 			
 		},
-		setWeekStart: function(n){
-			n = parseInt(n);
-			if(n > 0 && n < 8){
-				this.__week_start = n;
-			}
+		setConfig: function(config){
+			this.config = config;
 			return this;
-		},
-		attach: function(selector){
-			return this;
-		},
-		detach: function(){
-			return this;
-		},
-		on: function(name, fn){
-			return this;
-		},
-		set: function(name, value){
-			$(this).data(name, value);
-			return this;
-		},
-		get: function(name){
-			return $(this).data(name);
 		},
 		show: function(){
 			return this;
@@ -61,6 +42,33 @@ define(['jquery', 'kissy'], function($, S){
 		},
 		refreshDripList: function(){
 			return this;
+		}
+	});
+
+	S.augment(Calendar, {
+		setWeekStart: function(n){
+			n = parseInt(n);
+			if(n > 0 && n < 8){
+				this.__week_start = n;
+			}
+			return this;
+		},
+		attach: function(selector){
+			return this;
+		},
+		detach: function(){
+			return this;
+		},
+		on: function(name, fn){
+			$(this).on(name, fn);
+			return this;
+		},
+		set: function(name, value){
+			$(this).data(name, value);
+			return this;
+		},
+		get: function(name){
+			return $(this).data(name);
 		}
 	});
 

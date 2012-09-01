@@ -32,18 +32,31 @@ define(['jquery', 'kissy', 'css!./tab'], function($, S){
 
 			this.$nav.on('click', 'li', this, function(e){
 				var idx = $(this).index(),
-					href = $(this).find('a').attr('href');
+					href = $(this).find('a').attr('href'),
+					me = this;
 
 				//当前已经显示了且没有按住ctrl键则直接退出
 				if($(this).is('.ui-tab-hover') && !e.ctrlKey){
 					return ;
 				}
 
-				//修正当前tab状态
-				$(this).addClass('ui-tab-hover').siblings('.ui-tab-hover').removeClass('ui-tab-hover');
+				function load(){
+					//修正当前tab状态
+					$(me).addClass('ui-tab-hover').siblings('.ui-tab-hover').removeClass('ui-tab-hover');
 
-				//调用内部函数进行加载
-				e.data.__load(href);
+					//调用内部函数进行加载
+					e.data.__load(href);
+				}
+
+				if(!e.isTrigger && e.data.confirmText){
+					Tip.confirm(e.data.confirmText, function(rs){
+						if(rs){
+							load();
+						}
+					});
+				}else{
+					load();
+				}
 			});
 			return this;
 		},
@@ -122,6 +135,15 @@ define(['jquery', 'kissy', 'css!./tab'], function($, S){
 		 */
 		setHeight: function(n){
 			this.$div.find('div.ui-tab-con').height(n);
+			return this;
+		},
+		/**
+		 * 设置切换时的提示文字
+		 * @param str String
+		 * @return this
+		 */
+		setConfirmText: function(str){
+			this.confirmText = str;
 			return this;
 		}
 	});

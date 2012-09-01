@@ -58,7 +58,7 @@ define([ './msg' ], function(MSG) {
 		 * @default false
 		 * @type Boolean
 		 */
-		enable_button : false,
+		enable_button : true,
 		/**
 		 * 显示弹出的详细信息
 		 * 
@@ -66,6 +66,13 @@ define([ './msg' ], function(MSG) {
 		 * @type Boolean
 		 */
 		enable_pop_detail : false,
+		/**
+		 * 显示loading时的表格遮罩
+		 * 
+		 * @default true
+		 * @type Boolean
+		 */
+		enable_loading_mask : true,
 		/**
 		 * 表格宽度
 		 * 
@@ -95,19 +102,12 @@ define([ './msg' ], function(MSG) {
 		 */
 		pageTheme : 'default',
 		/**
-		 * [0]为[1]的索引, [1]为可选择的页数量值
-		 * 
-		 * @default undefined
-		 * @type Array
-		 */
-		num_per_page : [ 2, [ 5, 10, 15, 20 ] ],
-		/**
 		 * 可选的每页条数
 		 * 
-		 * @default [ 5, 10, 15, 20 ]
+		 * @default [300, 240, 160, 120, 80, 40, 20, 15, 10, 5]
 		 * @type Array
 		 */
-		perPageNums : [ 5, 10, 15, 20 ],
+		perPageNums : [300, 240, 160, 120, 80, 40, 20, 15, 10, 5],
 		/**
 		 * 获取数据的地址
 		 * 
@@ -158,17 +158,25 @@ define([ './msg' ], function(MSG) {
 		/**
 		 * 间隔背景色设置
 		 * 
-		 * @default [ '#fff', '#f3f3f3' ]
+		 * @default [ 'orow', 'erow' ]
 		 * @type Array
 		 */
-		row_bgs : [ '#fff', '#f3f3f3' ],
+		row_bgs : [ 'orow', 'erow' ],
+		
 		/**
-		 * 选中行的背景色
+		 * checkbox选中时行的背景色
 		 * 
-		 * @default '#d7dce3'
+		 * @default 'chkselected'
 		 * @type String
 		 */
-		select_bg : '#d7dce3',
+		select_bg : 'chkselected',
+		/**
+		 * 点击选中行的背景色(就近原则于select_bg)
+		 * 
+		 * @default 'trselected'
+		 * @type String
+		 */
+		tr_select_bg : 'trselected',
 		/**
 		 * 对响应结果进行预处理 function(rs){}
 		 * 
@@ -182,6 +190,13 @@ define([ './msg' ], function(MSG) {
 		 * @default true
 		 * @type Boolean
 		 */
-		auto_resize : true
+		auto_resize : true,
+		/**
+		 * 自动调整高度适应包含块
+		 * 
+		 * @default 1
+		 * @type Int
+		 */		
+		minColToggle : 1
 	};
 });

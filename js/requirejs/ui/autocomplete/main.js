@@ -11,12 +11,9 @@ define(function(require, exports, module){
 		 */
 		init: function(config){
 			var o = {};
-
 			require('./initConfig')(o, config);
 			require('./initProto')(o);
 			require('./initDOM')(o);
-			require('./initEvent')(o);
-
 			return o;
 		}
 	};

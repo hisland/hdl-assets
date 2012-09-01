@@ -611,6 +611,9 @@ define(function(){
 					ua[k] = null;
 				}
 				ua = null;
+				if(!window.swfobject){
+					return;
+				}
 				for (var l in swfobject) {
 					swfobject[l] = null;
 				}

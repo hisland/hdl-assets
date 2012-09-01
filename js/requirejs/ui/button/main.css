@@ -2,7 +2,7 @@
 
 a.btn1-white{display:inline-block;padding-left:8px;background:url('white/normal.png') no-repeat 0 0;text-decoration:none;}
 	a.btn1-white span{display:inline-block;text-align:center;height:23px;padding-top:5px;padding-right:8px;background:url('white/normal.png') no-repeat right bottom;cursor:pointer;}
-	a.btn1-white:hover{background-image:url('white/hover.png');}
+	a.btn1-white:hover{background-image:url('white/hover.png');text-decoration:none;}
 		a.btn1-white:hover span{background-image:url('white/hover.png');}
 	a.btn1-white:active{background-image:url('white/active.png');}
 		a.btn1-white:active span{background-image:url('white/active.png');}
@@ -11,7 +11,7 @@ a.btn1-white-dis{display:inline-block;padding-left:8px;background:url('white/dis
 
 a.btn1-gray{display:inline-block;padding-left:8px;background:url('gray/normal.png') no-repeat 0 0;text-decoration:none;}
 	a.btn1-gray span{display:inline-block;text-align:center;height:23px;padding-top:5px;padding-right:8px;background:url('gray/normal.png') no-repeat right bottom;cursor:pointer;}
-	a.btn1-gray:hover{background-image:url('gray/hover.png');}
+	a.btn1-gray:hover{background-image:url('gray/hover.png');text-decoration:none;}
 		a.btn1-gray:hover span{background-image:url('gray/hover.png');}
 	a.btn1-gray:active{background-image:url('gray/active.png');}
 		a.btn1-gray:active span{background-image:url('gray/active.png');}
@@ -20,7 +20,7 @@ a.btn1-gray-dis{display:inline-block;padding-left:8px;background:url('gray/disab
 
 a.btn1-blue{display:inline-block;padding-left:8px;background:url('blue/normal.png') no-repeat 0 0;text-decoration:none;}
 	a.btn1-blue span{display:inline-block;text-align:center;height:23px;padding-top:5px;padding-right:8px;background:url('blue/normal.png') no-repeat right bottom;cursor:pointer;}
-	a.btn1-blue:hover{background-image:url('blue/hover.png');}
+	a.btn1-blue:hover{background-image:url('blue/hover.png');text-decoration:none;}
 		a.btn1-blue:hover span{background-image:url('blue/hover.png');}
 	a.btn1-blue:active{background-image:url('blue/active.png');}
 		a.btn1-blue:active span{background-image:url('blue/active.png');}

@@ -1,0 +1,18 @@
+@charset "utf-8";
+html{overflow:hidden;height:100%;}
+
+body{background:#f4f4f4;overflow:hidden;height:100%;}
+
+.login-verify-wrap{}
+	
+	.login-verify-form{width:261px;height:100px;padding-top:15px;}
+		.login-verify-item{height:16px;margin:5px 0;}
+			input[type="text"][readonly], textarea[readonly] {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #DBDADA;color: #BABABB;padding: 1px;}
+
+		.verify{margin-left:105px;height:23px;}
+			.verify a{display:inline-block;height:23px;line-height:23px;color:#194EFB;}
+			.verify span{display:inline-block;height:23px;line-height:23px;}
+			.verify span font{color:#D30C0C;}
+	
+			.item-text{float:left;width:100px;height:16px;line-height:16px;text-align:right;font-size:14px;color:#626569;margin-right:5px;}
+

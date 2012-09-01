@@ -48,6 +48,10 @@
 
 .theme-gray .ui-tab-nav li.ui-tab-hover{background:url('tab-img/two-on.gif') no-repeat 0 0;height:25px;}
 	.theme-gray .ui-tab-nav li.ui-tab-hover a{background:url('tab-img/two-on.gif') no-repeat right -30px;height:25px;font-weight:400;}
-	.theme-gray .ui-tab-nav li.ui-tab-hover span{background:none;height:25px;}
+	.theme-gray .ui-tab-nav li.ui-tab-hover span{background:none;height:25px;color:#990000;font-weight:700;}
 
 .theme-gray div.ui-tab-con{padding:5px 5px 0;overflow:auto;position:relative;}
+
+.width-thin .ui-tab-nav li{padding-left:5px;}
+	.width-thin .ui-tab-nav a{padding-right:5px;}
+	.width-thin div.ui-tab-con{padding:0;}

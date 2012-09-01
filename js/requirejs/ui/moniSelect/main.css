@@ -1,8 +1,8 @@
 @charset "utf-8";
 
 /* 模拟select */
-.moni-select{display:inline-block;vertical-align:middle;height:15px;line-height:15px;width:104px;padding:1px 15px 1px 3px;border:1px solid #7f9db9;color:#000;background:#fff url('img/arr.gif') no-repeat right 0;outline:none;}
-.moni-select:hover{text-decoration:none;border-color:#3771a6;}
+.moni-select{display:inline-block;vertical-align:middle;height:15px;line-height:15px;width:104px;padding:1px 15px 1px 3px;border:1px solid #DBDADA;color:#000;background:#fff url('img/arr.gif') no-repeat right 0;outline:none;}
+.moni-select:hover{text-decoration:none;}
 	.moni-select-text{float:left;width:100%;white-space:nowrap;height:15px;overflow:hidden;text-overflow:ellipsis;text-align:left;}
 	.moni-select select{display:none;float:left;}
 .moni-select-opened{background-position:right -20px;border-color:#3771a6;}
@@ -14,3 +14,6 @@
 	.moni-select-item{display:block;white-space:nowrap;color:#000;padding:1px 2px;outline:none;}
 	.moni-select-item:hover{text-decoration:none;background:#d9e4ed;}
 	.moni-select-selected{text-decoration:none;background:#abd0f5;}
+
+	.moni-select-optiongroup{font-style: italic;font-weight: bold;color:#000000;display:block;outline:medium none;padding:1px 2px;white-space:nowrap;}
+	.moni-select-hasgroup{padding-left:20px;}

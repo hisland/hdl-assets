@@ -1,10 +1,10 @@
 define({
 	/** 是否选中后就关闭 */
-	selectHide : false,
+	selectDateHide : false,
 	/** 是否开启动画 */
-	enableAnimate : false,
+	enableClear : false,
 	/** 是否开启动画 */
-	enableAnimate : false,
+	enableNow : false,
 	/** 是否开启动画 */
 	enableAnimate : false,
 	/** 是否开启动画 */

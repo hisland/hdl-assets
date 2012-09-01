@@ -12,7 +12,7 @@
 	.timelist-add-wrap{margin:2px 0;}
 		.timelist-add{display:inline-block;}
 
-	.timelist-pop{display:none;position:absolute;bottom:16px;left:0;width:120px;background:#fff;border:1px solid #ccc;}
+	.timelist-pop{display:none;position:absolute;bottom:16px;left:0;width:120px;background:#fff;border:1px solid #ccc;max-height:200px;overflow:hidden;overflow-y:auto;}
 		.timelist-pop span{position:absolute;top:0;right:0;border-left:1px solid #ccc;border-bottom:1px solid #ccc;padding:2px;cursor:pointer;}
 		.timelist-pop a{display:block;padding:2px;width:116px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 

@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+.timelist-list p{padding:3px 0;}
+	.timelist-list p .text1{width:50px;}
+
+.multimsg-div{width:464px;padding:3px;margin-bottom:5px;}
+	.multimsg-div a.select-tmpl{float:left;}
+	.multimsg-div a.multimsg-del{float:right;visibility:hidden;}
+	.multimsg-div textarea.text1{clear:both;width:460px;height:62px;margin-top:2px;}
+
+	.multimsg-div-hover{background:#e9eaea;}
+		.multimsg-div-hover a.multimsg-del{visibility:visible;}
+
+.numberFile-div{position:relative;width:460px;border:1px solid #eee;background:#eee;margin-bottom:3px;}
+	.numberFile-div .flash-hole{}
+	.numberFile-div .numberFile-hole{float:left;padding:2px;width:396px;background:#fff;}
+		.numberFile-hole .btn1-upload{display:inline-block;width:72px;height:22px;text-align:center;line-height:22px;background:url('img/btn.gif') no-repeat 0 0;text-decoration:none;}
+		.numberFile-hole .select-numfile{}
+		.numberFile-hole p{padding:2px 0;}
+	.numberFile-div .numberFile-error{float:left;padding:2px;width:396px;background:#fff;}
+	.numberFile-div .numberFile-state{float:left;padding:2px;width:396px;background:#fff;}
+		.numberFile-state .file-th{display:inline-block;width:60px;text-align:right;vertical-align:top;}
+		.numberFile-state .file-name{display:inline-block;width:330px;vertical-align:top;}
+	.numberFile-div .del-numfile{float:right;margin:2px 14px 0 0;}
+	.numberFile-div .clear-both{clear:both;}
+
+.numberSeg-div{position:relative;width:460px;border:1px solid #eee;background:#eee;margin-bottom:3px;}
+	.numberSeg-div .numberSeg-hole{float:left;padding:2px;width:396px;background:#fff;}
+	.numberSeg-div .del-numseg{float:right;margin:4px 14px 0 0;}
+	.numberSeg-div input.text1{width:120px;}
+	.numberSeg-div select.select1{width:124px;}
+	.numberSeg-div .clear-both{clear:both;}
+

@@ -12,7 +12,7 @@ define(['jquery', 'kissy', 'ui/tip'], function($, S, Tip){
 			var mask = Tip.alert();
 			mask.loading();
 			$.post(config.url, config.data, function(rs){
-				if (rs.level === 1) {
+				if (rs.level < 3) {
 					config.onSuccess && config.onSuccess();
 				} else {
 					config.onFail && config.onFail();

@@ -11,7 +11,9 @@ define(['ui/tip'], function(Tip){
 			//错误信息
 			FAIL: 3,
 			//验证失败-未做任何db操作
-			NO_OPT: 4
+			NO_OPT: 4,
+			//session超时
+			TIMEOUT: 5
 		},
 		/**
 		 * 消息统一提示
@@ -21,11 +23,13 @@ define(['ui/tip'], function(Tip){
 		 */
 		showMsgWithLevel: function(vmsg, vlevel){
 			if (vlevel === this.MSG_LEVEL.SUCC){
-				return Tip.alert(vmsg); 
+				return Tip.alert(vmsg);
 			} else if (vlevel === this.MSG_LEVEL.HINT){
-				return Tip.notice(vmsg); 
+				return Tip.notice(vmsg);
 			} else if (vlevel === this.MSG_LEVEL.NO_OPT) {
-				return Tip.error(vmsg); 
+				return Tip.error(vmsg);
+			} else if (vlevel === this.MSG_LEVEL.TIMEOUT) {
+				window.ajaxError();
 			}else{
 				return Tip.error(vmsg); 
 			}

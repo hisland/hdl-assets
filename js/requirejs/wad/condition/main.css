@@ -7,7 +7,7 @@
 
 .search-condition{margin:3px;padding:3px 100px 0 3px;border:1px solid #dddcdc;overflow:hidden;}
 	.search-ls1{float:left;}
-	.search-condition-submit{float:right;width:100px;margin-right:-100px;}
+	.search-condition-submit{float:right;width:100px;margin-right:-100px;display:inline;}
 		.search-button-submit{}
 			.search-button-submit span{width:50px;}
 

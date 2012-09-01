@@ -20,11 +20,15 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 		 * @param msg String
 		 * @return this
 		 */
-		rule: function(name, msg){
+		rule: function(name, msg, required){
 			if(Rule.getItem(name)){
 				this.items.push({
 					fn: function(str){
-						return Rule.test(name, str);
+						if(str.length || required !== false){
+							return Rule.test(name, str);
+						}else{
+							return true;
+						}
 					},
 					msg: msg || Rule.getDesc(name)
 				});
@@ -58,7 +62,7 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 			return this;
 		},
 		/**
-		 * 增加字符UTF8长度范围
+		 * 增加字节长度范围
 		 * @param from Int
 		 * @param to Int
 		 * @param msg String
@@ -117,7 +121,24 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 		 * @return this
 		 */
 		numberRange: function(from, to, digit, msg){
-			
+			this.items.push({
+				fn: function(str){
+					if(S.isNumber(str)){
+						str -= 0;
+						if(str >= from && str <= to){
+							return true;
+						}else{
+							return false;
+						}
+					}else{
+						return false;
+					}
+				},
+				msg: msg || MSG.group.numberRange,
+				digit: digit,
+				from: from,
+				to: to
+			});
 			return this;
 		},
 		/**
@@ -144,7 +165,7 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 		fn: function(fn, msg){
 			this.items.push({
 				fn: function(str){
-					return fn(str, $(this.selector));
+					return fn.call(this, str, $(this.selector));
 				},
 				msg: msg || MSG.group.fn
 			});
@@ -199,9 +220,27 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 			return this;
 		},
 		/**
-		 * 
-		 * @param 
-		 * @return 
+		 * 大于等于验证
+		 * @param selector String|jQuery|DOM
+		 * @param msg String
+		 * @return this
+		 */
+		gte: function(selector, msg){
+			this.items.push({
+				fn: function(str){
+					str -= 0;
+					var str2 = $(selector).val() - 0;
+					return str >= str2;
+				},
+				msg: msg
+			});
+			return this;
+		},
+		/**
+		 * 小于验证
+		 * @param selector String|jQuery|DOM
+		 * @param msg String
+		 * @return this
 		 */
 		lt: function(selector, msg){
 			this.items.push({
@@ -209,6 +248,23 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 					str -= 0;
 					var str2 = $(selector).val() - 0;
 					return str < str2;
+				},
+				msg: msg
+			});
+			return this;
+		},
+		/**
+		 * 小于等于验证
+		 * @param selector String|jQuery|DOM
+		 * @param msg String
+		 * @return this
+		 */
+		lte: function(selector, msg){
+			this.items.push({
+				fn: function(str){
+					str -= 0;
+					var str2 = $(selector).val() - 0;
+					return str <= str2;
 				},
 				msg: msg
 			});
@@ -248,7 +304,9 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 		 * @return 
 		 */
 		singleTrigger: function(selector){
-			
+			this.onCheck(function(){
+				$(selector).trigger('input');
+			});
 			return this;
 		},
 		/**
@@ -257,7 +315,16 @@ define(['jquery', 'kissy', '../msg', './rule-pre', 'util'], function($, S, MSG, 
 		 * @return 
 		 */
 		doubleTrigger: function(selector){
-			
+			this.onCheck(function(){
+				$(selector).trigger('input');
+			});
+			var me = this;
+			$(selector).on('input', function(e){
+				if(!e.isTrigger){
+					me.check();
+				}
+			});
+
 			return this;
 		},
 		/**

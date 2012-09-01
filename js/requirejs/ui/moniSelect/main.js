@@ -11,7 +11,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./main'], function($, S){
 	}
 	function listClick(e){
 		var elm = $(e.target), changed = false;
-		if(elm.is('a')){
+		if(elm.is('a.moni-select-item')){
 			if(!elm.is('.moni-select-selected')){
 				changed = true;
 
@@ -21,7 +21,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./main'], function($, S){
 				select.bind('change', checkChanged);
 				select[0]['--changed'] = false;
 
-				select[0].selectedIndex = elm.index();
+				$(select).val($(elm).attr("optval"));
 			}
 
 			//触发click事件
@@ -42,13 +42,22 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./main'], function($, S){
 		list.empty();
 		select = target.find('select');
 
-		var str = [], select_idx = select[0].selectedIndex;
-		target.find('option').each(function(i, v){
-			str.push('<a class="moni-select-item" href="#">' + v.innerHTML + '</a>');
-		});
+		var str = [], select_idx = $(select).val();
+		if(target.find('optgroup').length){ //存在optgroup
+			target.find('optgroup').each(function(i, v){
+				str.push('<div class="moni-select-optiongroup" href="#">' + $(v).attr("label") + '</div>');
+				$(this).find("option").each(function(i, v){
+					str.push('<a class="moni-select-item moni-select-hasgroup" href="#" optval='+$(v).val()+'>' + v.innerHTML + '</a>');
+				});
+			});
+		}else{
+			target.find('option').each(function(i, v){
+				str.push('<a class="moni-select-item" href="#" optval='+$(v).val()+'>' + v.innerHTML + '</a>');
+			});
+		}
 		list.html(str.join(''));
 
-		list.find('a:eq('+select_idx+')').addClass('moni-select-selected');
+		list.find('a[optval="'+select_idx+'"]').addClass('moni-select-selected');
 	}
 
 	function showList(){
@@ -57,7 +66,8 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./main'], function($, S){
 			width: 'auto',
 			height: 'auto',
 			'overflow-x': 'auto',
-			visibility: 'hidden'
+			visibility: 'hidden',
+			'z-index': S.guid()
 		}).show();
 
 		//修正高度

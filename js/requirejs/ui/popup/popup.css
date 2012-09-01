@@ -13,20 +13,20 @@
 
 
 /* 使用背景图片 */
-.popup-img{position:absolute;display:none;width:212px;height:112px;}
+.popup-img{position:absolute;display:none;width:212px;}
 	.popup-img .popup-arr-u{position:absolute;left:10px;top:-4px;width:9px;height:5px;background:url('popup-img/bg.gif') no-repeat -10px -20px;}
 	.popup-img .popup-arr-r{position:absolute;top:10px;right:-4px;width:5px;height:9px;background:url('popup-img/bg.gif') no-repeat -20px -20px;}
-	.popup-img .popup-arr-d{position:absolute;left:10px;bottom:-4px;width:9px;height:5px;background:url('popup-img/bg.gif') no-repeat -30px -20px;}
+	.popup-img .popup-arr-d{position:absolute;left:10px;bottom:-4px;width:9px;height:5px;background:url('popup-img/bg.gif') no-repeat -30px -20px;_bottom:-11px;}
 	.popup-img .popup-arr-l{position:absolute;top:10px;left:-4px;width:5px;height:9px;background:url('popup-img/bg.gif') no-repeat 0 -20px;}
 
-	.popup-img-hl{padding-left:5px;background:url('popup-img/bg.gif') no-repeat 0 0;}
-	.popup-img-hr{padding-right:5px;background:url('popup-img/bg.gif') no-repeat right 0;}
-	.popup-img-ht{border-top:1px solid #92b0dd;background:#fff;height:4px;}
+	.popup-img-hl{padding-left:5px;background:url('popup-img/bg.gif') no-repeat 0 0;_padding:0;}
+	.popup-img-hr{padding-right:5px;background:url('popup-img/bg.gif') no-repeat right 0;_padding:0;}
+	.popup-img-ht{border-top:1px solid #92b0dd;background:#fff;height:4px;_height:auto;}
 
-	.popup-content-wrap{border:1px solid #92b0dd;border-width:0 1px;padding:0 4px;background:#fff;}
+	.popup-content-wrap{border:1px solid #92b0dd;border-width:0 1px;padding:0 4px;background:#fff;_padding:4px;}
 
-	.popup-img-bl{padding-left:5px;background:url('popup-img/bg.gif') no-repeat 0 -10px;}
-	.popup-img-br{padding-right:5px;background:url('popup-img/bg.gif') no-repeat right -10px;}
-	.popup-img-bb{border-bottom:1px solid #92b0dd;background:#fff;height:4px;}
+	.popup-img-bl{padding-left:5px;background:url('popup-img/bg.gif') no-repeat 0 -10px;_padding:0;}
+	.popup-img-br{padding-right:5px;background:url('popup-img/bg.gif') no-repeat right -10px;_padding:0;}
+	.popup-img-bb{border-bottom:1px solid #92b0dd;background:#fff;height:4px;_height:auto;}
 
 /* 使用线条拼凑 */

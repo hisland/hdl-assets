@@ -10,9 +10,9 @@ define(['./dateTool/dateTool'], function(Calendar){
 					this.selector = selector || this.selector;
 					if(!this.isInit){
 						this.isInit = true;
-						$(this.selector).dateTool(setting);
+						$(this.selector).addClass('hdt-ipt-rdol').dateTool(setting);
 					}else{
-						$(this.selector).dateTool({
+						$(this.selector).removeClass('hdt-ipt-rdol').dateTool({
 							disabled: false
 						});
 					}

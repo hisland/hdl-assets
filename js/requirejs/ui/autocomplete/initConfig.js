@@ -40,6 +40,16 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'util/delayReq', './msg'], function
 		 */
 		delay: 300,
 		/**
+		 * 判断是否是点击还是输入
+		 * @type Boolean
+		 */
+		isClick : false,
+		/**
+		 * 对响应结果进行预处理
+		 * @type Obejct
+		 */
+		tempSelector : "",
+		/**
 		 * 对响应结果进行预处理
 		 * @type Function
 		 */
@@ -50,15 +60,40 @@ define(['jquery', 'kissy', 'ui/pop-manager', 'util/delayReq', './msg'], function
 		 */
 		process: null,
 		/**
+		 * 是否对process后的结果[不]进行匹配高度处理
+		 * @type Boolean
+		 */
+		processNoMatch: false,
+		/**
 		 * item点击事件
 		 * @type Function
 		 */
 		click: null,
 		/**
-		 * 输入框内容改变时的事件
+		 * 使用内部输入框还是外部输入框
 		 * @type Function
 		 */
-		change: null
+		isInnerSearch: false,
+		/**
+		 * 实例的显示宽度
+		 * @type Int
+		 */
+		width: 400,
+		/**
+		 * 实例的显示高度
+		 * @type Int
+		 */
+		height: 300,
+		/**
+		 * 内部框获取焦点时，是否清空
+		 * @type Boolean
+		 */
+		focusClear: false,
+		/**
+		 * 点击清空按钮时执行的操作
+		 * @type Function
+		 */
+		clear: null
 	};
 
 	return function(o, config){

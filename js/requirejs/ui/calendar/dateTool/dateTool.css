@@ -28,7 +28,7 @@
 		.hdt-date-list a.hdt-date-now{color:#ff6600;font-weight:700;}
 
 	.hdt-drop-list-wrap{display:none;position:absolute;top:45px;left:5px;width:206px;border:1px solid #9bc0e0;background:#f0f5fb;}
-		.hdt-drop-list{position:relative;z-index:1;width:200px;height:90px;padding:2px 0;margin:0 3px;overflow:hidden;}
+		.hdt-drop-list{position:relative;z-index:1;width:200px;height:108px;padding:2px 0;margin:0 3px;overflow:hidden;}
 		.hdt-drop-list-l{overflow-y:scroll;}
 			.hdt-drop-list strong{float:left;width:31px;height:18px;line-height:18px;margin:0 4px;text-align:center;font-weight:400;color:#ccc;cursor:default;}
 			.hdt-drop-list-l strong{width:28px;}
@@ -47,3 +47,6 @@
 		.hdt-drop-arr-hour{left:123px;}
 		.hdt-drop-arr-minute{left:156px;}
 		.hdt-drop-arr-second{left:189px;}
+
+
+input[type=text].hdt-ipt-rdol{background:#fff;border:1px solid #DBDADA;}

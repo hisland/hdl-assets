@@ -47,7 +47,9 @@ define(['jquery', 'kissy', 'css!./main'], function($, S){
 			var me = this;
 			clearTimeout(this._close_timer);
 			this._close_timer = setTimeout(function(){
-				me.hide();
+				if(me.auto_close && !me._in){
+					me.hide();
+				}
 			}, this.auto_close * 1000);
 			return this;
 		}
@@ -64,10 +66,10 @@ define(['jquery', 'kissy', 'css!./main'], function($, S){
 			this.autoClose();
 			if(!this._auto_close_bind){
 				this.jq_dom.hover(function(e){
-					clearTimeout(global_msgr[$(this).attr('data-hdl-msgr')]._close_timer);
+					global_msgr[$(this).attr('data-hdl-msgr')]._in = true;
 				}
 				,function(e){
-					global_msgr[$(this).attr('data-hdl-msgr')].autoClose();
+					global_msgr[$(this).attr('data-hdl-msgr')]._in = false;
 				});
 				this._auto_close_bind = true;
 			}

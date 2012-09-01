@@ -61,6 +61,8 @@ define(['jquery', 'kissy', 'ui/pop-manager', './msg', 'css!./page'], function($,
 					$(me).trigger('onAfterLoad');
 					me.afterLoad();
 
+					$('select').moniSelect();
+
 					//触发修正高度的操作
 					$(window).resize();
 				}

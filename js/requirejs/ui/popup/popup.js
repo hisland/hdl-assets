@@ -181,6 +181,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 				target: target,
 				position: position,
 				callback: function(position){
+					me.$div.css("visibility","hidden").show();  //div show出来才能定位top
 					switch(position){
 						case 'up':
 							me.setDir('down').$div.css('top', '-=5');
@@ -195,7 +196,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./popup'], function($, S){
 							me.setDir('right').$div.css('left', '-=5');
 							break;
 					}
-
+					me.$div.css({"visibility":"","display":""});
 					//完成后回调
 					S.isFunction(callback) && callback.call(me, position);
 				}

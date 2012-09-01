@@ -28,36 +28,40 @@ define([ 'jquery', 'kissy' ], function($, S) {
 		 * @return this
 		 */
 		__initEvent : function() {
-			// 绑定自己的事件
-			this.start = S.bind(this.start, this);
-			this.move = S.bind(this.move, this);
-			this.end = S.bind(this.end, this);
-
-			this.$div.children().mousedown(this.start);
+			this.$div.children("p").on('mousedown', this, this.start);
+			this.$div.children("p").on('click', this, this.hover);
+			this.$div.next("div.drag-btn").find("a").on('click', this , this.clickmove);
 			return this;
 		},
 		/**
 		 * @private
 		 */
 		start : function(e) {
-			this.$div.children().mousemove(this.move);
-			this.$div.on('selectstart', nodrag);
-			$(document).mouseup(this.end);
-			this.__target = $(e.target).addClass('drag-move');
-			this.__lastY = 0;
+			var me = e.data;
+			me.ismove = false;
+			me.$div.children("p").removeClass("hover");
+			if(e.target === this || $(e.target).is('div,p')){
+				me.$div.children().on('mousemove', me, me.move);
+				me.$div.on('selectstart', nodrag);
+				me.$div.css('-moz-user-select', 'none');
+				$(document).on('mouseup', me, me.end);
+				me.__target = $(this).addClass('drag-move');
+				me.__lastY = 0;
+			}
 		},
 		/**
 		 * @private
 		 */
 		move : function(e) {
-			var dir_up = e.pageY - this.__lastY < 0;
-			this.__lastY = e.pageY;
-
-			if (e.target !== this.__target[0]) {
+			var me = e.data;
+			var dir_up = e.pageY - me.__lastY < 0;
+			me.__lastY = e.pageY;
+			if (this !== me.__target[0] && $(this).is("p")) {
+				me.ismove = true;
 				if (dir_up) {
-					$(e.target).before(this.__target);
+					$(this).before(me.__target);
 				} else {
-					$(e.target).after(this.__target);
+					$(this).after(me.__target);
 				}
 			}
 		},
@@ -65,13 +69,58 @@ define([ 'jquery', 'kissy' ], function($, S) {
 		 * @private
 		 */
 		end : function(e) {
-			this.$div.children().off('mousemove', this.move);
-			this.$div.off('selectstart', nodrag);
-			$(document).off('mouseup', this.end);
-			this.__target.removeClass('drag-move');
+			var me = e.data;
+			me.$div.children().off('mousemove', me.move);
+			me.$div.off('selectstart', nodrag);
+			me.$div.css('-moz-user-select', '');
+			$(document).off('mouseup', me.end);
+			me.__target.removeClass('drag-move');
 
 			// 触发排序事件
-			this.onSort();
+			me.onSort();
+		},
+		/**
+		 * @private
+		 */
+		hover : function(e) {
+			var me = e.data;
+			me.$div.children("p").removeClass("hover");
+			if(!me.ismove){
+				$(this).addClass("hover");
+			}
+		},
+		/**
+		 * @private
+		 */
+		clickmove : function(e) {
+			var me = e.data;
+			var target = me.$div.children("p.hover"),
+				index = parseInt(me.$div.children("p.hover").index()),
+				length = parseInt(me.$div.children("p").length),
+				totarget;
+			if(index >= 0){
+				if($(this).hasClass("btnup")){
+					if(index != 0){
+						totarget = target.prev();
+						totarget.before(target);
+					}
+				}else if($(this).hasClass("btndown")){
+					if(index+1 != length){
+						totarget = target.next();
+						totarget.after(target);
+					}
+				}else if($(this).hasClass("btnbegin")){
+					if(index != 0){
+						totarget = me.$div.children("p").eq(0);
+						totarget.before(target);
+					}
+				}else if($(this).hasClass("btnend")){
+					if(index+1 != length){
+						totarget = me.$div.children("p").eq(length-1);
+						totarget.after(target);
+					}
+				}
+			}
 		},
 		/**
 		 * 排序事件, 不传参表示触发

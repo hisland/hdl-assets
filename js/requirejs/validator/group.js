@@ -9,33 +9,59 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 
 	return {
 		init: function(config){
-			var group = new Group(config);
+			var group = new Group(config),a;
 
 			function show(e){
-				group.check(this.value);
-				if(group.config && group.config.tipAlign === 'right'){
-					pop.align(this, group.config.tipAlign, function(me){
-						this.$div.css('top', '-=5');
-					}).show();
-				}else{
-					pop.align(this).show();
-				}
+				var bthis = this;
+				group.check($(this).val());
+				group.updatePop();
+				setTimeout(function(){
+					if(group.config && group.config.tipAlign === 'right'){
+						pop.align(bthis, group.config.tipAlign, function(me){
+							this.$div.css('top', '-=5');
+						}).show();
+					}else{
+						pop.align(bthis).show();
+					}
+				},10);
+
 			}
 			function hide(e){
 				pop.hide();
 			}
 			function update(e, rs){
-				pop.$content.empty();
 				$(group.selector).toggleClass('valid-ipt-err', !rs);
+			}
+
+			group.onCheck(update);
+			
+			group.__input = function(e){
+				e.data.check($(this).val());
+				if(!e.isTrigger){
+					e.data.updatePop();
+				}
+			};
+			
+			group.__delayInput = function(e){
+				var data = $(this);
+				a = setInterval(function(){
+					e.data.check(data.val());
+					if(!e.isTrigger){
+						e.data.updatePop();
+					}
+				},50);
+			};
+			
+			group.__clearDelayInput = function(e){
+				clearInterval(a);
+			};
+			
+			group.updatePop = function(){
+				pop.$content.empty();
 				S.each(this.items, function(v, i, o){
 					pop.$content.append($('<p class="valid-ok">' + S.substitute(v.msg, v) + '</p>').toggleClass('valid-err', !v.pass));
 				});
 			}
-
-			group.onCheck(update);
-			group.__input = function(e){
-				e.data.check(this.value);
-			};
 
 			group.oldCheck = group.check;
 			group.check = function(str){
@@ -46,22 +72,28 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 			};
 
 			group.attach = function(selector){
-				if(!this.attached){
-					this.detach();
-					this.attached = true;
-					this.selector = selector || this.selector;
-					$(this.selector).attr('autocomplete', 'off');
-					$(this.selector).on('input', this, this.__input);
+				this.detach();
+				this.attached = true;
+				this.selector = selector || this.selector;
+				$(this.selector).attr('autocomplete', 'off');
+				$(this.selector).on('input', this, this.__input);
+				if($.browser.msie&&($.browser.version == "9.0")){
+					$(this.selector).on('focus', show).on('focus', this, this.__delayInput).on('blur', hide).on('blur', this ,this.__clearDelayInput);
+				}else{
 					$(this.selector).on('focus', show).on('blur', hide);
-					$(this.selector).trigger('input');
 				}
+				$(this.selector).trigger('input');
 				return this;
 			};
 			group.detach = function(){
 				if(this.attached){
 					$(this.selector).attr('autocomplete', 'on');
 					$(this.selector).off('input', this.__input);
-					$(this.selector).off('focus', show).off('blur', hide);
+					if($.browser.msie&&($.browser.version == "9.0")){
+						$(this.selector).off('focus', show).off('focus', this, this.__delayInput).off('blur', hide).off('blur', this ,this.__clearDelayInput);
+					}else{
+						$(this.selector).off('focus', show).off('blur', hide);
+					}
 					this.attached = false;
 				}
 				return this;

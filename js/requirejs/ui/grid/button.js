@@ -27,7 +27,9 @@ define(['jquery', 'kissy', './msg'], function($, S, MSG){
 			this.$span.addClass('hdlgrid-' + setting.icon);
 
 			//按钮title
-			this.$div.attr('title', setting.title || MSG['btn_' + setting.icon]);
+			if(setting.title !== null){
+				this.$div.attr('title', setting.title || MSG['btn_' + setting.icon]);
+			}
 
 			return this;
 		},

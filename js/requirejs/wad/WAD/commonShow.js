@@ -22,9 +22,27 @@ define(['jquery', 'kissy', 'ui/popwin'], function($, S, Popwin){
 			
 			pop.show().loading();
 			$.post(config.url, config.data, function(rs){
+				//如果返回为约定的字符串, 表示出错, 进行提示
+				var match = null;
+				if(match = /^<script type="text\/javascript">window\.ajaxError\((?:['"](.*)['"])?\);<\/script>$/.exec(rs)){
+					window.ajaxError(match[1]);
+					pop.hide();
+					return ;
+				}else if(match = /^<script type="text\/javascript">window\.noRightsError\((?:['"](.*)['"])?\);<\/script>$/.exec(rs)){
+					window.noRightsError(match[1]);
+					pop.hide();
+					return ;
+				}
+
 				pop.setTitle(config.title);
 				pop.$content.html(rs);
-				
+				if(/*@cc_on!@*/!1 && /msie 6.0/i.test(navigator.userAgent) && !/msie [78].0/i.test(navigator.userAgent)){
+					if(pop.$content.children().eq(0).length){
+						pop.$div.width(pop.$content.children().eq(0).outerWidth()+pop.$content.parent().outerWidth());
+					}else{
+						pop.$div.width(300);
+					}
+				}
 				pop.center();
 				pop.loaded();
 				
@@ -32,6 +50,9 @@ define(['jquery', 'kissy', 'ui/popwin'], function($, S, Popwin){
 				$form.attr('action', config.form_url);
 				$form.data('grid', config.grid);
 				$form.data('pop', pop);
+				$form.data('fn', config.fn);
+
+				$('select').moniSelect();
 				
 				config.callback && config.callback();
 			});
