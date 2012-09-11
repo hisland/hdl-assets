@@ -1,7 +1,6 @@
 define(['jquery', 'kissy'], function($, S){
-	var I18N = window.I18N || {};
-
-	return {
+	var I18N = window.JSI18N || {};
+	var rs = {
 		getText: function(str){
 			if(arguments.length === 1){
 				return this.getText1(str);
@@ -20,4 +19,10 @@ define(['jquery', 'kissy'], function($, S){
 			return str;
 		}
 	};
+
+	window.getText = function(){
+		return rs.getText.apply(rs, arguments);
+	}
+
+	return rs;
 });

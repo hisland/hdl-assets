@@ -701,6 +701,13 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				});
 			}
 
+			//去掉选择内容
+			if($.browser.msie){
+				document.selection.empty();
+			}else{
+				window.getSelection().removeAllRanges();
+			}
+
 			//触发选择事件,修正按钮状态
 			this.onSelect();
 

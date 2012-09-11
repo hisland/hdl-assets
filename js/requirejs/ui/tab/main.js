@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 define(['./tab'], function(Tab){
 	return {
 		/**

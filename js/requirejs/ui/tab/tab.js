@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 define(['jquery', 'kissy', 'css!./tab'], function($, S){
 	var wrap = '<div class="ui-tab"><ul class="ui-tab-nav"></ul><div class="ui-tab-con"></div></div>',
 		li = '<li><a href="javascript:;"><span></span></a></li>';

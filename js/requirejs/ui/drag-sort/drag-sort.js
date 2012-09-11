@@ -28,9 +28,7 @@ define([ 'jquery', 'kissy' ], function($, S) {
 		 * @return this
 		 */
 		__initEvent : function() {
-			this.$div.children("p").on('mousedown', this, this.start);
-			this.$div.children("p").on('click', this, this.hover);
-			this.$div.next("div.drag-btn").find("a").on('click', this , this.clickmove);
+			this.$div.children().on('mousedown', this, this.start);
 			return this;
 		},
 		/**
@@ -38,8 +36,6 @@ define([ 'jquery', 'kissy' ], function($, S) {
 		 */
 		start : function(e) {
 			var me = e.data;
-			me.ismove = false;
-			me.$div.children("p").removeClass("hover");
 			if(e.target === this || $(e.target).is('div,p')){
 				me.$div.children().on('mousemove', me, me.move);
 				me.$div.on('selectstart', nodrag);
@@ -56,8 +52,8 @@ define([ 'jquery', 'kissy' ], function($, S) {
 			var me = e.data;
 			var dir_up = e.pageY - me.__lastY < 0;
 			me.__lastY = e.pageY;
-			if (this !== me.__target[0] && $(this).is("p")) {
-				me.ismove = true;
+
+			if (this !== me.__target[0]) {
 				if (dir_up) {
 					$(this).before(me.__target);
 				} else {
@@ -78,49 +74,6 @@ define([ 'jquery', 'kissy' ], function($, S) {
 
 			// 触发排序事件
 			me.onSort();
-		},
-		/**
-		 * @private
-		 */
-		hover : function(e) {
-			var me = e.data;
-			me.$div.children("p").removeClass("hover");
-			if(!me.ismove){
-				$(this).addClass("hover");
-			}
-		},
-		/**
-		 * @private
-		 */
-		clickmove : function(e) {
-			var me = e.data;
-			var target = me.$div.children("p.hover"),
-				index = parseInt(me.$div.children("p.hover").index()),
-				length = parseInt(me.$div.children("p").length),
-				totarget;
-			if(index >= 0){
-				if($(this).hasClass("btnup")){
-					if(index != 0){
-						totarget = target.prev();
-						totarget.before(target);
-					}
-				}else if($(this).hasClass("btndown")){
-					if(index+1 != length){
-						totarget = target.next();
-						totarget.after(target);
-					}
-				}else if($(this).hasClass("btnbegin")){
-					if(index != 0){
-						totarget = me.$div.children("p").eq(0);
-						totarget.before(target);
-					}
-				}else if($(this).hasClass("btnend")){
-					if(index+1 != length){
-						totarget = me.$div.children("p").eq(length-1);
-						totarget.after(target);
-					}
-				}
-			}
 		},
 		/**
 		 * 排序事件, 不传参表示触发

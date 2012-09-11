@@ -20,7 +20,7 @@
 
 	.wadconfig-item4{clear:left;margin:0 1px 1px 0;position:relative;border-left:150px solid #F0F1F1;}
 		.wadconfig-item4 .wadconfig-label{position:absolute;top:50%;margin-top:-8px;left:-150px;width:150px;text-align:right;white-space:nowrap;}
-		.wadconfig-item4 .wadconfig-ipts{padding:3px;}
+		.wadconfig-item4 .wadconfig-ipts{padding:3px;min-height:14px;}
 
 	.wadconfig-ipts .select1{width:204px;}
 	.wadconfig-ipts .text1{width:200px;}
