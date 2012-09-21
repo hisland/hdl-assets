@@ -20,8 +20,8 @@
 }
 
 .cldr-arr{
-	position:absolute;top:44px;left:20px;
-	width:13px;height:7px;
+	position:absolute;top:43px;left:18px;
+	width:15px;height:8px;
 	background:url('img/arr.png') no-repeat 0 0;
 }
 
@@ -29,6 +29,7 @@
 	height:30px;
 	padding-left:6px;
 	overflow:hidden;
+	position:relative;
 	input{
 		font-size:12px;
 		height:14px;width:23px;
@@ -46,18 +47,18 @@
 		height:30px;width:27px;overflow:hidden;
 		span{
 			display:block;
-			width:9px;
+			width:27px;
 			height:6px;
-			margin-left:9px;
 			visibility:hidden;
 			&.cldr-ipt-up{
-				background:url('img/up.png') no-repeat 0 0;
+				background:url('img/up.png') no-repeat center 0;
 			}
 			&.cldr-ipt-down{
-				background:url('img/down.png') no-repeat 0 0;
+				background:url('img/down.png') no-repeat center 0;
 			}
 			&:hover{
 				cursor:pointer;
+				background-position:center -10px;
 			}
 		}
 		&:hover span{
@@ -70,7 +71,7 @@
 	.cldr-div-year{
 		width:40px;
 		.cldr-ipt-up, .cldr-ipt-down{
-			margin-left:15px;
+			width:40px;
 		}
 	}
 	.cldr-div-date{
