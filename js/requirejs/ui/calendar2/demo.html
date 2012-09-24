@@ -11,6 +11,10 @@
 					require(['ui/calendar2/calendar', 'demo'], function(Calendar2) {
 						window.cal1 = new Calendar2();
 						cal1.$wrap.show();
+
+						cal1.setCursor('date');
+						cal1.setValue(new Date);
+						cal1.setMonth(4);
 					});
 				}
 			};

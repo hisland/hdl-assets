@@ -30,7 +30,9 @@
 <body>
 	<div class="calendar-wrap">
 		<div class="cldr-top">
-			
+			<a href="javascript:;" class="btn-clear">清除</a>
+			<a href="javascript:;" class="btn-now">现在</a>
+			<a href="javascript:;" class="btn-close">关闭</a>
 		</div>
 		<div class="cldr-arr"></div>
 		<div class="cldr-ipt-wrap">
@@ -80,16 +82,16 @@
 				<span class="cldr-weekend">七</span>
 			</div>
 			<div class="cldr-date-wrap">
-				<span class="cldr-date-no"></span>
-				<span class="cldr-date-no"></span>
-				<span class="cldr-date-no"></span>
-				<span class="cldr-date-no"></span>
+				<span class="cldr-lst-no"></span>
+				<span class="cldr-lst-no"></span>
+				<span class="cldr-lst-no"></span>
+				<span class="cldr-lst-no"></span>
 				<a href="javascript:;">1</a>
 				<a href="javascript:;">2</a>
 				<a href="javascript:;">3</a>
 				<a href="javascript:;">4</a>
 				<a href="javascript:;">5</a>
-				<a href="javascript:;" class="hdt-date-now">6</a>
+				<a href="javascript:;" class="cldr-lst-now">6</a>
 				<a href="javascript:;">7</a>
 				<a href="javascript:;">8</a>
 				<a href="javascript:;">9</a>
@@ -112,22 +114,24 @@
 				<a href="javascript:;">26</a>
 				<a href="javascript:;">27</a>
 				<a href="javascript:;">28</a>
-				<span class="cldr-date-dis">29</span>
-				<span class="cldr-date-dis">30</span>
-				<span class="cldr-date-dis">31</span>
+				<span class="cldr-lst-dis">29</span>
+				<span class="cldr-lst-dis">30</span>
+				<span class="cldr-lst-dis">31</span>
 			</div>
 		</div>
 	</div>
 
 	<div class="calendar-wrap">
-		<div class="cldr-lst-drop">
+		<div class="cldr-lst-other">
 			<a href="javascript:;">0</a>
+			<span class="cldr-lst-no"></span>
 			<a href="javascript:;">1</a>
 			<a href="javascript:;">2</a>
-			<a href="javascript:;">3</a>
+			<a href="javascript:;" class="cldr-lst-now">3</a>
 			<a href="javascript:;">4</a>
 			<a href="javascript:;">5</a>
 			<a href="javascript:;">6</a>
+			<span class="cldr-lst-dis">31</span>
 			<a href="javascript:;">7</a>
 			<a href="javascript:;">8</a>
 			<a href="javascript:;">9</a>
@@ -189,10 +193,12 @@
 			<div class="cldr-wrap">
 				<a href="javascript:;">1223</a>
 				<a href="javascript:;">1223</a>
+				<span class="cldr-lst-no"></span>
 				<a href="javascript:;">1223</a>
 				<a href="javascript:;">1223</a>
+				<span class="cldr-lst-dis">31</span>
 				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
+				<a href="javascript:;" class="cldr-lst-now">1223</a>
 				<a href="javascript:;">1223</a>
 				<a href="javascript:;">1223</a>
 				<a href="javascript:;">1223</a>
@@ -207,8 +213,8 @@
 				<a href="javascript:;">1223</a>
 			</div>
 			<div class="cldr-nav">
-				<a href="javascript:;">前一页</a>
-				<a href="javascript:;">后一页</a>
+				<a href="javascript:;" class="cldr-year-prev">前一页</a>
+				<a href="javascript:;" class="cldr-year-next">后一页</a>
 			</div>
 		</div>
 	</div>
