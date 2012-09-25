@@ -23,50 +23,51 @@ var i18n = {
 	next: '后一页'
 };
 var defaultConfig = {
-	weekStart: 1
+	weekStart: 1,
+	showWeek: false
 };
 
 var monthDays = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-function Field(){
+function Fields(){
 }
-$.extend(Field.prototype, {
-	item: function(type, value){
+$.extend(Fields.prototype, {
+	item: function(field, value){
 		if(arguments.length == 2){
 			value = length1Prefix0(value);
-			if(this[type] === 'any'){
-				this.real(type, value);
-			}else if(this[type] === 'end'){
-				this.real(type, this.getMonthDays());
+			if(this[field] === 'any'){
+				this.real(field, value);
+			}else if(this[field] === 'end'){
+				this.real(field, this.getMonthDays());
 			}else{
-				this[type] = value;
-				this.real(type, value);
+				this[field] = value;
+				this.real(field, value);
 			}
 			return this;
 		}else if(arguments.length == 1){
-			return this[type];
+			return this[field];
 		}
 	},
-	real: function(type, value){
+	real: function(field, value){
 		var m;
 		if(arguments.length == 2){
 			value -= 0;
-			this['real_' + type] = value;
+			this['real_' + field] = value;
 
 			//为年时,要修改2月总天数
-			if(type === 'year'){
+			if(field === 'year'){
 				this.__repairMonth2();
 			}
 
 			//修正日期大于真实值的情况
 			m = this.real('month');
-			if(type === 'month' || (type === 'year' && m === 2)){
+			if(field === 'month' || (field === 'year' && m === 2)){
 				if(this.real('date') > monthDays[m]){
 					this.item('date', monthDays[m]);
 				}
 			}
 			return this;
 		}else if(arguments.length == 1){
-			return this['real_' + type];
+			return this['real_' + field];
 		}
 	},
 	setDate: function(date){
@@ -101,7 +102,7 @@ $.extend(Calendar.prototype, {
 	__init: function(config){
 		config = $.isPlainObject(config) ? config : {};
 		this.config = $.extend(true, config, defaultConfig);
-		this.field = new Field();
+		this.fields = new Fields();
 		return this;
 	},
 	__initDOM: function(){
@@ -156,7 +157,7 @@ $.extend(Calendar.prototype, {
 			});
 
 		//列表点击
-			this.$wrap.on('click', '.cldr-lst-year a', function(e){
+			this.$wrap.on('click', '.cldr-lst-year .cldr-wrap a', function(e){
 				me.setYear($(this).text() - 0);
 			});
 			this.$wrap.on('click', '.cldr-lst-date a', function(e){
@@ -171,6 +172,29 @@ $.extend(Calendar.prototype, {
 					me.setMinute($(this).text() - 0);
 				}else if(me.__nowCursor === 'second'){
 					me.setSecond($(this).text() - 0);
+				}
+			});
+
+		//列表mousewheel
+			this.$wrap.on('mousewheel', '.cldr-lst-year', function(e, delta){
+				if(delta > 0){
+					me.yearUp();
+				}else{
+					me.yearDown();
+				}
+			});
+			this.$wrap.on('mousewheel', '.cldr-lst-date', function(e, delta){
+				if(delta > 0){
+					me.dateUp();
+				}else{
+					me.dateDown();
+				}
+			});
+			this.$wrap.on('mousewheel', '.cldr-lst-other', function(e, delta){
+				if(delta > 0){
+					me[me.__nowCursor + 'Up']();
+				}else{
+					me[me.__nowCursor + 'Down']();
 				}
 			});
 
@@ -371,23 +395,23 @@ $.extend(Calendar.prototype, {
 $.extend(Calendar.prototype, {
 	setValue: function(date){
 		if(date = Util.getDate(date)){
-			this.field.setDate(date);
+			this.fields.setDate(date);
 			this.refreshField();
 		}
 		return this;
 	},
 	getValue: function(){
-		return this.field.getDate();
+		return this.fields.getDate();
 	}
 });
 
 //handle month days and firstday
 $.extend(Calendar.prototype, {
 	getMonthDays: function(){
-		return this.field.getMonthDays();
+		return this.fields.getMonthDays();
 	},
 	getMonthFirstDay: function(){
-		return new Date(this.field.real('year') + '/' + this.field.real('month') + '/1').getDay();
+		return new Date(this.fields.real('year') + '/' + this.fields.real('month') + '/1').getDay();
 	},
 	getBlank: function(){
 		//月第一行的空白 = monthfirstday - (weekstart - 7)
@@ -443,7 +467,7 @@ $.extend(Calendar.prototype, {
 		var str = [], i,
 			days = this.getMonthDays(),
 			blank = this.getBlank(),
-			today = this.field.real('date');
+			today = this.fields.real('date');
 
 		str.push('<div class="cldr-week">');
 		str.push(this.getWeekList());
@@ -464,7 +488,31 @@ $.extend(Calendar.prototype, {
 		this.$list.html(str.join(''));
 		return this;
 	},
+	getYearPage: function(){
+		var str = ['<div class="cldr-nav">'];
+		str.push('<a href="javascript:;" class="cldr-year-prev">' + i18n.prev + '</a>');
+		str.push('<a href="javascript:;" class="cldr-year-next">' + i18n.next + '</a>');
+		str.push('</div>');
+		return str.join('');
+	},
 	refreshYearList: function(){
+		var from, to, now, str = [];
+		now = this.fields.real('year');
+		from = now - 17;
+		to = now + 17;
+
+		str.push('<div class="cldr-wrap">');
+		for(; from <= to; from++) {
+			if(from !== now){
+				str.push('<a href="javascript:;">' + from + '</a>');
+			}else{
+				str.push('<a href="javascript:;" class="cldr-lst-now">' + from + '</a>');
+			}
+		}
+		str.push('</div>');
+		str.push(this.getYearPage());
+		this.$list.html(str.join(''));
+
 		return this;
 	},
 	refreshOtherList: function(){
@@ -472,19 +520,19 @@ $.extend(Calendar.prototype, {
 		if(field === 'month'){
 			from = 1;
 			to = 12;
-			now = this.field.real('month');
+			now = this.fields.real('month');
 		}else if(field === 'hour'){
 			from = 0;
 			to = 23;
-			now = this.field.real('hour');
+			now = this.fields.real('hour');
 		}else if(field === 'minute'){
 			from = 0;
 			to = 59;
-			now = this.field.real('minute');
+			now = this.fields.real('minute');
 		}else if(field === 'second'){
 			from = 0;
 			to = 59;
-			now = this.field.real('second');
+			now = this.fields.real('second');
 		}
 
 		for(; from <= to; from++) {
@@ -514,14 +562,14 @@ $.extend(Calendar.prototype, {
 	refreshField: function(field){
 		//all
 		if(!field){
-			this.$year.val(this.field.item('year'));
-			this.$month.val(this.field.item('month'));
-			this.$date.val(this.field.item('date'));
-			this.$hour.val(this.field.item('hour'));
-			this.$minute.val(this.field.item('minute'));
-			this.$second.val(this.field.item('second'));
+			this.$year.val(this.fields.item('year'));
+			this.$month.val(this.fields.item('month'));
+			this.$date.val(this.fields.item('date'));
+			this.$hour.val(this.fields.item('hour'));
+			this.$minute.val(this.fields.item('minute'));
+			this.$second.val(this.fields.item('second'));
 		}else{
-			this['$' + field].val(this.field.item(field));
+			this['$' + field].val(this.fields.item(field));
 		}
 		this.refreshList();
 		return this;
@@ -542,7 +590,7 @@ $.extend(Calendar.prototype, {
 $.extend(Calendar.prototype, {
 	setYear: function(num){
 		if(true){
-			this.field.item('year', num);
+			this.fields.item('year', num);
 			this.refreshField('year');
 		}else{
 			S.log(['Calendar.setYear: invalid value: ', num]);
@@ -551,7 +599,7 @@ $.extend(Calendar.prototype, {
 	},
 	setMonth: function(num){
 		if(num >= 1 && num <= 12){
-			this.field.item('month', num);
+			this.fields.item('month', num);
 			this.refreshField('month');
 		}else{
 			S.log(['Calendar.setMonth: invalid value: ', num]);
@@ -560,7 +608,7 @@ $.extend(Calendar.prototype, {
 	},
 	setDate: function(num){
 		if(num >= 1 && num <= this.getMonthDays()){
-			this.field.item('date', num);
+			this.fields.item('date', num);
 			this.refreshField('date');
 		}else{
 			S.log(['Calendar.setDate: invalid value: ', num]);
@@ -569,7 +617,7 @@ $.extend(Calendar.prototype, {
 	},
 	setHour: function(num){
 		if(num >= 0 && num <= 23){
-			this.field.item('hour', num);
+			this.fields.item('hour', num);
 			this.refreshField('hour');
 		}else{
 			S.log(['Calendar.setHour: invalid value: ', num]);
@@ -578,7 +626,7 @@ $.extend(Calendar.prototype, {
 	},
 	setMinute: function(num){
 		if(num >= 0 && num <= 59){
-			this.field.item('minute', num);
+			this.fields.item('minute', num);
 			this.refreshField('minute');
 		}else{
 			S.log(['Calendar.setMinute: invalid value: ', num]);
@@ -587,7 +635,7 @@ $.extend(Calendar.prototype, {
 	},
 	setSecond: function(num){
 		if(num >= 0 && num <= 59){
-			this.field.item('second', num);
+			this.fields.item('second', num);
 			this.refreshField('second');
 		}else{
 			S.log(['Calendar.setSecond: invalid value: ', num]);
@@ -599,51 +647,51 @@ $.extend(Calendar.prototype, {
 //各field上下
 $.extend(Calendar.prototype, {
 	yearUp: function(){
-		this.setYear(this.field.real('year') + 1);
+		this.setYear(this.fields.real('year') + 1);
 		return this;
 	},
 	yearDown: function(){
-		this.setYear(this.field.real('year') - 1);
+		this.setYear(this.fields.real('year') - 1);
 		return this;
 	},
 	monthUp: function(){
-		this.setMonth(this.field.real('month') + 1);
+		this.setMonth(this.fields.real('month') + 1);
 		return this;
 	},
 	monthDown: function(){
-		this.setMonth(this.field.real('month') - 1);
+		this.setMonth(this.fields.real('month') - 1);
 		return this;
 	},
 	dateUp: function(){
-		this.setDate(this.field.real('date') + 1);
+		this.setDate(this.fields.real('date') + 1);
 		return this;
 	},
 	dateDown: function(){
-		this.setDate(this.field.real('date') - 1);
+		this.setDate(this.fields.real('date') - 1);
 		return this;
 	},
 	hourUp: function(){
-		this.setHour(this.field.real('hour') + 1);
+		this.setHour(this.fields.real('hour') + 1);
 		return this;
 	},
 	hourDown: function(){
-		this.setHour(this.field.real('hour') - 1);
+		this.setHour(this.fields.real('hour') - 1);
 		return this;
 	},
 	minuteUp: function(){
-		this.setMinute(this.field.real('minute') + 1);
+		this.setMinute(this.fields.real('minute') + 1);
 		return this;
 	},
 	minuteDown: function(){
-		this.setMinute(this.field.real('minute') - 1);
+		this.setMinute(this.fields.real('minute') - 1);
 		return this;
 	},
 	secondUp: function(){
-		this.setSecond(this.field.real('second') + 1);
+		this.setSecond(this.fields.real('second') + 1);
 		return this;
 	},
 	secondDown: function(){
-		this.setSecond(this.field.real('second') - 1);
+		this.setSecond(this.fields.real('second') - 1);
 		return this;
 	}
 });
@@ -658,21 +706,21 @@ var fieldOffset = {
 	second: 193
 }
 $.extend(Calendar.prototype, {
-	setCursor: function(which){
-		this.__nowCursor = which;
-		this.__setArr(which);
-		if(which === 'year'){
+	setCursor: function(field){
+		this.__nowCursor = field;
+		this.__setArr(field);
+		if(field === 'year'){
 			this.$list.attr('class', 'cldr-lst-year');
-		}else if(which === 'date'){
+		}else if(field === 'date'){
 			this.$list.attr('class', 'cldr-lst-date');
 		}else{
 			this.$list.attr('class', 'cldr-lst-other');
 		}
-		this.refreshList(which);
+		this.refreshList(field);
 		return this;
 	},
-	__setArr: function(which){
-		this.$arr.css('left', fieldOffset[which]);
+	__setArr: function(field){
+		this.$arr.css('left', fieldOffset[field]);
 		return this;
 	}
 });
