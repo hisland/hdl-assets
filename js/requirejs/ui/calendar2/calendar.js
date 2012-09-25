@@ -5,15 +5,6 @@ function length1Prefix0(value) {
 	return value.length == 1 ? '0' + value : value;
 }
 
-//for iterate
-var fieldItem = {
-	year: true,
-	month: true,
-	date: true,
-	hour: true,
-	minute: true,
-	second: true
-}
 var i18n = {
 	week: ['', '一', '二', '三', '四', '五', '六', '日'],
 	clear: '清除',
@@ -24,7 +15,11 @@ var i18n = {
 };
 var defaultConfig = {
 	weekStart: 1,
-	showWeek: false
+	showWeek: false,
+	enableClear : true,
+	enableNow : true,
+	enableAnimate : false,
+	selectDateHide : false
 };
 
 var monthDays = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
