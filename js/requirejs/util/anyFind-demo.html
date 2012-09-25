@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript">
+		var require = {
+				baseUrl: '../',
+				deps: ['config'],
+				callback: function() {
+					require(['util/anyFind', 'demo'], function(AnyFind) {
+						window.find1 = AnyFind.init();
+						find1.put('abc', {
+							name: 'abc',
+							age: 15
+						});
+						find1.put('a', {
+							name: 'abc',
+							age: 12
+						});
+						find1.put('ab', {
+							name: 'abc',
+							age: 13
+						});
+					});
+				}
+			};
+	</script>
+	<script type="text/javascript" src="../require.js"></script>
+</head>
+<body>
+	
+</body>
+</html>
