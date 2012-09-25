@@ -1,7 +1,7 @@
-define(['jquery', 'kissy', './calendar'], function($, S, Calendar){
+define(['jquery', 'kissy', './grid'], function($, S, Grid){
 	return {
 		init: function(config){
-			return new Calendar(config);
+			return new Grid(config);
 		}
 	};
 });
