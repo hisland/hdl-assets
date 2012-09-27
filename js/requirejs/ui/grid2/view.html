@@ -11,7 +11,7 @@
 		deps: ['config'],
 		callback: function() {
 			require(['jquery', 'util', 'demo'], function($, Util) {
-				$('.calendar-wrap').each(function(i, v){
+				$('.grid-wrap').each(function(i, v){
 					Util.trimBlank(v);
 				});
 			});
@@ -28,158 +28,21 @@
 </head>
 
 <body>
-	<div class="calendar-wrap">
-		<div class="cldr-top">
+	<div class="grid-wrap">
+		<div class="grid-title-wrap">
 			
 		</div>
-		<div class="cldr-arr"></div>
-		<div class="cldr-ipt-wrap">
-			<div class="cldr-ipt-item cldr-div-year">
-				<span class="cldr-ipt-up"></span>
-				<input class="cldr-ipt-year" value="" />
-				<span class="cldr-ipt-down"></span>
-			</div>
-			<div class="cldr-ipt-sep">-</div>
-			<div class="cldr-ipt-item">
-				<span class="cldr-ipt-up"></span>
-				<input class="cldr-ipt-month" value="" />
-				<span class="cldr-ipt-down"></span>
-			</div>
-			<div class="cldr-ipt-sep">-</div>
-			<div class="cldr-ipt-item cldr-div-date">
-				<span class="cldr-ipt-up"></span>
-				<input class="cldr-ipt-date" value="" />
-				<span class="cldr-ipt-down"></span>
-			</div>
-			<div class="cldr-ipt-item">
-				<span class="cldr-ipt-up"></span>
-				<input class="cldr-ipt-hour" value="" />
-				<span class="cldr-ipt-down"></span>
-			</div>
-			<div class="cldr-ipt-sep">:</div>
-			<div class="cldr-ipt-item">
-				<span class="cldr-ipt-up"></span>
-				<input class="cldr-ipt-minute" value="" />
-				<span class="cldr-ipt-down"></span>
-			</div>
-			<div class="cldr-ipt-sep">:</div>
-			<div class="cldr-ipt-item">
-				<span class="cldr-ipt-up"></span>
-				<input class="cldr-ipt-second" value="" />
-				<span class="cldr-ipt-down"></span>
-			</div>
+		<div class="grid-button-wrap">
+			
 		</div>
-		<div class="cldr-lst-date">
-			<div class="cldr-week">
-				<span>一</span>
-				<span>二</span>
-				<span>三</span>
-				<span>四</span>
-				<span>五</span>
-				<span class="cldr-weekend">六</span>
-				<span class="cldr-weekend">七</span>
-			</div>
-			<div class="cldr-date-wrap">
-				<span class="cldr-date-no"></span>
-				<span class="cldr-date-no"></span>
-				<span class="cldr-date-no"></span>
-				<span class="cldr-date-no"></span>
-				<a href="javascript:;">1</a>
-				<a href="javascript:;">2</a>
-				<a href="javascript:;">3</a>
-				<a href="javascript:;">4</a>
-				<a href="javascript:;">5</a>
-				<a href="javascript:;" class="hdt-date-now">6</a>
-				<a href="javascript:;">7</a>
-				<a href="javascript:;">8</a>
-				<a href="javascript:;">9</a>
-				<a href="javascript:;">10</a>
-				<a href="javascript:;">11</a>
-				<a href="javascript:;">12</a>
-				<a href="javascript:;">13</a>
-				<a href="javascript:;">14</a>
-				<a href="javascript:;">15</a>
-				<a href="javascript:;">16</a>
-				<a href="javascript:;">17</a>
-				<a href="javascript:;">18</a>
-				<a href="javascript:;">19</a>
-				<a href="javascript:;">20</a>
-				<a href="javascript:;">21</a>
-				<a href="javascript:;">22</a>
-				<a href="javascript:;">23</a>
-				<a href="javascript:;">24</a>
-				<a href="javascript:;">25</a>
-				<a href="javascript:;">26</a>
-				<a href="javascript:;">27</a>
-				<a href="javascript:;">28</a>
-				<span class="cldr-date-dis">29</span>
-				<span class="cldr-date-dis">30</span>
-				<span class="cldr-date-dis">31</span>
-			</div>
+		<div class="grid-head-wrap">
+			
 		</div>
-	</div>
-
-	<div class="calendar-wrap">
-		<div class="cldr-lst-drop">
-			<a href="javascript:;">0</a>
-			<a href="javascript:;">1</a>
-			<a href="javascript:;">2</a>
-			<a href="javascript:;">3</a>
-			<a href="javascript:;">4</a>
-			<a href="javascript:;">5</a>
-			<a href="javascript:;">6</a>
-			<a href="javascript:;">7</a>
-			<a href="javascript:;">8</a>
-			<a href="javascript:;">9</a>
-			<a href="javascript:;">10</a>
-			<a href="javascript:;">11</a>
-			<a href="javascript:;">12</a>
-			<a href="javascript:;">13</a>
-			<a href="javascript:;">14</a>
-			<a href="javascript:;">15</a>
-			<a href="javascript:;">16</a>
-			<a href="javascript:;">17</a>
-			<a href="javascript:;">18</a>
-			<a href="javascript:;">19</a>
-			<a href="javascript:;">20</a>
-			<a href="javascript:;">21</a>
-			<a href="javascript:;">22</a>
-			<a href="javascript:;">23</a>
-			<a href="javascript:;">24</a>
-			<a href="javascript:;">25</a>
-			<a href="javascript:;">26</a>
-			<a href="javascript:;">27</a>
-			<a href="javascript:;">28</a>
-			<a href="javascript:;">29</a>
+		<div class="grid-body-wrap">
+			
 		</div>
-	</div>
-
-	<div class="calendar-wrap">
-		<div class="cldr-lst-year">
-			<div class="cldr-wrap">
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-				<a href="javascript:;">1223</a>
-			</div>
-			<div class="cldr-nav">
-				<a href="javascript:;">前一页</a>
-				<a href="javascript:;">后一页</a>
-			</div>
+		<div class="grid-bottom-wrap">
+			
 		</div>
 	</div>
 </body>

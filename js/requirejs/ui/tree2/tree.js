@@ -19,8 +19,7 @@ var defaultConfig = {
 	enableClear : true,
 	enableNow : true,
 	enableAnimate : false,
-	selectDateHide : false,
-	prefix0 : true
+	selectDateHide : false
 };
 
 var monthDays = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

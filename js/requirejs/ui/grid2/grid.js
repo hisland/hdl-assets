@@ -9,48 +9,62 @@ var i18n = {
 	next: '后一页'
 };
 var defaultConfig = {
-	/** 是否选中后就关闭 */
-	selectHide : false,
-	/** 是否开启动画 */
-	enableAnimate : false,
-	/** 是否开启行的详细信息 */
 	enableDetail : false,
-	/** 是否使用间隔色 */
-	enableGapBg : false,
-	/** 是否开启动画 */
-	enableAnimate : false,
-	/** 是否开启动画 */
-	enableAnimate : false,
-	/** 是否开启动画 */
-	enableAnimate : false,
-	/** 自动刷新设置 */
 	autoRefresh : {
 		timeout: 5000,
 		process: function(){
 			
 		}
 	},
-	/** 对响应结果预处理 */
-	preProcess : null
+	ajax : {
+		url: '',
+		method: 'POST',
+		dataType: 'json',
+		param: null,
+		lastParam: null
+	},
+	preProcess : null,
+	theme : 'default',
+	enablePager: true,
+	pagerTheme : 'default',
+	perPageNum: 15,
+	perPageNumList: [8,10,15,20,25,40],
+	enableCheckbox: true,
+	checkboxFixto: null,
+	singleCheck: false,
+	enableMask: true,
+	nowrap: true,
+	enableColToggle : true,
+	minColToggle : 1,
+	autoResize: false,
+	autoload: false
+};
+var defaultResult = {
+	perPageNum : 15,
+	currPage : 1,
+	beginNum : 0,
+	endNum : 0,
+	totals : 0,
+	currRecordNum : 0,
+	allPage : 0,
+	rows : []
 };
 var defaultRow = {
-	align: 'left',
-	enableSort: 'left',
-	enableCheck: 'left',
-	disabled: 'left'
+	enableCheck: true,
+	disabled: false
 };
 var defaultCol = {
-	align: 'left',
+	align: 'left',//left right center
 	alignHead: 'center',
-	fixedTo: null,
+	fixedTo: null,//left right null
+	width: 'auto',//auto 15% 15
 	minWidth: 10,
 	maxWidth: 200,
 	headText: 'col Head',
 	hide: false,
-	width: 'auto',
-	enableHide: 'left',
-	enableSort: 'left',
-	enableTip: 'left',
+	enableHide: false,
+	enableSort: false,
+	enableTip: false,
 	process: null
 };
 
@@ -64,24 +78,11 @@ $.extend(Grid.prototype, {
 	__init: function(config){
 		config = $.isPlainObject(config) ? config : {};
 		this.config = $.extend(true, config, defaultConfig);
-		this.fields = new Fields();
 		return this;
 	},
 	__initDOM: function(){
-		var div = $('<div class="calendar-wrap"><div class="cldr-top"></div><div class="cldr-arr"></div><div class="cldr-ipt-wrap"><div class="cldr-ipt-item cldr-div-year"><span class="cldr-ipt-up"></span><input class="cldr-ipt-year" value="" /><span class="cldr-ipt-down"></span></div><div class="cldr-ipt-sep">-</div><div class="cldr-ipt-item"><span class="cldr-ipt-up"></span><input class="cldr-ipt-month" value="" /><span class="cldr-ipt-down"></span></div><div class="cldr-ipt-sep">-</div><div class="cldr-ipt-item cldr-div-date"><span class="cldr-ipt-up"></span><input class="cldr-ipt-date" value="" /><span class="cldr-ipt-down"></span></div><div class="cldr-ipt-item"><span class="cldr-ipt-up"></span><input class="cldr-ipt-hour" value="" /><span class="cldr-ipt-down"></span></div><div class="cldr-ipt-sep">:</div><div class="cldr-ipt-item"><span class="cldr-ipt-up"></span><input class="cldr-ipt-minute" value="" /><span class="cldr-ipt-down"></span></div><div class="cldr-ipt-sep">:</div><div class="cldr-ipt-item"><span class="cldr-ipt-up"></span><input class="cldr-ipt-second" value="" /><span class="cldr-ipt-down"></span></div></div><div class="cldr-lst-date"></div></div>');
+		var div = $('');
 		this.$wrap = div;
-		this.$clear = $('<a href="javascript:;" class="btn-clear">' + i18n.clear + '</a>').appendTo(div.find('div.cldr-top'));
-		this.$now = $('<a href="javascript:;" class="btn-now">' + i18n.now + '</a>').appendTo(div.find('div.cldr-top'));
-		this.$close = $('<a href="javascript:;" class="btn-close">' + i18n.close + '</a>').appendTo(div.find('div.cldr-top'));
-		this.$arr = div.find('div.cldr-arr');
-		this.$iptWrap = div.find('div.cldr-ipt-wrap');
-		this.$year = div.find('input.cldr-ipt-year');
-		this.$month = div.find('input.cldr-ipt-month');
-		this.$date = div.find('input.cldr-ipt-date');
-		this.$hour = div.find('input.cldr-ipt-hour');
-		this.$minute = div.find('input.cldr-ipt-minute');
-		this.$second = div.find('input.cldr-ipt-second');
-		this.$list = div.find('div.cldr-lst-date');
 		div.appendTo('body');
 		return this;
 	},
@@ -103,6 +104,29 @@ $.extend(Grid.prototype, {
 	},
 	trigger: function(type){
 		$(this).trigger(type);
+		return this;
+	}
+});
+
+//宽高
+$.extend(Grid.prototype, {
+	setHeight: function(num){
+		return this;
+	},
+	setWidth: function(num){
+		return this;
+	}
+});
+
+//设置数据
+$.extend(Grid.prototype, {
+	setData: function(data){
+		return this;
+	},
+	setHTML: function(obj){
+		obj.col;
+		obj.head;
+		obj.body;
 		return this;
 	}
 });
