@@ -28,7 +28,7 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 					preProcess: function(data){
 						if(!data.rows.length){
 							data.rows.push({
-								sendName: '默认',
+								sendName: getText('默认'),
 								beginTime: '00:00:00',
 								endTime: '23:59:59'
 							});
@@ -190,10 +190,10 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 
 		makeNumFile: function(config){
 			S.mix(config, {
-				msgDel: '删除',
-				msgUpload: '上传',
-				msgOr: '或',
-				msgPleaseSelect: '请选择号码文件',
+				msgDel: getText('删除'),
+				msgUpload: getText('上传'),
+				msgOr: getText('或'),
+				msgPleaseSelect: getText('请选择号码文件'),
 				msgRource: null,
 				numRource: 1,
 				uploadUrl: null,
@@ -299,11 +299,11 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 							if(percent != 100){
 								wrap.find('.numberFile-state').html(percent + '%');
 							}else{
-								wrap.find('.numberFile-state').html('上传完成');
+								wrap.find('.numberFile-state').html(getText('上传完成'));
 							}
 						},
 						funcUploaded: function(){
-							wrap.find('.numberFile-state').html('上传完成, 等待处理');
+							wrap.find('.numberFile-state').html(getText('上传完成, 等待处理'));
 						},
 						funcComplete: complete
 					}
@@ -314,10 +314,10 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 		},
 		initNumFile: function(config){
 			S.mix(config, {
-				msgDel: '删除',
-				msgUpload: '上传',
-				msgOr: '或',
-				msgPleaseSelect: '请选择号码文件',
+				msgDel: getText('删除'),
+				msgUpload: getText('上传'),
+				msgOr: getText('或'),
+				msgPleaseSelect: getText('请选择号码文件'),
 				msgRource: null,
 				numRource: 1,
 				uploadUrl: null,
@@ -350,8 +350,8 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 
 		makeNumSeg: function(config){
 			S.mix(config, {
-				msgDel: '删除',
-				msgArea: '地区',
+				msgDel: getText('删除'),
+				msgArea: getText('地区'),
 				dataAreaList: null,
 				selector: null,
 				max: null
@@ -387,8 +387,8 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 		},
 		initNumSeg: function(config){
 			S.mix(config, {
-				msgDel: '删除',
-				msgArea: '地区',
+				msgDel: getText('删除'),
+				msgArea: getText('地区'),
 				dataAreaList: null,
 				selector: null,
 				max: null
@@ -414,10 +414,10 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 
 		makeNumSegFile: function(config){
 			S.mix(config, {
-				msgDel: '删除',
-				msgUpload: '上传',
-				msgOr: '或',
-				msgPleaseSelect: '请选择号码文件',
+				msgDel: getText('删除'),
+				msgUpload: getText('上传'),
+				msgOr: getText('或'),
+				msgPleaseSelect: getText('请选择号码文件'),
 				msgRource: null,
 				numRource: 3,
 				uploadUrl: null,
@@ -486,11 +486,11 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 							if(percent != 100){
 								wrap.find('.numberFile-state').html(percent + '%');
 							}else{
-								wrap.find('.numberFile-state').html('上传完成');
+								wrap.find('.numberFile-state').html(getText('上传完成'));
 							}
 						},
 						funcUploaded: function(){
-							wrap.find('.numberFile-state').html('上传完成, 等待处理');
+							wrap.find('.numberFile-state').html(getText('上传完成, 等待处理'));
 						},
 						funcComplete: complete
 					}
@@ -501,10 +501,10 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 		},
 		initNumSegFile: function(config){
 			S.mix(config, {
-				msgDel: '删除',
-				msgUpload: '上传',
-				msgOr: '或',
-				msgPleaseSelect: '请选择号码文件',
+				msgDel: getText('删除'),
+				msgUpload: getText('上传'),
+				msgOr: getText('或'),
+				msgPleaseSelect: getText('请选择号码文件'),
 				msgRource: null,
 				numRource: 3,
 				uploadUrl: null,

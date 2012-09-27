@@ -36,13 +36,13 @@ define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
 		$target_ipt, $target_fill = $EMPTY,
 		setting;
 
-	var msg_week = ['', '一', '二', '三', '四', '五', '六', '日'],
-		msg_clear = '清除',
-		msg_now = '现在',
-		msg_complete = '完成',
-		msg_page_up = '上页',
-		msg_page_down = '下页',
-		msg_close = '关闭';
+	var msg_week = getText('$calendar.weeklist'),
+		msg_clear = getText('清除'),
+		msg_now = getText('现在'),
+		msg_complete = getText('完成'),
+		msg_page_up = getText('上页'),
+		msg_page_down = getText('下页'),
+		msg_close = getText('关闭');
 
 	//JS国际化信息的覆盖
 	if(window.JS_I18N){

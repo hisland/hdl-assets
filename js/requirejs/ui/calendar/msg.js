@@ -1,12 +1,9 @@
-/**
- * 文本信息
- */
 define({
-	week: ['', '一', '二', '三', '四', '五', '六', '日'],
-	clear: '清除',
-	now: '现在',
-	complete: '完成',
-	page_up: '上页',
-	page_down: '下页',
-	close: '关闭'
+	week: getText('$calendar.weeklist'),
+	clear: getText('清除'),
+	now: getText('现在'),
+	complete: getText('完成'),
+	page_up: getText('上页'),
+	page_down: getText('下页'),
+	close: getText('关闭')
 });

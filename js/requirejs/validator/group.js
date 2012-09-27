@@ -1,6 +1,3 @@
-/**
- * 
- */
 define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Popup){
 	var pop = Popup.init();
 
@@ -77,7 +74,7 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 				this.selector = selector || this.selector;
 				$(this.selector).attr('autocomplete', 'off');
 				$(this.selector).on('input', this, this.__input);
-				if($.browser.msie&&($.browser.version == "9.0")){
+				if($.browser.msie){
 					$(this.selector).on('focus', show).on('focus', this, this.__delayInput).on('blur', hide).on('blur', this ,this.__clearDelayInput);
 				}else{
 					$(this.selector).on('focus', show).on('blur', hide);

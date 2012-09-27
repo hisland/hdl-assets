@@ -13,7 +13,7 @@ define(['jquery', '../page/page', 'jquery-plugin', 'css!./main', 'ui/button/main
 
 	//页面加载完成注册提示信息
 	Page.afterLoad(function(){
-		$('input.text-fuzzy').mouseTip('模糊匹配');
+		$('input.text-fuzzy').mouseTip(getText('模糊匹配'));
 	});
 
 	return {};

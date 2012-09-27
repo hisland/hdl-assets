@@ -1,5 +1,5 @@
 define(['jquery', 'kissy', 'ui/swfobject', 'ui/tip'], function($, S, SWFObject, Tip){
-	window.uploadAlert = Tip.notice('', '上传状态');
+	window.uploadAlert = Tip.notice('', getText('上传状态'));
 	uploadAlert.hide();
 	uploadAlert.manager.notremove(true);
 
@@ -18,7 +18,7 @@ define(['jquery', 'kissy', 'ui/swfobject', 'ui/tip'], function($, S, SWFObject, 
 			return '';
 		},
 		funcOutSize: function(){
-			Tip.error('文件超过限制大小!');
+			Tip.error(getText('文件超过限制大小!'));
 		},
 		funcProgress: function(percent){
 			$('#uploadPercent').html(percent);
@@ -38,7 +38,7 @@ define(['jquery', 'kissy', 'ui/swfobject', 'ui/tip'], function($, S, SWFObject, 
 			uploadAlert.$ok.css('display', '');
 		},
 		funcError: function(){
-			Tip.error('导入文件选择框已经打开或出现异常，请刷新页面重试！');
+			Tip.error(getText('导入文件选择框已经打开或出现异常，请刷新页面重试！'));
 		}
 	}
 

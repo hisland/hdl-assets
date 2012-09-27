@@ -38,36 +38,36 @@ define(function(){
 			type = typeof tmp;
 			
 			if(type === 'number'){
-				buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + tmp);
+				buff.push('\n' + indent + (isArr ? '' : '"' + __escapeDashQuote(i) + '":') + tmp);
 			}
 
 			else if(type === 'string'){
-				buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + __escapeDashQuote(tmp) + '"');
+				buff.push('\n' + indent + (isArr ? '"' : '"' + __escapeDashQuote(i) + '":"') + __escapeDashQuote(tmp) + '"');
 			}
 
 			else if(type === 'boolean'){
-				buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + tmp + '');
+				buff.push('\n' + indent + (isArr ? '' : '"' + __escapeDashQuote(i) + '":') + tmp + '');
 			}
 
 			//typeof null === 'object', so check the real value first
 			else if(tmp === null){
-				buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + 'null');
+				buff.push('\n' + indent + (isArr ? '' : '"' + __escapeDashQuote(i) + '":') + 'null');
 			}
 
 			else if(type === 'object'){
-				buff.push((isArr ? '' : '\n'+indent+'"'+i+'":') + (lvmax > lv ? __viewJSON(tmp, indent, lvmax, lv+1) : '"[object]"'));
+				buff.push((isArr ? '' : '\n'+indent+'"' + __escapeDashQuote(i) + '":') + (lvmax > lv ? __viewJSON(tmp, indent, lvmax, lv+1) : '"[object]"'));
 			}
 
 			else if(type === 'function'){
-				buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + '[function]"');
+				buff.push('\n' + indent + (isArr ? '"' : '"' + __escapeDashQuote(i) + '":"') + '[function]"');
 			}
 
 			else if(tmp === undefined){
-				buff.push('\n' + indent + (isArr ? '' : '"'+i+'":') + 'undefined');
+				buff.push('\n' + indent + (isArr ? '' : '"' + __escapeDashQuote(i) + '":') + 'undefined');
 			}
 
 			else{
-				buff.push('\n' + indent + (isArr ? '"' : '"'+i+'":"') + '[unKnownType]"');
+				buff.push('\n' + indent + (isArr ? '"' : '"' + __escapeDashQuote(i) + '":"') + '[unKnownType]"');
 			}
 		}
 		bracket += buff.join(',');

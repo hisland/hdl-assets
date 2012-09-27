@@ -3,6 +3,31 @@
  */
 
 define(['jquery', 'kissy', 'ui/pop-manager', './msg', 'css!./page'], function($, S, PM, MSG){
+	//ajax全局设置
+	//禁止请求缓存
+	//服务器无法到达处理
+	$.ajaxSetup({
+		cache: false,
+		complete: function(xhr, status){
+			if(status === 'timeout' || status === 'error'){
+				S.log(arguments);
+
+				loopRequest.stop();
+
+				var flex = document.getElementById("index");
+				if(flex){
+					setTimeout(function(){
+						flex.exitApp();
+					}, 1000);
+				}
+
+				alert("请求无法到达服务器,服务器可能已关闭");
+
+				location.href = 'login.jsp';
+			}
+		}
+	});
+
 	return {
 		/**
 		 * 在右侧加载url, 网速慢多次使用只会加载最后一个

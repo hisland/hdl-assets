@@ -6,7 +6,7 @@ body{position:relative;overflow:auto;height: 100%;}
 
 	.header{height:60px;}
 		.logo{display:none;float:left;height:60px;width:54px;background:url('img/1_01.png') no-repeat 0 0;}
-		.logo-text{margin-left:10px;float:left;height:60px;width:400px;background:url('img/name.png') no-repeat 0 0;}
+		.logo-text{margin-left:10px;float:left;height:60px;width:340px;background:url('img/name.png') no-repeat 0 0;}
 
 		.header-buttons{float:right;padding:8px;}
 			.header-buttons a, .header-buttons span{color:#a27841;vertical-align:middle;}
@@ -16,7 +16,7 @@ body{position:relative;overflow:auto;height: 100%;}
 			#home{display:inline-block;background:url('img/home.gif') no-repeat 0 0;padding:1px 0 1px 18px;height:16px;line-height:16px;margin-left:8px;}
 			#help{display:inline-block;background:url('img/1_06.png') no-repeat 0 0;padding:1px 0 1px 18px;height:16px;line-height:16px;margin-left:8px;}
 			#logout{display:inline-block;background:url('img/1_08.png') no-repeat 0 0;padding:1px 0 1px 18px;height:16px;line-height:16px;margin-left:8px;}
-		.header-text{clear:right;float:right;padding:0 8px;}
+		.header-text{clear:right;float:right;padding:0 8px;text-align:right;white-space:nowrap;}
 			.header-text span{display:inline-block;}
 			.header-state{margin-right:10px;}
 			.header-state span{color:red;}

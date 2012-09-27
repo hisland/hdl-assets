@@ -13,12 +13,14 @@ define(['jquery', 'kissy'], function($, S){
 				form: null,
 				grid: null,
 				doQuery: false,
-				beforeCheck: null
+				beforeCheck: null,
+				before: null
 			}, false);
 			
 			$(config.form).submit(function(e) {
 				e.preventDefault();
 				if(!config.beforeCheck || config.beforeCheck()){
+					config.before && config.before();
 					config.grid.setParam($(this).serializeArray());
 					config.grid.ajaxLoad();
 				}

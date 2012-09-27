@@ -1,6 +1,6 @@
 define(['kissy'], function(S){
 	var msg = {
-		loading: '加载中...'
+		loading: getText('加载中...')
 	};
 
 	// 此段保留在最底部,如果有JS国际化信息将进行覆盖

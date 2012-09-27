@@ -403,48 +403,52 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			
 			//切换列显示操作
 			this.$togglediv.on('click', 'a', this, function(e){
-				var grid = e.data, idx = $(this).attr('data-item-idx'), count = $(this).parent().find("a[class='hdlgrid-toggle-item']").length, mincol = grid.minColToggle+1;
+				var grid = e.data,
+					count = $(this).parent().find("a[class='hdlgrid-toggle-item']").length,
+					mincol = grid.minColToggle+1,
+					idx = $(this).attr('data-item-idx'), colidx;
+
 				if(grid.enable_checkbox){
-					idx -= -1;
+					colidx = idx - -1;//let idx from string to int, so +1 === - -1
+				}else{
+					colidx = idx;
 				}
 				var colwidth = grid.widtharray[idx];
 				if($(this).is('.hdlgrid-toggle-off')){ //增加行
-					grid.colModel[idx-1].hide = false;
+					grid.colModel[idx].hide = false;
 					grid.$thead.parent("table").css("width",grid.savewidth-0+colwidth+"px");
 					grid.$tbody.parent("table").css("width",grid.savewidth-0+colwidth+"px");
 					grid.savewidth = grid.savewidth-0+colwidth;
 					
 					if(($.browser.msie&&$.browser.version>7)||!$.browser.msie) {
-						grid.$colgrouphead.find('col:eq(' + idx + ')').show();
-						grid.$colgroupbody.find('col:eq(' + idx + ')').show();
-					}else{
-						
+						grid.$colgrouphead.find('col:eq(' + colidx + ')').show();
+						grid.$colgroupbody.find('col:eq(' + colidx + ')').show();
 					}
 					
-					grid.$thead.find('tr').find('th:eq(' + idx + ')').show();
-					grid.$tbody.find('tr').find('td:eq(' + idx + ')').show();
+					grid.$thead.find('tr').find('th:eq(' + colidx + ')').show();
+					grid.$tbody.find('tr').find('td:eq(' + colidx + ')').show();
 					$(this).removeClass('hdlgrid-toggle-off');
 					$(this).parent().find("a").removeClass("hdlgrid-toggle-lock");
 					
 					grid.$body.prev().find('table').css('left', -grid.$body.scrollLeft());
 					
 				}else{  //删除行
-					grid.colModel[idx-1].hide = true;
+					grid.colModel[idx].hide = true;
 					if(count>=mincol){	
 						grid.$thead.parent("table").css("width",grid.savewidth-colwidth+"px");
 						grid.$tbody.parent("table").css("width",grid.savewidth-colwidth+"px");
 						grid.savewidth = grid.savewidth-colwidth;
 						
 						if(($.browser.msie&&$.browser.version>7)||!$.browser.msie) {
-							grid.$colgrouphead.find('col:eq(' + idx + ')').hide();
-							grid.$colgroupbody.find('col:eq(' + idx + ')').hide();
+							grid.$colgrouphead.find('col:eq(' + colidx + ')').hide();
+							grid.$colgroupbody.find('col:eq(' + colidx + ')').hide();
 						}else{
-							grid.$colgrouphead.find('col:eq(' + idx + ')').remove();
-							grid.$colgroupbody.find('col:eq(' + idx + ')').remove();
+							grid.$colgrouphead.find('col:eq(' + colidx + ')').remove();
+							grid.$colgroupbody.find('col:eq(' + colidx + ')').remove();
 						}
 						
-						grid.$thead.find('tr').find('th:eq(' + idx + ')').hide();
-						grid.$tbody.find('tr').find('td:eq(' + idx + ')').hide();
+						grid.$thead.find('tr').find('th:eq(' + colidx + ')').hide();
+						grid.$tbody.find('tr').find('td:eq(' + colidx + ')').hide();
 						$(this).addClass('hdlgrid-toggle-off');
 						
 						grid.$body.prev().find('table').css('left', -grid.$body.scrollLeft());
@@ -615,7 +619,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			}
 
 			//读取数据出错并返回
-			if(data.level && data.messageText){
+			if(!data || (data.level && data.messageText)){
 				if(data.level == 5){
 					this.noData(MSG.error); //读取数据出错
 				}else{
@@ -702,11 +706,13 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			}
 
 			//去掉选择内容
-			if($.browser.msie){
-				document.selection.empty();
-			}else{
-				window.getSelection().removeAllRanges();
-			}
+			try{
+				if($.browser.msie){
+					document.selection && document.selection.empty();
+				}else{
+					window.getSelection().removeAllRanges();
+				}
+			}catch(e){}
 
 			//触发选择事件,修正按钮状态
 			this.onSelect();

@@ -9,7 +9,7 @@ define(['jquery', 'kissy', 'ui/swfobject', 'ui/tip'], function($, S, SWFObject, 
 			return '';
 		},
 		funcOutSize: function(){
-			Tip.error('文件超过限制大小!');
+			Tip.error(getText('文件超过限制大小!'));
 		},
 		funcProgress: function(percent){
 		},
@@ -18,7 +18,7 @@ define(['jquery', 'kissy', 'ui/swfobject', 'ui/tip'], function($, S, SWFObject, 
 		funcComplete: function(mark){
 		},
 		funcError: function(){
-			Tip.error('导入文件选择框已经打开或出现异常，请刷新页面重试！');
+			Tip.error(getText('导入文件选择框已经打开或出现异常，请刷新页面重试！'));
 		}
 	}
 

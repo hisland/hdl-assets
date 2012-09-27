@@ -9,7 +9,7 @@ define(['ui/tip', './popConfig', './popEvent'], function(Tip, popup){
 			S.mix(config, {
 				grid: null,
 				icon: 'add',
-				text: '添加',
+				text: getText('添加'),
 				enable: null,
 				url: null,
 				form_url: null,
@@ -46,7 +46,7 @@ define(['ui/tip', './popConfig', './popEvent'], function(Tip, popup){
 			S.mix(config, {
 				grid: null,
 				icon: 'edit',
-				text: '修改',
+				text: getText('修改'),
 				enable: '=1',
 				url: null,
 				form_url: null,
@@ -95,7 +95,7 @@ define(['ui/tip', './popConfig', './popEvent'], function(Tip, popup){
 			S.mix(config, {
 				grid: null,
 				icon: 'del',
-				text: '删除',
+				text: getText('删除'),
 				enable: '>0',
 				url: null,
 				confirmText: null,
@@ -154,7 +154,7 @@ define(['ui/tip', './popConfig', './popEvent'], function(Tip, popup){
 			S.mix(config, {
 				grid: null,
 				icon: 'export',
-				text: '导出',
+				text: getText('导出'),
 				enable: function(rs){
 					return !!rs.grid.data.totals;
 				},

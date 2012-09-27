@@ -73,7 +73,7 @@ define(['jquery', 'kissy', 'util', './msg'], function($, S, Util, MSG){
 						me.config.isFocus = 0;
 					});
 				}catch(e){
-					me.$tip.html("0-0/0条");
+					me.$tip.html(getText("0-0/0条"));
 					me.$prev.css("visibility","hidden");
 					me.$next.css("visibility","hidden");
 					me.$content.html(rs);

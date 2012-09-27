@@ -31,7 +31,7 @@ define(['jquery', 'kissy', 'ui/tip', './msg', 'validator', 'validator/group', 'c
 				$(div).addClass("multipt-warp-check");
 			 	iptdiv =$('<div class="iptdiv">'
 						+'<input type="text" autocomplete="off" style="" maxlength="15" class="ipttext" name="'+name+'"/>'
-						+'<a href="javascript:;" class="statue"><span>启用中</span><input type="hidden" name="'+chkname+'" value="1" /></a>'
+						+'<a href="javascript:;" class="statue"><span>' + getText("启用中") + '</span><input type="hidden" name="'+chkname+'" value="1" /></a>'
 						+'<a href="javascript:;" class="iptdel" style="right: -70px;"></a>'
 					+'</div>');
 			}else{
@@ -70,10 +70,10 @@ define(['jquery', 'kissy', 'ui/tip', './msg', 'validator', 'validator/group', 'c
 			//点击启停用按钮
 			this.$iptstatue.click(function(){
 				if($(this).find(":hidden").val()=="1"){ //启用中的状态点击
-					$(this).find("span").html("停用中");
+					$(this).find("span").html(getText("停用中"));
 					$(this).find(":hidden").val("0");
 				}else{
-					$(this).find("span").html("启用中");
+					$(this).find("span").html(getText("启用中"));
 					$(this).find(":hidden").val("1");
 				}
 			});
@@ -92,17 +92,20 @@ define(['jquery', 'kissy', 'ui/tip', './msg', 'validator', 'validator/group', 'c
 					addValidator(tempdiv.find("input.ipttext")); //添加验证
 					if(chkname !=null){ //附加checkbox checked属性 (1:checked)
 						if(initchkArray[k] == 1){
-							tempdiv.find(".statue").find("span").html("启用中");
+							tempdiv.find(".statue").find("span").html(getText("启用中"));
 							tempdiv.find(".statue").find(":hidden").val("1");
 						}else{
-							tempdiv.find(".statue").find("span").html("停用中");
+							tempdiv.find(".statue").find("span").html(getText("停用中"));
 							tempdiv.find(".statue").find(":hidden").val("0");
 						}
 					}
 					iptadd.before(tempdiv);  
 				});
 				countsize=initArray.length;
-				iptadd.show();
+				if(initArray.length < maxsize){
+					iptadd.show();
+				}
+				
 			}else if(initArray.length==0){ //ip无数据
 				var tempdiv = iptdiv.clone(true);
 				tempdiv.find(".iptdel").remove();

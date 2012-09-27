@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 define(['./dateTool/dateTool'], function(Calendar){
 	return {
 		init: function(setting){

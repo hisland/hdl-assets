@@ -319,7 +319,7 @@ define(['jquery', 'kissy', '../pop-manager', './msg', 'jquery-plugin', 'css!./ti
 				click: function(e){
 					//e.data is tip
 				},
-				text: '按钮文字'
+				text: getText('按钮文字')
 			}
 		 * </code></pre>
 		 * @return this

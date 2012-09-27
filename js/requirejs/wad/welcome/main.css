@@ -44,7 +44,7 @@
 
 
 
-	.welcome-en .welcome-title{height:20px;background-image:url('img/en/welcome-title.png');}
+	.welcome-en .welcome-title{background-image:url('img/en/welcome-title.png');}
 
 	.welcome-en .welcome-icon1{background-image:url('img/en/icon1-1.png');}
 	.welcome-en .welcome-icon1:hover{background-image:url('img/en/icon1-2.png');}
@@ -59,7 +59,7 @@
 	.welcome-en .welcome-icon3:active{background-image:url('img/en/icon3-3.png');}
 
 	.welcome-en .welcome-icon4{background-image:url('img/en/icon4-1.png');}
-	.welcome-en .welcome-icon41:hover{background-image:url('img/en/icon4-2.png');}
+	.welcome-en .welcome-icon4:hover{background-image:url('img/en/icon4-2.png');}
 	.welcome-en .welcome-icon4:active{background-image:url('img/en/icon4-3.png');}
 
 	.welcome-en .welcome-icon5{background-image:url('img/en/icon5-1.png');}

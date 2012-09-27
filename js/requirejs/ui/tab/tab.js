@@ -65,7 +65,7 @@ define(['jquery', 'kissy', 'css!./tab'], function($, S){
 			var me = this, html,
 				timeOk, reqOk;
 
-			me.$con.html('加载中...');
+			me.$con.html(getText('加载中...'));
 
 			//每次都需要重新计时
 			if(me.__timer){

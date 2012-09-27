@@ -4,7 +4,7 @@ define(['jquery', './initFileType', 'ui/popup', 'css!ui/autocomplete/main'], fun
 		selstr ="";
 	
 	$.each(FileTypes,function(v,i){
-		selstr+= '<a class="autocomp-a wad-link" type_id="'+v+'" href="javascript:;">'+i+' 文件</a>';
+		selstr+= '<a class="autocomp-a wad-link" type_id="'+v+'" href="javascript:;">'+i+' ' + getText('文件') + '</a>';
 	});
 	
 	$div.html(selstr);

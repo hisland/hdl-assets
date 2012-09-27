@@ -10,17 +10,17 @@ define(['jquery', 'kissy', 'ui/swfobject', 'ui/tip'], function($, S, SWFObject, 
 			return '';
 		},
 		funcOutSize: function(){
-			Tip.error('文件超过限制大小!');
+			Tip.error(getText('文件超过限制大小!'));
 		},
 		funcProgress: function(percent){
 			if(percent == 100){
-				this.div.find('div:first').html('上传完成,等待处理...');
+				this.div.find('div:first').html(getText('上传完成,等待处理...'));
 			}else{
-				this.div.find('div:first').html('正在上传: ' + percent + '%');
+				this.div.find('div:first').html(getText('正在上传: ') + percent + '%');
 			}
 		},
 		funcUploaded: function(){
-			this.div.find('div:first').html('上传完成,等待处理...');
+			this.div.find('div:first').html(getText('上传完成,等待处理...'));
 		},
 		funcComplete: function(mark){
 			mark = $.parseJSON(mark);
@@ -53,7 +53,7 @@ define(['jquery', 'kissy', 'ui/swfobject', 'ui/tip'], function($, S, SWFObject, 
 			}
 		},
 		funcError: function(){
-			Tip.error('导入文件选择框已经打开或出现异常，请刷新页面重试！');
+			Tip.error(getText('导入文件选择框已经打开或出现异常，请刷新页面重试！'));
 		}
 	}
 
