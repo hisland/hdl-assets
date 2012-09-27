@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//使iframe自适应高度
+			var lastIframeHeight = 0;
+			setInterval(function(){
+				var ibody = $('#iframe-sub')[0].contentWindow.document.body;
+				if(!ibody){
+					return ;
+				}
+				var height = ibody.scrollHeight;
+				if(lastIframeHeight !== height){
+					lastIframeHeight = height;
+					$('#iframe-sub').height(lastIframeHeight);
+				}
+			}, 50);
+
+
+			var menuData = [
+					{
+						"text": "系统信息",
+						"children": [
+							{
+								"text": "分组设置",
+								"url": "sub1.html",
+								"icon": "03"
+							},
+							{
+								"text": "时间控制",
+								"url": "about:blank",
+								"icon": "06"
+							},
+							{
+								"text": "访问控制",
+								"url": "about:blank",
+								"icon": "08"
+							},
+							{
+								"text": "域名过滤",
+								"url": "about:blank",
+								"icon": "10"
+							},
+							{
+								"text": "MAC过滤",
+								"url": "about:blank",
+								"icon": "12"
+							},
+							{
+								"text": "路由设置",
+								"url": "about:blank",
+								"icon": "14"
+							},
+							{
+								"text": "IP/MAC绑定",
+								"url": "about:blank",
+								"icon": "16"
+							},
+							{
+								"text": "策略路由",
+								"url": "about:blank",
+								"icon": "18"
+							}
+						]
+					},
+					{
+						"text": "无线设置",
+						"children": [{
+								"text": "策略路由",
+								"url": "sub2.html",
+								"icon": "18"
+							}]
+					},
+					{
+						"text": "网络设置",
+						"children": []
+					},
+					{
+						"text": "高级设置",
+						"children": []
+					},
+					{
+						"text": "安全管理",
+						"children": []
+					},
+					{
+						"text": "安全管理",
+						"children": []
+					},
+					{
+						"text": "安全管理",
+						"children": []
+					},
+					{
+						"text": "安全管理",
+						"children": []
+					},
+					{
+						"text": "安全管理",
+						"children": []
+					}
+				];
+
+			//主菜单点击
+			$('#header-nav').on('click', 'a', function(e){
+				var idx = $(this).index();
+				var subMenuData = menuData[idx].children;
+
+				//修正样式
+				$(this).siblings('.header-nav-hover').removeClass('header-nav-hover');
+				$(this).addClass('header-nav-hover');
+
+				//生成子菜单html
+				$('#sub-nav').html($.map(subMenuData, function(v, i){
+					return '<a target="iframe-sub" href="' + v.url + '" title="' + v.text + '"><img src="images/' + v.icon + '.png" src-normal="images/' + v.icon + '.png" src-hover="images/' + v.icon + '-1.png" alt="' + v.text + '" />' + v.text + '</a>';
+				}).join(''));
+
+				//默认打开第一个子菜单
+				$('#sub-nav a:first').click();
+			});
+			//子菜单点击
+			$('#sub-nav').on('click', 'a', function(e){
+				//修正样式
+				$(this).siblings('.sub-nav-hover').removeClass('sub-nav-hover').find('img').attr('src', function(index, attr){
+					return $(this).attr('src-normal');
+				});
+				$(this).addClass('sub-nav-hover').find('img').attr('src', function(index, attr){
+					return $(this).attr('src-hover');
+				});
+
+				if(e.isTrigger){
+					//触发的事件要自己在iframe中打开子菜单
+					$('#iframe-sub').attr('src', $(this).attr('href'));
+				}
+
+				//修正当前位置导航
+				$('#u-are-here').html('当前所在位置：' + $('#header-nav .header-nav-hover').text() + ' &gt; ' + $('#sub-nav .sub-nav-hover').text());
+			});
+			//生成主菜单html
+			$('#header-nav').html($.map(menuData, function(v, i){
+				return '<a href="javascript:;">' + v.text + '</a>';
+			}).join(''));
+			//默认打开第一个主菜单
+			$('#header-nav a:first').click();
+		});
+	</script>
+</head>
+<body>
+	<div class="header">
+		<div class="header-wrap">
+			<h1 class="logo">Tomato DualWAN</h1>
+			<p class="logo-desc">版本 1.28.0812  MIPSR2 K26 USB 3G 8M</p>
+			<div class="header-nav" id="header-nav">
+				<a class="header-nav-hover" href="javascript:;">系统信息</a>
+				<a href="javascript:;">无线设置</a>
+				<a href="javascript:;">网络设置</a>
+				<a href="javascript:;">高级设置</a>
+				<a href="javascript:;">安全管理</a>
+				<a href="javascript:;">安全管理</a>
+				<a href="javascript:;">安全管理</a>
+				<a href="javascript:;">安全管理</a>
+				<a href="javascript:;">安全管理</a>
+			</div>
+		</div>
+	</div>
+	<div class="wrap">
+		<div class="sub-nav" id="sub-nav">
+			<a class="sub-nav-hover" href="javascript:;" title="分组设置"><img src="images/03-1.png" alt="分组设置" />分组设置</a>
+			<a href="javascript:;" title="名字名字"><img src="images/06.png" alt="时间控制" />时间控制</a>
+			<a href="javascript:;" title="访问控制"><img src="images/08.png" alt="访问控制" />访问控制</a>
+			<a href="javascript:;" title="域名过滤"><img src="images/10.png" alt="域名过滤" />域名过滤</a>
+			<a href="javascript:;" title="MAC过滤"><img src="images/12.png" alt="MAC过滤" />MAC过滤</a>
+			<a href="javascript:;" title="路由设置"><img src="images/14.png" alt="路由设置" />路由设置</a>
+			<a href="javascript:;" title="IP/MAC绑定"><img src="images/16.png" alt="IP/MAC绑定" />IP/MAC绑定</a>
+			<a href="javascript:;" title="策略路由"><img src="images/18.png" alt="策略路由" />策略路由</a>
+		</div>
+		<div class="right-wrap">
+			<div class="u-are-here" id="u-are-here">当前所在位置：系统信息 > 访问控制</div>
+			<iframe name="iframe-sub" id="iframe-sub" src="" frameborder="no" scrolling="no" allowtransparency="yes"></iframe>
+		</div>
+		<div class="clear-both"></div>
+	</div>
+	<div class="wrap-btm"></div>
+</body>
+</html>
