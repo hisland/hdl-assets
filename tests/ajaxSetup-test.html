@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery+RequireJS Sample Page</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="../js/requirejs/require.js"></script>
+	<script type="text/javascript">
+		require.config({
+			baseUrl: '../js/requirejs/'
+		});
+
+		require(['config'], function(){
+			require(['jquery', 'kissy'], function($, S){
+				$.ajaxSetup({
+					beforeSend: function(xhr, setting){
+						if(setting.type === 'GET'){
+							if(setting.url.indexOf('?') === -1){
+								setting.url += '?moduleName=god';
+							}else{
+								setting.url += '&moduleName=god';
+							}
+						}else if(setting.type === 'POST'){
+							if(setting.data){
+								setting.data += '&moduleName=god';
+							}else{
+								setting.data = 'moduleName=god';
+							}
+						}
+						console.log(setting);
+					},
+					data: {
+						mod: 'data1'
+					}
+				});
+				$.ajaxSetup({
+					data: {
+						mod2: 'data2'
+					}
+				});
+
+				$('#aa').click(function(e){
+					$.get('tt.html');
+					$.get('tt.html?a=b&c=d');
+					$.get('tt.html', 'a=b&c=d');
+					$.get('tt.html', {
+						a: 'b',
+						c: 'd'
+					});
+					$.get('tt.html', [{
+						name: 'a',
+						value: 'b'
+					},{
+						name: 'c',
+						value: 'd'
+					}]);
+					$.get('tt.html?a=b&c=d', {
+						a: 'b',
+						c: 'd'
+					});
+				});
+				$('#bb').click(function(e){
+					$.post('tt.html');
+					$.post('tt.html?a=b&c=d');
+					$.post('tt.html', 'a=b&c=d');
+					$.post('tt.html', {
+						a: 'b',
+						c: 'd'
+					});
+					$.post('tt.html', [{
+						name: 'a',
+						value: 'b'
+					},{
+						name: 'c',
+						value: 'd'
+					}]);
+					$.post('tt.html?a=b&c=d', {
+						a: 'b',
+						c: 'd'
+					});
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>jQuery+RequireJS Sample Page</h1>
+	<input type="button" name="" value="aa" id="aa" />
+	<input type="button" name="" value="bb" id="bb" />
+</body>
+</html>
