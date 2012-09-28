@@ -4,7 +4,7 @@ define(['jquery', 'kissy', './swfupload/swfupload'], function($, S){
 var basicDefaultSetting = {
 	// Upload backend settings
 	upload_url: null,
-	file_post_name: 'Filedata',
+	file_post_name: 'FileUp',
 	preserve_relative_urls: false,
 	post_params: {},
 	use_query_string: false,
@@ -13,7 +13,7 @@ var basicDefaultSetting = {
 	assume_success_timeout: 0,
 
 	// File Settings
-	file_types: '*.*',
+	file_types: '*',
 	file_types_description: 'All Files',
 	file_size_limit: 0,	// Default zero means "unlimited"
 	file_upload_limit: 0,
@@ -45,6 +45,7 @@ var basicDefaultSetting = {
 	swfupload_loaded_handler: null,
 	file_dialog_start_handler: null,
 	file_queued_handler: null,
+	file_queue_error_handler: null,
 	file_dialog_complete_handler: null,
 
 	upload_start_handler: null,
@@ -60,62 +61,62 @@ var basicDefaultSetting = {
 	custom_settings: {}
 };
 
+//之前项目的参数
 var oldDefaultSetting = {
 	url: null,
-	upload_name: null,
+	upload_name: 'fileUp',
+	param: null,
+	max_size: 20*1024*1024,
+
+	filter: '*',
+	filter_desc: 'All File',
+	multi: false,
+
+	wmode: null,
+	prevent_swf_caching: true,
+	debug: false,
+
 	placeholder_id: null,
-	url: null,
-	url: null
-};
+	handlers: {
+		funcCheck: "importFunc.funcCheck",
+		funcData: "importFunc.funcData",
+		funcSelected: "importFunc.funcSelected",
+		funcOutSize: "importFunc.funcOutSize",
+		funcProgress: "importFunc.funcProgress",
+		funcUploaded: "importFunc.funcUploaded",
+		funcComplete: "importFunc.funcComplete",
+		funcError: "importFunc.funcError",
+		funcCancel: "importFunc.funcCancel",
 
-//现有项目的属性名与swfupload的不一致而使用的map
-var nameMap = {
-	url: 'upload_url',
-	upload_name: 'file_post_name',
-	placeholder_id: 'button_placeholder_id',
+		swfupload_loaded_handler: null,
+		file_dialog_start_handler: null,
+		file_queued_handler: null,
+		file_queue_error_handler: null,
+		file_dialog_complete_handler: null,
 
-	preserve_relative_urls: 'preserve_relative_urls',
-	post_params: 'post_params',
-	use_query_string: 'use_query_string',
-	requeue_on_error: 'requeue_on_error',
-	http_success: 'http_success',
-	assume_success_timeout: 'assume_success_timeout',
-	file_types: 'file_types',
-	file_types_description: 'file_types_description',
-	file_size_limit: 'file_size_limit',
-	file_upload_limit: 'file_upload_limit',
-	file_queue_limit: 'file_queue_limit',
-	flash_url: 'flash_url',
-	prevent_swf_caching: 'prevent_swf_caching',
-	button_image_url: 'button_image_url',
-	button_width: 'button_width',
-	button_height: 'button_height',
-	button_text: 'button_text',
-	button_text_style: 'button_text_style',
-	button_text_top_padding: 'button_text_top_padding',
-	button_text_left_padding: 'button_text_left_padding',
-	button_action: 'button_action',
-	button_disabled: 'button_disabled',
-	button_placeholder: 'button_placeholder',
-	button_cursor: 'button_cursor',
-	button_window_mode: 'button_window_mode',
-	debug: 'debug',
-	swfupload_loaded_handler: 'swfupload_loaded_handler',
-	file_dialog_start_handler: 'file_dialog_start_handler',
-	file_queued_handler: 'file_queued_handler',
-	file_dialog_complete_handler: 'file_dialog_complete_handler',
-	upload_start_handler: 'upload_start_handler',
-	upload_progress_handler: 'upload_progress_handler',
-	upload_error_handler: 'upload_error_handler',
-	upload_success_handler: 'upload_success_handler',
-	upload_complete_handler: 'upload_complete_handler',
-	button_action_handler: 'button_action_handler',
-	debug_handler: 'debug_handler',
-	custom_settings: 'custom_settings'
+		upload_start_handler: null,
+		upload_progress_handler: null,
+		upload_error_handler: null,
+		upload_success_handler: null,
+		upload_complete_handler: null,
+
+		button_action_handler: null
+	},
+	/*
+	button: {
+		img: '',
+		text: '',
+		width: 1,
+		height: 1,
+		disabled: false
+	},
+	button: 'preDefName'
+	*/
+	button: null
 };
 
 //预定义的button
-var buttonMap = {
+var preButton = {
 	xpWithText: {
 		button_image_url: require.toUrl('swfupload/img/XPButtonTextUpload_61x22.png'),
 		button_width: 61,
@@ -151,42 +152,55 @@ var buttonMap = {
 return {
 
 initOld: function(setting){
+	//补全默认参数
+	S.mix(setting, oldDefaultSetting, false);
 
-	//默认使用xp样式的button
-	if(!setting.button){
-		setting.button = 'xpWithText';
-	}
-	//使用预定义的button
-	if(S.isString(setting.button)){
-		if(!buttonMap[setting.button]){
-			S.log('button theme: [' + setting.button + '] not found! use default [xpWithText] instead.');
-			setting.button = 'xpWithText';
+	//button处理
+		if(S.isString(setting.button)){
+			if(!preButton[setting.button]){
+				S.log('button theme: [' + setting.button + '] not found! use default [xpWithText] instead.');
+				setting.button = 'xpWithText';
+			}
+			S.mix(setting, preButton[setting.button]);
+		}else if(S.isPlainObject(setting.button)){
+			S.mix(setting, preButton['xpWithText']);
+			setting.button_image_url = setting.button.img;
+			setting.button_width = setting.button.width;
+			setting.button_height = setting.button.height;
+			setting.button_text = setting.button.text;
+			setting.button_disabled = setting.button.disabled;
+		}else{
+			S.mix(setting, preButton['xpWithText']);
 		}
-
-		S.mix(setting, buttonMap[setting.button]);
-		setting.button_placeholder_id = setting.placeholder_id;
-		delete setting.placeholder_id;
 		delete setting.button;
-	}
 
 	//修正属性名 - 因为现有项目的属性名与swfupload的不一致
-	S.each(setting, function(v, i, o){
-		if(nameMap[i]){
-			if(i !== nameMap[i]){
-				setting[nameMap[i]] = v;
-				delete setting[i];
-			}
-		}
-	});
+		setting.button_action = setting.multi ? SWFUpload.BUTTON_ACTION.SELECT_FILES : SWFUpload.BUTTON_ACTION.SELECT_FILE;
+		delete setting.multi;
+		setting.button_window_mode = setting.wmode;
+		delete setting.wmode;
+		setting.button_placeholder_id = setting.placeholder_id;
+		delete setting.placeholder_id;
+		setting.upload_url = setting.url;
+		delete setting.url;
+		setting.file_post_name = setting.upload_name;
+		delete setting.upload_name;
+		setting.post_params = setting.param;
+		delete setting.param;
+		setting.file_types = setting.filter;
+		delete setting.filter;
+		setting.file_types_description = setting.filter_desc;
+		delete setting.filter_desc;
+		setting.file_size_limit = setting.max_size + ' B';
+		delete setting.max_size;
 
-	//补全默认参数
-	S.mix(setting, basicDefaultSetting, false);
-
-	return new SWFUpload(setting);
+	return this.initBasic(setting);
 },
 initBasic: function(setting){
-	//补全默认参数
-	S.mix(setting, basicDefaultSetting, false);
+//	//补全默认参数
+//	S.mix(setting, basicDefaultSetting, false);
+	//只需修正flash_url为模块内部的swf文件
+	setting.flash_url = basicDefaultSetting.flash_url;
 	return new SWFUpload(setting);
 }
 

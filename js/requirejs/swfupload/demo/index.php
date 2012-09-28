@@ -9,16 +9,24 @@
 			deps: ['config'],
 			callback: function() {
 				require(['swfupload/main'], function(SWFUpload) {
-					SWFUpload.initOld({
+					window.up1 = SWFUpload.initOld({
 						url: '../upload.php',
 						upload_name: 'god',
 						placeholder_id: 'spanButtonPlaceHolder'
 					});
-					SWFUpload.initOld({
+					window.up2 = SWFUpload.initOld({
 						url: '../upload.php',
 						upload_name: 'god',
 						placeholder_id: 'spanButtonPlaceHolder2',
 						button: 'xpNoText'
+					});
+					window.up3 = SWFUpload.initOld({
+						url: '../upload.php',
+						upload_name: 'god',
+						filter: '*.xls',
+						multi: true,
+						filte_desc: 'Excel Document',
+						placeholder_id: 'spanButtonPlaceHolder3'
 					});
 				});
 			}
@@ -27,7 +35,12 @@
 <script type="text/javascript" src="../../require.js"></script>
 </head>
 <body>
-	<span id="spanButtonPlaceHolder"></span>
-	<span id="spanButtonPlaceHolder2"></span>
+	<h2>单文件上传</h2>
+	<p>xpButton带文字      <span id="spanButtonPlaceHolder"></span></p>
+	<p>xpButton自定义文字 <span id="spanButtonPlaceHolder2"></span></p>	
+
+	<hr />
+	<h2>多文件上传</h2>
+	<p>可选多个文件 <span id="spanButtonPlaceHolder3"></span></p>
 </body>
 </html>
