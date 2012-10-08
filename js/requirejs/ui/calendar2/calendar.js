@@ -566,6 +566,9 @@ $.extend(Calendar.prototype, {
 			this.$second.val(this.fields.item('second'));
 		}else{
 			this['$' + field].val(this.fields.item(field));
+			if(field === 'year' || field === 'month' ){
+				this.$date.val(this.fields.item('date'));
+			}
 		}
 		this.refreshList();
 		return this;

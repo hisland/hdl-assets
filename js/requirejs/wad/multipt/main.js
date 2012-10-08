@@ -31,7 +31,7 @@ define(['jquery', 'kissy', 'ui/tip', './msg', 'validator', 'validator/group', 'c
 				$(div).addClass("multipt-warp-check");
 			 	iptdiv =$('<div class="iptdiv">'
 						+'<input type="text" autocomplete="off" style="" maxlength="15" class="ipttext" name="'+name+'"/>'
-						+'<a href="javascript:;" class="statue"><span>' + getText("启用中") + '</span><input type="hidden" name="'+chkname+'" value="1" /></a>'
+						+'<a href="javascript:;" class="statue wad-link"><span>' + getText("启用中") + '</span><input type="hidden" name="'+chkname+'" value="1" /></a>'
 						+'<a href="javascript:;" class="iptdel" style="right: -70px;"></a>'
 					+'</div>');
 			}else{
