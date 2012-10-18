@@ -6,145 +6,40 @@
 	<script type="text/javascript" src="../../require.js"></script>
 	<script type="text/javascript" src="../../config.js"></script>
 	<script type="text/javascript">
-		//ä½¿ç”¨data-mainæ—¶ä¼šè‡ªåŠ¨è®¾ç½®baseUrlä¸ºmainæ–‡ä»¶çš„è·¯å¾„
+		//Ê¹ÓÃdata-mainÊ±»á×Ô¶¯ÉèÖÃbaseUrlÎªmainÎÄ¼şµÄÂ·¾¶
 		require.config({
 			baseUrl: '../../'
 		});
 
 		require(['ui/grid', 'util'], function(Grid, Util) {
 			window.grid = Grid.init({
-					url: 'data.php',
-					colModel : [
-						{display: 'åç§°', name: 'mobileName', width: 90},
-						{display: 'æ˜¯å¦å¯ç”¨', width: 60, process: function(row, col){
-							if(row.status == 0){
-								return 'å¦';
-							}else{
-								return 'æ˜¯';
-							}
-						}},
-						{display: 'æ˜¯å¦SP', width: 70, name: 'isSp', align: 'right', align_head: 'right'},
-						{display: 'æ˜¯å¦USSD', width: 60, name: 'isUSSD'},
-						{display: 'çˆ¶ä¸šåŠ¡ç±»å‹', width: 70, name: 'fsmTypeId'},
-						{display: 'æ˜¯å¦é€BI', width: 60, name: 'isBi'},
-						{display: 'é€BIæ–‡ä»¶å', width: 70, name: 'biContent'},
-						{display: 'é€BIç›®å½•', width: 60, name: 'biDirectory'},
-						{display: 'å¤‡æ³¨', width: 60, name: 'remarks'}
-					]
-				});
+				"url" : "data.php",
+				"colModel" : [
+					{"display" : '¸æ¾¯Ãû³Æ',"name" : "almName","width" : 120,"align" : "left"}, 
+					{"display" : '¸æ¾¯¼¶±ğ',"width" : 60,"align" : "center","name" : "almLevel"},
+					{"display" : '¸æ¾¯IP', "width" : 110,"align" : "left","name" : "localAddress"}, 
+					{"display" : '¸æ¾¯ÀàĞÍ',"width" : 80,"align" : "center","name" : "almKind"},
+					{"display" : '¶¨Î»ĞÅÏ¢',"width" : 120,"name" : "locationInfo","align" : "left"} ,
+					{"display" : 'Ä£¿éÃû³Æ',"width" : 120,"align" : "center","name" : "moduleName"}, 
+					{"display" : '¸æ¾¯Ê±¼ä',"width" : 140,"name" : "writeTime","align" : "left"} ,
+					{"display" : '¸æ¾¯ÊÂ¼şÀà', "width" : 120 ,"align" : "center","name" : "eventType"},
+					{"display" : '¸æ¾¯Çå³ıÀà',"width" : 120,"align" : "center","name" : "clearType"}, 
+					{"display" : '¶îÍâĞÅÏ¢',"width" : 120,"align" : "left","name" : "additionalInfo},
+					{"display" : 'Á÷Ë®ºÅ',"width" : 60,"align" : "right","name" : "serialNum"},
+					{"display" : 'Ä¿µÄµØIP', "width" : 110,"align" : "left","name" : "remAddress"}
+				],
+				"enableCheckbox" : true
+			});
 			grid.$div.appendTo('#wrap');
 			grid.ajaxLoad();
-
-			window.grid2 = Grid.init({
-					url: 'data.php',
-					colModel : [
-						{display: 'åç§°', name: 'mobileName', width: 90},
-						{display: 'æ˜¯å¦å¯ç”¨', width: 60, process: function(row, col){
-							if(row.status == 0){
-								return 'å¦';
-							}else{
-								return 'æ˜¯';
-							}
-						}},
-						{display: 'æ˜¯å¦SP', width: 50, name: 'isSp', align: 'right', align_head: 'right'},
-						{display: 'æ˜¯å¦USSD', width: 60, name: 'isUSSD'},
-						{display: 'çˆ¶ä¸šåŠ¡ç±»å‹', width: 70, name: 'fsmTypeId'},
-						{display: 'æ˜¯å¦é€BI', width: 60, name: 'isBi'},
-						{display: 'é€BIæ–‡ä»¶å', width: 70, name: 'biContent'},
-						{display: 'é€BIç›®å½•', width: 60, name: 'biDirectory'},
-						{display: 'å¤‡æ³¨', width: 60, name: 'remarks'},
-						{display: 'æ“ä½œ', width: 60, align: 'center', process: function(row, col){
-							return '<a href="javascript:;">ä¿®æ”¹</a><br /><a href="javascript:;">å¤åˆ¶</a>';
-						}}
-					],
-					single_check: true,
-					enable_checkbox: true
-				});
-			grid2.$div.appendTo('#wrap2');
-			grid2.ajaxLoad();
-
-			grid2.addButton({
-				icon: 'add',
-				text: 'æ·»åŠ ',
-				click: function(e){
-					alert('add clicked!');
-				}
-			}).addButton({
-				icon: 'edit',
-				text: 'ä¿®æ”¹',
-				enable: '=1',
-				click: function(e){
-					alert('edit button!');
-				}
-			}).addButton({
-				icon: 'del',
-				text: 'åˆ é™¤',
-				enable: '>0',
-				click: function(e){
-					alert('del button!');
-				}
-			}).addButton({
-				icon: 'compare',
-				text: 'å¯¹æ¯”',
-				enable: '=2',
-				click: function(e, items){
-					alert('compare button!');
-				}
-			}).addButton({
-				icon: 'export',
-				text: 'å¯¼å‡º',
-				click: function(e, items){
-					alert('export button!');
-				}
-			}).addButton({
-				icon: 'prejudge',
-				text: 'é¢„å®¡',
-				enable: '>0',
-				click: function(e, items){
-					alert('prejudge button!');
-				}
-			}).addButton({
-				icon: 'refresh',
-				text: 'åˆ·æ–°',
-				click: function(e, items){
-					alert('refresh button!');
-				}
-			}).addButton({
-				icon: 'post',
-				text: 'æäº¤',
-				click: function(e, items){
-					alert('post button!');
-				}
-			});
-
-			grid2.addImportButton({
-				icon: 'import',
-				text: 'å¯¼å…¥',
-				max_size: 1024*1024*3,
-				filter: '*.xls',
-				posturl: 'post.php',
-				upload_name: 'filename'
-			});
-
-			grid2.addImportButton({
-				icon: 'import',
-				text: 'å¯¼å…¥æŒ‰é’®',
-				max_size: 1024*1024*3,
-				filter: '*.xls',
-				posturl: 'post.php',
-				upload_name: 'filename',
-				width: 80
-			});
 		});
 	</script>
 	<style type="text/css">
 		#wrap{width:500px;height:300px;margin:20px;}
-		#wrap2{width:700px;height:200px;margin:20px;}
 	</style>
 </head>
 
 <body>
 	<div id="wrap"></div>
-	<div id="wrap2" class="theme-blue"></div>
 </body>
 </html>

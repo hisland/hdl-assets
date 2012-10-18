@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> 样式 </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="cache-control" content="nocache" />
+	<script type="text/javascript">
+	var require = {
+		baseUrl: '../../../',
+		deps: ['config'],
+		callback: function() {
+			require(['jquery', 'util', 'css'], function($, Util) {
+				$(function(){
+					$('th,td').each(function(i, v){
+						$(v).html($(v).width() + 'aaaaaaaaaaaaaaa');
+					});
+				});
+			});
+		}
+	};
+	</script>
+	<script type="text/javascript" src="../../../require.js"></script>
+	<script type="text/javascript">
+		document.write('<link rel="stylesheet/less" type="text/css" href="a.less?' + Math.random() + '" />')
+	</script>
+	<script type="text/javascript" src="../../../less-1.3.0.min.js"></script>
+</head>
+
+<body style="padding:20px;">
+	<table class="col-bd-all">
+		<caption>use col to set width</caption>
+		<colgroup>
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th colspan="3">aa</th>
+				<th>aa</th>
+				<th>aa</th>
+			</tr>
+			<tr>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="col-bd-all-no-colspan">
+		<caption>use col to set width</caption>
+		<colgroup>
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="col-bd-rb">
+		<caption>use col to set width</caption>
+		<colgroup>
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th colspan="3">aa</th>
+				<th>aa</th>
+				<th>aa</th>
+			</tr>
+			<tr>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="col-bd-rb-no-colspan">
+		<caption>use col to set width</caption>
+		<colgroup>
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+			<col style="width:40px;" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="intd-bd-all">
+		<caption>use col to set width</caption>
+		<thead>
+			<tr>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+			</tr>
+			<tr>
+				<th colspan="3">aa</th>
+				<th>aa</th>
+				<th>aa</th>
+			</tr>
+			<tr>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="intd-bd-all-no-colspan">
+		<caption>use col to set width</caption>
+		<thead>
+			<tr>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+			</tr>
+			<tr>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="intd-bd-rb">
+		<caption>use col to set width</caption>
+		<thead>
+			<tr>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+			</tr>
+			<tr>
+				<th colspan="3">aa</th>
+				<th>aa</th>
+				<th>aa</th>
+			</tr>
+			<tr>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="intd-bd-rb-no-colspan">
+		<caption>use col to set width</caption>
+		<thead>
+			<tr>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+				<th style="width:40px;"></th>
+			</tr>
+			<tr>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+				<th>bb</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="other">
+		<caption>use col to set width</caption>
+		<tbody>
+			<tr>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+			</tr>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<td style="width:50px;"></td>
+				<td style="width:50px;"></td>
+				<td style="width:50px;"></td>
+				<td style="width:50px;"></td>
+				<td style="width:50px;"></td>
+			</tr>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="other multi-line-set-width">
+		<caption>use col to set width</caption>
+		<tbody>
+			<tr>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+			</tr>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+			<tr>
+				<td style="width:30px;"></td>
+				<td style="width:50px;"></td>
+				<td style="width:30px;"></td>
+				<td style="width:30px;"></td>
+				<td style="width:80px;"></td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="other multi-line-set-width">
+		<caption>use col to set width</caption>
+		<tbody>
+			<tr>
+				<td style="width:30px;"></td>
+				<td style="width:50px;"></td>
+				<td style="width:30px;"></td>
+				<td style="width:30px;"></td>
+				<td style="width:80px;"></td>
+			</tr>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+			<tr>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+				<td style="width:40px;"></td>
+			</tr>
+		</tbody>
+	</table>
+<br />
+<br />
+	<table class="other first-line-set-width">
+		<caption>use col to set width</caption>
+		<tbody>
+			<tr>
+				<td style="width:30px;"></td>
+				<td style="width:50px;"></td>
+				<td style="width:30px;"></td>
+				<td style="width:30px;"></td>
+				<td style="width:80px;"></td>
+			</tr>
+			<tr>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+				<td>ccc</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

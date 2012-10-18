@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> 样式 </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="cache-control" content="nocache" />
+	<script type="text/javascript">
+	var require = {
+		baseUrl: '../../../',
+		deps: ['config'],
+		callback: function() {
+			require(['jquery', 'util', 'css'], function($, Util) {
+				$(function(){
+					$('th,td').each(function(i, v){
+						//$(v).html($(v).width() + 'a');
+					});
+				});
+			});
+		}
+	};
+	</script>
+	<script type="text/javascript" src="../../../require.js"></script>
+	<script type="text/javascript">
+		document.write('<link rel="stylesheet/less" type="text/css" href="b.less?' + Math.random() + '" />')
+	</script>
+	<script type="text/javascript" src="../../../less-1.3.0.min.js"></script>
+</head>
+
+<body style="padding:20px;">
+	<p>see: <a href="http://www.w3.org/TR/2011/REC-CSS2-20110607/tables.html#propdef-table-layout">w3 table-layout</a></p>
+	<p>see: <a href="http://www.w3.org/TR/html401/struct/tables.html#column-width">w3 column-width for html4.1</a></p>
+	<br />
+	<br />
+
+	<h3>table: table-layout设置为auto或无table-layout设置, 无width设置, 浏览器相同</h3>
+		<div class="box">
+			<p>完全不设置, 比较长, 按能容纳最小宽度</p>
+			<table class="table0">
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>完全不设置, 比较短, 按能容纳最小宽度</p>
+			<table class="table0">
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>设置比例,宽度不够, 按能容纳最小宽度</p>
+			<table class="table0">
+				<col style="width:60%;" />
+				<col style="width:20%;" />
+				<col style="width:30%;" />
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>设置比例,宽度够, 按能容纳最小宽度</p>
+			<table class="table0">
+				<col style="width:60%;" />
+				<col style="width:20%;" />
+				<col style="width:30%;" />
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddccccc</td>
+				</tr>
+			</table>
+		</div>
+		<br />
+		<br />
+
+	<h3>table: table-layout设置为fixed, 有width设置, 浏览器相同</h3>
+		<div class="box">
+			<p>列没有width设置, 比较长, 按单元格多少均分</p>
+			<table class="table1">
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>列没有width设置, 比较短, 按单元格多少均分</p>
+			<table class="table1">
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>列设置比例,宽度不够, 按比例比均分</p>
+			<table class="table1">
+				<col style="width:60%;" />
+				<col style="width:20%;" />
+				<col style="width:30%;" />
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>列设置比例,宽度够, 按比例比均分</p>
+			<table class="table1">
+				<col style="width:60%;" />
+				<col style="width:20%;" />
+				<col style="width:30%;" />
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddccccc</td>
+				</tr>
+			</table>
+		</div>
+		<br />
+		<br />
+
+	<h3>table: table-layout设置为auto或无table-layout设置, 有width设置时</h3>
+		<div class="box">
+			<p>列没有width设置, 比较长, 按能容纳最小宽度</p>
+			<table class="table3">
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>列没有width设置, 比较短, 按单元格多少均分</p>
+			<table class="table3">
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>列设置比例,宽度不够, 按能容纳最小宽度</p>
+			<table class="table3">
+				<col style="width:60%;" />
+				<col style="width:20%;" />
+				<col style="width:30%;" />
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>列设置比例,宽度够, 按比例比均分, 保留到最小能容纳宽度</p>
+			<table class="table3">
+				<col style="width:60%;" />
+				<col style="width:20%;" />
+				<col style="width:30%;" />
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddccccc</td>
+				</tr>
+			</table>
+		</div>
+		<br />
+		<br />
+
+	<h3>table: table-layout设置为fixed, 无width设置时, ie按fixed处理, ff,chrome按auto处理</h3>
+		<div class="box">
+			<p>列没有width设置, 比较长, 按能容纳最小宽度</p>
+			<table class="table2">
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>列没有width设置, 比较短, 按单元格多少均分</p>
+			<table class="table2">
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>列设置比例,宽度不够, 按能容纳最小宽度</p>
+			<table class="table2">
+				<col style="width:60%;" />
+				<col style="width:20%;" />
+				<col style="width:30%;" />
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</td>
+				</tr>
+			</table>
+		</div>
+		<div class="box">
+			<p>列设置比例,宽度够, 按比例比均分, 保留到最小能容纳宽度</p>
+			<table class="table2">
+				<col style="width:60%;" />
+				<col style="width:20%;" />
+				<col style="width:30%;" />
+				<tr>
+					<td>aaaaaaaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>cccccccccc</td>
+				</tr>
+				<tr>
+					<td>aaaa</td>
+					<td>bbbbbbbbb</td>
+					<td>ddccccc</td>
+				</tr>
+			</table>
+		</div>
+		<br />
+		<br />
+</body>
+</html>
