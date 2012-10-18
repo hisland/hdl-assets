@@ -16,11 +16,11 @@ var i18n = {
 var defaultConfig = {
 	weekStart: 1,
 	showWeek: false,
-	enableClear : true,
-	enableNow : true,
-	enableAnimate : false,
-	selectDateHide : false,
-	prefix0 : true
+	enableClear: true,
+	enableNow: true,
+	enableAnimate: false,
+	selectDateHide: false,
+	prefix0: true
 };
 
 var monthDays = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

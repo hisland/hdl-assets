@@ -10,18 +10,18 @@
 			callback: function() {
 				require(['swfupload/main'], function(SWFUpload) {
 					window.up1 = SWFUpload.initOld({
-						url: '../upload.php',
+						url: 'upload.php',
 						upload_name: 'god',
 						placeholder_id: 'spanButtonPlaceHolder'
 					});
 					window.up2 = SWFUpload.initOld({
-						url: '../upload.php',
+						url: 'upload.php',
 						upload_name: 'god',
 						placeholder_id: 'spanButtonPlaceHolder2',
 						button: 'xpNoText'
 					});
 					window.up3 = SWFUpload.initOld({
-						url: '../upload.php',
+						url: 'upload.php',
 						upload_name: 'god',
 						filter: '*.xls',
 						multi: true,
