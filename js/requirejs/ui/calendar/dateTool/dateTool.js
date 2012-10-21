@@ -23,7 +23,7 @@
  *		超出时间范围由用户决定继续填充,并加个开关是否允许
  * </code></pre>
  */
-define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
+define(['jquery', 'kissy', 'util', 'css!./dateTool', 'jquery-plugin'], function($, S, Util){
 	var $ = jQuery,
 		$EMPTY = $(''),
 		$div_wrap,
@@ -229,7 +229,7 @@ define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
 			}
 
 			//日期被禁用
-			if(o['date']){
+			if(o['date'] !== undefined){
 				this.__date_disabled = true;
 			}else{
 				this.__date_disabled = false;

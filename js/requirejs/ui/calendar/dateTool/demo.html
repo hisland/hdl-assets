@@ -11,12 +11,14 @@
 			baseUrl: '../../../'
 		});
 
+		require(['i18n'], function(){
 		require(['ui/calendar', 'util', 'demo'], function(Calendar, Util) {
 			window.aa = Calendar.init().attach('#aa');
-			window.bb = Calendar.init().attach('#bb')
-			window.cc = Calendar.init().attach('#cc')
-			window.dd = Calendar.init().attach('#dd')
-			window.ee = Calendar.init().attach('#ee')
+			window.bb = Calendar.init().attach('#bb');
+			window.cc = Calendar.init().attach('#cc');
+			window.dd = Calendar.init().attach('#dd');
+			window.ee = Calendar.init().attach('#ee');
+		});
 		});
 	</script>
 <!-- 

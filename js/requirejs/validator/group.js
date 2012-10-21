@@ -6,7 +6,7 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 
 	return {
 		init: function(config){
-			var group = new Group(config),a;
+			var group = new Group(config);
 
 			function show(e){
 				var bthis = this;
@@ -39,18 +39,18 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 				}
 			};
 			
+			group.__clearDelayInput = function(e){
+				clearInterval(group.__a);
+			};
 			group.__delayInput = function(e){
 				var data = $(this);
-				a = setInterval(function(){
+				group.__clearDelayInput();
+				group.__a = setInterval(function(){
 					e.data.check(data.val());
 					if(!e.isTrigger){
 						e.data.updatePop();
 					}
 				},50);
-			};
-			
-			group.__clearDelayInput = function(e){
-				clearInterval(a);
 			};
 			
 			group.updatePop = function(){
@@ -86,7 +86,7 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 				if(this.attached){
 					$(this.selector).attr('autocomplete', 'on');
 					$(this.selector).off('input', this.__input);
-					if($.browser.msie&&($.browser.version == "9.0")){
+					if($.browser.msie){
 						$(this.selector).off('focus', show).off('focus', this, this.__delayInput).off('blur', hide).off('blur', this ,this.__clearDelayInput);
 					}else{
 						$(this.selector).off('focus', show).off('blur', hide);

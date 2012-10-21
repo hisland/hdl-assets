@@ -173,6 +173,8 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		//自动加载数据
 		if(this.auto_load){
 			this.ajaxLoad();
+		}else{
+			this.__blankLine();
 		}
 
 		return this;
@@ -403,8 +405,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			
 			//切换列显示操作
 			this.$togglediv.on('click', 'a', this, function(e){
-//*** BEGIN *** V100R001C20/DTS2012092501524 2012-9-26 hedingliang sf0811  modify
-//修改原因: 修正colidx错误
+
 				var grid = e.data,
 					count = $(this).parent().find("a[class='hdlgrid-toggle-item']").length,
 					mincol = grid.minColToggle+1,
@@ -467,8 +468,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 						grid.hiddentd.push(k);
 					}
 				});
-				
-//*** END *** V100R001C20/DTS2012092501524 2012-9-26 hedingliang sf0811  modify
+
 			});
 
 			this.$pager.on('click', '.pager2-num-pop a', this, function(e){
@@ -796,13 +796,21 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 				});
 			}
 
-			//发送请求
-			grid.loading();
-			$.post(grid.url, param, function(data){
-				grid.setData(data);
-				S.isFunction(fn) && fn.call(grid);
-				grid.loaded();
-			}, 'json');
+			this.__delay && this.__delay.cancel();
+			this.__req && this.__req.abort();
+
+			this.__delay = S.later(function(){
+				this.__delay = null;
+
+				//发送请求
+				grid.loading();
+				$.post(grid.url, param, function(data){
+					grid.setData(data);
+					S.isFunction(fn) && fn.call(grid);
+					grid.loaded();
+				}, 'json');
+			}, 50, false, this);
+
 			return this;
 		},
 		/**

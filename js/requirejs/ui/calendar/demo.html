@@ -11,12 +11,14 @@
 			baseUrl: '../../'
 		});
 
+		require(['i18n'], function(){
 		require(['ui/calendar', 'util', 'demo'], function(Calendar, Util) {
 			window.aa = Calendar.init().attach('#aa');
 			window.bb = Calendar.init().attach('#bb').setFixed('year2010, month05, date03');
 			window.cc = Calendar.init().attach('#cc').setFixed('datee, hour, minute, second');
 			window.dd = Calendar.init().attach('#dd').setWeekStart(7);
 			window.ee = Calendar.init().attach('#ee').setWeekStart(2);
+		});
 		});
 	</script>
 </head>
