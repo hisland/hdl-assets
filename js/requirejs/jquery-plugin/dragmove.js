@@ -27,170 +27,170 @@
  */
 
 define(['jquery', 'kissy'], function($, S){
-	var need_capture = /*@cc_on!@*/!1 && /msie [678].0/i.test(navigator.userAgent),
-		trigger, target;
+var need_capture = /*@cc_on!@*/!1 && /msie [678].0/i.test(navigator.userAgent),
+	trigger, target;
 
-	var default_setting = {
-			enable: true
-		};
+var default_setting = {
+		enable: true
+	};
 
-	function mouseDown(e){
-		var filter = $(this).data('trigger_filter');
+function mouseDown(e){
+	var filter = $(this).data('trigger_filter');
 
-		//停用时,有检测函数且返回值为fasle时,不进行拖动
-		if(!this.drag_setting.enable || (S.isFunction(filter) && filter.call(this, e) === false)){
-			//do nothing
+	//停用时,有检测函数且返回值为fasle时,不进行拖动
+	if(!this.drag_setting.enable || (S.isFunction(filter) && filter.call(this, e) === false)){
+		//do nothing
+	}else{
+		trigger = this;
+		//修正target
+		if(!this.drag_setting.target){
+			target = this;
 		}else{
-			trigger = this;
-			//修正target
-			if(!this.drag_setting.target){
-				target = this;
-			}else{
-				target = $(this.drag_setting.target)[0];
+			target = $(this.drag_setting.target)[0];
+		}
+
+		//设置位置
+		var pos = $(target).position();
+		var parent = document.documentElement;
+		var w = parent.clientWidth - $(target).outerWidth();
+		var h = parent.clientHeight - $(target).outerHeight();
+		S.mix(this.drag_setting, {
+			old_mouse: [e.clientX, e.clientY],
+			old_pos: [pos.left, pos.top],
+			range: [[0, w], [0, h]]
+		});
+
+		start();
+	}
+}
+function mouseMove(e){
+	//快捷变量
+	var old_mouse = target.drag_setting.old_mouse,
+		old_pos = target.drag_setting.old_pos,
+		range = target.drag_setting.range;
+
+	//计算偏移与新位置
+	var diff_mouse = [e.clientX - old_mouse[0], e.clientY - old_mouse[1]],
+		new_pos = [old_pos[0] + diff_mouse[0], old_pos[1] + diff_mouse[1]];
+
+	//修正水平垂直最小最大范围
+	new_pos[0] = new_pos[0] < range[0][0] ? range[0][0] : new_pos[0] > range[0][1] ? range[0][1] : new_pos[0];
+	new_pos[1] = new_pos[1] < range[1][0] ? range[1][0] : new_pos[1] > range[1][1] ? range[1][1] : new_pos[1];
+
+	//设置新位置
+	$(target).css({
+		left: new_pos[0],
+		top: new_pos[1]
+	});
+}
+
+//可拖动目标不能让它拖拽与选择内容
+function noDrag(e){
+	e.preventDefault();
+}
+
+//开始拖动,注册各种事件
+function start(){
+	$(document).mousemove(mouseMove).mouseup(end).bind('dragstart', noDrag);
+
+	//不能选中内容
+	$(trigger).css('-moz-user-select', 'none');
+	$(document).bind('selectstart', noDrag);
+
+	//检测窗口失去[焦点|捕获]时,取消注册
+	if(need_capture){
+		//ie下setCapture会导致输入框焦点不会失去,延迟可以正常
+		setTimeout(function() {
+			//由于存在延迟,trigger也有清除操作,所以需要检测
+			if(trigger){
+				trigger.setCapture();
+				$(trigger).bind('losecapture', end);
+			}
+		}, 1);
+	}else{
+		$(window).blur(end);
+	}
+}
+
+//完成拖动,取消各种事件
+function end(){
+	$(document).unbind('mousemove', mouseMove).unbind('mouseup', end).unbind('dragstart', noDrag);
+
+	$(trigger).css('-moz-user-select', '');
+	$(document).unbind('selectstart', noDrag);
+
+	//取消检测
+	if(need_capture){
+		//releaseCapture会触发losecapture, 优先取消注册
+		$(trigger).unbind('losecapture', end);
+		trigger.releaseCapture();
+	}else{
+		$(window).unbind('blur', end);
+	}
+
+	//清除引用
+	trigger = target = null;
+}
+
+/**
+ * @lends jQuery#
+ */
+$.fn.extend({
+	hdlDrag: function(setting){
+		var target;
+		//setting为target选择器
+		if(S.isString(setting)){
+			target = setting;
+			setting = {};
+		}
+		//配置对象时
+		else if(S.isPlainObject(setting)){
+			target = setting.target;
+		}
+		//其它情况
+		else{
+			setting = {};
+		}
+
+		//selector必须能选中元素
+		if($(target).length){
+			setting.target = target;
+		}else{
+			setting.target = null;
+		}
+
+		return this.each(function(i, v){
+			//只注册一次事件
+			if(!this['--bind-drag']){
+				this['--bind-drag'] = true;
+				$(this).mousedown(mouseDown);
+
+				//新增设置
+				this.drag_setting = S.mix(setting, default_setting, false);
+
+				//使用data避免由于作用域造成的循环引用导致内存泄露
+				if(this.drag_setting.trigger_filter){
+					$(this).data('trigger_filter', this.drag_setting.trigger_filter);
+					delete this.drag_setting.trigger_filter;
+				}
+			}
+			//修改设置
+			else{
+				//只能修改[拖动目标, 过滤函数, 拖动与否]
+				S.mix(this.drag_setting, setting, ['target', 'enable']);
+
+				if(setting.trigger_filter){
+					$(this).data('trigger_filter', setting.trigger_filter);
+				}
 			}
 
-			//设置位置
-			var pos = $(target).position();
-			var parent = document.documentElement;
-			var w = parent.clientWidth - $(target).outerWidth();
-			var h = parent.clientHeight - $(target).outerHeight();
-			S.mix(this.drag_setting, {
-				old_mouse: [e.clientX, e.clientY],
-				old_pos: [pos.left, pos.top],
-				range: [[0, w], [0, h]]
-			});
-
-			start();
-		}
-	}
-	function mouseMove(e){
-		//快捷变量
-		var old_mouse = target.drag_setting.old_mouse,
-			old_pos = target.drag_setting.old_pos,
-			range = target.drag_setting.range;
-
-		//计算偏移与新位置
-		var diff_mouse = [e.clientX - old_mouse[0], e.clientY - old_mouse[1]],
-			new_pos = [old_pos[0] + diff_mouse[0], old_pos[1] + diff_mouse[1]];
-
-		//修正水平垂直最小最大范围
-		new_pos[0] = new_pos[0] < range[0][0] ? range[0][0] : new_pos[0] > range[0][1] ? range[0][1] : new_pos[0];
-		new_pos[1] = new_pos[1] < range[1][0] ? range[1][0] : new_pos[1] > range[1][1] ? range[1][1] : new_pos[1];
-
-		//设置新位置
-		$(target).css({
-			left: new_pos[0],
-			top: new_pos[1]
+			//鼠标状态
+			if(this.drag_setting.enable){
+				$(this).css('cursor', 'move');
+			}else{
+				$(this).css('cursor', 'default');
+			}
 		});
 	}
-
-	//可拖动目标不能让它拖拽与选择内容
-	function noDrag(e){
-		e.preventDefault();
-	}
-
-	//开始拖动,注册各种事件
-	function start(){
-		$(document).mousemove(mouseMove).mouseup(end).bind('dragstart', noDrag);
-
-		//不能选中内容
-		$(trigger).css('-moz-user-select', 'none');
-		$(document).bind('selectstart', noDrag);
-
-		//检测窗口失去[焦点|捕获]时,取消注册
-		if(need_capture){
-			//ie下setCapture会导致输入框焦点不会失去,延迟可以正常
-			setTimeout(function() {
-				//由于存在延迟,trigger也有清除操作,所以需要检测
-				if(trigger){
-					trigger.setCapture();
-					$(trigger).bind('losecapture', end);
-				}
-			}, 1);
-		}else{
-			$(window).blur(end);
-		}
-	}
-
-	//完成拖动,取消各种事件
-	function end(){
-		$(document).unbind('mousemove', mouseMove).unbind('mouseup', end).unbind('dragstart', noDrag);
-
-		$(trigger).css('-moz-user-select', '');
-		$(document).unbind('selectstart', noDrag);
-
-		//取消检测
-		if(need_capture){
-			//releaseCapture会触发losecapture, 优先取消注册
-			$(trigger).unbind('losecapture', end);
-			trigger.releaseCapture();
-		}else{
-			$(window).unbind('blur', end);
-		}
-
-		//清除引用
-		trigger = target = null;
-	}
-
-	/**
-	 * @lends jQuery#
-	 */
-	$.fn.extend({
-		hdlDrag: function(setting){
-			var target;
-			//setting为target选择器
-			if(S.isString(setting)){
-				target = setting;
-				setting = {};
-			}
-			//配置对象时
-			else if(S.isPlainObject(setting)){
-				target = setting.target;
-			}
-			//其它情况
-			else{
-				setting = {};
-			}
-
-			//selector必须能选中元素
-			if($(target).length){
-				setting.target = target;
-			}else{
-				setting.target = null;
-			}
-
-			return this.each(function(i, v){
-				//只注册一次事件
-				if(!this['--bind-drag']){
-					this['--bind-drag'] = true;
-					$(this).mousedown(mouseDown);
-
-					//新增设置
-					this.drag_setting = S.mix(setting, default_setting, false);
-
-					//使用data避免由于作用域造成的循环引用导致内存泄露
-					if(this.drag_setting.trigger_filter){
-						$(this).data('trigger_filter', this.drag_setting.trigger_filter);
-						delete this.drag_setting.trigger_filter;
-					}
-				}
-				//修改设置
-				else{
-					//只能修改[拖动目标, 过滤函数, 拖动与否]
-					S.mix(this.drag_setting, setting, ['target', 'enable']);
-
-					if(setting.trigger_filter){
-						$(this).data('trigger_filter', setting.trigger_filter);
-					}
-				}
-
-				//鼠标状态
-				if(this.drag_setting.enable){
-					$(this).css('cursor', 'move');
-				}else{
-					$(this).css('cursor', 'default');
-				}
-			});
-		}
-	});
+});
 });
