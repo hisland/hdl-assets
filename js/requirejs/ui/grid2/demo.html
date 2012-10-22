@@ -11,7 +11,7 @@
 			baseUrl: '../../'
 		});
 
-		require(['ui/grid', 'util'], function(Grid, Util) {
+		require(['ui/grid2/main', 'util'], function(Grid, Util) {
 			window.grid = Grid.init({
 				"url" : "data.php",
 				"colModel" : [
@@ -24,13 +24,13 @@
 					{"display" : '告警时间',"width" : 140,"name" : "writeTime","align" : "left"} ,
 					{"display" : '告警事件类', "width" : 120 ,"align" : "center","name" : "eventType"},
 					{"display" : '告警清除类',"width" : 120,"align" : "center","name" : "clearType"}, 
-					{"display" : '额外信息',"width" : 120,"align" : "left","name" : "additionalInfo},
+					{"display" : '额外信息',"width" : 120,"align" : "left","name" : "additionalInfo"},
 					{"display" : '流水号',"width" : 60,"align" : "right","name" : "serialNum"},
 					{"display" : '目的地IP', "width" : 110,"align" : "left","name" : "remAddress"}
 				],
 				"enableCheckbox" : true
 			});
-			grid.$div.appendTo('#wrap');
+			grid.$wrap.appendTo('#wrap');
 			grid.ajaxLoad();
 		});
 	</script>
