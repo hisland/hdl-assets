@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> new document </title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script type="text/javascript">
+var require = {
+callback: function() {
+	require(['jquery-ui'], function(){
+		window.bbb = $('.aa').draggable({
+			snap: '.bb',
+			snapMode: 'both'
+		})
+	});
+}
+};
+</script>
+<script data-main="../../config" src="../../require-2.1.1.js"></script>
+<style type="text/css">
+	.xx .aa{width:100px;height:100px;background:green;display:inline-block;}
+	.bb{width:200px;height:200px;background:red;position:absolute;top:150px;left:100px;}
+	.dd{height:30px;background:#eee;}
+
+</style>
+</head>
+<body>
+		<div class="bb"></div>
+		
+	<div class="xx">
+		<div class="aa" id="qq">
+			<div class="dd"><a href="javascript:;">dddd</a></div>
+		</div>a
+	</div>
+</body>
+</html>
