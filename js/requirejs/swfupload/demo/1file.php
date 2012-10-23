@@ -32,7 +32,7 @@
 			}
 		};
 </script>
-<script type="text/javascript" src="../../require.js"></script>
+<script type="text/javascript" src="../../require-2.1.1.js"></script>
 </head>
 <body>
 	<h2>单文件上传</h2>

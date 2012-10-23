@@ -9,7 +9,7 @@
 		baseUrl: '../../../',
 		deps: ['config'],
 		callback: function() {
-			require(['jquery', 'util', 'css'], function($, Util) {
+			require(['jquery', 'util', 'css!./b.less'], function($, Util) {
 				$(function(){
 					$('th,td').each(function(i, v){
 						//$(v).html($(v).width() + 'a');
@@ -19,11 +19,7 @@
 		}
 	};
 	</script>
-	<script type="text/javascript" src="../../../require.js"></script>
-	<script type="text/javascript">
-		document.write('<link rel="stylesheet/less" type="text/css" href="b.less?' + Math.random() + '" />')
-	</script>
-	<script type="text/javascript" src="../../../less-1.3.0.min.js"></script>
+	<script type="text/javascript" src="../../../require-2.1.1.js"></script>
 </head>
 
 <body style="padding:20px;">

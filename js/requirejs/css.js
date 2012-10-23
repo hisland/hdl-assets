@@ -19,7 +19,7 @@ load('reset.css', require);
 
 return {
 	version: '0.1',
-	reg_css: /\.css$/,
+	reg_css: /\.less$|\.css$/,
 	load: function(name, req, onLoad, config){
 		//不是.css结尾的给它加上
 		if(!this.reg_css.test(name)){

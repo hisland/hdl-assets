@@ -10,7 +10,7 @@
 		baseUrl: '../../',
 		deps: ['config'],
 		callback: function() {
-			require(['jquery', 'util', 'demo'], function($, Util) {
+			require(['jquery', 'util/main', 'ui/calendar2/main', 'css!demo'], function($, Util) {
 				$('.calendar-wrap').each(function(i, v){
 					Util.trimBlank(v);
 				});
@@ -18,10 +18,7 @@
 		}
 	};
 	</script>
-	<script type="text/javascript" src="../../require.js"></script>
-	<link rel="stylesheet/less" type="text/css" href="main.less" />
-	<script type="text/javascript" src="../../less-1.3.0.min.js"></script>
-
+	<script type="text/javascript" src="../../require-2.1.1.js"></script>
 	<style type="text/css">
 		body .calendar-wrap{margin-bottom:10px;}
 	</style>
