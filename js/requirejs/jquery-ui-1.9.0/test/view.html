@@ -10,7 +10,13 @@ callback: function() {
 		window.bbb = $('.aa').draggable({
 			snap: '.bb',
 			snapMode: 'both'
-		})
+		});
+
+		$('.sort').sortable({
+			placeholder: 'xx',
+			tolerance: 'pointer'
+		});
+		$('.sort2').resizable();
 	});
 }
 };
@@ -20,6 +26,13 @@ callback: function() {
 	.xx .aa{width:100px;height:100px;background:green;display:inline-block;}
 	.bb{width:200px;height:200px;background:red;position:absolute;top:150px;left:100px;}
 	.dd{height:30px;background:#eee;}
+
+	.sort{margin-left:500px;width:200px;height:100px;overflow:hidden;}
+	.sort li{border:1px solid green;padding:2px;margin:2px;height:14px;}
+	.sort li.xx{border:1px solid red;padding:2px;margin:2px;height:14px;}
+
+	.sort2{margin-left:500px;width:200px;height:100px;overflow:hidden;border:1px solid #ccc;}
+	.sort2 li{border:1px solid green;padding:2px;margin:2px;height:14px;}
 
 </style>
 </head>
@@ -31,5 +44,17 @@ callback: function() {
 			<div class="dd"><a href="javascript:;">dddd</a></div>
 		</div>a
 	</div>
+
+	<ul class="sort">
+		<li>aa</li>
+		<li>bb</li>
+		<li>cc</li>
+	</ul>
+
+	<ul class="sort2">
+		<li>aa</li>
+		<li>bb</li>
+		<li>cc</li>
+	</ul>
 </body>
 </html>
