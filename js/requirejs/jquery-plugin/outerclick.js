@@ -10,6 +10,10 @@ define(['jquery', 'kissy'], function($, S){
 	function check(event) {
 		for (var i = 0, l = elements.length, target = event.target, el; i < l; i++) {
 			el = elements[i];
+			if($(el).data('outerclickinitin')){
+				$(el).removeData('outerclickinitin');
+				continue;
+			}
 			if (el !== target && !(el.contains ? el.contains(target) : el.compareDocumentPosition ? el.compareDocumentPosition(target) & 16 : 1)) {
 				$.event.trigger(OUTER_CLICK, event, el);
 			}
@@ -17,13 +21,16 @@ define(['jquery', 'kissy'], function($, S){
 	}
 
 	$.event.special[OUTER_CLICK] = {
-		setup: function () {
+		setup: function (data) {
 			var i = elements.length;
 			if (!i) {
 				$.event.add(document, 'click', check);
 			}
 			if ($.inArray(this, elements) < 0) {
 				elements[i] = this;
+			}
+			if(data.outerclickinitin){
+				$(this).data('outerclickinitin', true);
 			}
 		},
 		teardown: function () {
@@ -33,6 +40,14 @@ define(['jquery', 'kissy'], function($, S){
 				if (!elements.length) {
 					$.event.remove(document, 'click', check);
 				}
+			}
+		},
+		add: function(handleObj){
+			var element = this;
+			if(handleObj.data.outerclickinitin){
+				$(handleObj.data.outerclickinitin).one('click', function(){
+					$(element).off(OUTER_CLICK, handleObj.handler);
+				});
 			}
 		}
 	};
