@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="highlight.js/styles/default.css">
+<script src="jquery-1.8.2.js"></script>
 <script src="highlight.js/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 <style type="text/css">
@@ -166,6 +167,74 @@ js代码结构
 
 * 弱类型赋值已经是一种动态的表现
 * 原型链一节中, 修改原型链使已经实例化的对象都可以获得变化
+
+关于jQuery
+---------
+
+我们项目中jQuery使用得最多, 我们来了解下它
+
+* 连缀语法, 调用的都是原型方法 <a href="test1.html" target="_blank">测试</a>
+* 批量处理, 实际是内部调用each方法遍历了所有包含的元素
+
+		$('.aa').each(function(i, v){
+			alert(this.text());
+		}).eq(0).click(function(e){
+			alert('i am .aa 0');
+		}).end().click(function(e){
+			alert('clicked: ' + $(this).text());
+		});
+
+* 作为命名空间, 保存归属于它的变量, 不占用全局变量
+
+		$.param({
+			a: 'a',
+			b: 'b',
+			c: 'c'
+		});
+
+* 浏览器兼容, 统一api现实现
+* 由于jQuery的选择器过于强大, 它将其独立成了另一个项目: <a href="http://sizzlejs.com/" target="_blank">sizzle</a> <br />
+	它具有开放的api, 被其它一些框架所使用, 比如淘宝的 <a href="http://docs.kissyui.com/" target="_blank">kissy</a>
+
+
+下面是上面例子的实现的大概思路, 真实的jQuery代码要比它们复杂精密得多
+
+	function $(selector){
+		if(!(this instanceof $)){
+			return new $(selector);
+		}
+		//do some work ther find the DOM
+		return this;
+	}
+	$.prototype = {
+		each: function(fn){
+			var i=0, len = this.length;
+			for(; i<len; i++){
+				fn.call($(this.elements[i]), fn);
+			}
+			return this;
+		},
+		eq: function(n){
+			var rs = $(this.elements[n]);
+			rs.prevInstance = this;
+			return rs;
+		},
+		click: function(fn){
+			return this.each(function(){
+				//bind fn to element's click
+			});
+		},
+		end: function(){
+			return rs.prevInstance;
+		}
+	}
+	$.param = function(obj){
+		var rs = [];
+		for(var key in obj){
+			rs.push(key + '=' + obj[key]);
+		}
+		return rs.join('&');
+	}
 
 
 我们现有项目中的代码介绍
@@ -352,11 +421,7 @@ Jade is a high performance template engine heavily influenced by Haml and implem
 
 本文使用 [markdown](http://daringfireball.net/projects/markdown/) 制作
 
-Markdown is a text-to-HTML conversion tool for web writers. Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML).
-
-开源的东西, 推荐大家使用
-
-本文会放在内网服务器上, 欢迎大家浏览
+如果有需要又不会使用的, 可以访问我提供的内网服务器
 
 * [2012.11.2 - JavaScript概览](http://192.168.129.55/lesson/2012.11.2/js.md)
 
