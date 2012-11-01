@@ -2,9 +2,9 @@ define(['jquery', 'kissy'], function($, S){
 	return {
 		startDownload: function(url){
 			var ifr = $('<iframe class="download-iframe" width="0" height="0" src="' + url + '" frameborder="no" scrolling="no" allowtransparency="yes"></iframe>');
-			// ifr.on('load', function(e) {
-			// 	ifr.remove();
-			// });
+			ifr.on('load', function(e) {
+				ifr.remove();
+			});
 			ifr.appendTo('body');
 		},
 		postDownload: function(url, data){

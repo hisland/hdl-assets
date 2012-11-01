@@ -5,6 +5,10 @@
 	}
 	session_start();
 
+	foreach ($_REQUEST as $key => $value) {
+		echo '<p>'.$key.' == '.$value.'</p>';
+	}
+
 	// The Demos don't save files
 
 	if (!isset($_FILES["Filedata"]) 

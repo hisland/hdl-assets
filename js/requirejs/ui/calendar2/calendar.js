@@ -1,4 +1,4 @@
-define(['jquery', 'kissy', 'util/main', 'jquery-plugin/main', 'css!./main.less'], function($, S, Util){
+define(['jquery', 'kissy', 'util/main', 'jquery-plugin/main', 'less!./main.less'], function($, S, Util){
 
 function length1Prefix0(value) {
 	value += '';

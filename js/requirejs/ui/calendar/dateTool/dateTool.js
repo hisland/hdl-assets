@@ -23,7 +23,7 @@
  *		超出时间范围由用户决定继续填充,并加个开关是否允许
  * </code></pre>
  */
-define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
+define(['jquery', 'kissy', 'util', 'css!./dateTool', 'jquery-plugin'], function($, S, Util){
 	var $ = jQuery,
 		$EMPTY = $(''),
 		$div_wrap,
@@ -229,7 +229,7 @@ define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
 			}
 
 			//日期被禁用
-			if(o['date']){
+			if(o['date'] !== undefined){
 				this.__date_disabled = true;
 			}else{
 				this.__date_disabled = false;
@@ -326,6 +326,14 @@ define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
 			//上下翻页按钮
 			if(type === 'year'){
 				$drop_prev.add($drop_next).css('visibility', '');
+				if(from < 1980){
+					from = 1980;
+					$drop_prev.css('visibility', 'hidden');
+				}
+				if(to > 2099){
+					to = 2099;
+					$drop_next.css('visibility', 'hidden');
+				}
 			}else{
 				$drop_prev.add($drop_next).css('visibility', 'hidden');
 			}
@@ -471,10 +479,34 @@ define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
 	}
 	function dropPrev(){
 		var to = $div_drop_list.find('a:first').html()-0, from = to-24;
+		if(from < 1980){
+			from = 1980;
+			$drop_prev.css('visibility', 'hidden');
+		}else{
+			$drop_prev.css('visibility', '');
+		}
+		if(to > 2099){
+			to = 2099;
+			$drop_next.css('visibility', 'hidden');
+		}else{
+			$drop_next.css('visibility', '');
+		}
 		setting.makeDropList(from, to, setting.real('year'));
 	}
 	function dropNext(){
 		var from = $div_drop_list.find('a:last').html()-0, to = from+24;
+		if(from < 1980){
+			from = 1980;
+			$drop_prev.css('visibility', 'hidden');
+		}else{
+			$drop_prev.css('visibility', '');
+		}
+		if(to > 2099){
+			to = 2099;
+			$drop_next.css('visibility', 'hidden');
+		}else{
+			$drop_next.css('visibility', '');
+		}
 		setting.makeDropList(from, to, setting.real('year'));
 	}
 	function dropSelect($t, no_close){
@@ -503,6 +535,7 @@ define(['jquery', 'kissy', 'css!./dateTool', 'jquery-plugin'], function($, S){
 		setting.fillTarget();
 	}
 	function btnCompleteClick(){
+		setting.fillTarget();
 		toolClose();
 	}
 

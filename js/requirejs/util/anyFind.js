@@ -4,7 +4,7 @@ function Find(){
 	this.data = {
 		list: []
 	};
-	this.emptyAll = false;
+	this.returnAllWhenEmpty = false;
 }
 $.extend(Find.prototype, {
 	put: function(str, obj){
@@ -47,7 +47,7 @@ $.extend(Find.prototype, {
 		if(S.isString(str)){
 			//空字符串操作
 			if(str.length === 0){
-				if(this.emptyAll){
+				if(this.returnAllWhenEmpty){
 					return this.data.list;
 				}else{
 					return null;
@@ -75,9 +75,9 @@ $.extend(Find.prototype, {
 		}
 		return null;
 	},
-	setEmptyAll: function(state){
+	setReturnAllWhenEmpty: function(state){
 		if($.isBoolean(state)){
-			this.emptyAll = state;
+			this.returnAllWhenEmpty = state;
 		}
 	}
 });
