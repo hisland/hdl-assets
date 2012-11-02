@@ -11,7 +11,11 @@ function load(url){
 
 //load reset.css before any other css
 $(function(){
-	$('head').prepend('<link rel="stylesheet" type="text/css" href="' + require.toUrl('reset.css') + '">');
+	var node = document.createElement('link');
+	node.href = require.toUrl('reset.css');
+	node.rel = 'stylesheet';
+	node.charset = 'utf-8';
+	document.getElementsByTagName("head")[0].appendChild(node);
 });
 
 return {

@@ -1,27 +1,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title> new document </title>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<script type="text/javascript">
-		var require = {
-				baseUrl: '../../',
-				deps: ['config'],
-				callback: function() {
-					require(['ui/calendar2/calendar', 'demo', 'css!./main.less'], function(Calendar2) {
-						window.cal1 = new Calendar2();
-						cal1.$wrap.show();
+<title> new document </title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script type="text/javascript">
+var require = {
+	baseUrl: '../../',
+	deps: ['config'],
+	callback: function() {
+		require(['ui/calendar2/calendar'], function(Calendar) {
+			window.cal1 = new Calendar();
+			cal1.$wrap.show();
 
-						cal1.setCursor('date');
-						cal1.setValue(new Date);
-						cal1.setMonth(4);
-					});
-				}
-			};
-	</script>
-	<script type="text/javascript" src="../../require-2.1.1.js"></script>
+			cal1.setCursor('date');
+			cal1.setValue(new Date);
+			cal1.setMonth(4);
+		});
+	}
+};
+</script>
+<script type="text/javascript" src="../../require-2.1.1.js"></script>
 </head>
 <body>
-	
 </body>
 </html>

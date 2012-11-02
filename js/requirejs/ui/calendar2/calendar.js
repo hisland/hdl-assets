@@ -6,12 +6,7 @@ function length1Prefix0(value) {
 }
 
 var i18n = {
-	week: ['', '一', '二', '三', '四', '五', '六', '日'],
-	clear: '清除',
-	now: '现在',
-	close: '关闭',
-	prev: '前一页',
-	next: '后一页'
+	week: ['', '一', '二', '三', '四', '五', '六', '日']
 };
 var defaultConfig = {
 	weekStart: 1,
@@ -104,9 +99,9 @@ $.extend(Calendar.prototype, {
 	__initDOM: function(){
 		var div = $('<div class="calendar-wrap"><div class="cldr-top"></div><div class="cldr-arr"></div><div class="cldr-ipt-wrap"><div class="cldr-ipt-item cldr-div-year"><span class="cldr-ipt-up"></span><input class="cldr-ipt-year" value="" /><span class="cldr-ipt-down"></span></div><div class="cldr-ipt-sep">-</div><div class="cldr-ipt-item"><span class="cldr-ipt-up"></span><input class="cldr-ipt-month" value="" /><span class="cldr-ipt-down"></span></div><div class="cldr-ipt-sep">-</div><div class="cldr-ipt-item cldr-div-date"><span class="cldr-ipt-up"></span><input class="cldr-ipt-date" value="" /><span class="cldr-ipt-down"></span></div><div class="cldr-ipt-item"><span class="cldr-ipt-up"></span><input class="cldr-ipt-hour" value="" /><span class="cldr-ipt-down"></span></div><div class="cldr-ipt-sep">:</div><div class="cldr-ipt-item"><span class="cldr-ipt-up"></span><input class="cldr-ipt-minute" value="" /><span class="cldr-ipt-down"></span></div><div class="cldr-ipt-sep">:</div><div class="cldr-ipt-item"><span class="cldr-ipt-up"></span><input class="cldr-ipt-second" value="" /><span class="cldr-ipt-down"></span></div></div><div class="cldr-lst-date"></div></div>');
 		this.$wrap = div;
-		this.$clear = $('<a href="javascript:;" class="btn-clear">' + i18n.clear + '</a>').appendTo(div.find('div.cldr-top'));
-		this.$now = $('<a href="javascript:;" class="btn-now">' + i18n.now + '</a>').appendTo(div.find('div.cldr-top'));
-		this.$close = $('<a href="javascript:;" class="btn-close">' + i18n.close + '</a>').appendTo(div.find('div.cldr-top'));
+		this.$clear = $('<a href="javascript:;" class="btn-clear">' + getText('清除') + '</a>').appendTo(div.find('div.cldr-top'));
+		this.$now = $('<a href="javascript:;" class="btn-now">' + getText('现在') + '</a>').appendTo(div.find('div.cldr-top'));
+		this.$close = $('<a href="javascript:;" class="btn-close">' + getText('关闭') + '</a>').appendTo(div.find('div.cldr-top'));
 		this.$arr = div.find('div.cldr-arr');
 		this.$iptWrap = div.find('div.cldr-ipt-wrap');
 		this.$year = div.find('input.cldr-ipt-year');
@@ -130,6 +125,15 @@ $.extend(Calendar.prototype, {
 			});
 			this.$close.click(function(e){
 				me.hide();
+			});
+
+		//输入框hover
+			this.$iptWrap.children().hover(function(e){
+				if ($(this).find('input:enabled').length) {
+					$(this).find('span').css('visibility', 'visible');
+				}
+			}, function(e){
+				$(this).find('span').css('visibility', 'hidden');
 			});
 
 		//输入框点击
@@ -217,9 +221,6 @@ $.extend(Calendar.prototype, {
 					
 				}
 			});
-			this.$year.hover(function(e){
-			}, function(e){
-			});
 
 		//month control
 			this.$month.prev().click(function(e){
@@ -243,9 +244,6 @@ $.extend(Calendar.prototype, {
 				}else if(e.keyCode === 39){//cursor right
 					
 				}
-			});
-			this.$month.hover(function(e){
-			}, function(e){
 			});
 
 		//date control
@@ -271,9 +269,6 @@ $.extend(Calendar.prototype, {
 					
 				}
 			});
-			this.$date.hover(function(e){
-			}, function(e){
-			});
 
 		//hour control
 			this.$hour.prev().click(function(e){
@@ -297,9 +292,6 @@ $.extend(Calendar.prototype, {
 				}else if(e.keyCode === 39){//cursor right
 					
 				}
-			});
-			this.$hour.hover(function(e){
-			}, function(e){
 			});
 
 		//minute control
@@ -325,9 +317,6 @@ $.extend(Calendar.prototype, {
 					
 				}
 			});
-			this.$minute.hover(function(e){
-			}, function(e){
-			});
 
 		//second control
 			this.$second.prev().click(function(e){
@@ -352,9 +341,7 @@ $.extend(Calendar.prototype, {
 					
 				}
 			});
-			this.$second.hover(function(e){
-			}, function(e){
-			});
+			
 		return this;
 	}
 });
@@ -486,8 +473,8 @@ $.extend(Calendar.prototype, {
 	},
 	getYearPage: function(){
 		var str = ['<div class="cldr-nav">'];
-		str.push('<a href="javascript:;" class="cldr-year-prev">' + i18n.prev + '</a>');
-		str.push('<a href="javascript:;" class="cldr-year-next">' + i18n.next + '</a>');
+		str.push('<a href="javascript:;" class="cldr-year-prev">' + getText('前一页') + '</a>');
+		str.push('<a href="javascript:;" class="cldr-year-next">' + getText('后一页') + '</a>');
 		str.push('</div>');
 		return str.join('');
 	},
@@ -696,7 +683,7 @@ $.extend(Calendar.prototype, {
 });
 
 //设置当前显示field, 操作箭头
-var fieldOffset = {
+var fieldOffsetLeft = {
 	year: 19,
 	month: 59,
 	date: 93,
@@ -719,7 +706,7 @@ $.extend(Calendar.prototype, {
 		return this;
 	},
 	__setArr: function(field){
-		this.$arr.css('left', fieldOffset[field]);
+		this.$arr.css('left', fieldOffsetLeft[field]);
 		return this;
 	}
 });

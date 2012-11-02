@@ -164,7 +164,8 @@ js代码结构
 			alert(a.b);
 
 			//可以看到有这样一条链
-			//a -> A.prototype -> B.prototype
+			//a ---> A.prototype -> B.prototype
+			//a1 /
 
 			//我们甚至可以在实例化A之后修改它的原型链,使它有动态的属性
 			alert(a.c);
@@ -223,7 +224,7 @@ js代码结构
 		each: function(fn){
 			var i=0, len = this.length;
 			for(; i<len; i++){
-				fn.call($(this.elements[i]), fn);
+				fn.call($(this.elements[i]), i, fn);
 			}
 			return this;
 		},
@@ -234,11 +235,12 @@ js代码结构
 		},
 		click: function(fn){
 			return this.each(function(){
+				this.bind('click', fn);
 				//bind fn to element's click
 			});
 		},
 		end: function(){
-			return rs.prevInstance;
+			return this.prevInstance;
 		}
 	}
 	$.param = function(obj){
