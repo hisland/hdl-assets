@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		body{padding:50px;}
+
+		p{background:#ccc;}
+		span{background:green;}
+
+		.w50{width:50px;}
+		.w60{width:60px;}
+		.tar{text-align:right;}
+		.taj{text-align:justify;}
+
+		.has-margin4{margin:10px;}
+		.has-padding4{padding:10px;}
+		.has-padding40{padding:40px;background:#999;}
+	</style>
+</head>
+<body>
+<p>
+	aa <span>行内元素</span> bb <span>行内元素</span> dd
+</p>
+<p class="w50">
+	aa <span>行内元素 行内元素</span> bb <span>ee</span> dd
+</p>
+<p class="w50 tar">
+	aa <span>行内元素 居右</span> bb <span>ee</span> dd
+</p>
+<p class="w60 taj">
+	aa <span>行内元素 分散对齐</span> bb <span>ee</span> dd
+</p>
+<p>
+	aa <span class="has-margin4">我有4方向margin</span> bb <span class="has-padding4">我有4方向padding</span> dd
+</p>
+<p>
+	aa <span class="has-margin4">我有4方向margin</span> <span class="has-margin4">我有4方向margin</span> bb <span class="has-padding40">我有4方向padding40</span> dd
+</p>
+<p>
+	aa <span class="has-padding40">我有4方向padding40</span> dd<span class="has-margin4">我有4方向margin</span>
+</p>
+<p>
+	aa <span class="has-margin4">我有4方向margin</span> bb <span class="has-padding4" style="line-height:3em;">我有4方向padding</span> dd
+</p>
+<p>
+	aa <span class="has-margin4" style="line-height:5em;">我有4方向margin</span> bb <span class="has-padding4" style="line-height:3em;display:inline-block;">我有4方向padding</span> dd
+</p>
+<p>
+	aa <span class="has-margin4" style="line-height:5em;">我有4方向margin</span> bb <span class="has-padding4" style="line-height:3em;display:inline-block;vertical-align:bottom;">我有4方向padding</span> dd
+</p>
+<p>
+	aa <span class="has-margin4">我有4方向margin</span> bb <span class="has-padding4" style="line-height:3em;display:inline-block;vertical-align:bottom;">我有4方向padding</span> dd
+</p>
+<p>
+	aa <span class="has-margin4">我有4方向margin</span> bb <span class="has-padding4" style="line-height:3em;display:inline-block;vertical-align:top;">我有4方向padding</span> dd
+</p>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		body{padding:50px;}
+
+		.outer{width:300px;clear:left;border:1px solid #ddd;}
+
+		.god{float:left;height:200px;width:200px;background:green;}
+		.god2{margin-top:-10px;}
+	</style>
+</head>
+<body>
+<p> If there is a line box, the outer top of the floated box is aligned with the top of the current line box. </p>
+<div class="outer">
+	some text	some text	some text	some text <span class="god"></span>
+</div>
+<p>Note: this means that floats with zero outer height or negative outer height do not shorten line boxes. </p>
+<div class="outer">
+	some text	some text	some text	some text <span class="god god2"></span>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="refresh" content="1" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style>
+		body{padding:50px;font-size:24px;line-height:24px;}
+		
+
+		span{display:inline-block;}
+
+		.pa span{vertical-align:middle;}
+		.pb span{vertical-align:top;}
+		.pc span{vertical-align:bottom;}
+
+		.a{background:#ccc;line-height:2em;}
+		.b{background:#ddd;font-size:48px;}
+		.c{background:#eee;font-size:48px;line-height:2em;}
+		
+	</style>
+</head>
+<body>
+	<p>line boxed的height, 是各个inline box的line-height</p>
+	<p>vertical-align作用于box, 而不是parent</p>
+	<p><span class="a">we are</span><span class="b">spans</span><span class="c">inline-block</span></p>
+	<p class="pa"><span class="a">we are</span><span class="b">spans</span><span class="c">inline-block</span></p>
+	<p class="pb"><span class="a">we are</span><span class="b">spans</span><span class="c">inline-block</span></p>
+	<p class="pc"><span class="a">we are</span><span class="b">spans</span><span class="c">inline-block</span></p>
+</body>
+</html>

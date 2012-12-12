@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		body{padding:50px;}
+
+		.box{background:green;margin-bottom:50px;}
+		.box2{width:100px;height:50px;background:#ccc;}
+
+		.box3{width:100px;height:50px;background:#ccc;margin:10px;}
+
+		.clear-both{clear:both;}
+	</style>
+</head>
+<body>
+<div class="box">
+	<div class="box2">被放在块级盒子里</div>
+	<div class="box2">被放在块级盒子里</div>
+	<div class="box2">被放在块级盒子里</div>
+</div>
+<div class="box">
+	<div class="box3">margin collapsed</div>
+	<div class="box3">margin collapsed</div>
+	<div class="box3">margin collapsed</div>
+</div>
+<div class="box">
+	<div class="box3">margin collapsed</div>
+	<div class="box3">margin collapsed</div>
+	<div class="box3" style="height:10px;float:left;">margin collapsed</div>
+	<div class="box3 clear-both">margin collapsed</div>
+</div>
+
+<div class="box">
+
+<p style="margin-bottom: 4em">
+  First paragraph.
+</p>
+<p style="float: left; height: 2em; margin: 0">
+  Floating paragraph.
+</p>
+<p style="clear: left; margin-top: 3em">
+   the clearance is -1em
+</p>
+</div>
+</body>
+</html>

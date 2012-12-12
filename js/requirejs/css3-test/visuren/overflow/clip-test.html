@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		body{padding:50px;}
+
+		.aaa{padding:50px;background:green;margin-bottom:10px;}
+		p{position:absolute;top:10px;left:10px;background:red;height:60px;overflow:scroll;}
+		p#one { clip: rect(5px, 40px, 45px, 5px); }
+		p#two { clip: rect(5px, 65px, 45px, 5px); }
+		p#two {top:200px;}
+	</style>
+</head>
+<body>
+	<div class="aaa">
+		clip for absolute, not all browser the same
+		<p id="one">
+			i am one <br />
+			i am one <br />
+			i am one <br />
+			i am one <br />
+			i am one <br />
+			i am one <br />
+			i am one <br />
+			i am one <br />
+			i am one <br />
+			i am one <br />
+			i am one <br />
+			i am one <br />
+		</p>
+		<p id="two">
+			i am two <br />
+			i am two <br />
+			i am two <br />
+			i am two <br />
+			i am two <br />
+			i am two <br />
+			i am two <br />
+			i am two <br />
+			i am two <br />
+			i am two <br />
+		</p>
+	</div>
+</body>
+</html>

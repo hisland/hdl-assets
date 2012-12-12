@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style>
+		body{padding:50px;font-size:24px;line-height:24px;}
+		.outer{margin:50px;background:green;}
+		.inner{margin:50px;background:#ccc;}
+
+		.outer2{margin:0 50px;background:#ddd;}
+		.minh20{height:50px;}
+	</style>
+</head>
+<body>
+	<div class="outer">
+		<div class="inner">
+			inner and outer 上下折叠了
+		</div>
+	</div>
+	<div class="outer">
+		<div class="inner">
+		</div>
+		<div class="inner">
+			0高inner and inner 折叠了
+		</div>
+	</div>
+	<div class="outer">
+		<div class="inner">
+			inner
+		</div>
+		<div class="inner">
+			last child in auto height parent
+		</div>
+	</div>
+	<div class="outer minh20">
+		<div class="inner">
+			inner
+		</div>
+		<div class="inner">
+			last child in none-auto height parent, not collapse, but seem like
+		</div>
+	</div>
+	<div class="outer2">
+		<p>text in this, the above box height less than its content</p>
+		<p>上个盒子内容与此盒子重叠了</p>
+		<p>ie7以下, none-auto的子元素不与父元素合并margin, 并且后来元素遮盖掉前面的元素</p>
+		<p>ie8+, 会合并, 并且, line-box后面的在前面的下面</p>
+		<p>经测试,其实是与hasLayout有关系, 当后面的元素不定高时, 前面元素的内容显示在此元素上面</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style>
+		body{padding:50px;font-size:24px;line-height:24px;}
+		
+		.outer{margin:50px;background:#ccc;height:100px;position:relative;}
+		.inner{margin:20px;background:green;position:absolute;top:0;left:0;width:200px;}
+			.inner div{margin:20px;background:#ddd;}
+		.inner2{background:green;position:absolute;top:0;right:0;width:200px;}
+			.inner2 div{margin:20px;background:#ddd;}
+	</style>
+</head>
+<body>
+	<div class="outer">
+		<div class="inner">
+			i am position:absolute; with margin:50px;
+			<div>
+				i do not collapse margin with parent
+			</div>
+		</div>
+		<div class="inner2">
+			i am only position:absolute;
+			<div>
+				i do not collapse margin with parent
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

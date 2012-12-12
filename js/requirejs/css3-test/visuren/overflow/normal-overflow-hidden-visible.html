@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		body{padding:50px;}
+
+		.aaa{padding:50px;background:green;}
+		.bbb{padding:20px;background:red;overflow:hidden;}
+		.kkk{position:absolute;background:#ccc;top:10px;left:10px;}
+	</style>
+</head>
+<body>
+	<div class="aaa">
+		<div class="bbb">
+			i am normal with overflow:hidden; 'kkk' inside me, out of range, still visible;
+			<div class="kkk">
+				i am position:absolute;
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		body{padding:50px;}
+
+		.outer{width:500px;height:10px;padding-top:10px;clear:left;border:1px solid #ddd;}
+
+		.left1{float:left;height:200px;width:100px;background:green;}
+		.left2{float:left;height:100px;width:200px;background:#ccc;}
+
+		.left3{float:left;width:150px;height:50px;background:red;}
+		.left31{float:left;width:350px;height:50px;background:red;}
+		.left32{float:left;width:450px;height:50px;background:red;}
+	</style>
+</head>
+<body>
+<p>A floated box is shifted to the left or right until its outer edge touches the containing block edge or the outer edge of another float.</p>
+<p>If there is not enough horizontal room for the float, it is shifted downward until either it fits or there are no more floats present. </p>
+<div class="outer">
+	<div class="left1"></div>
+	<div class="left2"></div>
+	<div class="left3"></div>
+</div>
+<div class="outer">
+	<div class="left1"></div>
+	<div class="left2"></div>
+	<div class="left31"></div>
+</div>
+<div class="outer">
+	<div class="left1"></div>
+	<div class="left2"></div>
+	<div class="left32"></div>
+</div>
+</body>
+</html>

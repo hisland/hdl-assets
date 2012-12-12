@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style>
+		body{padding:50px;font-size:24px;line-height:24px;}
+		
+		.outer{margin:50px;background:#ccc;overflow:hidden;}
+		.inner{margin:20px;background:green;}
+
+		.float{float:left;width:200px;margin:50px;background:#ccc;}
+		.float div{margin:20px;background:green;}
+	</style>
+</head>
+<body>
+	<div class="outer">
+		<div class="inner">
+			i am in a outer that overflow:hidden; we do not collapse margin with parent
+		</div>
+	</div>
+
+	<div class="float">
+		i am not collapse margin with prev-sibling
+		<div>
+			i am in float, we do not collapse margin with parent
+		</div>
+	</div>
+
+	<div class="outer" style="overflow:visible;">
+		<div class="inner">
+			i am in a outer that overflow:visible; line-box给float让出位置;
+		</div>
+	</div>
+
+	<div class="outer">
+		<div class="inner">
+			i am in a outer that overflow:hidden; we do not collapse margin with parent
+		</div>
+	</div>
+
+	<div class="outer" style="clear:left;">
+		i am clear:left; my border-box touch the margin-box of the float
+		<div class="inner">
+			i am in a outer that overflow:hidden; we do not collapse margin with parent
+		</div>
+	</div>
+
+</body>
+</html>

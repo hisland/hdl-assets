@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		body{padding:50px;}
+		.demo-wrap{
+			background:#ccc;
+			margin-bottom:50px;
+			height:100px;
+			position:relative;
+		}
+		.demo-wrap2{
+			background:#ccc;
+			margin-bottom:50px;
+			height:1px;
+			position:relative;
+		}
+		.demo-box1{
+			background:green;
+			position:absolute;top:10px;bottom:10px;left:10px;right:10px;
+		}
+		.demo-box11{
+			background:green;
+			position:absolute;top:20%;bottom:20%;left:10%;right:10%;
+		}
+		.demo-box2{
+			background:green;height:50px;width:300px;
+			position:absolute;top:10px;bottom:10px;left:10px;right:10px;
+		}
+		.demo-box3{
+			background:green;height:50px;width:300px;
+			position:absolute;bottom:10px;right:10px;
+		}
+	</style>
+</head>
+<body>
+
+<div class="demo-wrap">
+<div class="demo-box1">
+  同时设置 上右下左 时, 分别对齐父边
+</div>
+</div>
+
+<div class="demo-wrap">
+<div class="demo-box11">
+  同时设置 上右下左 百分比 时, 分别对齐父边
+</div>
+</div>
+
+<div class="demo-wrap2">
+<div class="demo-box11">
+  同时设置 上右下左 绝对值/百分比 时, 父无高度时, 不显示
+</div>
+</div>
+
+<div class="demo-wrap2">
+<div class="demo-box2">
+  同时设置 上右下左 高度 时, 父无高度时, 正常显示
+</div>
+</div>
+
+<div class="demo-wrap2">
+<div class="demo-box3">
+  同时设置 右下 绝对值/百分比 时, 父无高度时, 正常显示
+</div>
+</div>
+
+<div class="demo-wrap">
+<div class="demo-box2">
+  同时设置 上右下左 时, 设置宽高, 左上应用, 宽高起作用
+</div>
+</div>
+
+<div class="demo-wrap demo-wrap2">
+<div class="demo-box3">
+  同时设置 右下 时, 设置宽高, 右下应用, 宽高起作用
+</div>
+</div>
+
+</body>
+</html>

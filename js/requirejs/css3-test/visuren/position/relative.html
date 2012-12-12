@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		body{padding:50px;}
+		.demo-wrap{
+			background:#ccc;
+			margin-bottom:50px;
+		}
+		.demo-wrap2{
+			height:50px;
+		}
+		.demo-box1{
+			background:green;height:100px;
+			position:relative;top:10px;bottom:10px;left:10px;right:10px;
+		}
+		.demo-box2{
+			background:green;height:100px;
+			position:relative;top:10%;bottom:10%;left:10%;right:10%;
+		}
+	</style>
+</head>
+<body>
+
+<div class="demo-wrap">
+
+<div class="demo-box1">
+  同时设置 上右下左 时, 此救命上左优先(根据direction来调整)
+  <p>the used values are always: left = -right</p>
+</div>
+	
+</div>
+
+<div class="demo-wrap">
+
+<div class="demo-box2">
+  <p>百分比时, 需要父元素首先有[明确指定宽高]才有效</p>
+  <p>父无明确的高</p>
+</div>
+	
+</div>
+
+<div class="demo-wrap demo-wrap2">
+
+<div class="demo-box2">
+  父有明确的高
+</div>
+	
+</div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>new document</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style type="text/css">
+		body{padding:50px;}
+		/* Rules for bidi */
+		HEBREW, HE-QUO  {direction: rtl; unicode-bidi: embed}
+		ENGLISH         {direction: ltr; unicode-bidi: embed} 
+
+		/* Rules for presentation */
+		HEBREW, ENGLISH, PAR  {display: block}
+		EMPH                  {font-weight: bold}
+	</style>
+</head>
+<body>
+<HEBREW>
+  <PAR>HEBREW1 HEBREW2 english3 HEBREW4 HEBREW5</PAR>
+  <PAR>HEBREW6 <EMPH>HEBREW7</EMPH> HEBREW8</PAR>
+</HEBREW>
+<ENGLISH>
+  <PAR>english9 english10 english11 HEBREW12 HEBREW13</PAR>
+  <PAR>english14 english15 english16</PAR>
+  <PAR>english17 <HE-QUO>HEBREW18 english19 HEBREW20</HE-QUO></PAR>
+</ENGLISH>
+
+</body>
+</html>
