@@ -13,9 +13,9 @@ define(['jquery', 'kissy', 'ui/tip'], function($, S, Tip){
 			mask.loading();
 			$.post(config.url, config.data, function(rs){
 				if (rs.level < 3) {
-					config.onSuccess && config.onSuccess();
+					config.onSuccess && config.onSuccess(rs);
 				} else {
-					config.onFail && config.onFail();
+					config.onFail && config.onFail(rs);
 				}
 				WAD.showMsgWithLevel(rs.messageText, rs.level);
 				mask.remove();

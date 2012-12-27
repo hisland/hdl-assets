@@ -213,6 +213,26 @@ define(['jquery', 'kissy', 'util', 'css!./dateTool', 'jquery-plugin'], function(
 		},
 		refreshFixed: function(){
 			var i, v, o = {}, $ipt_list = $ipt_year.parent();
+
+			if(this['year'] === 'any' || this['year'] === 'e'){
+				this['year'] = this.real('year');
+			}
+			if(this['month'] === 'any' || this['month'] === 'e'){
+				this['month'] = this.real('month');
+			}
+			if(this['date'] === 'any' || this['date'] === 'e'){
+				this['date'] = this.real('date');
+			}
+			if(this['hour'] === 'any' || this['hour'] === 'e'){
+				this['hour'] = this.real('hour');
+			}
+			if(this['minute'] === 'any' || this['minute'] === 'e'){
+				this['minute'] = this.real('minute');
+			}
+			if(this['second'] === 'any' || this['second'] === 'e'){
+				this['second'] = this.real('second');
+			}
+
 			DateSetting.reg_fixed.lastIndex = 0;
 			this.fixed.replace(DateSetting.reg_fixed, function(a, b, c){
 				if(b && !o[b]){
@@ -299,6 +319,8 @@ define(['jquery', 'kissy', 'util', 'css!./dateTool', 'jquery-plugin'], function(
 		},
 		refreshDropList: function(type){
 			var str = [], from, to, now = this.real(type);
+			var today = new Date(), today_year = today.getFullYear();
+			var from_year_max = today_year - 15, to_year_max = 2028;
 
 			//各种范围
 			if(type === 'year'){
@@ -326,6 +348,14 @@ define(['jquery', 'kissy', 'util', 'css!./dateTool', 'jquery-plugin'], function(
 			//上下翻页按钮
 			if(type === 'year'){
 				$drop_prev.add($drop_next).css('visibility', '');
+				if(from < from_year_max){
+					from = from_year_max;
+					$drop_prev.css('visibility', 'hidden');
+				}
+				if(to > to_year_max){
+					to = to_year_max;
+					$drop_next.css('visibility', 'hidden');
+				}
 			}else{
 				$drop_prev.add($drop_next).css('visibility', 'hidden');
 			}
@@ -471,10 +501,40 @@ define(['jquery', 'kissy', 'util', 'css!./dateTool', 'jquery-plugin'], function(
 	}
 	function dropPrev(){
 		var to = $div_drop_list.find('a:first').html()-0, from = to-24;
+		var today = new Date(), today_year = today.getFullYear();
+		var from_year_max = today_year - 15, to_year_max = 2028;
+
+		if(from < from_year_max){
+			from = from_year_max;
+			$drop_prev.css('visibility', 'hidden');
+		}else{
+			$drop_prev.css('visibility', '');
+		}
+		if(to > to_year_max){
+			to = to_year_max;
+			$drop_next.css('visibility', 'hidden');
+		}else{
+			$drop_next.css('visibility', '');
+		}
 		setting.makeDropList(from, to, setting.real('year'));
 	}
 	function dropNext(){
 		var from = $div_drop_list.find('a:last').html()-0, to = from+24;
+		var today = new Date(), today_year = today.getFullYear();
+		var from_year_max = today_year - 15, to_year_max = 2028;
+
+		if(from < from_year_max){
+			from = from_year_max;
+			$drop_prev.css('visibility', 'hidden');
+		}else{
+			$drop_prev.css('visibility', '');
+		}
+		if(to > to_year_max){
+			to = to_year_max;
+			$drop_next.css('visibility', 'hidden');
+		}else{
+			$drop_next.css('visibility', '');
+		}
 		setting.makeDropList(from, to, setting.real('year'));
 	}
 	function dropSelect($t, no_close){
@@ -503,6 +563,7 @@ define(['jquery', 'kissy', 'util', 'css!./dateTool', 'jquery-plugin'], function(
 		setting.fillTarget();
 	}
 	function btnCompleteClick(){
+		setting.fillTarget();
 		toolClose();
 	}
 
@@ -618,6 +679,7 @@ define(['jquery', 'kissy', 'util', 'css!./dateTool', 'jquery-plugin'], function(
 	function toolOpen(target){
 		$target_fill = $(target);
 		setting = target.date_setting;
+		setting.setDate(parseValueToDate(target.value, setting.offset) || now(setting.offset));
 		setting.open();
 		$div_wrap.align(target).show();
 
@@ -669,10 +731,11 @@ define(['jquery', 'kissy', 'util', 'css!./dateTool', 'jquery-plugin'], function(
 					else if(DateSetting.isFixedString(setting)){
 						ipts.each(function(i, v){
 							this.date_setting.fixed = setting;
+							this.date_setting.refreshFixed();
 						});
 					}
 					//修改日期值
-					else if((setting instanceof Date) && setting.isValid()){
+					else if((setting instanceof Date) && Util.isValidDate(setting)){
 						ipts.each(function(i, v){
 							this.date_setting.setDate(setting);
 						});

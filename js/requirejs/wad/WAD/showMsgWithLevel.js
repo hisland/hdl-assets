@@ -22,17 +22,22 @@ define(['ui/tip'], function(Tip){
 		 * @return ui/tip
 		 */
 		showMsgWithLevel: function(vmsg, vlevel){
+			var type = 'alert';
 			if (vlevel === this.MSG_LEVEL.SUCC){
-				return Tip.alert(vmsg);
+				type = 'alert';
 			} else if (vlevel === this.MSG_LEVEL.HINT){
-				return Tip.notice(vmsg);
+				type = 'notice';
 			} else if (vlevel === this.MSG_LEVEL.NO_OPT) {
-				return Tip.error(vmsg);
+				type = 'error';
 			} else if (vlevel === this.MSG_LEVEL.TIMEOUT) {
 				window.ajaxError();
+				return;
 			}else{
-				return Tip.error(vmsg); 
+				type = 'error';
 			}
+			var tip = Tip[type](vmsg);
+			tip.hideAction = 'remove';
+			return tip;
 		}
 	};
 });

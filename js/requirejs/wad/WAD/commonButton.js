@@ -209,7 +209,7 @@ define(['ui/tip', './popConfig', './popEvent'], function(Tip, popup){
 				suffix: null
 			}, false);
 			
-			if(!WAD.checkPrefix(config.suffix)){
+			if(config.suffix !== 'NOT_CHECK' && !WAD.checkPrefix(config.suffix)){
 				return ;
 			}
 

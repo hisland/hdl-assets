@@ -1,10 +1,10 @@
 @charset "utf-8";
 
-.multipt-warp{height:100%;overflow:hidden;overflow-y:auto;padding:0 35px 0 3px;border:1px solid #DBDADA;}
+.multipt-warp{height:100%;overflow:hidden;overflow-y:auto;position:relative;border:1px solid #DBDADA;}
 .multipt-warp-check{padding:0 75px 0 3px;}
 
-	.iptdiv{position:relative;padding: 2px 0;}
-		.ipttext{border: 1px solid #DBDADA;height: 14px;line-height: 14px;padding: 1px;width: 100%;}
-		.statue{margin-left:4px;}
-		.iptdel{width: 16px; height: 16px; position: absolute; top: 3px; right: -30px; background: url("img/icon.gif") no-repeat scroll 0 0 transparent}
-		a.iptadd{display: inline-block;cursor:pointer;margin-top：3px;}
+	.iptdiv{position:relative;padding: 3px;}
+		.ipttext{border: 1px solid #DBDADA;height: 14px;line-height: 14px;padding: 1px;}
+		.statue{margin-left:4px;display:inline-block;position:relative;vertical-align:middle;}
+		.iptdel{width: 16px; height: 16px;margin-left:4px;display:inline-block;position:relative;vertical-align:middle;background: url("img/icon.gif") no-repeat scroll 0 0 transparent}
+		a.iptadd{display: inline-block;cursor:pointer;margin:3px 0 0 3px;}

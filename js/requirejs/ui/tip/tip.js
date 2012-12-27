@@ -47,7 +47,8 @@ define(['jquery', 'kissy', '../pop-manager', './msg', 'jquery-plugin', 'css!./ti
 			S.mix(this, {
 				slide: false,
 				dragable: true,
-				closeable: true
+				closeable: true,
+				hideAction: 'hide'
 			});
 
 			//纳入pop管理
@@ -149,13 +150,14 @@ define(['jquery', 'kissy', '../pop-manager', './msg', 'jquery-plugin', 'css!./ti
 		 */
 		hide: function(){
 			var tip = this;
+			var hideAction = this.hideAction;
 			if(this.closeable){
 				if(this.slide){
 					this.$div.fadeOut(function(){
-						tip.manager.hide();
+						tip.manager[hideAction]();
 					});
 				}else{
-					this.manager.hide();
+					this.manager[hideAction]();
 				}
 
 				//隐藏时的回调

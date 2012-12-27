@@ -35,6 +35,7 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 		 * @return this
 		 */
 		__initEvent: function(){
+			var me = this;
 			//1级菜单折叠
 			this.$div.on('click', '.menu-lv1', function(e){
 				var opened = !$(this).is('.menu-lv1-opened');
@@ -54,7 +55,12 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 					$("#index")[0] && $("#index")[0].exitApp && $("#index")[0].exitApp(); //注销
 				}
 
-				Page.loadUrl(this.href);
+				if(me.loadParam){
+					Page.loadUrl(this.href, me.loadParam);
+					me.loadParam = null;
+				}else{
+					Page.loadUrl(this.href);
+				}
 
 				var list = [], p;
 
@@ -143,11 +149,13 @@ define(['jquery', 'kissy', '../page/main', 'css!./menu'], function($, S, Page){
 					buff.push('</div>');
 				}else{
 					buff.push('<a class="menu-item" href="' + v.url + '" hidefocus="true" ');
-					if(v.prefix){
-						buff.push('id="menu-' + v.prefix + '"');
-						buff.push(' prefix="' + v.prefix + '"');
-					}else{
+					if(v.id){
 						buff.push('id="' + v.id + '"');
+					}else if(v.prefix){
+						buff.push('id="menu-' + v.prefix + '"');
+					}
+					if(v.prefix){
+						buff.push(' prefix="' + v.prefix + '"');
 					}
 					buff.push('>' + v.text + '</a>');
 				}

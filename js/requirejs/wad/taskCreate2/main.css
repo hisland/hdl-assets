@@ -20,7 +20,7 @@
 	.numberFile-div .numberFile-error{float:left;padding:2px;width:396px;background:#fff;}
 	.numberFile-div .numberFile-state{float:left;padding:2px;width:396px;background:#fff;}
 		.numberFile-state .file-th{display:inline-block;width:60px;text-align:right;vertical-align:top;}
-		.numberFile-state .file-name{display:inline-block;width:330px;vertical-align:top;}
+		.numberFile-state .file-name{display:inline-block;width:330px;vertical-align:top;overflow:hidden;text-overflow:ellipsis;}
 	.numberFile-div .del-numfile{float:right;margin:2px 14px 0 0;}
 	.numberFile-div .clear-both{clear:both;}
 

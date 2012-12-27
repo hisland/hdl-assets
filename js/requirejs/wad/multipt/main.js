@@ -8,17 +8,20 @@ define(['jquery', 'kissy', 'ui/tip', './msg', 'validator', 'validator/group', 'c
 			S.mix(config, {
 				iptSelector : null,
 				iptMaxSize : 10,
+				iptMinSize : 1,
 				iptArray : [],
 				iptname : null,
 				valid : null,
 				chkArray : [],
 				chkname :null,
+				maxlength:15,
 				validator:null
 			}, false);
 
 			var div = $(config.iptSelector),
 				valid = config.valid,
 				maxsize = config.iptMaxSize,
+				minsize = config.iptMinSize,
 				initArray = config.iptArray,
 				initchkArray = config.chkArray,
 				name = config.iptname,
@@ -30,13 +33,13 @@ define(['jquery', 'kissy', 'ui/tip', './msg', 'validator', 'validator/group', 'c
 			if(chkname !=null){
 				$(div).addClass("multipt-warp-check");
 			 	iptdiv =$('<div class="iptdiv">'
-						+'<input type="text" autocomplete="off" style="" maxlength="15" class="ipttext" name="'+name+'"/>'
+						+'<input type="text" autocomplete="off" style="" maxlength="20" class="ipttext" name="'+name+'"/>'
 						+'<a href="javascript:;" class="statue wad-link"><span>' + getText("启用中") + '</span><input type="hidden" name="'+chkname+'" value="1" /></a>'
-						+'<a href="javascript:;" class="iptdel" style="right: -70px;"></a>'
+						+'<a href="javascript:;" class="iptdel"></a>'
 					+'</div>');
 			}else{
 			 	iptdiv =$('<div class="iptdiv">'
-						+'<input type="text" autocomplete="off" style="" maxlength="15" class="ipttext" name="'+name+'">'
+						+'<input type="text" autocomplete="off" style="" maxlength="'+config.maxlength+'" class="ipttext" name="'+name+'"/>'
 						+'<a href="javascript:;" class="iptdel"></a>'
 					+'</div>');
 			}
@@ -85,7 +88,7 @@ define(['jquery', 'kissy', 'ui/tip', './msg', 'validator', 'validator/group', 'c
 			}else if(initArray.length>0){ //ip有数据
 				$(initArray).each(function(k,v){
 					var tempdiv = iptdiv.clone(true);
-					if(k==0){
+					if(k < minsize){
 						tempdiv.find(".iptdel").remove();
 					}
 					tempdiv.find(".ipttext").val(v);
@@ -107,10 +110,12 @@ define(['jquery', 'kissy', 'ui/tip', './msg', 'validator', 'validator/group', 'c
 				}
 				
 			}else if(initArray.length==0){ //ip无数据
-				var tempdiv = iptdiv.clone(true);
-				tempdiv.find(".iptdel").remove();
-				addValidator(tempdiv.find("input.ipttext")); //添加验证
-				iptadd.before(tempdiv);  
+				for(var i=0; i<minsize; i++){
+					var tempdiv = iptdiv.clone(true);
+					tempdiv.find(".iptdel").remove();
+					addValidator(tempdiv.find("input.ipttext")); //添加验证
+					iptadd.before(tempdiv);  
+				}
 				iptadd.show();
 			}
 

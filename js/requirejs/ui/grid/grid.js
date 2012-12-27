@@ -553,7 +553,7 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 * @return this
 		 */
 		__blankLine: function(){
-			var str = '<tr style="visibility:hidden;">';
+			var str = '<tr style="visibility:hidden;">', grid = this;
 
 			//checkbox需要占一列
 			if(this.enable_checkbox){
@@ -567,6 +567,10 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 			str += '</tr>';
 
 			this.$tbody.html(str);
+
+			setTimeout(function(){
+				grid.onSelect();
+			}, 50);
 			return this;
 		},
 		/**
@@ -819,7 +823,6 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 		 * @return 
 		 */
 		addButtonSep: function(){
-			this.$button.append('<span class="hdlgrid-btn-sep"></span>');
 			return this;
 		},
 		/**
@@ -877,6 +880,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 			//按钮区域显示出来
 			this.$button.append(button.$div);
+
+			//增加一条分割线
+			this.$button.append('<span class="hdlgrid-btn-sep"></span>');
 			return this;
 		},
 		/**
@@ -933,6 +939,9 @@ define(['jquery', 'kissy', './msg', './pre-setting', './pre-col', './pre-row', '
 
 			//按钮区域显示出来
 			this.$button.append(button.$div);
+
+			//增加一条分割线
+			this.$button.append('<span class="hdlgrid-btn-sep"></span>');
 
 			//TODO: 初始化导入按钮的flash
 			setTimeout(function(){

@@ -90,6 +90,7 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 			config.tabs.click(function(e){
 				config.cons.hide();
 				config.cons.eq($(this).index()).show();
+				$(this).find(':radio').attr('checked', true);
 			});
 
 			config.tabs.eq(config.defaultShow).triggerHandler('click');
@@ -101,15 +102,17 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 				noDel: false,
 				msgDel: 'del',
 				msgSelectTmpl: 'Template',
+				useTmpl: true,
 				tmplUrl: null,
 				tmplData: null,
 				tmplSearch: null,
+				tipStr: null,
 				maxLength: null
 			}, false);
 
 			var wrap =$('<div class="multimsg-div">'
 						+ (config.noDel ? '' : '<a href="javascript:;" class="wad-link multimsg-del">' + config.msgDel + '</a>')
-						+ '<a href="javascript:;" class="wad-link select-tmpl">' + config.msgSelectTmpl + '</a>'
+						+ (config.useTmpl ? '<a href="javascript:;" class="wad-link select-tmpl">' + config.msgSelectTmpl + '</a>' : '')
 						+ '<textarea class="text1"></textarea>'
 						+ '</div>'),
 				ac = Autocomplete.init({
@@ -128,11 +131,16 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 								+ idx + '" href="javascript:;" class="autocomp-a">'
 								+ Util.entityHTML(item.tempName) + '</a>';
 					}
-				}),
-				valid = ValidGroup.init();
+				});
 
 			ac.attach(wrap.find('.select-tmpl'));
-			valid.len(1, config.maxLength).attach(wrap.find('textarea'));
+
+			var valid = ValidGroup.init().len(1, config.maxLength).attach(wrap.find('textarea'));
+			if(config.tipStr){
+				valid.fn(function(){
+					return true;
+				}, config.tipStr);
+			}
 
 			return wrap;
 		},
@@ -140,9 +148,11 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 			S.mix(config, {
 				msgDel: 'del',
 				msgSelectTmpl: 'Template',
+				useTmpl: true,
 				tmplUrl: null,
 				tmplData: null,
 				maxLength: null,
+				tipStr: null,
 				max: 3,
 				selector: null
 			}, false);
@@ -156,8 +166,10 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 				listWrap.append(TC.makeMsg({
 					msgDel: config.msgDel,
 					msgSelectTmpl: config.msgSelectTmpl,
+					useTmpl: config.useTmpl,
 					tmplUrl: config.tmplUrl,
 					tmplData: config.tmplData,
+					tipStr: config.tipStr,
 					maxLength: config.maxLength
 				}));
 
@@ -182,8 +194,10 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 				noDel: true,
 				msgDel: config.msgDel,
 				msgSelectTmpl: config.msgSelectTmpl,
+				useTmpl: config.useTmpl,
 				tmplUrl: config.tmplUrl,
 				tmplData: config.tmplData,
+				tipStr: config.tipStr,
 				maxLength: config.maxLength
 			}));
 		},
@@ -201,7 +215,10 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 				maxSize: null,
 				filter: null,
 				dataAreaList: null,
-				selector: null
+				selector: null,
+				useArea: true,
+				areaDisabled: false,
+				useSelectLib: true
 			}, false);
 
 			var wrap =$('<div class="numberFile-div">'
@@ -209,8 +226,8 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 							+ '<a href="javascript:;" class="wad-link del-numfile">' + config.msgDel + '</a>'
 							+ '<div class="numberFile-hole">'
 								+ '<a href="javascript:;" class="wad-link btn1-upload">' + config.msgUpload + '</a>'
-								+ ' <span>' + config.msgOr + '</span> '
-								+ '<a href="javascript:;" class="wad-link select-numfile">' + config.msgPleaseSelect + '</a>'
+								+ (config.useSelectLib ? ' <span>' + config.msgOr + '</span> '
+								+ '<a href="javascript:;" class="wad-link select-numfile">' + config.msgPleaseSelect + '</a>' : '')
 							+ '</div>'
 							+ '<div class="numberFile-state"></div>'
 							+ '<div class="red numberFile-error"></div>'
@@ -233,13 +250,13 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 			}
 			function makeResult(mark){
 				return $('<input type="hidden" value="' + mark.key + '" class="upload-ok" />'
-						+ '<p><span class="file-th">文件名: </span><span class="file-name">' + mark.fileName + '</span></p>'
+						+ '<p><span class="file-th">文件名: </span><span class="file-name" title="' + mark.fileName + '">' + mark.fileName + '</span></p>'
 						+ '<p><span class="file-th">预计行数: </span>' + mark.lineCount + '</p>'
-						+ '<p><span class="file-th">归属地: </span>' + makeAreaSelect() + '</p>'
+						+ (config.useArea ? '<p><span class="file-th">归属地: </span>' + makeAreaSelect() + '</p>' : '')
 						+ '<p><span class="file-th">查看: </span><a class="wad-link" href="javascript:;" onclick="Util.startDownload(\'' + mark.url + '\')">下载</a></p>').find('select').val(mark.localID).end();
 			}
 			function makeAreaSelect(){
-				return '<select class="select1">' + S.map(config.dataAreaList, function(v, i, o){
+				return '<select class="select1"' + (config.areaDisabled ? ' disabled="disabled"' : '') + '>' + S.map(config.dataAreaList, function(v, i, o){
 					return '<option value="' + v.areaId + '">' + v.areaName + '</option>';
 				}).join('') + '</select>';
 			}
@@ -254,6 +271,7 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 					wrap.find('object').css('left', -1000);
 					wrap.find('.numberFile-hole').hide();
 					wrap.find('.numberFile-state').show();
+					wrap.find('.numberFile-state').html(getText('正在处理文件格式...'));
 					$.post(config.uploadUrl, {
 						'fileForm.dataNumLibID': item.listId,
 						'fileForm.numLibName': item.fileName,
@@ -299,11 +317,11 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 							if(percent != 100){
 								wrap.find('.numberFile-state').html(percent + '%');
 							}else{
-								wrap.find('.numberFile-state').html(getText('上传完成'));
+								wrap.find('.numberFile-state').html(getText('上传完成, 正在处理文件格式...'));
 							}
 						},
 						funcUploaded: function(){
-							wrap.find('.numberFile-state').html(getText('上传完成, 等待处理'));
+							wrap.find('.numberFile-state').html(getText('上传完成, 正在处理文件格式...'));
 						},
 						funcComplete: complete
 					}
@@ -327,7 +345,10 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 				dataAreaList: null,
 				selector: null,
 				msgRource: null,
-				max: null
+				max: null,
+				useArea: true,
+				areaDisabled: false,
+				useSelectLib: true
 			}, false);
 
 			var wrap = $(config.selector), TC = this;
@@ -354,11 +375,13 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 				msgArea: getText('地区'),
 				dataAreaList: null,
 				selector: null,
-				max: null
+				max: null,
+				areaDisabled: false,
+				useArea: true
 			}, false);
 
 			function makeAreaSelect(){
-				return '<select class="select1">' + S.map(config.dataAreaList, function(v, i, o){
+				return '<select class="select1"' + (config.areaDisabled ? ' disabled="disabled"' : '') + '>' + S.map(config.dataAreaList, function(v, i, o){
 					return '<option value="' + v.areaId + '">' + v.areaName + '</option>';
 				}).join('') + '</select>';
 			}
@@ -366,7 +389,7 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 			var wrap =$('<div class="numberSeg-div">'
 							+ '<div class="numberSeg-hole">'
 								+ '<input type="text" name="" value="" class="text1" /> '
-								+ config.msgArea + makeAreaSelect()
+								+ (config.useArea ? config.msgArea + makeAreaSelect() : '')
 							+ '</div>'
 							+ '<a href="javascript:;" class="wad-link del-numseg">' + config.msgDel + '</a>'
 							+ '<span class="clear-both"></span>'
@@ -391,7 +414,9 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 				msgArea: getText('地区'),
 				dataAreaList: null,
 				selector: null,
-				max: null
+				max: null,
+				areaDisabled: false,
+				useArea: true
 			}, false);
 
 			var wrap = $(config.selector), TC = this;
@@ -455,7 +480,7 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 			}
 			function makeResult(mark){
 				return $('<input type="hidden" value="' + mark.key + '" class="upload-ok" />'
-						+ '<p><span class="file-th">文件名: </span><span class="file-name">' + mark.fileName + '</span></p>'
+						+ '<p><span class="file-th">文件名: </span><span class="file-name" title="' + mark.fileName + '">' + mark.fileName + '</span></p>'
 						+ '<p><span class="file-th">预计行数: </span>' + mark.lineCount + '</p>'
 						+ '<p><span class="file-th">查看: </span><a class="wad-link" href="javascript:;" onclick="Util.startDownload(\'' + mark.url + '\')">下载</a></p>');
 			}
@@ -486,11 +511,11 @@ define(['jquery', 'kissy', './fileUpload', 'ui/moniSelect/main', 'css!./main'], 
 							if(percent != 100){
 								wrap.find('.numberFile-state').html(percent + '%');
 							}else{
-								wrap.find('.numberFile-state').html(getText('上传完成'));
+								wrap.find('.numberFile-state').html(getText('上传完成, 正在处理文件格式...'));
 							}
 						},
 						funcUploaded: function(){
-							wrap.find('.numberFile-state').html(getText('上传完成, 等待处理'));
+							wrap.find('.numberFile-state').html(getText('上传完成, 正在处理文件格式...'));
 						},
 						funcComplete: complete
 					}

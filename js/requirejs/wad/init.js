@@ -16,6 +16,9 @@ define(function(require, exports, module){
 	//表格控件
 	window.Grid = require('ui/grid');
 
+	//报表控件
+	window.Report = require('ui/report/main');
+
 	//提示信息
 	window.Tip = require('ui/tip');
 

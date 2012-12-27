@@ -85,7 +85,11 @@ define(['jquery', 'kissy', './focus-check', 'css!./pop-manager'], function($, S,
 		 * @return this
 		 */
 		loading: function(){
-			this.$div.addClass('loading');
+			if($.browser.msie){
+				this.$mask.addClass('loading');
+			}else{
+				this.$div.addClass('loading');
+			}
 			return this;
 		},
 		/**
@@ -93,7 +97,11 @@ define(['jquery', 'kissy', './focus-check', 'css!./pop-manager'], function($, S,
 		 * @return this
 		 */
 		loaded: function(){
-			this.$div.removeClass('loading');
+			if($.browser.msie){
+				this.$mask.removeClass('loading');
+			}else{
+				this.$div.removeClass('loading');
+			}
 			return this;
 		},
 		/**

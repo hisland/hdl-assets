@@ -91,6 +91,7 @@ define(['jquery', 'kissy', 'css!./tab'], function($, S){
 			function insert(){
 				if(timeOk && reqOk){
 					me.$con.html(html);
+					me.onLoad && me.onLoad();
 				}
 			}
 		},

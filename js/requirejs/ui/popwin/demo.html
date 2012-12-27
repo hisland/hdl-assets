@@ -11,10 +11,13 @@
 			baseUrl: '../../'
 		});
 
+		require(['i18n'], function(){
 		require(['ui/popwin', 'util', 'css'], function(Popwin, Util) {
 			window.kkk = Popwin.init();
 			kkk.$content.append($('#tb'));
 			kkk.show();
+
+			kkk.setSize(200, 200);
 
 			$('#add').click(function(e){
 				Popwin.init().show().$content.html('<a href="javascript:;">aaa</a>');
@@ -46,6 +49,7 @@
 				}
 				close = !close;
 			});
+		});
 		});
 	</script>
 	<style type="text/css">
