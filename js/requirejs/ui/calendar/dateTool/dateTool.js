@@ -651,6 +651,7 @@ define(['jquery', 'kissy', 'util', 'css!./dateTool', 'jquery-plugin'], function(
 	function toolOpen(target){
 		$target_fill = $(target);
 		setting = target.date_setting;
+		setting.setDate(parseValueToDate(target.value, setting.offset) || now(setting.offset));
 		setting.open();
 		$div_wrap.align(target).show();
 

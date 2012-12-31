@@ -108,7 +108,8 @@ S.augment(Week, {
 	 */
 	week: function(n){
 		if(n !== undefined){
-			this.__week = n-0;
+			n -= 0;
+			this.__week = n;
 			return this;
 		}else{
 			return this.__week;

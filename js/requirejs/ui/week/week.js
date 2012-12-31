@@ -76,9 +76,15 @@ define(['jquery', 'kissy', 'css!./week'], function($, S){
 		 * @param n Int
 		 * @return this|Int
 		 */
-		week: function(n){
+		week: function(n, force){
 			if(n !== undefined){
-				this.__week = n-0;
+				n -= 0;
+				if (n > 0 && n <= this.maxWeek()) {
+					this.__week = n;
+				}else if (n > this.maxWeek() && force) {
+						this.year(this.year() + 1);
+						this.__week = n - this.maxWeek();
+				}
 				return this;
 			}else{
 				return this.__week;
