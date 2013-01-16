@@ -126,7 +126,7 @@ define(['jquery', 'kissy', 'util', './msg'], function($, S, Util, MSG){
 			if(this.config.isInnerSearch){ //有内部框
 //				$(this.selector).attr("readonly",true);
 				
-				if($.browser.msie&&($.browser.version == "9.0")){
+				if($.browser.msie){
 					this.$input.on('focus', this, this.__delayInput).on('blur', this, this.__clearDelayInput);
 				}else{
 					this.$input.on('input', this,  this.__input);
@@ -148,7 +148,7 @@ define(['jquery', 'kissy', 'util', './msg'], function($, S, Util, MSG){
 			if(this.config.isInnerSearch){ //有内部框
 //				$(this.selector).attr("readonly",false);
 				
-				if($.browser.msie&&($.browser.version == "9.0")){
+				if($.browser.msie){
 					this.$input.off('focus', this.__delayInput).off('blur', this.__clearDelayInput);
 				}else{
 					this.$input.off('input', this.__input);
@@ -237,7 +237,12 @@ define(['jquery', 'kissy', 'util', './msg'], function($, S, Util, MSG){
 			if(o.data.currPage > 1){
 				o.data.currPage--;
 			}
-			str = $(o.config.tempSelector).val();
+			var ap = e.data, str;
+			if (ap.config.isInnerSearch) {
+				str = ap.$input.val();
+			} else {
+				str = $(o.config.tempSelector).val();
+			}
 			o.search(str);
 		},
 		/**
@@ -248,7 +253,12 @@ define(['jquery', 'kissy', 'util', './msg'], function($, S, Util, MSG){
 			if(o.data.currPage < o.data.allPage){
 				o.data.currPage++;
 			}
-			str = $(o.config.tempSelector).val();
+			var ap = e.data, str;
+			if (ap.config.isInnerSearch) {
+				str = ap.$input.val();
+			} else {
+				str = $(o.config.tempSelector).val();
+			}
 			o.search(str);
 		},
 		/**

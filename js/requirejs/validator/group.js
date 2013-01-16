@@ -6,13 +6,15 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 
 	return {
 		init: function(config){
-			var group = new Group(config),a;
+			var group = new Group(config);
 
+			var showTimer = 0;
 			function show(e){
 				var bthis = this;
 				group.check($(this).val());
 				group.updatePop();
-				setTimeout(function(){
+				clearTimeout(showTimer);
+				showTimer = setTimeout(function(){
 					if(group.config && group.config.tipAlign === 'right'){
 						pop.align(bthis, group.config.tipAlign, function(me){
 							this.$div.css('top', '-=5');
@@ -23,8 +25,12 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 				},10);
 
 			}
+			var hideTimer = 0;
 			function hide(e){
-				pop.hide();
+				clearTimeout(hideTimer);
+				hideTimer = setTimeout(function(){
+					pop.hide();
+				}, 11);
 			}
 			function update(e, rs){
 				$(group.selector).toggleClass('valid-ipt-err', !rs);
@@ -39,18 +45,18 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 				}
 			};
 			
+			group.__clearDelayInput = function(e){
+				clearInterval(group.__a);
+			};
 			group.__delayInput = function(e){
 				var data = $(this);
-				a = setInterval(function(){
+				group.__clearDelayInput();
+				group.__a = setInterval(function(){
 					e.data.check(data.val());
 					if(!e.isTrigger){
 						e.data.updatePop();
 					}
 				},50);
-			};
-			
-			group.__clearDelayInput = function(e){
-				clearInterval(a);
 			};
 			
 			group.updatePop = function(){
@@ -62,6 +68,9 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 
 			group.oldCheck = group.check;
 			group.check = function(str){
+				if(!this.attached){
+					return true;
+				}
 				if(str === undefined){
 					str = $(this.selector).val();
 				}
@@ -74,7 +83,7 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 				this.selector = selector || this.selector;
 				$(this.selector).attr('autocomplete', 'off');
 				$(this.selector).on('input', this, this.__input);
-				if($.browser.msie){
+				if($.browser.msie && !$(this.selector).is('textarea')){
 					$(this.selector).on('focus', show).on('focus', this, this.__delayInput).on('blur', hide).on('blur', this ,this.__clearDelayInput);
 				}else{
 					$(this.selector).on('focus', show).on('blur', hide);
@@ -86,7 +95,7 @@ define(['jquery', 'kissy', './base/group', 'ui/popup'], function($, S, Group, Po
 				if(this.attached){
 					$(this.selector).attr('autocomplete', 'on');
 					$(this.selector).off('input', this.__input);
-					if($.browser.msie&&($.browser.version == "9.0")){
+					if($.browser.msie && !$(this.selector).is('textarea')){
 						$(this.selector).off('focus', show).off('focus', this, this.__delayInput).off('blur', hide).off('blur', this ,this.__clearDelayInput);
 					}else{
 						$(this.selector).off('focus', show).off('blur', hide);

@@ -1,6 +1,6 @@
 define(function(){
-//转义字符
-function __escape(str){
+//转义\"2个字符
+function __escapeDashQuote(str){
 	return str.replace(/[\\"]|\r\n|\r|\n/g, function(m){
 		switch(m){
 			case '\\':
@@ -32,23 +32,38 @@ function __viewJSON(obj, tabs, lvmax, lv){
 
 		tmp = obj[i];
 		type = typeof tmp;
-		
+			
 		if(type === 'number'){
-			buff.push('\n' + indent + (isArr ? '' : '"' + __escape(i) + '":') + tmp);
-		}else if(type === 'string'){
-			buff.push('\n' + indent + (isArr ? '"' : '"' + __escape(i) + '":"') + __escape(tmp) + '"');
-		}else if(type === 'boolean'){
-			buff.push('\n' + indent + (isArr ? '' : '"' + __escape(i) + '":') + tmp + '');
-		}else if(tmp === null){//typeof null === 'object', so check the real value first
-			buff.push('\n' + indent + (isArr ? '' : '"' + __escape(i) + '":') + 'null');
-		}else if(type === 'object'){
-			buff.push((isArr ? '' : '\n'+indent+'"' + __escape(i) + '":') + (lvmax > lv ? __viewJSON(tmp, indent, lvmax, lv+1) : '"[object]"'));
-		}else if(type === 'function'){
-			buff.push('\n' + indent + (isArr ? '"' : '"' + __escape(i) + '":"') + '[function]"');
-		}else if(tmp === undefined){
-			buff.push('\n' + indent + (isArr ? '' : '"' + __escape(i) + '":') + 'undefined');
-		}else{
-			buff.push('\n' + indent + (isArr ? '"' : '"' + __escape(i) + '":"') + '[unKnownType]"');
+			buff.push('\n' + indent + (isArr ? '' : '"' + __escapeDashQuote(i) + '":') + tmp);
+		}
+
+		else if(type === 'string'){
+			buff.push('\n' + indent + (isArr ? '"' : '"' + __escapeDashQuote(i) + '":"') + __escapeDashQuote(tmp) + '"');
+		}
+
+		else if(type === 'boolean'){
+			buff.push('\n' + indent + (isArr ? '' : '"' + __escapeDashQuote(i) + '":') + tmp + '');
+		}
+
+		//typeof null === 'object', so check the real value first
+		else if(tmp === null){
+			buff.push('\n' + indent + (isArr ? '' : '"' + __escapeDashQuote(i) + '":') + 'null');
+		}
+
+		else if(type === 'object'){
+			buff.push((isArr ? '' : '\n'+indent+'"' + __escapeDashQuote(i) + '":') + (lvmax > lv ? __viewJSON(tmp, indent, lvmax, lv+1) : '"[object]"'));
+		}
+
+		else if(type === 'function'){
+			buff.push('\n' + indent + (isArr ? '"' : '"' + __escapeDashQuote(i) + '":"') + '[function]"');
+		}
+
+		else if(tmp === undefined){
+			buff.push('\n' + indent + (isArr ? '' : '"' + __escapeDashQuote(i) + '":') + 'undefined');
+		}
+
+		else{
+			buff.push('\n' + indent + (isArr ? '"' : '"' + __escapeDashQuote(i) + '":"') + '[unKnownType]"');
 		}
 	}
 	bracket += buff.join(',');
@@ -56,6 +71,9 @@ function __viewJSON(obj, tabs, lvmax, lv){
 	return bracket ;
 }
 
+/**
+ * @lends util#
+ */
 return {
 	/**
 	 * 指定查看几层

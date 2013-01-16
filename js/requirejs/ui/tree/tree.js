@@ -347,6 +347,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./tree'], function($, S){
 				while(parent !== this){
 					//如果自己是选中的,因为是取消选择,所以父节点肯定要-1
 					if(parent.checked){
+						parent.checked = false;
 						parent.__parent.__checked_len--;
 					}
 
