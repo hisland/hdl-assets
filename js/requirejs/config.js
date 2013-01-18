@@ -5,6 +5,12 @@ require.config({
 		'bootstrap': 'bootstrap-2.2.2/js/bootstrap.min',
 		'underscore': 'underscore-1.4.2'
 	},
+	map: {
+		'*': {
+			'css': 'require-css/css',
+			'less': 'require-less/less'
+		}
+	},
 	shim: {
 		'jquery-ui': ['jquery', 'css!jquery-ui-1.9.0/ui-lightness/jquery-ui-1.9.0.custom'],
 		'bootstrap': ['css!bootstrap-2.2.2/css/bootstrap.min']

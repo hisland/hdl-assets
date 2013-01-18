@@ -1,3 +1,8 @@
+//requirejs server changes - 
+//  typeof window === 'undefined' ? undefined : window on window inclusion.
+//  changed require stub on line 17
+//  line 3232:   if (typeof window === 'undefined') return;
+
 //
 // LESS - Leaner CSS v1.3.0
 // http://lesscss.org
@@ -5,20 +10,29 @@
 // Copyright (c) 2009-2011, Alexis Sellier
 // Licensed under the Apache 2.0 License.
 //
-(function (window, undefined) {
+
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else {
+        // Browser globals
+        window.less = factory();
+    }
+}(this, function() {
 //
 // Stub out `require` in the browser
 //
 function require(arg) {
-    return window.less[arg.split('/')[1]];
+  if (arg == './tree' || arg == '../tree') {
+    if (tree === undefined)
+      tree = {};
+    return tree;
+  }
+  else
+    return less[arg.split('/')[1]];
 };
-
-// amd.js
-//
-// Define Less as an AMD module.
-if (typeof define === "function" && define.amd) {
-    define("less", [], function () { return less; } );
-}
 
 // ecma-5.js
 //
@@ -144,20 +158,17 @@ var less, tree;
 if (typeof environment === "object" && ({}).toString.call(environment) === "[object Environment]") {
     // Rhino
     // Details on how to detect Rhino: https://github.com/ringo/ringojs/issues/88
-    if (typeof(window) === 'undefined') { less = {} }
-    else                                { less = window.less = {} }
     tree = less.tree = {};
     less.mode = 'rhino';
 } else if (typeof(window) === 'undefined') {
     // Node.js
-    less = exports,
-    tree = require('./tree');
+    less = typeof exports === 'undefined' ? {} : exports,
+    tree = require('./tree') || {};
     less.mode = 'node';
 } else {
     // Browser
-    if (typeof(window.less) === 'undefined') { window.less = {} }
-    less = window.less,
-    tree = window.less.tree = {};
+    less = {};
+    tree = less.tree = {};
     less.mode = 'browser';
 }
 //
@@ -3098,6 +3109,8 @@ tree.jsify = function (obj) {
 //
 // browser.js - client-side engine
 //
+if (typeof window === 'undefined')
+  return less;
 
 var isFileProtocol = (location.protocol === 'file:'    ||
                       location.protocol === 'chrome:'  ||
@@ -3475,4 +3488,6 @@ function error(e, href) {
     }
 }
 
-})(window);
+return less;
+
+}));
