@@ -1,7 +1,7 @@
 require.config({
 	paths: {
 		'jquery': 'jquery-1.8.2',
-		'jquery-ui': 'jquery-ui-1.9.0/main',
+		'jquery-ui': 'jquery-ui-1.9.0/js/jquery-ui-1.9.0.custom',
 		'bootstrap': 'bootstrap-2.2.2/js/bootstrap.min',
 		'underscore': 'underscore-1.4.2'
 	},
@@ -12,9 +12,6 @@ require.config({
 		}
 	},
 	shim: {
-		'jquery-ui': ['jquery', 'css!jquery-ui-1.9.0/ui-lightness/jquery-ui-1.9.0.custom'],
-		'bootstrap': ['css!bootstrap-2.2.2/css/bootstrap.min']
+		'jquery-ui': ['jquery']
 	}
 });
-//use define to load global dep before any req
-define(['i18n']);
