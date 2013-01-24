@@ -12,6 +12,7 @@ require.config({
 		}
 	},
 	shim: {
-		'jquery-ui': ['jquery']
+		'jquery-ui': ['jquery'],
+		'bootstrap': ['jquery']
 	}
 });
