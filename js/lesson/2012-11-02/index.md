@@ -191,7 +191,7 @@ js代码结构
 * 批量处理, 实际是内部调用each方法遍历了所有包含的元素
 
 		$('.aa').each(function(i, v){
-			alert(this.text());
+			alert($(this).text());
 		}).eq(0).click(function(e){
 			alert('i am .aa 0');
 		}).end().click(function(e){
@@ -224,7 +224,7 @@ js代码结构
 		each: function(fn){
 			var i=0, len = this.length;
 			for(; i<len; i++){
-				fn.call($(this.elements[i]), i, fn);
+				fn.call(this.elements[i], i, fn);
 			}
 			return this;
 		},
