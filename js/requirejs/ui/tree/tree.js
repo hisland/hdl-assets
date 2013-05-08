@@ -366,11 +366,9 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./tree'], function($, S){
 								break;
 							}
 							parent.__partial = true;
+							parent.checked = false;
 							document.getElementById(parent.__path).getElementsByTagName('strong')[0].className = 'partial';
 						}else{
-							if(!parent.__partial && !parent.checked){
-								break;
-							}
 							parent.__partial = false;
 							parent.checked = false;
 							document.getElementById(parent.__path).getElementsByTagName('strong')[0].className = 'unchecked';
