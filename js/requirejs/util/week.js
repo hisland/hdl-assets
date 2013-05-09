@@ -1,38 +1,4 @@
-/**
- * @fileOverview
- * @module weekTool
- * @author hisland hisland@qq.com
- * @description 根据时间生成周对象
- * <pre><code>
- * API:
- *		week();	//获得对象,默认使用当前时间
- *		week(2001);, week('2001');	//获得对象,使用2001年和第1周
- *		week(2001, 5);, week('2001', 5);	//获得对象,使用2001年和第5周
- *		week('2011-5-6');	//获得对象,使用2011-5-6进行初始化
- * 
- *		var w = week();
- *		w.next();	//移动到下一周
- *		w.prev();	//移动到上一周
- *		w.next(5);	//移动到下5周
- *		w.prev(5);	//移动到上5周
- *		w.year(2010);, w.year('2010');	//设置年
- *		w.week(25);, w.week('25');	//设置周
- *		w.setDate('2009-5-4');	//设置时间
- *		w.setDate(new Date());	//设置时间,用日期对象
- *		w.year();	//取年
- *		w.week();	//取周
- *		w.maxWeek();	//当年最大周
- *		w.start();	//取当周的开始时间
- *		w.end();	//取当周的结束时间
- * </code></pre>
- */
-
 define(['kissy'], function(S){
-/**
- * 周对象, 可方便传入年和周
- * @class
- * @memberOf util
- */
 function Week(year, week){
 	//更改为构造方式
 	if(!(this instanceof Week)){
@@ -71,21 +37,7 @@ function Week(year, week){
 
 	return this;
 }
-/**
- * @lends util.Week#
- */
 S.augment(Week, {
-	/**
-	 * 传y表示设置, 不传y表示取值
-	 * <pre><code>
-	 * var w = week();
-	 * w.year();   返回年数字
-	 * w.year(2011);   设置为2011年, 返回this
-	 * w.year('2011');   设置为2011年, 返回this
-	 * </code></pre>
-	 * @param Number y 需要设置的年
-	 * @return Number|week
-	 */
 	year: function(y){
 		if(y !== undefined){
 			this.__year = y-0;
@@ -95,17 +47,6 @@ S.augment(Week, {
 			return this.__year;
 		}
 	},
-	/**
-	 * 传n表示设置, 不传n表示取值
-	 * <pre><code>
-	 * var w = week();
-	 * w.week();   返回周数字
-	 * w.week(3);   设置为第3周, 返回this
-	 * w.week('3');   设置为第3周, 返回this
-	 * </code></pre>
-	 * @param Number n 需要设置的周
-	 * @return Number|week
-	 */
 	week: function(n){
 		if(n !== undefined){
 			this.__week = n-0;
@@ -114,10 +55,6 @@ S.augment(Week, {
 			return this.__week;
 		}
 	},
-	/**
-	 * 取得当年最大周
-	 * @return Number
-	 */
 	maxWeek: function(){
 		var bak = this.week(), max;
 		//一年正常有53周,最多有54周,从52周开始增加,直到停止
@@ -129,49 +66,14 @@ S.augment(Week, {
 		this.week(bak);
 		return max;
 	},
-	/**
-	 * 将对象的内部值后移n(默认1)周
-	 * <pre><code>
-	 * var w = week();
-	 * w.week(3);   设置为第3周
-	 * w.next();   后移一周
-	 * w.week();   返回4
-	 * w.next(5);   后移5周
-	 * w.week();   返回9
-	 * </code></pre>
-	 * @param Number n 向前移n周
-	 * @return this
-	 */
 	next: function(n){
 		n = n<1 || 1;
 		return this.week(this.__week + n);
 	},
-	/**
-	 * 将对象的内部值前移n(默认1)周
-	 * <pre><code>
-	 * var w = week();
-	 * w.week(10);   设置为第3周
-	 * w.prev();   前移一周
-	 * w.week();   返回9
-	 * w.prev(3);   前移3周
-	 * w.week();   返回6
-	 * </code></pre>
-	 * @param Number n 向后移n周
-	 * @return this
-	 */
 	prev: function(n){
 		n = n<1 || 1;
 		return this.week(this.__week - n);
 	},
-	/**
-	 * 将对象的内部值设置为指定日期对象
-	 * <pre><code>
-	 * var w = week();
-	 * w.setDate('2011-01-31');   设置为指定日期
-	 * </code></pre>
-	 * @param Date date 设置时间对象
-	 * @return this
-	 */
 	setDate: function(date){
 		//从String转换成Date
 		if(S.isString(date)){
@@ -194,25 +96,12 @@ S.augment(Week, {
 		}
 		return this;
 	},
-	/**
-	 * 返回当前周的开始日期对象
-	 * @return Date
-	 */
 	start: function(){
 		return new Date(+this.base_date + (this.__week-1)*7*86400000);
 	},
-	/**
-	 * 返回当前周的结束日期对象
-	 * @return Date
-	 */
 	end: function(){
 		return new Date(+this.base_date + this.__week*7*86400000-1);
 	},
-	/**
-	 * 修正月第一天对应的星期
-	 * @private
-	 * @return this
-	 */
 	__baseDate: function(){
 		var base_date = new Date(this.__year+'/1/1'),
 			first_day = base_date.getDay() || 7,
@@ -223,6 +112,5 @@ S.augment(Week, {
 		return this;
 	}
 });
-
 return Week;
 });
