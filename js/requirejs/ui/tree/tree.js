@@ -1,4 +1,4 @@
-define(['jquery', 'kissy', 'jquery-plugin', 'css!./tree'], function($, S){
+define(['jquery', 'kissy', 'jquery-plugin'], function($, S){
 	//各元素对应的标签
 	var arrow = '<em class="arrow"></em>',
 		arrow_open = '<em class="arrow arrow-open"></em>',
@@ -39,6 +39,7 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./tree'], function($, S){
 		 */
 		__init: function(setting){
 			this.var_children = 'children';
+			this.var_name = 'value';
 			this.edit_able = true;
 			this.opened = true;
 
@@ -229,6 +230,18 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./tree'], function($, S){
 			return this;
 		},
 		/**
+		 * 获得选中的值数组
+		 */
+		getValue: function(){
+			var rs = [], key = this.var_name;
+			this.walkDescendants(function(node){
+				if (node.checked && node[key]) {
+					rs.push(node[key]);
+				}
+			});
+			return rs;
+		},
+		/**
 		 * 切换节点的展开与否
 		 * @return this
 		 */
@@ -385,6 +398,9 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./tree'], function($, S){
 					parent = parent.__parent;
 				}
 			}
+
+			$(this).trigger('change');
+
 			return this;
 		},
 		/**
@@ -553,19 +569,12 @@ define(['jquery', 'kissy', 'jquery-plugin', 'css!./tree'], function($, S){
 			return this;
 		},
 		/**
-		 * 重置树
-		 * @return this
-		 */
-		reset: function(){
-			
-		},
-		/**
 		 * 设置树的title
 		 * @param 
 		 * @return 
 		 */
 		setTitle: function(str){
-			this.$title.html(str);
+			this.$title.html(str).show();
 			return this;
 		}
 	});

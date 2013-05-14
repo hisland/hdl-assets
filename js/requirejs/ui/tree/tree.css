@@ -3,8 +3,9 @@
 /* all icon size: 16*16 */
 .hdl-tree{position:relative;}
 .hdl-tree ul{list-style:none;margin:0;padding:0;}
+.hdl-tree ul li{line-height:14px;}
 	.hdl-tree-help{position:absolute;top:0;right:0;height:16px;width:16px;background:url('tree-img/help.gif') no-repeat center;display:none;}
-	.hdl-tree-title{padding:1px;height:14px;text-align:center;border-bottom:1px solid #ccc;display:none;}
+	.hdl-tree-title{padding:1px;height:14px;line-height:14px;text-align:center;border-bottom:1px solid #ccc;display:none;}
 	.hdl-tree-wrap{line-height:16px;font-size:12px;overflow:auto;}
 		.hdl-tree-wrap div{white-space:nowrap;}
 		.hdl-tree-wrap div.selected{background:#d9e8fb;}
