@@ -1,11 +1,11 @@
 @charset "utf-8";
 
+@border-color: #9bc0e0;
 @top-bg: #96c2f1;
 @list-bg: #f0f5fb;
-@border-color: #9bc0e0;
-@list-a-color: #004499;
-@list-color-now: #ff6600;
-@list-color-dis: #ddd;
+@list-color-hover: #004499;
+@list-color-current: #ff6600;
+@list-color-disabled: #ddd;
 
 .calendar-wrap{
 	border:1px solid @border-color;
@@ -111,7 +111,7 @@
 			width:30px;height:20px;line-height:20px;text-align:center;
 			cursor:default;
 			&.cldr-weekend{
-				color:@list-color-now;
+				color:@list-color-current;
 			}
 		}
 	}
@@ -125,7 +125,7 @@
 		.cldr-lst-dis{
 			float:left;
 			width:30px;height:24px;line-height:24px;text-align:center;
-			color:@list-color-dis;
+			color:@list-color-disabled;
 			cursor:default;
 		}
 		a{
@@ -136,13 +136,13 @@
 			&:hover{
 				text-decoration:none;
 				padding:0;
-				border:1px solid @list-a-color;
-				color:@list-a-color;
+				border:1px solid @list-color-hover;
+				color:@list-color-hover;
 			}
 			&.cldr-lst-now{
 				padding:0;
-				border:1px solid @list-color-now;
-				color:@list-color-now;
+				border:1px solid @list-color-current;
+				color:@list-color-current;
 			}
 		}
 	}
@@ -161,7 +161,7 @@
 	.cldr-lst-dis{
 		float:left;
 		width:21px;height:21px;line-height:21px;text-align:center;
-		color:@list-color-dis;
+		color:@list-color-disabled;
 		cursor:default;
 	}
 	a{
@@ -172,13 +172,13 @@
 		&:hover{
 			text-decoration:none;
 			padding:0;
-			border:1px solid @list-a-color;
-			color:@list-a-color;
+			border:1px solid @list-color-hover;
+			color:@list-color-hover;
 		}
 		&.cldr-lst-now{
 			padding:0;
-			border:1px solid @list-color-now;
-			color:@list-color-now;
+			border:1px solid @list-color-current;
+			color:@list-color-current;
 		}
 	}
 }
@@ -197,7 +197,7 @@
 		.cldr-lst-dis{
 			float:left;
 			width:31px;height:21px;line-height:21px;text-align:center;
-			color:@list-color-dis;
+			color:@list-color-disabled;
 			cursor:default;
 		}
 		a{
@@ -208,13 +208,13 @@
 			&:hover{
 				text-decoration:none;
 				padding:0;
-				border:1px solid @list-a-color;
-				color:@list-a-color;
+				border:1px solid @list-color-hover;
+				color:@list-color-hover;
 			}
 			&.cldr-lst-now{
 				padding:0;
-				border:1px solid @list-color-now;
-				color:@list-color-now;
+				border:1px solid @list-color-current;
+				color:@list-color-current;
 			}
 		}
 	}
@@ -226,7 +226,7 @@
 		a{
 			&:hover{
 				text-decoration:none;
-				color:@list-a-color;
+				color:@list-color-hover;
 			}
 			&.cldr-year-prev{
 				margin-right:9px;

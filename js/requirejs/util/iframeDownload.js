@@ -12,15 +12,15 @@ define(['jquery', 'kissy'], function($, S){
 			var form = $('<form method="post" target="' + name + '" action="' + url + '"></form>');
 			var ifr = $('<iframe name="' + name + '" class="download-iframe" width="0" height="0" src="javascript:void(0);" frameborder="no" scrolling="no" allowtransparency="yes"></iframe>');
 
-			form.appendTo('body');
 			S.each(S.unparam($.param(data)), function(v, i, o){
-				form.append('<input type="hidden" name=" src="' + i + '"" value=" src="' + v + '"" />');
+				form.append('<input type="hidden" name="' + i + '" value="' + v + '" />');
 			});
 
 			ifr.on('load', function(e) {
 				form.remove();
 				ifr.remove();
 			});
+			form.appendTo('body');
 			ifr.appendTo('body');
 		}
 	};
